@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">Internship</string>
+    <string name="app_name">TestRecyleview</string>
+    <string name="image.description">person</string>
+    <string name="recycleview.textview.name">Name:</string>
+    <string name="recycleview.textview.description">Desciption:</string>
+    <string-array name="name">
+        <item>Nguyễn Văn A</item>
+        <item>Nguyễn Văn B</item>
+        <item>Nguyễn Văn C</item>
+        <item>Nguyễn Văn D</item>
+        <item>Nguyễn Văn E</item>
+        <item>Nguyễn Văn F</item>
+        <item>Nguyễn Văn G</item>
+        <item>Nguyễn Văn H</item>
+        <item>Nguyễn Văn I</item>
+        <item>Nguyễn Văn J</item>
+    </string-array>
+    <string-array name="description">
+        <item>24 tuổi,Quảng Nam</item>
+        <item>25 tuổi,Quảng Bình</item>
+        <item>30 tuổi,Quảng Trị</item>
+        <item>20 tuổi,Quảng Nam</item>
+        <item>15 tuổi,Quảng Nam</item>
+        <item>20 tuổi,Đà Nẵng</item>
+        <item>50 tuổi,Quảng Nam</item>
+        <item>40 tuổi,Đà Nẵng</item>
+        <item>24 tuổi,Quảng Nam</item>
+        <item>24 tuổi,Quảng Nam</item>
+    </string-array>
 </resources>
