@@ -29,7 +29,7 @@ public class ListFriendFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_friend, container);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewFriends);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewListFriend);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mDataset = new ArrayList<>();
         mDataset.add(new Friend("Ronaldo", false));
