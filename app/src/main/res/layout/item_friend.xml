@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <ImageView
+        android:id="@+id/imgUser"
+        android:layout_width="@dimen/imageview.size"
+        android:layout_height="@dimen/imageview.size"
+        android:contentDescription="@string/imageview.description"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textview.size"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/imgUser"/>
+
+    <Button
+        android:id="@+id/btnDoSth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_green_light"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="@string/button.add" />
+</RelativeLayout>
