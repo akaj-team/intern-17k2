@@ -1,4 +1,4 @@
-package vn.asiantech.internship.Buoi5.Model;
+package vn.asiantech.internship.models;
 
 import android.content.Context;
 import android.os.Build;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.R;
 
@@ -20,19 +21,19 @@ import vn.asiantech.internship.R;
  * Created by root on 6/9/17.
  */
 
-public class FriendsMyAdapter extends RecyclerView.Adapter<FriendsMyAdapter.MyViewHolder> {
+public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.MyViewHolder> {
 
-    private ArrayList<User> mUserArrayList;
+    private List<Friend> mFriends;
     private Context mContext;
 
-    public FriendsMyAdapter(ArrayList<User> userArrayList, Context context) {
-        this.mUserArrayList = userArrayList;
+    public ListFriendAdapter(List<Friend> FriendArrayList, Context context) {
+        this.mFriends = FriendArrayList;
         this.mContext = context;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.friends_list_item_buoi5, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list_friend, viewGroup, false);
         MyViewHolder holder = new MyViewHolder(v);
         holder.setIsRecyclable(false);
         return holder;
@@ -40,11 +41,11 @@ public class FriendsMyAdapter extends RecyclerView.Adapter<FriendsMyAdapter.MyVi
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    public void onBindViewHolder(FriendsMyAdapter.MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(ListFriendAdapter.MyViewHolder myViewHolder, int i) {
         //   MyViewHolder mViewHolder =  myViewHolder;
-        myViewHolder.mTvUserName.setText(mUserArrayList.get(i).getNameUser());
-        myViewHolder.mIsFriend = mUserArrayList.get(i).isFriend();
-        if (mUserArrayList.get(i).isFriend()) {
+        myViewHolder.mTvFriendName.setText(mFriends.get(i).getNameFriend());
+        myViewHolder.mIsFriend = mFriends.get(i).isFriend();
+        if (mFriends.get(i).isFriend()) {
             myViewHolder.mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.friends_bg_btn_add_selected));
             myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Friend));
             myViewHolder.mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
@@ -54,21 +55,21 @@ public class FriendsMyAdapter extends RecyclerView.Adapter<FriendsMyAdapter.MyVi
 
     @Override
     public int getItemCount() {
-        return mUserArrayList.size();
+        return mFriends.size();
     }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView mTvUserName;
-        public TextView mTvUserDes;
+        public TextView mTvFriendName;
+        public TextView mTvFriendDes;
         public ImageView mImageView;
         public Button mBtnAdd;
         public boolean mIsFriend;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            mTvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
-            mTvUserDes = (TextView) itemView.findViewById(R.id.tvDescription);
+            mTvFriendName = (TextView) itemView.findViewById(R.id.tvUserName);
+            mTvFriendDes = (TextView) itemView.findViewById(R.id.tvDescription);
             mImageView = (ImageView) itemView.findViewById(R.id.imgAvatar);
             mBtnAdd = (Button) itemView.findViewById(R.id.btnAdd);
             mBtnAdd.setOnClickListener(this);
@@ -94,7 +95,7 @@ public class FriendsMyAdapter extends RecyclerView.Adapter<FriendsMyAdapter.MyVi
             mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.friends_bg_btn_add_selected));
             mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Friend));
             mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
-            mUserArrayList.get(getLayoutPosition()).setFriend(true);
+            mFriends.get(getLayoutPosition()).setFriend(true);
             mIsFriend = true;
         }
 
@@ -103,7 +104,7 @@ public class FriendsMyAdapter extends RecyclerView.Adapter<FriendsMyAdapter.MyVi
             mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.friends_bg_btn_add));
             mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Add));
             mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorBorder));
-            mUserArrayList.get(getLayoutPosition()).setFriend(false);
+            mFriends.get(getLayoutPosition()).setFriend(false);
             mIsFriend = false;
         }
     }

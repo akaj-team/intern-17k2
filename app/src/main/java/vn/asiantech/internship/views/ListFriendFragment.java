@@ -1,4 +1,4 @@
-package vn.asiantech.internship.Buoi5.View;
+package vn.asiantech.internship.views;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,16 +10,17 @@ import android.view.ViewGroup;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
-import vn.asiantech.internship.Buoi5.Model.FriendsMyAdapter;
-import vn.asiantech.internship.Buoi5.Model.User;
+import vn.asiantech.internship.models.Friend;
+import vn.asiantech.internship.models.ListFriendAdapter;
 import vn.asiantech.internship.R;
 
-public class FriendFragment extends Fragment {
+public class ListFriendFragment extends Fragment {
 
 
-    private ArrayList<User> mUserArrayList = new ArrayList<>();
-    private FriendsMyAdapter mMyAdapter;
+    private List<Friend> mFriends = new ArrayList<>();
+    private ListFriendAdapter mMyAdapter;
     private RecyclerView mRecyclerView;
 
     @Override
@@ -31,19 +32,19 @@ public class FriendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.friends_fragment, container, false);
+        View v = inflater.inflate(R.layout.fragment_list_friend, container, false);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        addUser();
-        mMyAdapter = new FriendsMyAdapter(mUserArrayList, getActivity());
+        addFriend();
+        mMyAdapter = new ListFriendAdapter(mFriends, getContext());
         mRecyclerView.setAdapter(mMyAdapter);
         return v;
     }
 
-    private void addUser() {
-        for (int i = 0; i < 1000; i++) {
-            mUserArrayList.add(new User(i, "User " + i, false));
+    private void addFriend() {
+        for (int i = 0; i < 100; i++) {
+            mFriends.add(new Friend(i, "Friend " + i, false));
         }
     }
 }

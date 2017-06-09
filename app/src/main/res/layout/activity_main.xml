@@ -33,7 +33,7 @@
         </Toolbar>
 
         <fragment
-            android:name="vn.asiantech.internship.Buoi5.View.FriendFragment"
+            android:name="vn.asiantech.internship.views.ListFriendFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

@@ -1,17 +1,17 @@
-package vn.asiantech.internship.Buoi5.Model;
+package vn.asiantech.internship.models;
 
 /**
  * Created by root on 6/9/17.
  */
 
-public class User {
+public class Friend {
     private int idFriend;
-    private String nameUser;
+    private String nameFriend;
     private boolean isFriend;
 
-    public User(int idFriend, String nameUser, boolean isFriend) {
+    public Friend(int idFriend, String nameFriend, boolean isFriend) {
         this.idFriend = idFriend;
-        this.nameUser = nameUser;
+        this.nameFriend = nameFriend;
         this.isFriend = isFriend;
     }
 
@@ -23,12 +23,12 @@ public class User {
         this.idFriend = idFriend;
     }
 
-    public String getNameUser() {
-        return nameUser;
+    public String getNameFriend() {
+        return nameFriend;
     }
 
-    public void setNameUser(String nameUser) {
-        this.nameUser = nameUser;
+    public void setNameFriend(String nameFriend) {
+        this.nameFriend = nameFriend;
     }
 
     public boolean isFriend() {
