@@ -12,36 +12,40 @@ import java.util.List;
 import vn.asiantech.internship.R;
 
 class FriendsAdapter extends RecyclerView.Adapter {
-    private final List<User> users;
+    private final List<User> mUsers;
 
     FriendsAdapter(List<User> users) {
-        this.users = users;
+        this.mUsers = users;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.item_friend_list, parent, false);
-        return new FriendsAdapter.MyViewHolder(itemView);
+        RecyclerView.ViewHolder v = new MyViewHolder(itemView);
+        v.setIsRecyclable(true);
+        return v;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MyViewHolder myViewHolder = (MyViewHolder) holder;
-        myViewHolder.mTvName.setText(users.get(position).getName());
-        myViewHolder.mTvDescription.setText(users.get(position).getDescription());
+        myViewHolder.mTvName.setText(mUsers.get(position).getName());
+        myViewHolder.mTvDescription.setText(mUsers.get(position).getDescription());
         if (position == 0 || position == 1) {
             setBackgroundAdd(myViewHolder.mBtFriend);
-            users.get(position).setState(true);
+            mUsers.get(position).setState(true);
         } else {
             setBackgroundFriend(myViewHolder.mBtFriend);
-            users.get(position).setState(false);
+            mUsers.get(position).setState(false);
         }
+
+
     }
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return mUsers.size();
     }
 
     private class MyViewHolder extends RecyclerView.ViewHolder {
@@ -57,11 +61,11 @@ class FriendsAdapter extends RecyclerView.Adapter {
             mBtFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (users.get(getAdapterPosition()).isState()) {
-                        users.get(getAdapterPosition()).setState(false);
+                    if (mUsers.get(getAdapterPosition()).isState()) {
+                        mUsers.get(getAdapterPosition()).setState(false);
                         setBackgroundAdd(mBtFriend);
                     } else {
-                        users.get(getAdapterPosition()).setState(true);
+                        mUsers.get(getAdapterPosition()).setState(true);
                         setBackgroundFriend(mBtFriend);
                     }
                 }
