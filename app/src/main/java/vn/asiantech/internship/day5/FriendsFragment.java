@@ -38,7 +38,6 @@ public class FriendsFragment extends Fragment {
         mUsers.add(new UserDay5("Anh E", false));
         mUsers.add(new UserDay5("Anh F", false));
         mUsers.add(new UserDay5("Anh E", false));
-        ;
         mFriendsAdapter = new FriendsAdapter(mUsers, getActivity());
         mRecyclerViewFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerViewFriends.setAdapter(mFriendsAdapter);
