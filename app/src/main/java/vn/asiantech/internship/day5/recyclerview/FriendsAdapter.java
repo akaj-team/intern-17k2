@@ -70,17 +70,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btnFriendShip:
-                    Person p = mDataset.get(getAdapterPosition());
-                    p.setFriend();
-                    if (p.isFriend()) {
-                        mBtnFriendShip.setBackgroundResource(R.drawable.bg_friend_button);
-                        mBtnFriendShip.setText(mContext.getResources().getString(R.string.friend));
-                        mBtnFriendShip.setCompoundDrawablesWithIntrinsicBounds(R.drawable.check,0,0,0);
-                    } else {
-                        mBtnFriendShip.setBackgroundResource(R.drawable.bg_addfriend_button);
-                        mBtnFriendShip.setText(mContext.getResources().getString(R.string.add));
-                        mBtnFriendShip.setCompoundDrawablesWithIntrinsicBounds(R.drawable.add,0,0,0);
-                    }
+                    mDataset.get(getAdapterPosition()).setFriend();
+                    notifyDataSetChanged();
                     break;
             }
         }
