@@ -1,6 +1,5 @@
 package vn.asiantech.internship;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +9,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by rimoka on 09/06/2017.
- */
-
-public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewHoder> {
+class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewHoder> {
     private ArrayList<String> mLists;
-    private Context mContext;
 
-    public AdapterRecycler(ArrayList<String> list, Context context) {
+    AdapterRecycler(ArrayList<String> list) {
         this.mLists = list;
-        this.mContext = context;
     }
 
     @Override
@@ -56,7 +49,7 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.Recycl
         Button btnAdd;
         Button btnFriends;
 
-        public RecyclerViewHoder(View itemView) {
+        RecyclerViewHoder(View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
             btnAdd = (Button) itemView.findViewById(R.id.btnAdd);

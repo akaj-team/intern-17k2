@@ -50,7 +50,7 @@
         android:background="@drawable/custom_button_friends"
         android:drawableStart="@drawable/ic_check"
         android:text="@string/button.text.friends"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/button.friends"
         android:visibility="invisible" />
 
 </RelativeLayout>

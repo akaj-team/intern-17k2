@@ -12,25 +12,21 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created by rimoka on 09/06/2017.
- */
-
 public class FriendsFragment extends Fragment {
-    private RecyclerView mRecyclerView;
-    private ArrayList<String> mListUsers=new ArrayList<>();
+    RecyclerView recyclerView;
+    private ArrayList<String> mListUsers = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_friends,container,false);
-        String[] list=getResources().getStringArray(R.array.list_users);
+        View v = inflater.inflate(R.layout.fragment_friends, container, false);
+        String[] list = getResources().getStringArray(R.array.list_users);
         Collections.addAll(mListUsers, list);
-        mRecyclerView= (RecyclerView) v.findViewById(R.id.recyclerView);
-        AdapterRecycler adapter=new AdapterRecycler(mListUsers,getActivity());
-        mRecyclerView.setAdapter(adapter);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+        AdapterRecycler adapter = new AdapterRecycler(mListUsers);
+        recyclerView.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
         return v;
     }
 }
