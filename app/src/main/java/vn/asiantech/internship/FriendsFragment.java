@@ -13,20 +13,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class FriendsFragment extends Fragment {
-    RecyclerView recyclerView;
-    private ArrayList<String> mListUsers = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private ArrayList<String> mUsers = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_friends, container, false);
-        String[] list = getResources().getStringArray(R.array.list_users);
-        Collections.addAll(mListUsers, list);
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
-        AdapterRecycler adapter = new AdapterRecycler(mListUsers);
-        recyclerView.setAdapter(adapter);
+        String[] users = getResources().getStringArray(R.array.list_users);
+        Collections.addAll(mUsers, users);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+        AdapterRecycler adapter = new AdapterRecycler(mUsers);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setAdapter(adapter);
         return v;
     }
 }

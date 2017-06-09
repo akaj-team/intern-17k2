@@ -47,7 +47,7 @@
         android:layout_height="@dimen/button.friends.layout_height"
         android:layout_marginStart="@dimen/button.friends.layout_margin_Start"
         android:layout_marginTop="@dimen/button.friends.layout_marginTop"
-        android:background="@drawable/custom_button_friends"
+        android:background="@color/btn.friends"
         android:drawableStart="@drawable/ic_check"
         android:text="@string/button.text.friends"
         android:textColor="@color/button.friends"
