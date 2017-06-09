@@ -29,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
         names.add("Nguyễn Văn J");
         names.add("Nguyễn Văn D");
         AdapterRecyclerView adapter = new AdapterRecyclerView(names);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }

@@ -5,6 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Use to contain fragment that had a recyclerview
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-9
+ */
+
 public class FriendsActivity extends AppCompatActivity {
 
     @Override
@@ -13,4 +21,3 @@ public class FriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_friend);
     }
 }
-

@@ -11,6 +11,14 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Used to collect and display list data to the View.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-9
+ */
+
 class FriendsAdapter extends RecyclerView.Adapter {
     private final List<User> mUsers;
 
@@ -23,7 +31,6 @@ class FriendsAdapter extends RecyclerView.Adapter {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.item_friend_list, parent, false);
         RecyclerView.ViewHolder v = new MyViewHolder(itemView);
-        v.setIsRecyclable(true);
         return v;
     }
 
@@ -39,8 +46,6 @@ class FriendsAdapter extends RecyclerView.Adapter {
             setBackgroundFriend(myViewHolder.mBtFriend);
             mUsers.get(position).setState(false);
         }
-
-
     }
 
     @Override
@@ -49,15 +54,15 @@ class FriendsAdapter extends RecyclerView.Adapter {
     }
 
     private class MyViewHolder extends RecyclerView.ViewHolder {
-        final TextView mTvName;
-        final TextView mTvDescription;
-        final ImageButton mBtFriend;
+        final private TextView mTvName;
+        final private TextView mTvDescription;
+        final private ImageButton mBtFriend;
 
         MyViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
-            mBtFriend = (ImageButton) itemView.findViewById(R.id.btnFriend);
+            mBtFriend = (ImageButton) itemView.findViewById(R.id.imgBtnFriend);
             mBtFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -73,11 +78,11 @@ class FriendsAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private void setBackgroundAdd(ImageButton btn) {
-        btn.setBackgroundResource(R.drawable.icon_friend);
+    private void setBackgroundAdd(ImageButton imgBtnAdd) {
+        imgBtnAdd.setBackgroundResource(R.drawable.icon_friend);
     }
 
-    private void setBackgroundFriend(ImageButton btn) {
-        btn.setBackgroundResource(R.drawable.icon_add);
+    private void setBackgroundFriend(ImageButton imgBtnAdd) {
+        imgBtnAdd.setBackgroundResource(R.drawable.icon_add);
     }
 }

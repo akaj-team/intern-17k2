@@ -14,6 +14,14 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Used to display recyclerview.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-9
+ */
+
 public class FriendsFragment extends Fragment {
 
     @Nullable
@@ -29,7 +37,6 @@ public class FriendsFragment extends Fragment {
         }
         FriendsAdapter adapter = new FriendsAdapter(users);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         return view;

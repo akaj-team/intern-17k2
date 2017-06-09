@@ -6,23 +6,17 @@
     android:padding="10dp">
 
     <ImageView
-        android:layout_width="@dimen/view_with"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:contentDescription="@string/image.description"
         android:src="@drawable/person" />
 
-    <LinearLayout
-        android:layout_width="@dimen/view_with"
-        android:layout_height="@dimen/linear_height"
-        android:layout_weight="8"
-        android:gravity="center"
-        android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/linearlayout_padding"
+            android:layout_marginStart="@dimen/linearlayout_padding"
             android:orientation="horizontal">
 
             <TextView
@@ -34,7 +28,7 @@
                 android:id="@+id/tvYourName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/linearlayout_padding" />
+                android:layout_marginLeft="@dimen/linearlayout_padding"
+                android:layout_marginStart="@dimen/linearlayout_padding"/>
         </LinearLayout>
-    </LinearLayout>
 </LinearLayout>

@@ -12,13 +12,20 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 
-import static android.content.ContentValues.TAG;
+/**
+ * Used to collect and display data to the View.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-9
+ */
 
 class AdapterRecyclerView extends RecyclerView.Adapter {
     private List<String> mNames = new ArrayList<>();
+    public static final String TAG = "Log position item";
 
-    AdapterRecyclerView(List<String> mNames) {
-        this.mNames = mNames;
+    AdapterRecyclerView(List<String> names) {
+        this.mNames = names;
     }
 
     @Override
