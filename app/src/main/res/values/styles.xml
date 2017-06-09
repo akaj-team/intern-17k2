@@ -8,4 +8,38 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ButtonSubmit">
+        <item name="android:background">@drawable/btn_background</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="TextViewStyleBold">
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewStyleNormal">
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="LinearLayoutStyle">
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="ButtonAddStyle">
+        <item name="android:background">@drawable/friends_bg_btn_add</item>
+        <item name="android:textSize">@dimen/friendsTextSize</item>
+        <item name="android:textColor">@color/friendsColorBorder</item>
+    </style>
+
+    <style name="ButtonAddSelectStyle">
+        <item name="android:background">@drawable/friends_bg_btn_add_selected</item>
+        <item name="android:textSize">@dimen/friendsTextSize</item>
+        <item name="android:textColor">@color/friendsColorWhite</item>
+    </style>
 </resources>
