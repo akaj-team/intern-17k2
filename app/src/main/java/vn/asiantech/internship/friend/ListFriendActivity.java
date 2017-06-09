@@ -1,4 +1,4 @@
-package vn.asiantech.internship.day5.recyclerview;
+package vn.asiantech.internship.friend;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +10,10 @@ import vn.asiantech.internship.R;
  * Created by PC on 6/9/2017.
  */
 
-public class FriendActivity extends AppCompatActivity {
+public class ListFriendActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend);
+        setContentView(R.layout.activity_list_friend);
     }
 }

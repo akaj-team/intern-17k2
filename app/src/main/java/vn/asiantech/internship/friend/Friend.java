@@ -1,17 +1,17 @@
-package vn.asiantech.internship.day5.recyclerview;
+package vn.asiantech.internship.friend;
 
 /**
  * Created by PC on 6/9/2017.
  */
 
-public class Person {
+public class Friend {
     private String name;
     private boolean isFriend;
 
-    public Person() {
+    public Friend() {
     }
 
-    public Person(String name, boolean isFriend) {
+    public Friend(String name, boolean isFriend) {
         this.name = name;
         this.isFriend = isFriend;
     }

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragmentFriend"
-        android:name="vn.asiantech.internship.day5.recyclerview.FriendFragment"
+        android:name="vn.asiantech.internship.friend.ListFriendFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

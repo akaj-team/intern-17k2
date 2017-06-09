@@ -1,4 +1,4 @@
-package vn.asiantech.internship.day5.recyclerview;
+package vn.asiantech.internship.friend;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.R;
 
@@ -16,27 +17,27 @@ import vn.asiantech.internship.R;
  * Created by PC on 6/9/2017.
  */
 
-public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendViewHolder> {
-    private ArrayList<Person> mDataset;
+public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.FriendViewHolder> {
+    private List<Friend> mFriends;
     private Context mContext;
     private LayoutInflater mInflater;
 
-    public FriendsAdapter(ArrayList<Person> mDataset, Context mContext) {
-        this.mDataset = mDataset;
+    public ListFriendAdapter(List<Friend> mDataset, Context mContext) {
+        this.mFriends = mDataset;
         this.mContext = mContext;
         mInflater = LayoutInflater.from(mContext);
     }
 
     @Override
-    public FriendsAdapter.FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListFriendAdapter.FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_recyler_friends, parent, false);
 
         return new FriendViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(FriendsAdapter.FriendViewHolder holder, int position) {
-        Person p = mDataset.get(position);
+    public void onBindViewHolder(ListFriendAdapter.FriendViewHolder holder, int position) {
+        Friend p = mFriends.get(position);
         holder.mTvName.setText(p.getName());
         if (p.isFriend()) {
             holder.mBtnFriendShip.setBackgroundResource(R.drawable.bg_friend_button);
@@ -51,7 +52,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return mFriends.size();
     }
 
     public class FriendViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -70,7 +71,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btnFriendShip:
-                    mDataset.get(getAdapterPosition()).setFriend();
+                    mFriends.get(getAdapterPosition()).setFriend();
                     notifyDataSetChanged();
                     break;
             }

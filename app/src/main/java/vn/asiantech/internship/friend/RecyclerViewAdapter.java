@@ -1,4 +1,4 @@
-package vn.asiantech.internship.day5.recyclerview;
+package vn.asiantech.internship.friend;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.R;
 
@@ -19,10 +20,10 @@ import vn.asiantech.internship.R;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> mDataset;
+    private List<String> mDataset;
     private LayoutInflater mInflater;
 
-    public RecyclerViewAdapter(Context mContext, ArrayList<String> mDataset) {
+    public RecyclerViewAdapter(Context mContext, List<String> mDataset) {
         this.mContext = mContext;
         this.mDataset = mDataset;
         mInflater = LayoutInflater.from(mContext);

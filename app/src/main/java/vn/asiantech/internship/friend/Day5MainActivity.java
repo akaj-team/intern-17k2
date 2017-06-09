@@ -1,4 +1,4 @@
-package vn.asiantech.internship.day5.recyclerview;
+package vn.asiantech.internship.friend;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.R;
 
@@ -17,7 +18,7 @@ import vn.asiantech.internship.R;
 public class Day5MainActivity extends Activity {
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
-    private ArrayList<String> mDataset;
+    private List<String> mDataset;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
