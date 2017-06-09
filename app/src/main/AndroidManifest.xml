@@ -11,7 +11,7 @@
         <activity android:name=".MainActivity">
 
         </activity>
-        <activity android:name=".day5.FriendsActivity">
+        <activity android:name=".activity.FriendsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.day5;
+package vn.asiantech.internship.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,36 +13,37 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.model.User;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHolder> {
-    private ArrayList<UserDay5> mUsers;
+    private ArrayList<User> mUsers;
     private Context mContext;
 
-    public FriendsAdapter(ArrayList<UserDay5> mUsers, Context mContext) {
-        this.mUsers = mUsers;
-        this.mContext = mContext;
+    public FriendsAdapter(ArrayList<User> users, Context context) {
+        this.mUsers = users;
+        this.mContext = context;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_friend, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_list_friend, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        UserDay5 user = mUsers.get(position);
+        User user = mUsers.get(position);
         holder.mTvName.setText(user.getName());
         if (user.isFriend()) {
-            holder.mBtnDoSth.setText(R.string.button_text_friend);
-            holder.mBtnDoSth.setBackgroundColor(Color.RED);
-            holder.mBtnDoSth.setCompoundDrawablesWithIntrinsicBounds(R.drawable.checked_32, 0, 0, 0);
+            holder.mBtnAdd.setText(R.string.button_text_friend);
+            holder.mBtnAdd.setBackgroundColor(Color.RED);
+            holder.mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(R.drawable.checked_32, 0, 0, 0);
         } else {
-            holder.mBtnDoSth.setBackgroundColor(Color.GREEN);
-            holder.mBtnDoSth.setText(R.string.button_add);
-            holder.mBtnDoSth.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_menu_add, 0, 0, 0);
+            holder.mBtnAdd.setBackgroundColor(Color.GREEN);
+            holder.mBtnAdd.setText(R.string.button_add);
+            holder.mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_menu_add, 0, 0, 0);
         }
-        holder.mBtnDoSth.setWidth(50);
+        holder.mBtnAdd.setWidth(50);
     }
 
     @Override
@@ -52,13 +53,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
-        public Button mBtnDoSth;
+        private Button mBtnAdd;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
-            mBtnDoSth = (Button) itemView.findViewById(R.id.btnDoSth);
-            mBtnDoSth.setOnClickListener(this);
+            mBtnAdd = (Button) itemView.findViewById(R.id.btnAdd);
+            mBtnAdd.setOnClickListener(this);
         }
 
         @Override
@@ -67,11 +68,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
                 Log.i("TAG1", "pressed");
                 if (mUsers.get(getAdapterPosition()).isFriend()) {
                     mUsers.get(getAdapterPosition()).setFriend(false);
-                    notifyDataSetChanged();
                 } else {
                     mUsers.get(getAdapterPosition()).setFriend(true);
-                    notifyDataSetChanged();
                 }
+                notifyDataSetChanged();
             }
         }
     }

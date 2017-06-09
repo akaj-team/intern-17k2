@@ -1,4 +1,4 @@
-package vn.asiantech.internship.day5;
+package vn.asiantech.internship.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -6,8 +6,8 @@
 
     <fragment
         android:id="@+id/fragmentFriends"
-        android:name="vn.asiantech.internship.day5.FriendsFragment"
+        android:name="vn.asiantech.internship.fragment.FriendsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_friends"></fragment>
+        tools:layout="@layout/fragment_friends" />
 </LinearLayout>
