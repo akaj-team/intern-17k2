@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Internship</string>
+    <string name="app_name">App name</string>
+    <string name="isFriend_true">FRIEND</string>
+    <string name="isFriend_false">ADD</string>
 </resources>
