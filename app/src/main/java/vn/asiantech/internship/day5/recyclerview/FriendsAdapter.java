@@ -41,9 +41,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         if (p.isFriend()) {
             holder.mBtnFriendShip.setBackgroundResource(R.drawable.bg_friend_button);
             holder.mBtnFriendShip.setText(mContext.getResources().getString(R.string.friend));
+            holder.mBtnFriendShip.setCompoundDrawablesWithIntrinsicBounds(R.drawable.check,0,0,0);
         } else {
             holder.mBtnFriendShip.setBackgroundResource(R.drawable.bg_addfriend_button);
             holder.mBtnFriendShip.setText(mContext.getResources().getString(R.string.add));
+            holder.mBtnFriendShip.setCompoundDrawablesWithIntrinsicBounds(R.drawable.add,0,0,0);
         }
     }
 
@@ -73,9 +75,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
                     if (p.isFriend()) {
                         mBtnFriendShip.setBackgroundResource(R.drawable.bg_friend_button);
                         mBtnFriendShip.setText(mContext.getResources().getString(R.string.friend));
+                        mBtnFriendShip.setCompoundDrawablesWithIntrinsicBounds(R.drawable.check,0,0,0);
                     } else {
                         mBtnFriendShip.setBackgroundResource(R.drawable.bg_addfriend_button);
                         mBtnFriendShip.setText(mContext.getResources().getString(R.string.add));
+                        mBtnFriendShip.setCompoundDrawablesWithIntrinsicBounds(R.drawable.add,0,0,0);
                     }
                     break;
             }
