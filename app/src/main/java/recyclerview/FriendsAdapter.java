@@ -79,10 +79,10 @@ class FriendsAdapter extends RecyclerView.Adapter {
     }
 
     private void setBackgroundAdd(ImageButton imgBtnAdd) {
-        imgBtnAdd.setBackgroundResource(R.drawable.icon_friend);
+        imgBtnAdd.setBackgroundResource(R.mipmap.icon_friend);
     }
 
     private void setBackgroundFriend(ImageButton imgBtnAdd) {
-        imgBtnAdd.setBackgroundResource(R.drawable.icon_add);
+        imgBtnAdd.setBackgroundResource(R.mipmap.icon_add);
     }
 }

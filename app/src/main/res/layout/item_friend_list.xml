@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:contentDescription="@string/image.description"
-        android:src="@drawable/people" />
+        android:src="@mipmap/people" />
 
     <LinearLayout
         android:layout_width="@dimen/view_with"
