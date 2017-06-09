@@ -91,7 +91,7 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
 
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-        public void setColor() {
+        private void setColor() {
             mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.friends_bg_btn_add_selected));
             mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Friend));
             mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
@@ -100,7 +100,7 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
         }
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-        public void unSetColor() {
+        private void unSetColor() {
             mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.friends_bg_btn_add));
             mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Add));
             mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorBorder));
