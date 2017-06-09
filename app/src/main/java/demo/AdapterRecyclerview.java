@@ -6,12 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import vn.asiantech.internship.R;
 
 import static android.content.ContentValues.TAG;
-
 
 class AdapterRecyclerView extends RecyclerView.Adapter {
     private List<String> mNames = new ArrayList<>();
@@ -23,8 +24,8 @@ class AdapterRecyclerView extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemview = inflater.inflate(R.layout.item, parent, false);
-        return new RecyclerViewHolder(itemview);
+        View itemView = inflater.inflate(R.layout.item, parent, false);
+        return new RecyclerViewHolder(itemView);
     }
 
     @Override
@@ -39,7 +40,7 @@ class AdapterRecyclerView extends RecyclerView.Adapter {
     }
 
     private static class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        TextView mTvName;
+        final TextView mTvName;
 
         RecyclerViewHolder(final View itemView) {
             super(itemView);
@@ -51,7 +52,5 @@ class AdapterRecyclerView extends RecyclerView.Adapter {
                 }
             });
         }
-
     }
-
 }

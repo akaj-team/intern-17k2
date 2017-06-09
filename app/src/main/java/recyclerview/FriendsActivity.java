@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
 
-
 public class FriendsActivity extends AppCompatActivity {
 
     @Override

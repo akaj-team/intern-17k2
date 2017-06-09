@@ -10,7 +10,6 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 
-
 public class MainActivity extends AppCompatActivity {
 
     @Override

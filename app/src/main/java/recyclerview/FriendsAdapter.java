@@ -9,12 +9,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-
 import vn.asiantech.internship.R;
 
-
 class FriendsAdapter extends RecyclerView.Adapter {
-    private List<User> users;
+    private final List<User> users;
 
     FriendsAdapter(List<User> users) {
         this.users = users;
@@ -23,20 +21,20 @@ class FriendsAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemview = inflater.inflate(R.layout.item_friend_list, parent, false);
-        return new FriendsAdapter.MyViewHolder(itemview);
+        View itemView = inflater.inflate(R.layout.item_friend_list, parent, false);
+        return new FriendsAdapter.MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MyViewHolder myViewHolder = (MyViewHolder) holder;
         myViewHolder.mTvName.setText(users.get(position).getName());
-        myViewHolder.mTvDesciption.setText(users.get(position).getDescription());
+        myViewHolder.mTvDescription.setText(users.get(position).getDescription());
         if (position == 0 || position == 1) {
-            setBackgouundAdd(myViewHolder.mBtFriend);
+            setBackgroundAdd(myViewHolder.mBtFriend);
             users.get(position).setState(true);
         } else {
-            setBackgouundFriend(myViewHolder.mBtFriend);
+            setBackgroundFriend(myViewHolder.mBtFriend);
             users.get(position).setState(false);
         }
     }
@@ -47,35 +45,35 @@ class FriendsAdapter extends RecyclerView.Adapter {
     }
 
     private class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView mTvName;
-        TextView mTvDesciption;
-        ImageButton mBtFriend;
+        final TextView mTvName;
+        final TextView mTvDescription;
+        final ImageButton mBtFriend;
 
         MyViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
-            mTvDesciption = (TextView) itemView.findViewById(R.id.tvDescription);
+            mTvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
             mBtFriend = (ImageButton) itemView.findViewById(R.id.btnFriend);
             mBtFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (users.get(getAdapterPosition()).isState()) {
                         users.get(getAdapterPosition()).setState(false);
-                        setBackgouundAdd(mBtFriend);
+                        setBackgroundAdd(mBtFriend);
                     } else {
                         users.get(getAdapterPosition()).setState(true);
-                        setBackgouundFriend(mBtFriend);
+                        setBackgroundFriend(mBtFriend);
                     }
                 }
             });
         }
     }
 
-    private void setBackgouundAdd(ImageButton btn) {
+    private void setBackgroundAdd(ImageButton btn) {
         btn.setBackgroundResource(R.drawable.icon_friend);
     }
 
-    private void setBackgouundFriend(ImageButton btn) {
+    private void setBackgroundFriend(ImageButton btn) {
         btn.setBackgroundResource(R.drawable.icon_add);
     }
 }
