@@ -19,13 +19,11 @@ import java.util.List;
 public class FriendFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private List<FriendObject> mFriends;
+    private List<Friend> mFriends;
     private FriendAdapter mFriendAdapter;
 
     public FriendFragment() {
-        // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

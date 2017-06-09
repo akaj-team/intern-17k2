@@ -16,10 +16,10 @@ import java.util.Random;
  */
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder> {
 
-    private List<FriendObject> mFriends;
+    private List<Friend> mFriends;
 
-    public FriendAdapter(List<FriendObject> datas) {
-        mFriends = datas;
+    public FriendAdapter(List<Friend> data) {
+        mFriends = data;
     }
 
     @Override
@@ -52,11 +52,11 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         return mFriends.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mTvFriendName;
-        ImageView mImgFriend;
-        Button mBtnAddFriend;
+        private TextView mTvFriendName;
+        private ImageView mImgFriend;
+        private Button mBtnAddFriend;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -70,13 +70,13 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
                     FriendObject friendObject = mFriends.get(getAdapterPosition());
                     if (!friendObject.isFriend()) {
                         mBtnAddFriend.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_friend_check_button, 0, 0, 0);
-                        mBtnAddFriend.setBackgroundColor(0XFF79378B);
+                        // mBtnAddFriend.setBackgroundColor(0XFF79378B);
                         mBtnAddFriend.setText(String.valueOf("Friend"));
                         friendObject.setFriend(true);
                     } else {
                         mBtnAddFriend.setText(String.valueOf("Add"));
                         mBtnAddFriend.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_friend_add_button, 0, 0, 0);
-                        mBtnAddFriend.setBackgroundColor(0XFF426EB4);
+                        // mBtnAddFriend.setBackgroundColor(0XFF426EB4);
                         friendObject.setFriend(false);
                     }
                 }

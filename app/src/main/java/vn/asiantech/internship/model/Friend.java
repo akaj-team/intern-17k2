@@ -1,20 +1,20 @@
 package vn.asiantech.internship;
 
-public class FriendObject {
+public class Friend {
 
-    private String friendName;
+    private String name;
     private boolean isFriend;
 
-    public FriendObject(String friendName) {
-        this.friendName = friendName;
+    public Friend(String name) {
+        this.name = name;
     }
 
     public String getFriendName() {
         return friendName;
     }
 
-    public void setFriendName(String friendName) {
-        this.friendName = friendName;
+    public void setFriendName(String name) {
+        this.name = name;
     }
 
     public boolean isFriend() {
