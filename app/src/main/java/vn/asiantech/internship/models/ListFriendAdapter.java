@@ -60,11 +60,11 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView mTvFriendName;
-        public TextView mTvFriendDes;
-        public ImageView mImageView;
-        public Button mBtnAdd;
-        public boolean mIsFriend;
+        private TextView mTvFriendName;
+        private TextView mTvFriendDes;
+        private ImageView mImageView;
+        private Button mBtnAdd;
+        private boolean mIsFriend;
 
         public MyViewHolder(View itemView) {
             super(itemView);
