@@ -10,12 +10,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
-class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHolder> {
-    private List<Name> mNameList;
+/**
+ *
+ */
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHolder> {
+    private List<Friend> mFriendList;
 
-    RecyclerAdapter(List<Name> mNameList) {
-        this.mNameList = mNameList;
-
+    RecyclerAdapter(List<Friend> FriendList) {
+        this.mFriendList = FriendList;
     }
 
     @Override
@@ -26,11 +28,11 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
-        Name name = mNameList.get(position);
-        holder.mTvName.setText(name.getName());
+        Friend friend = mFriendList.get(position);
+        holder.mTvName.setText(friend.getName());
 
-        Button btn = holder.mBtnAdd;
-        if (name.isAddtt()) {
+        Button btn = holder.btnAdd;
+        if (friend.isFriend()) {
             btn.setText(R.string.btn_friend);
             btn.setBackgroundColor(Color.RED);
             btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.imgcheck, 0, 0, 0);
@@ -39,39 +41,32 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHolder> {
             btn.setBackgroundColor(Color.GRAY);
             btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.imgadd, 0, 0, 0);
         }
-
     }
 
     @Override
     public int getItemCount() {
-        return mNameList.size();
-
+        return mFriendList.size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView mTvName;
-        Button mBtnAdd;
+        Button btnAdd;
 
         MyHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
-            mBtnAdd = (Button) itemView.findViewById(R.id.btnAdd1);
-            mBtnAdd.setOnClickListener(this);
+            btnAdd = (Button) itemView.findViewById(R.id.btnAdd);
+            btnAdd.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btnAdd1:
-                    mNameList.get(getAdapterPosition()).setAddtt();
+                case R.id.btnAdd:
+                    mFriendList.get(getAdapterPosition()).setFriend();
                     notifyDataSetChanged();
                     break;
-
             }
         }
-
     }
 }
-
-
-
