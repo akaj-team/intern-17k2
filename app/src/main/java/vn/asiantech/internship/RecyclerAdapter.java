@@ -11,9 +11,10 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- *
+ * Copyright © 2016 AsianTech inc.
+ * Created by DatBui on 10/06/2017.
  */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHolder> {
+class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHolder> {
     private List<Friend> mFriendList;
 
     RecyclerAdapter(List<Friend> FriendList) {

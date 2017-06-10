@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Copyright © 2016 AsianTech inc.
+ * Created by DatBui on 10/06/2017.
+ */
 public class FriendFragment extends Fragment{
 
     public FriendFragment() {

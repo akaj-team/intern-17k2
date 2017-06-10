@@ -3,9 +3,9 @@ package vn.asiantech.internship;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-
 /**
- *
+ * Copyright © 2016 AsianTech inc.
+ * Created by DatBui on 10/06/2017.
  */
 public class RecyclerActivity extends AppCompatActivity {
 
