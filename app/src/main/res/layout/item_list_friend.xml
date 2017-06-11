@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="@dimen/item_list_friend.height"
     android:layout_marginBottom="0.5dp"
-    android:background="#F5F5F6"
+    android:background="@color/item_list_friend.background"
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
 
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="0.5"
+        android:contentDescription="@null"
         android:src="@drawable/ic_user" />
 
     <TextView
@@ -30,10 +31,10 @@
 
         <Button
             android:id="@+id/btnAdd"
-            android:layout_width="70dp"
+            android:layout_width="@dimen/button.width"
             android:layout_height="30dp"
-            android:layout_gravity="center|right"
-            android:paddingLeft="10dp" />
+            android:layout_gravity="center|end"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
     </LinearLayout>
-
 </LinearLayout>

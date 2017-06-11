@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">App name</string>
-    <string name="isFriend_true">FRIEND</string>
-    <string name="isFriend_false">ADD</string>
+    <string name="friend">FRIEND</string>
+    <string name="add">ADD</string>
 </resources>

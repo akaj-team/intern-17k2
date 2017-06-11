@@ -1,9 +1,5 @@
 package vn.asiantech.internship.model;
 
-/**
- * Created by Hai on 6/9/2017.
- */
-
 public class User {
     String name;
     boolean isFriend;
