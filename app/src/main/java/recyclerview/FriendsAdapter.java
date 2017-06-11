@@ -30,8 +30,7 @@ class FriendsAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.item_friend_list, parent, false);
-        RecyclerView.ViewHolder v = new MyViewHolder(itemView);
-        return v;
+        return new MyViewHolder(itemView);
     }
 
     @Override
@@ -54,9 +53,9 @@ class FriendsAdapter extends RecyclerView.Adapter {
     }
 
     private class MyViewHolder extends RecyclerView.ViewHolder {
-        final private TextView mTvName;
-        final private TextView mTvDescription;
-        final private ImageButton mBtFriend;
+        private final TextView mTvName;
+        private final TextView mTvDescription;
+        private final ImageButton mBtFriend;
 
         MyViewHolder(View itemView) {
             super(itemView);
@@ -79,10 +78,10 @@ class FriendsAdapter extends RecyclerView.Adapter {
     }
 
     private void setBackgroundAdd(ImageButton imgBtnAdd) {
-        imgBtnAdd.setBackgroundResource(R.mipmap.icon_friend);
+        imgBtnAdd.setBackgroundResource(R.mipmap.ic_friend);
     }
 
     private void setBackgroundFriend(ImageButton imgBtnAdd) {
-        imgBtnAdd.setBackgroundResource(R.mipmap.icon_add);
+        imgBtnAdd.setBackgroundResource(R.mipmap.ic_add);
     }
 }

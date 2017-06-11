@@ -6,7 +6,7 @@
     android:layout_marginLeft="@dimen/linearlayout_margin_left_right"
     android:layout_marginRight="@dimen/linearlayout_margin_left_right"
     android:layout_marginTop="@dimen/linearlayout_margin_top_bottom"
-    android:background="@drawable/custom_recyclerview"
+    android:background="@drawable/bg_item_list_friend"
     android:gravity="center"
     android:orientation="horizontal"
     android:padding="@dimen/linearlayout_padding">
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:contentDescription="@string/image.description"
-        android:src="@mipmap/people" />
+        android:src="@mipmap/ic_person1" />
 
     <LinearLayout
         android:layout_width="@dimen/view_with"

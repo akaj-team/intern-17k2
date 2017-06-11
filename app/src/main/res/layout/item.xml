@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:contentDescription="@string/image.description"
-        android:src="@mipmap/person" />
+        android:src="@mipmap/ic_person" />
 
         <LinearLayout
             android:layout_width="match_parent"

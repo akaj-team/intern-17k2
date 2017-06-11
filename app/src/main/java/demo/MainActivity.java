@@ -10,12 +10,20 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Used to display the recyclerview.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-9
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_demo);
+        setContentView(R.layout.activity_demo);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleView);
         List<String> names = new ArrayList<>();
         names.add("Nguyễn Văn A");

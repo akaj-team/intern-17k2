@@ -47,7 +47,7 @@ class AdapterRecyclerView extends RecyclerView.Adapter {
     }
 
     private static class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        final private TextView mTvName;
+        private final TextView mTvName;
 
         RecyclerViewHolder(final View itemView) {
             super(itemView);
