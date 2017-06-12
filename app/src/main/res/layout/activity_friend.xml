@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.asiantech.internship.Day5.FriendsActivity">
+    tools:context="vn.asiantech.internship.Day5.FriendActivity">
 
     <fragment
         android:id="@+id/fragmentFriends"
-        android:name="vn.asiantech.internship.Day5.FriendsFragment"
+        android:name="vn.asiantech.internship.Day5.FriendFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

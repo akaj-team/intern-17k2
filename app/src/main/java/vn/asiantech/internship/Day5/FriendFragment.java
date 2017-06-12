@@ -21,14 +21,14 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-12
  */
-public class FriendsFragment extends Fragment {
+public class FriendFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private ArrayList<String> mUsers = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_friends, container, false);
+        View v = inflater.inflate(R.layout.fragment_friend, container, false);
         String[] users = getResources().getStringArray(R.array.list_users);
         Collections.addAll(mUsers, users);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
