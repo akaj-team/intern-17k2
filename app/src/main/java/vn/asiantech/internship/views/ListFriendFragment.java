@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 import vn.asiantech.internship.models.Friend;
-import vn.asiantech.internship.models.ListFriendAdapter;
+import vn.asiantech.internship.ListFriendAdapter;
 import vn.asiantech.internship.R;
 
 /**

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.models;
+package vn.asiantech.internship;
 
 import android.content.Context;
 import android.os.Build;
@@ -8,12 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
-import vn.asiantech.internship.R;
+import vn.asiantech.internship.models.Friend;
 
 /**
  * Created by root on 6/9/17.
@@ -31,9 +30,7 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list_friend, viewGroup, false);
-        MyViewHolder holder = new MyViewHolder(v);
-        holder.setIsRecyclable(false);
-        return holder;
+        return new MyViewHolder(v);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -46,6 +43,10 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
             myViewHolder.mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_added_friend));
             myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Friend));
             myViewHolder.mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
+        } else {
+            myViewHolder.mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_add_friend));
+            myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Add));
+            myViewHolder.mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorBorder));
         }
     }
 
