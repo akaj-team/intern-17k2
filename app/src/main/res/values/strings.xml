@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Internship</string>
+    <string name="drawer_open">Internship</string>
+    <string name="drawer_close">Internship</string>
+    <string name="header.name">at-dinhvo</string>
+    <string name="header.email">at-dinhvo@gmail.com</string>
 </resources>

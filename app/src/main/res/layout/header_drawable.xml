@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorDark"
+    android:orientation="horizontal"
+    android:padding="@dimen/header.layout_padding">
+
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="@dimen/header.image_size"
+        android:layout_height="@dimen/header.image_size"
+        android:src="@drawable/ic_troll" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="@dimen/header.layout_padding">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/header.name_text_size"
+            android:textColor="@color/colorWhite"
+            tools:text="Hi i'm troll" />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/header.email_margin"
+            tools:text="troll@gmail.com" />
+    </LinearLayout>
+</LinearLayout>
