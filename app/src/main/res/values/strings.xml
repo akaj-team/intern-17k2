@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Internship</string>
+    <string name="user_name">user_1001</string>
+    <string-array name="drawer_item">
+        <item>Feed</item>
+        <item>Activity</item>
+        <item>Profile</item>
+        <item>Friend</item>
+        <item>Chat</item>
+        <item>Setting</item>
+    </string-array>
 </resources>
