@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.R;
 
@@ -19,9 +19,9 @@ import vn.asiantech.internship.R;
  * @since 2017-6-12
  */
 class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewHolder> {
-    private ArrayList<String> mFriends;
+    private List<String> mFriends;
 
-    AdapterRecycler(ArrayList<String> friends) {
+    AdapterRecycler(List<String> friends) {
         this.mFriends = friends;
     }
 
@@ -60,7 +60,7 @@ class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewH
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mBtnAdd = (Button) itemView.findViewById(R.id.btnAdd);
-            mBtnFriends = (Button) itemView.findViewById(R.id.btnFriends);
+            mBtnFriends = (Button) itemView.findViewById(R.id.btnFriend);
             mBtnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
