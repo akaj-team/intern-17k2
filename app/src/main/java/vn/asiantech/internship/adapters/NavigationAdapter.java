@@ -1,9 +1,12 @@
 package vn.asiantech.internship.adapters;
 
+import android.app.WallpaperManager;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import vn.asiantech.internship.R;
@@ -17,11 +20,13 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
     private String[] mTitle;
     private String mName;
     private String mEmail;
+    private Context mContext;
 
-    public NavigationAdapter(String[] title,String name,String email) {
+    public NavigationAdapter(Context context,String[] title,String name,String email) {
         mTitle=title;
         mName=name;
         mEmail=email;
+        mContext=context;
     }
 
     @Override
@@ -38,6 +43,8 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         if (holder.mHolderId==1){
+            WallpaperManager wallpaperManager=WallpaperManager.getInstance(mContext);
+            //holder.mLlHeader.setBackground();
             holder.mTvName.setText(mName);
             holder.mTvEmail.setText(mEmail);
         }else{
@@ -64,9 +71,11 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
         private TextView mTvItem;
         private TextView mTvName;
         private TextView mTvEmail;
+        private LinearLayout mLlHeader;
         public MyViewHolder(View itemView, int viewType) {
             super(itemView);
             if(viewType==TYPE_HEADER){
+                mLlHeader=(LinearLayout) itemView.findViewById(R.id.llHeader);
                 mTvName=(TextView) itemView.findViewById(R.id.tvName);
                 mTvEmail=(TextView) itemView.findViewById(R.id.tvEmail);
                 mHolderId=1;
