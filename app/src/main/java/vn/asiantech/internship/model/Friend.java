@@ -1,5 +1,8 @@
 package vn.asiantech.internship;
 
+/**
+ * Created by at-dinhvo on 12/06/2017.
+ */
 public class Friend {
 
     private String name;
