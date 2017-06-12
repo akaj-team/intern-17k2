@@ -1,14 +1,15 @@
-package drawerlayout;
+package vn.asiantech.internship.drawerlayout.model;
 
 /**
  * Created by sony on 12/06/2017.
  */
 
-public class Function {
+public class DrawerItem {
     private String name;
     private int image;
+    private boolean state = false;
 
-    public Function(String name, int image) {
+    public DrawerItem(int image, String name) {
         this.name = name;
         this.image = image;
     }
@@ -27,5 +28,16 @@ public class Function {
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
+    public DrawerItem() {
     }
 }

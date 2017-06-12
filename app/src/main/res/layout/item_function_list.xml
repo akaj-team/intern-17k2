@@ -2,16 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:gravity="center">
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="0dp"
-        android:layout_weight="8"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"/>
+    android:layout_marginLeft="@dimen/item.margin_left_right_top"
+    android:layout_marginRight="@dimen/item.margin_left_right_top"
+    android:layout_marginTop="@dimen/item.margin_left_right_top"
+    android:background="@drawable/bg_item_list_function"
+    android:gravity="center"
+    android:id="@+id/lnItem"
+    android:padding="@dimen/item.padding">
 
+    <ImageView
+        android:id="@+id/imgIcon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:src="@mipmap/ic_feed" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/textview.name.margin_left"
+        android:layout_weight="8"
+        android:textSize="@dimen/textview.name.size" />
 </LinearLayout>
