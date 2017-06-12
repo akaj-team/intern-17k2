@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.models.DrawerAdapter;
+import vn.asiantech.internship.DrawerAdapter;
 
 /**
  * DrawerFragment create on 12/06 by Thien Nguyen
