@@ -6,7 +6,7 @@
     tools:context="vn.asiantech.internship.Day5.FriendActivity">
 
     <fragment
-        android:id="@+id/fragmentFriends"
+        android:id="@+id/fragmentFriend"
         android:name="vn.asiantech.internship.Day5.FriendFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -4,7 +4,7 @@
     android:layout_height="@dimen/relativelayout.layout_height">
 
     <ImageView
-        android:id="@+id/imgView"
+        android:id="@+id/imgUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/imageview.layout_marginStart"
@@ -40,7 +40,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnFriends"
+        android:id="@+id/btnFriend"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/button.friends.layout_height"
         android:layout_marginStart="@dimen/button.friends.layout_margin_Start"
