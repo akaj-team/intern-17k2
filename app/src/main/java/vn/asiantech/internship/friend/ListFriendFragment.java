@@ -1,6 +1,5 @@
 package vn.asiantech.internship.friend;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.R;
 
@@ -20,30 +20,29 @@ import vn.asiantech.internship.R;
  */
 public class ListFriendFragment extends Fragment {
 
-    private ArrayList<Friend> mDataset;
-    private ListFriendAdapter mAdapter;
-    private RecyclerView mRecyclerView;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        List<Friend> friends;
+        ListFriendAdapter adapter;
+        RecyclerView recyclerView;
         View view = inflater.inflate(R.layout.fragment_list_friend, container);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewListFriend);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mDataset = new ArrayList<>();
-        mDataset.add(new Friend("Ronaldo", false));
-        mDataset.add(new Friend("Messi", false));
-        mDataset.add(new Friend("Kaka", false));
-        mDataset.add(new Friend("Ramos", false));
-        mDataset.add(new Friend("Pique", false));
-        mDataset.add(new Friend("Xavi", false));
-        mDataset.add(new Friend("Iniesta", false));
-        mDataset.add(new Friend("Dani Alves", false));
-        mDataset.add(new Friend("Rooney", false));
-        mDataset.add(new Friend("David Villa", false));
-        mDataset.add(new Friend("Torres", false));
-        mAdapter = new ListFriendAdapter(mDataset, getContext());
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewListFriend);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        friends = new ArrayList<>();
+        friends.add(new Friend("Ronaldo", false));
+        friends.add(new Friend("Messi", false));
+        friends.add(new Friend("Kaka", false));
+        friends.add(new Friend("Ramos", false));
+        friends.add(new Friend("Pique", false));
+        friends.add(new Friend("Xavi", false));
+        friends.add(new Friend("Iniesta", false));
+        friends.add(new Friend("Dani Alves", false));
+        friends.add(new Friend("Rooney", false));
+        friends.add(new Friend("David Villa", false));
+        friends.add(new Friend("Torres", false));
+        adapter = new ListFriendAdapter(friends, getContext());
+        recyclerView.setAdapter(adapter);
         return view;
     }
 
