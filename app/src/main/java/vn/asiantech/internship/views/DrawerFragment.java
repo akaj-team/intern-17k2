@@ -34,6 +34,7 @@ public class DrawerFragment extends Fragment {
         mListDrawer = getResources().getStringArray(R.array.listDrawer);
         mRecyclerView.setAdapter(new DrawerAdapter(getContext(),
                 R.layout.list_item_drawer, mListDrawer));
+
         return v;
     }
 
