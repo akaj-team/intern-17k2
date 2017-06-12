@@ -1,11 +1,16 @@
 package vn.asiantech.internship.drawerlayout;
 
+import android.app.WallpaperManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,15 +21,16 @@ import vn.asiantech.internship.models.DrawerItem;
 
 /**
  * Created by PC on 6/12/2017.
+ * This class used to custom DrawerLayout
  */
 public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
-    private List<DrawerItem> mItems;
+    private List<vn.asiantech.internship.models.DrawerItem> mItems;
     private Context mContext;
     private OnItemClickListener mListener;
 
-    public DrawerApdater(Context context, List<DrawerItem> items,
+    public DrawerApdater(Context context, List<vn.asiantech.internship.models.DrawerItem> items,
                          OnItemClickListener listener) {
         this.mItems = items;
         this.mContext = context;
@@ -36,11 +42,11 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         View view;
         switch (viewType) {
             case TYPE_HEADER:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.header_drawer_list, parent, false);
-                return new VHHeader(view);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.header_drawer, parent, false);
+                return new DrawerLayoutHeader(view);
             default:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drawer_list, parent, false);
-                return new VHItem(view);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drawer, parent, false);
+                return new DrawerLayoutItem(view);
         }
     }
 
@@ -54,23 +60,25 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof VHItem) {
-            VHItem item = (VHItem) holder;
+        if (holder instanceof DrawerLayoutItem) {
+            DrawerLayoutItem item = (DrawerLayoutItem) holder;
             DrawerItem drawerItem = mItems.get(position - 1);
             item.mTvName.setText(drawerItem.getName());
             if (drawerItem.isSelected()) {
-                item.mImgItemIcon.setBackgroundResource(android.R.drawable.star_big_on);
+                item.mLlBackGround.setBackgroundColor(Color.GREEN);
             } else {
-                item.mImgItemIcon.setBackgroundResource(android.R.drawable.star_big_off);
+                item.mLlBackGround.setBackgroundColor(Color.WHITE);
             }
             return;
         }
-        if (holder instanceof VHHeader) {
-            VHHeader header = (VHHeader) holder;
+        if (holder instanceof DrawerLayoutHeader) {
+            DrawerLayoutHeader header = (DrawerLayoutHeader) holder;
 
             // TODO: 6/12/2017 dummy data
             header.mTvName.setText("Cao Van Cuong");
             header.mTVEmail.setText("vancuong.itf@gmail.com");
+            Drawable wallpaper = WallpaperManager.getInstance(mContext).getDrawable();
+            header.mImgHeaderBg.setImageBitmap(((BitmapDrawable) wallpaper).getBitmap());
         }
 
     }
@@ -81,17 +89,16 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     * This class used to custom list Item for RecyclerView of DrawerLayout
+     * This class used to custom list Item of DrawerLayout
      */
-    public class VHItem extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class DrawerLayoutItem extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
-        private ImageView mImgItemIcon;
+        private LinearLayout mLlBackGround;
 
-        public VHItem(View itemView) {
+        public DrawerLayoutItem(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvItemName);
-            mImgItemIcon = (ImageView) itemView.findViewById(R.id.imgItemIcon);
-            mTvName.setOnClickListener(this);
+            mLlBackGround = (LinearLayout) itemView.findViewById(R.id.llItemDrawer);
             itemView.setOnClickListener(this);
         }
 
@@ -104,18 +111,20 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     * This class used to custom list Item for RecyclerView of DrawerLayout
+     * This class used to custom header of DrawerLayout
      */
-    public class VHHeader extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class DrawerLayoutHeader extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
         private TextView mTVEmail;
         private ImageView mImgItemIcon;
+        private ImageView mImgHeaderBg;
 
-        public VHHeader(View itemView) {
+        public DrawerLayoutHeader(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTVEmail = (TextView) itemView.findViewById(R.id.tvEmail);
             mImgItemIcon = (ImageView) itemView.findViewById(R.id.imgAvatar);
+            mImgHeaderBg = (ImageView) itemView.findViewById(R.id.imgHeaderBg);
             mImgItemIcon.setOnClickListener(this);
         }
 
@@ -129,6 +138,9 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    /**
+     * This interface used to handle DrawerLayoutItem onClick
+     */
     public interface OnItemClickListener {
         void onItemClick(int position);
     }

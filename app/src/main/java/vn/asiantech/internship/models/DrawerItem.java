@@ -2,7 +2,7 @@ package vn.asiantech.internship.models;
 
 /**
  * Created by PC on 6/12/2017.
- */
+ **/
 
 public class DrawerItem {
     private String name;
@@ -11,6 +11,11 @@ public class DrawerItem {
     public DrawerItem(String name, boolean isSelected) {
         this.name = name;
         this.isSelected = isSelected;
+    }
+
+    public DrawerItem(String name) {
+        this.name = name;
+        this.isSelected = false;
     }
 
     public void setName(String name) {

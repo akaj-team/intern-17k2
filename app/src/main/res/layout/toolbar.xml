@@ -4,10 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="#4daa4d"
-    android:contentInsetLeft="0dp"
-    android:contentInsetStart="0dp"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp" />
-
-
-

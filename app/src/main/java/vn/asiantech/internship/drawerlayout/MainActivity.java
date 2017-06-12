@@ -8,7 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,39 +35,41 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar mToolbar;
     private int mMenuItemChosser;
+    private TextView mTvItemChooser;
+    private RelativeLayout mRlMainContent;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mMenuItemChosser = -1;
-
+        mTvItemChooser = (TextView) findViewById(R.id.tvChooser);
+        mRlMainContent = (RelativeLayout) findViewById(R.id.rlMainContent);
         mToolbar = (Toolbar) findViewById(R.id.toolBar);
+        mMenuItemChosser = -1;
         setSupportActionBar(mToolbar);
         setTitle(R.string.app_name);
-        mDrawerItems = new ArrayList<>();
-        //mDrawerItems.add(new User("Cao Văn Cường", "vancuong.itf@gmail.com"));
-        mDrawerItems.add(new DrawerItem("Feed", false));
-        mDrawerItems.add(new DrawerItem("Activity", false));
-        mDrawerItems.add(new DrawerItem("Profile", false));
-        mDrawerItems.add(new DrawerItem("Friends", false));
-        mDrawerItems.add(new DrawerItem("Map", false));
-        mDrawerItems.add(new DrawerItem("Chat", false));
-        mDrawerItems.add(new DrawerItem("Settings", false));
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewMenuList);
+        mDrawerItems = new ArrayList<>();
+        String[] menuList = getResources().getStringArray(R.array.menu_list);
+        for (String s : menuList) {
+            mDrawerItems.add(new DrawerItem(s));
+        }
+        mRecyclerView = (RecyclerView) findViewById(R.id.drawerList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mAdapter = new DrawerApdater(mDrawerItems, this, new DrawerApdater.MainActivityRecyclerViewOnClick() {
+        mAdapter = new DrawerApdater(this, mDrawerItems, new DrawerApdater.OnItemClickListener() {
             @Override
-            public void OnClick(int position) {
-                if (mMenuItemChosser>-1){
+            public void onItemClick(int position) {
+                if (mMenuItemChosser > -1) {
                     mDrawerItems.get(mMenuItemChosser).setSelected();
                 }
                 mDrawerItems.get(position).setSelected();
                 mMenuItemChosser = position;
+                mTvItemChooser.setText(mDrawerItems.get(position).getName());
                 mAdapter.notifyDataSetChanged();
+                mDrawerLayout.closeDrawers();
             }
         });
         mRecyclerView.setAdapter(mAdapter);
@@ -71,12 +80,27 @@ public class MainActivity extends AppCompatActivity {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 invalidateOptionsMenu();
+                TranslateAnimation translateAnimation = new TranslateAnimation(0, drawerView.getWidth(), 0, 0, 0, 0, 0, 0);
+                translateAnimation.setDuration(0);
+                mRlMainContent.setAnimation(translateAnimation);
+                translateAnimation.setFillAfter(true);
+                translateAnimation.start();
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
+                TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, drawerView.getWidth(), 0, 0, 0, 0);
+                translateAnimation.setDuration(0);
+                mRlMainContent.setAnimation(translateAnimation);
+                translateAnimation.setFillAfter(true);
+                translateAnimation.start();
+            }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
             }
         };
         mDrawerLayout.addDrawerListener(mDrawerToggle);
@@ -84,13 +108,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(android.view.MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        // Handle your other action bar items...
-
-        return super.onOptionsItemSelected(item);
-    }
 }
