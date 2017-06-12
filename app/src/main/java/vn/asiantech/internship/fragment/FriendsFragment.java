@@ -15,6 +15,9 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapter.FriendsAdapter;
 import vn.asiantech.internship.model.User;
 
+/**
+ * fragment store list friend
+ */
 public class FriendsFragment extends Fragment {
     private RecyclerView mRecyclerViewFriend;
     private ArrayList<User> mUsers;

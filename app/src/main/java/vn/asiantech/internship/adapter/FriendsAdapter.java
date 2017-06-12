@@ -53,6 +53,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
         return mUsers == null ? 0 : mUsers.size();
     }
 
+    /**
+     * custom viewholder item for list friend
+     */
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
         private Button mBtnAdd;
