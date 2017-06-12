@@ -40,7 +40,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
         if (user.isFriend()) {
             holder.mBtnAdd.setText(R.string.button_text_friend);
             holder.mBtnAdd.setBackgroundColor(Color.RED);
-            holder.mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(R.drawable.checked_32, 0, 0, 0);
+            holder.mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_checked, 0, 0, 0);
         } else {
             holder.mBtnAdd.setBackgroundColor(Color.GREEN);
             holder.mBtnAdd.setText(R.string.button_add);
