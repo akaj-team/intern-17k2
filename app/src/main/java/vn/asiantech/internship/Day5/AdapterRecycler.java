@@ -54,7 +54,7 @@ class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewH
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private Button mBtnAdd;
-        Button mBtnFriends;
+        private Button mBtnFriends;
 
         RecyclerViewHolder(View itemView) {
             super(itemView);
