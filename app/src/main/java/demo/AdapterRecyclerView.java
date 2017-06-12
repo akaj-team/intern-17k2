@@ -19,9 +19,9 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-9
  */
-class AdapterRecyclerView extends RecyclerView.Adapter {
+ class AdapterRecyclerView extends RecyclerView.Adapter {
     private List<String> mNames = new ArrayList<>();
-    public static final String TAG = "Log position";
+    private static final String TAG = "Log position";
 
     AdapterRecyclerView(List<String> names) {
         this.mNames = names;

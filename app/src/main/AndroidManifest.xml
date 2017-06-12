@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="recyclerview.FriendsActivity">
+        <activity android:name="recyclerview.FriendActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

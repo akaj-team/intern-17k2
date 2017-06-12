@@ -18,10 +18,10 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-9
  */
-class FriendsAdapter extends RecyclerView.Adapter {
+class FriendAdapter extends RecyclerView.Adapter {
     private final List<User> mUsers;
 
-    FriendsAdapter(List<User> users) {
+    FriendAdapter(List<User> users) {
         this.mUsers = users;
     }
 

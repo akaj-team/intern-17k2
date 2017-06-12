@@ -21,7 +21,7 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-9
  */
-public class FriendsFragment extends Fragment {
+public class FriendFragment extends Fragment {
 
     @Nullable
     @Override
@@ -34,7 +34,7 @@ public class FriendsFragment extends Fragment {
         for (int i = 0; i < names.length; i++) {
             users.add(new User(names[i], descriptions[i]));
         }
-        FriendsAdapter adapter = new FriendsAdapter(users);
+        FriendAdapter adapter = new FriendAdapter(users);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
