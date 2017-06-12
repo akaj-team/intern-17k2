@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/fragmentFriend"
         android:name="recyclerview.FriendsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

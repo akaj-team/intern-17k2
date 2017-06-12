@@ -27,7 +27,7 @@ public class FriendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friend, container);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewListFriend);
         List<User> users = new ArrayList<>();
         String[] names = getResources().getStringArray(R.array.name);
         String[] descriptions = getResources().getStringArray(R.array.description);

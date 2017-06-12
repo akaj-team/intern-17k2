@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleView);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleViewListUserDemo);
         List<String> names = new ArrayList<>();
         names.add("Nguyễn Văn A");
         names.add("Nguyễn Văn B");
