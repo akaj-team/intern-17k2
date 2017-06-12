@@ -9,7 +9,6 @@ import vn.asiantech.internship.R;
 /**
  * Created by PC on 6/9/2017.
  */
-
 public class ListFriendActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

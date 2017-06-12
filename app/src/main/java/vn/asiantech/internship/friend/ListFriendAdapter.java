@@ -16,7 +16,6 @@ import vn.asiantech.internship.R;
 /**
  * Created by PC on 6/9/2017.
  */
-
 public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.FriendViewHolder> {
     private List<Friend> mFriends;
     private Context mContext;
@@ -55,6 +54,9 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.Fr
         return mFriends.size();
     }
 
+    /**
+     * This class used to custom item of RecyclerView
+     */
     public class FriendViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mTvName;
         public Button mBtnFriendShip;

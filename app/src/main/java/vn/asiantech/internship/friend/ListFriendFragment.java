@@ -18,7 +18,6 @@ import vn.asiantech.internship.R;
 /**
  * Created by PC on 6/9/2017.
  */
-
 public class ListFriendFragment extends Fragment {
 
     private ArrayList<Friend> mDataset;

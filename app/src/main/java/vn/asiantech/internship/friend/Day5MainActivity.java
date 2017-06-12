@@ -14,7 +14,6 @@ import vn.asiantech.internship.R;
 /**
  * Created by PC on 6/9/2017.
  */
-
 public class Day5MainActivity extends Activity {
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;

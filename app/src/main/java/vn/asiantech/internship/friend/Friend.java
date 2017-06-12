@@ -3,7 +3,6 @@ package vn.asiantech.internship.friend;
 /**
  * Created by PC on 6/9/2017.
  */
-
 public class Friend {
     private String name;
     private boolean isFriend;

@@ -14,9 +14,8 @@ import java.util.List;
 import vn.asiantech.internship.R;
 
 /**
- * Created by PC on 6/9/2017.
+ * Create by at-cuongcao on 09/06/2017
  */
-
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext;
@@ -45,6 +44,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mDataset.size();
     }
 
+    /**
+     * This class used to custom item of RecyclerView
+     */
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView mTvName;
