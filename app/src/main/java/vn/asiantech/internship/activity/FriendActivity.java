@@ -8,7 +8,6 @@ import vn.asiantech.internship.R;
 /*
     Activity have FriendFragment
  */
-
 public class FriendActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {

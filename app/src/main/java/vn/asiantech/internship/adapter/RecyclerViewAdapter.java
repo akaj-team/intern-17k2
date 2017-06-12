@@ -20,7 +20,6 @@ import vn.asiantech.internship.model.User;
 /*
     Class RecyclerViewAdapter transfer data and show list data to RecyclerView
  */
-
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
     private List<User> mUsers = new ArrayList<>();
     private LinearLayout.LayoutParams mLayoutParamFriend;
