@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -19,12 +18,12 @@ import vn.asiantech.internship.R;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<String> mDataset;
+    private List<String> mDataSet;
     private LayoutInflater mInflater;
 
-    public RecyclerViewAdapter(Context mContext, List<String> mDataset) {
-        this.mContext = mContext;
-        this.mDataset = mDataset;
+    public RecyclerViewAdapter(Context context, List<String> dataSet) {
+        this.mContext = context;
+        this.mDataSet = dataSet;
         mInflater = LayoutInflater.from(mContext);
     }
 
@@ -36,12 +35,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.mTvName.setText(mDataset.get(position));
+        holder.mTvName.setText(mDataSet.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return mDataSet.size();
     }
 
     /**
@@ -49,7 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView mTvName;
+        private TextView mTvName;
         private Context mContext;
 
         public MyViewHolder(View itemView, Context context) {

@@ -21,9 +21,9 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.Fr
     private Context mContext;
     private LayoutInflater mInflater;
 
-    public ListFriendAdapter(List<Friend> mDataset, Context mContext) {
-        this.mFriends = mDataset;
-        this.mContext = mContext;
+    public ListFriendAdapter(List<Friend> friends, Context context) {
+        this.mFriends = friends;
+        this.mContext = context;
         mInflater = LayoutInflater.from(mContext);
     }
 
@@ -41,11 +41,11 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.Fr
         if (p.isFriend()) {
             holder.mBtnFriendShip.setBackgroundResource(R.drawable.bg_friend_button);
             holder.mBtnFriendShip.setText(mContext.getResources().getString(R.string.friend));
-            holder.mBtnFriendShip.setCompoundDrawablesWithIntrinsicBounds(R.drawable.check, 0, 0, 0);
+            holder.mBtnFriendShip.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_check, 0, 0, 0);
         } else {
             holder.mBtnFriendShip.setBackgroundResource(R.drawable.bg_addfriend_button);
             holder.mBtnFriendShip.setText(mContext.getResources().getString(R.string.add));
-            holder.mBtnFriendShip.setCompoundDrawablesWithIntrinsicBounds(R.drawable.add, 0, 0, 0);
+            holder.mBtnFriendShip.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_add, 0, 0, 0);
         }
     }
 

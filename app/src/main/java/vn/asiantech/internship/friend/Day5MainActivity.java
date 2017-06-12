@@ -15,25 +15,24 @@ import vn.asiantech.internship.R;
  * Created by PC on 6/9/2017.
  */
 public class Day5MainActivity extends Activity {
-    private RecyclerView mRecyclerView;
-    private RecyclerViewAdapter mAdapter;
-    private List<String> mDataset;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.day5_activity_main);
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewExmple);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView recyclerView;
+        RecyclerViewAdapter adapter;
+        List<String> mDataset;
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewExmple);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mDataset = new ArrayList<>();
         mDataset.add("Ten1");
         mDataset.add("Ten2");
         mDataset.add("Ten3");
         mDataset.add("Ten4");
         mDataset.add("Ten5");
-        mAdapter = new RecyclerViewAdapter(this, mDataset);
-        mRecyclerView.setAdapter(mAdapter);
+        adapter = new RecyclerViewAdapter(this, mDataset);
+        recyclerView.setAdapter(adapter);
 
     }
 }
