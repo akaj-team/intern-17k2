@@ -1,5 +1,8 @@
 package vn.asiantech.internship.model;
 
+/**
+ * class User store data to show in list
+ */
 public class User {
     private String name;
     private boolean isFriend;

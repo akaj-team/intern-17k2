@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.model.User;
 
+/**
+ * Custom adapter to show list friends
+ */
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHolder> {
     private ArrayList<User> mUsers;
     private Context mContext;
@@ -43,7 +46,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
             holder.mBtnAdd.setText(R.string.button_add);
             holder.mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_menu_add, 0, 0, 0);
         }
-        holder.mBtnAdd.setWidth(50);
     }
 
     @Override
@@ -64,7 +66,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == R.id.btnDoSth) {
+            if (v.getId() == R.id.btnAdd) {
                 Log.i("TAG1", "pressed");
                 if (mUsers.get(getAdapterPosition()).isFriend()) {
                     mUsers.get(getAdapterPosition()).setFriend(false);
