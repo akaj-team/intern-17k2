@@ -22,15 +22,15 @@ public class Day5MainActivity extends Activity {
         setContentView(R.layout.day5_activity_main);
         RecyclerView recyclerView;
         RecyclerViewAdapter adapter;
-        List<String> mDataset;
+        List<String> dataSet;
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewExmple);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mDataset = new ArrayList<>();
-        mDataset.add("Ten1");
-        mDataset.add("Ten2");
-        mDataset.add("Ten3");
-        mDataset.add("Ten4");
-        mDataset.add("Ten5");
+        dataSet = new ArrayList<>();
+        dataSet.add("Ten1");
+        dataSet.add("Ten2");
+        dataSet.add("Ten3");
+        dataSet.add("Ten4");
+        dataSet.add("Ten5");
         adapter = new RecyclerViewAdapter(this, mDataset);
         recyclerView.setAdapter(adapter);
 
