@@ -13,28 +13,29 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import vn.asiantech.internship.R;
 import vn.asiantech.internship.drawerlayout.adapter.DrawerAdapter;
 import vn.asiantech.internship.drawerlayout.model.DrawerItem;
 
 /**
- * Created by sony on 12/06/2017.
+ * Used to display drawerlayout
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-12
  */
-
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
-    private RecyclerView mRecyclerView;
     private DrawerAdapter mAdapter;
     private List<DrawerItem> mDrawerItems;
-    private Toolbar mToolbar;
-    private ActionBarDrawerToggle mDrawerToggle;
     private TextView mTvResult;
-    private  int mPositionSelected = -1;
+    private int mPositionSelected = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function);
-
         mTvResult = (TextView) findViewById(R.id.tvResult);
         mDrawerItems = new ArrayList<>();
         mDrawerItems.add(new DrawerItem(R.mipmap.ic_feed, getString(R.string.feed)));
@@ -44,18 +45,18 @@ public class MainActivity extends AppCompatActivity {
         mDrawerItems.add(new DrawerItem(R.mipmap.ic_map, getString(R.string.map)));
         mDrawerItems.add(new DrawerItem(R.mipmap.ic_chat, getString(R.string.chat)));
         mDrawerItems.add(new DrawerItem(R.mipmap.ic_setting, getString(R.string.setting)));
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_funtion);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview_function);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        mRecyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
         mAdapter = new DrawerAdapter(mDrawerItems);
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
         navigation();
         mAdapter.setOnItemClickListener(new DrawerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick( int position) {
+            public void onItemClick(int position) {
                 mTvResult.setText(mDrawerItems.get(position).getName());
                 mDrawerLayout.closeDrawers();
-                if(mPositionSelected>=0){
+                if (mPositionSelected >= 0) {
                     mDrawerItems.get(mPositionSelected).setState(false);
                 }
                 mPositionSelected = position;
@@ -66,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void navigation() {
-        mToolbar = (Toolbar) findViewById(R.id.toolBar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.app_name, R.string.app_name) {
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
             }
@@ -81,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 super.onDrawerOpened(drawerView);
             }
         };
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerToggle.syncState();
+        mDrawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerToggle.syncState();
     }
 }

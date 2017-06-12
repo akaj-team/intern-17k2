@@ -1,9 +1,12 @@
 package vn.asiantech.internship.drawerlayout.model;
 
 /**
- * Created by sony on 12/06/2017.
+ * Used as a object.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-12
  */
-
 public class DrawerItem {
     private String name;
     private int image;

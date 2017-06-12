@@ -9,31 +9,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.asiantech.internship.R;
 import vn.asiantech.internship.drawerlayout.model.DrawerItem;
 
-
 /**
- * Created by sony on 12/06/2017.
+ * Used to collect and display data to the View.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-12
  */
-
 public class DrawerAdapter extends RecyclerView.Adapter {
     private List<DrawerItem> mDrawerItems = new ArrayList<>();
-    private  OnItemClickListener mListener;
-    public static final int TYPE_HEAD = 0;
-    public static final int TYPE_LIST = 1;
+    private OnItemClickListener mListener;
+    private static final int TYPE_HEAD = 0;
+    private static final int TYPE_LIST = 1;
 
     public DrawerAdapter(List<DrawerItem> drawerItems) {
         this.mDrawerItems = drawerItems;
     }
 
     public interface OnItemClickListener {
-        void onItemClick( int position);
+        void onItemClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -73,10 +75,10 @@ public class DrawerAdapter extends RecyclerView.Adapter {
             MyViewHolder myViewHolder = (MyViewHolder) holder;
             myViewHolder.mTvName.setText(mDrawerItems.get(position - 1).getName());
             myViewHolder.mImgIcon.setImageResource(mDrawerItems.get(position - 1).getImage());
-           if (mDrawerItems.get(position - 1).isState()) {
-                myViewHolder.mLnItem.setBackgroundColor(ContextCompat.getColor(myViewHolder.itemView.getContext(),R.color.colorGreyDark));
+            if (mDrawerItems.get(position - 1).isState()) {
+                myViewHolder.mLnItem.setBackgroundColor(ContextCompat.getColor(myViewHolder.itemView.getContext(), R.color.colorGreyDark));
             } else {
-                myViewHolder.mLnItem.setBackgroundColor(ContextCompat.getColor(myViewHolder.itemView.getContext(),R.color.colorGreyLight));
+                myViewHolder.mLnItem.setBackgroundColor(ContextCompat.getColor(myViewHolder.itemView.getContext(), R.color.colorGreyLight));
             }
         }
     }
@@ -86,12 +88,15 @@ public class DrawerAdapter extends RecyclerView.Adapter {
         return mDrawerItems.size() + 1;
     }
 
-    public  class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView mTvName;
-        ImageView mImgIcon;
-        LinearLayout mLnItem;
+    /**
+     * Used to register for DrawerItem in item of drawerlayout
+     */
+    private class MyViewHolder extends RecyclerView.ViewHolder {
+        private final TextView mTvName;
+        private final ImageView mImgIcon;
+        private final LinearLayout mLnItem;
 
-        public MyViewHolder(final View itemView) {
+        private MyViewHolder(final View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mImgIcon = (ImageView) itemView.findViewById(R.id.imgIcon);
@@ -100,17 +105,20 @@ public class DrawerAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if (mListener != null)
-                        mListener.onItemClick( getLayoutPosition()-1);
+                        mListener.onItemClick(getLayoutPosition() - 1);
                 }
             });
         }
     }
 
-    public static class MyViewHeader extends RecyclerView.ViewHolder {
-        ImageView mImgAvata;
-        ImageView mImgBackground;
+    /**
+     * Used to register for DrawerItem in header of drawerlayout
+     */
+    private static class MyViewHeader extends RecyclerView.ViewHolder {
+        private final ImageView mImgAvata;
+        private final ImageView mImgBackground;
 
-        public MyViewHeader(final View itemView) {
+        private MyViewHeader(final View itemView) {
             super(itemView);
             mImgAvata = (ImageView) itemView.findViewById(R.id.imgAvata);
             mImgBackground = (ImageView) itemView.findViewById(R.id.imgBackground);

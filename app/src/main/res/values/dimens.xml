@@ -11,6 +11,7 @@
     <dimen name="item.margin_left_right_top">2dp</dimen>
     <dimen name="item.padding">10dp</dimen>
     <dimen name="textview.name.margin_left">5dp</dimen>
-    <dimen name="textview.name.size">20dp</dimen>
+    <dimen name="textview.name.size">20sp</dimen>
     <dimen name="toolbar.height">56dp</dimen>
+    <dimen name="relativelayout.header.height">150dp</dimen>
 </resources>
