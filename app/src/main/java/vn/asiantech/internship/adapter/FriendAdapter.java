@@ -9,8 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.model.User;
@@ -18,11 +17,11 @@ import vn.asiantech.internship.model.User;
 /**
  * Custom adapter to show list friends
  */
-public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHolder> {
-    private ArrayList<User> mUsers;
+public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHolder> {
+    private List<User> mUsers;
     private Context mContext;
 
-    public FriendsAdapter(ArrayList<User> users, Context context) {
+    public FriendAdapter(List<User> users, Context context) {
         this.mUsers = users;
         this.mContext = context;
     }
@@ -47,14 +46,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
             holder.mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_menu_add, 0, 0, 0);
         }
     }
-
     @Override
     public int getItemCount() {
         return mUsers == null ? 0 : mUsers.size();
     }
 
     /**
-     * custom viewholder item for list friend
+     * custom MyViewHolder item for list friend
      */
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;

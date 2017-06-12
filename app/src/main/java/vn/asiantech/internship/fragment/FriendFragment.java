@@ -10,23 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.adapter.FriendsAdapter;
+import vn.asiantech.internship.adapter.FriendAdapter;
 import vn.asiantech.internship.model.User;
 
 /**
  * fragment store list friend
  */
-public class FriendsFragment extends Fragment {
+public class FriendFragment extends Fragment {
     private RecyclerView mRecyclerViewFriend;
-    private ArrayList<User> mUsers;
-    private FriendsAdapter mFriendsAdapter;
+    private List<User> mUsers;
+    private FriendAdapter mFriendsAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_friends, container, false);
+        View view = inflater.inflate(R.layout.fragment_friend, container, false);
         mRecyclerViewFriend = (RecyclerView) view.findViewById(R.id.recyclerViewFriend);
         mUsers = new ArrayList<>();
         mUsers.add(new User("Anh A", true));
@@ -43,7 +44,7 @@ public class FriendsFragment extends Fragment {
         mUsers.add(new User("Anh E", false));
         mUsers.add(new User("Anh F", false));
         mUsers.add(new User("Anh E", false));
-        mFriendsAdapter = new FriendsAdapter(mUsers, getActivity());
+        mFriendsAdapter = new FriendAdapter(mUsers, getActivity());
         mRecyclerViewFriend.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerViewFriend.setAdapter(mFriendsAdapter);
         return view;

@@ -9,10 +9,10 @@ import vn.asiantech.internship.R;
 /**
  * activity have fragment friend
  */
-public class FriendsActivity extends AppCompatActivity {
+public class FriendActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friends);
+        setContentView(R.layout.activity_friend);
     }
 }
