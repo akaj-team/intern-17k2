@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.List;
+
 import vn.asiantech.internship.R;
 
 /**
@@ -57,16 +59,12 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
      */
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvFriendName;
-        private TextView mTvFriendDes;
-        private ImageView mImageView;
         private Button mBtnAdd;
         private boolean mIsFriend;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             mTvFriendName = (TextView) itemView.findViewById(R.id.tvUserName);
-            mTvFriendDes = (TextView) itemView.findViewById(R.id.tvDescription);
-            mImageView = (ImageView) itemView.findViewById(R.id.imgAvatar);
             mBtnAdd = (Button) itemView.findViewById(R.id.btnAdd);
             mBtnAdd.setOnClickListener(this);
         }
