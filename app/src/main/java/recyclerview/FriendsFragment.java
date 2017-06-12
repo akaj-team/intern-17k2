@@ -29,8 +29,8 @@ public class FriendsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_friend, container);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewListFriend);
         List<User> users = new ArrayList<>();
-        String[] names = getResources().getStringArray(R.array.name);
-        String[] descriptions = getResources().getStringArray(R.array.description);
+        String[] names = getResources().getStringArray(R.array.names);
+        String[] descriptions = getResources().getStringArray(R.array.descriptions);
         for (int i = 0; i < names.length; i++) {
             users.add(new User(names[i], descriptions[i]));
         }

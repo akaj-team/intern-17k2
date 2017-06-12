@@ -3,7 +3,6 @@
     <dimen name="linearlayout_margin_top_bottom">1dp</dimen>
     <dimen name="linearlayout_margin_left_right">2dp</dimen>
     <dimen name="linearlayout_padding">10dp</dimen>
-    <dimen name="view_with">0dp</dimen>
     <dimen name="linearlayout_height">60dp</dimen>
     <dimen name="textview_margin_left">5dp</dimen>
     <dimen name="linear_height">60dp</dimen>

@@ -51,7 +51,6 @@ class FriendsAdapter extends RecyclerView.Adapter {
         return mUsers.size();
     }
 
-
     /**
      * MyViewHolder register for user.
      *
