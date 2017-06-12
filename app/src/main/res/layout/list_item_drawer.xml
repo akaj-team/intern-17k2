@@ -2,7 +2,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:padding="@dimen/paddingSomeThing"
+    android:background="@drawable/bg_item"
+    android:layout_height="45dp">
 
     <ImageView
         android:id="@+id/imgArrow"
@@ -13,8 +15,15 @@
     <TextView
         android:id="@+id/tvName"
         android:layout_width="0dp"
+        android:textSize="@dimen/textSizeItem"
         android:textColor="@color/colorBlack"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginSomething"
         android:text="@string/app_name"
         app:layout_constraintStart_toEndOf="@id/imgArrow" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorItemChoise"
+        app:layout_constraintTop_toBottomOf="@id/tvName" />
 </android.support.constraint.ConstraintLayout>

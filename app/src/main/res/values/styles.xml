@@ -14,12 +14,12 @@
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">@dimen/paddingSomeThing</item>
-        <item name="android:textSize">@dimen/textAuthorSize</item>
+        <item name="android:textSize">@dimen/textSizeAuthor</item>
     </style>
 
     <style name="TextHeadStyle">
         <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:textSize">@dimen/textAuthorSize</item>
+        <item name="android:textSize">@dimen/textSizeAuthor</item>
         <item name="android:textStyle">bold</item>
     </style>
 
