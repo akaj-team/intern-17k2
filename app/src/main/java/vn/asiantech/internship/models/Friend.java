@@ -3,7 +3,6 @@ package vn.asiantech.internship.models;
 /**
  * Created by root on 6/9/17.
  */
-
 public class Friend {
     private int idFriend;
     private String nameFriend;

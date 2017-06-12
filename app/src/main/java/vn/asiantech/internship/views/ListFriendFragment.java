@@ -7,17 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 import vn.asiantech.internship.models.Friend;
 import vn.asiantech.internship.models.ListFriendAdapter;
 import vn.asiantech.internship.R;
 
 public class ListFriendFragment extends Fragment {
-
 
     private List<Friend> mFriends = new ArrayList<>();
     private ListFriendAdapter mMyAdapter;

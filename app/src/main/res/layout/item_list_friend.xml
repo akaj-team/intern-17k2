@@ -38,7 +38,7 @@
             android:layout_marginLeft="@dimen/marginSomeThings"
             android:layout_toRightOf="@id/imgAvatar"
             android:layout_toLeftOf="@id/btnAdd"
-            android:id="@+id/linearLayout"
+            android:id="@+id/lnParent"
             android:orientation="vertical">
 
             <TextView
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/friendsColorPrimaryDark"
-            android:layout_below="@id/linearLayout"
+            android:layout_below="@id/lnParent"
             android:layout_toRightOf="@id/imgAvatar"/>
     </RelativeLayout>
 </RelativeLayout>

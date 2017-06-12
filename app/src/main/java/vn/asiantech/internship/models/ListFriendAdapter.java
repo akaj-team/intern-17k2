@@ -10,24 +10,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
-import java.util.ArrayList;
 import java.util.List;
-
 import vn.asiantech.internship.R;
 
 /**
  * Created by root on 6/9/17.
  */
-
 public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.MyViewHolder> {
 
     private List<Friend> mFriends;
     private Context mContext;
 
-    public ListFriendAdapter(List<Friend> FriendArrayList, Context context) {
-        this.mFriends = FriendArrayList;
+    public ListFriendAdapter(List<Friend> friends, Context context) {
+        this.mFriends = friends;
         this.mContext = context;
     }
 
@@ -46,19 +41,20 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
         myViewHolder.mTvFriendName.setText(mFriends.get(i).getNameFriend());
         myViewHolder.mIsFriend = mFriends.get(i).isFriend();
         if (mFriends.get(i).isFriend()) {
-            myViewHolder.mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.friends_bg_btn_add_selected));
+            myViewHolder.mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_added_friend));
             myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Friend));
             myViewHolder.mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
         }
     }
-
 
     @Override
     public int getItemCount() {
         return mFriends.size();
     }
 
-
+    /**
+     * Viewhoder class
+     */
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvFriendName;
         private TextView mTvFriendDes;
@@ -89,10 +85,9 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
             }
         }
 
-
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         private void setColor() {
-            mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.friends_bg_btn_add_selected));
+            mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_added_friend));
             mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Friend));
             mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
             mFriends.get(getLayoutPosition()).setFriend(true);
@@ -101,13 +96,11 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         private void unSetColor() {
-            mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.friends_bg_btn_add));
+            mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_add_friend));
             mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Add));
             mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorBorder));
             mFriends.get(getLayoutPosition()).setFriend(false);
             mIsFriend = false;
         }
     }
-
-
 }
