@@ -3,8 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="friend">#F55A9E</color>
-    <color name="add">#ffffff</color>
+    <color name="button_friend.color">#F55A9E</color>
+    <color name="button_add.color">#ffffff</color>
     <color name="recyclerview.background">#F5F5F6</color>
     <color name="frgFriend.background">#818184</color>
     <color name="item_list_friend.background">#F5F5F6</color>

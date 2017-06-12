@@ -2,7 +2,12 @@ package vn.asiantech.internship.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
 import vn.asiantech.internship.R;
+
+/*
+    Activity have FriendFragment
+ */
 
 public class FriendActivity extends AppCompatActivity {
 

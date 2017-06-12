@@ -8,12 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapter.RecyclerViewAdapter;
 import vn.asiantech.internship.model.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    Display list user to RecyclerView
+ */
 public class FriendFragment extends Fragment {
 
     @Nullable

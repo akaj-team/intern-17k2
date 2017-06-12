@@ -10,13 +10,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.model.User;
 
+/*
+    Class RecyclerViewAdapter transfer data and show list data to RecyclerView
+ */
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
-    private List<User> mListUser = new ArrayList<>();
+    private List<User> mUsers = new ArrayList<>();
     private LinearLayout.LayoutParams mLayoutParamFriend;
     private LinearLayout.LayoutParams mLayoutParamAdd;
     private Context mContext;
@@ -25,24 +31,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public RecyclerViewAdapter(Context context, List<User> users) {
         this.mContext = context;
-        this.mListUser = users;
+        this.mUsers = users;
     }
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View itemView = inflater.inflate(R.layout.item_list_friend, parent, false);
-        mLayoutParamFriend = new LinearLayout.LayoutParams(300, 150);
-        mLayoutParamAdd = new LinearLayout.LayoutParams(200, 150);
-        mDrawableChecked = mContext.getDrawable(R.drawable.ic_checked);
-        mDrawableAdd = mContext.getDrawable(R.drawable.ic_plus);
         return new RecyclerViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        holder.mTvName.setText(mListUser.get(position).getName());
-        if (mListUser.get(position).isFriend()) {
+        holder.mTvName.setText(mUsers.get(position).getName());
+        if (mUsers.get(position).isFriend()) {
             holder.mBtnAdd.setText(R.string.friend);
             holder.mBtnAdd.setBackgroundColor(ContextCompat.getColor(mContext, R.color.friend));
             holder.mBtnAdd.setLayoutParams(mLayoutParamFriend);
@@ -57,9 +59,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mListUser.size();
+        return mUsers.size();
     }
 
+    /*
+        Class RecyclerViewHolder register and listen event user click button
+     */
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private Button mBtnAdd;
@@ -68,18 +73,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mBtnAdd = (Button) itemView.findViewById(R.id.btnAdd);
+            mLayoutParamFriend = new LinearLayout.LayoutParams(300, 150);
+            mLayoutParamAdd = new LinearLayout.LayoutParams(200, 150);
+            mDrawableChecked = mContext.getDrawable(R.drawable.ic_checked);
+            mDrawableAdd = mContext.getDrawable(R.drawable.ic_plus);
             mBtnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mListUser.get(getAdapterPosition()).isFriend()) {
+                    if (mUsers.get(getAdapterPosition()).isFriend()) {
                         mBtnAdd.setText(R.string.add);
-                        mListUser.get(getAdapterPosition()).setFriend(false);
+                        mUsers.get(getAdapterPosition()).setFriend(false);
                         mBtnAdd.setBackgroundColor(ContextCompat.getColor(mContext, R.color.add));
                         mBtnAdd.setLayoutParams(mLayoutParamAdd);
                         mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(mDrawableAdd, null, null, null);
                     } else {
                         mBtnAdd.setText(R.string.friend);
-                        mListUser.get(getAdapterPosition()).setFriend(true);
+                        mUsers.get(getAdapterPosition()).setFriend(true);
                         mBtnAdd.setBackgroundColor(ContextCompat.getColor(mContext, R.color.friend));
                         mBtnAdd.setLayoutParams(mLayoutParamFriend);
                         mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(mDrawableChecked, null, null, null);

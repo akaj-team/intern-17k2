@@ -1,5 +1,9 @@
 package vn.asiantech.internship.model;
 
+/*
+    Model class get and set data to User object
+ */
+
 public class User {
     String name;
     boolean isFriend;
