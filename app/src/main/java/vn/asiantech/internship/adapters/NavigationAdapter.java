@@ -44,7 +44,6 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
     public void onBindViewHolder(MyViewHolder holder, int position) {
         if (holder.mHolderId==1){
             WallpaperManager wallpaperManager=WallpaperManager.getInstance(mContext);
-            //holder.mLlHeader.setBackground();
             holder.mTvName.setText(mName);
             holder.mTvEmail.setText(mEmail);
         }else{
