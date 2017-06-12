@@ -12,19 +12,15 @@ import android.widget.TextView;
  */
 public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.MyViewHolder> {
 
-    private Context mContext;
-    private int mResource;
     private String[] mItems;
 
-    public DrawerAdapter(Context context, int resource, String[] items) {
-        this.mContext = context;
-        this.mResource = resource;
+    public DrawerAdapter(String[] items) {
         this.mItems = items;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(mContext).inflate(mResource, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_drawer, viewGroup, false);
         return new MyViewHolder(v);
     }
 
@@ -39,7 +35,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
+        private TextView mTextView;
         public MyViewHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.tvName);

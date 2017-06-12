@@ -32,8 +32,7 @@ public class DrawerFragment extends Fragment {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.rvDrawer);
 
         mListDrawer = getResources().getStringArray(R.array.listDrawer);
-        mRecyclerView.setAdapter(new DrawerAdapter(getContext(),
-                R.layout.list_item_drawer, mListDrawer));
+        mRecyclerView.setAdapter(new DrawerAdapter(mListDrawer));
 
         return v;
     }
