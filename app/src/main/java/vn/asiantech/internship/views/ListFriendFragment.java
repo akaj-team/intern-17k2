@@ -13,6 +13,9 @@ import vn.asiantech.internship.models.Friend;
 import vn.asiantech.internship.models.ListFriendAdapter;
 import vn.asiantech.internship.R;
 
+/**
+ * Created by root on 6/9/17.
+ */
 public class ListFriendFragment extends Fragment {
 
     private List<Friend> mFriends = new ArrayList<>();
