@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecyclerActivity">
+    tools:context=".RecycleViewrActivity">
 
     <fragment
-        android:id="@+id/fragmentInformation"
+        android:id="@+id/fragmentFriend"
         android:name="vn.asiantech.internship.FriendFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

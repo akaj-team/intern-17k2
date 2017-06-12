@@ -10,11 +10,12 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Copyright © 2016 AsianTech inc.
  * Created by DatBui on 10/06/2017.
  */
-public class FriendFragment extends Fragment{
+public class FriendFragment extends Fragment {
 
     public FriendFragment() {
         // Required empty public constructor
@@ -38,14 +39,12 @@ public class FriendFragment extends Fragment{
         friendList.add(new Friend("Linh", false));
 
         LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
-        RecyclerView RecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        RecyclerView.setLayoutManager(manager);
-        // Our classic custom adapter.
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(manager);
+        // Our classic custom Adapter.
 
-        RecyclerAdapter Adapter = new RecyclerAdapter(friendList);
-        RecyclerView.setAdapter(Adapter);
-        Adapter.notifyDataSetChanged();
-
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(friendList);
+        recyclerView.setAdapter(adapter);
         return view;
     }
 }

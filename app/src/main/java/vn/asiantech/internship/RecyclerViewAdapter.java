@@ -14,16 +14,16 @@ import java.util.List;
  * Copyright © 2016 AsianTech inc.
  * Created by DatBui on 10/06/2017.
  */
-class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHolder> {
+class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyHolder> {
     private List<Friend> mFriendList;
 
-    RecyclerAdapter(List<Friend> FriendList) {
-        this.mFriendList = FriendList;
+    RecyclerViewAdapter(List<Friend> friendList) {
+        this.mFriendList = friendList;
     }
 
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_fragment_friend, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_friend, parent, false);
         return new MyHolder(v);
     }
 
@@ -50,8 +50,8 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHolder> {
     }
 
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView mTvName;
-        Button btnAdd;
+        private TextView mTvName;
+        private Button btnAdd;
 
         MyHolder(View itemView) {
             super(itemView);
