@@ -5,6 +5,13 @@ import android.os.Bundle;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Activity contain Fragment to display RecyclerView
+ *
+ * @author at-HoaVo
+ * @version 1.0
+ * @since 2017-6-12
+ */
 public class FriendsActivity extends AppCompatActivity {
 
     @Override

@@ -14,6 +14,13 @@ import java.util.Collections;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Fragment contain RecyclerView
+ *
+ * @author at-HoaVo
+ * @version 1.0
+ * @since 2017-6-12
+ */
 public class FriendsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private ArrayList<String> mUsers = new ArrayList<>();

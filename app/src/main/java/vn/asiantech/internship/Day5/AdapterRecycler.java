@@ -11,6 +11,13 @@ import java.util.ArrayList;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Use to create a RecyclerView
+ *
+ * @author at-HoaVo
+ * @version 1.0
+ * @since 2017-6-12
+ */
 class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewHoder> {
     private ArrayList<String> mFriends;
 
@@ -46,6 +53,9 @@ class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewH
         return mFriends.size();
     }
 
+    /**
+     * Use to create a RecyclerViewHoder
+     */
     class RecyclerViewHoder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private Button mBtnAdd;
