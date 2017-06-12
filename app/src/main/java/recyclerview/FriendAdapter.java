@@ -53,10 +53,6 @@ class FriendAdapter extends RecyclerView.Adapter {
 
     /**
      * MyViewHolder register for user.
-     *
-     * @author at-HangTran
-     * @version 1.0
-     * @since 2017-6-9
      */
     private class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTvName;
