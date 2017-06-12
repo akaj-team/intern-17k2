@@ -12,7 +12,6 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-9
  */
-
 public class FriendsActivity extends AppCompatActivity {
 
     @Override

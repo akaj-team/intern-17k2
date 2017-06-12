@@ -3,7 +3,7 @@
     <string name="image.description">person</string>
     <string name="recycleview.textview.name">Name:</string>
     <string name="recycleview.textview.description">Desciption:</string>
-    <string-array name="name">
+    <string-array name="names">
         <item>Nguyễn Văn A</item>
         <item>Nguyễn Văn B</item>
         <item>Nguyễn Văn C</item>
@@ -15,7 +15,7 @@
         <item>Nguyễn Văn I</item>
         <item>Nguyễn Văn J</item>
     </string-array>
-    <string-array name="description">
+    <string-array name="descriptions">
         <item>24 tuổi,Quảng Nam</item>
         <item>25 tuổi,Quảng Bình</item>
         <item>30 tuổi,Quảng Trị</item>

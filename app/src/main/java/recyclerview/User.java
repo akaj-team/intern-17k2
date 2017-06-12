@@ -7,7 +7,6 @@ package recyclerview;
  * @version 1.0
  * @since 2017-6-9
  */
-
 class User {
     private String name;
     private String description;

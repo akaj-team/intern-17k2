@@ -19,10 +19,9 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-9
  */
-
 class AdapterRecyclerView extends RecyclerView.Adapter {
     private List<String> mNames = new ArrayList<>();
-    public static final String TAG = "Log position item";
+    public static final String TAG = "Log position";
 
     AdapterRecyclerView(List<String> names) {
         this.mNames = names;
@@ -31,7 +30,7 @@ class AdapterRecyclerView extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.item, parent, false);
+        View itemView = inflater.inflate(R.layout.item_list_demo, parent, false);
         return new RecyclerViewHolder(itemView);
     }
 
@@ -46,6 +45,13 @@ class AdapterRecyclerView extends RecyclerView.Adapter {
         return mNames.size();
     }
 
+    /**
+     * MyViewHolder register for user.
+     *
+     * @author at-HangTran
+     * @version 1.0
+     * @since 2017-6-9
+     */
     private static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTvName;
 

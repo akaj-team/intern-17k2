@@ -18,7 +18,6 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-9
  */
-
 class FriendsAdapter extends RecyclerView.Adapter {
     private final List<User> mUsers;
 
@@ -39,10 +38,10 @@ class FriendsAdapter extends RecyclerView.Adapter {
         myViewHolder.mTvName.setText(mUsers.get(position).getName());
         myViewHolder.mTvDescription.setText(mUsers.get(position).getDescription());
         if (position == 0 || position == 1) {
-            setBackgroundAdd(myViewHolder.mBtFriend);
+            setBackgroundAdd(myViewHolder.mImgBtnFriend);
             mUsers.get(position).setState(true);
         } else {
-            setBackgroundFriend(myViewHolder.mBtFriend);
+            setBackgroundFriend(myViewHolder.mImgBtnFriend);
             mUsers.get(position).setState(false);
         }
     }
@@ -52,25 +51,33 @@ class FriendsAdapter extends RecyclerView.Adapter {
         return mUsers.size();
     }
 
+
+    /**
+     * MyViewHolder register for user.
+     *
+     * @author at-HangTran
+     * @version 1.0
+     * @since 2017-6-9
+     */
     private class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTvName;
         private final TextView mTvDescription;
-        private final ImageButton mBtFriend;
+        private final ImageButton mImgBtnFriend;
 
         MyViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
-            mBtFriend = (ImageButton) itemView.findViewById(R.id.imgBtnFriend);
-            mBtFriend.setOnClickListener(new View.OnClickListener() {
+            mImgBtnFriend = (ImageButton) itemView.findViewById(R.id.imgBtnFriend);
+            mImgBtnFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mUsers.get(getAdapterPosition()).isState()) {
                         mUsers.get(getAdapterPosition()).setState(false);
-                        setBackgroundAdd(mBtFriend);
+                        setBackgroundAdd(mImgBtnFriend);
                     } else {
                         mUsers.get(getAdapterPosition()).setState(true);
-                        setBackgroundFriend(mBtFriend);
+                        setBackgroundFriend(mImgBtnFriend);
                     }
                 }
             });
