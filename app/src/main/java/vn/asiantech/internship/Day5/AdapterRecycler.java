@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.Day5;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,11 +9,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewHoder> {
-    private ArrayList<String> mLists;
+import vn.asiantech.internship.R;
 
-    AdapterRecycler(ArrayList<String> list) {
-        this.mLists = list;
+class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewHoder> {
+    private ArrayList<String> mFriends;
+
+    AdapterRecycler(ArrayList<String> friends) {
+        this.mFriends = friends;
     }
 
     @Override
@@ -29,8 +31,8 @@ class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewH
 
     @Override
     public void onBindViewHolder(RecyclerViewHoder holder, int position) {
-        holder.tvName.setText(mLists.get(position));
-        if (position == 0 || position == 1) {
+        holder.tvName.setText(mFriends.get(position));
+        if (position <= 1) {
             holder.btnAdd.setVisibility(View.INVISIBLE);
             holder.btnFriends.setVisibility(View.VISIBLE);
         } else {
@@ -41,7 +43,7 @@ class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewH
 
     @Override
     public int getItemCount() {
-        return mLists.size();
+        return mFriends.size();
     }
 
     class RecyclerViewHoder extends RecyclerView.ViewHolder {

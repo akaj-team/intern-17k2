@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.Day5;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import vn.asiantech.internship.R;
 
 public class FriendsFragment extends Fragment {
     private RecyclerView mRecyclerView;
