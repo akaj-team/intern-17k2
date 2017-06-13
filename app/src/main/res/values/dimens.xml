@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="avatarHeight">64dp</dimen>
+    <dimen name="avatarHeight">70dp</dimen>
     <dimen name="textSizeAuthor">16sp</dimen>
     <dimen name="textSizeItem">20sp</dimen>
     <dimen name="marginSomething">5dp</dimen>

@@ -14,10 +14,10 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
+        android:id="@+id/imgAvatar"
         android:layout_width="@dimen/avatarHeight"
         android:layout_height="@dimen/avatarHeight"
         app:layout_constraintBottom_toTopOf="@id/tvAuthorName"
-        android:paddingLeft="@dimen/paddingSomeThing"
+        android:padding="@dimen/marginSomething"
         android:src="@mipmap/ic_avatar" />
 </android.support.constraint.ConstraintLayout>
