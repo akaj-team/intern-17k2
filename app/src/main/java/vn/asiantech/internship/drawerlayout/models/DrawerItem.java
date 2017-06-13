@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawerlayout.model;
+package vn.asiantech.internship.drawerlayout.models;
 
 /**
  * Used as a object.
@@ -9,12 +9,10 @@ package vn.asiantech.internship.drawerlayout.model;
  */
 public class DrawerItem {
     private String name;
-    private int image;
     private boolean state = false;
 
-    public DrawerItem(int image, String name) {
+    public DrawerItem(String name) {
         this.name = name;
-        this.image = image;
     }
 
     public String getName() {
@@ -23,14 +21,6 @@ public class DrawerItem {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
     }
 
     public boolean isState() {

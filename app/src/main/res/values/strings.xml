@@ -8,4 +8,8 @@
     <string name="chat">Chat</string>
     <string name="setting">Setting</string>
     <string name="image.description">icon</string>
+    <string name="dialog.title">Choose</string>
+    <string name="dialog.message">What do you want to choose?</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
 </resources>

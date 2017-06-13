@@ -14,4 +14,6 @@
     <dimen name="textview.name.size">20sp</dimen>
     <dimen name="toolbar.height">56dp</dimen>
     <dimen name="relativelayout.header.height">150dp</dimen>
+    <dimen name="image.avata.with_height">100dp</dimen>
+    <dimen name="container.with">200dp</dimen>
 </resources>

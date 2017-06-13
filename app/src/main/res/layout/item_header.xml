@@ -8,14 +8,17 @@
         android:id="@+id/imgBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/image.description" />
+        android:contentDescription="@string/image.description"
+        android:scaleType="centerCrop" />
 
-    <ImageView
-        android:id="@+id/imgAvata"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/crImgAvata"
+        android:layout_width="@dimen/image.avata.with_height"
+        android:layout_height="@dimen/image.avata.with_height"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/image.margin"
         android:layout_marginLeft="@dimen/image.margin"
+        android:layout_marginStart="@dimen/image.margin"
+        android:background="@drawable/bg_avata"
         android:contentDescription="@string/image.description" />
 </RelativeLayout>

@@ -3,19 +3,10 @@
     android:id="@+id/lnItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/item.margin_left_right_top"
-    android:layout_marginRight="@dimen/item.margin_left_right_top"
     android:layout_marginTop="@dimen/item.margin_left_right_top"
     android:background="@drawable/bg_item_list_function"
     android:gravity="center"
     android:padding="@dimen/item.padding">
-
-    <ImageView
-        android:id="@+id/imgIcon"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:contentDescription="@string/image.description" />
 
     <TextView
         android:id="@+id/tvName"
@@ -24,5 +15,6 @@
         android:layout_marginLeft="@dimen/textview.name.margin_left"
         android:layout_marginStart="@dimen/textview.name.margin_left"
         android:layout_weight="8"
+        android:textColor="@color/colorWhite"
         android:textSize="@dimen/textview.name.size" />
 </LinearLayout>

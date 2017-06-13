@@ -1,8 +1,7 @@
-package vn.asiantech.internship.drawerlayout.adapter;
+package vn.asiantech.internship.drawerlayout.ui.leftmenu;
 
 import android.app.WallpaperManager;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mikhaellopez.circularimageview.CircularImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawerlayout.model.DrawerItem;
+import vn.asiantech.internship.drawerlayout.models.DrawerItem;
 
 /**
  * Used to collect and display data to the View.
@@ -34,8 +35,12 @@ public class DrawerAdapter extends RecyclerView.Adapter {
         this.mDrawerItems = drawerItems;
     }
 
+    /**
+     * Use to get click listenner for items in recyclerview
+     */
     public interface OnItemClickListener {
         void onItemClick(int position);
+        void onAvatarClick();
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -65,7 +70,6 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MyViewHeader) {
             MyViewHeader myViewHeader = (MyViewHeader) holder;
-            myViewHeader.mImgAvata.setImageResource(R.mipmap.ic_avata);
             WallpaperManager wallpaperManager = WallpaperManager.getInstance(myViewHeader.mImgBackground.getContext());
             Drawable wallpaperDrawable = wallpaperManager.getDrawable();
             myViewHeader.mImgBackground.setImageDrawable(wallpaperDrawable);
@@ -74,11 +78,10 @@ public class DrawerAdapter extends RecyclerView.Adapter {
         if (holder instanceof MyViewHolder) {
             MyViewHolder myViewHolder = (MyViewHolder) holder;
             myViewHolder.mTvName.setText(mDrawerItems.get(position - 1).getName());
-            myViewHolder.mImgIcon.setImageResource(mDrawerItems.get(position - 1).getImage());
             if (mDrawerItems.get(position - 1).isState()) {
-                myViewHolder.mLnItem.setBackgroundColor(ContextCompat.getColor(myViewHolder.itemView.getContext(), R.color.colorGreyDark));
+                myViewHolder.mLnItem.setBackgroundResource(R.drawable.bg_press_item_list_function);
             } else {
-                myViewHolder.mLnItem.setBackgroundColor(ContextCompat.getColor(myViewHolder.itemView.getContext(), R.color.colorGreyLight));
+                myViewHolder.mLnItem.setBackgroundResource(R.drawable.bg_default_item_list_function);
             }
         }
     }
@@ -93,13 +96,11 @@ public class DrawerAdapter extends RecyclerView.Adapter {
      */
     private class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTvName;
-        private final ImageView mImgIcon;
         private final LinearLayout mLnItem;
 
         private MyViewHolder(final View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
-            mImgIcon = (ImageView) itemView.findViewById(R.id.imgIcon);
             mLnItem = (LinearLayout) itemView.findViewById(R.id.lnItem);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -114,14 +115,22 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     /**
      * Used to register for DrawerItem in header of drawerlayout
      */
-    private static class MyViewHeader extends RecyclerView.ViewHolder {
-        private final ImageView mImgAvata;
+    private class MyViewHeader extends RecyclerView.ViewHolder {
+        private final CircularImageView mImgAvata;
         private final ImageView mImgBackground;
 
         private MyViewHeader(final View itemView) {
             super(itemView);
-            mImgAvata = (ImageView) itemView.findViewById(R.id.imgAvata);
+            mImgAvata = (CircularImageView) itemView.findViewById(R.id.crImgAvata);
             mImgBackground = (ImageView) itemView.findViewById(R.id.imgBackground);
+            mImgAvata.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener != null) {
+                        mListener.onAvatarClick();
+                    }
+                }
+            });
         }
     }
 }

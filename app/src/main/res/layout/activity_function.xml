@@ -22,10 +22,10 @@
 
     <FrameLayout
         android:id="@+id/frContainer"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/container.with"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/colorWhite">
+        android:background="@color/colorGreyLight">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview_function"
