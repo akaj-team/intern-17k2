@@ -7,7 +7,7 @@
     android:id="@+id/llHeader">
 
     <ImageView
-        android:id="@+id/circleImageView"
+        android:id="@+id/imgUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/imageview.margin_top"

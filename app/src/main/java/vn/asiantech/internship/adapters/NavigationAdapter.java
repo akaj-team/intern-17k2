@@ -2,11 +2,14 @@ package vn.asiantech.internship.adapters;
 
 import android.app.WallpaperManager;
 import android.content.Context;
-import android.graphics.Color;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,18 +19,24 @@ import vn.asiantech.internship.R;
  * Created by Administrator on 6/12/2017.
  */
 public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public static final int KEY_GALLERY = 0;
+    public static final int KEY_CAMERA = 1;
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
     private String[] mTitle;
     private String mName;
     private String mEmail;
     private Context mContext;
+    private OnClickItem mOnClickItem;
+    private Bitmap mBitmap;
 
-    public NavigationAdapter(Context context, String[] title, String name, String email) {
+    public NavigationAdapter(Context context, String[] title, String name, String email, OnClickItem onClickItem, Bitmap bitmap) {
         mTitle = title;
         mName = name;
         mEmail = email;
         mContext = context;
+        mOnClickItem = onClickItem;
+        mBitmap = bitmap;
     }
 
     @Override
@@ -48,20 +57,21 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof HeaderViewHolder){
-            HeaderViewHolder headerViewHolder=(HeaderViewHolder) holder;
+        if (holder instanceof HeaderViewHolder) {
+            HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.mTvName.setText(mName);
             headerViewHolder.mTvEmail.setText(mEmail);
-            WallpaperManager wallpaperManager=WallpaperManager.getInstance(mContext);
+            headerViewHolder.mImgUser.setImageBitmap(mBitmap);
+            WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
             headerViewHolder.mLlHeader.setBackgroundDrawable(wallpaperManager.getDrawable());
-        }else {
-            ItemViewHolder itemViewHolder=(ItemViewHolder) holder;
-            itemViewHolder.mTvItem.setText(mTitle[position-1]);
-            if (itemViewHolder.mLlItem.isSelected()){
-                itemViewHolder.mLlItem.setBackgroundColor(Color.GREEN);
-            }else{
-                itemViewHolder.mLlItem.setBackgroundColor(Color.parseColor("#87888C"));
-            }
+        } else {
+            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            itemViewHolder.mTvItem.setText(mTitle[position - 1]);
+//            if (itemViewHolder.mLlItem.isSelected()) {
+//                itemViewHolder.mLlItem.setBackgroundColor(Color.GREEN);
+//            } else {
+//                itemViewHolder.mLlItem.setBackgroundColor(Color.parseColor("#87888C"));
+//            }
         }
     }
 
@@ -73,40 +83,67 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return TYPE_ITEM;
     }
 
-    public static class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvItem;
         private LinearLayout mLlItem;
 
-        public ItemViewHolder(View itemView) {
+        private ItemViewHolder(View itemView) {
             super(itemView);
             mTvItem = (TextView) itemView.findViewById(R.id.tvItem);
-            mLlItem=(LinearLayout) itemView.findViewById(R.id.llItem);
+            mLlItem = (LinearLayout) itemView.findViewById(R.id.llItem);
             mLlItem.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.llItem:
-                    ((OnClickItem)v.getContext()).click(getAdapterPosition()-1);
+                    mOnClickItem.click(getAdapterPosition() - 1);
                     break;
             }
         }
     }
 
-    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
         private TextView mTvEmail;
         private LinearLayout mLlHeader;
+        private ImageView mImgUser;
 
-        public HeaderViewHolder(View itemView) {
+        private HeaderViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvEmail = (TextView) itemView.findViewById(R.id.tvEmail);
+            mImgUser = (ImageView) itemView.findViewById(R.id.imgUser);
             mLlHeader = (LinearLayout) itemView.findViewById(R.id.llHeader);
+            mImgUser.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setMessage("Choose photo from:")
+                    .setCancelable(true)
+                    .setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mOnClickItem.onClickAvatar(KEY_CAMERA);
+                        }
+                    })
+                    .setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mOnClickItem.onClickAvatar(KEY_GALLERY);
+                        }
+                    });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
     }
-    public interface OnClickItem{
+
+    public interface OnClickItem {
         void click(int position);
+
+        void onClickAvatar(int key);
     }
 }
