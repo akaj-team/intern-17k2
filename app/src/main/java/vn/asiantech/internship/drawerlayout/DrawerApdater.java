@@ -55,7 +55,7 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
+        if (mItems.get(position) instanceof User) {
             return TYPE_HEADER;
         }
         return TYPE_ITEM;
@@ -136,20 +136,26 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             switch (v.getId()) {
                 case R.id.imgAvatar:
                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    builder.setPositiveButton("Garelly", new DialogInterface.OnClickListener() {
+                    builder.setTitle("Choose action").setItems(R.array.pick_image_chooser, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            mListener.onAvatarClick(MainActivity.REQUEST_CODE_GARELLY);
-                            dialog.dismiss();
+                            switch (which) {
+                                case 0:
+                                    mListener.onAvatarClick(MainActivity.REQUEST_CODE_GARELLY);
+                                    break;
+                                case 1:
+                                    mListener.onAvatarClick(MainActivity.REQUEST_CODE_CAMERA);
+                                    break;
+                                default:
+                                    dialog.dismiss();
+                            }
                         }
-                    }).setNegativeButton("Camera", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            mListener.onAvatarClick(MainActivity.REQUEST_CODE_CAMERA);
                             dialog.dismiss();
                         }
                     });
-                    builder.setMessage("Chọn hành động!");
                     builder.show();
                     break;
             }

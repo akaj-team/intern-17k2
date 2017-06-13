@@ -12,4 +12,8 @@
         <item>Chat</item>
         <item>Settings</item>
     </string-array>
+    <string-array name="pick_image_chooser">
+        <item>Garelly</item>
+        <item>Camera</item>
+    </string-array>
 </resources>

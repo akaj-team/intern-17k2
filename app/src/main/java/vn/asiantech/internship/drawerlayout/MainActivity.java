@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -76,8 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRecyclerView = (RecyclerView) findViewById(R.id.drawerList);
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         setTitle("");
         mTvTitle.setText(R.string.app_name);
         mImgMenu.setOnClickListener(this);
@@ -201,16 +200,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public File savaBitmap(Bitmap bm) {
 
-        String path = "";
         OutputStream fOut = null;
         File sdImageMainDirectory = null;
 
         try {
             File root = new File(Environment.getExternalStorageDirectory()
                     + File.separator + "Camera" + File.separator);
-            root.mkdirs();
             sdImageMainDirectory = new File(root, String.valueOf(Calendar.getInstance().getTimeInMillis()) + ".jpg");
-            path = sdImageMainDirectory.getPath();
             fOut = new FileOutputStream(sdImageMainDirectory);
 
         } catch (Exception e) {
@@ -222,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             bm.compress(Bitmap.CompressFormat.PNG, 100, fOut);
             fOut.flush();
             fOut.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             Toast.makeText(this, "Exception.",
                     Toast.LENGTH_SHORT).show();
         }
