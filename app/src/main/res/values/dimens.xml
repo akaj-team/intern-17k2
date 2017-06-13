@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="recyclerView.layout_width">150dp</dimen>
+    <dimen name="textview.content.textSize">50sp</dimen>
+    <dimen name="imageview.image.layout_height">150dp</dimen>
+    <dimen name="lineaLayout.image_header.layout_height">180dp</dimen>
+    <dimen name="relativeLayout.layout_height.item">40dp</dimen>
+    <dimen name="textview.function.layout_marginLeft">5dp</dimen>
+    <dimen name="textview.border.layout_height">1dp</dimen>
+    <dimen name="toolbar.layout_height">50dp</dimen>
+    <dimen name="imageview.image.layout_width">70dp</dimen>
+    <dimen name="imageview.home.layout_width">70dp</dimen>
+    <dimen name="imageview.home.layout_height">40dp</dimen>
+    <dimen name="textview.title.layout_marginLeft">90dp</dimen>
+    <dimen name="textview.function.padding">10dp</dimen>
+</resources>
