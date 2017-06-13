@@ -19,15 +19,13 @@ public class SecondFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_two,container,false);
+        View view = inflater.inflate(R.layout.fragment_two, container, false);
         Button btnFirstSend = (Button) view.findViewById(R.id.btnFirstSend);
         mTvResult = (TextView) view.findViewById(R.id.tvResult);
         btnFirstSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if(getActivity() instanceof MainActivity){
-                   ((MainActivity)getActivity()).onClick();
-               }
+                ((MainActivity) getActivity()).onClick();
             }
         });
         return view;
