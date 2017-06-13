@@ -25,10 +25,10 @@ import vn.asiantech.internship.drawerlayout.models.DrawerItem;
  * @since 2017-6-12
  */
 public class DrawerAdapter extends RecyclerView.Adapter {
-    private List<DrawerItem> mDrawerItems = new ArrayList<>();
-    private OnItemClickListener mListener;
     private static final int TYPE_HEAD = 0;
     private static final int TYPE_LIST = 1;
+    private List<DrawerItem> mDrawerItems = new ArrayList<>();
+    private OnItemClickListener mListener;
 
     public DrawerAdapter(List<DrawerItem> drawerItems) {
         this.mDrawerItems = drawerItems;
