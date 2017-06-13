@@ -32,7 +32,7 @@ import vn.asiantech.internship.R;
  * create MainActivity
  *
  * @author at-hoavo
- * create on 13/06/2017
+ *         create on 13/06/2017
  */
 public class MainActivity extends AppCompatActivity implements OnRecyclerViewClickListener {
     private List<String> mFunctions = new ArrayList<>();
@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mLinearlayout = (LinearLayout) findViewById(R.id.linearLayoutDrawer);
-        ImageView mImgHome = (ImageView) findViewById(R.id.imgHome);
-        mImgHome.setOnClickListener(new View.OnClickListener() {
+        ImageView imgHome = (ImageView) findViewById(R.id.imgHome);
+        imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
