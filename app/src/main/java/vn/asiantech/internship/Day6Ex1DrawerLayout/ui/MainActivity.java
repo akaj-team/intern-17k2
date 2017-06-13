@@ -32,7 +32,7 @@ import vn.asiantech.internship.R;
  * create MainActivity
  *
  * @author at-hoavo
- *         create on 13/06/2017
+ * create on 13/06/2017
  */
 public class MainActivity extends AppCompatActivity implements OnRecyclerViewClickListener {
     private List<String> mFunctions = new ArrayList<>();

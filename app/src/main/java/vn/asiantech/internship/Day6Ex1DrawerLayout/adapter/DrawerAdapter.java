@@ -54,7 +54,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
         return null;
     }
 
-
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
@@ -113,6 +112,5 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
                 });
             }
         }
-
     }
 }
