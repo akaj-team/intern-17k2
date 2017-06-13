@@ -1,15 +1,17 @@
 package vn.asiantech.internship;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by Thanh Thien on 6/12/17.
- *
+ * Created by Thanh Thien on 6/12/17
+ * Using for Drawer
  */
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -18,10 +20,13 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context mContext;
     private String[] mItems;
     private int mPositionSelected = -1; // mPositionSelected = -1 if nothing select
+    private Bitmap mBitmap;
+    private MainActivity.MainActivityInterface mMainActivityInterface;
 
-    public DrawerAdapter(Context context, String[] items) {
+    public DrawerAdapter(Context context, String[] items, MainActivity.MainActivityInterface mainActivityInterface) {
         this.mItems = items;
         this.mContext = context;
+        this.mMainActivityInterface = mainActivityInterface;
     }
 
     @Override
@@ -55,7 +60,10 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         } else if (viewHolder instanceof MyViewHolderHeader) {
             MyViewHolderHeader myViewHolder = (MyViewHolderHeader) viewHolder;
-            myViewHolder.tvAuthorName.setText(mContext.getString(R.string.app_author));
+            myViewHolder.mTvAuthorName.setText(mContext.getString(R.string.app_author));
+            if (mBitmap != null){
+                myViewHolder.mImgAvatar.setImageBitmap(mBitmap);
+            }
         }
     }
 
@@ -65,11 +73,19 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     *
      * @param positionSelected is a position of item selected
      */
     public void setPositionSelected(int positionSelected) {
         this.mPositionSelected = positionSelected;
+        notifyDataSetChanged();
+    }
+
+    /**
+     *
+     * @param bitmap is link of image
+     */
+    public void setImageAvatar(Bitmap bitmap){
+        this.mBitmap = bitmap;
         notifyDataSetChanged();
     }
 
@@ -87,15 +103,25 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     *  View for header
+     * View for header
      */
     public class MyViewHolderHeader extends RecyclerView.ViewHolder {
 
-        private TextView tvAuthorName;
+        private TextView mTvAuthorName;
+        private ImageView mImgAvatar;
 
-        MyViewHolderHeader(View itemView) {
+        MyViewHolderHeader(final View itemView) {
             super(itemView);
-            tvAuthorName = (TextView) itemView.findViewById(R.id.tvAuthorName);
+            mTvAuthorName = (TextView) itemView.findViewById(R.id.tvAuthorName);
+            mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
+            mImgAvatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mContext instanceof MainActivity) {
+                        ((MainActivity) mContext).showDialogChoice(mMainActivityInterface);
+                    }
+                }
+            });
         }
     }
 }

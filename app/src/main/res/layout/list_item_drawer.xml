@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="@dimen/paddingSomeThing"
-    android:background="@drawable/bg_item"
-    android:layout_height="45dp">
-
-    <ImageView
-        android:id="@+id/imgArrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/vector_arrow_left" />
+    android:layout_height="45dp"
+    android:paddingLeft="13dp"
+    tools:ignore="RtlHardcoded,RtlSymmetry"
+    android:background="@drawable/bg_item">
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="0dp"
-        android:textSize="@dimen/textSizeItem"
-        android:textColor="@color/colorBlack"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/marginSomething"
+        android:paddingEnd="0dp"
+        android:paddingLeft="@dimen/paddingSomeThing"
+        android:paddingRight="0dp"
+        android:paddingStart="@dimen/paddingSomeThing"
         android:text="@string/app_name"
-        app:layout_constraintStart_toEndOf="@id/imgArrow" />
+        android:textColor="@color/colorTextItem"
+        android:textSize="@dimen/textSizeItem"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorItemChoise"
-        app:layout_constraintTop_toBottomOf="@id/tvName" />
+        android:background="@color/colorLine"
+        app:layout_constraintTop_toBottomOf="parent" />
 </android.support.constraint.ConstraintLayout>

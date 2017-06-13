@@ -8,9 +8,22 @@
         <item>Map</item>
         <item>Chat</item>
         <item>Settings</item>
-    </string-array><!-- TODO: Remove or change this placeholder text -->
+    </string-array>
+    <string-array name="Choice">
+        <item>Open Camera</item>
+        <item>Open Libraty</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="app_author">Nguyen Thanh Thien</string>
     <string name="Text_Messages_Navigation_Open">Navigation Open</string>
     <string name="Text_Messages_Navigation_Close">Navigation Close </string>
+    <string name="Button.Text.Open_Camera">Open Camera</string>
+    <string name="Button.Text.Open_Library">Open Library</string>
+    <string name="Dialog_Text_Choice_Select">Choice Select</string>
+    <string name="Error_Message_Error">Error !!</string>
+    <string name="Toast_Go_to_settings_and_enable_permissions">Go to settings and enable permissions</string>
+    <string name="Text_OK">OK</string>
+    <string name="Text_Cancle">Cancle</string>
+    <string name="Text_Tip">SMS and Location Services Permission required for this app</string>
 </resources>

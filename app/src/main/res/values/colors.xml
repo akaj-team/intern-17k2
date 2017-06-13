@@ -1,9 +1,13 @@
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#ECEBED</color>
+    <color name="colorPrimaryDark">#8D8D8F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#fff</color>
+    <color name="colorTextHead">#86868B</color>
+    <color name="colorTextItem">#FFF</color>
     <color name="colorBlack">#000</color>
-    <color name="colorItem">#e6e6e6</color>
+    <color name="colorItem">#86868B</color>
     <color name="colorItemChoise">#5c5c5c</color>
+    <color name="colorMenuArrow">#FC0095</color>
+    <color name="colorLine">#9C9AA1</color>
 </resources>
