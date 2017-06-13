@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * Used to get data from first fragment
+ */
 public class SecondFragment extends Fragment {
 
     private TextView mTvResult;

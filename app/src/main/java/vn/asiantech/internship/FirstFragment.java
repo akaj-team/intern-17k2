@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+/**
+ * Used to enter data
+ */
 public class FirstFragment extends Fragment {
 
     private EditText mEdtInput;
