@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="recyclerview.height">170dp</dimen>
+    <dimen name="tvItem.height">60dp</dimen>
+    <dimen name="nav_header.height">140dp</dimen>
+</resources>

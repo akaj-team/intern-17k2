@@ -5,33 +5,32 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.asiantech.internship.MainActivity">
+    tools:context="vn.asiantech.internship.ui.MainActivity">
 
     <LinearLayout
+        android:id="@+id/llContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:minHeight="?attr/actionBarSize"
-            android:background="@color/colorPrimary" />
+        <include layout="@layout/toolbar" />
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:textSize="30sp"
+            tools:text="Acitivity" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:background="@color/colorDrawerLayout"
-        android:layout_width="240dp"
+        android:layout_width="@dimen/recyclerview.height"
         android:layout_height="match_parent"
-        app:headerLayout="@layout/nav_header_main"
         android:layout_gravity="start"
-        android:choiceMode="singleChoice" />
-
+        android:background="@color/recyclerview.color"
+        android:choiceMode="singleChoice"
+        app:headerLayout="@layout/nav_header_main" />
 </android.support.v4.widget.DrawerLayout>

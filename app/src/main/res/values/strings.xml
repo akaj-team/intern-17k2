@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Internship</string>
     <string name="user_name">user_1001</string>
+    <string name="alertdialog.message">Select picture</string>
+    <string name="alertdialog.gallery">Gallery</string>
+    <string name="alertdialog.camera">Camera</string>
     <string-array name="drawer_item">
         <item>Feed</item>
         <item>Activity</item>
@@ -8,5 +11,9 @@
         <item>Friend</item>
         <item>Chat</item>
         <item>Setting</item>
+    </string-array>
+    <string-array name="dialog_items">
+        <item>Gallery</item>
+        <item>Camera</item>
     </string-array>
 </resources>
