@@ -6,4 +6,5 @@
     <dimen name="marginSomething">5dp</dimen>
     <dimen name="paddingSomeThing">7dp</dimen>
     <dimen name="actionBarHeight">30dp</dimen>
+    <dimen name="sizeLarge">40sp</dimen>
 </resources>

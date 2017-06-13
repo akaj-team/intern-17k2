@@ -6,40 +6,98 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import vn.asiantech.internship.views.DrawerFragment;
 
 /**
  * Created by root on 6/12/17.
  */
-public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.MyViewHolder> {
+public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private String[] mItems;
+    private Context mContext;
+    private int mPositionSelected = -1; // mPositionSelected = -1 if nothing select
+    private final int TYPE_HEAD = 0;
+    private final int TYPE_CONTENT = 1;
 
-    public DrawerAdapter(String[] items) {
+    public DrawerAdapter(Context context, String[] items) {
         this.mItems = items;
+        this.mContext = context;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_drawer, viewGroup, false);
-        return new MyViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
+        switch (getItemViewType(i)) {
+            case TYPE_HEAD:
+                return new MyViewHolderHeader(LayoutInflater.from(mContext).inflate(R.layout.drawer_head, viewGroup, false));
+            default:
+                return new MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.list_item_drawer, viewGroup, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        myViewHolder.mTextView.setText(mItems[i]);
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return TYPE_HEAD;
+        } else {
+            return TYPE_CONTENT;
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+        if (viewHolder instanceof MyViewHolder) {
+            MyViewHolder myViewHolder = (MyViewHolder) viewHolder;
+            myViewHolder.mTextView.setText(mItems[i]);
+            if (i == mPositionSelected) {
+                viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.colorItemChoise));
+            } else {
+                viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.colorItem));
+            }
+        } else if (viewHolder instanceof MyViewHolderHeader) {
+            MyViewHolderHeader myViewHolder = (MyViewHolderHeader) viewHolder;
+            myViewHolder.tvAuthorName.setText(mContext.getString(R.string.app_author));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mItems.length;
+        return mItems.length - 1;
     }
 
+    /**
+     *
+     * @param positionSelected is a position of item selected
+     */
+    public void setPositionSelected(int positionSelected) {
+        this.mPositionSelected = positionSelected;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * ItemView for content list
+     */
     public class MyViewHolder extends RecyclerView.ViewHolder {
+
         private TextView mTextView;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.tvName);
+        }
+    }
 
+    /**
+     * View for header
+     */
+    public class MyViewHolderHeader extends RecyclerView.ViewHolder {
+
+        private TextView tvAuthorName;
+
+        public MyViewHolderHeader(View itemView) {
+            super(itemView);
+            tvAuthorName = (TextView) itemView.findViewById(R.id.tvAuthorName);
         }
     }
 }
