@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="navigation.width">240dp</dimen>
+    <dimen name="navigation.width">300dp</dimen>
     <dimen name="navigation.header.padding">10dp</dimen>
     <dimen name="imageview.margin_top">10dp</dimen>
     <dimen name="textview.size.name">20sp</dimen>
+    <dimen name="recyclerview.padding">10dp</dimen>
+    <dimen name="header.height">130dp</dimen>
 </resources>

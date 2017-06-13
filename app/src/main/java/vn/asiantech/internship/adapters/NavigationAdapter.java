@@ -2,6 +2,8 @@ package vn.asiantech.internship.adapters;
 
 import android.app.WallpaperManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,74 +16,89 @@ import vn.asiantech.internship.R;
 /**
  * Created by Administrator on 6/12/2017.
  */
-public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.MyViewHolder>{
-    private static final int TYPE_HEADER=0;
-    private static final int TYPE_ITEM=0;
+public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final int TYPE_HEADER = 1;
+    private static final int TYPE_ITEM = 0;
     private String[] mTitle;
     private String mName;
     private String mEmail;
     private Context mContext;
 
-    public NavigationAdapter(Context context,String[] title,String name,String email) {
-        mTitle=title;
-        mName=name;
-        mEmail=email;
-        mContext=context;
-    }
-
-    @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType==TYPE_ITEM){
-            View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_navigation,parent,false);
-            return new MyViewHolder(view,viewType);
-        }else{
-            View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.header_navigation,parent,false);
-            return new MyViewHolder(view,viewType);
-        }
-    }
-
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        if (holder.mHolderId==1){
-            WallpaperManager wallpaperManager=WallpaperManager.getInstance(mContext);
-            holder.mTvName.setText(mName);
-            holder.mTvEmail.setText(mEmail);
-        }else{
-            holder.mTvItem.setText(mTitle[position-1]);
-        }
+    public NavigationAdapter(Context context, String[] title, String name, String email) {
+        mTitle = title;
+        mName = name;
+        mEmail = email;
+        mContext = context;
     }
 
     @Override
     public int getItemCount() {
-        return mTitle==null?1:mTitle.length+1;
+        return mTitle == null ? 1 : mTitle.length + 1;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == TYPE_HEADER) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.header_navigation, parent, false);
+            return new HeaderViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_navigation, parent, false);
+            return new ItemViewHolder(view);
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof HeaderViewHolder){
+            HeaderViewHolder headerViewHolder=(HeaderViewHolder) holder;
+            headerViewHolder.mTvName.setText(mName);
+            headerViewHolder.mTvEmail.setText(mEmail);
+            WallpaperManager wallpaperManager=WallpaperManager.getInstance(mContext);
+            headerViewHolder.mLlHeader.setBackgroundDrawable(wallpaperManager.getDrawable());
+        }else {
+            ItemViewHolder itemViewHolder=(ItemViewHolder) holder;
+            itemViewHolder.mTvItem.setText(mTitle[position-1]);
+        }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position==0){
+        if (position == 0) {
             return TYPE_HEADER;
-        }else{
-            return TYPE_ITEM;
+        }
+        return TYPE_ITEM;
+    }
+
+    public static class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private TextView mTvItem;
+        private LinearLayout mLlItem;
+
+        public ItemViewHolder(View itemView) {
+            super(itemView);
+            mTvItem = (TextView) itemView.findViewById(R.id.tvItem);
+            mLlItem=(LinearLayout) itemView.findViewById(R.id.llItem);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.llItem:
+                    mLlItem.setBackgroundColor(Color.GREEN);
+                    break;
+            }
         }
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        private int mHolderId;
-        private TextView mTvItem;
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private TextView mTvEmail;
         private LinearLayout mLlHeader;
-        public MyViewHolder(View itemView, int viewType) {
+
+        public HeaderViewHolder(View itemView) {
             super(itemView);
-            if(viewType==TYPE_HEADER){
-                mLlHeader=(LinearLayout) itemView.findViewById(R.id.llHeader);
-                mTvName=(TextView) itemView.findViewById(R.id.tvName);
-                mTvEmail=(TextView) itemView.findViewById(R.id.tvEmail);
-                mHolderId=1;
-            }else{
-                mTvItem=(TextView) itemView.findViewById(R.id.tvItem);
-                mHolderId=0;
-            }
+            mTvName = (TextView) itemView.findViewById(R.id.tvName);
+            mTvEmail = (TextView) itemView.findViewById(R.id.tvEmail);
+            mLlHeader = (LinearLayout) itemView.findViewById(R.id.llHeader);
         }
     }
 }
