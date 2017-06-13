@@ -1,36 +1,38 @@
 package vn.asiantech.internship.activity;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapters.NavigationAdapter;
-import vn.asiantech.internship.adapters.TouchItem;
 
 /**
  * Created by Administrator on 6/12/2017.
  */
-public class MainActivityDay6 extends AppCompatActivity{
+public class MainActivityDay6 extends AppCompatActivity implements NavigationAdapter.OnClickItem{
     private DrawerLayout mDlMain;
     private String mName;
     private String mEmail;
     private String[] mTitle;
     private TextView mTvShow;
     private RecyclerView mRecyclerView;
+    private LinearLayout mLlContent;
     private NavigationAdapter mNavigationAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar mToolbar;
+    private ImageView mImgMenu;
+    private TextView mTvTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,24 +40,17 @@ public class MainActivityDay6 extends AppCompatActivity{
         setContentView(R.layout.activity_main_day6);
         reference();
         setSupportActionBar(mToolbar);
-        mToolbar.setTitle(R.string.app_name);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        int width = Resources.getSystem().getDisplayMetrics().widthPixels * 2 / 3;
         mNavigationAdapter = new NavigationAdapter(this, mTitle, mName, mEmail);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mNavigationAdapter);
-        mRecyclerView.addOnItemTouchListener(new TouchItem(getApplication(), mRecyclerView, new TouchItem.OnItemClickListener() {
+        mTvTitle.setText(R.string.app_name);
+        mImgMenu.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-
+            public void onClick(View v) {
+                mDlMain.openDrawer(Gravity.START);
             }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
-        }));
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDlMain, mToolbar, R.string.app_name, R.string.app_name) {
+        });
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDlMain, R.string.app_name, R.string.app_name) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -65,24 +60,16 @@ public class MainActivityDay6 extends AppCompatActivity{
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
             }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                mLlContent.setTranslationX(slideOffset * drawerView.getWidth());
+            }
         };
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDlMain.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (mDlMain.isDrawerOpen(GravityCompat.START)) {
-                    mDlMain.closeDrawer(GravityCompat.START);
-                } else {
-                    mDlMain.openDrawer(GravityCompat.START);
-                }
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void reference() {
@@ -93,5 +80,14 @@ public class MainActivityDay6 extends AppCompatActivity{
         mTvShow = (TextView) findViewById(R.id.tvShow);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mLlContent=(LinearLayout) findViewById(R.id.llContent);
+        mImgMenu=(ImageView) findViewById(R.id.imgMenu);
+        mTvTitle=(TextView) findViewById(R.id.tvTitle);
+    }
+
+    @Override
+    public void click(int position) {
+        mTvShow.setText(mTitle[position]);
+        mDlMain.closeDrawer(Gravity.START);
     }
 }

@@ -3,7 +3,6 @@ package vn.asiantech.internship.adapters;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +57,11 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }else {
             ItemViewHolder itemViewHolder=(ItemViewHolder) holder;
             itemViewHolder.mTvItem.setText(mTitle[position-1]);
+            if (itemViewHolder.mLlItem.isSelected()){
+                itemViewHolder.mLlItem.setBackgroundColor(Color.GREEN);
+            }else{
+                itemViewHolder.mLlItem.setBackgroundColor(Color.parseColor("#87888C"));
+            }
         }
     }
 
@@ -77,13 +81,14 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             super(itemView);
             mTvItem = (TextView) itemView.findViewById(R.id.tvItem);
             mLlItem=(LinearLayout) itemView.findViewById(R.id.llItem);
+            mLlItem.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.llItem:
-                    mLlItem.setBackgroundColor(Color.GREEN);
+                    ((OnClickItem)v.getContext()).click(getAdapterPosition()-1);
                     break;
             }
         }
@@ -100,5 +105,8 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mTvEmail = (TextView) itemView.findViewById(R.id.tvEmail);
             mLlHeader = (LinearLayout) itemView.findViewById(R.id.llHeader);
         }
+    }
+    public interface OnClickItem{
+        void click(int position);
     }
 }
