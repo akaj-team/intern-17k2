@@ -18,10 +18,10 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-12
  */
-class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewHolder> {
+class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
     private List<String> mFriends;
 
-    AdapterRecycler(List<String> friends) {
+    RecyclerViewAdapter(List<String> friends) {
         this.mFriends = friends;
     }
 
@@ -36,10 +36,10 @@ class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewH
         holder.mTvName.setText(mFriends.get(position));
         if (position <= 1) {
             holder.mBtnAdd.setVisibility(View.INVISIBLE);
-            holder.mBtnFriends.setVisibility(View.VISIBLE);
+            holder.mBtnFriend.setVisibility(View.VISIBLE);
         } else {
             holder.mBtnAdd.setVisibility(View.VISIBLE);
-            holder.mBtnFriends.setVisibility(View.INVISIBLE);
+            holder.mBtnFriend.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -54,25 +54,25 @@ class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.RecyclerViewH
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private Button mBtnAdd;
-        private Button mBtnFriends;
+        private Button mBtnFriend;
 
         RecyclerViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mBtnAdd = (Button) itemView.findViewById(R.id.btnAdd);
-            mBtnFriends = (Button) itemView.findViewById(R.id.btnFriend);
+            mBtnFriend = (Button) itemView.findViewById(R.id.btnFriend);
             mBtnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mBtnAdd.setVisibility(View.INVISIBLE);
-                    mBtnFriends.setVisibility(View.VISIBLE);
+                    mBtnFriend.setVisibility(View.VISIBLE);
                 }
             });
-            mBtnFriends.setOnClickListener(new View.OnClickListener() {
+            mBtnFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mBtnAdd.setVisibility(View.VISIBLE);
-                    mBtnFriends.setVisibility(View.INVISIBLE);
+                    mBtnFriend.setVisibility(View.INVISIBLE);
                 }
             });
         }

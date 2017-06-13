@@ -33,7 +33,7 @@ public class FriendFragment extends Fragment {
         for (int i = 0; i < users.length; i++)
             mUsers.add(users[i]);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
-        AdapterRecycler adapter = new AdapterRecycler(mUsers);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mUsers);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(adapter);
