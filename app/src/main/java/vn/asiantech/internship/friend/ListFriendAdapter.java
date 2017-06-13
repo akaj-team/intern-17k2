@@ -36,9 +36,9 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.Fr
 
     @Override
     public void onBindViewHolder(ListFriendAdapter.FriendViewHolder holder, int position) {
-        Friend p = mFriends.get(position);
-        holder.mTvName.setText(p.getName());
-        if (p.isFriend()) {
+        Friend friend = mFriends.get(position);
+        holder.mTvName.setText(friend.getName());
+        if (friend.isFriend()) {
             holder.mBtnFriendShip.setBackgroundResource(R.drawable.bg_friend_button);
             holder.mBtnFriendShip.setText(mContext.getResources().getString(R.string.friend));
             holder.mBtnFriendShip.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_check, 0, 0, 0);
