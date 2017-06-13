@@ -89,7 +89,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     * View for header
+     *  View for header
      */
     public class MyViewHolderHeader extends RecyclerView.ViewHolder {
 
