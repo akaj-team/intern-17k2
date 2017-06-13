@@ -3,4 +3,29 @@
     android:id="@+id/toolBar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/toolbar.height"
-    android:background="@color/colorPink" />
+    android:background="@color/colorGrey">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imgMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_menu"
+            android:contentDescription="@string/image.description" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/linearlayout.height"
+            android:layout_marginLeft="@dimen/linearlayout.height"
+            android:layout_weight="9"
+            android:textColor="@color/colorGreyDark"
+            android:textSize="@dimen/textview.size" />
+    </LinearLayout>
+</android.support.v7.widget.Toolbar>

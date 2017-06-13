@@ -12,4 +12,5 @@
     <string name="dialog.message">What do you want to choose?</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
+    <string name="toolbar.title">DrawerLayout</string>
 </resources>

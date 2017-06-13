@@ -16,4 +16,5 @@
     <dimen name="relativelayout.header.height">150dp</dimen>
     <dimen name="image.avata.with_height">100dp</dimen>
     <dimen name="container.with">200dp</dimen>
+    <dimen name="linearlayout.height">50dp</dimen>
 </resources>

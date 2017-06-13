@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -40,6 +39,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
      */
     public interface OnItemClickListener {
         void onItemClick(int position);
+
         void onAvatarClick();
     }
 
@@ -79,9 +79,9 @@ public class DrawerAdapter extends RecyclerView.Adapter {
             MyViewHolder myViewHolder = (MyViewHolder) holder;
             myViewHolder.mTvName.setText(mDrawerItems.get(position - 1).getName());
             if (mDrawerItems.get(position - 1).isState()) {
-                myViewHolder.mLnItem.setBackgroundResource(R.drawable.bg_press_item_list_function);
+                myViewHolder.mTvName.setBackgroundResource(R.drawable.bg_press_item_list_function);
             } else {
-                myViewHolder.mLnItem.setBackgroundResource(R.drawable.bg_default_item_list_function);
+                myViewHolder.mTvName.setBackgroundResource(R.drawable.bg_default_item_list_function);
             }
         }
     }
@@ -96,12 +96,10 @@ public class DrawerAdapter extends RecyclerView.Adapter {
      */
     private class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTvName;
-        private final LinearLayout mLnItem;
 
         private MyViewHolder(final View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
-            mLnItem = (LinearLayout) itemView.findViewById(R.id.lnItem);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

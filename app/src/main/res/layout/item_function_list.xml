@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/lnItem"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/linearlayout.height"
     android:layout_marginTop="@dimen/item.margin_left_right_top"
-    android:background="@drawable/bg_item_list_function"
     android:gravity="center"
-    android:padding="@dimen/item.padding">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/textview.name.margin_left"
-        android:layout_marginStart="@dimen/textview.name.margin_left"
-        android:layout_weight="8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_item_list_function"
+        android:gravity="center_vertical"
+        android:padding="5dp"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/textview.name.size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGrey" />
 </LinearLayout>
