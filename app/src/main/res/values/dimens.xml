@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textview.textSize.result">30sp</dimen>
+    <dimen name="fragment.layout_width">150dp</dimen>
+    <dimen name="fragment.layout_height.first">80dp</dimen>
+    <dimen name="fragment.layout_marginLeft">90dp</dimen>
+    <dimen name="fragment.layout_marginTop">30dp</dimen>
+    <dimen name="fragment.layout_marginBottom">20dp</dimen>
+    <dimen name="button.layout_marginLeft.ok">120dp</dimen>
+    <dimen name="fragment.layout_height.second">150dp</dimen>
+</resources>
