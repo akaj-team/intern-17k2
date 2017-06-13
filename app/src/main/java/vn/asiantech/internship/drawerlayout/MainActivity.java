@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTvItemChooser;
     private RelativeLayout mRlMainContent;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,22 +79,14 @@ public class MainActivity extends AppCompatActivity {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 invalidateOptionsMenu();
-                TranslateAnimation translateAnimation = new TranslateAnimation(0, drawerView.getWidth(), 0, 0, 0, 0, 0, 0);
-                translateAnimation.setDuration(0);
-                mRlMainContent.setAnimation(translateAnimation);
-                translateAnimation.setFillAfter(true);
-                translateAnimation.start();
+                translateMainContentX(drawerView.getWidth(), 0);
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
-                TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, drawerView.getWidth(), 0, 0, 0, 0);
-                translateAnimation.setDuration(0);
-                mRlMainContent.setAnimation(translateAnimation);
-                translateAnimation.setFillAfter(true);
-                translateAnimation.start();
+                translateMainContentX(0, drawerView.getWidth());
             }
 
             @Override
@@ -105,7 +96,20 @@ public class MainActivity extends AppCompatActivity {
         };
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+    }
 
+    /**
+     * Add animation stranslate for MainContent
+     *
+     * @param fromX : position when start
+     * @param toX   : position when finish
+     */
+    private void translateMainContentX(float fromX, float toX) {
+        TranslateAnimation translateAnimation = new TranslateAnimation(0, fromX, 0, toX, 0, 0, 0, 0);
+        translateAnimation.setDuration(0);
+        mRlMainContent.setAnimation(translateAnimation);
+        translateAnimation.setFillAfter(true);
+        translateAnimation.start();
     }
 
 }

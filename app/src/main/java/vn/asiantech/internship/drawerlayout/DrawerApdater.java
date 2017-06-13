@@ -26,7 +26,7 @@ import vn.asiantech.internship.models.DrawerItem;
 public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
-    private List<vn.asiantech.internship.models.DrawerItem> mItems;
+    private List<DrawerItem> mItems;
     private Context mContext;
     private OnItemClickListener mListener;
 
@@ -75,12 +75,11 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             DrawerLayoutHeader header = (DrawerLayoutHeader) holder;
 
             // TODO: 6/12/2017 dummy data
-            header.mTvName.setText("Cao Van Cuong");
-            header.mTVEmail.setText("vancuong.itf@gmail.com");
+            header.mTvName.setText(R.string.user_name);
+            header.mTVEmail.setText(R.string.email);
             Drawable wallpaper = WallpaperManager.getInstance(mContext).getDrawable();
             header.mImgHeaderBg.setImageBitmap(((BitmapDrawable) wallpaper).getBitmap());
         }
-
     }
 
     @Override
@@ -91,11 +90,11 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * This class used to custom list Item of DrawerLayout
      */
-    public class DrawerLayoutItem extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class DrawerLayoutItem extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
         private LinearLayout mLlBackGround;
 
-        public DrawerLayoutItem(View itemView) {
+        private DrawerLayoutItem(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvItemName);
             mLlBackGround = (LinearLayout) itemView.findViewById(R.id.llItemDrawer);
@@ -113,13 +112,13 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * This class used to custom header of DrawerLayout
      */
-    public class DrawerLayoutHeader extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class DrawerLayoutHeader extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
         private TextView mTVEmail;
         private ImageView mImgItemIcon;
         private ImageView mImgHeaderBg;
 
-        public DrawerLayoutHeader(View itemView) {
+        private DrawerLayoutHeader(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTVEmail = (TextView) itemView.findViewById(R.id.tvEmail);

@@ -15,7 +15,8 @@
             android:id="@+id/tvChooser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding"
             android:textSize="@dimen/bigger_text_size" />
     </RelativeLayout>
 
