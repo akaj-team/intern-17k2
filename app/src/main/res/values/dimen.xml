@@ -2,8 +2,9 @@
 <resources>
     <dimen name="padding">10dp</dimen>
     <dimen name="text_size">16sp</dimen>
-    <dimen name="bigger_text_size">36sp</dimen>
+    <dimen name="bigger_text_size">24sp</dimen>
     <dimen name="avatar_size">76dp</dimen>
     <dimen name="header_height">170dp</dimen>
     <dimen name="item_icon_size">56dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
 </resources>
