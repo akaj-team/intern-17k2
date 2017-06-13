@@ -1,10 +1,11 @@
 package vn.asiantech.internship.activity;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -18,15 +19,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapters.NavigationAdapter;
+import vn.asiantech.internship.models.User;
 
 /**
  * main activity DrawerLayout
@@ -34,28 +33,26 @@ import vn.asiantech.internship.adapters.NavigationAdapter;
 public class MainActivityDay6 extends AppCompatActivity {
     public static final int REQUEST_CODE_CAMERA = 1;
     public static final int REQUEST_CODE_GALLERY = 2;
+    public static final int REQUEST_CODE_CROP = 3;
     private DrawerLayout mDlMain;
-    private String mName;
-    private String mEmail;
     private String[] mTitle;
     private TextView mTvShow;
     private RecyclerView mRecyclerView;
     private LinearLayout mLlContent;
-    private  NavigationAdapter mNavigationAdapter;
+    private NavigationAdapter mNavigationAdapter;
     private Toolbar mToolbar;
     private ImageView mImgMenu;
     private TextView mTvTitle;
-    private Bitmap mBitmap,mBitmap2;
+    private List<User> mUsers;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_day6);
+        mUsers = new ArrayList<>();
         reference();
         setSupportActionBar(mToolbar);
-        mBitmap2= BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round);
-        mBitmap= BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round);
-        mNavigationAdapter = new NavigationAdapter(this, mTitle, mName, mEmail, new NavigationAdapter.OnClickItem() {
+        mNavigationAdapter = new NavigationAdapter(this, mTitle, mUsers, new NavigationAdapter.OnClickItem() {
             @Override
             public void click(int position) {
                 mTvShow.setText(mTitle[position]);
@@ -64,14 +61,14 @@ public class MainActivityDay6 extends AppCompatActivity {
 
             @Override
             public void onClickAvatar(int key) {
-                if(key==NavigationAdapter.KEY_GALLERY){
+                if (key == NavigationAdapter.KEY_GALLERY) {
                     getPhotoGallery();
                 }
-                if(key==NavigationAdapter.KEY_CAMERA){
+                if (key == NavigationAdapter.KEY_CAMERA) {
                     getPhotoCamera();
                 }
             }
-        },mBitmap);
+        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mNavigationAdapter);
         mTvTitle.setText(R.string.app_name);
@@ -105,8 +102,7 @@ public class MainActivityDay6 extends AppCompatActivity {
     }
 
     private void reference() {
-        mName = "LeDuc";
-        mEmail = "leanhduc2015@gmail.com";
+        mUsers.add(new User(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round), "LeDuc", "leanhduc2015"));
         mTitle = new String[]{"Feed", "Activity", "Profile", "Friends", "Map", "Chat", "Settings"};
         mDlMain = (DrawerLayout) findViewById(R.id.dlMain);
         mTvShow = (TextView) findViewById(R.id.tvShow);
@@ -136,36 +132,27 @@ public class MainActivityDay6 extends AppCompatActivity {
         if (null != data) {
             if (requestCode == REQUEST_CODE_GALLERY) {
                 try {
-                    mBitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
-                    Toast.makeText(getApplication(),"1the nao "+(mBitmap==mBitmap2),Toast.LENGTH_LONG).show();
+                    mUsers.get(0).setImgUser(MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             if (requestCode == REQUEST_CODE_CAMERA) {
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-
-                File destination = new File(Environment.getExternalStorageDirectory(),
-                        System.currentTimeMillis() + ".jpg");
-
-                FileOutputStream fo;
-                try {
-                    destination.createNewFile();
-                    fo = new FileOutputStream(destination);
-                    fo.write(bytes.toByteArray());
-                    fo.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                mBitmap=thumbnail;
-                Toast.makeText(getApplication(),"2the nao "+(mBitmap==mBitmap2),Toast.LENGTH_LONG).show();
+                mUsers.get(0).setImgUser(thumbnail);
             }
-            mNavigationAdapter.notifyDataSetChanged();
-            mRecyclerView.setAdapter(mNavigationAdapter);
+            mNavigationAdapter.notifyItemChanged(0);
         }
+    }
+    private void performCrop(Uri picUri){
+        Intent cropIntent=new Intent("com.android.camera.action.CROP");
+        cropIntent.setDataAndType(picUri,"image/*");
+        cropIntent.putExtra("crop", true);
+        cropIntent.putExtra("aspectX", 1);
+        cropIntent.putExtra("aspectY", 1);
+        cropIntent.putExtra("outputX", 128);
+        cropIntent.putExtra("outputY", 128);
+        cropIntent.putExtra("return-data", true);
+        startActivityForResult(cropIntent, REQUEST_CODE_CROP);
     }
 }

@@ -11,7 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/imageview.margin_top"
-        android:src="@mipmap/ic_launcher_round"/>
+        android:src="@mipmap/ic_launcher_round"
+        android:cropToPadding="true"/>
 
     <TextView
         android:id="@+id/tvName"

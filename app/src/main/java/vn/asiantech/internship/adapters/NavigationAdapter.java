@@ -3,7 +3,6 @@ package vn.asiantech.internship.adapters;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.models.User;
 
 /**
  * Created by Administrator on 6/12/2017.
@@ -24,19 +26,15 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
     private String[] mTitle;
-    private String mName;
-    private String mEmail;
     private Context mContext;
     private OnClickItem mOnClickItem;
-    private Bitmap mBitmap;
+    private List<User> mUsers;
 
-    public NavigationAdapter(Context context, String[] title, String name, String email, OnClickItem onClickItem, Bitmap bitmap) {
+    public NavigationAdapter(Context context, String[] title, List<User> users, OnClickItem onClickItem) {
         mTitle = title;
-        mName = name;
-        mEmail = email;
         mContext = context;
         mOnClickItem = onClickItem;
-        mBitmap = bitmap;
+        mUsers=users;
     }
 
     @Override
@@ -59,9 +57,9 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-            headerViewHolder.mTvName.setText(mName);
-            headerViewHolder.mTvEmail.setText(mEmail);
-            headerViewHolder.mImgUser.setImageBitmap(mBitmap);
+            headerViewHolder.mTvName.setText(mUsers.get(0).getName());
+            headerViewHolder.mTvEmail.setText(mUsers.get(0).getEmail());
+            headerViewHolder.mImgUser.setImageBitmap(mUsers.get(0).getImgUser());
             WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
             headerViewHolder.mLlHeader.setBackgroundDrawable(wallpaperManager.getDrawable());
         } else {
