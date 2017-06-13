@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/recyclerview.padding"
+    android:paddingLeft="@dimen/recyclerview.padding"
+    android:orientation="vertical"
+    android:background="@color/item.background">
+    <TextView
+        android:id="@+id/tvItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textview.size.name"
+        tools:text="item"
+        android:textColor="@color/white"
+        android:layout_gravity="center_vertical"
+        android:paddingBottom="@dimen/navigation.header.padding"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line.height"
+        android:background="@color/white"/>
+</LinearLayout>
