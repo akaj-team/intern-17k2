@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import vn.asiantech.internship.DrawerAdapter;
 import vn.asiantech.internship.MainActivity;
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.DrawerAdapter;
 import vn.asiantech.internship.RecyclerItemClickListener;
 
 /**
@@ -19,7 +19,6 @@ import vn.asiantech.internship.RecyclerItemClickListener;
 public class DrawerFragment extends Fragment {
 
     private String[] mListDrawer;
-    private RecyclerView mRecyclerView;
     private DrawerAdapter mDrawerAdapter;
 
     @Override
@@ -33,25 +32,22 @@ public class DrawerFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_drawer, container, false);
 
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.rvDrawer);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.rvDrawer);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mListDrawer = getResources().getStringArray(R.array.listDrawer);
         mDrawerAdapter = new DrawerAdapter(getContext(), mListDrawer);
-        mRecyclerView.setAdapter(mDrawerAdapter);
+        recyclerView.setAdapter(mDrawerAdapter);
 
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                onItemMenuSelect(position);
                 mDrawerAdapter.setPositionSelected(position);
-                MainActivity.closeDrawer();
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).setMainText(mListDrawer[position]);
+                }
             }
         }));
 
         return v;
-    }
-
-    private void onItemMenuSelect(int position) {
-        MainActivity.setMainText(getResources().getStringArray(R.array.listDrawer)[position]);
     }
 }

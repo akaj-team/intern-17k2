@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_width="match_parent"
         android:id="@+id/rlContent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
@@ -16,26 +16,27 @@
             android:layout_height="50dp"
             android:gravity="top"
             android:minHeight="?attr/actionBarSize"
-            android:titleMarginTop="15dp"
             app:layout_collapseMode="pin">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-            <TextView
-                android:id="@+id/txtHead"
-                style="@style/TextHeadStyle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_toRightOf="@id/toolbar"
-                android:background="@color/colorPrimary"
-                android:gravity="center_vertical"
-                android:text="@string/app_name" />
+                <TextView
+                    android:id="@+id/txtHead"
+                    style="@style/TextHeadStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/marginLarge"
+                    android:layout_marginEnd="@dimen/marginLarge"
+                    android:layout_marginRight="@dimen/marginLarge"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:text="@string/app_name" />
+            </android.support.v7.widget.Toolbar>
 
         </RelativeLayout>
 
@@ -51,10 +52,10 @@
     </RelativeLayout>
 
     <fragment
+        android:id="@+id/fragmentDrawer"
         android:name="vn.asiantech.internship.views.DrawerFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragmentDrawer"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start" />
 
 </android.support.v4.widget.DrawerLayout>

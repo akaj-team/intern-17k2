@@ -6,20 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import vn.asiantech.internship.views.DrawerFragment;
 
 /**
- * Created by root on 6/12/17.
+ * Created by Thanh Thien on 6/12/17.
+ *
  */
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private String[] mItems;
-    private Context mContext;
-    private int mPositionSelected = -1; // mPositionSelected = -1 if nothing select
     private final int TYPE_HEAD = 0;
-    private final int TYPE_CONTENT = 1;
+
+    private Context mContext;
+    private String[] mItems;
+    private int mPositionSelected = -1; // mPositionSelected = -1 if nothing select
 
     public DrawerAdapter(Context context, String[] items) {
         this.mItems = items;
@@ -41,7 +39,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (position == 0) {
             return TYPE_HEAD;
         } else {
-            return TYPE_CONTENT;
+            return 1;
         }
     }
 
@@ -82,7 +80,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         private TextView mTextView;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.tvName);
         }
@@ -95,7 +93,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         private TextView tvAuthorName;
 
-        public MyViewHolderHeader(View itemView) {
+        MyViewHolderHeader(View itemView) {
             super(itemView);
             tvAuthorName = (TextView) itemView.findViewById(R.id.tvAuthorName);
         }
