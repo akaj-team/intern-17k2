@@ -16,8 +16,12 @@ import vn.asiantech.internship.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-    Display list user to RecyclerView
+/**
+ * Display list user to RecyclerView
+ *
+ * @author at-haingo
+ * @version 1.0
+ * @since 2017-6-9
  */
 public class FriendFragment extends Fragment {
 

@@ -17,8 +17,12 @@ import java.util.List;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.model.User;
 
-/*
-    Class RecyclerViewAdapter transfer data and show list data to RecyclerView
+/**
+ * Class RecyclerViewAdapter transfer data and show list data to RecyclerView
+ *
+ * @author at-haingo
+ * @version 1.0
+ * @since 2017-6-9
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
     private List<User> mUsers = new ArrayList<>();
@@ -45,12 +49,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mTvName.setText(mUsers.get(position).getName());
         if (mUsers.get(position).isFriend()) {
             holder.mBtnAdd.setText(R.string.friend);
-            holder.mBtnAdd.setBackgroundColor(ContextCompat.getColor(mContext, R.color.friend));
+            holder.mBtnAdd.setBackgroundColor(ContextCompat.getColor(mContext, R.color.button_friend_color));
             holder.mBtnAdd.setLayoutParams(mLayoutParamFriend);
             holder.mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(mDrawableChecked, null, null, null);
         } else {
             holder.mBtnAdd.setText(R.string.add);
-            holder.mBtnAdd.setBackgroundColor(ContextCompat.getColor(mContext, R.color.add));
+            holder.mBtnAdd.setBackgroundColor(ContextCompat.getColor(mContext, R.color.button_add_color));
             holder.mBtnAdd.setLayoutParams(mLayoutParamAdd);
             holder.mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(mDrawableAdd, null, null, null);
         }
@@ -61,8 +65,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mUsers.size();
     }
 
-    /*
-        Class RecyclerViewHolder register and listen event user click button
+    /**
+     * Class RecyclerViewHolder register and listen event user click button
      */
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
@@ -82,13 +86,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     if (mUsers.get(getAdapterPosition()).isFriend()) {
                         mBtnAdd.setText(R.string.add);
                         mUsers.get(getAdapterPosition()).setFriend(false);
-                        mBtnAdd.setBackgroundColor(ContextCompat.getColor(mContext, R.color.add));
+                        mBtnAdd.setBackgroundColor(ContextCompat.getColor(mContext, R.color.button_add_color));
                         mBtnAdd.setLayoutParams(mLayoutParamAdd);
                         mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(mDrawableAdd, null, null, null);
                     } else {
                         mBtnAdd.setText(R.string.friend);
                         mUsers.get(getAdapterPosition()).setFriend(true);
-                        mBtnAdd.setBackgroundColor(ContextCompat.getColor(mContext, R.color.friend));
+                        mBtnAdd.setBackgroundColor(ContextCompat.getColor(mContext, R.color.button_friend_color));
                         mBtnAdd.setLayoutParams(mLayoutParamFriend);
                         mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(mDrawableChecked, null, null, null);
                     }

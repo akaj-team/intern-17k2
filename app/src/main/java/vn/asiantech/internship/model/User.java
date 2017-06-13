@@ -1,7 +1,11 @@
 package vn.asiantech.internship.model;
 
-/*
-    Model class get and set data to User object
+/**
+ * Model class get and set data to User object
+ *
+ * @author at-haingo
+ * @version 1.0
+ * @since 2017-6-9
  */
 public class User {
     String name;
