@@ -83,6 +83,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
         return mFunctions.size();
     }
 
+    /**
+     * create RecyclerViewHolder
+     */
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvFunction;
         private View mItemView;
