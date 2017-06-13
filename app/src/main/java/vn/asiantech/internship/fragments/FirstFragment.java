@@ -18,33 +18,15 @@ import vn.asiantech.internship.R;
  */
 public class FirstFragment extends Fragment {
     private EditText mEdtInput;
-    private String mInput;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_1, container);
         mEdtInput = (EditText) view.findViewById(R.id.edtInput);
-        mEdtInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mInput=mEdtInput.getText().toString();
-            }
-        });
         return view;
     }
 
     public String getData() {
-        return TextUtils.isEmpty(mInput) ? "abc" : mInput;
+        return mEdtInput.getText().toString();
     }
 }

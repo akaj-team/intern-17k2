@@ -5,12 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/fragment1"
-        android:name="vn.asiantech.internship.fragments.FirstFragment"
+    <FrameLayout
+        android:id="@+id/flFrag1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/fragment.height"
-        tools:layout="@layout/fragment_1" />
+        android:layout_height="0dp"
+        android:layout_weight="2"/>
 
     <Button
         android:id="@+id/btnActivity"
@@ -19,11 +18,10 @@
         android:layout_gravity="center"
         android:text="@string/button.text.activity" />
 
-    <fragment
-        android:id="@+id/fragment2"
-        android:name="vn.asiantech.internship.fragments.SecondFragment"
+    <FrameLayout
+        android:id="@+id/flFrag2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/fragment_2" />
+        android:layout_height="0dp"
+        android:layout_weight="2" />
 
 </LinearLayout>
