@@ -3,6 +3,7 @@ package vn.asiantech.internship.drawerlayout;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -13,14 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.DrawerItem;
-import vn.asiantech.internship.models.User;
 
 /**
  * Created by PC on 6/12/2017.
@@ -29,15 +28,20 @@ import vn.asiantech.internship.models.User;
 public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
-    private List<Object> mItems;
+    private List<DrawerItem> mItems;
     private Context mContext;
     private MainActivity.OnItemClickListener mListener;
+    private Bitmap mBitmap;
 
-    public DrawerApdater(Context context, List<Object> items,
+    public DrawerApdater(Context context, List<DrawerItem> items,
                          MainActivity.OnItemClickListener listener) {
         this.mItems = items;
         this.mContext = context;
         mListener = listener;
+    }
+
+    public void setAvtar(Bitmap bitmap) {
+        mBitmap = bitmap;
     }
 
     @Override
@@ -55,7 +59,7 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if (mItems.get(position) instanceof User) {
+        if (position == 0) {
             return TYPE_HEADER;
         }
         return TYPE_ITEM;
@@ -65,7 +69,7 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof DrawerLayoutItem) {
             DrawerLayoutItem item = (DrawerLayoutItem) holder;
-            DrawerItem drawerItem = (DrawerItem) mItems.get(position);
+            DrawerItem drawerItem = mItems.get(position - 1);
             item.mTvName.setText(drawerItem.getName());
             if (drawerItem.isSelected()) {
                 item.mTvName.setTextColor(Color.parseColor(mContext.getResources().getString(R.string.drawerItemChooserTextColor)));
@@ -76,12 +80,11 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         if (holder instanceof DrawerLayoutHeader) {
             DrawerLayoutHeader header = (DrawerLayoutHeader) holder;
-            User user = (User) mItems.get(position);
             // TODO: 6/12/2017 dummy data
-            header.mTvName.setText(user.getName());
-            header.mTVEmail.setText(user.getEmail());
-            if (user.getAvatar() != null) {
-                header.mImgAvatar.setImageBitmap(user.getAvatar());
+            header.mTvName.setText(R.string.user_name);
+            header.mTVEmail.setText(R.string.email);
+            if (mBitmap != null) {
+                header.mImgAvatar.setImageBitmap(mBitmap);
             }
             Drawable wallpaper = WallpaperManager.getInstance(mContext).getDrawable();
             header.mImgHeaderBg.setImageBitmap(((BitmapDrawable) wallpaper).getBitmap());
@@ -90,7 +93,7 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return mItems.size() + 1;
     }
 
     /**
@@ -108,7 +111,7 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @Override
         public void onClick(View v) {
             if (mListener != null) {
-                mListener.onItemClick(getAdapterPosition());
+                mListener.onItemClick(getAdapterPosition() - 1);
             }
         }
     }

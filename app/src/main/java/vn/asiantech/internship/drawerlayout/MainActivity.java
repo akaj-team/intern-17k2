@@ -14,13 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,12 +31,10 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.DrawerItem;
-import vn.asiantech.internship.models.User;
 
 /**
- * Created by PC on 6/12/2017.
+ * Created by VanCuong on 6/12/2017.
  */
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final int REQUEST_CODE_CROP = 22;
@@ -50,92 +43,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView mTvItemChooser;
     private RelativeLayout mRlMainContent;
-    private RecyclerView mRecyclerView;
-    private Toolbar mToolbar;
-    private ImageView mImgMenu;
-    private TextView mTvTitle;
+    private RecyclerView mRececlerView;
     private DrawerLayout mDrawerLayout;
 
     private DrawerApdater mAdapter;
 
-    private List<Object> mDrawerItems;
+    private List<DrawerItem> mDrawerItems;
 
-    private ActionBarDrawerToggle mDrawerToggle;
     private int mMenuItemChosser = -1;
-    private User mUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTvItemChooser = (TextView) findViewById(R.id.tvChooser);
-        mRlMainContent = (RelativeLayout) findViewById(R.id.rlMainContent);
-        mToolbar = (Toolbar) findViewById(R.id.toolBar);
-        mTvTitle = (TextView) findViewById(R.id.tvTitle);
-        mImgMenu = (ImageView) findViewById(R.id.imgMenu);
-        mRecyclerView = (RecyclerView) findViewById(R.id.drawerList);
+        initView();
 
-        setSupportActionBar(mToolbar);
-        setTitle("");
-        mTvTitle.setText(R.string.app_name);
-        mImgMenu.setOnClickListener(this);
-        mDrawerItems = new ArrayList<>();
-        mUser = new User(getResources().getString(R.string.user_name), getResources().getString(R.string.email));
-        mDrawerItems.add(mUser);
-        String[] menuList = getResources().getStringArray(R.array.menu_list);
-        for (String s : menuList) {
-            mDrawerItems.add(new DrawerItem(s));
-        }
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new DrawerApdater(this, mDrawerItems, new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                if (mMenuItemChosser > -1) {
-                    ((DrawerItem) mDrawerItems.get(mMenuItemChosser)).setSelected();
-                }
-                ((DrawerItem) mDrawerItems.get(position)).setSelected();
-                mMenuItemChosser = position;
-                mTvItemChooser.setText(((DrawerItem) mDrawerItems.get(position)).getName());
-                mAdapter.notifyDataSetChanged();
-                mDrawerLayout.closeDrawers();
-            }
+        initAdapter();
 
-            @Override
-            public void onAvatarClick(int chooser) {
-                if (chooser == REQUEST_CODE_GARELLY) {
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType("image/*");
-                    startActivityForResult(intent, REQUEST_CODE_GARELLY);
-                    return;
-                }
-                if (chooser == REQUEST_CODE_CAMERA) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, REQUEST_CODE_CAMERA);
-                }
-            }
-        });
-        mRecyclerView.setAdapter(mAdapter);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
+        initDrawerLayout();
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-                mRlMainContent.setTranslationX(slideOffset * drawerView.getWidth());
-            }
-        };
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
     }
 
     @Override
@@ -155,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case REQUEST_CODE_CROP:
                     Bitmap bm = data.getExtras().getParcelable("data");
-                    mUser.setAvatar(bm);
+                    mAdapter.setAvtar(bm);
                     mAdapter.notifyDataSetChanged();
                     break;
             }
@@ -223,6 +150,80 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.LENGTH_SHORT).show();
         }
         return sdImageMainDirectory;
+    }
+
+    public void initView() {
+        mTvItemChooser = (TextView) findViewById(R.id.tvChooser);
+        mRlMainContent = (RelativeLayout) findViewById(R.id.rlMainContent);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
+        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
+        ImageView imgMenu = (ImageView) findViewById(R.id.imgMenu);
+        mRececlerView = (RecyclerView) findViewById(R.id.drawerList);
+
+        setSupportActionBar(toolbar);
+        setTitle("");
+        tvTitle.setText(R.string.app_name);
+        imgMenu.setOnClickListener(this);
+    }
+
+    public void initAdapter() {
+        mDrawerItems = new ArrayList<>();
+        String[] menuList = getResources().getStringArray(R.array.menu_list);
+        for (String s : menuList) {
+            mDrawerItems.add(new DrawerItem(s));
+        }
+        mRececlerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new DrawerApdater(this, mDrawerItems, new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                if (mMenuItemChosser > -1) {
+                    mDrawerItems.get(mMenuItemChosser).setSelected();
+                }
+                mDrawerItems.get(position).setSelected();
+                mMenuItemChosser = position;
+                mTvItemChooser.setText(mDrawerItems.get(position).getName());
+                mAdapter.notifyDataSetChanged();
+                mDrawerLayout.closeDrawers();
+            }
+
+            @Override
+            public void onAvatarClick(int chooser) {
+                if (chooser == REQUEST_CODE_GARELLY) {
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, REQUEST_CODE_GARELLY);
+                    return;
+                }
+                if (chooser == REQUEST_CODE_CAMERA) {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                }
+            }
+        });
+        mRececlerView.setAdapter(mAdapter);
+    }
+
+    public void initDrawerLayout() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                mRlMainContent.setTranslationX(slideOffset * drawerView.getWidth());
+            }
+        };
+        mDrawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
     }
 
 }
