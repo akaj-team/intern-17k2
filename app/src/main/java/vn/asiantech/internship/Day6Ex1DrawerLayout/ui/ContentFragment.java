@@ -28,4 +28,5 @@ public class ContentFragment extends Fragment {
     public void showContent(String content) {
         mTvContent.setText(content);
     }
+
 }
