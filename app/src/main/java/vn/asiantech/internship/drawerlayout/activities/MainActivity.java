@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,11 +34,13 @@ public class MainActivity extends AppCompatActivity {
     private List<DrawerItem> mDrawerItems;
     private TextView mTvResult;
     private int mPositionSelected = -1;
+    private LinearLayout mLnLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function);
+        mLnLayout = (LinearLayout) findViewById(R.id.lnLayout);
         mTvResult = (TextView) findViewById(R.id.tvResult);
         mDrawerItems = new ArrayList<>();
         mDrawerItems.add(new DrawerItem(R.mipmap.ic_feed, getString(R.string.feed)));
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.notifyDataSetChanged();
             }
         });
+
     }
 
     private void navigation() {
@@ -76,14 +82,21 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
+                animation(R.anim.move_left);
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                animation(R.anim.move_right);
             }
         };
         mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
+    }
+
+    private void animation(int i) {
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), i);
+        mLnLayout.startAnimation(animation);
     }
 }
