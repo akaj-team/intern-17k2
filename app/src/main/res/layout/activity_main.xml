@@ -10,9 +10,8 @@
     tools:context="vn.asiantech.internship.MainActivity">
 
     <FrameLayout
-        android:id="@+id/frFriendFragment"
+        android:id="@+id/frContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </FrameLayout>
 </LinearLayout>
