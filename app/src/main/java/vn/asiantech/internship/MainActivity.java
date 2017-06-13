@@ -15,8 +15,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout mRlContent;
     private TextView mTVContent;
     private DrawerLayout mDrawerLayout;
+    private View mFragment;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTVContent = (TextView) findViewById(R.id.tvContent);
         mRlContent = (RelativeLayout) findViewById(R.id.rlContent);
+        mFragment = findViewById(R.id.fragmentDrawer);
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         }
         checkAndRequestPermissions();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dlContainer);
+        setWidthDrawer();
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, toolbar, R.string.Text_Messages_Navigation_Open, R.string.Text_Messages_Navigation_Close) {
             @Override
@@ -66,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
         };
         mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+    }
+
+    private void setWidthDrawer() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int newWidth = displayMetrics.widthPixels;
+        ViewGroup.LayoutParams params =  mFragment.getLayoutParams();
+        params.width = (2*newWidth)/3;
+        mFragment.setLayoutParams(params);
     }
 
     /**
