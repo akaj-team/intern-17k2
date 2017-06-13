@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.dialog_title);
         builder.setMessage(R.string.dialog_message);
-
         builder.setPositiveButton(R.string.camera, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -127,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, RESULT_LOAD_IMAGE_CAMERA);
             }
         });
-
         builder.setNegativeButton(R.string.gallery, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
