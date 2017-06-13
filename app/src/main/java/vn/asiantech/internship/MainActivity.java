@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * MainActivity created by Thien 13/06
+ */
 public class MainActivity extends AppCompatActivity implements BFragment.BFragmentInterface {
 
     private AFragment mAFragment;

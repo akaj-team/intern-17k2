@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-
+/**
+ * Fragment A created by Thien 13/06
+ */
 public class AFragment extends Fragment{
 
     private EditText mEditText;

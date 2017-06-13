@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-
+/**
+ * Fragment B created by Thien 13/06
+ */
 public class BFragment extends Fragment {
 
     private TextView mTVShow;
