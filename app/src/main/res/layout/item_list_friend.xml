@@ -18,7 +18,7 @@
             android:layout_height="@dimen/heightImageViewFriends"
             android:layout_centerVertical="true"
             android:layout_weight="2"
-            android:src="@drawable/ic_avatar" />
+            android:src="@mipmap/ic_avatar" />
 
         <Button
             android:id="@+id/btnAdd"

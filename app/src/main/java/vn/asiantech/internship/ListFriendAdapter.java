@@ -33,18 +33,17 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
         return new MyViewHolder(v);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(ListFriendAdapter.MyViewHolder myViewHolder, int i) {
         //   MyViewHolder mViewHolder =  myViewHolder;
         myViewHolder.mTvFriendName.setText(mFriends.get(i).getNameFriend());
         myViewHolder.mIsFriend = mFriends.get(i).isFriend();
         if (mFriends.get(i).isFriend()) {
-            myViewHolder.mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_added_friend));
+            myViewHolder.mBtnAdd.setBackgroundResource(R.drawable.bg_btn_added_friend);
             myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Friend));
             myViewHolder.mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
         } else {
-            myViewHolder.mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_add_friend));
+            myViewHolder.mBtnAdd.setBackgroundResource(R.drawable.bg_btn_add_friend);
             myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Add));
             myViewHolder.mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorBorder));
         }
@@ -70,7 +69,6 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
             mBtnAdd.setOnClickListener(this);
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
@@ -84,18 +82,16 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
             }
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         private void setColor() {
-            mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_added_friend));
+            mBtnAdd.setBackgroundResource(R.drawable.bg_btn_added_friend);
             mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Friend));
             mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
             mFriends.get(getLayoutPosition()).setFriend(true);
             mIsFriend = true;
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         private void unSetColor() {
-            mBtnAdd.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_add_friend));
+            mBtnAdd.setBackgroundResource(R.drawable.bg_btn_add_friend);
             mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Add));
             mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorBorder));
             mFriends.get(getLayoutPosition()).setFriend(false);
