@@ -4,13 +4,8 @@
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:orientation="horizontal"
+    android:id="@+id/lnItem"
     android:padding="16dp">
-
-    <ImageView
-        android:id="@+id/imgIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:contentDescription="@string/app_name" />
 
     <TextView
         android:id="@+id/tvTitle"
