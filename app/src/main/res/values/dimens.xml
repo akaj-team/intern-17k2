@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="fragment.height">230dp</dimen>
+    <dimen name="fragment.padding">10dp</dimen>
 </resources>

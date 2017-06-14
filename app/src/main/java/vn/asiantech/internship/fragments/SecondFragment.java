@@ -12,20 +12,19 @@ import android.widget.TextView;
 import vn.asiantech.internship.R;
 
 /**
- * Created by Administrator on 6/13/2017.
+ * fragment content button and text view show text in FirstFragment
  */
 public class SecondFragment extends Fragment {
-    private Button mBtnInFrag;
     private TextView mTvDetail;
     private OnClickButton mOnClickButton;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_2, container);
-        mBtnInFrag = (Button) view.findViewById(R.id.btnFragment);
+        View view = inflater.inflate(R.layout.fragment_2, container, false);
+        Button btnInFrag = (Button) view.findViewById(R.id.btnFragment);
         mTvDetail = (TextView) view.findViewById(R.id.tvDetail);
-        mBtnInFrag.setOnClickListener(new View.OnClickListener() {
+        btnInFrag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mOnClickButton = (OnClickButton) getActivity();
