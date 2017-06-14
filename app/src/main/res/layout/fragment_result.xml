@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:padding="20dp"
-        android:textSize="20sp" />
+        android:padding="@dimen/tvResult.padding"
+        android:textSize="@dimen/tvResult.textsize" />
 
     <Button
         android:id="@+id/btnSendData_2"

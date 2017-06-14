@@ -12,29 +12,31 @@ import android.widget.TextView;
 import vn.asiantech.internship.R;
 
 /**
+ *
  * Created by Hai on 6/13/2017.
  */
-
-public class SecondFragment extends Fragment {
+public class ResultFragment extends Fragment {
     private TextView mTvResult;
     private OnListener mOnListener;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_second, container, false);
+        View view = inflater.inflate(R.layout.fragment_result, container, false);
         mTvResult = (TextView) view.findViewById(R.id.tvResult);
         Button btnSendData = (Button) view.findViewById(R.id.btnSendData_2);
         btnSendData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnListener.onSendData();
+                if (mOnListener != null) {
+                    mOnListener.onSendData();
+                }
             }
         });
         return view;
     }
 
-    public SecondFragment(OnListener onListener) {
+    public ResultFragment(OnListener onListener) {
         mOnListener = onListener;
     }
 
@@ -42,6 +44,9 @@ public class SecondFragment extends Fragment {
         mTvResult.setText(s);
     }
 
+    /**
+     * interface using in MainActivity handle event Click send data
+     */
     public interface OnListener {
         void onSendData();
     }

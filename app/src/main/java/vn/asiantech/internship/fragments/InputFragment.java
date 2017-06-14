@@ -11,16 +11,16 @@ import android.widget.EditText;
 import vn.asiantech.internship.R;
 
 /**
+ *
  * Created by Hai on 6/13/2017.
  */
-
-public class FirstFragment extends Fragment {
+public class InputFragment extends Fragment {
     private EditText mEdtInput;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_first, container, false);
+        View view = inflater.inflate(R.layout.fragment_input, container, false);
         mEdtInput = (EditText) view.findViewById(R.id.edtInput);
         return view;
     }

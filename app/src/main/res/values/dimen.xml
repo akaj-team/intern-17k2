@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="button.width">200dp</dimen>
-    <dimen name="fragment.height">200dp</dimen>
+    <dimen name="edtInput.padding">20dp</dimen>
+    <dimen name="edtInput.textsize">20sp</dimen>
+    <dimen name="tvResult.padding">20dp</dimen>
+    <dimen name="tvResult.textsize">20sp</dimen>
 </resources>
