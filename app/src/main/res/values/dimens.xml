@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="heightImageViewFriends">50dp</dimen>
+    <dimen name="paddingSomeThings">5dp</dimen>
+    <dimen name="marginSomeThings">5dp</dimen>
+    <dimen name="friendsTextSize">16sp</dimen>
+    <dimen name="friendsTextSizes">18sp</dimen>
+    <dimen name="paddingSomeText">8dp</dimen>
     <dimen name="avatarHeight">64dp</dimen>
     <dimen name="textSizeAuthor">16sp</dimen>
     <dimen name="textSizeItem">20sp</dimen>
