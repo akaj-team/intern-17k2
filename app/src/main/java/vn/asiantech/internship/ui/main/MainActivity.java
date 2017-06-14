@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawers();
                 if (mPositionSelected >= 0) {
                     mDrawerItems.get(mPositionSelected).setChecked(false);
-                    mAdapter.notifyItemChanged(mPositionSelected+1);
+                    mAdapter.notifyItemChanged(mPositionSelected + 1);
                 }
                 mPositionSelected = position;
                 mDrawerItems.get(position).setChecked(true);
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String strName = arrayAdapter.getItem(which);
-                if (strName != null && TextUtils.equals(strName, getString(R.string.camera))) {
+                if (TextUtils.equals(strName, getString(R.string.camera))) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     cropImage(intent);
                     startActivityForResult(intent, REQUEST_CODE_IMAGE_CAMERA);
