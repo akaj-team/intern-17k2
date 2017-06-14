@@ -3,6 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="button.friends">#FFFFFF</color>
+    <color name="btn.friends">#FF0033</color>
     <color name="colorItemPressed">#666666</color>
     <color name="colorBorder">#CCCCCC</color>
     <color name="colorItem">#86868B</color>

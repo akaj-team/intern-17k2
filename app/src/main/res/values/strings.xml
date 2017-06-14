@@ -1,4 +1,31 @@
 <resources>
+   <string name="imageview.description">this is image user</string>
+    <string name="button.text.add">+ ADD</string>
+    <string name="button.text.friends">Friends</string>
+    <string-array name="list_user">
+        <item name="susan">Susan</item>
+        <item name="rian">Rian</item>
+        <item name="ellie">Ellie</item>
+        <item name="jack">Jack</item>
+        <item name="sin">Sin</item>
+        <item name="Jock">Jock</item>
+        <item name="Lin">Lin</item>
+        <item name="Rimoka">Rimoka</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+        <item name="susan">Susan</item>
+    </string-array>
     <string name="app_name">Internship</string>
     <string name="drawer_open">Open Drawer</string>
     <string name="drawer_close">Close Drawer</string>
