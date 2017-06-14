@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".Bai2.ui.ActionFragment">
 
     <TextView
@@ -13,9 +13,9 @@
         android:text="@string/hello_blank_fragment" />
 
     <Button
-        android:layout_margin="@dimen/activity2.fragment2.button_margin"
         android:id="@+id/btnGetContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button"/>
+        android:layout_margin="@dimen/activity2.fragment2.button_margin"
+        android:text="@string/button" />
 </LinearLayout>

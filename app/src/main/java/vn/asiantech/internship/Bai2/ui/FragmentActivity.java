@@ -1,10 +1,8 @@
 package vn.asiantech.internship.Bai2.ui;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.FrameLayout;
 
 import vn.asiantech.internship.R;
 
@@ -12,6 +10,7 @@ public class FragmentActivity extends AppCompatActivity {
 
     private InputFragment mInputFragment;
     private ActionFragment mActionFragment;
+
     private String mContent = "";
 
     @Override
@@ -22,8 +21,6 @@ public class FragmentActivity extends AppCompatActivity {
     }
 
     private void initUi() {
-        FrameLayout mFrameLayoutInput = (FrameLayout) findViewById(R.id.frContainerInput);
-        FrameLayout mFrameLayoutAction = (FrameLayout) findViewById(R.id.frContainerAction);
         mInputFragment = new InputFragment();
         mActionFragment = new ActionFragment(new ActionFragment.SendData() {
             @Override

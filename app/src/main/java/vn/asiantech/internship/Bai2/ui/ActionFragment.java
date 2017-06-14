@@ -1,6 +1,5 @@
 package vn.asiantech.internship.Bai2.ui;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
