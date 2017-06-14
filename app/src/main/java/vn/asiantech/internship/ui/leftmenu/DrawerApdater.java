@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawerlayout;
+package vn.asiantech.internship.ui.leftmenu;
 
 import android.app.WallpaperManager;
 import android.content.Context;
@@ -20,6 +20,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.DrawerItem;
+import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
  * Created by PC on 6/12/2017.
@@ -32,12 +33,14 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context mContext;
     private MainActivity.OnItemClickListener mListener;
     private Bitmap mBitmap;
+    private Drawable mWallpaper;
 
     public DrawerApdater(Context context, List<DrawerItem> items,
                          MainActivity.OnItemClickListener listener) {
         this.mItems = items;
         this.mContext = context;
         mListener = listener;
+        mWallpaper = WallpaperManager.getInstance(mContext).getDrawable();
     }
 
     public void setAvtar(Bitmap bitmap) {
@@ -86,8 +89,7 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (mBitmap != null) {
                 header.mImgAvatar.setImageBitmap(mBitmap);
             }
-            Drawable wallpaper = WallpaperManager.getInstance(mContext).getDrawable();
-            header.mImgHeaderBg.setImageBitmap(((BitmapDrawable) wallpaper).getBitmap());
+            header.mImgHeaderBg.setImageBitmap(((BitmapDrawable) mWallpaper).getBitmap());
         }
     }
 
@@ -144,7 +146,7 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         public void onClick(DialogInterface dialog, int which) {
                             switch (which) {
                                 case 0:
-                                    mListener.onAvatarClick(MainActivity.REQUEST_CODE_GARELLY);
+                                    mListener.onAvatarClick(MainActivity.REQUEST_CODE_GALLERY);
                                     break;
                                 case 1:
                                     mListener.onAvatarClick(MainActivity.REQUEST_CODE_CAMERA);

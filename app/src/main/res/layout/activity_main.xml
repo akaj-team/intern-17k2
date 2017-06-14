@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
             android:textSize="@dimen/bigger_text_size" />
     </RelativeLayout>
 

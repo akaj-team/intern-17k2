@@ -8,7 +8,8 @@
         android:id="@+id/imgHeaderBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:contentDescription="@null" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +23,6 @@
             android:layout_height="@dimen/avatar_size"
             android:src="@mipmap/ic_launcher_round"
             app:civ_border_color="@color/colorPrimary"
-            app:civ_border_overlay="true"
             app:civ_border_width="2dp" />
 
         <TextView

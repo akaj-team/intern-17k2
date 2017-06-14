@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawerlayout;
+package vn.asiantech.internship.ui.main;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -31,6 +31,7 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.DrawerItem;
+import vn.asiantech.internship.ui.leftmenu.DrawerApdater;
 
 /**
  * Created by VanCuong on 6/12/2017.
@@ -38,7 +39,7 @@ import vn.asiantech.internship.models.DrawerItem;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final int REQUEST_CODE_CROP = 22;
-    public static final int REQUEST_CODE_GARELLY = 222;
+    public static final int REQUEST_CODE_GALLERY = 222;
     public static final int REQUEST_CODE_CAMERA = 2222;
 
     private TextView mTvItemChooser;
@@ -49,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerApdater mAdapter;
 
     private List<DrawerItem> mDrawerItems;
-
     private int mMenuItemChosser = -1;
 
     @Override
@@ -58,9 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         initView();
-
         initAdapter();
-
         initDrawerLayout();
 
     }
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
             switch (requestCode) {
-                case REQUEST_CODE_GARELLY:
+                case REQUEST_CODE_GALLERY:
                     cropImage(data.getData());
                     break;
                 case REQUEST_CODE_CAMERA:
@@ -146,8 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fOut.flush();
             fOut.close();
         } catch (IOException e) {
-            Toast.makeText(this, "Exception.",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
         return sdImageMainDirectory;
     }
@@ -188,10 +185,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onAvatarClick(int chooser) {
-                if (chooser == REQUEST_CODE_GARELLY) {
+                if (chooser == REQUEST_CODE_GALLERY) {
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType("image/*");
-                    startActivityForResult(intent, REQUEST_CODE_GARELLY);
+                    startActivityForResult(intent, REQUEST_CODE_GALLERY);
                     return;
                 }
                 if (chooser == REQUEST_CODE_CAMERA) {
@@ -225,6 +222,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
     }
-
 }
-
