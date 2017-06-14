@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="vn.asiantech.internship.ui.fragment.ContentSelectFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnEx05"
+                style="@style/ButtonNormalStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Button.Text.Ex05" />
+
+            <Button
+                android:id="@+id/btnEx06"
+                style="@style/ButtonNormalStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Button.Text.Ex06" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnEx07.1"
+                    style="@style/ButtonNormalStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Button.Text.Ex07_1" />
+
+                <Button
+                    android:id="@+id/btnEx07.2"
+                    style="@style/ButtonNormalStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Button.Text.Ex07_2" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnEx08"
+                style="@style/ButtonNormalStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Button.Text.Ex08" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,8 +1,6 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.models;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +10,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import vn.asiantech.internship.models.Friend;
+import vn.asiantech.internship.R;
 
 /**
- * Created by root on 6/9/17.
+ * Created by Thanh Thien on 6/9/17.
+ * Adapter of RecyclerView
  */
 public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.MyViewHolder> {
 
@@ -62,7 +61,7 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
         private Button mBtnAdd;
         private boolean mIsFriend;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
             mTvFriendName = (TextView) itemView.findViewById(R.id.tvUserName);
             mBtnAdd = (Button) itemView.findViewById(R.id.btnAdd);

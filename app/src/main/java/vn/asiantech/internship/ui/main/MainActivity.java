@@ -1,29 +1,45 @@
 package vn.asiantech.internship.ui.main;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.ui.fragment.ContentSelectFragment;
 
+/**
+ * Main of all fragment
+ * Created by Thanh Thien
+ */
 public class MainActivity extends AppCompatActivity {
 
     public static final int KEY_CAMERA = 1773;
     public static final int KEY_LIBRARY = 2;
     public static final int KEY_CROP = 3;
 
-    private RelativeLayout mRlContent;
+    private RelativeLayout mRlParent;
     private TextView mTvContent;
     private DrawerLayout mDlContainer;
     private View mFragmentDrawer;
+    private RelativeLayout mRlContentDefault;
+    private RelativeLayout mRlContent;
     private Toolbar mToolbar;
+
+    private boolean mIsBackToOut;
+    private Fragment currentFragmentOpen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onDrawerSlide(drawerView, slideOffset);
 
                 //slide content when drawer openning
-                mRlContent.setTranslationX(slideOffset * drawerView.getWidth());
+                mRlParent.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };
         mDlContainer.addDrawerListener(drawerToggle);
@@ -58,11 +74,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("CommitTransaction")
     private void initView() {
+        setFragmentDefault(new ContentSelectFragment());
+        mIsBackToOut = true;
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvContent = (TextView) findViewById(R.id.tvContent);
-        mRlContent = (RelativeLayout) findViewById(R.id.rlContent);
+        mRlParent = (RelativeLayout) findViewById(R.id.rlParent);
         mFragmentDrawer = findViewById(R.id.fragmentDrawer);
+        mRlContentDefault = (RelativeLayout) findViewById(R.id.rlContentDefault);
+        mRlContent = (RelativeLayout) findViewById(R.id.rlContent);
         mDlContainer = (DrawerLayout) findViewById(R.id.dlContainer);
         setWidthDrawer();
     }
@@ -79,9 +101,79 @@ public class MainActivity extends AppCompatActivity {
     /**
      * @param s is a title of item
      */
-    public void setMainText(String s) {
-        mTvContent.setText(s);
+    public void setMainText(String s, boolean isShowText) {
+        if (isShowText) {
+            mTvContent.setVisibility(View.VISIBLE);
+            if (mIsBackToOut) {
+                mRlContentDefault.setVisibility(View.GONE);
+                mRlContent.setVisibility(View.GONE);
+            }
+            mTvContent.setText(s);
+        } else {
+            mTvContent.setVisibility(View.GONE);
+            if (mIsBackToOut) {
+                mRlContentDefault.setVisibility(View.VISIBLE);
+            } else {
+                mRlContent.setVisibility(View.VISIBLE);
+            }
+        }
         mDlContainer.closeDrawers();
     }
 
+    /**
+     * @param fragmentContent is a fragment replace to this id
+     */
+    public void setFragmentSlideInBottom(Fragment fragmentContent) {
+        currentFragmentOpen = fragmentContent;
+        mIsBackToOut = false;
+        mRlContent.setVisibility(View.VISIBLE);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_top, R.anim.slide_out_bottom);
+        fragmentTransaction.replace(R.id.rlContent, fragmentContent).commit();
+    }
+
+    private void setFragmentDefault(Fragment fragmentDefault) {
+        currentFragmentOpen = fragmentDefault;
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.rlContentDefault, fragmentDefault);
+        fragmentTransaction.commit();
+    }
+
+    private void outFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_top, R.anim.slide_out_bottom).remove(fragment).commit();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            if (!mIsBackToOut) {
+                mIsBackToOut = true;
+                outFragment(currentFragmentOpen);
+                return false;
+            } else {
+                showDialogOut();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void showDialogOut() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setPositiveButton(getString(R.string.Yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.No), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setTitle(getString(R.string.Tip_Show_Text_Do_You_Want_To_Exit));
+        builder.create().show();
+    }
 }

@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.RecyclerItemClickListener;
 import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
@@ -55,17 +54,6 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
 
         rvDrawer.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvDrawer.setAdapter(mDrawerAdapter);
-        rvDrawer.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                if (position != 0) {
-                    mDrawerAdapter.setPositionSelected(position);
-                    if (getActivity() instanceof MainActivity) {
-                        ((MainActivity) getActivity()).setMainText(mListDrawer[position]);
-                    }
-                }
-            }
-        }));
     }
 
     @Override
@@ -82,6 +70,18 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
                     }
                 });
         builder.create().show();
+    }
+
+    @Override
+    public void onItemCLick(int position) {
+        mDrawerAdapter.setPositionSelected(position);
+        if (getActivity() instanceof MainActivity) {
+            if (position == 1) {
+                ((MainActivity) getActivity()).setMainText(mListDrawer[position - 1], false);
+            } else {
+                ((MainActivity) getActivity()).setMainText(mListDrawer[position - 1], true);
+            }
+        }
     }
 
     private void setImage(Bitmap bitmap) {
@@ -108,7 +108,7 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
             switch (requestCode) {
                 case MainActivity.KEY_CAMERA:
                     bitmap = (Bitmap) data.getExtras().get("data");
-                     pathFile = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, getString(R.string.Title), null);
+                    pathFile = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, getString(R.string.Title), null);
                     performCrop(Uri.parse(pathFile));
                     break;
                 case MainActivity.KEY_LIBRARY:

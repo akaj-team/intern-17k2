@@ -1,36 +1,23 @@
 <resources>
     <string name="app_name">Internship</string>
     <string name="app_author">Nguyen Thanh Thien</string>
-    <string name="textView.Name.User_Name">User Name : </string>
-    <string name="textView.Name.Old">Old :</string>
-    <string name="Button.Text.Send">Send</string>
-    <string name="TextView.Name.Welcome">Welcome</string>
-    <string name="TextView.Name.You_Are">You are</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="TextView.Text.User_Name">User Name</string>
-    <string name="TextView.Text.User_Address">User Address</string>
-    <string name="RadioButton.Text.Male">Male</string>
-    <string name="RadioButton.Text.Female">Female</string>
-    <string name="Buton.Text.Submit">Submit</string>
-    <string name="TextView.Text.Phone_Number">Phone Number</string>
-    <string name="TextView.Text.User_Gender">Gender</string>
-    <string name="Error.Message.Only_Type_Integer">Only type integer</string>
-    <string name="Error.Message.Please_Enter_Text">Please enter text</string>
-    <string name="Error.Message.Nunber_Must_Have_Eight_To_Fifteen">Number must have 8 to 15 </string>
-    <string name="String.Years_Old">years old</string>
     <string name="TextView.Text.Description">Description</string>
     <string name="Button.Text.Add">+ Add</string>
     <string name="Button.Text.Friend">✓ FRIENDS</string>
-    <string name="Button.Text.Friends"> FRIENDS</string>
     <string name="Text.Messages.Navigation_Open">Navigation Open</string>
     <string name="Text.Messages.Navigation_Close">Navigation Close </string>
     <string name="Dialog.Text.Choice_Select">Choice Select</string>
     <string name="Error.Message.Error">Error !!</string>
-    <string name="Toast.Go_to_settings_and_enable_permissions">Go to settings and enable permissions</string>
-    <string name="Text.OK">OK</string>
-    <string name="Text.Cancle">Cancle</string>
-    <string name="Text.Tip">SMS and Location Services Permission required for this app</string>
     <string name="Title">Title</string>
+    <string name="Button.Text.Ex05">Ex 05</string>
+    <string name="Button.Text.Ex06">Ex 06</string>
+    <string name="Button.Text.Ex07_1">Ex 07.1</string>
+    <string name="Button.Text.Ex07_2">Ex 07.2</string>
+    <string name="Button.Text.Ex08">Ex 08</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="Tip.Show.Text.Do_You_Want_To_Exit">Do you want to exit ?</string>
     <string-array name="listDrawer">
         <item>Feed</item>
         <item>Activity</item>

@@ -62,7 +62,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof ItemViewHolder) {
             ItemViewHolder myViewHolder = (ItemViewHolder) viewHolder;
-            myViewHolder.mTextView.setText(mItems[position]);
+            myViewHolder.mTextView.setText(mItems[position - 1]);
             if (position == mPositionSelected) {
                 viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.colorItemChoise));
             } else {
@@ -72,7 +72,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ItemHeaderViewHolder myViewHolder = (ItemHeaderViewHolder) viewHolder;
             myViewHolder.mClParent.setBackgroundDrawable(mWallpaperDrawable);
             myViewHolder.mTvAuthorName.setText(mContext.getString(R.string.app_author));
-
             if (mBitmap != null) {
                 myViewHolder.mCivAvatar.setImageBitmap(mBitmap);
             }
@@ -81,23 +80,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return mItems.length - 1;
-    }
-
-    /**
-     * @param positionSelected is a position of item selected
-     */
-    void setPositionSelected(int positionSelected) {
-        mPositionSelected = positionSelected;
-        notifyDataSetChanged();
-    }
-
-    /**
-     * @param bitmap is link of image
-     */
-    void setImageAvatar(Bitmap bitmap) {
-        mBitmap = bitmap;
-        notifyDataSetChanged();
+        return mItems.length + 1;
     }
 
     /**
@@ -107,9 +90,15 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         private TextView mTextView;
 
-        ItemViewHolder(View itemView) {
+        ItemViewHolder(final View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.tvName);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemsListener.onItemCLick(getLayoutPosition());
+                }
+            });
         }
     }
 
@@ -139,9 +128,27 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
+     * @param positionSelected is a position of item selected
+     */
+    void setPositionSelected(int positionSelected) {
+        mPositionSelected = positionSelected;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * @param bitmap is link of image
+     */
+    void setImageAvatar(Bitmap bitmap) {
+        mBitmap = bitmap;
+        notifyDataSetChanged();
+    }
+
+    /**
      * Interface for fragment
      */
     public interface OnItemsListener {
         void showDialogChoice();
+
+        void onItemCLick(int position);
     }
 }

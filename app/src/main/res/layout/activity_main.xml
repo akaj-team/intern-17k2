@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/rlContent"
+        android:id="@+id/rlParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -27,7 +27,6 @@
                 app:theme="@style/ToolbarColoredBackArrow">
 
                 <TextView
-                    android:id="@+id/tvHeader"
                     style="@style/TextHeadStyle"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/marginLarge"
@@ -39,15 +38,29 @@
             </android.support.v7.widget.Toolbar>
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/rlContentDefault"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground"
+            android:layout_below="@id/rlHeader" />
+
+        <RelativeLayout
+            android:id="@+id/rlContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_below="@id/rlHeader" />
+
         <TextView
             android:id="@+id/tvContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/rlHeader"
+            android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="@string/app_name"
-            android:textSize="@dimen/sizeLarge"
-            android:textStyle="bold" />
+            android:textColor="#000"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <fragment
