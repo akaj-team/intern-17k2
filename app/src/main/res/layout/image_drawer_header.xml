@@ -5,8 +5,8 @@
     android:background="@drawable/custom_linearlayout_image_header"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imgScreen"
+    <vn.asiantech.internship.Day6Ex1DrawerLayout.view.RoundImageView
+        android:id="@+id/imgAvatar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/imageview.image.layout_height"
         android:contentDescription="@string/imageview.screen.description"

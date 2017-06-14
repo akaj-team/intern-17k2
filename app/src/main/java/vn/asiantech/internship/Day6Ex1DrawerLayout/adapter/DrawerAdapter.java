@@ -2,6 +2,14 @@ package vn.asiantech.internship.Day6Ex1DrawerLayout.adapter;
 
 import android.app.WallpaperManager;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +23,7 @@ import java.util.List;
 
 import vn.asiantech.internship.Day6Ex1DrawerLayout.event.OnRecyclerViewClickListener;
 import vn.asiantech.internship.Day6Ex1DrawerLayout.ui.MainActivity;
+import vn.asiantech.internship.Day6Ex1DrawerLayout.view.RoundImageView;
 import vn.asiantech.internship.R;
 
 /**
@@ -23,21 +32,28 @@ import vn.asiantech.internship.R;
  */
 public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerViewHolder> {
     private List<String> mFunctions;
-    private OnRecyclerViewClickListener iOnRecyclerViewClickListener;
+    private OnRecyclerViewClickListener mOnRecyclerViewClickListener;
     private Context mContext;
+    private Drawable mWallpaperDrawable;
+    private boolean mCheckAvatar;
+    private Bitmap mAvatarBitmap;
+    private int mPosition;
 
     public DrawerAdapter(List<String> items, Context context, OnRecyclerViewClickListener onRecyclerViewClickListener) {
-        this.mFunctions = items;
-        this.mContext = context;
-        iOnRecyclerViewClickListener = onRecyclerViewClickListener;
+        mFunctions = items;
+        mContext = context;
+        mOnRecyclerViewClickListener = onRecyclerViewClickListener;
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
+        mWallpaperDrawable = wallpaperManager.getDrawable();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return 0;
-        } else {
-            return 1;
+        switch (position) {
+            case 0:
+                return 0;
+            default:
+                return 1;
         }
     }
 
@@ -45,30 +61,27 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case 0:
-                View viewONE = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_header, parent, false);
+                View viewONE = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_drawer_header, parent, false);
                 return new RecyclerViewHolder(viewONE, false);
-            case 1:
-                View viewTWO = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_function, parent, false);
+            default:
+                View viewTWO = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_function_drawer, parent, false);
                 return new RecyclerViewHolder(viewTWO, true);
         }
-        return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case 0:
-                if (!MainActivity.sCheckPicture) {
-                    WallpaperManager wallpaperManager = WallpaperManager.getInstance(holder.mImgScreen.getContext());
-                    Drawable wallpaperDrawable = wallpaperManager.getDrawable();
-                    holder.mImgScreen.setImageDrawable(wallpaperDrawable);
+                if (!mCheckAvatar) {
+                    holder.mImgAvatar.setImageDrawable(mWallpaperDrawable);
                 } else {
-                    holder.mImgScreen.setImageBitmap(MainActivity.sNewProfilePic);
+                    holder.mImgAvatar.setImageBitmap(mAvatarBitmap);
                 }
                 break;
-            case 1:
+            default:
                 holder.mTvFunction.setText(mFunctions.get(position));
-                if (position == MainActivity.sSelectedPosition) {
+                if (position == mPosition) {
                     holder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItemPressed));
 
                 } else {
@@ -83,15 +96,25 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
         return mFunctions.size();
     }
 
+    public void setCheckAvatar(boolean check){
+        mCheckAvatar=check;
+    }
+    public void setBitMapAvatar(Bitmap avatarBitmap){
+        mAvatarBitmap=avatarBitmap;
+    }
+    public void setPosition(int position){
+        mPosition=position;
+    }
+
     /**
      * create RecyclerViewHolder
      */
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvFunction;
         private View mItemView;
-        private ImageView mImgScreen;
+        private RoundImageView mImgAvatar;
 
-        public RecyclerViewHolder(View itemView, boolean check) {
+        RecyclerViewHolder(View itemView, boolean check) {
             super(itemView);
             mItemView = itemView;
             if (check) {
@@ -99,15 +122,19 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
                 mItemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        iOnRecyclerViewClickListener.onClick(getAdapterPosition(), true);
+                        if (mOnRecyclerViewClickListener != null) {
+                            mOnRecyclerViewClickListener.onClick(getAdapterPosition(), true);
+                        }
                     }
                 });
             } else {
-                mImgScreen = (ImageView) itemView.findViewById(R.id.imgScreen);
-                mImgScreen.setOnClickListener(new View.OnClickListener() {
+                mImgAvatar = (RoundImageView) itemView.findViewById(R.id.imgAvatar);
+                mImgAvatar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        iOnRecyclerViewClickListener.onClick(getAdapterPosition(), false);
+                        if (mOnRecyclerViewClickListener != null) {
+                            mOnRecyclerViewClickListener.onClick(getAdapterPosition(), false);
+                        }
                     }
                 });
             }

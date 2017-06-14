@@ -35,27 +35,42 @@ import vn.asiantech.internship.R;
  *         create on 13/06/2017
  */
 public class MainActivity extends AppCompatActivity implements OnRecyclerViewClickListener {
-    private List<String> mFunctions = new ArrayList<>();
-    private RecyclerView mRecyclerView;
+    public static final int GALLERY_TYPE = 0;
+    public static final int CAMERA_TYPE = 1;
+
     private DrawerLayout mDrawerLayout;
     private LinearLayout mLinearlayout;
     private ContentFragment mContentFragment;
     private ActionBarDrawerToggle mDrawerToggle;
-    private DrawerAdapter adapter;
     private Dialog mDialog;
-    public static int sSelectedPosition;
-    public static Bitmap sNewProfilePic;
-    public static boolean sCheckPicture;
-    public static final int GALLERY_TYPE = 0;
-    public static final int CAMERA_TYPE = 1;
+
+    private DrawerAdapter adapterDrawer;
+    private List<String> mFunctions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
+        initRecyclerView();
+        initDrawerLayout();
+        initFragment();
+    }
+
+    private void initRecyclerView() {
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
+        String[] functions = getResources().getStringArray(R.array.list_function);
+        for (String function : functions) {
+            mFunctions.add(function);
+        }
+        adapterDrawer = new DrawerAdapter(mFunctions, this, this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapterDrawer);
+    }
+
+    private void initDrawerLayout() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mLinearlayout = (LinearLayout) findViewById(R.id.linearLayoutDrawer);
+        mLinearlayout = (LinearLayout) findViewById(R.id.llDrawer);
         ImageView imgHome = (ImageView) findViewById(R.id.imgHome);
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,17 +82,6 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
                 }
             }
         });
-        mContentFragment = new ContentFragment();
-        initFragment();
-        String[] functions = getResources().getStringArray(R.array.list_function);
-        for (String function : functions) {
-            mFunctions.add(function);
-        }
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
-        adapter = new DrawerAdapter(mFunctions, this, this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(adapter);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
@@ -86,14 +90,14 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
                 mLinearlayout.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
 
     private void initFragment() {
+        mContentFragment = new ContentFragment();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.contenFrame, mContentFragment);
+        transaction.replace(R.id.frContent, mContentFragment);
         transaction.commit();
     }
 
@@ -108,31 +112,16 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     public void onClick(int position, boolean check) {
         if (check) {
             mContentFragment.showContent(mFunctions.get(position));
-            MainActivity.sSelectedPosition = position;
+            adapterDrawer.setPosition(position);
         } else {
             mDialog = createDialog();
             mDialog.show();
         }
         mDrawerLayout.closeDrawers();
-        adapter.notifyDataSetChanged();
+        adapterDrawer.notifyDataSetChanged();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && data != null) {
-            final Bundle extras = data.getExtras();
-            if (extras != null) {
-                //Get image
-                sNewProfilePic = extras.getParcelable("data");
-                sCheckPicture = true;
-                adapter.notifyDataSetChanged();
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                mDialog.cancel();
-            }
-        }
-
-    }
-
+    //create dialog with list data got from resource
     public Dialog createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.dialog_title_please_choose)
@@ -162,13 +151,30 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
         return builder.create();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && data != null) {
+            final Bundle extras = data.getExtras();
+            if (extras != null) {
+                //Get image
+                adapterDrawer.setBitMapAvatar((Bitmap) extras.getParcelable("data"));
+                adapterDrawer.setCheckAvatar(true);
+                adapterDrawer.notifyDataSetChanged();
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                mDialog.cancel();
+            }
+        }
+
+    }
+
     public void setCropImage(Intent intent) {
         intent.putExtra("crop", "true");
         intent.putExtra("scale", true);
-        intent.putExtra("outputX", 256);
-        intent.putExtra("outputY", 256);
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", R.dimen.image_outputx);
+        intent.putExtra("outputY", R.dimen.image_outputy);
+        intent.putExtra("aspectX", R.dimen.image_aspectx);
+        intent.putExtra("aspectY", R.dimen.image_aspecty);
         intent.putExtra("return-data", true);
     }
 }
+

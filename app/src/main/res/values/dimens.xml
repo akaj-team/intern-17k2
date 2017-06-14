@@ -13,4 +13,8 @@
     <dimen name="imageview.home.layout_height">40dp</dimen>
     <dimen name="textview.title.layout_marginLeft">90dp</dimen>
     <dimen name="textview.function.padding">10dp</dimen>
+    <item name="image.outputx" type="dimen">256</item>
+    <item name="image.outputy" type="dimen">256</item>
+    <item name="image.aspectx" type="dimen">1</item>
+    <item name="image.aspecty" type="dimen">1</item>
 </resources>
