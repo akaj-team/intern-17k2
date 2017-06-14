@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:padding="5dp"
-        android:textColor="@color/colorGreyLight"
+        android:textColor="@color/colorWhite"
         android:textSize="@dimen/textView.name.size" />
 
     <View
