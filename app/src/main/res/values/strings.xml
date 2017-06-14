@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Internship</string>
+    <string name="btn_friend">Friend</string>
+    <string name="btn_add">Add</string>
+    <string name="tv_value">asdsadasdsadsad</string>
     <string name="title_activity_drawer">drawer</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
