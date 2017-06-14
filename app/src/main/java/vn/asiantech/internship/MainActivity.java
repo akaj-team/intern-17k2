@@ -13,8 +13,9 @@ import vn.asiantech.internship.fragments.FirstFragment;
 import vn.asiantech.internship.fragments.SecondFragment;
 import vn.asiantech.internship.models.MyData;
 
+
 /**
- * Created by PC on 6/13/2017.
+ * This class create by VanCuong on 06/13/2017
  */
 public class MainActivity extends AppCompatActivity {
     private FirstFragment mFirstFragment;
