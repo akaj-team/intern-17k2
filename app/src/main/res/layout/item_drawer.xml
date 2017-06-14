@@ -11,11 +11,11 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:padding="5dp"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorGreyLight"
         android:textSize="@dimen/textView.name.size" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorGrey" />
+        android:background="@color/colorWhite" />
 </LinearLayout>

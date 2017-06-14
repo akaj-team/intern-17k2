@@ -40,7 +40,7 @@ import static android.graphics.Bitmap.createBitmap;
  * @version 1.0
  * @since 2017-6-12
  */
-public class MainActivity extends AppCompatActivity {
+public class DrawerActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_IMAGE_GALLERY = 1;
     private static final int REQUEST_CODE_IMAGE_CAMERA = 2;
@@ -134,9 +134,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showChooseImageDialog() {
-        AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(DrawerActivity.this);
         builderSingle.setTitle(R.string.dialog_title);
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.select_dialog_item);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(DrawerActivity.this, android.R.layout.select_dialog_item);
         arrayAdapter.add(getString(R.string.camera));
         arrayAdapter.add(getString(R.string.gallery));
 
