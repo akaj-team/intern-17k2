@@ -22,10 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -54,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private List<DrawerItem> mDrawerItems;
     private int mPositionSelected = -1;
+    //Uri of photo taked by camera
+    private Uri mPhotoUri;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,17 +69,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null) {
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_GALLERY:
                     cropImage(data.getData());
                     break;
                 case REQUEST_CODE_CAMERA:
-                    File file = savaBitmap((Bitmap) data.getExtras().get("data"));
-                    if (file != null) {
-                        Uri uri = Uri.fromFile(file);
-                        cropImage(uri);
-                    }
+                    cropImage(mPhotoUri);
                     break;
                 case REQUEST_CODE_CROP:
                     Bitmap bm = data.getExtras().getParcelable("data");
@@ -114,26 +110,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast toast = Toast.makeText(this, R.string.crop_error, Toast.LENGTH_SHORT);
             toast.show();
         }
-    }
-
-    public File savaBitmap(Bitmap bm) {
-
-        OutputStream fOut = null;
-        File sdImageMainDirectory = null;
-
-        try {
-            File root = new File(Environment.getExternalStorageDirectory()
-                    + File.separator + "Camera" + File.separator);
-            sdImageMainDirectory = new File(root, String.valueOf(Calendar.getInstance().getTimeInMillis()) + ".jpg");
-            fOut = new FileOutputStream(sdImageMainDirectory);
-
-        } catch (Exception e) {
-            Toast.makeText(this, "Error occured. Please try again later.",
-                    Toast.LENGTH_SHORT).show();
-        }
-
-        bm.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-        return sdImageMainDirectory;
     }
 
     public void initView() {
@@ -180,8 +156,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (chooser == REQUEST_CODE_CAMERA) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                    File root = new File(Environment.getExternalStorageDirectory()
+                            + File.separator + "Camera" + File.separator);
+                    try {
+                        File imageFile = File.createTempFile("img", ".jpg", root);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        mPhotoUri = Uri.fromFile(imageFile);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
+                        startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         });
