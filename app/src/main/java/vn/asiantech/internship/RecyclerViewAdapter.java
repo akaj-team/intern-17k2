@@ -36,11 +36,11 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyHol
         if (friend.isFriend()) {
             btn.setText(R.string.btn_friend);
             btn.setBackgroundColor(Color.RED);
-            btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.imgcheck, 0, 0, 0);
+            btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0);
         } else {
             btn.setText(R.string.btn_add);
             btn.setBackgroundColor(Color.GRAY);
-            btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.imgadd, 0, 0, 0);
+            btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add, 0, 0, 0);
         }
     }
 
