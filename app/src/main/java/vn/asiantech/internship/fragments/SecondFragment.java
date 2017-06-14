@@ -28,7 +28,9 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mOnClickButton = (OnClickButton) getActivity();
-                mOnClickButton.setClick();
+                if (mOnClickButton != null) {
+                    mOnClickButton.setClick();
+                }
             }
         });
         return view;

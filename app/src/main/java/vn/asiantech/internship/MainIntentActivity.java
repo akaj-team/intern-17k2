@@ -22,7 +22,7 @@ public class MainIntentActivity extends AppCompatActivity implements SecondFragm
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_day7);
+        setContentView(R.layout.activity_main_intent);
         Button btnActivity = (Button) findViewById(R.id.btnActivity);
         btnActivity.setOnClickListener(new View.OnClickListener() {
             @Override
