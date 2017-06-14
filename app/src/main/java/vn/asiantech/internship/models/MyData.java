@@ -2,7 +2,7 @@ package vn.asiantech.internship.models;
 
 import java.io.Serializable;
 
-import vn.asiantech.internship.MainActivity;
+import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
  * Created by PC on 6/13/2017.

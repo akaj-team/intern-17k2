@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.ui.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,13 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import vn.asiantech.internship.fragments.FirstFragment;
-import vn.asiantech.internship.fragments.SecondFragment;
+import vn.asiantech.internship.R;
+import vn.asiantech.internship.ui.fragments.FirstFragment;
+import vn.asiantech.internship.ui.fragments.SecondFragment;
 import vn.asiantech.internship.models.MyData;
 
 
 /**
- * This class create by VanCuong on 06/13/2017
+ * MainActivity
+ *
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/13/2017
  */
 public class MainActivity extends AppCompatActivity {
     private FirstFragment mFirstFragment;

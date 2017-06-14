@@ -1,4 +1,4 @@
-package vn.asiantech.internship.fragments;
+package vn.asiantech.internship.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,11 @@ import android.widget.EditText;
 import vn.asiantech.internship.R;
 
 /**
- * Created by PC on 6/13/2017.
+ * First Fragment
+ *
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/13/2017
  */
 public class FirstFragment extends Fragment {
     private EditText mEdtInput;

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.fragments;
+package vn.asiantech.internship.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,12 +9,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import vn.asiantech.internship.MainActivity;
+import vn.asiantech.internship.ui.main.MainActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.MyData;
 
 /**
- * Created by PC on 6/13/2017.
+ * Second Fragment
+ *
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/13/2017
  */
 public class SecondFragment extends Fragment {
     private TextView mTvOutput;
@@ -35,7 +39,9 @@ public class SecondFragment extends Fragment {
         btnGetText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onClick(mTvOutput);
+                if (mListener != null) {
+                    mListener.onClick(mTvOutput);
+                }
             }
         });
         return view;
