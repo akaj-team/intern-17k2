@@ -3,7 +3,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "haingo94"
+        applicationId "vn.asiantech.internship"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -26,4 +26,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.2.0'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

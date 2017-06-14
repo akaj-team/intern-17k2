@@ -5,7 +5,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.asiantech.internship.ui.MainActivity">
+    tools:context="vn.asiantech.internship.ui.leftmenu.MainActivity">
 
     <LinearLayout
         android:id="@+id/llContent"
@@ -17,11 +17,10 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="200dp"
-            android:textSize="30sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="@dimen/tvTitle.textsize"
             tools:text="Acitivity" />
     </LinearLayout>
 
@@ -32,5 +31,5 @@
         android:layout_gravity="start"
         android:background="@color/recyclerview.color"
         android:choiceMode="singleChoice"
-        app:headerLayout="@layout/nav_header_main" />
+        app:headerLayout="@layout/item_drawer_header" />
 </android.support.v4.widget.DrawerLayout>

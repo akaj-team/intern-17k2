@@ -1,5 +1,6 @@
-package vn.asiantech.internship.ui;
+package vn.asiantech.internship.ui.leftmenu;
 
+import android.app.WallpaperManager;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,96 +37,26 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_GALLERY = 0;
     private static final int REQUEST_CODE_CROP = 1;
     private static final int REQUEST_CODE_CAMERA = 2;
+
     private TextView mTvTitle;
+    private RecyclerView mRecyclerView;
+    private ImageView mImgToggle;
     private DrawerLayout mDrawerLayout;
     private LinearLayout mLlContent;
+    private WallpaperManager mWallpaperManager;
 
     private DrawerAdapter mAdapter;
     private List<DrawerItem> mItems;
-    private int mPositionSelect = -1;
+    private int mPositionSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mLlContent = (LinearLayout) findViewById(R.id.llContent);
-        mTvTitle = (TextView) findViewById(R.id.tvTitle);
-        ImageView imgToggle = (ImageView) findViewById(R.id.imgToggle);
-        imgToggle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mDrawerLayout.closeDrawer(Gravity.LEFT);
-                } else {
-                    mDrawerLayout.openDrawer(Gravity.LEFT);
-                }
-            }
-        });
-        mAdapter = new DrawerAdapter(this, createData(), new DrawerAdapter.OnItemListener() {
-            @Override
-            public void OnItemClick(int position) {
-                if (mPositionSelect > -1) {
-                    mItems.get(mPositionSelect).setSelected(false);
-                }
-                mItems.get(position).setSelected(true);
-                mTvTitle.setText(mItems.get(position).getTitle());
-                mPositionSelect = position;
-                mAdapter.notifyDataSetChanged();
-                mDrawerLayout.closeDrawers();
-            }
-
-            @Override
-            public void OnAvatarClick() {
-                AlertDialog.Builder alertDialogBuider = new AlertDialog.Builder(MainActivity.this);
-                alertDialogBuider.setTitle(R.string.alertdialog_message);
-                alertDialogBuider.setItems(R.array.dialog_items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0) {
-                            Intent intent = new Intent();
-                            intent.setType("image/*");
-                            intent.setAction(Intent.ACTION_GET_CONTENT);
-                            startActivityForResult(intent, REQUEST_CODE_GALLERY);
-                        } else if (which == 1) {
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, REQUEST_CODE_CAMERA);
-                        }
-                    }
-                });
-                alertDialogBuider.create();
-                alertDialogBuider.show();
-            }
-        });
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(mAdapter);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, null, 0, 0) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-                mLlContent.setTranslationX(slideOffset * drawerView.getWidth());
-            }
-        };
-        mDrawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
+        initView();
+        onClickToggleButton();
+        handleDrawer();
     }
 
     @Override
@@ -150,6 +81,100 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    private void initView() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mLlContent = (LinearLayout) findViewById(R.id.llContent);
+        mTvTitle = (TextView) findViewById(R.id.tvTitle);
+        mImgToggle = (ImageView) findViewById(R.id.imgToggle);
+        mWallpaperManager = WallpaperManager.getInstance(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+    }
+
+    private void onClickToggleButton() {
+        mImgToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                } else {
+                    mDrawerLayout.openDrawer(Gravity.START);
+                }
+            }
+        });
+    }
+
+    private void handleDrawer() {
+        mPositionSelected = -1;
+        mAdapter = new DrawerAdapter(this, createData(), mWallpaperManager, new DrawerAdapter.OnItemListener() {
+            @Override
+            public void OnItemClick(int position) {
+                if (mPositionSelected > -1) {
+                    mItems.get(mPositionSelected).setSelected(false);
+                    mAdapter.notifyItemChanged(mPositionSelected + 1);
+                }
+                mItems.get(position).setSelected(true);
+                mTvTitle.setText(mItems.get(position).getTitle());
+                mPositionSelected = position;
+                mAdapter.notifyItemChanged(position + 1);
+                mDrawerLayout.closeDrawers();
+            }
+
+            @Override
+            public void OnAvatarClick() {
+                showDialogChangeAvatar();
+            }
+        });
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, null, 0, 0) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                mLlContent.setTranslationX(slideOffset * drawerView.getWidth());
+            }
+        };
+        mDrawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+    }
+
+    private void showDialogChangeAvatar() {
+        AlertDialog.Builder alertDialogBuider = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuider.setTitle(R.string.alertdialog_message);
+        alertDialogBuider.setItems(R.array.dialog_items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent, REQUEST_CODE_GALLERY);
+                } else if (which == 1) {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                }
+            }
+        });
+        alertDialogBuider.create();
+        alertDialogBuider.show();
     }
 
     private void cropImage(Uri uri) {

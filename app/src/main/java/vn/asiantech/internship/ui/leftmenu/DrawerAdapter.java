@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui;
+package vn.asiantech.internship.ui.leftmenu;
 
 import android.app.WallpaperManager;
 import android.content.Context;
@@ -9,13 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.DrawerItem;
 
@@ -27,14 +26,17 @@ import vn.asiantech.internship.models.DrawerItem;
 class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
+
     private Context mContext;
-    private List<DrawerItem> mItems = new ArrayList<>();
+    private List<DrawerItem> mItems;
     private OnItemListener mOnItemListener;
     private Bitmap mBitmap;
+    private WallpaperManager mWallpaperManager;
 
-    DrawerAdapter(Context context, List<DrawerItem> items, OnItemListener onItemListener) {
+    DrawerAdapter(Context context, List<DrawerItem> items, WallpaperManager wallpaperManager, OnItemListener onItemListener) {
         mContext = context;
         mItems = items;
+        mWallpaperManager = wallpaperManager;
         mOnItemListener = onItemListener;
     }
 
@@ -44,14 +46,14 @@ class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v;
+        View view;
         switch (viewType) {
             case TYPE_ITEM:
-                v = LayoutInflater.from(mContext).inflate(R.layout.item_list_recyclerview, parent, false);
-                return new ItemViewHolder(v);
+                view = LayoutInflater.from(mContext).inflate(R.layout.item_drawer, parent, false);
+                return new ItemViewHolder(view);
             case TYPE_HEADER:
-                v = LayoutInflater.from(mContext).inflate(R.layout.nav_header_main, parent, false);
-                return new HeaderHolder(v);
+                view = LayoutInflater.from(mContext).inflate(R.layout.item_drawer_header, parent, false);
+                return new HeaderHolder(view);
         }
         return null;
     }
@@ -70,11 +72,10 @@ class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
-            WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
-            Drawable wallPaperDrawable = wallpaperManager.getDrawable();
+            Drawable wallPaperDrawable = mWallpaperManager.getDrawable();
             headerHolder.mLlHeader.setBackground(wallPaperDrawable);
             if (mBitmap != null) {
-                headerHolder.imgAvatar.setImageBitmap(mBitmap);
+                headerHolder.mImgAvatar.setImageBitmap(mBitmap);
             }
         }
     }
@@ -110,7 +111,9 @@ class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            mOnItemListener.OnItemClick(getAdapterPosition() - 1);
+            if (mOnItemListener != null) {
+                mOnItemListener.OnItemClick(getAdapterPosition() - 1);
+            }
         }
     }
 
@@ -119,16 +122,18 @@ class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      */
     private class HeaderHolder extends RecyclerView.ViewHolder {
         private LinearLayout mLlHeader;
-        private ImageView imgAvatar;
+        private CircleImageView mImgAvatar;
 
         HeaderHolder(View itemView) {
             super(itemView);
             mLlHeader = (LinearLayout) itemView.findViewById(R.id.llHeader);
-            imgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
-            imgAvatar.setOnClickListener(new View.OnClickListener() {
+            mImgAvatar = (CircleImageView) itemView.findViewById(R.id.imgAvatar);
+            mImgAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemListener.OnAvatarClick();
+                    if (mOnItemListener != null) {
+                        mOnItemListener.OnAvatarClick();
+                    }
                 }
             });
         }

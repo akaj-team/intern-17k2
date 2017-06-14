@@ -6,21 +6,21 @@
     android:gravity="bottom"
     android:orientation="vertical">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAvatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="@dimen/circle_imageview.padding"
+        android:paddingRight="@dimen/circle_imageview.padding"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingBottom="@dimen/tvName.padding"
+        android:paddingLeft="@dimen/tvName.padding"
+        android:paddingRight="@dimen/tvName.padding"
         android:text="@string/user_name"
         android:textColor="@color/textview_user.text.color" />
 </LinearLayout>
