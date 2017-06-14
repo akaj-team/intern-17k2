@@ -7,6 +7,7 @@
     tools:context=".ui.MainActivity">
 
     <fragment
+        android:name="vn.asiantech.internship.ui.FirstFragment"
         android:layout_width="@dimen/fragment.layout_width"
         android:layout_height="@dimen/fragment.layout_height.first"
         android:layout_marginLeft="@dimen/fragment.layout_marginLeft"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content" />
 
     <fragment
+        android:name="vn.asiantech.internship.ui.SecondFragment"
         android:layout_marginLeft="@dimen/fragment.layout_marginLeft"
         android:layout_width="@dimen/fragment.layout_width"
         android:layout_height="@dimen/fragment.layout_height.second"
