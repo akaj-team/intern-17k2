@@ -1,8 +1,16 @@
 package vn.asiantech.internship.Day6Ex1DrawerLayout.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
+
+import static android.R.attr.bitmap;
 
 /**
  * Created by rimoka on 14/06/2017.
@@ -25,5 +33,7 @@ import android.util.AttributeSet;
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+//        getRoundedCornerBitmap();
     }
+
 }

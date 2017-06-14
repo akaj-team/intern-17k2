@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
             if (extras != null) {
                 //Get image
                 adapterDrawer.setBitMapAvatar((Bitmap) extras.getParcelable("data"));
-                adapterDrawer.setCheckAvatar(true);
+//                adapterDrawer.setCheckAvatar(true);
                 adapterDrawer.notifyDataSetChanged();
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 mDialog.cancel();

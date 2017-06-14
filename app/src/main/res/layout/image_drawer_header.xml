@@ -5,7 +5,7 @@
     android:background="@drawable/custom_linearlayout_image_header"
     android:orientation="vertical">
 
-    <vn.asiantech.internship.Day6Ex1DrawerLayout.view.RoundImageView
+    <ImageView
         android:id="@+id/imgAvatar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/imageview.image.layout_height"

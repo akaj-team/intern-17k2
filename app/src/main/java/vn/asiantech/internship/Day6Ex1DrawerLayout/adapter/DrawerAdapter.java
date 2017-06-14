@@ -4,11 +4,11 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -22,8 +22,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.asiantech.internship.Day6Ex1DrawerLayout.event.OnRecyclerViewClickListener;
-import vn.asiantech.internship.Day6Ex1DrawerLayout.ui.MainActivity;
-import vn.asiantech.internship.Day6Ex1DrawerLayout.view.RoundImageView;
 import vn.asiantech.internship.R;
 
 /**
@@ -35,7 +33,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
     private OnRecyclerViewClickListener mOnRecyclerViewClickListener;
     private Context mContext;
     private Drawable mWallpaperDrawable;
-    private boolean mCheckAvatar;
     private Bitmap mAvatarBitmap;
     private int mPosition;
 
@@ -45,6 +42,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
         mOnRecyclerViewClickListener = onRecyclerViewClickListener;
         WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
         mWallpaperDrawable = wallpaperManager.getDrawable();
+        mAvatarBitmap = getRoundedCornerBitmap(drawableToBitmap(mWallpaperDrawable), 300);
     }
 
     @Override
@@ -73,11 +71,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case 0:
-                if (!mCheckAvatar) {
-                    holder.mImgAvatar.setImageDrawable(mWallpaperDrawable);
-                } else {
-                    holder.mImgAvatar.setImageBitmap(mAvatarBitmap);
-                }
+                holder.mImgAvatar.setImageBitmap(mAvatarBitmap);
                 break;
             default:
                 holder.mTvFunction.setText(mFunctions.get(position));
@@ -96,14 +90,12 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
         return mFunctions.size();
     }
 
-    public void setCheckAvatar(boolean check){
-        mCheckAvatar=check;
+    public void setBitMapAvatar(Bitmap avatarBitmap) {
+        mAvatarBitmap = getRoundedCornerBitmap(avatarBitmap,200);
     }
-    public void setBitMapAvatar(Bitmap avatarBitmap){
-        mAvatarBitmap=avatarBitmap;
-    }
-    public void setPosition(int position){
-        mPosition=position;
+
+    public void setPosition(int position) {
+        mPosition = position;
     }
 
     /**
@@ -112,7 +104,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvFunction;
         private View mItemView;
-        private RoundImageView mImgAvatar;
+        private ImageView mImgAvatar;
 
         RecyclerViewHolder(View itemView, boolean check) {
             super(itemView);
@@ -128,7 +120,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
                     }
                 });
             } else {
-                mImgAvatar = (RoundImageView) itemView.findViewById(R.id.imgAvatar);
+                mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
                 mImgAvatar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -139,5 +131,47 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
                 });
             }
         }
+    }
+
+    private static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+        final float roundPx = pixels;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
+
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        Bitmap bitmap = null;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if (bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(50, 50, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 }
