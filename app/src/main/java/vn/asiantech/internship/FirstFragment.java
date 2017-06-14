@@ -10,6 +10,10 @@ import android.widget.EditText;
 
 /**
  * Used to enter data
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-13
  */
 public class FirstFragment extends Fragment {
 

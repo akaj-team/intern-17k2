@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 /**
  * Used to get data from first fragment
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-13
  */
 public class SecondFragment extends Fragment {
 
@@ -20,12 +24,12 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_two, container, false);
-        Button btnFirstSend = (Button) view.findViewById(R.id.btnFirstSend);
+        Button btnSend1 = (Button) view.findViewById(R.id.btnSend1);
         mTvResult = (TextView) view.findViewById(R.id.tvResult);
-        btnFirstSend.setOnClickListener(new View.OnClickListener() {
+        btnSend1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).onClick();
+                ((SendActivity) getActivity()).onClick();
             }
         });
         return view;

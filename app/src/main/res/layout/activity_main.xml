@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="vn.asiantech.internship.MainActivity">
+    tools:context="vn.asiantech.internship.SendActivity">
 
     <FrameLayout
         android:id="@+id/container1"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btnSecondSend"
+        android:id="@+id/btnSend2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -21,7 +21,7 @@
         android:text="@string/button.name" />
 
     <FrameLayout
-        android:id="@+id/container2"
+        android:id="@+id/frContainer2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

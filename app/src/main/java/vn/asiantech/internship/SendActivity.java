@@ -9,8 +9,13 @@ import android.widget.Button;
 
 /**
  * Used to display fragment
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-13
  */
-public class MainActivity extends AppCompatActivity {
+public class SendActivity extends AppCompatActivity {
+
     private FirstFragment mFirstFragment;
     private SecondFragment mSecondFragment;
 
@@ -18,17 +23,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btnSecondSend = (Button) findViewById(R.id.btnSecondSend);
-
+        Button btnSend2 = (Button) findViewById(R.id.btnSend2);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         mFirstFragment = new FirstFragment();
         fragmentTransaction.replace(R.id.container1, mFirstFragment);
         mSecondFragment = new SecondFragment();
-        fragmentTransaction.replace(R.id.container2, mSecondFragment);
+        fragmentTransaction.replace(R.id.frContainer2, mSecondFragment);
         fragmentTransaction.commit();
 
-        btnSecondSend.setOnClickListener(new View.OnClickListener() {
+        btnSend2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mSecondFragment.setResult(mFirstFragment.getDataInput());
