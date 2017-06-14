@@ -27,7 +27,7 @@ public class DrawerItem {
         return isChecked;
     }
 
-    public void setChecked(boolean checked) {
-        this.isChecked = checked;
+    public void setChecked(boolean isChecked) {
+        this.isChecked = isChecked;
     }
 }
