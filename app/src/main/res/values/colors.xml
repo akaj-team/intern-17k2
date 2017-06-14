@@ -10,4 +10,9 @@
     <color name="recyclerview.color">#5c5d60</color>
     <color name="view.divider.color">#C0C0C5</color>
     <color name="toolbar.color">#ECECED</color>
+    <color name="button_friend.color">#F55A9E</color>
+    <color name="button_add.color">#ffffff</color>
+    <color name="recyclerview.background">#F5F5F6</color>
+    <color name="frgFriend.background">#818184</color>
+    <color name="item_list_friend.background">#F5F5F6</color>
 </resources>
