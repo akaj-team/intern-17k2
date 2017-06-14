@@ -16,14 +16,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/padding"
-            android:layout_marginRight="@dimen/padding"
+            android:layout_marginLeft="@dimen/padding_margin_default"
+            android:layout_marginRight="@dimen/padding_margin_default"
             android:textSize="@dimen/bigger_text_size" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drawerList"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/drawerBackground" />

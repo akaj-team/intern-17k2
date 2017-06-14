@@ -2,9 +2,10 @@ package vn.asiantech.internship.models;
 
 /**
  * Item for LeftMenu
+ *
  * @author at-cuongcao
  * @version 1.0
- * @since  6/12/2017.
+ * @since 6/12/2017.
  **/
 
 public class DrawerItem {

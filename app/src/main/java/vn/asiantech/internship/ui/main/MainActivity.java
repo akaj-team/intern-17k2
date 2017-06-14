@@ -33,6 +33,8 @@ import vn.asiantech.internship.models.DrawerItem;
 import vn.asiantech.internship.ui.leftmenu.DrawerApdater;
 
 /**
+ * Mainactivity
+ *
  * @author at-cuongcao
  * @version 1.0
  * @since 06/12/2017
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerApdater mAdapter;
 
     private List<DrawerItem> mDrawerItems;
-    private int mMenuItemChosser = -1;
+    private int mPositionSelected = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case REQUEST_CODE_CROP:
                     Bitmap bm = data.getExtras().getParcelable("data");
                     mAdapter.setAvtar(bm);
-                    mAdapter.notifyDataSetChanged();
+                    mAdapter.notifyItemChanged(0);
                     break;
             }
         }
@@ -158,13 +160,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new DrawerApdater(this, mDrawerItems, new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                if (mMenuItemChosser > -1) {
-                    mDrawerItems.get(mMenuItemChosser).setSelected();
+                if (mPositionSelected > -1) {
+                    mDrawerItems.get(mPositionSelected).setSelected();
+                    mAdapter.notifyItemChanged(mPositionSelected + 1);
                 }
                 mDrawerItems.get(position).setSelected();
-                mMenuItemChosser = position;
+                mPositionSelected = position;
                 mTvItemChooser.setText(mDrawerItems.get(position).getName());
-                mAdapter.notifyDataSetChanged();
+                mAdapter.notifyItemChanged(position + 1);
                 mDrawerLayout.closeDrawers();
             }
 

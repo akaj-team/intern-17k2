@@ -55,7 +55,7 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         View view;
         switch (viewType) {
             case TYPE_HEADER:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.header_drawer, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drawer_header, parent, false);
                 return new DrawerLayoutHeader(view);
             default:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drawer, parent, false);
