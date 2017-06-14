@@ -168,5 +168,4 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         }
     }
-
 }

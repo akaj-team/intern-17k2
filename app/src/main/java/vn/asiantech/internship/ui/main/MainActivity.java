@@ -97,15 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /**
-     * This interface used to handle DrawerLayoutItem onClick
-     */
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-
-        void onAvatarClick(int chooser);
-    }
-
     private void cropImage(Uri uri) {
         try {
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
@@ -215,5 +206,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
         mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+    }
+
+    /**
+     * This interface used to handle DrawerLayoutItem onClick
+     */
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+
+        void onAvatarClick(int chooser);
     }
 }
