@@ -2,5 +2,5 @@
     <string name="app_name">Internship</string>
     <string name="button.send">Send1</string>
     <string name="button.name">Send</string>
-    <string name="edittext.hint">input</string>
+    <string name="editText.hint">Input</string>
 </resources>
