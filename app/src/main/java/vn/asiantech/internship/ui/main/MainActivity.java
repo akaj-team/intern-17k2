@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,9 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void reference() {
         mUsers.add(new User(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round), "LeDuc", "leanhduc2015"));
-        mTitle = new String[]{"Feed", "Activity", "Profile", "Friends", "Map", "Chat", "Settings"};
+        mTitle = getResources().getStringArray(R.array.item_text);
         mDlMain = (DrawerLayout) findViewById(R.id.dlMain);
         mTvShow = (TextView) findViewById(R.id.tvShow);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -128,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
                 performCrop(data.getData());
             }
             if (requestCode == REQUEST_CODE_CAMERA) {
-                //File file = savebitmap((Bitmap) data.getExtras().get("data"));
                 performCrop(data.getData());
             }
             if (requestCode == REQUEST_CODE_CROP) {
@@ -173,27 +168,5 @@ public class MainActivity extends AppCompatActivity {
         cropIntent.putExtra("outputY", 128);
         cropIntent.putExtra("return-data", true);
         startActivityForResult(cropIntent, REQUEST_CODE_CROP);
-    }
-
-    private File savebitmap(Bitmap bmp) {
-        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-        OutputStream outStream = null;
-        // String temp = null;
-        File file = new File(extStorageDirectory, "temp.png");
-        if (file.exists()) {
-            file.delete();
-            file = new File(extStorageDirectory, "temp.png");
-        }
-        try {
-            outStream = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            outStream.flush();
-            outStream.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return file;
     }
 }

@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">Internship</string>
     <string name="dialog_title">Choose one</string>
+    <string name="feed">Feed</string>
+    <string name="activity">Activity</string>
+    <string name="profile">Profile</string>
+    <string name="friends">Friends</string>
+    <string name="map">Map</string>
+    <string name="chat">Chat</string>
+    <string name="settings">Settings</string>
+    <string-array name="item_text">
+        <item>@string/feed</item>
+        <item>@string/activity</item>
+        <item>@string/profile</item>
+        <item>@string/friends</item>
+        <item>@string/map</item>
+        <item>@string/chat</item>
+        <item>@string/settings</item>
+    </string-array>
 </resources>
