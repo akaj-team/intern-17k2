@@ -1,5 +1,9 @@
 package vn.asiantech.internship;
 
+/**
+ * Copyright © 2016 AsianTech inc.
+ * Created by DatBui on 10/06/2017.
+ */
 class Friend {
     private String name;
     private boolean isFriend;

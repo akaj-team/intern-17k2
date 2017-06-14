@@ -32,7 +32,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyHol
         Friend friend = mFriendList.get(position);
         holder.mTvName.setText(friend.getName());
 
-        Button btn = holder.btnAdd;
+        Button btn = holder.mBtnAdd;
         if (friend.isFriend()) {
             btn.setText(R.string.btn_friend);
             btn.setBackgroundColor(Color.RED);
@@ -48,16 +48,19 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyHol
     public int getItemCount() {
         return mFriendList.size();
     }
-
+    /**
+     * Copyright © 2016 AsianTech inc.
+     * Created by DatBui on 10/06/2017.
+     */
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
-        private Button btnAdd;
+        private Button mBtnAdd;
 
         MyHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
-            btnAdd = (Button) itemView.findViewById(R.id.btnAdd);
-            btnAdd.setOnClickListener(this);
+            mBtnAdd = (Button) itemView.findViewById(R.id.btnAdd);
+            mBtnAdd.setOnClickListener(this);
         }
 
         @Override

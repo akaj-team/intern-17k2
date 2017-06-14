@@ -42,7 +42,6 @@ public class FriendFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(manager);
         // Our classic custom Adapter.
-
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(friendList);
         recyclerView.setAdapter(adapter);
         return view;
