@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Internship</string>
+
+    <string name="ok">OK</string>
+    <string name="friend">Friend</string>
+    <string name="add">Add</string>
     <string name="user_name">Cao Van Cuong</string>
     <string name="email">vancuong.itf@gmail.com</string>
     <string name="crop_error">Your phone doesn\'t support Crop Image!</string>

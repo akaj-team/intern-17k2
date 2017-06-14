@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="edit_text.text_size">16sp</dimen>
+    <dimen name="main_layout.padding">16dp</dimen>
+
+    <dimen name="button_corner">5dp</dimen>
+    <dimen name="stroke_width">2dp</dimen>
+    <dimen name="item_list.padding">10dp</dimen>
     <dimen name="padding_margin_default">10dp</dimen>
     <dimen name="text_size_default">16sp</dimen>
     <dimen name="bigger_text_size">24sp</dimen>
