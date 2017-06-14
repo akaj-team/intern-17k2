@@ -26,7 +26,7 @@ import vn.asiantech.internship.models.DrawerItem;
 public class DrawerAdapter extends RecyclerView.Adapter {
 
     private static final int TYPE_HEADER = 0;
-    private static final int TYPE_LIST = 1;
+    private static final int TYPE_ITEM = 1;
     private List<DrawerItem> mDrawerItems = new ArrayList<>();
     private final OnItemClickListener mListener;
     private final Drawable mDrawable;
@@ -54,7 +54,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
         if (position == 0) {
             return TYPE_HEADER;
         }
-        return TYPE_LIST;
+        return TYPE_ITEM;
     }
 
     @Override
@@ -92,8 +92,9 @@ public class DrawerAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mListener != null)
+                    if (mListener != null) {
                         mListener.onItemClick(getLayoutPosition() - 1);
+                    }
                 }
             });
         }
@@ -127,6 +128,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
      */
     public interface OnItemClickListener {
         void onItemClick(int position);
+
         void onAvatarClick();
     }
 }

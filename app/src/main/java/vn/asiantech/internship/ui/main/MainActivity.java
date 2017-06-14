@@ -16,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -41,14 +42,14 @@ import static android.graphics.Bitmap.createBitmap;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static final int RESULT_LOAD_IMAGE_GALLERY = 1;
-    private static final int RESULT_LOAD_IMAGE_CAMERA = 2;
+    private static final int REQUEST_CODE_IMAGE_GALLERY = 1;
+    private static final int REQUEST_CODE_IMAGE_CAMERA = 2;
     private static final String KEY_DATA = "data";
 
     private TextView mTvResult;
     private ImageView mImgMenu;
-    private RecyclerView mRecyclerView;
-    private LinearLayout mLnLayout;
+    private RecyclerView mRecyclerViewDrawer;
+    private LinearLayout mLlContent;
     private DrawerLayout mDrawerLayout;
 
     private DrawerAdapter mAdapter;
@@ -62,17 +63,17 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initData();
         initDrawer();
-        initData();
         initAdapter();
     }
 
     private void initView() {
-        mLnLayout = (LinearLayout) findViewById(R.id.lnLayout);
+        mLlContent = (LinearLayout) findViewById(R.id.llContent);
         mTvResult = (TextView) findViewById(R.id.tvResult);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
+        mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
         mImgMenu = (ImageView) findViewById(R.id.imgMenu);
-        TextView tvToolbarTitle = (TextView) findViewById(R.id.tvTitle);
-        tvToolbarTitle.setText(R.string.toolbar_title);
+        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvTitle.setText(R.string.toolbar_title);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
     }
 
     private void initData() {
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initAdapter() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerViewDrawer.setLayoutManager(layoutManager);
         mAdapter = new DrawerAdapter(this, mDrawerItems, new DrawerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -96,28 +97,28 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawers();
                 if (mPositionSelected >= 0) {
                     mDrawerItems.get(mPositionSelected).setChecked(false);
+                    mAdapter.notifyItemChanged(mPositionSelected+1);
                 }
                 mPositionSelected = position;
                 mDrawerItems.get(position).setChecked(true);
-                mAdapter.notifyDataSetChanged();
+                mAdapter.notifyItemChanged(position + 1);
             }
 
             @Override
             public void onAvatarClick() {
-                showDialog();
+                showChooseImageDialog();
             }
         });
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerViewDrawer.setAdapter(mAdapter);
     }
 
     private void initDrawer() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-                mLnLayout.setTranslationX(slideOffset * drawerView.getWidth());
+                mLlContent.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };
         mImgMenu.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.syncState();
     }
 
-    private void showDialog() {
+    private void showChooseImageDialog() {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
         builderSingle.setTitle(R.string.dialog_title);
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.select_dialog_item);
@@ -143,14 +144,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String strName = arrayAdapter.getItem(which);
-                if (strName != null && strName.equals(getString(R.string.camera))) {
+                if (strName != null && TextUtils.equals(strName, getString(R.string.camera))) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     cropImage(intent);
-                    startActivityForResult(intent, RESULT_LOAD_IMAGE_CAMERA);
+                    startActivityForResult(intent, REQUEST_CODE_IMAGE_CAMERA);
                 } else {
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     cropImage(intent);
-                    startActivityForResult(intent, RESULT_LOAD_IMAGE_GALLERY);
+                    startActivityForResult(intent, REQUEST_CODE_IMAGE_GALLERY);
                 }
             }
         });
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
-            if (requestCode == RESULT_LOAD_IMAGE_GALLERY || requestCode == RESULT_LOAD_IMAGE_CAMERA) {
+            if (requestCode == REQUEST_CODE_IMAGE_GALLERY || requestCode == REQUEST_CODE_IMAGE_CAMERA) {
                 getImage(data);
             }
         }

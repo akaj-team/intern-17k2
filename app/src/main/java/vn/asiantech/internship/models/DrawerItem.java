@@ -9,7 +9,7 @@ package vn.asiantech.internship.models;
  */
 public class DrawerItem {
     private String name;
-    private boolean checked = false;
+    private boolean isChecked;
 
     public DrawerItem(String name) {
         this.name = name;
@@ -24,10 +24,10 @@ public class DrawerItem {
     }
 
     public boolean isChecked() {
-        return checked;
+        return isChecked;
     }
 
     public void setChecked(boolean checked) {
-        this.checked = checked;
+        this.isChecked = checked;
     }
 }

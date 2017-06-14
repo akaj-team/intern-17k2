@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/lnLayout"
+        android:id="@+id/llContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -20,16 +20,9 @@
             android:textSize="@dimen/textView.size" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/frContainer"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewDrawer"
         android:layout_width="@dimen/container.with"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/colorGreyLight">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerViewDrawer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
+        android:layout_gravity="start" />
 </android.support.v4.widget.DrawerLayout>
