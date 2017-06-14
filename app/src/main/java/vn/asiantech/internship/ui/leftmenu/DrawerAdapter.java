@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ import vn.asiantech.internship.ui.main.MainActivity;
  * @version 1.0
  * @since 06/12/2017
  */
-public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
     private List<DrawerItem> mDrawerItems;
@@ -37,8 +38,8 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Bitmap mBitmap;
     private Drawable mWallpaper;
 
-    public Adapter(Context context, List<DrawerItem> items,
-                   MainActivity.OnItemClickListener listener) {
+    public DrawerAdapter(Context context, List<DrawerItem> items,
+                         MainActivity.OnItemClickListener listener) {
         this.mDrawerItems = items;
         mListener = listener;
         mWallpaper = WallpaperManager.getInstance(context).getDrawable();
@@ -76,7 +77,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             DrawerItem drawerItem = mDrawerItems.get(position - 1);
             item.mTvName.setText(drawerItem.getName());
             if (drawerItem.isSelected()) {
-                item.mTvName.setTextColor(Color.parseColor(item.itemView.getContext().getResources().getString(R.string.drawerItemChooserTextColor)));
+                item.mTvName.setTextColor(ContextCompat.getColor(item.itemView.getContext(), R.color.drawerItemChooserTextColor));
             } else {
                 item.mTvName.setTextColor(Color.WHITE);
             }

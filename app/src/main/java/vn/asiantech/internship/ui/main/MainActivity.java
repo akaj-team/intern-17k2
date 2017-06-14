@@ -28,7 +28,7 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.DrawerItem;
-import vn.asiantech.internship.ui.leftmenu.Adapter;
+import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
 
 /**
  * Mainactivity
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView mRecyclerViewDrawer;
     private DrawerLayout mDrawerLayout;
 
-    private Adapter mAdapter;
+    private DrawerAdapter mAdapter;
 
     private List<DrawerItem> mDrawerItems;
     private int mPositionSelected = -1;
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mDrawerItems.add(new DrawerItem(s));
         }
         mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new Adapter(this, mDrawerItems, new OnItemClickListener() {
+        mAdapter = new DrawerAdapter(this, mDrawerItems, new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 if (mPositionSelected > -1) {
@@ -155,8 +155,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (chooser == REQUEST_CODE_CAMERA) {
+                    File root = new File(Environment.getExternalStorageDirectory().getPath() + File.separatorChar + "Camera" + File.separatorChar);
                     try {
-                        File imageFile = File.createTempFile("img", System.currentTimeMillis() + ".jpg", Environment.getExternalStorageDirectory());
+                        File imageFile = File.createTempFile("img", System.currentTimeMillis() + ".jpg", root);
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         mPhotoUri = Uri.fromFile(imageFile);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);

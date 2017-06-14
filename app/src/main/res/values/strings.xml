@@ -2,7 +2,6 @@
     <string name="app_name">Internship</string>
     <string name="user_name">Cao Van Cuong</string>
     <string name="email">vancuong.itf@gmail.com</string>
-    <string name="drawerItemChooserTextColor">#A6A7AB</string>
     <string name="crop_error">Your phone doesn\'t support Crop Image!</string>
     <string name="choose_action">Choose action</string>
     <string-array name="menu_list">
