@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout mRlContent;
     private RecyclerView mRecyclerViewDrawer;
     private DrawerLayout mDrawerLayout;
+    private Toolbar mToolbar;
 
     private DrawerAdapter mAdapter;
 
@@ -61,7 +62,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initView();
+        initViews();
+        initToolbar();
+        initData();
         initAdapter();
         initDrawerLayout();
 
@@ -113,20 +116,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void initView() {
+    public void initViews() {
         mTvItemChooser = (TextView) findViewById(R.id.tvChooser);
         mRlContent = (RelativeLayout) findViewById(R.id.rlContent);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
+        mToolbar = (Toolbar) findViewById(R.id.toolBar);
         TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
         ImageView imgMenu = (ImageView) findViewById(R.id.imgMenu);
         mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
 
-        setSupportActionBar(toolbar);
         tvTitle.setText(R.string.app_name);
         imgMenu.setOnClickListener(this);
     }
 
-    public void initAdapter() {
+    private void initToolbar() {
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+    }
+
+    private void initData() {
         mDrawerItems = new ArrayList<>();
         mDrawerItems.add(new DrawerItem(getResources().getString(R.string.feed)));
         mDrawerItems.add(new DrawerItem(getResources().getString(R.string.activity)));
@@ -136,6 +147,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerItems.add(new DrawerItem(getResources().getString(R.string.map)));
         mDrawerItems.add(new DrawerItem(getResources().getString(R.string.chat)));
         mDrawerItems.add(new DrawerItem(getResources().getString(R.string.settings)));
+    }
+
+    private void initAdapter() {
         mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new DrawerAdapter(this, mDrawerItems, new OnItemClickListener() {
             @Override
@@ -176,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRecyclerViewDrawer.setAdapter(mAdapter);
     }
 
-    public void initDrawerLayout() {
+    private void initDrawerLayout() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
             @Override

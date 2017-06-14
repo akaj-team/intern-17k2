@@ -149,7 +149,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         }
 
-        public void showImageChooser(Context context) {
+        private void showImageChooser(Context context) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(R.string.choose_action).setItems(R.array.pick_image_chooser, new DialogInterface.OnClickListener() {
                 @Override
