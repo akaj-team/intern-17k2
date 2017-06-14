@@ -99,6 +99,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return mTitles.size();
     }
 
+    /**
+     * viewholder of title item
+     */
     private class TitleViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvTitle;
@@ -119,6 +122,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    /**
+     * viewholder of header
+     */
     private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvName;
