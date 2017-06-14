@@ -15,7 +15,7 @@ import java.util.List;
 import vn.asiantech.internship.R;
 
 /**
- * Used to display recyclerview.
+ * Used to display recyclerView.
  *
  * @author at-HangTran
  * @version 1.0

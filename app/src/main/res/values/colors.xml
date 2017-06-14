@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorGrey">#a3a0a0</color>
+    <color name="colorPrimaryRecyclerView">#3F51B5</color>
+    <color name="colorPrimaryDarkRecyclerView">#303F9F</color>
+    <color name="colorAccentRecyclerView">#FF4081</color>
+    <color name="colorWhiteRecyclerView">#ffffff</color>
+    <color name="colorGreyRecyclerView">#a3a0a0</color>
 </resources>

@@ -17,7 +17,7 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-9
  */
-public class MainActivity extends AppCompatActivity {
+public class RecyclerViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
