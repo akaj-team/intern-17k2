@@ -8,4 +8,7 @@
     <color name="colorItem">#999999</color>
     <color name="textview.function">#FFFFFF</color>
     <color name="toolbar">#CCCCCC</color>
+    <color name="stroke.custom_linearlayout_image_header">#CCCCCC</color>
+    <color name="solid.custom_linearlayout_image_header">#EEEEEE</color>
+    <item name="color.paint" type="color">#AAAAAA</item>
 </resources>
