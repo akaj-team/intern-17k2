@@ -4,21 +4,23 @@
     android:id="@+id/llItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/recyclerview.padding"
-    android:paddingLeft="@dimen/recyclerview.padding"
+    android:background="@color/item.background"
     android:orientation="vertical"
-    android:background="@color/item.background">
+    android:paddingLeft="@dimen/recyclerview.padding"
+    android:paddingTop="@dimen/recyclerview.padding">
+
     <TextView
         android:id="@+id/tvItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/textview.size.name"
-        tools:text="item"
-        android:textColor="@color/white"
         android:layout_gravity="center_vertical"
-        android:paddingBottom="@dimen/navigation.header.padding"/>
+        android:paddingBottom="@dimen/navigation.header.padding"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview.size.name"
+        tools:text="item" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/line.height"
-        android:background="@color/white"/>
+        android:background="@color/white" />
 </LinearLayout>

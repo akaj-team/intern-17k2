@@ -1,8 +1,9 @@
-package vn.asiantech.internship.adapters;
+package vn.asiantech.internship.ui.leftmenu;
 
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,11 +15,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.User;
 
 /**
  * Created by Administrator on 6/12/2017.
+ * this adapter to custom recyclerView in navigation
  */
 public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int KEY_GALLERY = 0;
@@ -27,14 +30,16 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int TYPE_ITEM = 0;
     private String[] mTitle;
     private Context mContext;
-    private OnClickItem mOnClickItem;
+    private OnClickItemListener mOnClickItemListener;
     private List<User> mUsers;
+    private Drawable mDrawable;
 
-    public NavigationAdapter(Context context, String[] title, List<User> users, OnClickItem onClickItem) {
+    public NavigationAdapter(Context context, String[] title, List<User> users, OnClickItemListener onClickItemListener) {
         mTitle = title;
         mContext = context;
-        mOnClickItem = onClickItem;
-        mUsers=users;
+        mOnClickItemListener = onClickItemListener;
+        mUsers = users;
+        mDrawable = WallpaperManager.getInstance(mContext).getDrawable();
     }
 
     @Override
@@ -60,16 +65,10 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             headerViewHolder.mTvName.setText(mUsers.get(0).getName());
             headerViewHolder.mTvEmail.setText(mUsers.get(0).getEmail());
             headerViewHolder.mImgUser.setImageBitmap(mUsers.get(0).getImgUser());
-            WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
-            headerViewHolder.mLlHeader.setBackgroundDrawable(wallpaperManager.getDrawable());
+            headerViewHolder.mImgBackground.setImageDrawable(mDrawable);
         } else {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             itemViewHolder.mTvItem.setText(mTitle[position - 1]);
-//            if (itemViewHolder.mLlItem.isSelected()) {
-//                itemViewHolder.mLlItem.setBackgroundColor(Color.GREEN);
-//            } else {
-//                itemViewHolder.mLlItem.setBackgroundColor(Color.parseColor("#87888C"));
-//            }
         }
     }
 
@@ -81,6 +80,9 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return TYPE_ITEM;
     }
 
+    /**
+     * custom ViewHolder for another item
+     */
     private class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvItem;
         private LinearLayout mLlItem;
@@ -96,42 +98,52 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.llItem:
-                    mOnClickItem.click(getAdapterPosition() - 1);
+                    if (mOnClickItemListener != null) {
+                        mOnClickItemListener.onClickItem(getAdapterPosition() - 1);
+                    }
                     break;
             }
         }
     }
 
+    /**
+     * custom ViewHolder for header
+     */
     private class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
         private TextView mTvEmail;
-        private LinearLayout mLlHeader;
-        private ImageView mImgUser;
+        private ImageView mImgBackground;
+        private CircleImageView mImgUser;
 
         private HeaderViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvEmail = (TextView) itemView.findViewById(R.id.tvEmail);
-            mImgUser = (ImageView) itemView.findViewById(R.id.imgUser);
-            mLlHeader = (LinearLayout) itemView.findViewById(R.id.llHeader);
+            mImgUser = (CircleImageView) itemView.findViewById(R.id.imgUser);
+            mImgBackground = (ImageView) itemView.findViewById(R.id.imgBackground);
             mImgUser.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+            String[] dialogItems = {"Gallery", "Camera"};
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setMessage("Choose photo from:")
-                    .setCancelable(true)
-                    .setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+            builder.setTitle(R.string.dialog_title)
+                    .setItems(dialogItems, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            mOnClickItem.onClickAvatar(KEY_CAMERA);
-                        }
-                    })
-                    .setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mOnClickItem.onClickAvatar(KEY_GALLERY);
+                            switch (which) {
+                                case 0:
+                                    if (mOnClickItemListener != null) {
+                                        mOnClickItemListener.onClickAvatar(KEY_GALLERY);
+                                    }
+                                    break;
+                                case 1:
+                                    if (mOnClickItemListener != null) {
+                                        mOnClickItemListener.onClickAvatar(KEY_CAMERA);
+                                    }
+                                    break;
+                            }
                         }
                     });
             AlertDialog alertDialog = builder.create();
@@ -139,8 +151,11 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public interface OnClickItem {
-        void click(int position);
+    /**
+     * interface set event click item
+     */
+    public interface OnClickItemListener {
+        void onClickItem(int position);
 
         void onClickAvatar(int key);
     }

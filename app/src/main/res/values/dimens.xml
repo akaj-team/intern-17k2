@@ -8,4 +8,5 @@
     <dimen name="header.height">130dp</dimen>
     <dimen name="line.height">1dp</dimen>
     <dimen name="textview.size.title">20sp</dimen>
+    <dimen name="imageview.size.user">50dp</dimen>
 </resources>
