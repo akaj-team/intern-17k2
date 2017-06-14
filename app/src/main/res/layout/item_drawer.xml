@@ -8,15 +8,15 @@
     <TextView
         android:id="@+id/tvItem"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tvItem.height"
-        android:layout_marginLeft="@dimen/tvItem.margin_left"
+        android:layout_height="@dimen/textview.item.height"
+        android:layout_marginLeft="@dimen/textview.item.margin.left"
         android:gravity="center|left"
         android:textColor="@color/textview.text.color"
-        android:textSize="@dimen/tvItem.textsize" />
+        android:textSize="@dimen/textview.item.textsize" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginLeft="@dimen/view.margin_left"
+        android:layout_marginLeft="@dimen/view.margin.left"
         android:background="@color/view.divider.color" />
 </LinearLayout>

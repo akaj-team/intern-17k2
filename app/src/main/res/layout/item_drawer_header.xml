@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llHeader"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_header.height"
+    android:layout_height="@dimen/header.height"
     android:gravity="bottom"
     android:orientation="vertical">
 
@@ -10,17 +10,17 @@
         android:id="@+id/imgAvatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/circle_imageview.padding"
-        android:paddingRight="@dimen/circle_imageview.padding"
+        android:paddingLeft="@dimen/imageview.padding"
+        android:paddingRight="@dimen/imageview.padding"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/tvName.padding"
-        android:paddingLeft="@dimen/tvName.padding"
-        android:paddingRight="@dimen/tvName.padding"
-        android:text="@string/user_name"
+        android:paddingBottom="@dimen/textview.name.padding"
+        android:paddingLeft="@dimen/textview.name.padding"
+        android:paddingRight="@dimen/textview.name.padding"
+        android:text="@string/user.name"
         android:textColor="@color/textview_user.text.color" />
 </LinearLayout>

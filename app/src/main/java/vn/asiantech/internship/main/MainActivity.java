@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.leftmenu;
+package vn.asiantech.internship.main;
 
 import android.app.WallpaperManager;
 import android.content.ActivityNotFoundException;
@@ -6,13 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +28,7 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.DrawerItem;
+import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
 
 /**
  * class handle events onClick
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_GALLERY = 0;
     private static final int REQUEST_CODE_CROP = 1;
     private static final int REQUEST_CODE_CAMERA = 2;
+    private static final String KEY_DATA = "data";
 
     private TextView mTvTitle;
     private RecyclerView mRecyclerView;
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 case REQUEST_CODE_CROP:
                     Bundle bundle = data.getExtras();
                     if (bundle != null) {
-                        Bitmap bitmap = bundle.getParcelable("data");
+                        Bitmap bitmap = bundle.getParcelable(KEY_DATA);
                         mAdapter.setAvatar(bitmap);
                         mAdapter.notifyItemChanged(0);
                     }
@@ -158,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialogChangeAvatar() {
         AlertDialog.Builder alertDialogBuider = new AlertDialog.Builder(MainActivity.this);
-        alertDialogBuider.setTitle(R.string.alertdialog_message);
+        alertDialogBuider.setTitle(R.string.dialog_select_picture_message);
         alertDialogBuider.setItems(R.array.dialog_items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -196,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<DrawerItem> createData() {
         mDrawerItems = new ArrayList<>();
-        String[] arr = getResources().getStringArray(R.array.drawer_item);
+        String[] arr = getResources().getStringArray(R.array.drawer_items);
         for (String anArr : arr) {
             mDrawerItems.add(new DrawerItem(anArr));
         }

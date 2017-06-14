@@ -23,7 +23,7 @@ import vn.asiantech.internship.models.DrawerItem;
  * <p>
  * Created by Hai on 6/12/2017.
  */
-class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
 
@@ -33,14 +33,14 @@ class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Bitmap mBitmap;
     private WallpaperManager mWallpaperManager;
 
-    DrawerAdapter(Context context, List<DrawerItem> items, WallpaperManager wallpaperManager, OnItemListener onItemListener) {
+    public DrawerAdapter(Context context, List<DrawerItem> items, WallpaperManager wallpaperManager, OnItemListener onItemListener) {
         mContext = context;
         mItems = items;
         mWallpaperManager = wallpaperManager;
         mOnItemListener = onItemListener;
     }
 
-    void setAvatar(Bitmap bitmap) {
+    public void setAvatar(Bitmap bitmap) {
         mBitmap = bitmap;
     }
 
@@ -142,7 +142,7 @@ class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /**
      * interface using in MainActivity handle event item click, avatar click
      */
-    interface OnItemListener {
+    public interface OnItemListener {
         void OnItemClick(int position);
 
         void OnAvatarClick();

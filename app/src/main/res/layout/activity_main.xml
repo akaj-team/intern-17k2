@@ -5,7 +5,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.asiantech.internship.ui.leftmenu.MainActivity">
+    tools:context=".main.MainActivity">
 
     <LinearLayout
         android:id="@+id/llContent"
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="@dimen/tvTitle.textsize"
+            android:textSize="@dimen/textview.title.textsize"
             tools:text="Acitivity" />
     </LinearLayout>
 

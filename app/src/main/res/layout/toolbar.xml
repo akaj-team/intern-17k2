@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/app_name"
-                android:textSize="@dimen/tvToolbarTitle.textsize"
+                android:textSize="@dimen/textview.toolbar.title.textsize"
                 android:textStyle="bold" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
