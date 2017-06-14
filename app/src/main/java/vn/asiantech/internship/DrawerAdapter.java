@@ -1,7 +1,10 @@
 package vn.asiantech.internship;
 
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,8 +63,15 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         } else if (viewHolder instanceof MyViewHolderHeader) {
             MyViewHolderHeader myViewHolder = (MyViewHolderHeader) viewHolder;
+
+            //Get current wallpaper
+            WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
+            Drawable wallpaperDrawable = wallpaperManager.getDrawable();
+
+            myViewHolder.mCLParent.setBackgroundDrawable(wallpaperDrawable);
             myViewHolder.mTvAuthorName.setText(mContext.getString(R.string.app_author));
-            if (mBitmap != null){
+
+            if (mBitmap != null) {
                 myViewHolder.mImgAvatar.setImageBitmap(mBitmap);
             }
         }
@@ -81,10 +91,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     *
      * @param bitmap is link of image
      */
-    public void setImageAvatar(Bitmap bitmap){
+    public void setImageAvatar(Bitmap bitmap) {
         this.mBitmap = bitmap;
         notifyDataSetChanged();
     }
@@ -109,11 +118,13 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         private TextView mTvAuthorName;
         private ImageView mImgAvatar;
+        private ConstraintLayout mCLParent;
 
         MyViewHolderHeader(final View itemView) {
             super(itemView);
             mTvAuthorName = (TextView) itemView.findViewById(R.id.tvAuthorName);
             mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
+            mCLParent = (ConstraintLayout) itemView.findViewById(R.id.clParent);
             mImgAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
