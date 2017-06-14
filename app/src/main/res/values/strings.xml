@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Internship</string>
+    <string name="button.add">add</string>
+    <string name="imageview.description">image user</string>
+    <string name="button.text.friend">Friend</string>
     <string name="dialog_title">Choose one</string>
     <string name="feed">Feed</string>
     <string name="activity">Activity</string>
@@ -8,7 +11,7 @@
     <string name="map">Map</string>
     <string name="chat">Chat</string>
     <string name="settings">Settings</string>
-    <string-array name="item_text">
+    <string-array name="navigation_item">
         <item>@string/feed</item>
         <item>@string/activity</item>
         <item>@string/profile</item>
@@ -16,5 +19,9 @@
         <item>@string/map</item>
         <item>@string/chat</item>
         <item>@string/settings</item>
+    </string-array>
+    <string-array name="dialog_item">
+        <item>Gallery</item>
+        <item>Camera</item>
     </string-array>
 </resources>

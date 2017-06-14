@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void reference() {
         mUsers.add(new User(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round), "LeDuc", "leanhduc2015"));
-        mTitle = getResources().getStringArray(R.array.item_text);
+        mTitle = getResources().getStringArray(R.array.navigation_item);
         mDlMain = (DrawerLayout) findViewById(R.id.dlMain);
         mTvShow = (TextView) findViewById(R.id.tvShow);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);

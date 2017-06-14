@@ -9,6 +9,12 @@ public class User {
     private Bitmap imgUser;
     private String name;
     private String email;
+    private boolean isFriend;
+
+    public User(String name, boolean isFriend) {
+        this.name = name;
+        this.isFriend = isFriend;
+    }
 
     public User(Bitmap imgUser, String name, String email) {
         this.imgUser = imgUser;
@@ -34,5 +40,13 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public boolean isFriend() {
+        return isFriend;
+    }
+
+    public void setFriend(boolean friend) {
+        isFriend = friend;
     }
 }

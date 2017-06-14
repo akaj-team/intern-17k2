@@ -126,7 +126,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public void onClick(View v) {
-            String[] dialogItems = {"Gallery", "Camera"};
+            String[] dialogItems = v.getContext().getResources().getStringArray(R.array.dialog_item);
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setTitle(R.string.dialog_title)
                     .setItems(dialogItems, new DialogInterface.OnClickListener() {
