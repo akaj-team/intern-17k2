@@ -13,8 +13,8 @@
 
     <ImageView
         android:id="@+id/crImgAvatar"
-        android:layout_width="@dimen/image.avata.with_height"
-        android:layout_height="@dimen/image.avata.with_height"
+        android:layout_width="@dimen/image.avatar.with_height"
+        android:layout_height="@dimen/image.avatar.with_height"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/image.margin"
         android:layout_marginLeft="@dimen/image.margin"

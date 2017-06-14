@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         mLnLayout = (LinearLayout) findViewById(R.id.lnLayout);
         mTvResult = (TextView) findViewById(R.id.tvResult);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerviewDrawer);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
         mImgMenu = (ImageView) findViewById(R.id.imgMenu);
         TextView tvToolbarTitle = (TextView) findViewById(R.id.tvTitle);
         tvToolbarTitle.setText(R.string.toolbar_title);

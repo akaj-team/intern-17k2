@@ -6,15 +6,15 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="corner">5dp</dimen>
-    <dimen name="textview.size">30sp</dimen>
+    <dimen name="textView.size">30sp</dimen>
     <dimen name="image.margin">10dp</dimen>
     <dimen name="item.margin_left_right_top">2dp</dimen>
     <dimen name="item.padding">10dp</dimen>
-    <dimen name="textview.name.margin_left">5dp</dimen>
-    <dimen name="textview.name.size">20sp</dimen>
+    <dimen name="textView.name.margin_left">5dp</dimen>
+    <dimen name="textView.name.size">20sp</dimen>
     <dimen name="toolbar.height">56dp</dimen>
-    <dimen name="relativelayout.header.height">150dp</dimen>
-    <dimen name="image.avata.with_height">100dp</dimen>
+    <dimen name="relativeLayout.header.height">150dp</dimen>
+    <dimen name="image.avatar.with_height">100dp</dimen>
     <dimen name="container.with">200dp</dimen>
-    <dimen name="linearlayout.height">50dp</dimen>
+    <dimen name="linearLayout.height">50dp</dimen>
 </resources>

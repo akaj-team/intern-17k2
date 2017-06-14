@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="@dimen/textview.size" />
+            android:textSize="@dimen/textView.size" />
     </LinearLayout>
 
     <FrameLayout
@@ -28,7 +28,7 @@
         android:background="@color/colorGreyLight">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerviewDrawer"
+            android:id="@+id/recyclerViewDrawer"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>
