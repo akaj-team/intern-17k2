@@ -5,7 +5,6 @@ package vn.asiantech.internship.models;
  * <p>
  * Created by Hai on 6/12/2017.
  */
-
 public class DrawerItem {
     private String title;
     private boolean isSelected;

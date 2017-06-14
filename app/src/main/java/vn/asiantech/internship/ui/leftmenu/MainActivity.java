@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private WallpaperManager mWallpaperManager;
 
     private DrawerAdapter mAdapter;
-    private List<DrawerItem> mItems;
+    private List<DrawerItem> mDrawerItems;
     private int mPositionSelected;
 
     @Override
@@ -116,11 +116,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void OnItemClick(int position) {
                 if (mPositionSelected > -1) {
-                    mItems.get(mPositionSelected).setSelected(false);
+                    mDrawerItems.get(mPositionSelected).setSelected(false);
                     mAdapter.notifyItemChanged(mPositionSelected + 1);
                 }
-                mItems.get(position).setSelected(true);
-                mTvTitle.setText(mItems.get(position).getTitle());
+                mDrawerItems.get(position).setSelected(true);
+                mTvTitle.setText(mDrawerItems.get(position).getTitle());
                 mPositionSelected = position;
                 mAdapter.notifyItemChanged(position + 1);
                 mDrawerLayout.closeDrawers();
@@ -195,11 +195,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<DrawerItem> createData() {
-        mItems = new ArrayList<>();
+        mDrawerItems = new ArrayList<>();
         String[] arr = getResources().getStringArray(R.array.drawer_item);
         for (String anArr : arr) {
-            mItems.add(new DrawerItem(anArr));
+            mDrawerItems.add(new DrawerItem(anArr));
         }
-        return mItems;
+        return mDrawerItems;
     }
 }
