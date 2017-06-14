@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -46,6 +47,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
             holder.mBtnAdd.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_menu_add, 0, 0, 0);
         }
     }
+
     @Override
     public int getItemCount() {
         return mUsers == null ? 0 : mUsers.size();
