@@ -21,6 +21,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:background="@color/colorGreyLight"
         android:id="@+id/recyclerViewDrawer"
         android:layout_width="@dimen/container.with"
         android:layout_height="match_parent"
