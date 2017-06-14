@@ -17,7 +17,7 @@
     <dimen name="activity.toolbar_margin">20dp</dimen>
     <dimen name="activity.content_margin">20dp</dimen>
     <dimen name="activity.leftmenu_width">240dp</dimen>
-
+    <!--dimen of exercise2-->
     <dimen name="activity2.layout_padding">10dp</dimen>
     <dimen name="activity2.fragment2.button_margin">20dp</dimen>
 </resources>
