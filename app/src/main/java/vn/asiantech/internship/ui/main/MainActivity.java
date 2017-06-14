@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,7 +33,9 @@ import vn.asiantech.internship.models.DrawerItem;
 import vn.asiantech.internship.ui.leftmenu.DrawerApdater;
 
 /**
- * Created by VanCuong on 6/12/2017.
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/12/2017
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView mTvItemChooser;
     private RelativeLayout mRlMainContent;
-    private RecyclerView mRececlerView;
+    private RecyclerView mRecyclerViewDrawer;
     private DrawerLayout mDrawerLayout;
 
     private DrawerApdater mAdapter;
@@ -117,8 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             cropIntent.putExtra("return-data", true);
             startActivityForResult(cropIntent, REQUEST_CODE_CROP);
         } catch (ActivityNotFoundException e) {
-            String errorMessage = "Your phone doesn't support Crop Image!";
-            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, R.string.crop_error, Toast.LENGTH_SHORT);
             toast.show();
         }
     }
@@ -139,13 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.LENGTH_SHORT).show();
         }
 
-        try {
-            bm.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-            fOut.flush();
-            fOut.close();
-        } catch (IOException e) {
-            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
-        }
+        bm.compress(Bitmap.CompressFormat.PNG, 100, fOut);
         return sdImageMainDirectory;
     }
 
@@ -155,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
         ImageView imgMenu = (ImageView) findViewById(R.id.imgMenu);
-        mRececlerView = (RecyclerView) findViewById(R.id.drawerList);
+        mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.drawerList);
 
         setSupportActionBar(toolbar);
         setTitle("");
@@ -169,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (String s : menuList) {
             mDrawerItems.add(new DrawerItem(s));
         }
-        mRececlerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new DrawerApdater(this, mDrawerItems, new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -197,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-        mRececlerView.setAdapter(mAdapter);
+        mRecyclerViewDrawer.setAdapter(mAdapter);
     }
 
     public void initDrawerLayout() {

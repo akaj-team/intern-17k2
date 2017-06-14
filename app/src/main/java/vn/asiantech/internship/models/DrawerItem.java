@@ -1,17 +1,15 @@
 package vn.asiantech.internship.models;
 
 /**
- * Created by PC on 6/12/2017.
+ * Item for LeftMenu
+ * @author at-cuongcao
+ * @version 1.0
+ * @since  6/12/2017.
  **/
 
 public class DrawerItem {
     private String name;
     private boolean isSelected;
-
-    public DrawerItem(String name, boolean isSelected) {
-        this.name = name;
-        this.isSelected = isSelected;
-    }
 
     public DrawerItem(String name) {
         this.name = name;

@@ -23,8 +23,11 @@ import vn.asiantech.internship.models.DrawerItem;
 import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
- * Created by PC on 6/12/2017.
  * This class used to custom DrawerLayout
+ *
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/12/2017
  */
 public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 1;
@@ -141,24 +144,23 @@ public class DrawerApdater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             switch (v.getId()) {
                 case R.id.imgAvatar:
                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    builder.setTitle("Choose action").setItems(R.array.pick_image_chooser, new DialogInterface.OnClickListener() {
+                    builder.setTitle(R.string.choose_action).setItems(R.array.pick_image_chooser, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             switch (which) {
                                 case 0:
-                                    mListener.onAvatarClick(MainActivity.REQUEST_CODE_GALLERY);
+                                    if (mListener != null) {
+                                        mListener.onAvatarClick(MainActivity.REQUEST_CODE_GALLERY);
+                                    }
                                     break;
                                 case 1:
-                                    mListener.onAvatarClick(MainActivity.REQUEST_CODE_CAMERA);
+                                    if (mListener != null) {
+                                        mListener.onAvatarClick(MainActivity.REQUEST_CODE_CAMERA);
+                                    }
                                     break;
                                 default:
                                     dialog.dismiss();
                             }
-                        }
-                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
                         }
                     });
                     builder.show();
