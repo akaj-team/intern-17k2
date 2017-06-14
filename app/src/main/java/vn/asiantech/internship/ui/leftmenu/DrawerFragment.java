@@ -51,11 +51,11 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
         mListDrawer = getResources().getStringArray(R.array.listDrawer);
         mDrawerAdapter = new DrawerAdapter(getContext(), mListDrawer, this);
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.rvDrawer);
+        RecyclerView rvDrawer = (RecyclerView) v.findViewById(R.id.rvDrawer);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(mDrawerAdapter);
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+        rvDrawer.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvDrawer.setAdapter(mDrawerAdapter);
+        rvDrawer.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 if (position != 0) {

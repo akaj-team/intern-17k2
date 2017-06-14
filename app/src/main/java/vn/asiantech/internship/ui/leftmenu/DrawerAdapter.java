@@ -20,7 +20,7 @@ import vn.asiantech.internship.R;
  */
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final int TYPE_ITEM = 1;
+    private static final int TYPE_ITEM = 1;
     private final int TYPE_HEADER = 0;
 
     private Context mContext;
@@ -44,9 +44,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int position) {
         switch (getItemViewType(position)) {
             case TYPE_HEADER:
-                return new HeaderViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer_header, viewGroup, false));
-            case TYPE_ITEM:
-                return new ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer, viewGroup, false));
+                return new ItemHeaderViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer_header, viewGroup, false));
             default:
                 return new ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer, viewGroup, false));
         }
@@ -56,9 +54,8 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public int getItemViewType(int position) {
         if (position == 0) {
             return TYPE_HEADER;
-        } else {
-            return TYPE_ITEM;
         }
+        return TYPE_ITEM;
     }
 
     @Override
@@ -71,13 +68,13 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             } else {
                 viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.colorItem));
             }
-        } else if (viewHolder instanceof HeaderViewHolder) {
-            HeaderViewHolder myViewHolder = (HeaderViewHolder) viewHolder;
-            myViewHolder.mCLParent.setBackgroundDrawable(mWallpaperDrawable);
+        } else if (viewHolder instanceof ItemHeaderViewHolder) {
+            ItemHeaderViewHolder myViewHolder = (ItemHeaderViewHolder) viewHolder;
+            myViewHolder.mClParent.setBackgroundDrawable(mWallpaperDrawable);
             myViewHolder.mTvAuthorName.setText(mContext.getString(R.string.app_author));
 
             if (mBitmap != null) {
-                myViewHolder.mCIVAvatar.setImageBitmap(mBitmap);
+                myViewHolder.mCivAvatar.setImageBitmap(mBitmap);
             }
         }
     }
@@ -119,18 +116,18 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * View for header
      */
-    public class HeaderViewHolder extends RecyclerView.ViewHolder {
+    public class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvAuthorName;
-        private CircleImageView mCIVAvatar;
-        private ConstraintLayout mCLParent;
+        private CircleImageView mCivAvatar;
+        private ConstraintLayout mClParent;
 
-        HeaderViewHolder(final View itemView) {
+        ItemHeaderViewHolder(final View itemView) {
             super(itemView);
             mTvAuthorName = (TextView) itemView.findViewById(R.id.tvAuthorName);
-            mCIVAvatar = (CircleImageView) itemView.findViewById(R.id.civAvatar);
-            mCLParent = (ConstraintLayout) itemView.findViewById(R.id.clParent);
-            mCIVAvatar.setOnClickListener(new View.OnClickListener() {
+            mCivAvatar = (CircleImageView) itemView.findViewById(R.id.civAvatar);
+            mClParent = (ConstraintLayout) itemView.findViewById(R.id.clParent);
+            mCivAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mOnItemsListener != null) {
