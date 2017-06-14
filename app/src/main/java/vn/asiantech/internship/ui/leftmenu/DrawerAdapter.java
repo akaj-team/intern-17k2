@@ -41,8 +41,8 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
-        switch (getItemViewType(i)) {
+    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int position) {
+        switch (getItemViewType(position)) {
             case TYPE_HEADER:
                 return new HeaderViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer_header, viewGroup, false));
             case TYPE_ITEM:
@@ -62,11 +62,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof ItemViewHolder) {
             ItemViewHolder myViewHolder = (ItemViewHolder) viewHolder;
-            myViewHolder.mTextView.setText(mItems[i]);
-            if (i == mPositionSelected) {
+            myViewHolder.mTextView.setText(mItems[position]);
+            if (position == mPositionSelected) {
                 viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.colorItemChoise));
             } else {
                 viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.colorItem));
