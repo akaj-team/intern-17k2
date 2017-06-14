@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/imgScreen"
+        android:id="@+id/imgAvatar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/imageview.image.layout_height"
         android:contentDescription="@string/imageview.screen.description"

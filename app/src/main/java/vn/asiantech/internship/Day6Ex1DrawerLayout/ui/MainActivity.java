@@ -1,6 +1,5 @@
 package vn.asiantech.internship.Day6Ex1DrawerLayout.ui;
 
-import android.graphics.Bitmap;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -25,27 +24,48 @@ import vn.asiantech.internship.R;
  * create MainActivity
  *
  * @author at-hoavo
- * create on 13/06/2017
+ *         create on 13/06/2017
  */
 public class MainActivity extends AppCompatActivity implements OnRecyclerViewClickListener {
-    private List<String> mFunctions = new ArrayList<>();
-    private RecyclerView mRecyclerView;
     private DrawerLayout mDrawerLayout;
-    private LinearLayout mLinearlayout;
+    private LinearLayout mLinearLayout;
     private ContentFragment mContentFragment;
     private ActionBarDrawerToggle mDrawerToggle;
-    private DrawerAdapter adapter;
-    public static int sSelectedPosition;
-    public static Bitmap sNewProfilePic;
-    public static boolean sCheckPicture;
+    private DrawerAdapter mAdapterDrawer;
+    private List<String> mFunctions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
+        initRecyclerView();
+        initDrawerLayout();
+        initFragment();
+    }
+
+    private void initFragment() {
+        mContentFragment = new ContentFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frContent, mContentFragment);
+        transaction.commit();
+    }
+
+    private void initRecyclerView() {
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
+        String[] functions = getResources().getStringArray(R.array.list_function);
+        for (String function : functions) {
+            mFunctions.add(function);
+        }
+        mAdapterDrawer = new DrawerAdapter(mFunctions, this, this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(mAdapterDrawer);
+    }
+
+    private void initDrawerLayout() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mLinearlayout = (LinearLayout) findViewById(R.id.linearLayoutDrawer);
+        mLinearLayout = (LinearLayout) findViewById(R.id.llDrawer);
         ImageView mImgHome = (ImageView) findViewById(R.id.imgHome);
         mImgHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,34 +77,16 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
                 }
             }
         });
-        mContentFragment = new ContentFragment();
-        initFragment();
-        String[] functions = getResources().getStringArray(R.array.list_function);
-        for (String function : functions) {
-            mFunctions.add(function);
-        }
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
-        adapter = new DrawerAdapter(mFunctions, this, this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(adapter);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-                mLinearlayout.setTranslationX(slideOffset * drawerView.getWidth());
+                mLinearLayout.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-    }
-
-    private void initFragment() {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.contenFrame, mContentFragment);
-        transaction.commit();
     }
 
     @Override
@@ -98,9 +100,9 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     public void onClick(int position, boolean check) {
         if (check) {
             mContentFragment.showContent(mFunctions.get(position));
-            MainActivity.sSelectedPosition = position;
+            mAdapterDrawer.setPosition(position);
         }
         mDrawerLayout.closeDrawers();
-        adapter.notifyDataSetChanged();
+        mAdapterDrawer.notifyDataSetChanged();
     }
 }

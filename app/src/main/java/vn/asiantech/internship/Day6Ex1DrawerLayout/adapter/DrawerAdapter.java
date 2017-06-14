@@ -14,7 +14,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.asiantech.internship.Day6Ex1DrawerLayout.event.OnRecyclerViewClickListener;
-import vn.asiantech.internship.Day6Ex1DrawerLayout.ui.MainActivity;
 import vn.asiantech.internship.R;
 
 /**
@@ -23,13 +22,17 @@ import vn.asiantech.internship.R;
  */
 public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerViewHolder> {
     private List<String> mFunctions;
-    private OnRecyclerViewClickListener iOnRecyclerViewClickListener;
+    private OnRecyclerViewClickListener mOnRecyclerViewClickListener;
     private Context mContext;
+    private int mPosition;
+    private Drawable wallpaperDrawable;
 
     public DrawerAdapter(List<String> items, Context context, OnRecyclerViewClickListener onRecyclerViewClickListener) {
         this.mFunctions = items;
         this.mContext = context;
-        iOnRecyclerViewClickListener = onRecyclerViewClickListener;
+        mOnRecyclerViewClickListener = onRecyclerViewClickListener;
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
+        wallpaperDrawable = wallpaperManager.getDrawable();
     }
 
     @Override
@@ -45,30 +48,23 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case 0:
-                View viewONE = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_header, parent, false);
+                View viewONE = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_header_drawer, parent, false);
                 return new RecyclerViewHolder(viewONE, false);
-            case 1:
+            default:
                 View viewTWO = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_function, parent, false);
                 return new RecyclerViewHolder(viewTWO, true);
         }
-        return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case 0:
-                if (!MainActivity.sCheckPicture) {
-                    WallpaperManager wallpaperManager = WallpaperManager.getInstance(holder.mImgScreen.getContext());
-                    Drawable wallpaperDrawable = wallpaperManager.getDrawable();
-                    holder.mImgScreen.setImageDrawable(wallpaperDrawable);
-                } else {
-                    holder.mImgScreen.setImageBitmap(MainActivity.sNewProfilePic);
-                }
+                holder.mImgAvatar.setImageDrawable(wallpaperDrawable);
                 break;
             case 1:
                 holder.mTvFunction.setText(mFunctions.get(position));
-                if (position == MainActivity.sSelectedPosition) {
+                if (position == mPosition) {
                     holder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItemPressed));
 
                 } else {
@@ -83,13 +79,17 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
         return mFunctions.size();
     }
 
+    public void setPosition(int position) {
+        mPosition = position;
+    }
+
     /**
      * create RecyclerViewHolder
      */
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvFunction;
         private View mItemView;
-        private ImageView mImgScreen;
+        private ImageView mImgAvatar;
 
         public RecyclerViewHolder(View itemView, boolean check) {
             super(itemView);
@@ -99,15 +99,15 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
                 mItemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        iOnRecyclerViewClickListener.onClick(getAdapterPosition(), true);
+                        mOnRecyclerViewClickListener.onClick(getAdapterPosition(), true);
                     }
                 });
             } else {
-                mImgScreen = (ImageView) itemView.findViewById(R.id.imgScreen);
-                mImgScreen.setOnClickListener(new View.OnClickListener() {
+                mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
+                mImgAvatar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        iOnRecyclerViewClickListener.onClick(getAdapterPosition(), false);
+                        mOnRecyclerViewClickListener.onClick(getAdapterPosition(), false);
                     }
                 });
             }
