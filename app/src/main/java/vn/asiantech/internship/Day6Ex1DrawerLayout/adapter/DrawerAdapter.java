@@ -27,9 +27,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
     private int mPosition;
     private Drawable wallpaperDrawable;
 
-    public DrawerAdapter(List<String> items, Context context, OnRecyclerViewClickListener onRecyclerViewClickListener) {
-        this.mFunctions = items;
-        this.mContext = context;
+    public DrawerAdapter(List<String> functions, Context context, OnRecyclerViewClickListener onRecyclerViewClickListener) {
+        mFunctions = functions;
+        mContext = context;
         mOnRecyclerViewClickListener = onRecyclerViewClickListener;
         WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
         wallpaperDrawable = wallpaperManager.getDrawable();
@@ -51,7 +51,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
                 View viewONE = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_header_drawer, parent, false);
                 return new RecyclerViewHolder(viewONE, false);
             default:
-                View viewTWO = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_function, parent, false);
+                View viewTWO = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_function_drawer, parent, false);
                 return new RecyclerViewHolder(viewTWO, true);
         }
     }
@@ -62,7 +62,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
             case 0:
                 holder.mImgAvatar.setImageDrawable(wallpaperDrawable);
                 break;
-            case 1:
+            default:
                 holder.mTvFunction.setText(mFunctions.get(position));
                 if (position == mPosition) {
                     holder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItemPressed));
@@ -70,7 +70,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
                 } else {
                     holder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItem));
                 }
-                break;
         }
     }
 
@@ -91,7 +90,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
         private View mItemView;
         private ImageView mImgAvatar;
 
-        public RecyclerViewHolder(View itemView, boolean check) {
+        RecyclerViewHolder(View itemView, boolean check) {
             super(itemView);
             mItemView = itemView;
             if (check) {

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import vn.asiantech.internship.Day6Ex1DrawerLayout.adapter.DrawerAdapter;
@@ -54,9 +55,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     private void initRecyclerView() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
         String[] functions = getResources().getStringArray(R.array.list_function);
-        for (String function : functions) {
-            mFunctions.add(function);
-        }
+        Collections.addAll(mFunctions, functions);
         mAdapterDrawer = new DrawerAdapter(mFunctions, this, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -66,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     private void initDrawerLayout() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mLinearLayout = (LinearLayout) findViewById(R.id.llDrawer);
-        ImageView mImgHome = (ImageView) findViewById(R.id.imgHome);
-        mImgHome.setOnClickListener(new View.OnClickListener() {
+        ImageView imgHome = (ImageView) findViewById(R.id.imgHome);
+        imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
                 mLinearLayout.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
 
     }
 
