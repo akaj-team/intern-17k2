@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import vn.asiantech.internship.Day6Ex1DrawerLayout.adapter.DrawerAdapter;
@@ -59,9 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     private void initRecyclerView() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
         String[] functions = getResources().getStringArray(R.array.list_function);
-        for (String function : functions) {
-            mFunctions.add(function);
-        }
+        Collections.addAll(mFunctions, functions);
         adapterDrawer = new DrawerAdapter(mFunctions, this, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -158,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
             if (extras != null) {
                 //Get image
                 adapterDrawer.setBitMapAvatar((Bitmap) extras.getParcelable("data"));
-//                adapterDrawer.setCheckAvatar(true);
                 adapterDrawer.notifyDataSetChanged();
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 mDialog.cancel();
@@ -177,4 +175,3 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
         intent.putExtra("return-data", true);
     }
 }
-

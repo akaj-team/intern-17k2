@@ -42,7 +42,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
         mOnRecyclerViewClickListener = onRecyclerViewClickListener;
         WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
         mWallpaperDrawable = wallpaperManager.getDrawable();
-        mAvatarBitmap = getRoundedCornerBitmap(drawableToBitmap(mWallpaperDrawable), R.dimen.drawable_pixels);
+        mAvatarBitmap = getRoundedCornerBitmap(drawableToBitmap(mWallpaperDrawable), R.dimen.drawable_pixel);
     }
 
     @Override
@@ -77,7 +77,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
                 holder.mTvFunction.setText(mFunctions.get(position));
                 if (position == mPosition) {
                     holder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItemPressed));
-
                 } else {
                     holder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItem));
                 }
@@ -91,7 +90,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
     }
 
     public void setBitMapAvatar(Bitmap avatarBitmap) {
-        mAvatarBitmap = getRoundedCornerBitmap(avatarBitmap,R.dimen.drawable_pixels);
+        mAvatarBitmap = getRoundedCornerBitmap(avatarBitmap, R.dimen.drawable_pixel);
     }
 
     public void setPosition(int position) {
