@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.adapters.NavigationAdapter;
+import vn.asiantech.internship.ui.leftmenu.NavigationAdapter;
 import vn.asiantech.internship.models.User;
 
 /**
@@ -34,6 +34,7 @@ public class MainActivityDay6 extends AppCompatActivity {
     public static final int REQUEST_CODE_CAMERA = 1;
     public static final int REQUEST_CODE_GALLERY = 2;
     public static final int REQUEST_CODE_CROP = 3;
+
     private DrawerLayout mDlMain;
     private String[] mTitle;
     private TextView mTvShow;
