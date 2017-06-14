@@ -20,7 +20,8 @@ import vn.asiantech.internship.R;
  */
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final int TYPE_HEAD = 0;
+    private final int TYPE_ITEM = 1;
+    private final int TYPE_HEADER = 0;
 
     private Context mContext;
     private String[] mItems;
@@ -42,8 +43,10 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
         switch (getItemViewType(i)) {
-            case TYPE_HEAD:
+            case TYPE_HEADER:
                 return new HeaderViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer_header, viewGroup, false));
+            case TYPE_ITEM:
+                return new ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer, viewGroup, false));
             default:
                 return new ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer, viewGroup, false));
         }
@@ -52,9 +55,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
-            return TYPE_HEAD;
+            return TYPE_HEADER;
         } else {
-            return 1;
+            return TYPE_ITEM;
         }
     }
 

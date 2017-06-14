@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.RecyclerItemClickListener;
-import vn.asiantech.internship.ui.mains.MainActivity;
+import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
  * DrawerFragment create on 12/06 by Thien Nguyen

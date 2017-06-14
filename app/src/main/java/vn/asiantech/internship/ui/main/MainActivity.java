@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.mains;
+package vn.asiantech.internship.ui.main;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -181,5 +181,4 @@ public class MainActivity extends AppCompatActivity {
                 .create()
                 .show();
     }
-
 }
