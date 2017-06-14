@@ -17,4 +17,5 @@
     <item name="image.outputy" type="dimen">256</item>
     <item name="image.aspectx" type="dimen">1</item>
     <item name="image.aspecty" type="dimen">1</item>
+    <item name="drawable.pixels" type="dimen">300</item>
 </resources>

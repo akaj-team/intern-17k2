@@ -42,7 +42,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
         mOnRecyclerViewClickListener = onRecyclerViewClickListener;
         WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
         mWallpaperDrawable = wallpaperManager.getDrawable();
-        mAvatarBitmap = getRoundedCornerBitmap(drawableToBitmap(mWallpaperDrawable), 300);
+        mAvatarBitmap = getRoundedCornerBitmap(drawableToBitmap(mWallpaperDrawable), R.dimen.drawable_pixels);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
     }
 
     public void setBitMapAvatar(Bitmap avatarBitmap) {
-        mAvatarBitmap = getRoundedCornerBitmap(avatarBitmap,200);
+        mAvatarBitmap = getRoundedCornerBitmap(avatarBitmap,R.dimen.drawable_pixels);
     }
 
     public void setPosition(int position) {
