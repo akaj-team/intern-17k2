@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -30,8 +31,7 @@ public class FriendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_friend, container, false);
         String[] users = getResources().getStringArray(R.array.list_user);
-        for (int i = 0; i < users.length; i++)
-            mUsers.add(users[i]);
+        Collections.addAll(mUsers, users);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(mUsers);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
