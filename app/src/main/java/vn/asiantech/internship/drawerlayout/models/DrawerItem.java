@@ -30,7 +30,4 @@ public class DrawerItem {
     public void setChecked(boolean checked) {
         this.checked = checked;
     }
-
-    public DrawerItem() {
-    }
 }

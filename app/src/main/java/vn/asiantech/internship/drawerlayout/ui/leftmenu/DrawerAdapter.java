@@ -28,24 +28,15 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_LIST = 1;
     private List<DrawerItem> mDrawerItems = new ArrayList<>();
-    private OnItemClickListener mListener;
-    private Drawable mDrawable;
+    private final OnItemClickListener mListener;
+    private final Drawable mDrawable;
 
     public DrawerAdapter(Context context, List<DrawerItem> drawerItems, OnItemClickListener listener) {
         mDrawerItems = drawerItems;
         mListener = listener;
-        WallpaperManager wallpagerManager = WallpaperManager.getInstance(context);
-        mDrawable = wallpagerManager.getDrawable();
+        WallpaperManager wallPagerManager = WallpaperManager.getInstance(context);
+        mDrawable = wallPagerManager.getDrawable();
     }
-
-    /**
-     * Use to get click listenner for items in recyclerview
-     */
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-        void onAvatarClick();
-    }
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -90,7 +81,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     }
 
     /**
-     * Used to register for DrawerItem in item of drawerlayout
+     * Used to register for DrawerItem in item of drawerLayout
      */
     private class ItemViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTvName;
@@ -109,7 +100,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     }
 
     /**
-     * Used to register for DrawerItem in header of drawerlayout
+     * Used to register for DrawerItem in header of drawerLayout
      */
     private class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
 
@@ -118,7 +109,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
 
         private ItemHeaderViewHolder(final View itemView) {
             super(itemView);
-            mImgAvatar = (ImageView) itemView.findViewById(R.id.crImgAvatar);
+            mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
             mImgBackground = (ImageView) itemView.findViewById(R.id.imgBackground);
             mImgAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -129,5 +120,13 @@ public class DrawerAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+    }
+
+    /**
+     * Use to get click listener for items in recyclerView
+     */
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+        void onAvatarClick();
     }
 }

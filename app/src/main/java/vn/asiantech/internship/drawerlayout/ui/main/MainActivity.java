@@ -33,7 +33,7 @@ import vn.asiantech.internship.drawerlayout.ui.leftmenu.DrawerAdapter;
 import static android.graphics.Bitmap.createBitmap;
 
 /**
- * Used to display drawerlayout
+ * Used to display drawerLayout
  *
  * @author at-HangTran
  * @version 1.0
@@ -41,7 +41,7 @@ import static android.graphics.Bitmap.createBitmap;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static final int RESULT_LOAD_IMAGE_GALERRY = 1;
+    private static final int RESULT_LOAD_IMAGE_GALLERY = 1;
     private static final int RESULT_LOAD_IMAGE_CAMERA = 2;
     private static final String KEY_DATA = "data";
 
@@ -111,16 +111,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDrawer() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
-
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -158,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     cropImage(intent);
-                    startActivityForResult(intent, RESULT_LOAD_IMAGE_GALERRY);
+                    startActivityForResult(intent, RESULT_LOAD_IMAGE_GALLERY);
                 }
             }
         });
@@ -169,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
-            if (requestCode == RESULT_LOAD_IMAGE_GALERRY || requestCode == RESULT_LOAD_IMAGE_CAMERA) {
+            if (requestCode == RESULT_LOAD_IMAGE_GALLERY || requestCode == RESULT_LOAD_IMAGE_CAMERA) {
                 getImage(data);
             }
         }
@@ -178,9 +170,9 @@ public class MainActivity extends AppCompatActivity {
     private void getImage(Intent data) {
         Bundle extras = data.getExtras();
         Bitmap imageBitmap = (Bitmap) extras.get(KEY_DATA);
-        ImageView imgAvata = (ImageView) findViewById(R.id.crImgAvatar);
+        ImageView imgAvatar = (ImageView) findViewById(R.id.imgAvatar);
         RoundedBitmapDrawable drawable = createRoundBorder(imageBitmap);
-        imgAvata.setImageDrawable(drawable);
+        imgAvatar.setImageDrawable(drawable);
     }
 
     private void cropImage(Intent intent) {
