@@ -11,6 +11,8 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Random;
 
+import vn.asiantech.internship.model.Friend;
+
 /**
  * Created by BACKDOOR on 07-Feb-17.
  */
@@ -25,7 +27,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_friend_layout, parent, false);
+        View view = inflater.inflate(R.layout.item_list_friend, parent, false);
         return new ViewHolder(view);
     }
 
@@ -34,16 +36,16 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         holder.mTvFriendName.setText(mFriends.get(position).getFriendName());
         switch (new Random().nextInt(4)) {
             case 0:
-                holder.mImgFriend.setImageResource(R.drawable.img_summer01);
+                holder.mImgFriend.setImageResource(R.drawable.img_summer);
                 break;
             case 1:
-                holder.mImgFriend.setImageResource(R.drawable.img_summer02);
+                holder.mImgFriend.setImageResource(R.drawable.img_autumn);
                 break;
             case 2:
-                holder.mImgFriend.setImageResource(R.drawable.img_summer03);
+                holder.mImgFriend.setImageResource(R.drawable.img_spring);
                 break;
             default:
-                holder.mImgFriend.setImageResource(R.drawable.img_summer04);
+                holder.mImgFriend.setImageResource(R.drawable.img_winter);
         }
     }
 
@@ -67,7 +69,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             mBtnAddFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FriendObject friendObject = mFriends.get(getAdapterPosition());
+                    Friend friendObject = mFriends.get(getAdapterPosition());
                     if (!friendObject.isFriend()) {
                         mBtnAddFriend.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_friend_check_button, 0, 0, 0);
                         // mBtnAddFriend.setBackgroundColor(0XFF79378B);

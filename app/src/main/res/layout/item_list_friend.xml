@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="@dimen/item.imageview_padding"
-            android:src="@drawable/img_summer02" />
+            android:src="@drawable/img_autumn" />
 
         <TextView
             android:id="@+id/tvFriendName"

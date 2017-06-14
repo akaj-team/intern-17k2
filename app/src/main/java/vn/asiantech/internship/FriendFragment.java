@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.asiantech.internship.model.Friend;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -46,16 +48,16 @@ public class FriendFragment extends Fragment {
         mRecyclerView.setAdapter(mFriendAdapter);
     }
 
-    private void initFriendDatas(List<FriendObject> arrayList) {
-        arrayList.add(new FriendObject("Abc xyz 001"));
-        arrayList.add(new FriendObject("Abc xyz 001"));
-        arrayList.add(new FriendObject("Abc xyz 001"));
-        arrayList.add(new FriendObject("Abc xyz 001"));
-        arrayList.add(new FriendObject("Abc xyz 001"));
-        arrayList.add(new FriendObject("Abc xyz 001"));
-        arrayList.add(new FriendObject("Abc xyz 001"));
-        arrayList.add(new FriendObject("Abc xyz 001"));
-        arrayList.add(new FriendObject("Abc xyz 001"));
-        arrayList.add(new FriendObject("Abc xyz 001"));
+    private void initFriendDatas(List<Friend> arrayList) {
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
     }
 }

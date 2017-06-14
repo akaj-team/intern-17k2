@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.model;
 
 /**
  * Created by at-dinhvo on 12/06/2017.
@@ -13,7 +13,7 @@ public class Friend {
     }
 
     public String getFriendName() {
-        return friendName;
+        return name;
     }
 
     public void setFriendName(String name) {
