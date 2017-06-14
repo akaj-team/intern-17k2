@@ -5,7 +5,6 @@
     <dimen name="textSizeItem">20sp</dimen>
     <dimen name="marginSomething">5dp</dimen>
     <dimen name="paddingSomeThing">7dp</dimen>
-    <dimen name="actionBarHeight">30dp</dimen>
     <dimen name="sizeLarge">40sp</dimen>
     <dimen name="marginLarge">50dp</dimen>
 </resources>

@@ -19,7 +19,7 @@
         android:layout_width="@dimen/avatarHeight"
         android:layout_height="@dimen/avatarHeight"
         android:paddingLeft="@dimen/paddingSomeThing"
-        android:src="@mipmap/ic_avatar"
+        android:src="@drawable/ic_avatar"
         app:layout_constraintBottom_toTopOf="@id/tvAuthorName"
         tools:ignore="RtlHardcoded,RtlSymmetry" />
 </android.support.constraint.ConstraintLayout>

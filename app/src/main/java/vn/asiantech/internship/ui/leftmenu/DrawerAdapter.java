@@ -43,9 +43,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
         switch (getItemViewType(i)) {
             case TYPE_HEAD:
-                return new HeaderViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer_head, viewGroup, false));
+                return new HeaderViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer_header, viewGroup, false));
             default:
-                return new ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.list_item_drawer, viewGroup, false));
+                return new ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer, viewGroup, false));
         }
     }
 
