@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.ui.leftmenu;
 
 import android.app.WallpaperManager;
 import android.content.Context;
@@ -19,13 +19,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import vn.asiantech.internship.R;
+import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.models.DrawerItem;
 
 /**
  *
  * Created by datbu on 12-06-2017.
  */
 
-class DrawerAdapter extends RecyclerView.Adapter {
+public class DrawerAdapter extends RecyclerView.Adapter {
     private static final int VIEW_USER = 1;
     private static final int VIEW_ITEM = 0;
     private Context mContext;
@@ -33,7 +36,7 @@ class DrawerAdapter extends RecyclerView.Adapter {
     private DrawerAdapter.OnItemClick mOnItemClickListener;
     private Bitmap avatar;
 
-    DrawerAdapter(Context context, List<DrawerItem> DrawerMenuList, DrawerAdapter.OnItemClick listener) {
+    public DrawerAdapter(Context context, List<DrawerItem> DrawerMenuList, DrawerAdapter.OnItemClick listener) {
         this.mDrawerMenuList = DrawerMenuList;
         this.mContext = context;
         mOnItemClickListener = listener;
@@ -70,10 +73,9 @@ class DrawerAdapter extends RecyclerView.Adapter {
             ((UserViewHolder) holder).mTvEmail.setText(R.string.action_settings);
             if (avatar != null) {
                 ((UserViewHolder) holder).mImgAvatar.setImageBitmap(avatar);
-                           }
+            }
             Drawable wallpaper = WallpaperManager.getInstance(mContext).getDrawable();
             ((UserViewHolder) holder).mImgHeaderBg.setImageBitmap(((BitmapDrawable) wallpaper).getBitmap());
-//            ((UserViewHolder)holder).mImgAvatar.setImageBitmap(BitmapFactory.decodeFile(mDrawerMenuList.get(position)));
         } else if (holder instanceof DrawerViewHolder) {
             DrawerItem drawerItem = mDrawerMenuList.get(position);
             ((DrawerViewHolder) holder).mTvTitle.setText(mDrawerMenuList.get(position).getTitle());
@@ -92,7 +94,7 @@ class DrawerAdapter extends RecyclerView.Adapter {
         return mDrawerMenuList.size();
     }
 
-    void setAvatar(Bitmap avatar) {
+    public void setAvatar(Bitmap avatar) {
         this.avatar = avatar;
     }
 
@@ -108,6 +110,7 @@ class DrawerAdapter extends RecyclerView.Adapter {
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvEmail = (TextView) itemView.findViewById(R.id.tvEmail);
             mImgHeaderBg = (ImageView) itemView.findViewById(R.id.imgBegin);
+
             mImgAvatar.setOnClickListener(this);
         }
 
@@ -120,7 +123,7 @@ class DrawerAdapter extends RecyclerView.Adapter {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                mOnItemClickListener.onAvatarClick(MainActivity.REQUEST_CODE_GARELLY);
+                                mOnItemClickListener.onAvatarClick(MainActivity.REQUEST_CODE_GALERY);
                                 break;
                             case 1:
                                 mOnItemClickListener.onAvatarClick(MainActivity.REQUEST_CODE_CAMERA);
@@ -147,7 +150,6 @@ class DrawerAdapter extends RecyclerView.Adapter {
         DrawerViewHolder(View itemView) {
             super(itemView);
             mTvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -167,7 +169,7 @@ class DrawerAdapter extends RecyclerView.Adapter {
         }
     }
 
-    interface OnItemClick {
+    public interface OnItemClick {
         void onItemClick(int position);
 
         void onAvatarClick(int select);

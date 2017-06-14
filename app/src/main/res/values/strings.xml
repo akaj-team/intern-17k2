@@ -10,4 +10,13 @@
         <item>Picture</item>
         <item>Camera</item>
     </string-array>
+    <string-array name="listitem">
+        <item>Feed</item>
+        <item>Activity</item>
+        <item>Profile</item>
+        <item>Friends</item>
+        <item>Map</item>
+        <item>Chat</item>
+        <item>Settings</item>
+    </string-array>
 </resources>

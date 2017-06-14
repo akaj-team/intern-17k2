@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.ui.main;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -17,36 +17,50 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
+import vn.asiantech.internship.R;
+import vn.asiantech.internship.models.DrawerItem;
+import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
+
 public class MainActivity extends AppCompatActivity {
-    private List<DrawerItem> mDrawerItemList;
-    private int mMenuItemChosser;
-    private DrawerAdapter mDrawerRecyclerAdapter;
-    private LinearLayout mLinearLayout;
-
-
     public static final int REQUEST_CODE_CROP = 11;
-    public static final int REQUEST_CODE_GARELLY = 22;
+    public static final int REQUEST_CODE_GALERY = 22;
     public static final int REQUEST_CODE_CAMERA = 33;
 
+    private List<DrawerItem> mDrawerItemList;
+    private int mMenuItemChooser;
+    private DrawerAdapter mDrawerRecyclerAdapter;
+    private LinearLayout mLinearLayout;
+    private TextView mTvShow;
+    private RecyclerView mRecyclerView;
+    private DrawerLayout mDrawer;
+    private Uri mUri;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initView();
+        initData();
+        initDrawer();
+
+    }
+
+    public void initView() {
         mLinearLayout = (LinearLayout) findViewById(R.id.lnMain);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTvShow = (TextView) findViewById(R.id.tvShow);
+        mRecyclerView = (RecyclerView) findViewById(R.id.drawerRecyclerView);
 
-        mMenuItemChosser = 0;
+        mMenuItemChooser = 0;
         // Toolbar
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -57,51 +71,63 @@ public class MainActivity extends AppCompatActivity {
             actionbar.setDisplayShowCustomEnabled(true);
         }
 
+    }
+
+    public void initData() {
         //set Data
         mDrawerItemList = new ArrayList<>();
-        mDrawerItemList.add(new DrawerItem("Feed", false));
-        mDrawerItemList.add(new DrawerItem("Activity", false));
-        mDrawerItemList.add(new DrawerItem("Profile", false));
-        mDrawerItemList.add(new DrawerItem("Friends", false));
-        mDrawerItemList.add(new DrawerItem("Map", false));
-        mDrawerItemList.add(new DrawerItem("Chat", false));
-        mDrawerItemList.add(new DrawerItem("Settings", false));
-
+        String[] menuItemList = getResources().getStringArray(R.array.listitem);
+        for (String menuItem : menuItemList) {
+            mDrawerItemList.add(new DrawerItem(menuItem));
+        }
         mDrawerRecyclerAdapter = new DrawerAdapter(this, mDrawerItemList, new DrawerAdapter.OnItemClick() {
 
             @Override
             public void onItemClick(int position) {
-                if (mMenuItemChosser > 0) {
-                    mDrawerItemList.get(mMenuItemChosser).setChoose();
+                if (mMenuItemChooser > 0) {
+                    mDrawerItemList.get(mMenuItemChooser).setChoose();
                 }
                 mDrawerItemList.get(position).setChoose();
-                mMenuItemChosser = position;
+                mMenuItemChooser = position;
                 mDrawerRecyclerAdapter.notifyDataSetChanged();
+                mTvShow.setText(mDrawerItemList.get(position).getTitle());
+                mDrawer.closeDrawers();
                 Log.d("tag12", "onClick：" + position);
             }
 
             @Override
             public void onAvatarClick(int select) {
-                if (select == REQUEST_CODE_GARELLY) {
+                Log.d("Tag11", "onAvatarClick: "+ select);
+                if (select == REQUEST_CODE_GALERY) {
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType("image/*");
-                    startActivityForResult(intent, REQUEST_CODE_GARELLY);
+                    startActivityForResult(intent, REQUEST_CODE_GALERY);
                     return;
                 }
                 if (select == REQUEST_CODE_CAMERA) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    try {
+                        File root = new File(String.valueOf(Environment.getExternalStorageDirectory()),
+                                File.separator + "Camera" + File.separator);
+                        File file = File.createTempFile("img", ".jpg", root);
+                        mUri = Uri.fromFile(file);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     startActivityForResult(intent, REQUEST_CODE_CAMERA);
                 }
             }
         });
+    }
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.drawerRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(mDrawerRecyclerAdapter);
+    public void initDrawer() {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mDrawerRecyclerAdapter);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+                this, mDrawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -118,31 +144,23 @@ public class MainActivity extends AppCompatActivity {
                 mLinearLayout.setTranslationX(slideOffset * view.getWidth());
             }
         };
-        drawer.addDrawerListener(toggle);
+        mDrawer.addDrawerListener(toggle);
         toggle.syncState();
-
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && data != null) {
             switch (requestCode) {
-                case REQUEST_CODE_GARELLY:
+                case REQUEST_CODE_GALERY:
                     performCrop(data.getData());
-//                    Picasso.with(MainActivity.this).load(data.getData())
-//                            .noPlaceholder().centerCrop().fit()
-//                            .into((ImageView) findViewById(R.id.imgProf));
                     break;
                 case REQUEST_CODE_CAMERA:
-                    File file = saveBitmap((Bitmap) data.getExtras().getParcelable("data"));
-                    if (file != null) {
-                        Uri uri = Uri.fromFile(file);
-                        performCrop(uri);
-                    }
+                    performCrop(mUri);
                     break;
                 case REQUEST_CODE_CROP:
-                    Bitmap bitmap = data.getExtras().getParcelable("data");
-                    mDrawerRecyclerAdapter.setAvatar(bitmap);
+                    Bitmap bm = data.getExtras().getParcelable("data");
+                    mDrawerRecyclerAdapter.setAvatar(bm);
                     mDrawerRecyclerAdapter.notifyDataSetChanged();
                     break;
             }
@@ -168,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
             cropIntent.putExtra("return-data", true);
             //start the activity - we handle returning in onActivityResult
             startActivityForResult(cropIntent, REQUEST_CODE_CROP);
-        } catch (ActivityNotFoundException anfe) {
+        } catch (ActivityNotFoundException e) {
             //display an error message
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
@@ -176,29 +194,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public File saveBitmap(Bitmap bitmap) {
-        OutputStream outStream = null;
-        File sdImageMainDirectory = null;
-        try {
-            File root = new File(String.valueOf(Environment.getExternalStorageDirectory()),
-                    File.separator + "Camera" + File.separator);
-            sdImageMainDirectory = new File(root, String.valueOf(Calendar.getInstance().getTimeInMillis()) + ".jpg");
-            outStream = new FileOutputStream(sdImageMainDirectory);
-        } catch (Exception e) {
-            Toast.makeText(this, "Error occured. Please try again later.",
-                    Toast.LENGTH_SHORT).show();
-        }
-        try {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-            outStream.flush();
-            outStream.close();
-        } catch (IOException e) {
-            Toast.makeText(this, "Exception.",
-                    Toast.LENGTH_SHORT).show();
-        }
-        return sdImageMainDirectory;
-    }
-
 }
-
-
