@@ -28,7 +28,7 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.DrawerItem;
-import vn.asiantech.internship.ui.leftmenu.DrawerApdater;
+import vn.asiantech.internship.ui.leftmenu.Adapter;
 
 /**
  * Mainactivity
@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int REQUEST_CODE_CAMERA = 2222;
 
     private TextView mTvItemChooser;
-    private RelativeLayout mRlMainContent;
+    private RelativeLayout mRlContent;
     private RecyclerView mRecyclerViewDrawer;
     private DrawerLayout mDrawerLayout;
 
-    private DrawerApdater mAdapter;
+    private Adapter mAdapter;
 
     private List<DrawerItem> mDrawerItems;
     private int mPositionSelected = -1;
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case REQUEST_CODE_CROP:
                     Bitmap bm = data.getExtras().getParcelable("data");
-                    mAdapter.setAvtar(bm);
+                    mAdapter.setAvatar(bm);
                     mAdapter.notifyItemChanged(0);
                     break;
             }
@@ -114,14 +114,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void initView() {
         mTvItemChooser = (TextView) findViewById(R.id.tvChooser);
-        mRlMainContent = (RelativeLayout) findViewById(R.id.rlMainContent);
+        mRlContent = (RelativeLayout) findViewById(R.id.rlContent);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
         ImageView imgMenu = (ImageView) findViewById(R.id.imgMenu);
-        mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.drawerList);
+        mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
 
         setSupportActionBar(toolbar);
-        setTitle("");
         tvTitle.setText(R.string.app_name);
         imgMenu.setOnClickListener(this);
     }
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mDrawerItems.add(new DrawerItem(s));
         }
         mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new DrawerApdater(this, mDrawerItems, new OnItemClickListener() {
+        mAdapter = new Adapter(this, mDrawerItems, new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 if (mPositionSelected > -1) {
@@ -156,10 +155,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (chooser == REQUEST_CODE_CAMERA) {
-                    File root = new File(Environment.getExternalStorageDirectory()
-                            + File.separator + "Camera" + File.separator);
                     try {
-                        File imageFile = File.createTempFile("img", ".jpg", root);
+                        File imageFile = File.createTempFile("img", System.currentTimeMillis() + ".jpg", Environment.getExternalStorageDirectory());
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         mPhotoUri = Uri.fromFile(imageFile);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
@@ -190,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-                mRlMainContent.setTranslationX(slideOffset * drawerView.getWidth());
+                mRlContent.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };
         mDrawerLayout.addDrawerListener(drawerToggle);
