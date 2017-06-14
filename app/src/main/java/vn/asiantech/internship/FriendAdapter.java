@@ -54,13 +54,16 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         return mFriends.size();
     }
 
+    /**
+     * create RecyclerViewHolder
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvFriendName;
         private ImageView mImgFriend;
         private Button mBtnAddFriend;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             mTvFriendName = (TextView) itemView.findViewById(R.id.tvFriendName);
             mImgFriend = (ImageView) itemView.findViewById(R.id.imgFriend);
@@ -72,13 +75,11 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
                     Friend friendObject = mFriends.get(getAdapterPosition());
                     if (!friendObject.isFriend()) {
                         mBtnAddFriend.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_friend_check_button, 0, 0, 0);
-                        // mBtnAddFriend.setBackgroundColor(0XFF79378B);
-                        mBtnAddFriend.setText(String.valueOf("Friend"));
+                        mBtnAddFriend.setText(R.string.friendfragment_button_friend_state);
                         friendObject.setFriend(true);
                     } else {
-                        mBtnAddFriend.setText(String.valueOf("Add"));
+                        mBtnAddFriend.setText(R.string.friendfragment_button_friend_add);
                         mBtnAddFriend.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_friend_add_button, 0, 0, 0);
-                        // mBtnAddFriend.setBackgroundColor(0XFF426EB4);
                         friendObject.setFriend(false);
                     }
                 }

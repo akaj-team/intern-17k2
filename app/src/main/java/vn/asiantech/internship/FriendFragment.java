@@ -41,14 +41,14 @@ public class FriendFragment extends Fragment {
 
     private void initUI() {
         mFriends = new ArrayList<>();
-        initFriendDatas(mFriends);
+        initFriendData(mFriends);
         mFriendAdapter = new FriendAdapter(mFriends);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mFriendAdapter);
     }
 
-    private void initFriendDatas(List<Friend> arrayList) {
+    private void initFriendData(List<Friend> arrayList) {
         arrayList.add(new Friend("Abc xyz 001"));
         arrayList.add(new Friend("Abc xyz 001"));
         arrayList.add(new Friend("Abc xyz 001"));
