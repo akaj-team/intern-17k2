@@ -144,29 +144,33 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.imgAvatar:
-                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    builder.setTitle(R.string.choose_action).setItems(R.array.pick_image_chooser, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
-                                case CAMERA_SELECTED:
-                                    if (mListener != null) {
-                                        mListener.onAvatarClick(MainActivity.REQUEST_CODE_GALLERY);
-                                    }
-                                    break;
-                                case GALLERY_SELECTED:
-                                    if (mListener != null) {
-                                        mListener.onAvatarClick(MainActivity.REQUEST_CODE_CAMERA);
-                                    }
-                                    break;
-                                default:
-                                    dialog.dismiss();
-                            }
-                        }
-                    });
-                    builder.show();
+                    showImageChooser(v.getContext());
                     break;
             }
+        }
+
+        public void showImageChooser(Context context) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle(R.string.choose_action).setItems(R.array.pick_image_chooser, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case CAMERA_SELECTED:
+                            if (mListener != null) {
+                                mListener.onAvatarClick(MainActivity.REQUEST_CODE_GALLERY);
+                            }
+                            break;
+                        case GALLERY_SELECTED:
+                            if (mListener != null) {
+                                mListener.onAvatarClick(MainActivity.REQUEST_CODE_CAMERA);
+                            }
+                            break;
+                        default:
+                            dialog.dismiss();
+                    }
+                }
+            });
+            builder.show();
         }
     }
 }

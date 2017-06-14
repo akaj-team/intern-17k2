@@ -8,15 +8,13 @@
     <string name="email">vancuong.itf@gmail.com</string>
     <string name="crop_error">Your phone doesn\'t support Crop Image!</string>
     <string name="choose_action">Choose action</string>
-    <string-array name="menu_list">
-        <item>Feed</item>
-        <item>Activity</item>
-        <item>Profile</item>
-        <item>Friends</item>
-        <item>Map</item>
-        <item>Chat</item>
-        <item>Settings</item>
-    </string-array>
+    <string name="feed">Feed</string>
+    <string name="activity">Activity</string>
+    <string name="profile">Profile</string>
+    <string name="friends">Friends</string>
+    <string name="map">Map</string>
+    <string name="chat">Chat</string>
+    <string name="settings">Settings</string>
     <string-array name="pick_image_chooser">
         <item>Garelly</item>
         <item>Camera</item>

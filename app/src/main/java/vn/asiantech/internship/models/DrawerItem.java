@@ -21,8 +21,8 @@ public class DrawerItem {
         this.name = name;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+    public void setSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 
     public void setSelected() {

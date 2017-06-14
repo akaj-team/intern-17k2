@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -127,10 +128,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void initAdapter() {
         mDrawerItems = new ArrayList<>();
-        String[] menuList = getResources().getStringArray(R.array.menu_list);
-        for (String s : menuList) {
-            mDrawerItems.add(new DrawerItem(s));
-        }
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.feed)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.activity)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.profile)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.friend)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.friends)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.map)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.chat)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.settings)));
         mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new DrawerAdapter(this, mDrawerItems, new OnItemClickListener() {
             @Override
@@ -163,9 +168,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
                         startActivityForResult(intent, REQUEST_CODE_CAMERA);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log.i("Tag11", e.toString());
                     }
-
                 }
             }
         });
@@ -173,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initDrawerLayout() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
             @Override
             public void onDrawerClosed(View drawerView) {
