@@ -25,11 +25,9 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewDrawer"
         android:layout_width="@dimen/recyclerview.height"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/recyclerview.color"
-        android:choiceMode="singleChoice"
-        app:headerLayout="@layout/item_drawer_header" />
+        android:background="@color/recyclerview.color" />
 </android.support.v4.widget.DrawerLayout>

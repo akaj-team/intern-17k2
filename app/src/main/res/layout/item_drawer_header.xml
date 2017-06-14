@@ -8,8 +8,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAvatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/imageview.width"
+        android:layout_height="@dimen/imageview.height"
         android:paddingLeft="@dimen/imageview.padding"
         android:paddingRight="@dimen/imageview.padding"
         android:src="@mipmap/ic_launcher" />

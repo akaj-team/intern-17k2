@@ -28,16 +28,17 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int TYPE_ITEM = 1;
 
     private Context mContext;
-    private List<DrawerItem> mItems;
-    private OnItemListener mOnItemListener;
+    private List<DrawerItem> mDrawerItems;
+    private OnItemClickListener mOnItemClickListener;
     private Bitmap mBitmap;
-    private WallpaperManager mWallpaperManager;
+    private Drawable mWallPaperDrawable;
 
-    public DrawerAdapter(Context context, List<DrawerItem> items, WallpaperManager wallpaperManager, OnItemListener onItemListener) {
+    public DrawerAdapter(Context context, List<DrawerItem> items, OnItemClickListener onItemClickListener) {
         mContext = context;
-        mItems = items;
-        mWallpaperManager = wallpaperManager;
-        mOnItemListener = onItemListener;
+        mDrawerItems = items;
+        mOnItemClickListener = onItemClickListener;
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
+        mWallPaperDrawable = wallpaperManager.getDrawable();
     }
 
     public void setAvatar(Bitmap bitmap) {
@@ -53,7 +54,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 return new ItemViewHolder(view);
             case TYPE_HEADER:
                 view = LayoutInflater.from(mContext).inflate(R.layout.item_drawer_header, parent, false);
-                return new HeaderHolder(view);
+                return new ItemHeaderViewHolder(view);
         }
         return null;
     }
@@ -62,27 +63,26 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder itemHolder = (ItemViewHolder) holder;
-            itemHolder.mTvItem.setText(mItems.get(position - 1).getTitle());
-            if (mItems.get(position - 1).isSelected()) {
+            itemHolder.mTvItem.setText(mDrawerItems.get(position - 1).getTitle());
+            if (mDrawerItems.get(position - 1).isSelected()) {
                 itemHolder.mTvItem.setTextColor(ContextCompat.getColor(mContext, R.color.textview_text_select_color));
             } else {
                 itemHolder.mTvItem.setTextColor(ContextCompat.getColor(mContext, R.color.textview_text_color));
             }
             return;
         }
-        if (holder instanceof HeaderHolder) {
-            HeaderHolder headerHolder = (HeaderHolder) holder;
-            Drawable wallPaperDrawable = mWallpaperManager.getDrawable();
-            headerHolder.mLlHeader.setBackground(wallPaperDrawable);
+        if (holder instanceof ItemHeaderViewHolder) {
+            ItemHeaderViewHolder itemHeaderViewHolder = (ItemHeaderViewHolder) holder;
+            itemHeaderViewHolder.mLlHeader.setBackground(mWallPaperDrawable);
             if (mBitmap != null) {
-                headerHolder.mImgAvatar.setImageBitmap(mBitmap);
+                itemHeaderViewHolder.mImgAvatar.setImageBitmap(mBitmap);
             }
         }
     }
 
     @Override
     public int getItemCount() {
-        return mItems.size() + 1;
+        return mDrawerItems.size() + 1;
     }
 
     @Override
@@ -111,8 +111,8 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void onClick(View v) {
-            if (mOnItemListener != null) {
-                mOnItemListener.OnItemClick(getAdapterPosition() - 1);
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.onItemClick(getAdapterPosition() - 1);
             }
         }
     }
@@ -120,19 +120,19 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * class set view to header
      */
-    private class HeaderHolder extends RecyclerView.ViewHolder {
+    private class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout mLlHeader;
         private CircleImageView mImgAvatar;
 
-        HeaderHolder(View itemView) {
+        ItemHeaderViewHolder(View itemView) {
             super(itemView);
             mLlHeader = (LinearLayout) itemView.findViewById(R.id.llHeader);
             mImgAvatar = (CircleImageView) itemView.findViewById(R.id.imgAvatar);
             mImgAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mOnItemListener != null) {
-                        mOnItemListener.OnAvatarClick();
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onAvatarClick();
                     }
                 }
             });
@@ -142,9 +142,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * interface using in MainActivity handle event item click, avatar click
      */
-    public interface OnItemListener {
-        void OnItemClick(int position);
+    public interface OnItemClickListener {
+        void onItemClick(int position);
 
-        void OnAvatarClick();
+        void onAvatarClick();
     }
 }

@@ -8,6 +8,8 @@
     <dimen name="textview.item.textsize">15sp</dimen>
     <dimen name="view.margin.left">10dp</dimen>
     <dimen name="imageview.padding">10dp</dimen>
+    <dimen name="imageview.height">80dp</dimen>
+    <dimen name="imageview.width">80dp</dimen>
     <dimen name="textview.name.padding">10dp</dimen>
     <dimen name="textview.toolbar.title.textsize">20sp</dimen>
 </resources>

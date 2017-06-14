@@ -1,6 +1,5 @@
 package vn.asiantech.internship.main;
 
-import android.app.WallpaperManager;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,7 +7,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -21,7 +19,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,21 +32,22 @@ import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
  * Created by Hai on 6/12/2017.
  */
 public class MainActivity extends AppCompatActivity {
-    private static final int REQUEST_CODE_GALLERY = 0;
-    private static final int REQUEST_CODE_CROP = 1;
-    private static final int REQUEST_CODE_CAMERA = 2;
+    private static final int REQUEST_CODE_GALLERY = 1000;
+    private static final int REQUEST_CODE_CROP = 1001;
+    private static final int REQUEST_CODE_CAMERA = 1002;
+    private static final int STRING_ARRAY_POSITION_FIRST = 0;
+    private static final int STRING_ARRAY_POSITION_SECOND = 1;
     private static final String KEY_DATA = "data";
 
     private TextView mTvTitle;
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerViewDrawer;
     private ImageView mImgToggle;
     private DrawerLayout mDrawerLayout;
     private LinearLayout mLlContent;
-    private WallpaperManager mWallpaperManager;
 
     private DrawerAdapter mAdapter;
     private List<DrawerItem> mDrawerItems;
-    private int mPositionSelected;
+    private int mPositionSelected = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = data.getData();
             switch (requestCode) {
                 case REQUEST_CODE_GALLERY:
+                case REQUEST_CODE_CAMERA:
                     cropImage(uri);
                     break;
                 case REQUEST_CODE_CROP:
@@ -78,20 +77,16 @@ public class MainActivity extends AppCompatActivity {
                         mAdapter.notifyItemChanged(0);
                     }
                     break;
-                case REQUEST_CODE_CAMERA:
-                    cropImage(uri);
-                    break;
             }
         }
     }
 
     private void initView() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
         mLlContent = (LinearLayout) findViewById(R.id.llContent);
         mTvTitle = (TextView) findViewById(R.id.tvTitle);
         mImgToggle = (ImageView) findViewById(R.id.imgToggle);
-        mWallpaperManager = WallpaperManager.getInstance(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -103,20 +98,15 @@ public class MainActivity extends AppCompatActivity {
         mImgToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                } else {
-                    mDrawerLayout.openDrawer(Gravity.START);
-                }
+                mDrawerLayout.openDrawer(Gravity.START);
             }
         });
     }
 
     private void handleDrawer() {
-        mPositionSelected = -1;
-        mAdapter = new DrawerAdapter(this, createData(), mWallpaperManager, new DrawerAdapter.OnItemListener() {
+        mAdapter = new DrawerAdapter(this, createData(), new DrawerAdapter.OnItemClickListener() {
             @Override
-            public void OnItemClick(int position) {
+            public void onItemClick(int position) {
                 if (mPositionSelected > -1) {
                     mDrawerItems.get(mPositionSelected).setSelected(false);
                     mAdapter.notifyItemChanged(mPositionSelected + 1);
@@ -129,13 +119,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void OnAvatarClick() {
+            public void onAvatarClick() {
                 showDialogChangeAvatar();
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerViewDrawer.setLayoutManager(linearLayoutManager);
+        mRecyclerViewDrawer.setAdapter(mAdapter);
 
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, null, 0, 0) {
             @Override
@@ -164,12 +154,12 @@ public class MainActivity extends AppCompatActivity {
         alertDialogBuider.setItems(R.array.dialog_items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
+                if (which == STRING_ARRAY_POSITION_FIRST) {
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(intent, REQUEST_CODE_GALLERY);
-                } else if (which == 1) {
+                } else if (which == STRING_ARRAY_POSITION_SECOND) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(intent, REQUEST_CODE_CAMERA);
                 }
@@ -191,8 +181,7 @@ public class MainActivity extends AppCompatActivity {
             cropIntent.putExtra("return-data", true);
             startActivityForResult(cropIntent, REQUEST_CODE_CROP);
         } catch (ActivityNotFoundException anfe) {
-            Toast toast = Toast.makeText(this, anfe.getMessage(), Toast.LENGTH_SHORT);
-            toast.show();
+            //TODO
         }
     }
 
