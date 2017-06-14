@@ -1,9 +1,7 @@
-package vn.asiantech.internship.views;
+package vn.asiantech.internship.ui.leftmenu;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -22,22 +19,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.io.File;
-import java.util.Date;
-
-import vn.asiantech.internship.DrawerAdapter;
-import vn.asiantech.internship.MainActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.RecyclerItemClickListener;
+import vn.asiantech.internship.ui.mains.MainActivity;
 
 /**
  * DrawerFragment create on 12/06 by Thien Nguyen
  */
-public class DrawerFragment extends Fragment implements MainActivity.MainActivityInterface {
+public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsListener {
 
     private String[] mListDrawer;
     private DrawerAdapter mDrawerAdapter;
-    private Uri mUri;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,12 +42,19 @@ public class DrawerFragment extends Fragment implements MainActivity.MainActivit
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_drawer, container, false);
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.rvDrawer);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mListDrawer = getResources().getStringArray(R.array.listDrawer);
-        mDrawerAdapter = new DrawerAdapter(getContext(), mListDrawer, DrawerFragment.this);
-        recyclerView.setAdapter(mDrawerAdapter);
+        initDrawer(v);
 
+        return v;
+    }
+
+    private void initDrawer(View v) {
+        mListDrawer = getResources().getStringArray(R.array.listDrawer);
+        mDrawerAdapter = new DrawerAdapter(getContext(), mListDrawer, this);
+
+        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.rvDrawer);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(mDrawerAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -67,42 +66,34 @@ public class DrawerFragment extends Fragment implements MainActivity.MainActivit
                 }
             }
         }));
-
-        return v;
     }
 
+    @Override
     public void showDialogChoice() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.Dialog_Text_Choice_Select)
                 .setItems(R.array.Choice, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int position) {
                         if (position == 0) {
-                            OpenCamera();
+                            openCamera();
                         } else {
-                            OpenLibrary();
+                            openLibrary();
                         }
                     }
                 });
         builder.create().show();
     }
 
-    @Override
-    public void setImage(Bitmap bitmap) {
+    private void setImage(Bitmap bitmap) {
         mDrawerAdapter.setImageAvatar(bitmap);
     }
 
-    @Override
-    public void OpenCamera() {
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        File photo = new File(Environment.getExternalStorageDirectory(), new Date().toString() + ".jpg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(photo));
-        mUri = Uri.fromFile(photo);
-        startActivityForResult(intent, MainActivity.KEY_CAMERA);
+    private void openCamera() {
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, MainActivity.KEY_CAMERA);
     }
 
-    @Override
-    public void OpenLibrary() {
+    private void openLibrary() {
         Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, MainActivity.KEY_LIBRARY);
@@ -111,36 +102,26 @@ public class DrawerFragment extends Fragment implements MainActivity.MainActivit
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        String pathFile;
+        Bitmap bitmap;
         if (data != null) {
             switch (requestCode) {
                 case MainActivity.KEY_CAMERA:
-                    if (resultCode == Activity.RESULT_OK) {
-                        Uri selectedImage = mUri;
-                        getActivity().getContentResolver().notifyChange(selectedImage, null);
-                        ContentResolver contentResolver = getActivity().getContentResolver();
-                        Bitmap bitmap;
-                        try {
-                            bitmap = android.provider.MediaStore.Images.Media
-                                    .getBitmap(contentResolver, selectedImage);
-                            String pathFile = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, "Title", null);
-                            performCrop(Uri.parse(pathFile));
-                        } catch (Exception e) {
-                            Toast.makeText(getActivity(), getActivity().getString(R.string.Error_Message_Error), Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    }
+                    bitmap = (Bitmap) data.getExtras().get("data");
+                     pathFile = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, getString(R.string.Title), null);
+                    performCrop(Uri.parse(pathFile));
                     break;
                 case MainActivity.KEY_LIBRARY:
-                    Uri selectedImage = data.getData();
+                    Uri uriSelectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    @SuppressLint("Recycle") Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                    @SuppressLint("Recycle") Cursor cursor = getActivity().getContentResolver().query(uriSelectedImage,
                             filePathColumn, null, null, null);
                     assert cursor != null;
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String picturePath = cursor.getString(columnIndex);
-                    Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
-                    String pathFile = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, "Title", null);
+                    bitmap = BitmapFactory.decodeFile(picturePath);
+                    pathFile = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, getString(R.string.Title), null);
                     performCrop(Uri.parse(pathFile));
                     break;
                 case MainActivity.KEY_CROP:
@@ -149,7 +130,7 @@ public class DrawerFragment extends Fragment implements MainActivity.MainActivit
                         Bitmap bitmapImage = extras.getParcelable("data");
                         setImage(bitmapImage);
                     } catch (NullPointerException e) {
-                        Toast.makeText(getActivity(), getActivity().getString(R.string.Error_Message_Error) + "Ssdsd", Toast.LENGTH_SHORT)
+                        Toast.makeText(getActivity(), getActivity().getString(R.string.Error_Message_Error), Toast.LENGTH_SHORT)
                                 .show();
                     }
                     break;
@@ -180,7 +161,7 @@ public class DrawerFragment extends Fragment implements MainActivity.MainActivit
         }
         // respond to users whose devices do not support the crop action
         catch (ActivityNotFoundException anfe) {
-            Toast.makeText(getActivity(), getActivity().getString(R.string.Error_Message_Error) + "Sdsdd", Toast.LENGTH_SHORT)
+            Toast.makeText(getActivity(), getActivity().getString(R.string.Error_Message_Error), Toast.LENGTH_SHORT)
                     .show();
         }
     }

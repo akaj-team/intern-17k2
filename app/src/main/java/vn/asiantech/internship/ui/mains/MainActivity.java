@@ -1,10 +1,9 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.ui.mains;
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,15 +21,15 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import vn.asiantech.internship.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int KEY_CAMERA = 1;
+    public static final int KEY_CAMERA = 1773;
     public static final int KEY_LIBRARY = 2;
     public static final int KEY_CROP = 3;
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTVContent;
     private DrawerLayout mDrawerLayout;
     private View mFragment;
+    private Toolbar mToolbar;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -46,21 +46,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mTVContent = (TextView) findViewById(R.id.tvContent);
-        mRlContent = (RelativeLayout) findViewById(R.id.rlContent);
-        mFragment = findViewById(R.id.fragmentDrawer);
-
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         checkAndRequestPermissions();
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.dlContainer);
-        setWidthDrawer();
+        initView();
+        initToolbar();
+        initDrawer();
+    }
+
+    private void initDrawer() {
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, toolbar, R.string.Text_Messages_Navigation_Open, R.string.Text_Messages_Navigation_Close) {
+                this, mDrawerLayout, mToolbar, R.string.Text_Messages_Navigation_Open, R.string.Text_Messages_Navigation_Close) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
@@ -73,21 +67,30 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.syncState();
     }
 
+    private void initToolbar() {
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    private void initView() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTVContent = (TextView) findViewById(R.id.tvContent);
+        mRlContent = (RelativeLayout) findViewById(R.id.rlContent);
+        mFragment = findViewById(R.id.fragmentDrawer);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.dlContainer);
+        setWidthDrawer();
+    }
+
     private void setWidthDrawer() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int newWidth = displayMetrics.widthPixels;
-        ViewGroup.LayoutParams params =  mFragment.getLayoutParams();
-        params.width = (2*newWidth)/3;
+        ViewGroup.LayoutParams params = mFragment.getLayoutParams();
+        params.width = (2 * newWidth) / 3;
         mFragment.setLayoutParams(params);
-    }
-
-    /**
-     *
-     * @param mainActivityInterface is a Interface of mainActivity
-     */
-    public void showDialogChoice(MainActivityInterface mainActivityInterface) {
-        mainActivityInterface.showDialogChoice();
     }
 
     /**
@@ -100,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Check permission for android >= 6.0
-     *
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void checkAndRequestPermissions() {
@@ -119,11 +121,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * Check permission for android >= 6.0
-     * @param requestCode is a request code
-     * @param permissions is a list of permission
+     *
+     * @param requestCode  is a request code
+     * @param permissions  is a list of permission
      * @param grantResults is a results
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("MainActivity", "MainActivity");
                     } else {
                         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                            showDialogOK(
+                            showDialogPermission(
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
@@ -164,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(this, getString(R.string.Toast_Go_to_settings_and_enable_permissions), Toast.LENGTH_LONG)
                                     .show();
-                            //proceed with logic by disabling the related features or quit the app.
                         }
                     }
                 }
@@ -172,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showDialogOK(DialogInterface.OnClickListener okListener) {
+    private void showDialogPermission(DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(this)
                 .setMessage(getString(R.string.Text_Tip))
                 .setPositiveButton(getString(R.string.Text_OK), okListener)
@@ -181,16 +182,4 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    /**
-     * Interface for fragment
-     */
-    public interface MainActivityInterface {
-        void showDialogChoice();
-
-        void setImage(Bitmap bitmap);
-
-        void OpenCamera();
-
-        void OpenLibrary();
-    }
 }

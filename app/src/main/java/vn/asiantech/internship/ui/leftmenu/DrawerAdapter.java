@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.ui.leftmenu;
 
 import android.app.WallpaperManager;
 import android.content.Context;
@@ -9,8 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import vn.asiantech.internship.R;
 
 /**
  * Created by Thanh Thien on 6/12/17
@@ -24,21 +26,26 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private String[] mItems;
     private int mPositionSelected = -1; // mPositionSelected = -1 if nothing select
     private Bitmap mBitmap;
-    private MainActivity.MainActivityInterface mMainActivityInterface;
+    private Drawable mWallpaperDrawable;
+    private OnItemsListener mOnItemsListener;
 
-    public DrawerAdapter(Context context, String[] items, MainActivity.MainActivityInterface mainActivityInterface) {
-        this.mItems = items;
-        this.mContext = context;
-        this.mMainActivityInterface = mainActivityInterface;
+    DrawerAdapter(Context context, String[] items, OnItemsListener onItemsListener) {
+        mItems = items;
+        mContext = context;
+        mOnItemsListener = onItemsListener;
+
+        //Get current wallpaper
+        WallpaperManager mWallpaperManager = WallpaperManager.getInstance(mContext);
+        mWallpaperDrawable = mWallpaperManager.getDrawable();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
         switch (getItemViewType(i)) {
             case TYPE_HEAD:
-                return new MyViewHolderHeader(LayoutInflater.from(mContext).inflate(R.layout.drawer_head, viewGroup, false));
+                return new HeaderViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer_head, viewGroup, false));
             default:
-                return new MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.list_item_drawer, viewGroup, false));
+                return new ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.list_item_drawer, viewGroup, false));
         }
     }
 
@@ -53,26 +60,21 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
-        if (viewHolder instanceof MyViewHolder) {
-            MyViewHolder myViewHolder = (MyViewHolder) viewHolder;
+        if (viewHolder instanceof ItemViewHolder) {
+            ItemViewHolder myViewHolder = (ItemViewHolder) viewHolder;
             myViewHolder.mTextView.setText(mItems[i]);
             if (i == mPositionSelected) {
                 viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.colorItemChoise));
             } else {
                 viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.colorItem));
             }
-        } else if (viewHolder instanceof MyViewHolderHeader) {
-            MyViewHolderHeader myViewHolder = (MyViewHolderHeader) viewHolder;
-
-            //Get current wallpaper
-            WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
-            Drawable wallpaperDrawable = wallpaperManager.getDrawable();
-
-            myViewHolder.mCLParent.setBackgroundDrawable(wallpaperDrawable);
+        } else if (viewHolder instanceof HeaderViewHolder) {
+            HeaderViewHolder myViewHolder = (HeaderViewHolder) viewHolder;
+            myViewHolder.mCLParent.setBackgroundDrawable(mWallpaperDrawable);
             myViewHolder.mTvAuthorName.setText(mContext.getString(R.string.app_author));
 
             if (mBitmap != null) {
-                myViewHolder.mImgAvatar.setImageBitmap(mBitmap);
+                myViewHolder.mCIVAvatar.setImageBitmap(mBitmap);
             }
         }
     }
@@ -85,27 +87,27 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * @param positionSelected is a position of item selected
      */
-    public void setPositionSelected(int positionSelected) {
-        this.mPositionSelected = positionSelected;
+    void setPositionSelected(int positionSelected) {
+        mPositionSelected = positionSelected;
         notifyDataSetChanged();
     }
 
     /**
      * @param bitmap is link of image
      */
-    public void setImageAvatar(Bitmap bitmap) {
-        this.mBitmap = bitmap;
+    void setImageAvatar(Bitmap bitmap) {
+        mBitmap = bitmap;
         notifyDataSetChanged();
     }
 
     /**
      * ItemView for content list
      */
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTextView;
 
-        MyViewHolder(View itemView) {
+        ItemViewHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.tvName);
         }
@@ -114,25 +116,32 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * View for header
      */
-    public class MyViewHolderHeader extends RecyclerView.ViewHolder {
+    public class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvAuthorName;
-        private ImageView mImgAvatar;
+        private CircleImageView mCIVAvatar;
         private ConstraintLayout mCLParent;
 
-        MyViewHolderHeader(final View itemView) {
+        HeaderViewHolder(final View itemView) {
             super(itemView);
             mTvAuthorName = (TextView) itemView.findViewById(R.id.tvAuthorName);
-            mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
+            mCIVAvatar = (CircleImageView) itemView.findViewById(R.id.civAvatar);
             mCLParent = (ConstraintLayout) itemView.findViewById(R.id.clParent);
-            mImgAvatar.setOnClickListener(new View.OnClickListener() {
+            mCIVAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mContext instanceof MainActivity) {
-                        ((MainActivity) mContext).showDialogChoice(mMainActivityInterface);
+                    if (mOnItemsListener != null) {
+                        mOnItemsListener.showDialogChoice();
                     }
                 }
             });
         }
+    }
+
+    /**
+     * Interface for fragment
+     */
+    public interface OnItemsListener {
+        void showDialogChoice();
     }
 }

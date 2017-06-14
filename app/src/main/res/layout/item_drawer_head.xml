@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clParent"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:id="@+id/clParent">
+    android:layout_height="150dp">
 
     <TextView
+        android:id="@+id/tvAuthorName"
         style="@style/TextAuthorStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_author"
-        android:id="@+id/tvAuthorName"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgAvatar"
+        android:id="@+id/civAvatar"
         android:layout_width="@dimen/avatarHeight"
         android:layout_height="@dimen/avatarHeight"
-        app:layout_constraintBottom_toTopOf="@id/tvAuthorName"
         android:paddingLeft="@dimen/paddingSomeThing"
-        android:src="@mipmap/ic_avatar" />
+        android:src="@mipmap/ic_avatar"
+        app:layout_constraintBottom_toTopOf="@id/tvAuthorName"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
 </android.support.constraint.ConstraintLayout>

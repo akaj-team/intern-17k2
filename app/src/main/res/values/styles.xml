@@ -19,6 +19,7 @@
         <item name="android:textSize">@dimen/textSizeAuthor</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="ToolbarColoredBackArrow" parent="AppTheme">
         <item name="android:textColorSecondary">@color/colorMenuArrow</item>
     </style>
