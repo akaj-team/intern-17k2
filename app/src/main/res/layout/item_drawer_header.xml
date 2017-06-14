@@ -11,14 +11,14 @@
         android:contentDescription="@string/image.description"
         android:scaleType="centerCrop" />
 
-    <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/crImgAvata"
+    <ImageView
+        android:id="@+id/crImgAvatar"
         android:layout_width="@dimen/image.avata.with_height"
         android:layout_height="@dimen/image.avata.with_height"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/image.margin"
         android:layout_marginLeft="@dimen/image.margin"
         android:layout_marginStart="@dimen/image.margin"
-        android:background="@drawable/bg_avata"
+        android:background="@drawable/bg_avatar"
         android:contentDescription="@string/image.description" />
 </RelativeLayout>

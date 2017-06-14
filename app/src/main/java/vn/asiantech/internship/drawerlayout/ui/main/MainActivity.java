@@ -1,10 +1,15 @@
-package vn.asiantech.internship.drawerlayout.activities;
+package vn.asiantech.internship.drawerlayout.ui.main;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -25,6 +30,8 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.drawerlayout.models.DrawerItem;
 import vn.asiantech.internship.drawerlayout.ui.leftmenu.DrawerAdapter;
 
+import static android.graphics.Bitmap.createBitmap;
+
 /**
  * Used to display drawerlayout
  *
@@ -33,14 +40,17 @@ import vn.asiantech.internship.drawerlayout.ui.leftmenu.DrawerAdapter;
  * @since 2017-6-12
  */
 public class MainActivity extends AppCompatActivity {
-    public static final int RESULT_LOAD_IMAGE_GALERRY = 1;
-    public static final int RESULT_LOAD_IMAGE_CAMERA = 2;
-    public static final String DATA = "data";
+
+    private static final int RESULT_LOAD_IMAGE_GALERRY = 1;
+    private static final int RESULT_LOAD_IMAGE_CAMERA = 2;
+    private static final String KEY_DATA = "data";
+
     private TextView mTvResult;
-    private ImageView imgMenu;
+    private ImageView mImgMenu;
     private RecyclerView mRecyclerView;
     private LinearLayout mLnLayout;
     private DrawerLayout mDrawerLayout;
+
     private DrawerAdapter mAdapter;
     private List<DrawerItem> mDrawerItems;
     private int mPositionSelected = -1;
@@ -48,23 +58,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_function);
+        setContentView(R.layout.activity_main);
         initView();
-        initLeftMenu();
+        initData();
         initDrawer();
-        handleLeftMenu();
+        initData();
+        initAdapter();
     }
 
     private void initView() {
         mLnLayout = (LinearLayout) findViewById(R.id.lnLayout);
         mTvResult = (TextView) findViewById(R.id.tvResult);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_function);
-        imgMenu = (ImageView) findViewById(R.id.imgMenu);
-        TextView tvToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerviewDrawer);
+        mImgMenu = (ImageView) findViewById(R.id.imgMenu);
+        TextView tvToolbarTitle = (TextView) findViewById(R.id.tvTitle);
         tvToolbarTitle.setText(R.string.toolbar_title);
     }
 
-    private void initLeftMenu() {
+    private void initData() {
         mDrawerItems = new ArrayList<>();
         mDrawerItems.add(new DrawerItem(getString(R.string.feed)));
         mDrawerItems.add(new DrawerItem(getString(R.string.activity)));
@@ -73,23 +84,21 @@ public class MainActivity extends AppCompatActivity {
         mDrawerItems.add(new DrawerItem(getString(R.string.map)));
         mDrawerItems.add(new DrawerItem(getString(R.string.chat)));
         mDrawerItems.add(new DrawerItem(getString(R.string.setting)));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new DrawerAdapter(mDrawerItems);
-        mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void handleLeftMenu() {
-        mAdapter.setOnItemClickListener(new DrawerAdapter.OnItemClickListener() {
+    private void initAdapter() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mAdapter = new DrawerAdapter(this, mDrawerItems, new DrawerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 mTvResult.setText(mDrawerItems.get(position).getName());
                 mDrawerLayout.closeDrawers();
                 if (mPositionSelected >= 0) {
-                    mDrawerItems.get(mPositionSelected).setState(false);
+                    mDrawerItems.get(mPositionSelected).setChecked(false);
                 }
                 mPositionSelected = position;
-                mDrawerItems.get(position).setState(true);
+                mDrawerItems.get(position).setChecked(true);
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -98,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 showDialog();
             }
         });
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void initDrawer() {
@@ -118,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 mLnLayout.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };
-        imgMenu.setOnClickListener(new View.OnClickListener() {
+        mImgMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mDrawerLayout.openDrawer(Gravity.START);
@@ -132,8 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialog() {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
-        builderSingle.setTitle("Choose one");
-
+        builderSingle.setTitle(R.string.dialog_title);
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.select_dialog_item);
         arrayAdapter.add(getString(R.string.camera));
         arrayAdapter.add(getString(R.string.gallery));
@@ -160,9 +169,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
-            if (requestCode == RESULT_LOAD_IMAGE_GALERRY) {
-                getImage(data);
-            } else if (requestCode == RESULT_LOAD_IMAGE_CAMERA) {
+            if (requestCode == RESULT_LOAD_IMAGE_GALERRY || requestCode == RESULT_LOAD_IMAGE_CAMERA) {
                 getImage(data);
             }
         }
@@ -170,9 +177,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void getImage(Intent data) {
         Bundle extras = data.getExtras();
-        Bitmap imageBitmap = (Bitmap) extras.get(DATA);
-        ImageView imgAvata = (ImageView) findViewById(R.id.crImgAvata);
-        imgAvata.setImageBitmap(imageBitmap);
+        Bitmap imageBitmap = (Bitmap) extras.get(KEY_DATA);
+        ImageView imgAvata = (ImageView) findViewById(R.id.crImgAvatar);
+        RoundedBitmapDrawable drawable = createRoundBorder(imageBitmap);
+        imgAvata.setImageDrawable(drawable);
     }
 
     private void cropImage(Intent intent) {
@@ -182,5 +190,30 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("outputX", 200);
         intent.putExtra("outputY", 200);
         intent.putExtra("return-data", true);
+    }
+
+    private RoundedBitmapDrawable createRoundBorder(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int borderWidth = 1;
+        int radius = Math.min(width, height) / 2;
+        int squareWidth = Math.min(width, height);
+        int newSquare = Math.min(width, height) + borderWidth;
+
+        Bitmap roundedBitmap = createBitmap(newSquare, newSquare, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(roundedBitmap);
+        int x = borderWidth + squareWidth - width;
+        int y = borderWidth + squareWidth - height;
+        canvas.drawBitmap(bitmap, x, y, null);
+
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(borderWidth * 2);
+        paint.setColor(Color.GRAY);
+        canvas.drawCircle(canvas.getWidth() / 2, canvas.getWidth() / 2, newSquare / 2, paint);
+        RoundedBitmapDrawable roundedDrawable = RoundedBitmapDrawableFactory.create(getResources(), roundedBitmap);
+        roundedDrawable.setCornerRadius(radius);
+        roundedDrawable.setAntiAlias(true);
+        return roundedDrawable;
     }
 }

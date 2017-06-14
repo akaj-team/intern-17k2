@@ -19,7 +19,7 @@
             android:contentDescription="@string/image.description" />
 
         <TextView
-            android:id="@+id/toolbar_title"
+            android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/linearlayout.height"

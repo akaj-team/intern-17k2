@@ -9,7 +9,7 @@ package vn.asiantech.internship.drawerlayout.models;
  */
 public class DrawerItem {
     private String name;
-    private boolean state = false;
+    private boolean checked = false;
 
     public DrawerItem(String name) {
         this.name = name;
@@ -23,12 +23,12 @@ public class DrawerItem {
         this.name = name;
     }
 
-    public boolean isState() {
-        return state;
+    public boolean isChecked() {
+        return checked;
     }
 
-    public void setState(boolean state) {
-        this.state = state;
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
     public DrawerItem() {
