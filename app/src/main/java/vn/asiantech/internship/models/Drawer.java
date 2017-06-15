@@ -21,7 +21,7 @@ public class Drawer {
         this.drawerName = drawerName;
     }
 
-    public boolean isChoosed() {
+    public boolean isChoose() {
         return isChoose;
     }
 

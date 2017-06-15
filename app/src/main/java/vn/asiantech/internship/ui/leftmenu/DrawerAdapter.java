@@ -60,7 +60,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             DrawerViewHolder drawer = (DrawerViewHolder) holder;
             Drawer itemDrawer = mDrawerLists.get(position - 1);
             drawer.mTvColor.setText(itemDrawer.getDrawerName());
-            if (itemDrawer.isChoosed()) {
+            if (itemDrawer.isChoose()) {
                 drawer.mTvColor.setTextColor(ContextCompat.getColor(drawer.itemView.getContext(), R.color.colorAccent));
             } else {
                 drawer.mTvColor.setTextColor(Color.WHITE);
