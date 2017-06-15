@@ -8,7 +8,7 @@
     android:background="?colorPrimary"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
-    app:theme="@style/AppTheme.NoActionBar"
+    app:theme="@style/AppTheme"
     tools:targetApi="lollipop">
 
     <RelativeLayout
