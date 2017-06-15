@@ -22,14 +22,14 @@ public class SendActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_send);
         Button btnSend2 = (Button) findViewById(R.id.btnSend2);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         mFirstFragment = new FirstFragment();
-        fragmentTransaction.replace(R.id.container1, mFirstFragment);
+        fragmentTransaction.replace(R.id.flContainer1, mFirstFragment);
         mSecondFragment = new SecondFragment();
-        fragmentTransaction.replace(R.id.frContainer2, mSecondFragment);
+        fragmentTransaction.replace(R.id.flContainer2, mSecondFragment);
         fragmentTransaction.commit();
 
         btnSend2.setOnClickListener(new View.OnClickListener() {

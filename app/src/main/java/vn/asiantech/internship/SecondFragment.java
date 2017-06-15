@@ -29,7 +29,9 @@ public class SecondFragment extends Fragment {
         btnSend1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((SendActivity) getActivity()).onClick();
+                if (getActivity() instanceof SendActivity) {
+                    ((SendActivity) getActivity()).onClick();
+                }
             }
         });
         return view;
