@@ -94,12 +94,12 @@ public class MainActivity extends AppCompatActivity {
                 tvTitleFragment.setText(item.getTitle());
                 if (mItemSelected >= 0) {
                     mDrawerItems.get(mItemSelected).setSelected(false);
-                    mAdapter.notifyItemChanged(mItemSelected);
+                    mAdapter.notifyItemChanged(mItemSelected + 1);
                 }
                 item.setSelected(true);
                 mItemSelected = position;
                 mDrawerLayout.closeDrawers();
-                mAdapter.notifyItemChanged(position);
+                mAdapter.notifyItemChanged(position + 1);
             }
 
             @Override

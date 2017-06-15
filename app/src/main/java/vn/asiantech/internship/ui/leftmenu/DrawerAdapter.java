@@ -54,13 +54,13 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder titleViewHolder = (ItemViewHolder) holder;
-            titleViewHolder.mTvTitle.setText(mDrawerItems.get(position).getTitle());
-            if (mDrawerItems.get(position).isSelected()) {
+            titleViewHolder.mTvTitle.setText(mDrawerItems.get(position - 1).getTitle());
+            if (mDrawerItems.get(position - 1).isSelected()) {
                 titleViewHolder.mTvTitle.setTextColor(Color.BLUE);
             } else {
                 titleViewHolder.mTvTitle.setTextColor(Color.WHITE);
             }
-            titleViewHolder.mLinearLayout.setSelected(mDrawerItems.get(position).isSelected());
+            titleViewHolder.mLinearLayout.setSelected(mDrawerItems.get(position - 1).isSelected());
         } else {
             ItemHeaderViewHolder headerViewHolder = (ItemHeaderViewHolder) holder;
             headerViewHolder.mTvName.setText(R.string.header_name);
@@ -86,7 +86,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return mDrawerItems.size();
+        return mDrawerItems.size() + 1;
     }
 
     /**
@@ -105,7 +105,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View view) {
                     if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(getAdapterPosition());
+                        mOnItemClickListener.onItemClick(getAdapterPosition() - 1);
                     }
                 }
             });
