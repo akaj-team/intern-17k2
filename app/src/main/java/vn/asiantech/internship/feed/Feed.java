@@ -10,12 +10,12 @@ import java.util.List;
  * @version 1.0
  * @since 2017-6-15
  */
-public class Feed {
+class Feed {
     private String name;
     private String description;
     private List<Integer> images;
 
-    public Feed(String name, String description, List<Integer> images) {
+    Feed(String name, String description, List<Integer> images) {
         this.name = name;
         this.description = description;
         this.images = images;
