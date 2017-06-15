@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.Splash;
+package vn.asiantech.internship.ui.splash;
 
 import android.content.Intent;
 import android.os.Bundle;

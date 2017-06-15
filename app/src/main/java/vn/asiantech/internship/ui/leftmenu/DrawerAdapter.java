@@ -4,6 +4,7 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -70,8 +71,13 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return;
         }
         if (holder instanceof ItemHeaderViewHolder) {
+            final int sdk = Build.VERSION.SDK_INT;
             ItemHeaderViewHolder itemHeaderViewHolder = (ItemHeaderViewHolder) holder;
-            itemHeaderViewHolder.mLlHeader.setBackground(mWallPaperDrawable);
+            if (sdk < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                itemHeaderViewHolder.mLlHeader.setBackgroundDrawable(mWallPaperDrawable);
+            } else {
+                itemHeaderViewHolder.mLlHeader.setBackground(mWallPaperDrawable);
+            }
             if (mBitmap != null) {
                 itemHeaderViewHolder.mImgAvatar.setImageBitmap(mBitmap);
             }
