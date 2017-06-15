@@ -48,7 +48,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemFeedHolder
         return mFeeds.size();
     }
 
-    public class ItemFeedHolder extends RecyclerView.ViewHolder {
+    /**
+     * Item for FeedFragment
+     */
+    public final class ItemFeedHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private ViewPager mViewPagerPhotos;
         private TextView mTvText;

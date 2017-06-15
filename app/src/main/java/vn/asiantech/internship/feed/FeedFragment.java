@@ -33,16 +33,16 @@ public class FeedFragment extends Fragment {
         List<FeedItem> feeds = new ArrayList<>();
         // TODO: 6/15/2017 dummy data
         feeds.add(new FeedItem("Daxua unty gank tem 15p gg", new int[]{R.drawable.bg_yasuo_1, R.drawable.bg_yasuo_2, R.drawable.bg_yasuo_3, R.drawable.bg_yasuo_square_0}, getResources().getString(R.string.yasuo)));
-        feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_aatrox_1, R.drawable.bg_aatrox_2, R.drawable.bg_anivia_4, R.drawable.bg_anivia_1,}, "Aatrox"));
-        feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtrox"));
-        feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "sdfdsf"));
-        feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axsdftrox"));
-        feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtrox"));
-        feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtrox"));
-        feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axsdfdsftrox"));
-        feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtrox"));
-        feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtssdfsdfrox"));
-        feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtrox"));
+        feeds.add(new FeedItem("Cao Van Cuong1", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_aatrox_1, R.drawable.bg_aatrox_2, R.drawable.bg_anivia_4, R.drawable.bg_anivia_1}, "Aatrox"));
+        feeds.add(new FeedItem("Cao Van Cuong2", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axhdsftrox"));
+        feeds.add(new FeedItem("Cao Van Cuong3", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "sdfdsf"));
+        feeds.add(new FeedItem("Cao Van Cuong4", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axsdftrox"));
+        feeds.add(new FeedItem("Cao Van Cuong5", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtrosdfx"));
+        feeds.add(new FeedItem("Cao Van Cuong6", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtroxsdf;ds"));
+        feeds.add(new FeedItem("Cao Van Cuong7", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axsdfdsftrox"));
+        feeds.add(new FeedItem("Cao Van Cuong8", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtrosdflsdx"));
+        feeds.add(new FeedItem("Cao Van Cuong9", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtssdfsdfrox"));
+        feeds.add(new FeedItem("Cao Van Cuong10", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtrsdfox"));
         FeedAdapter adapter = new FeedAdapter(feeds);
         recyclerViewFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewFeeds.setAdapter(adapter);
