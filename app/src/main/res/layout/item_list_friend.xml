@@ -11,8 +11,8 @@
         android:layout_width="@dimen/heightImageViewFriends"
         android:layout_height="@dimen/heightImageViewFriends"
         android:layout_centerVertical="true"
-        android:src="@mipmap/ic_avatar"
-        android:contentDescription="@string/textview.text.description" />
+        android:contentDescription="@string/textview.text.description"
+        android:src="@mipmap/ic_avatar" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/lnParent"
-        android:layout_toRightOf="@id/imgAvatar"
         android:layout_toEndOf="@id/imgAvatar"
+        android:layout_toRightOf="@id/imgAvatar"
         android:background="@color/friendsColorPrimaryDark" />
 </RelativeLayout>
