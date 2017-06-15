@@ -23,8 +23,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 
     private List<Feed> mFeeds;
 
-    FeedsAdapter(List<Feed> Feeds) {
-        this.mFeeds = Feeds;
+    FeedsAdapter(List<Feed> feeds) {
+        this.mFeeds = feeds;
     }
 
     @Override
