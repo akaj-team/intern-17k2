@@ -10,8 +10,8 @@
         android:id="@+id/imgAvatar"
         android:layout_width="@dimen/avatar_size"
         android:layout_height="@dimen/avatar_size"
-        android:src="@mipmap/ic_launcher_round"
-        android:contentDescription="@null" />
+        android:contentDescription="@null"
+        android:src="@mipmap/ic_launcher_round" />
 
     <TextView
         android:id="@+id/tvName"
