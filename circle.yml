@@ -10,7 +10,6 @@ machine:
   timezone: Asia/Saigon
 dependencies:
   pre:
-    #- ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter "tools,android-25,build-tools-25.0.3,platform-tools,extra-google-m2repository,extra-android-m2repository,extra-android-support,extra-google-google_play_services"
     - echo y | android update sdk --no-ui --all --filter "tool,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository"
     - echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
 
@@ -19,7 +18,3 @@ dependencies:
 test:
   override:
     - scripts/saddler.sh
-  post:
-    - echo $CIRCLE_TEST_REPORTS
-    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - find . -type d -regex ".*/reports/tests$" -exec cp -r {} $CIRCLE_TEST_REPORTS/junit/ \;
