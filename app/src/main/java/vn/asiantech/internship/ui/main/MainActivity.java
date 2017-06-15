@@ -88,10 +88,10 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerItems.get(position).setSelected(true);
                 if (mSelectedPosition >= 0) {
                     mDrawerItems.get(mSelectedPosition).setSelected(false);
-                    mDrawerAdpater.notifyItemChanged(mSelectedPosition+1);
+                    mDrawerAdpater.notifyItemChanged(mSelectedPosition + 1);
                 }
                 mSelectedPosition = position;
-                mDrawerAdpater.notifyItemChanged(position+1);
+                mDrawerAdpater.notifyItemChanged(position + 1);
                 mDlMain.closeDrawer(Gravity.START);
             }
 

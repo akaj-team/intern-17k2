@@ -6,11 +6,11 @@ package vn.asiantech.internship.models;
 
 public class DrawerItem {
     private String name;
-    private boolean isSelected;
+    private boolean selected;
 
     public DrawerItem(String name) {
         this.name = name;
-        this.isSelected = false;
+        this.selected = false;
     }
 
     public String getName() {
@@ -22,10 +22,10 @@ public class DrawerItem {
     }
 
     public boolean isSelected() {
-        return isSelected;
+        return selected;
     }
 
-    public void setSelected(boolean isSelected) {
-        this.isSelected = isSelected;
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

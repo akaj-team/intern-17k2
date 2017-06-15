@@ -89,7 +89,7 @@ public class DrawerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * custom ViewHolder for another item
      */
-    private class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private final class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvItem;
         private LinearLayout mLlItem;
 
@@ -115,7 +115,7 @@ public class DrawerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * custom ViewHolder for header
      */
-    private class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private final class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
         private TextView mTvEmail;
         private ImageView mImgBackground;

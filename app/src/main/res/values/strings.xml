@@ -11,17 +11,10 @@
     <string name="map">Map</string>
     <string name="chat">Chat</string>
     <string name="settings">Settings</string>
-    <string-array name="navigation_item">
-        <item>@string/feed</item>
-        <item>@string/activity</item>
-        <item>@string/profile</item>
-        <item>@string/friends</item>
-        <item>@string/map</item>
-        <item>@string/chat</item>
-        <item>@string/settings</item>
-    </string-array>
     <string-array name="dialog_item">
         <item>Gallery</item>
         <item>Camera</item>
     </string-array>
+    <string name="bai5">Bai 5</string>
+    <string name="bai6">Bai 6</string>
 </resources>

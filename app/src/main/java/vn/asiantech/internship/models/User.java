@@ -9,11 +9,11 @@ public class User {
     private Bitmap imgUser;
     private String name;
     private String email;
-    private boolean isFriend;
+    private boolean friend;
 
-    public User(String name, boolean isFriend) {
+    public User(String name, boolean friend) {
         this.name = name;
-        this.isFriend = isFriend;
+        this.friend = friend;
     }
 
     public User(Bitmap imgUser, String name, String email) {
@@ -43,10 +43,10 @@ public class User {
     }
 
     public boolean isFriend() {
-        return isFriend;
+        return friend;
     }
 
     public void setFriend(boolean friend) {
-        isFriend = friend;
+        this.friend = friend;
     }
 }

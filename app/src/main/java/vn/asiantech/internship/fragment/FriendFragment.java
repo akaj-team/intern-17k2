@@ -27,20 +27,9 @@ public class FriendFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_friend, container, false);
         RecyclerView recyclerViewFriend = (RecyclerView) view.findViewById(R.id.recyclerViewFriend);
         List<User> users = new ArrayList<>();
-        users.add(new User("Anh A", true));
-        users.add(new User("Anh B", true));
-        users.add(new User("Anh C", true));
-        users.add(new User("Anh D", false));
-        users.add(new User("Anh E", false));
-        users.add(new User("Anh F", false));
-        users.add(new User("Anh E", false));
-        users.add(new User("Anh A", false));
-        users.add(new User("Anh B", false));
-        users.add(new User("Anh C", false));
-        users.add(new User("Anh D", false));
-        users.add(new User("Anh E", false));
-        users.add(new User("Anh F", false));
-        users.add(new User("Anh E", false));
+        for (char i = 'A'; i <= 'Z'; i++) {
+            users.add(new User("Anh " + i, true));
+        }
         FriendAdapter friendAdapter = new FriendAdapter(users, getActivity());
         recyclerViewFriend.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewFriend.setAdapter(friendAdapter);

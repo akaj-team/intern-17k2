@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activty_splash);
-        reference();
+        initViews();
         setClickButton();
     }
 
@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai6.setOnClickListener(this);
     }
 
-    private void reference() {
+    private void initViews() {
         mBtnBai5 = (Button) findViewById(R.id.btnBai5);
         mBtnBai6 = (Button) findViewById(R.id.btnBai6);
     }
