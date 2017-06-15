@@ -37,6 +37,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
         myViewHolder.mTvName.setText(mFeeds.get(position).getName());
         myViewHolder.mImgAvatar.setImageResource(mFeeds.get(position).getIdImgAvatar());
+        myViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
         myViewHolder.mViewPager.setAdapter(new ImageAdapter(myViewHolder.itemView.getContext(), mFeeds.get(position).getIdImgThumb()));
     }
 
@@ -48,22 +49,19 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
     /**
      * Viewhoder class
      */
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvName;
         private ImageView mImgAvatar;
         private ViewPager mViewPager;
+        private TextView mTvDescription;
 
         MyViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
             mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
-        }
-
-        @Override
-        public void onClick(View v) {
-
+            mTvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
         }
     }
 
@@ -72,13 +70,13 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
      */
     private static class ImageAdapter extends PagerAdapter {
         private int[] mImages;
-        private LayoutInflater inflater;
+        private LayoutInflater mInflater;
         private Context mContext;
 
         ImageAdapter(Context context, int[] images) {
             mImages = images;
             mContext = context;
-            inflater = LayoutInflater.from(mContext);
+            mInflater = LayoutInflater.from(mContext);
         }
 
         @Override
@@ -98,8 +96,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            View imageLayout = inflater.inflate(R.layout.item_image, container, false);
-            final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgThumb);
+            View imageLayout = mInflater.inflate(R.layout.item_image, container, false);
+            ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgThumb);
             imageView.setImageResource(mImages[position]);
             container.addView(imageLayout, 0);
             return imageLayout;

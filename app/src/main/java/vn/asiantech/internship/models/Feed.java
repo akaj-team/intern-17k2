@@ -1,9 +1,9 @@
 package vn.asiantech.internship.models;
 
 /**
- * Created by root on 6/15/17.
+ * Created by root on 6/15/17
+ * Feed moldes
  */
-
 public class Feed {
     private int idImgAvatar;
     private String name;
