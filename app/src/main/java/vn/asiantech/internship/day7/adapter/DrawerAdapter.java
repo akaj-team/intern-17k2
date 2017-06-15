@@ -32,19 +32,20 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
 
-    private List<String> mItems;
+    private List<String> mFunctions;
     private OnRecyclerViewClickListener mOnRecyclerViewClickListener;
     private Context mContext;
     private Bitmap mAvatarBitmap;
+    private Drawable mWallpaperDrawable;
     private int mPosition;
 
     public DrawerAdapter(List<String> items, Context context, OnRecyclerViewClickListener onRecyclerViewClickListener) {
-        mItems = items;
+        mFunctions = items;
         mContext = context;
         mOnRecyclerViewClickListener = onRecyclerViewClickListener;
         WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
-        Drawable wallpaperDrawable = wallpaperManager.getDrawable();
-        mAvatarBitmap = getRoundedCornerBitmap(drawableToBitmap(wallpaperDrawable), R.dimen.drawable_pixel);
+        mWallpaperDrawable = wallpaperManager.getDrawable();
+        mAvatarBitmap = getRoundedCornerBitmap(drawableToBitmap(mContext.getResources().getDrawable(R.mipmap.ic_user)), R.dimen.drawable_pixel);
     }
 
     @Override
@@ -75,9 +76,10 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (holder instanceof ItemHeaderViewHolder) {
             ItemHeaderViewHolder itemHeaderViewHolder = (ItemHeaderViewHolder) holder;
             itemHeaderViewHolder.mImgAvatar.setImageBitmap(mAvatarBitmap);
+            itemHeaderViewHolder.mImgBackground.setImageDrawable(mWallpaperDrawable);
         } else {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            itemViewHolder.mTvFunction.setText(mItems.get(position));
+            itemViewHolder.mTvFunction.setText(mFunctions.get(position));
             if (position == mPosition) {
                 itemViewHolder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItemPressed));
             } else {
@@ -88,7 +90,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return mFunctions.size();
     }
 
     public void setBitMapAvatar(Bitmap avatarBitmap) {
@@ -126,10 +128,12 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      */
     private class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
         private ImageView mImgAvatar;
+        private ImageView mImgBackground;
 
         ItemHeaderViewHolder(View itemView) {
             super(itemView);
             mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
+            mImgBackground = (ImageView) itemView.findViewById(R.id.imgBackground);
             mImgAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
