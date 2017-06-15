@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                         mUri = Uri.fromFile(file);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
                     } catch (IOException ignored) {
-                        // no opt
+                        Log.d("asdsada", "onAvatarClick: ");
                     }
                     startActivityForResult(intent, REQUEST_CODE_CAMERA);
                 }

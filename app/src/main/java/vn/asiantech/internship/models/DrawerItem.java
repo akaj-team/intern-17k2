@@ -7,11 +7,11 @@ package vn.asiantech.internship.models;
 public class DrawerItem {
 
     private String title;
-    private boolean Choose;
+    private boolean choose;
 
     public DrawerItem(String title, boolean isChoose) {
         this.title = title;
-        this.Choose = isChoose;
+        this.choose = isChoose;
     }
 
     public DrawerItem(String title) {
@@ -19,11 +19,11 @@ public class DrawerItem {
     }
 
     public void setChoose() {
-        Choose = !Choose;
+        choose = !choose;
     }
 
     public boolean isChoose() {
-        return Choose;
+        return choose;
     }
 
     public String getTitle() {
