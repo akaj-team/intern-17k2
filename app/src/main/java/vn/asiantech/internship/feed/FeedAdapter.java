@@ -16,15 +16,18 @@ import java.util.List;
 import vn.asiantech.internship.R;
 
 /**
- * Created by sony on 15/06/2017.
+ * Used to collect and display data on recyclerView.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-9
  */
-
-public class FeedAdapter extends RecyclerView.Adapter {
+class FeedAdapter extends RecyclerView.Adapter {
 
     private List<Feed> feeds = new ArrayList<>();
     private Context mContext;
 
-    public FeedAdapter(Context context, List<Feed> feeds) {
+    FeedAdapter(Context context, List<Feed> feeds) {
         this.mContext = context;
         this.feeds = feeds;
     }
@@ -49,12 +52,15 @@ public class FeedAdapter extends RecyclerView.Adapter {
         return feeds.size();
     }
 
-    public class FeedViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * Used to register for feed.
+     */
+    private class FeedViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private TextView mTvDescription;
         private ViewPager mViewPager;
 
-        public FeedViewHolder(View itemView) {
+        FeedViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvDescription = (TextView) itemView.findViewById(R.id.tvDescribe);
@@ -62,12 +68,15 @@ public class FeedAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public static class FeedPagerAdapter extends PagerAdapter {
+    /**
+     * Used to register for viewpager.
+     */
+    private static class FeedPagerAdapter extends PagerAdapter {
         private List<Integer> images;
         private LayoutInflater inflater;
         private Context mContext;
 
-        public FeedPagerAdapter(Context context, List<Integer> images) {
+        FeedPagerAdapter(Context context, List<Integer> images) {
             this.images = images;
             this.mContext = context;
             inflater = LayoutInflater.from(mContext);
@@ -83,10 +92,10 @@ public class FeedAdapter extends RecyclerView.Adapter {
             return view.equals(object);
         }
 
-       @Override
+        @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-         container.removeView((View) object);
-       }
+            container.removeView((View) object);
+        }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {

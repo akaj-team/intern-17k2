@@ -16,9 +16,12 @@ import java.util.List;
 import vn.asiantech.internship.R;
 
 /**
- * Created by sony on 15/06/2017.
+ * Used to display feed fragment.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-9
  */
-
 public class FeedFragment extends Fragment {
 
     @Nullable
@@ -28,16 +31,15 @@ public class FeedFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.feedRecyclerView);
         List<Feed> feeds = new ArrayList<>();
         List<Integer> images = Arrays.asList(R.mipmap.ic_one, R.mipmap.ic_two, R.mipmap.ic_three, R.mipmap.ic_four, R.mipmap.ic_five, R.mipmap.ic_six, R.mipmap.ic_seven, R.mipmap.ic_eight, R.mipmap.ic_nine, R.mipmap.ic_ten);
-
-        feeds.add(new Feed("AAAAA", "aaaaaaaaaaaa", images));
-        feeds.add(new Feed("BBBBB", "bbbbbbbbbbbb", images));
-        feeds.add(new Feed("CCCCC", "cccccccccccc", images));
-        feeds.add(new Feed("DDDDD", "dddddddddddd", images));
+        String[] names = getResources().getStringArray(R.array.names);
+        String[] descriptions = getResources().getStringArray(R.array.descriptions);
+        for (int i = 0; i < names.length; i++) {
+            feeds.add(new Feed(names[i], descriptions[i], images));
+        }
         FeedAdapter adapter = new FeedAdapter(getActivity(), feeds);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         return view;
     }
-
 }

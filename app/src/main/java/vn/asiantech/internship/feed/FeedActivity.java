@@ -9,9 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import vn.asiantech.internship.R;
 
 /**
- * Created by sony on 15/06/2017.
+ * Used to display feed recyclerView.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-15
  */
-
 public class FeedActivity extends AppCompatActivity {
 
     @Override

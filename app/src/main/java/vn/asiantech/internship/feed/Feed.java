@@ -4,9 +4,12 @@ package vn.asiantech.internship.feed;
 import java.util.List;
 
 /**
- * Created by sony on 15/06/2017.
+ * Used as a feed project
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-15
  */
-
 public class Feed {
     private String name;
     private String description;
