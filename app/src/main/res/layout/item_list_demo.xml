@@ -11,22 +11,22 @@
         android:contentDescription="@string/image.description.recyclerView"
         android:src="@mipmap/ic_person" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/recyclerView.linearLayout_padding"
+        android:layout_marginStart="@dimen/recyclerView.linearLayout_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/recyclerView.linearlayout_padding"
-            android:layout_marginStart="@dimen/recyclerView.linearlayout_padding">
+            android:text="@string/recycleview.textview.name" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/recycleview.textview.name" />
-
-            <TextView
-                android:id="@+id/tvYourName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/recyclerView.linearlayout_padding"
-                android:layout_marginStart="@dimen/recyclerView.linearlayout_padding"/>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvYourName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/recyclerView.linearLayout_padding"
+            android:layout_marginStart="@dimen/recyclerView.linearLayout_padding" />
+    </LinearLayout>
 </LinearLayout>

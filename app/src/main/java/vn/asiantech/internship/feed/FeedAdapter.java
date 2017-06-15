@@ -25,7 +25,7 @@ import vn.asiantech.internship.R;
 class FeedAdapter extends RecyclerView.Adapter {
 
     private List<Feed> feeds = new ArrayList<>();
-    private Context mContext;
+    private final Context mContext;
 
     FeedAdapter(Context context, List<Feed> feeds) {
         this.mContext = context;
@@ -56,9 +56,9 @@ class FeedAdapter extends RecyclerView.Adapter {
      * Used to register for feed.
      */
     private class FeedViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTvName;
-        private TextView mTvDescription;
-        private ViewPager mViewPager;
+        private final TextView mTvName;
+        private final TextView mTvDescription;
+        private final ViewPager mViewPager;
 
         FeedViewHolder(View itemView) {
             super(itemView);
@@ -72,9 +72,9 @@ class FeedAdapter extends RecyclerView.Adapter {
      * Used to register for viewpager.
      */
     private static class FeedPagerAdapter extends PagerAdapter {
-        private List<Integer> images;
-        private LayoutInflater inflater;
-        private Context mContext;
+        private final List<Integer> images;
+        private final LayoutInflater inflater;
+        private final Context mContext;
 
         FeedPagerAdapter(Context context, List<Integer> images) {
             this.images = images;

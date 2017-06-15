@@ -1,4 +1,4 @@
-package recyclerview;
+package recyclerView;
 
 /**
  * as a model class,get and set data to User object
