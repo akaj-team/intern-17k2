@@ -6,6 +6,9 @@ import android.support.v7.widget.Toolbar;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Ex05 Activity
+ */
 public class Ex05Activity extends AppCompatActivity {
 
     @Override

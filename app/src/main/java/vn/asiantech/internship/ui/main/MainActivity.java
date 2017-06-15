@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
 
-                //slide content when drawer openning
+                //slide content when drawer opening
                 mRlParent.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };

@@ -23,7 +23,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
- * DrawerFragment create on 12/06 by Thien Nguyen
+ * DrawerFragment create on 12/06 by  Nguyen
  */
 public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsListener {
 
@@ -89,13 +89,13 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
     }
 
     private void openCamera() {
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, MainActivity.KEY_CAMERA);
     }
 
     private void openLibrary() {
         Intent intent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, MainActivity.KEY_LIBRARY);
     }
 
@@ -159,8 +159,9 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
             // start the activity - we handle returning in onActivityResult
             startActivityForResult(cropIntent, MainActivity.KEY_CROP);
         }
+
         // respond to users whose devices do not support the crop action
-        catch (ActivityNotFoundException anfe) {
+        catch (ActivityNotFoundException e) {
             Toast.makeText(getActivity(), getActivity().getString(R.string.error_message_error), Toast.LENGTH_SHORT)
                     .show();
         }

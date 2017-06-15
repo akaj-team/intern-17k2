@@ -19,7 +19,7 @@
     <string name="no">no</string>
     <string name="tip.show.text.do_you_want_to_exit">do you want to exit ?</string>
     <string name="text.friend">friend</string>
-    <string name="text.friends">fRIends</string>
+    <string name="text.friends">Friends</string>
     <string-array name="listdrawer">
         <item>Feed</item>
         <item>Activity</item>
@@ -31,6 +31,6 @@
     </string-array>
     <string-array name="choice">
         <item>Open Camera</item>
-        <item>Open Libraty</item>
+        <item>Open Library</item>
     </string-array>
 </resources>

@@ -44,7 +44,7 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
                 showToast("I did not add to this activity"); // i'll change when i add this Ex
                 break;
             case R.id.btnEx08:
-                showToast("Nothing to show");// i'll change when i add this Ex
+                showToast("Nothing to show"); // i'll change when i add this Ex
                 break;
         }
 
