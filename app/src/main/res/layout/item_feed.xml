@@ -55,6 +55,4 @@
                 android:textSize="@dimen/text_size_default" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
-
 </LinearLayout>

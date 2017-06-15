@@ -32,7 +32,5 @@
             android:padding="10dp"
             android:text="This is Desciption"
             android:textSize="@dimen/edit_text.text_size" />
-
     </LinearLayout>
-
 </LinearLayout>
