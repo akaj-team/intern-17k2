@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mImgMenu;
     private TextView mTvTitle;
     private List<User> mUsers;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +52,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mUsers = new ArrayList<>();
         reference();
+        setToolBar();
+        initDrawer();
+    }
+
+    private void setToolBar() {
         setSupportActionBar(mToolbar);
+        mTvTitle.setText(R.string.app_name);
+        mTvTitle.setTextColor(Color.WHITE);
+        mImgMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDlMain.openDrawer(Gravity.START);
+            }
+        });
+    }
+
+    private void initDrawer() {
         mNavigationAdapter = new NavigationAdapter(this, mTitle, mUsers, new NavigationAdapter.OnClickItemListener() {
             @Override
             public void onClickItem(int position) {
@@ -71,15 +88,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mNavigationAdapter);
-        mTvTitle.setText(R.string.app_name);
-        mTvTitle.setTextColor(Color.WHITE);
-        mImgMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDlMain.openDrawer(Gravity.START);
-            }
-        });
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDlMain, R.string.app_name, R.string.app_name) {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDlMain, R.string.app_name, R.string.app_name) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
