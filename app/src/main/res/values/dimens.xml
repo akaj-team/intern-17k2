@@ -10,7 +10,7 @@
     <dimen name="item.imageview_margin">10dp</dimen>
     <dimen name="item.button_padding">5dp</dimen>
     <dimen name="item.button_margin">10dp</dimen>
-
+    <!--Margin, padding of screen-->
     <dimen name="header.name_text_size">18sp</dimen>
     <dimen name="header.email_margin">10dp</dimen>
     <dimen name="header.layout_padding">10dp</dimen>
@@ -25,6 +25,5 @@
     <dimen name="activity.toolbar_margin">20dp</dimen>
     <dimen name="activity.content_margin">20dp</dimen>
     <dimen name="activity.leftmenu_width">240dp</dimen>
-
     <dimen name="activity2.layout_padding">10dp</dimen>
 </resources>
