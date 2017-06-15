@@ -34,15 +34,6 @@
     <string name="textview.title.text">AAAAAA</string>
     <string name="imageview.home.description">this is image</string>
     <string name="imageview.screen.description">this is screen</string>
-    <string-array name="list_function">
-        <item name="Feed">Feed</item>
-        <item name="Activity">Activity</item>
-        <item name="Profile">Profile</item>
-        <item name="Friends">Friends</item>
-        <item name="Map">Map</item>
-        <item name="Chat">Chat</item>
-        <item name="Settings">Settings</item>
-    </string-array>
     <string-array name="items">
         <item name="Gallery">Gallery</item>
         <item name="Camera">Camera</item>

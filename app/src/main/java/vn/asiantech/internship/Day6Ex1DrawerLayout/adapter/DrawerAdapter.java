@@ -28,7 +28,10 @@ import vn.asiantech.internship.R;
  * create RecyclerViewAdapter
  * Created by at-hoavo on 09/06/2017.
  */
-public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerViewHolder> {
+public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public static final int TYPE_HEADER = 0;
+    public static final int TYPE_ITEM = 1;
+
     private List<String> mFunctions;
     private OnRecyclerViewClickListener mOnRecyclerViewClickListener;
     private Context mContext;
@@ -49,38 +52,38 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
     public int getItemViewType(int position) {
         switch (position) {
             case 0:
-                return 0;
+                return TYPE_HEADER;
             default:
-                return 1;
+                return TYPE_ITEM;
         }
     }
 
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
-            case 0:
-                View viewONE = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_drawer_header, parent, false);
-                return new RecyclerViewHolder(viewONE, false);
+            case TYPE_HEADER:
+                View viewONE = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_header_drawer, parent, false);
+                return new ItemHeaderViewHolder(viewONE);
             default:
-                View viewTWO = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_function_drawer, parent, false);
-                return new RecyclerViewHolder(viewTWO, true);
+                View viewTWO = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_drawer, parent, false);
+                return new ItemViewHolder(viewTWO);
         }
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        switch (holder.getItemViewType()) {
-            case 0:
-                holder.mImgAvatar.setImageBitmap(mAvatarBitmap);
-                break;
-            default:
-                holder.mTvFunction.setText(mFunctions.get(position));
-                if (position == mPosition) {
-                    holder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItemPressed));
-                } else {
-                    holder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItem));
-                }
-                break;
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        if (holder instanceof ItemHeaderViewHolder) {
+            ItemHeaderViewHolder itemHeaderViewHolder = (ItemHeaderViewHolder) holder;
+            itemHeaderViewHolder.mImgAvatar.setImageBitmap(mAvatarBitmap);
+        } else {
+            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            itemViewHolder.mTvFunction.setText(mFunctions.get(position));
+            if (position == mPosition) {
+                itemViewHolder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItemPressed));
+            } else {
+                itemViewHolder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItem));
+            }
         }
     }
 
@@ -98,37 +101,44 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
     }
 
     /**
-     * create RecyclerViewHolder
+     * create ItemViewHolder
      */
-    class RecyclerViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvFunction;
         private View mItemView;
-        private ImageView mImgAvatar;
 
-        RecyclerViewHolder(View itemView, boolean check) {
+        ItemViewHolder(View itemView) {
             super(itemView);
             mItemView = itemView;
-            if (check) {
-                mTvFunction = (TextView) itemView.findViewById(R.id.tvFunction);
-                mItemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mOnRecyclerViewClickListener != null) {
-                            mOnRecyclerViewClickListener.onClick(getAdapterPosition(), true);
-                        }
+            mTvFunction = (TextView) itemView.findViewById(R.id.tvFunction);
+            mItemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnRecyclerViewClickListener != null) {
+                        mOnRecyclerViewClickListener.onClick(getAdapterPosition(), true);
                     }
-                });
-            } else {
-                mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
-                mImgAvatar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mOnRecyclerViewClickListener != null) {
-                            mOnRecyclerViewClickListener.onClick(getAdapterPosition(), false);
-                        }
+                }
+            });
+        }
+    }
+
+    /**
+     * create ItemHeaderViewHolder
+     */
+    class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
+        private ImageView mImgAvatar;
+
+        ItemHeaderViewHolder(View itemView) {
+            super(itemView);
+            mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
+            mImgAvatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnRecyclerViewClickListener != null) {
+                        mOnRecyclerViewClickListener.onClick(getAdapterPosition(), false);
                     }
-                });
-            }
+                }
+            });
         }
     }
 

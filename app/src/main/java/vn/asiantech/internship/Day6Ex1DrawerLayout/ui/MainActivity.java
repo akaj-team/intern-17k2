@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
 
     private DrawerLayout mDrawerLayout;
     private LinearLayout mLinearlayout;
+    private RecyclerView mRecyclerView;
     private ContentFragment mContentFragment;
     private ActionBarDrawerToggle mDrawerToggle;
     private Dialog mDialog;
@@ -52,22 +53,15 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
+        initData();
         initRecyclerView();
         initDrawerLayout();
         initFragment();
     }
 
-    private void initRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
-        String[] functions = getResources().getStringArray(R.array.list_function);
-        Collections.addAll(mFunctions, functions);
-        adapterDrawer = new DrawerAdapter(mFunctions, this, this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapterDrawer);
-    }
-
-    private void initDrawerLayout() {
+    private void initView() {
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mLinearlayout = (LinearLayout) findViewById(R.id.llDrawer);
         ImageView imgHome = (ImageView) findViewById(R.id.imgHome);
@@ -81,6 +75,26 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
                 }
             }
         });
+    }
+
+    private void initData() {
+        mFunctions.add("Feed");
+        mFunctions.add("Activity");
+        mFunctions.add("Profile");
+        mFunctions.add("Friends");
+        mFunctions.add("Map");
+        mFunctions.add("Chat");
+        mFunctions.add("Settings");
+    }
+
+    private void initRecyclerView() {
+        adapterDrawer = new DrawerAdapter(mFunctions, this, this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setAdapter(adapterDrawer);
+    }
+
+    private void initDrawerLayout() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
@@ -90,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
             }
         };
         mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
     }
 
     private void initFragment() {
@@ -98,13 +113,6 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frContent, mContentFragment);
         transaction.commit();
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
     }
 
     @Override
