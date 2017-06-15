@@ -29,17 +29,16 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
     private String[] mTitle;
-    private Context mContext;
     private OnClickItemListener mOnClickItemListener;
     private List<User> mUsers;
     private Drawable mDrawable;
+    private int mSelectedPosition = -1;
 
     public NavigationAdapter(Context context, String[] title, List<User> users, OnClickItemListener onClickItemListener) {
         mTitle = title;
-        mContext = context;
         mOnClickItemListener = onClickItemListener;
         mUsers = users;
-        mDrawable = WallpaperManager.getInstance(mContext).getDrawable();
+        mDrawable = WallpaperManager.getInstance(context).getDrawable();
     }
 
     @Override
@@ -127,7 +126,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @Override
         public void onClick(View v) {
             String[] dialogItems = v.getContext().getResources().getStringArray(R.array.dialog_item);
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
             builder.setTitle(R.string.dialog_title)
                     .setItems(dialogItems, new DialogInterface.OnClickListener() {
                         @Override

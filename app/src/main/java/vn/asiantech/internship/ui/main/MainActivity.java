@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDlMain;
     private String[] mTitle;
     private TextView mTvShow;
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerViewDrawer;
     private LinearLayout mLlContent;
     private NavigationAdapter mNavigationAdapter;
     private Toolbar mToolbar;
@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mNavigationAdapter);
+        mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewDrawer.setAdapter(mNavigationAdapter);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDlMain, R.string.app_name, R.string.app_name) {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         mTitle = getResources().getStringArray(R.array.navigation_item);
         mDlMain = (DrawerLayout) findViewById(R.id.dlMain);
         mTvShow = (TextView) findViewById(R.id.tvShow);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mLlContent = (LinearLayout) findViewById(R.id.llContent);
         mImgMenu = (ImageView) findViewById(R.id.imgMenu);

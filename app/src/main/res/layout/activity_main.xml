@@ -52,7 +52,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewDrawer"
         android:layout_width="@dimen/navigation.width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
