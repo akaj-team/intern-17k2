@@ -103,7 +103,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * This class used to custom list Item of DrawerLayout
      */
-    private class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private final class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
 
         private ItemViewHolder(View itemView) {
@@ -123,7 +123,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * This class used to custom header of DrawerLayout
      */
-    private class ItemHeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private final class ItemHeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private static final int CAMERA_SELECTED = 0;
         private static final int GALLERY_SELECTED = 1;
         private TextView mTvName;

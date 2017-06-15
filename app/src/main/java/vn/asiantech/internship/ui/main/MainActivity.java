@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initToolbar() {
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
