@@ -8,4 +8,9 @@
     <dimen name="button_corner">5dp</dimen>
     <dimen name="stroke_width">2dp</dimen>
     <dimen name="item_list.padding">10dp</dimen>
+
+    <dimen name="text_size_default">16sp</dimen>
+    <dimen name="padding_margin_default">10dp</dimen>
+    <dimen name="item_feed_avatar_size">56dp</dimen>
+    <dimen name="viewpager_height">250dp</dimen>
 </resources>
