@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CROP = 2;
 
     private TextView mTvChoose;
+    private TextView mTvToolbar;
     private DrawerLayout mDrawerLayout;
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerViewNavigation;
     private Toolbar mToolbar;
     private LinearLayout mLlContent;
     private DrawerAdapter mDrawerAdapter;
@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initItemView();
+        initViews();
         initDataDrawer();
-        setToolbar();
-        setDrawer();
+        initToolbar();
+        initDrawer();
         setDrawerAdapter();
     }
 
@@ -82,11 +82,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initItemView(){
+    private void initViews(){
         mTvChoose = (TextView) findViewById(R.id.tvChoose);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewNavigation);
+        mRecyclerViewNavigation = (RecyclerView) findViewById(R.id.recyclerViewNavigation);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dlNavigation);
         mLlContent = (LinearLayout) findViewById(R.id.llContent);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTvToolbar = (TextView) findViewById(R.id.tvToolbar);
     }
 
     private void initDataDrawer(){
@@ -118,10 +120,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void dialogChoose(int position) {
                 if (position == REQUEST_CAMERA){
-//                    File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separatorChar + "Camera" + File.separatorChar);
                     File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                    Log.d("camera", "dialogChoose: " + file.getPath());
-                    Log.d("camera", "dialogChoose: AA");
                     try{
                         File imageFile = File.createTempFile("img", System.currentTimeMillis() + ".jpg", file);
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -141,9 +140,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mDrawerAdapter);
-        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+        mRecyclerViewNavigation.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewNavigation.setAdapter(mDrawerAdapter);
+        mRecyclerViewNavigation.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 int position = parent.getChildAdapterPosition(view);
@@ -153,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setDrawer(){
+    private void initDrawer(){
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close) {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -175,9 +174,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
 
-    private void setToolbar(){
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView tvToolbar = (TextView) findViewById(R.id.tvToolbar);
+    private void initToolbar(){
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
@@ -187,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_red_500_24dp);
         }
-        tvToolbar.setText(R.string.textview_toolbar_name);
+        mTvToolbar.setText(R.string.textview_toolbar_name);
     }
 
     private void cropImage(Uri uri){

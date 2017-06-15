@@ -15,7 +15,8 @@ import vn.asiantech.internship.ui.main.MainActivity;
  */
 
 public class SplashActivity extends AppCompatActivity {
-    private Button mBtnBai5, mBtnBai6;
+    private Button mBtnBai5;
+    private Button mBtnBai6;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

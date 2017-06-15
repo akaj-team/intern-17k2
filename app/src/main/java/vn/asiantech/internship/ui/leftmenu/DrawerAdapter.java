@@ -38,7 +38,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void setBitmap(Bitmap bitmap) {
-        this.mBitmap = bitmap;
+        mBitmap = bitmap;
     }
 
     @Override
