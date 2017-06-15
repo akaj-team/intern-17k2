@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+    android:layout_marginLeft="@dimen/splash.linearLayout.margin_left_right"
+    android:layout_marginRight="@dimen/splash.linearLayout.margin_left_right"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -11,17 +11,17 @@
         android:id="@+id/btnNgay5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ngay 5" />
+        android:text="@string/button.day5" />
 
     <Button
         android:id="@+id/btnNgay6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ngay 6" />
+        android:text="@string/button.day6" />
 
     <Button
         android:id="@+id/btnNgay7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ngay 7" />
+        android:text="@string/button.day7" />
 </LinearLayout>

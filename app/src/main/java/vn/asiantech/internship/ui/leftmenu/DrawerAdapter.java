@@ -67,7 +67,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             itemViewHolder.mTvName.setText(mDrawerItems.get(position - 1).getName());
-            if (mDrawerItems.get(position - 1).isChecked()) {
+            if (mDrawerItems.get(position - 1).isCheck()) {
                 itemViewHolder.mTvName.setBackgroundResource(R.drawable.bg_press_item_list_drawer);
             } else {
                 itemViewHolder.mTvName.setBackgroundResource(R.drawable.bg_default_item_list_drawer);
@@ -83,7 +83,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     /**
      * Used to register for DrawerItem in item of drawerLayout
      */
-    private class ItemViewHolder extends RecyclerView.ViewHolder {
+    private final class ItemViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTvName;
 
         private ItemViewHolder(final View itemView) {
@@ -103,7 +103,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     /**
      * Used to register for DrawerItem in header of drawerLayout
      */
-    private class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
+    private final class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView mImgAvatar;
         private final ImageView mImgBackground;

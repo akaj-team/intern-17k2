@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="corner">5dp</dimen>
     <dimen name="textView.size">30sp</dimen>
     <dimen name="textView.name.size">20sp</dimen>
-    <dimen name="toolbar.height">56dp</dimen>
     <dimen name="relativeLayout.header.height">150dp</dimen>
     <dimen name="avatar.with_height">100dp</dimen>
     <dimen name="container.with">200dp</dimen>
@@ -18,4 +16,5 @@
     <dimen name="recyclerView.linearlayout_height">60dp</dimen>
     <dimen name="recyclerView.textview_margin_left">5dp</dimen>
     <dimen name="recyclerView.linear_height">60dp</dimen>
+    <dimen name="splash.linearLayout.margin_left_right">10dp</dimen>
 </resources>

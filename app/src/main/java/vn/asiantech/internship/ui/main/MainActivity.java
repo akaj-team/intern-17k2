@@ -96,11 +96,11 @@ public class MainActivity extends AppCompatActivity {
                 mTvResult.setText(mDrawerItems.get(position).getName());
                 mDrawerLayout.closeDrawers();
                 if (mPositionSelected >= 0) {
-                    mDrawerItems.get(mPositionSelected).setChecked(false);
+                    mDrawerItems.get(mPositionSelected).setCheck(false);
                     mAdapter.notifyItemChanged(mPositionSelected + 1);
                 }
                 mPositionSelected = position;
-                mDrawerItems.get(position).setChecked(true);
+                mDrawerItems.get(position).setCheck(true);
                 mAdapter.notifyItemChanged(position + 1);
             }
 
