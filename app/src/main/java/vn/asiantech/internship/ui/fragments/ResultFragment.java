@@ -1,4 +1,4 @@
-package vn.asiantech.internship.fragments;
+package vn.asiantech.internship.ui.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -45,7 +45,7 @@ public class ResultFragment extends Fragment {
     }
 
     /**
-     * interface using in MainActivity handle event Click send data
+     * interface using in SendDataActivity handle event Click send data
      */
     public interface OnListener {
         void onSendData();

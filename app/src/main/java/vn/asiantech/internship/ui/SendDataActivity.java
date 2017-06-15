@@ -8,21 +8,21 @@ import android.view.View;
 import android.widget.Button;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.fragments.InputFragment;
-import vn.asiantech.internship.fragments.ResultFragment;
+import vn.asiantech.internship.ui.fragments.InputFragment;
+import vn.asiantech.internship.ui.fragments.ResultFragment;
 
 /**
  *
  * Created by Hai on 6/13/2017.
  */
-public class MainActivity extends AppCompatActivity {
+public class SendDataActivity extends AppCompatActivity {
     private InputFragment mInputFragment;
     private ResultFragment mResultFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_send_data);
         mInputFragment = new InputFragment();
         mResultFragment = new ResultFragment(new ResultFragment.OnListener() {
             @Override
@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frgContent1, mInputFragment);
-        transaction.replace(R.id.frgContent2, mResultFragment);
+        transaction.replace(R.id.flInput, mInputFragment);
+        transaction.replace(R.id.flResult, mResultFragment);
         transaction.commit();
         Button btnSendData = (Button) findViewById(R.id.btnSendData);
         btnSendData.setOnClickListener(new View.OnClickListener() {
