@@ -21,6 +21,7 @@ import vn.asiantech.internship.models.DrawerItem;
 import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
+ *
  * Created by datbu on 12-06-2017.
  */
 
@@ -64,21 +65,23 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if (holder instanceof UserViewHolder) {
-            ((UserViewHolder) holder).mTvName.setText(R.string.app_name);
-            ((UserViewHolder) holder).mTvEmail.setText(R.string.action_settings);
+            UserViewHolder userViewHolder = ((UserViewHolder) holder);
+            userViewHolder.mTvName.setText(R.string.app_name);
+            userViewHolder.mTvEmail.setText(R.string.action_settings);
             if (mAvatar != null) {
-                ((UserViewHolder) holder).mImgAvatar.setImageBitmap(mAvatar);
+                userViewHolder.mImgAvatar.setImageBitmap(mAvatar);
             }
             Drawable wallpaper = WallpaperManager.getInstance(holder.itemView.getContext()).getDrawable();
-            ((UserViewHolder) holder).mImgHeaderBg.setImageBitmap(((BitmapDrawable) wallpaper).getBitmap());
+            userViewHolder.mImgHeaderBg.setImageBitmap(((BitmapDrawable) wallpaper).getBitmap());
         } else if (holder instanceof DrawerViewHolder) {
+            DrawerViewHolder drawerViewHolder = ((DrawerViewHolder) holder);
             DrawerItem drawerItem = mDrawerItems.get(position);
-            ((DrawerViewHolder) holder).mTvTitle.setText(mDrawerItems.get(position).getTitle());
+            drawerViewHolder.mTvTitle.setText(mDrawerItems.get(position).getTitle());
             if (drawerItem.isChoose()) {
-                ((DrawerViewHolder) holder).mTvTitle.setTextColor(((DrawerViewHolder) holder).mTvTitle.getContext().getResources().getColor(R.color.item_choose));
+                drawerViewHolder.mTvTitle.setTextColor(drawerViewHolder.mTvTitle.getContext().getResources().getColor(R.color.item_choose));
 
             } else {
-                ((DrawerViewHolder) holder).mTvTitle.setTextColor(((DrawerViewHolder) holder).mTvTitle.getContext().getResources().getColor(R.color.white));
+                drawerViewHolder.mTvTitle.setTextColor(drawerViewHolder.mTvTitle.getContext().getResources().getColor(R.color.white));
 
             }
         }

@@ -27,6 +27,10 @@ import java.util.List;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.DrawerItem;
 import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
+/**
+ *
+ * Created by datbu on 12-06-2017.
+ */
 
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_CROP = 11;
@@ -78,10 +82,13 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         //set Data
         mDrawerItems = new ArrayList<>();
-        String[] menuItemList = getResources().getStringArray(R.array.listitem);
-        for (String menuItem : menuItemList) {
-            mDrawerItems.add(new DrawerItem(menuItem));
-        }
+        mDrawerItems.add(new DrawerItem(getString(R.string.iten_feed)));
+        mDrawerItems.add(new DrawerItem(getString(R.string.item_activity)));
+        mDrawerItems.add(new DrawerItem(getString(R.string.item_profile)));
+        mDrawerItems.add(new DrawerItem(getString(R.string.item_friend)));
+        mDrawerItems.add(new DrawerItem(getString(R.string.item_map)));
+        mDrawerItems.add(new DrawerItem(getString(R.string.item_chat)));
+        mDrawerItems.add(new DrawerItem(getString(R.string.item_setting)));
 
         mAdapter = new DrawerAdapter(mDrawerItems, new DrawerAdapter.OnItemClickListener() {
 
