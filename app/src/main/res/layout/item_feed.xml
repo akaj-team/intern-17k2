@@ -21,12 +21,13 @@
                 android:id="@+id/imgAvatar"
                 android:layout_width="@dimen/feedactivity.imageview.avatar.width"
                 android:layout_height="@dimen/feedactivity.imageview.avatar.height"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/ic_user" />
 
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/view.padding"
                 android:layout_gravity="center"
                 tools:text="HaiNgo" />
         </LinearLayout>
@@ -42,6 +43,5 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/view.padding"
             tools:text="status testttttt" />
-
     </LinearLayout>
 </android.support.v7.widget.CardView>

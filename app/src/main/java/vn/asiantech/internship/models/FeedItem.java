@@ -1,6 +1,7 @@
 package vn.asiantech.internship.models;
 
 /**
+ * model store data
  *
  * Created by Hai on 6/15/2017.
  */

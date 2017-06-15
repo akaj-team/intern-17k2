@@ -16,9 +16,10 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.FeedItem;
 
 /**
+ * class fragment use show data to list
+ * <p>
  * Created by Hai on 6/15/2017.
  */
-
 public class FeedFragment extends Fragment {
 
     @Nullable

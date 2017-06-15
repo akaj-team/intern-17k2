@@ -14,10 +14,10 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.FeedItem;
 
 /**
- *
+ * adapter of recyclerview Feed
+ * <p>
  * Created by Hai on 6/15/2017.
  */
-
 class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder> {
     private List<FeedItem> mFeedItems = new ArrayList<>();
 
@@ -35,7 +35,7 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder> {
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         holder.mTvName.setText(mFeedItems.get(position).getName());
         holder.mTvStatus.setText(mFeedItems.get(position).getStatus());
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(holder.itemView.getContext(), mFeedItems.get(position).getImageArray());
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(mFeedItems.get(position).getImageArray());
         holder.mViewPagerImage.setAdapter(viewPagerAdapter);
     }
 
