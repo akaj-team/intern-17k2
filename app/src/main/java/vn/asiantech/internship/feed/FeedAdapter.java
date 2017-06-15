@@ -25,6 +25,12 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder> {
         mFeedItems = feedItems;
     }
 
+    /**
+     * init view and set data to view
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feed, parent, false);
