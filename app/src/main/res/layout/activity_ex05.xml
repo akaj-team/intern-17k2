@@ -26,7 +26,7 @@
             android:layout_marginRight="@dimen/marginLarge"
             android:background="@color/colorPrimary"
             android:gravity="center_vertical"
-            android:text="@string/Text.Friends" />
+            android:text="@string/text.friends" />
     </android.support.v7.widget.Toolbar>
 
     <fragment

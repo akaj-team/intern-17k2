@@ -24,7 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/marginSomeThings"
         android:stateListAnimator="@null"
-        android:text="@string/Button.Text.Add" />
+        android:text="@string/button.text.add" />
 
     <LinearLayout
         android:id="@+id/lnParent"
@@ -42,13 +42,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/paddingSomeThings"
-            android:text="@string/TextView.Text.User_Name" />
+            android:text="@string/textview.text.user_name" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/paddingSomeThings"
-            android:text="@string/TextView.Text.Description" />
+            android:text="@string/textview.text.description" />
     </LinearLayout>
 
     <View

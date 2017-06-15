@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initDrawer() {
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
-                this, mDlContainer, mToolbar, R.string.Text_Messages_Navigation_Open, R.string.Text_Messages_Navigation_Close) {
+                this, mDlContainer, mToolbar, R.string.text_messages_navigation_open, R.string.text_messages_navigation_close) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
@@ -97,19 +97,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialogOut() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setPositiveButton(getString(R.string.Yes), new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
         });
-        builder.setNegativeButton(getString(R.string.No), new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
-        builder.setTitle(getString(R.string.Tip_Show_Text_Do_You_Want_To_Exit));
+        builder.setTitle(getString(R.string.tip_show_text_do_you_want_to_exit));
         builder.create().show();
     }
 }

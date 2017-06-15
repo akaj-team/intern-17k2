@@ -39,11 +39,11 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
         myViewHolder.mIsFriend = mFriends.get(i).isFriend();
         if (mFriends.get(i).isFriend()) {
             myViewHolder.mBtnAdd.setBackgroundResource(R.drawable.bg_btn_added_friend);
-            myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Friend));
+            myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.button_text_friend));
             myViewHolder.mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
         } else {
             myViewHolder.mBtnAdd.setBackgroundResource(R.drawable.bg_btn_add_friend);
-            myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Add));
+            myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.button_text_add));
             myViewHolder.mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorBorder));
         }
     }
@@ -83,7 +83,7 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
 
         private void setColor() {
             mBtnAdd.setBackgroundResource(R.drawable.bg_btn_added_friend);
-            mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Friend));
+            mBtnAdd.setText(mContext.getResources().getString(R.string.button_text_friend));
             mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
             mFriends.get(getLayoutPosition()).setFriend(true);
             mIsFriend = true;
@@ -91,7 +91,7 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
 
         private void unSetColor() {
             mBtnAdd.setBackgroundResource(R.drawable.bg_btn_add_friend);
-            mBtnAdd.setText(mContext.getResources().getString(R.string.Button_Text_Add));
+            mBtnAdd.setText(mContext.getResources().getString(R.string.button_text_add));
             mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorBorder));
             mFriends.get(getLayoutPosition()).setFriend(false);
             mIsFriend = false;

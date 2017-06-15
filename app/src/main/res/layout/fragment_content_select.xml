@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:stateListAnimator="@null"
-            android:text="@string/Button.Text.Ex05" />
+            android:text="@string/button.text.ex05" />
 
         <Button
             android:id="@+id/btnEx06"
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:stateListAnimator="@null"
-            android:text="@string/Button.Text.Ex06" />
+            android:text="@string/button.text.ex06" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/Button.Text.Ex07_1" />
+                android:text="@string/button.text.ex07_1" />
 
             <Button
                 android:id="@+id/btnEx07.2"
@@ -44,7 +44,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/Button.Text.Ex07_2" />
+                android:text="@string/button.text.ex07_2" />
         </LinearLayout>
 
         <Button
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:stateListAnimator="@null"
-            android:text="@string/Button.Text.Ex08" />
+            android:text="@string/button.text.ex08" />
 
     </LinearLayout>
 </ScrollView>

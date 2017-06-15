@@ -44,7 +44,7 @@ public class ListFriendFragment extends Fragment {
 
     private void addFriend() {
         for (int i = 0; i < 100; i++) {
-            mFriends.add(new Friend(i, getString(R.string.Text_Friend) + i, false));
+            mFriends.add(new Friend(i, getString(R.string.text_friend) + i, false));
         }
     }
 }

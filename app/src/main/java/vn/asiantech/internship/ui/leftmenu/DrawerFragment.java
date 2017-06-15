@@ -47,7 +47,7 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
     }
 
     private void initDrawer(View v) {
-        mListDrawer = getResources().getStringArray(R.array.listDrawer);
+        mListDrawer = getResources().getStringArray(R.array.listdrawer);
         mAdapter = new DrawerAdapter(getContext(), mListDrawer, this);
 
         RecyclerView rvDrawer = (RecyclerView) v.findViewById(R.id.rvDrawer);
@@ -59,8 +59,8 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
     @Override
     public void showDialogChoice() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.Dialog_Text_Choice_Select)
-                .setItems(R.array.Choice, new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.dialog_text_choice_select)
+                .setItems(R.array.choice, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int position) {
                         if (position == 0) {
                             openCamera();
@@ -108,7 +108,7 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
             switch (requestCode) {
                 case MainActivity.KEY_CAMERA:
                     bitmap = (Bitmap) data.getExtras().get("data");
-                    pathFile = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, getString(R.string.Title), null);
+                    pathFile = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, getString(R.string.title), null);
                     performCrop(Uri.parse(pathFile));
                     break;
                 case MainActivity.KEY_LIBRARY:
@@ -121,7 +121,7 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String picturePath = cursor.getString(columnIndex);
                     bitmap = BitmapFactory.decodeFile(picturePath);
-                    pathFile = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, getString(R.string.Title), null);
+                    pathFile = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, getString(R.string.title), null);
                     performCrop(Uri.parse(pathFile));
                     break;
                 case MainActivity.KEY_CROP:
@@ -130,7 +130,7 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
                         Bitmap bitmapImage = extras.getParcelable("data");
                         setImage(bitmapImage);
                     } catch (NullPointerException e) {
-                        Toast.makeText(getActivity(), getActivity().getString(R.string.Error_Message_Error), Toast.LENGTH_SHORT)
+                        Toast.makeText(getActivity(), getActivity().getString(R.string.error_message_error), Toast.LENGTH_SHORT)
                                 .show();
                     }
                     break;
@@ -161,7 +161,7 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
         }
         // respond to users whose devices do not support the crop action
         catch (ActivityNotFoundException anfe) {
-            Toast.makeText(getActivity(), getActivity().getString(R.string.Error_Message_Error), Toast.LENGTH_SHORT)
+            Toast.makeText(getActivity(), getActivity().getString(R.string.error_message_error), Toast.LENGTH_SHORT)
                     .show();
         }
     }
