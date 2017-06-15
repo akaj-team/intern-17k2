@@ -31,7 +31,7 @@ public class Day5MainActivity extends Activity {
         dataSet.add("Ten3");
         dataSet.add("Ten4");
         dataSet.add("Ten5");
-        adapter = new RecyclerViewAdapter(this, mDataset);
+        adapter = new RecyclerViewAdapter(this, dataSet);
         recyclerView.setAdapter(adapter);
 
     }

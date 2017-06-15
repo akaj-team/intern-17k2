@@ -15,12 +15,17 @@ import vn.asiantech.internship.R;
  * @since 06/15/2017
  */
 public class PhotoListAdapter extends PagerAdapter {
-    private int[] mPhotoList;
-    private Context context;
 
-    public PhotoListAdapter(int[] photos, Context context) {
+    private int[] mPhotoList;
+    private Context mContext;
+
+    public PhotoListAdapter(Context context, int[] photos) {
         this.mPhotoList = photos;
-        this.context = context;
+        this.mContext = context;
+    }
+
+    public void setmPhotoList(int[] mPhotoList) {
+        this.mPhotoList = mPhotoList;
     }
 
     @Override
@@ -34,9 +39,9 @@ public class PhotoListAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.item_images, container, false);
+    public Object instantiateItem(ViewGroup container, final int position) {
+        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+        View view = layoutInflater.inflate(R.layout.item_photo, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.imgPhoto);
         imageView.setImageResource(mPhotoList[position]);
         container.addView(view);
