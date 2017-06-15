@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:background="@drawable/ic_view_headline"
             android:contentDescription="@string/app_name" />
 
