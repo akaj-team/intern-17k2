@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Internship</string>
+    <string name="friendfragment_button_friend_state">Friend</string>
+    <string name="friendfragment_button_friend_add">Add</string>
     <string name="drawer_open">Draw open</string>
     <string name="drawer_close">Draw close</string>
     <string name="header.name">at-dinhvo</string>
