@@ -10,7 +10,7 @@ import android.widget.EditText;
 /**
  * Fragment A created by Thien 13/06
  */
-public class AFragment extends Fragment{
+public class AFragment extends Fragment {
 
     private EditText mEdtInput;
 
@@ -24,7 +24,6 @@ public class AFragment extends Fragment{
     }
 
     /**
-     *
      * @return editText of Fragment A
      */
     public String getText() {

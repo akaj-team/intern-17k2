@@ -21,10 +21,8 @@
         style="@style/ButtonAddStyle"
         android:layout_width="wrap_content"
         android:layout_height="35sp"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/marginSomeThings"
         android:layout_marginEnd="@dimen/marginSomeThings"
         android:stateListAnimator="@null"
         android:text="@string/Button.Text.Add" />
@@ -33,11 +31,8 @@
         android:id="@+id/lnParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginSomeThings"
         android:layout_marginStart="@dimen/paddingSomeThings"
-        android:layout_toLeftOf="@id/btnAdd"
         android:layout_toStartOf="@id/btnAdd"
-        android:layout_toRightOf="@id/imgAvatar"
         android:layout_toEndOf="@id/imgAvatar"
         android:orientation="vertical">
 
@@ -59,7 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/lnParent"
-        android:layout_toRightOf="@id/imgAvatar"
         android:layout_toEndOf="@id/imgAvatar"
         android:background="@color/friendsColorPrimaryDark" />
 </RelativeLayout>

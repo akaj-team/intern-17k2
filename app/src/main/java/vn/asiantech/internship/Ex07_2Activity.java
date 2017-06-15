@@ -3,6 +3,9 @@ package vn.asiantech.internship;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+/**
+ * Avtivity of Ex 7 .2
+ */
 public class Ex07_2Activity extends AppCompatActivity {
 
     @Override
