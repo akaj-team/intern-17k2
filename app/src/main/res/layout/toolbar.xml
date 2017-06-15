@@ -3,7 +3,7 @@
     android:id="@+id/toolBar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/toolbar.height"
-    android:background="@color/colorGreyLight">
+    android:background="@color/colorGrey">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_marginStart="@dimen/linearLayout.height"
             android:layout_marginLeft="@dimen/linearLayout.height"
             android:layout_weight="9"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorGreyDark"
             android:textSize="@dimen/textView.size" />
     </LinearLayout>
 </android.support.v7.widget.Toolbar>
