@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,35 +33,39 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_GALERY = 22;
     public static final int REQUEST_CODE_CAMERA = 33;
 
-    private List<DrawerItem> mDrawerItemList;
-    private int mMenuItemChooser;
-    private DrawerAdapter mDrawerRecyclerAdapter;
-    private LinearLayout mLinearLayout;
+    private List<DrawerItem> mDrawerItems;
+    private int mMenuItemChooser = 0;
+    private DrawerAdapter mAdapter;
+    private LinearLayout mLlDrawer;
     private TextView mTvShow;
     private RecyclerView mRecyclerView;
-    private DrawerLayout mDrawer;
+    private DrawerLayout mDrawerLayout;
+    private Toolbar mToolbar;
     private Uri mUri;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_drawer);
 
         initView();
+        initToolbar();
         initData();
         initDrawer();
 
     }
 
-    public void initView() {
-        mLinearLayout = (LinearLayout) findViewById(R.id.lnMain);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    private void initView() {
+        mLlDrawer = (LinearLayout) findViewById(R.id.llMain);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvShow = (TextView) findViewById(R.id.tvShow);
-        mRecyclerView = (RecyclerView) findViewById(R.id.drawerRecyclerView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
 
-        mMenuItemChooser = 0;
+    }
+
+    private void initToolbar() {
         // Toolbar
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
             actionbar.setDefaultDisplayHomeAsUpEnabled(true);
@@ -70,34 +73,33 @@ public class MainActivity extends AppCompatActivity {
             actionbar.setDisplayShowHomeEnabled(true);
             actionbar.setDisplayShowCustomEnabled(true);
         }
-
     }
 
-    public void initData() {
+    private void initData() {
         //set Data
-        mDrawerItemList = new ArrayList<>();
+        mDrawerItems = new ArrayList<>();
         String[] menuItemList = getResources().getStringArray(R.array.listitem);
         for (String menuItem : menuItemList) {
-            mDrawerItemList.add(new DrawerItem(menuItem));
+            mDrawerItems.add(new DrawerItem(menuItem));
         }
-        mDrawerRecyclerAdapter = new DrawerAdapter(this, mDrawerItemList, new DrawerAdapter.OnItemClick() {
+
+        mAdapter = new DrawerAdapter(mDrawerItems, new DrawerAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(int position) {
                 if (mMenuItemChooser > 0) {
-                    mDrawerItemList.get(mMenuItemChooser).setChoose();
+                    mDrawerItems.get(mMenuItemChooser).setChoose();
+                    mAdapter.notifyItemChanged(mMenuItemChooser);
                 }
-                mDrawerItemList.get(position).setChoose();
+                mDrawerItems.get(position).setChoose();
                 mMenuItemChooser = position;
-                mDrawerRecyclerAdapter.notifyDataSetChanged();
-                mTvShow.setText(mDrawerItemList.get(position).getTitle());
-                mDrawer.closeDrawers();
-                Log.d("tag12", "onClick：" + position);
+                mAdapter.notifyItemChanged(mMenuItemChooser);
+                mTvShow.setText(mDrawerItems.get(position).getTitle());
+                mDrawerLayout.closeDrawers();
             }
 
             @Override
             public void onAvatarClick(int select) {
-                Log.d("Tag11", "onAvatarClick: "+ select);
                 if (select == REQUEST_CODE_GALERY) {
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType("image/*");
@@ -121,13 +123,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void initDrawer() {
+    private void initDrawer() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mDrawerRecyclerAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+                this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -141,10 +143,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDrawerSlide(View view, float slideOffset) {
                 super.onDrawerSlide(view, slideOffset);
-                mLinearLayout.setTranslationX(slideOffset * view.getWidth());
+                mLlDrawer.setTranslationX(slideOffset * view.getWidth());
             }
         };
-        mDrawer.addDrawerListener(toggle);
+        mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
     }
 
@@ -160,8 +162,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case REQUEST_CODE_CROP:
                     Bitmap bm = data.getExtras().getParcelable("data");
-                    mDrawerRecyclerAdapter.setAvatar(bm);
-                    mDrawerRecyclerAdapter.notifyDataSetChanged();
+                    mAdapter.setAvatar(bm);
+                    mAdapter.notifyDataSetChanged();
                     break;
             }
 

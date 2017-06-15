@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.ExFragment;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
+
+import vn.asiantech.internship.R;
 
 /**
  * Copyright © 2016 AsianTech inc.
