@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ExFragment;
+package vn.asiantech.internship.exfragment;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;

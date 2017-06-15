@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ExFragment;
+package vn.asiantech.internship.exfragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

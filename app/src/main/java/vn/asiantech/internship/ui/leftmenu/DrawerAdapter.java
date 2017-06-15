@@ -1,6 +1,7 @@
 package vn.asiantech.internship.ui.leftmenu;
 
 import android.app.WallpaperManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -21,10 +22,9 @@ import vn.asiantech.internship.models.DrawerItem;
 import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
- *
- * Created by datbu on 12-06-2017.
+ * Copyright © 2016 AsianTech inc.
+ * Created by DatBui on 15/06/2017.
  */
-
 public class DrawerAdapter extends RecyclerView.Adapter {
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
@@ -32,10 +32,12 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     private List<DrawerItem> mDrawerItems;
     private OnItemClickListener mOnItemClickListener;
     private Bitmap mAvatar;
+    private Drawable mWallpaper;
 
-    public DrawerAdapter(List<DrawerItem> drawerItems, OnItemClickListener listener) {
+    public DrawerAdapter(Context context, List<DrawerItem> drawerItems, OnItemClickListener listener) {
         mDrawerItems = drawerItems;
         mOnItemClickListener = listener;
+        mWallpaper = WallpaperManager.getInstance(context).getDrawable();
     }
 
     @Override
@@ -71,8 +73,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
             if (mAvatar != null) {
                 userViewHolder.mImgAvatar.setImageBitmap(mAvatar);
             }
-            Drawable wallpaper = WallpaperManager.getInstance(holder.itemView.getContext()).getDrawable();
-            userViewHolder.mImgHeaderBg.setImageBitmap(((BitmapDrawable) wallpaper).getBitmap());
+            userViewHolder.mImgHeaderBg.setImageBitmap(((BitmapDrawable) mWallpaper).getBitmap());
         } else if (holder instanceof DrawerViewHolder) {
             DrawerViewHolder drawerViewHolder = ((DrawerViewHolder) holder);
             DrawerItem drawerItem = mDrawerItems.get(position);
@@ -94,9 +95,12 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     }
 
     public void setAvatar(Bitmap avatar) {
-        this.mAvatar = avatar;
+        mAvatar = avatar;
     }
-
+    /**
+     * Copyright © 2016 AsianTech inc.
+     * Created by DatBui on 15/06/2017.
+     */
     private class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvName;
         private TextView mTvEmail;
@@ -142,7 +146,10 @@ public class DrawerAdapter extends RecyclerView.Adapter {
 
         }
     }
-
+    /**
+     * Copyright © 2016 AsianTech inc.
+     * Created by DatBui on 15/06/2017.
+     */
     private class DrawerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvTitle;
 
@@ -160,7 +167,10 @@ public class DrawerAdapter extends RecyclerView.Adapter {
             });
         }
     }
-
+    /**
+     * Copyright © 2016 AsianTech inc.
+     * Created by DatBui on 15/06/2017.
+     */
     public interface OnItemClickListener {
         void onItemClick(int position);
 

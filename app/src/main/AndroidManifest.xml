@@ -22,7 +22,7 @@
         <activity android:name=".ui.main.MainActivity">
 
         </activity>
-        <activity android:name=".ExFragment.RecyclerViewActivity" />
+        <activity android:name=".exfragment.RecyclerViewActivity" />
     </application>
 
 </manifest>

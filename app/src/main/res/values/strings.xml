@@ -3,7 +3,6 @@
     <string name="btn_friend">Friend</string>
     <string name="btn_add">Add</string>
     <string name="tv_value">asdsadasdsadsad</string>
-    <string name="title_activity_drawer">drawer</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -18,6 +17,8 @@
     <string name="item.map">Map</string>
     <string name="item.chat">Chat</string>
     <string name="item.setting">Settings</string>
+    <string name="fragment_layout">Fragment Layout</string>
+    <string name="drawer_layout">Drawer Layout</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>

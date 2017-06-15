@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import vn.asiantech.internship.ExFragment.RecyclerViewActivity;
+import vn.asiantech.internship.exfragment.RecyclerViewActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.main.MainActivity;
 

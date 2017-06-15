@@ -1,17 +1,17 @@
 package vn.asiantech.internship.models;
 
 /**
- * Created by datbui on 12-06-2017.
+ * Copyright © 2016 AsianTech inc.
+ * Created by DatBui on 15/06/2017.
  */
-
 public class DrawerItem {
 
     private String title;
-    private boolean isChoose;
+    private boolean Choose;
 
     public DrawerItem(String title, boolean isChoose) {
         this.title = title;
-        this.isChoose = isChoose;
+        this.Choose = isChoose;
     }
 
     public DrawerItem(String title) {
@@ -19,11 +19,11 @@ public class DrawerItem {
     }
 
     public void setChoose() {
-        isChoose = !isChoose;
+        Choose = !Choose;
     }
 
     public boolean isChoose() {
-        return isChoose;
+        return Choose;
     }
 
     public String getTitle() {

@@ -27,11 +27,11 @@ import java.util.List;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.DrawerItem;
 import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
-/**
- *
- * Created by datbu on 12-06-2017.
- */
 
+/**
+ * Copyright © 2016 AsianTech inc.
+ * Created by DatBui on 15/06/2017.
+ */
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_CROP = 11;
     public static final int REQUEST_CODE_GALERY = 22;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerAdapter mAdapter;
     private LinearLayout mLlDrawer;
     private TextView mTvShow;
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerViewDrawer;
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private Uri mUri;
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initToolbar();
         initData();
+        initAdapter();
         initDrawer();
 
     }
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         mLlDrawer = (LinearLayout) findViewById(R.id.llMain);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvShow = (TextView) findViewById(R.id.tvShow);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
+        mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
 
     }
 
@@ -72,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
-            actionbar.setDefaultDisplayHomeAsUpEnabled(true);
             actionbar.setDisplayShowTitleEnabled(true);
             actionbar.setDisplayShowHomeEnabled(true);
             actionbar.setDisplayShowCustomEnabled(true);
@@ -90,7 +90,10 @@ public class MainActivity extends AppCompatActivity {
         mDrawerItems.add(new DrawerItem(getString(R.string.item_chat)));
         mDrawerItems.add(new DrawerItem(getString(R.string.item_setting)));
 
-        mAdapter = new DrawerAdapter(mDrawerItems, new DrawerAdapter.OnItemClickListener() {
+    }
+
+    private void initAdapter() {
+        mAdapter = new DrawerAdapter(this, mDrawerItems, new DrawerAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(int position) {
@@ -121,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
                         File file = File.createTempFile("img", ".jpg", root);
                         mUri = Uri.fromFile(file);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (IOException ignored) {
+                        // no opt
                     }
                     startActivityForResult(intent, REQUEST_CODE_CAMERA);
                 }
@@ -131,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDrawer() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewDrawer.setAdapter(mAdapter);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -170,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 case REQUEST_CODE_CROP:
                     Bitmap bm = data.getExtras().getParcelable("data");
                     mAdapter.setAvatar(bm);
-                    mAdapter.notifyDataSetChanged();
+                    mAdapter.notifyItemChanged(0);
                     break;
             }
 
