@@ -1,4 +1,4 @@
-package vn.asiantech.internship.Day6Ex1DrawerLayout.event;
+package vn.asiantech.internship.day7.event;
 
 /**
  * Created by at-hocvo on 12/06/2017.

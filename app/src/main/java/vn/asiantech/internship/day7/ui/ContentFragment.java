@@ -1,4 +1,4 @@
-package vn.asiantech.internship.Day6Ex1DrawerLayout.ui;
+package vn.asiantech.internship.day7.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.Day5;
+package vn.asiantech.internship.day5;
 
 import android.app.Fragment;
 import android.os.Bundle;

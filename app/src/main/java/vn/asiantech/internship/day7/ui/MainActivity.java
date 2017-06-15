@@ -1,4 +1,4 @@
-package vn.asiantech.internship.Day6Ex1DrawerLayout.ui;
+package vn.asiantech.internship.day7.ui;
 
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -22,11 +22,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import vn.asiantech.internship.Day6Ex1DrawerLayout.adapter.DrawerAdapter;
-import vn.asiantech.internship.Day6Ex1DrawerLayout.event.OnRecyclerViewClickListener;
+import vn.asiantech.internship.day7.adapter.DrawerAdapter;
+import vn.asiantech.internship.day7.event.OnRecyclerViewClickListener;
 import vn.asiantech.internship.R;
 
 /**

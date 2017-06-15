@@ -9,9 +9,8 @@
     <color name="colorBorder">#CCCCCC</color>
     <color name="colorItem">#86868B</color>
     <color name="textview.function">#FFFFFF</color>
-    <color name="textview.function.highlight">#AAA9B0</color>
     <color name="toolbar">#ECEBED</color>
     <color name="stroke.custom_linearlayout_image_header">#CCCCCC</color>
     <color name="solid.custom_linearlayout_image_header">#EEEEEE</color>
-    <item name="color.paint" type="color">#AAAAAA</item>
+    <color name="avatar_bolder">#FFFFCC</color>
 </resources>

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.Day6Ex1DrawerLayout.adapter;
+package vn.asiantech.internship.day7.adapter;
 
 import android.app.WallpaperManager;
 import android.content.Context;
@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import vn.asiantech.internship.Day6Ex1DrawerLayout.event.OnRecyclerViewClickListener;
+import vn.asiantech.internship.day7.event.OnRecyclerViewClickListener;
 import vn.asiantech.internship.R;
 
 /**
@@ -29,29 +29,28 @@ import vn.asiantech.internship.R;
  * Created by at-hoavo on 09/06/2017.
  */
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    public static final int TYPE_HEADER = 0;
-    public static final int TYPE_ITEM = 1;
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
 
-    private List<String> mFunctions;
+    private List<String> mItems;
     private OnRecyclerViewClickListener mOnRecyclerViewClickListener;
     private Context mContext;
-    private Drawable mWallpaperDrawable;
     private Bitmap mAvatarBitmap;
     private int mPosition;
 
     public DrawerAdapter(List<String> items, Context context, OnRecyclerViewClickListener onRecyclerViewClickListener) {
-        mFunctions = items;
+        mItems = items;
         mContext = context;
         mOnRecyclerViewClickListener = onRecyclerViewClickListener;
         WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
-        mWallpaperDrawable = wallpaperManager.getDrawable();
-        mAvatarBitmap = getRoundedCornerBitmap(drawableToBitmap(mWallpaperDrawable), R.dimen.drawable_pixel);
+        Drawable wallpaperDrawable = wallpaperManager.getDrawable();
+        mAvatarBitmap = getRoundedCornerBitmap(drawableToBitmap(wallpaperDrawable), R.dimen.drawable_pixel);
     }
 
     @Override
     public int getItemViewType(int position) {
         switch (position) {
-            case 0:
+            case TYPE_HEADER:
                 return TYPE_HEADER;
             default:
                 return TYPE_ITEM;
@@ -62,11 +61,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case TYPE_HEADER:
-                View viewONE = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_header_drawer, parent, false);
-                return new ItemHeaderViewHolder(viewONE);
+                View viewHeader = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_header_drawer, parent, false);
+                return new ItemHeaderViewHolder(viewHeader);
             default:
-                View viewTWO = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_drawer, parent, false);
-                return new ItemViewHolder(viewTWO);
+                View viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_drawer, parent, false);
+                return new ItemViewHolder(viewItem);
         }
     }
 
@@ -78,7 +77,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemHeaderViewHolder.mImgAvatar.setImageBitmap(mAvatarBitmap);
         } else {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            itemViewHolder.mTvFunction.setText(mFunctions.get(position));
+            itemViewHolder.mTvFunction.setText(mItems.get(position));
             if (position == mPosition) {
                 itemViewHolder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorItemPressed));
             } else {
@@ -89,7 +88,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return mFunctions.size();
+        return mItems.size();
     }
 
     public void setBitMapAvatar(Bitmap avatarBitmap) {
@@ -103,7 +102,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * create ItemViewHolder
      */
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    private class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvFunction;
         private View mItemView;
 
@@ -125,7 +124,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * create ItemHeaderViewHolder
      */
-    class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
+    private class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
         private ImageView mImgAvatar;
 
         ItemHeaderViewHolder(View itemView) {
@@ -142,27 +141,25 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    private static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
+    private Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
 
-        final int color = 0xff424242;
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
         final RectF rectF = new RectF(rect);
-        final float roundPx = pixels;
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        paint.setColor(mContext.getResources().getColor(R.color.avatar_bolder));
+        canvas.drawRoundRect(rectF, (float) pixels, (float) pixels, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
         return output;
     }
 
-    public static Bitmap drawableToBitmap(Drawable drawable) {
-        Bitmap bitmap = null;
+    private Bitmap drawableToBitmap(Drawable drawable) {
+        Bitmap bitmap;
 
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
@@ -178,7 +175,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
         Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(50, 50, canvas.getWidth(), canvas.getHeight());
+        drawable.setBounds(R.dimen.avatar_position, R.dimen.avatar_position, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return bitmap;
     }
