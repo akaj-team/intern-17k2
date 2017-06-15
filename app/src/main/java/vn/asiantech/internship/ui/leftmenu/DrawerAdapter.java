@@ -44,7 +44,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        switch (viewType){
+        switch (viewType) {
             case TYPE_HEADER:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_navigation_header, parent, false);
                 return new DrawerHeaderViewHolder(view);
@@ -56,22 +56,22 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof DrawerViewHolder){
+        if (holder instanceof DrawerViewHolder) {
             DrawerViewHolder drawer = (DrawerViewHolder) holder;
             Drawer itemDrawer = mDrawerLists.get(position - 1);
             drawer.mTvColor.setText(itemDrawer.getDrawerName());
-            if (itemDrawer.isChoose()){
+            if (itemDrawer.isChoose()) {
                 drawer.mTvColor.setTextColor(ContextCompat.getColor(drawer.itemView.getContext(), R.color.colorAccent));
             } else {
                 drawer.mTvColor.setTextColor(Color.WHITE);
             }
         }
 
-        if (holder instanceof DrawerHeaderViewHolder){
+        if (holder instanceof DrawerHeaderViewHolder) {
             DrawerHeaderViewHolder drawerHeader = (DrawerHeaderViewHolder) holder;
             drawerHeader.mTvName.setText(R.string.textview_header_name);
             drawerHeader.mTvEmail.setText(R.string.textview_header_email);
-            if (mBitmap != null){
+            if (mBitmap != null) {
                 drawerHeader.mCivAvatar.setImageBitmap(mBitmap);
             }
         }
@@ -84,13 +84,18 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0){
+        if (position == 0) {
             return TYPE_HEADER;
         }
         return TYPE_DRAWER;
     }
 
-    private class DrawerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    /**
+     * View Holder for Drawer Item
+     * Created by huypham on 15/6/2017
+     */
+
+    private class DrawerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvColor;
 
         public DrawerViewHolder(View itemView) {
@@ -101,13 +106,18 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void onClick(View v) {
-            if (mItemClickListener != null){
+            if (mItemClickListener != null) {
                 mItemClickListener.onItemClick(getAdapterPosition() - 1);
             }
         }
     }
 
-    private class DrawerHeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    /**
+     * View Holder for Drawer Header
+     * Created by huypham on 15/6/2017
+     */
+
+    private class DrawerHeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private static final int CAMERA = 0;
         private static final int GALLERY = 1;
 
@@ -124,27 +134,27 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.civAvatar:
                     setDialogChoose(v.getContext());
                     break;
             }
         }
 
-        private void setDialogChoose(Context context){
+        private void setDialogChoose(Context context) {
             AlertDialog.Builder dialogChoose = new AlertDialog.Builder(context);
             dialogChoose.setTitle(R.string.dialog_choose)
                     .setItems(R.array.list, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
+                            switch (which) {
                                 case CAMERA:
-                                    if (mItemClickListener != null){
+                                    if (mItemClickListener != null) {
                                         mItemClickListener.dialogChoose(MainActivity.REQUEST_CAMERA);
                                     }
                                     break;
                                 case GALLERY:
-                                    if (mItemClickListener != null){
+                                    if (mItemClickListener != null) {
                                         mItemClickListener.dialogChoose(MainActivity.REQUEST_GALLERY);
                                     }
                                     break;

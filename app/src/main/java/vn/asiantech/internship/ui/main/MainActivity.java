@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            switch (requestCode){
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
                 case REQUEST_CAMERA:
                     cropImage(mUri);
                     break;
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initViews(){
+    private void initViews() {
         mTvChoose = (TextView) findViewById(R.id.tvChoose);
         mRecyclerViewNavigation = (RecyclerView) findViewById(R.id.recyclerViewNavigation);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dlNavigation);
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         mTvToolbar = (TextView) findViewById(R.id.tvToolbar);
     }
 
-    private void initDataDrawer(){
+    private void initDataDrawer() {
         mDrawerLists = new ArrayList<>();
         mDrawerLists.add(new Drawer(getResources().getString(R.string.textview_main_feed)));
         mDrawerLists.add(new Drawer(getResources().getString(R.string.textview_main_activity)));
@@ -102,11 +102,11 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLists.add(new Drawer(getResources().getString(R.string.textview_main_settings)));
     }
 
-    private void setDrawerAdapter(){
+    private void setDrawerAdapter() {
         mDrawerAdapter = new DrawerAdapter(this, mDrawerLists, new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                if (mPositionChoose > -1){
+                if (mPositionChoose > -1) {
                     mDrawerLists.get(mPositionChoose).setChoose();
                     mDrawerAdapter.notifyItemChanged(mPositionChoose + 1);
                 }
@@ -119,20 +119,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void dialogChoose(int position) {
-                if (position == REQUEST_CAMERA){
+                if (position == REQUEST_CAMERA) {
                     File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                    try{
+                    try {
                         File imageFile = File.createTempFile("img", System.currentTimeMillis() + ".jpg", file);
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         mUri = Uri.fromFile(imageFile);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
                         startActivityForResult(intent, REQUEST_CAMERA);
-                    } catch (IOException e){
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
 
-                if (position == REQUEST_GALLERY){
+                if (position == REQUEST_GALLERY) {
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType("image/*");
                     startActivityForResult(intent, REQUEST_GALLERY);
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initDrawer(){
+    private void initDrawer() {
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close) {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -174,11 +174,11 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
 
-    private void initToolbar(){
+    private void initToolbar() {
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(null);
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         mTvToolbar.setText(R.string.textview_toolbar_name);
     }
 
-    private void cropImage(Uri uri){
+    private void cropImage(Uri uri) {
         try {
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
             cropIntent.setDataAndType(uri, "image/*");
@@ -198,15 +198,17 @@ public class MainActivity extends AppCompatActivity {
             cropIntent.putExtra("outputY", 256);
             cropIntent.putExtra("return-data", true);
             startActivityForResult(cropIntent, REQUEST_CROP);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Interface for handle click on Drawer
      */
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
+
         void dialogChoose(int position);
     }
 }
