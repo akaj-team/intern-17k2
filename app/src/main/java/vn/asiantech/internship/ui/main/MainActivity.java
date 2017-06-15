@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,6 +119,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         mDlContainer.closeDrawers();
+    }
+
+    /**
+     * Open drawer layout
+     */
+    public void openDrawer() {
+        mDlContainer.openDrawer(Gravity.START);
     }
 
     /**

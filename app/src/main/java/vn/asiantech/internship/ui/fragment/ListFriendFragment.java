@@ -37,14 +37,14 @@ public class ListFriendFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         addFriend();
-        ListFriendAdapter mListFriendAdapter = new ListFriendAdapter(mFriends, getContext());
-        recyclerView.setAdapter(mListFriendAdapter);
+        ListFriendAdapter listFriendAdapter = new ListFriendAdapter(mFriends, getContext());
+        recyclerView.setAdapter(listFriendAdapter);
         return v;
     }
 
     private void addFriend() {
         for (int i = 0; i < 100; i++) {
-            mFriends.add(new Friend(i, "Friend " + i, false));
+            mFriends.add(new Friend(i, getString(R.string.Text_Friend) + i, false));
         }
     }
 }

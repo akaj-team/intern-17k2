@@ -21,7 +21,7 @@ import vn.asiantech.internship.R;
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_ITEM = 1;
-    private final int TYPE_HEADER = 0;
+    private static final int TYPE_HEADER = 0;
 
     private Context mContext;
     private String[] mItems;

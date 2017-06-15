@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.main.MainActivity;
@@ -32,22 +33,32 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
                 openFragmentEx(new Ex05Fragment());
                 break;
             case R.id.btnEx06:
-
+                openDrawer();
                 break;
             case R.id.btnEx07_1:
-
+                openDrawer();
                 break;
             case R.id.btnEx07_2:
-
+                showToast("I did not add to this activity"); // i'll change when i add this Ex
                 break;
             case R.id.btnEx08:
-
+                showToast("Nothing to show");// i'll change when i add this Ex
                 break;
         }
 
     }
 
-    private void openFragmentEx(Fragment fragment){
+    private void showToast(String s) {
+        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+    }
+
+    private void openDrawer() {
+        if (getContext() instanceof MainActivity) {
+            ((MainActivity) getContext()).openDrawer();
+        }
+    }
+
+    private void openFragmentEx(Fragment fragment) {
         ((MainActivity) getActivity()).setFragmentSlideInBottom(fragment);
     }
 
