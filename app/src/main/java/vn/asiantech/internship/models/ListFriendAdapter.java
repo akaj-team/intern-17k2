@@ -1,6 +1,5 @@
 package vn.asiantech.internship.models;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +18,9 @@ import vn.asiantech.internship.R;
 public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.MyViewHolder> {
 
     private List<Friend> mFriends;
-    private Context mContext;
 
-    public ListFriendAdapter(List<Friend> friends, Context context) {
+    public ListFriendAdapter(List<Friend> friends) {
         this.mFriends = friends;
-        this.mContext = context;
     }
 
     @Override
@@ -39,12 +36,12 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
         myViewHolder.mIsFriend = mFriends.get(i).isFriend();
         if (mFriends.get(i).isFriend()) {
             myViewHolder.mBtnAdd.setBackgroundResource(R.drawable.bg_btn_added_friend);
-            myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.button_text_friend));
-            myViewHolder.mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
+            myViewHolder.mBtnAdd.setText(myViewHolder.itemView.getContext().getResources().getString(R.string.button_text_friend));
+            myViewHolder.mBtnAdd.setTextColor(myViewHolder.itemView.getContext().getResources().getColor(R.color.friendsColorWhite));
         } else {
             myViewHolder.mBtnAdd.setBackgroundResource(R.drawable.bg_btn_add_friend);
-            myViewHolder.mBtnAdd.setText(mContext.getResources().getString(R.string.button_text_add));
-            myViewHolder.mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorBorder));
+            myViewHolder.mBtnAdd.setText(myViewHolder.itemView.getContext().getResources().getString(R.string.button_text_add));
+            myViewHolder.mBtnAdd.setTextColor(myViewHolder.itemView.getContext().getResources().getColor(R.color.friendsColorBorder));
         }
     }
 
@@ -73,26 +70,26 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
             switch (v.getId()) {
                 case R.id.btnAdd:
                     if (!mIsFriend) {
-                        setColor();
+                        setColor(v);
                     } else {
-                        unSetColor();
+                        unSetColor(v);
                     }
                     break;
             }
         }
 
-        private void setColor() {
+        private void setColor(View v) {
             mBtnAdd.setBackgroundResource(R.drawable.bg_btn_added_friend);
-            mBtnAdd.setText(mContext.getResources().getString(R.string.button_text_friend));
-            mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorWhite));
+            mBtnAdd.setText(v.getContext().getResources().getString(R.string.button_text_friend));
+            mBtnAdd.setTextColor(v.getContext().getResources().getColor(R.color.friendsColorWhite));
             mFriends.get(getLayoutPosition()).setFriend(true);
             mIsFriend = true;
         }
 
-        private void unSetColor() {
+        private void unSetColor(View v) {
             mBtnAdd.setBackgroundResource(R.drawable.bg_btn_add_friend);
-            mBtnAdd.setText(mContext.getResources().getString(R.string.button_text_add));
-            mBtnAdd.setTextColor(mContext.getResources().getColor(R.color.friendsColorBorder));
+            mBtnAdd.setText(v.getContext().getResources().getString(R.string.button_text_add));
+            mBtnAdd.setTextColor(v.getContext().getResources().getColor(R.color.friendsColorBorder));
             mFriends.get(getLayoutPosition()).setFriend(false);
             mIsFriend = false;
         }
