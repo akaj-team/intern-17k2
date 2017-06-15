@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="vn.asiantech.internship">
+    package="vn.asiantech.internship">
 
     <application
         android:allowBackup="true"
@@ -11,6 +11,9 @@
         android:theme="@style/AppTheme">
         <!--d5-->
         <activity android:name=".RecyclerViewActivity">
+
+        </activity>
+        <activity android:name=".feed.ActivityFeed">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
