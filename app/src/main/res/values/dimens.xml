@@ -23,10 +23,13 @@
     <dimen name="item.layout_padding">5dp</dimen>
     <dimen name="item.layout_margin">10dp</dimen>
     <dimen name="item.layout_minheight">60dp</dimen>
-    <dimen name="item.icon_size">60dp</dimen>
+    <dimen name="item.icon_size">50dp</dimen>
     <dimen name="activity.toolbar_height">60dp</dimen>
     <dimen name="activity.toolbar_margin">20dp</dimen>
     <dimen name="activity.content_margin">20dp</dimen>
     <dimen name="activity.leftmenu_width">240dp</dimen>
     <dimen name="activity2.layout_padding">10dp</dimen>
+    <dimen name="feed.layout_padding">5dp</dimen>
+    <dimen name="feed.viewpager_height">300dp</dimen>
+    <dimen name="feed.layout_corner">20dp</dimen>
 </resources>

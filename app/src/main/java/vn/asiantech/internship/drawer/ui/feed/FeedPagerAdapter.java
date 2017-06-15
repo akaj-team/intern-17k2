@@ -1,8 +1,7 @@
 package vn.asiantech.internship.drawer.ui.feed;
 
-import android.content.Context;
-import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,9 @@ import vn.asiantech.internship.R;
 public class FeedPagerAdapter extends PagerAdapter {
 
     private List<Integer> mImageItems;
-    private LayoutInflater mInflater;
 
-    public FeedPagerAdapter(Context context, List<Integer> imageItems) {
+    public FeedPagerAdapter(List<Integer> imageItems) {
         mImageItems = imageItems;
-        mInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -33,12 +30,17 @@ public class FeedPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View imageLayout = mInflater.inflate(R.layout.item_list_image, container, false);
-//        assert imageLayout != null;
+        LayoutInflater inflater = LayoutInflater.from(container.getContext());
+        View imageLayout = inflater.inflate(R.layout.item_image, container, false);
         ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgFeed);
-//        imageView.setImageResource(mImageItems.get(position));
-        container.addView(imageLayout, 0);
+        imageView.setImageResource(R.drawable.img_danang);
+        container.addView(imageLayout);
         return imageLayout;
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return super.getItemPosition(object);
     }
 
     @Override
@@ -47,12 +49,7 @@ public class FeedPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public void restoreState(Parcelable state, ClassLoader loader) {
-        super.restoreState(state, loader);
-    }
-
-    @Override
-    public Parcelable saveState() {
-        return super.saveState();
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((CardView) object);
     }
 }

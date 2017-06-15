@@ -41,18 +41,27 @@ public class FeedFragment extends Fragment {
         initFeed(feedItems);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(new FeedAdapter(getContext(), feedItems));
+        mRecyclerView.setAdapter(new FeedAdapter(feedItems));
+    }
+
+    private List<Integer> initImages(){
+        List<Integer> integers = new ArrayList<>();
+        integers.add(R.drawable.img_danang);
+        integers.add(R.drawable.img_danang);
+        integers.add(R.drawable.img_danang);
+        integers.add(R.drawable.img_danang);
+        integers.add(R.drawable.img_danang);
+        integers.add(R.drawable.img_danang);
+        integers.add(R.drawable.img_danang);
+        return integers;
     }
 
     private void initFeed(List<FeedItem> list){
-        list.add(new FeedItem("DinhVo", "No comment"));
-        list.add(new FeedItem("DinhVo", "No comment"));
-        list.add(new FeedItem("DinhVo", "No comment"));
-        list.add(new FeedItem("DinhVo", "No comment"));
-        list.add(new FeedItem("DinhVo", "No comment"));
-        list.add(new FeedItem("DinhVo", "No comment"));
-        list.add(new FeedItem("DinhVo", "No comment"));
-        list.add(new FeedItem("DinhVo", "No comment"));
-        list.add(new FeedItem("DinhVo", "No comment"));
+        list.add(new FeedItem("DinhVo", initImages(),"No comment"));
+        list.add(new FeedItem("DinhVo", initImages(),"No comment"));
+        list.add(new FeedItem("DinhVo", initImages(),"No comment"));
+        list.add(new FeedItem("DinhVo", initImages(),"No comment"));
+        list.add(new FeedItem("DinhVo", initImages(),"No comment"));
+        list.add(new FeedItem("DinhVo", initImages(),"No comment"));
     }
 }
