@@ -37,7 +37,7 @@ public class ListFriendFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         addFriend();
-        ListFriendAdapter listFriendAdapter = new ListFriendAdapter(mFriends, getContext());
+        ListFriendAdapter listFriendAdapter = new ListFriendAdapter(mFriends);
         recyclerView.setAdapter(listFriendAdapter);
         return v;
     }

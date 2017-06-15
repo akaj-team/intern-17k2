@@ -23,7 +23,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int TYPE_ITEM = 1;
     private static final int TYPE_HEADER = 0;
 
-    private Context mContext;
     private String[] mItems;
     private int mPositionSelected = -1; // mPositionSelected = -1 if nothing select
     private Bitmap mBitmap;
@@ -32,11 +31,10 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     DrawerAdapter(Context context, String[] items, OnItemsListener onItemsListener) {
         mItems = items;
-        mContext = context;
         mOnItemsListener = onItemsListener;
 
         //Get current wallpaper
-        WallpaperManager mWallpaperManager = WallpaperManager.getInstance(mContext);
+        WallpaperManager mWallpaperManager = WallpaperManager.getInstance(context);
         mWallpaperDrawable = mWallpaperManager.getDrawable();
     }
 
@@ -44,9 +42,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int position) {
         switch (getItemViewType(position)) {
             case TYPE_HEADER:
-                return new ItemHeaderViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer_header, viewGroup, false));
+                return new ItemHeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_drawer_header, viewGroup, false));
             default:
-                return new ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_drawer, viewGroup, false));
+                return new ItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_drawer, viewGroup, false));
         }
     }
 
@@ -64,14 +62,14 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ItemViewHolder myViewHolder = (ItemViewHolder) viewHolder;
             myViewHolder.mTextView.setText(mItems[position - 1]);
             if (position == mPositionSelected) {
-                viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.colorItemChoise));
+                viewHolder.itemView.setBackgroundColor(myViewHolder.itemView.getContext().getResources().getColor(R.color.colorItemChoise));
             } else {
-                viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.colorItem));
+                viewHolder.itemView.setBackgroundColor(myViewHolder.itemView.getContext().getResources().getColor(R.color.colorItem));
             }
         } else if (viewHolder instanceof ItemHeaderViewHolder) {
             ItemHeaderViewHolder myViewHolder = (ItemHeaderViewHolder) viewHolder;
             myViewHolder.mClParent.setBackgroundDrawable(mWallpaperDrawable);
-            myViewHolder.mTvAuthorName.setText(mContext.getString(R.string.app_author));
+            myViewHolder.mTvAuthorName.setText(myViewHolder.itemView.getContext().getString(R.string.app_author));
             if (mBitmap != null) {
                 myViewHolder.mCivAvatar.setImageBitmap(mBitmap);
             }
