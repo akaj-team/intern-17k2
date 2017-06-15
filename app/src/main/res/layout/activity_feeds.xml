@@ -5,9 +5,27 @@
     android:layout_height="match_parent"
     tools:context="vn.asiantech.internship.ui.feeds.FeedsActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:background="@color/friendsColorPrimaryDark"
+        tools:ignore="NewApi">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/Button.Text.Friends"
+            android:textSize="@dimen/friendsTextSizes"
+            android:textStyle="bold" />
+    </android.support.v7.widget.Toolbar>
+
     <fragment
-        android:name="vn.asiantech.internship.ui.feeds.FeedsFragment"
         android:id="@+id/fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:tag="@string/app_name"
+        android:layout_below="@id/toolbar"
+        android:name="vn.asiantech.internship.ui.feeds.FeedsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

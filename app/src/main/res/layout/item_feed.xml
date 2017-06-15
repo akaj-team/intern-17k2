@@ -7,6 +7,7 @@
 
     <android.support.v4.widget.CircleImageView
         android:id="@+id/imgAvatar"
+        android:src="@drawable/ic_one"
         android:layout_width="45dp"
         android:layout_height="45dp" />
 
@@ -26,5 +27,5 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@id/imgAvatar"
-        android:src="@drawable/steven" />
+        android:src="@drawable/bg_stevi" />
 </RelativeLayout>

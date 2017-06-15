@@ -17,7 +17,7 @@ import vn.asiantech.internship.models.Feed;
  * Created by root on 6/15/17.
  */
 
-public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder>  {
+public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder> {
 
     private List<Feed> mFeeds;
     private Context mContext;
@@ -36,7 +36,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(FeedsAdapter.MyViewHolder myViewHolder, int position) {
         myViewHolder.mTvName.setText(mFeeds.get(position).getName());
-
+        myViewHolder.mImgThumb.setImageResource(mFeeds.get(position).getIdImgThumb());
+        myViewHolder.mImgAvatar.setImageResource(mFeeds.get(position).getIdImgAvatar());
     }
 
     @Override
@@ -52,6 +53,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         private TextView mTvName;
         private ImageView mImgAvatar;
         private ImageView mImgThumb;
+
         MyViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
