@@ -11,5 +11,6 @@ public class FeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frContainer, new FeedFragment()).commit();
     }
 }
