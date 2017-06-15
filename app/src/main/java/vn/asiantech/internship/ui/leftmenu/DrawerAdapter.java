@@ -28,18 +28,15 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int TYPE_ITEM = 1;
 
     private List<DrawerItem> mDrawerItems;
-    private Context mContext;
     private Bitmap mBitmap;
     private OnItemClickListener mOnItemClickListener;
-    private WallpaperManager mWallpaperManager;
     private Drawable mDrawable;
 
     public DrawerAdapter(Context context, List<DrawerItem> titles, OnItemClickListener onItemClickListener) {
         mDrawerItems = titles;
-        mContext = context;
         mOnItemClickListener = onItemClickListener;
-        mWallpaperManager = WallpaperManager.getInstance(mContext);
-        mDrawable = mWallpaperManager.getDrawable();
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
+        mDrawable = wallpaperManager.getDrawable();
     }
 
     @Override

@@ -60,9 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initToolbar() {
         setSupportActionBar(mToolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
     }
 
     private void initLeftMenu() {
@@ -97,11 +94,12 @@ public class MainActivity extends AppCompatActivity {
                 tvTitleFragment.setText(item.getTitle());
                 if (mItemSelected >= 0) {
                     mDrawerItems.get(mItemSelected).setSelected(false);
+                    mAdapter.notifyItemChanged(mItemSelected);
                 }
                 item.setSelected(true);
                 mItemSelected = position;
                 mDrawerLayout.closeDrawers();
-                mAdapter.notifyDataSetChanged();
+                mAdapter.notifyItemChanged(position);
             }
 
             @Override
