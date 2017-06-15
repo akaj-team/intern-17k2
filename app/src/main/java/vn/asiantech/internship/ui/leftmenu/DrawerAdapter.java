@@ -34,12 +34,12 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
     private List<DrawerItem> mDrawerItems;
-    private MainActivity.OnItemClickListener mListener;
+    private OnItemClickListener mListener;
     private Bitmap mBitmap;
     private Drawable mWallpaper;
 
     public DrawerAdapter(Context context, List<DrawerItem> items,
-                         MainActivity.OnItemClickListener listener) {
+                         OnItemClickListener listener) {
         this.mDrawerItems = items;
         mListener = listener;
         mWallpaper = WallpaperManager.getInstance(context).getDrawable();
@@ -172,5 +172,13 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
             builder.show();
         }
+    }
+    /**
+     * This interface used to handle DrawerLayoutItem onClick
+     */
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+
+        void onAvatarClick(int chooser);
     }
 }

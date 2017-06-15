@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initAdapter() {
         mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new DrawerAdapter(this, mDrawerItems, new OnItemClickListener() {
+        mAdapter = new DrawerAdapter(this, mDrawerItems, new DrawerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 if (mPositionSelected > -1) {
@@ -211,14 +211,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
         mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
-    }
-
-    /**
-     * This interface used to handle DrawerLayoutItem onClick
-     */
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-
-        void onAvatarClick(int chooser);
     }
 }
