@@ -14,9 +14,10 @@ import vn.asiantech.internship.ui.main.MainActivity;
 /**
  * Created by ducle on 15/06/2017.
  */
-public class SplashActivity extends AppCompatActivity implements View.OnClickListener{
+public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
     private Button mBtnBai5;
     private Button mBtnBai6;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,18 +32,18 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void reference() {
-        mBtnBai5=(Button) findViewById(R.id.btnBai5);
-        mBtnBai6=(Button) findViewById(R.id.btnBai6);
+        mBtnBai5 = (Button) findViewById(R.id.btnBai5);
+        mBtnBai6 = (Button) findViewById(R.id.btnBai6);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnBai5:
                 startActivity(new Intent(this, FriendActivity.class));
                 break;
             case R.id.btnBai6:
-                startActivity(new Intent(this,MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 break;
         }
     }
