@@ -1,4 +1,4 @@
-package recyclerView;
+package recyclerview;
 
 import android.app.Fragment;
 import android.os.Bundle;

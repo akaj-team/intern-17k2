@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="recyclerView.FriendActivity" />
+        <activity android:name="recyclerview.FriendActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name="demo.RecyclerViewActivity" />
     </application>
