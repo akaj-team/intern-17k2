@@ -55,5 +55,6 @@
         android:layout_height="1dp"
         android:layout_below="@id/lnParent"
         android:layout_toRightOf="@id/imgAvatar"
+        android:layout_toEndOf="@id/imgAvatar"
         android:background="@color/friendsColorPrimaryDark" />
 </RelativeLayout>

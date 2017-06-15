@@ -158,10 +158,7 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
             cropIntent.putExtra("return-data", true);
             // start the activity - we handle returning in onActivityResult
             startActivityForResult(cropIntent, MainActivity.KEY_CROP);
-        }
-
-        // respond to users whose devices do not support the crop action
-        catch (ActivityNotFoundException e) {
+        } catch (ActivityNotFoundException e) {
             Toast.makeText(getActivity(), getActivity().getString(R.string.error_message_error), Toast.LENGTH_SHORT)
                     .show();
         }
