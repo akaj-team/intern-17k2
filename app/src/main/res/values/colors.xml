@@ -6,9 +6,9 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorSelect">#a3beff</color>
     <color name="colorDark">#4f4f50</color>
-    <color name="backgroundContent">#7f7f81</color>
+    <color name="colorBgContent">#7f7f81</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorUnknow01">#f4f9fc</color>
+    <color name="colorLight">#f4f9fc</color>
     <color name="colorToolbar">#bcc5ca</color>
-    <color name="backgroundRecyclerView">#515151</color>
+    <color name="colorBgRecyclerView">#515151</color>
 </resources>

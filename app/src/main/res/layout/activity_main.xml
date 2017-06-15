@@ -9,7 +9,7 @@
         android:id="@+id/llContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backgroundContent"
+        android:background="@color/colorBgContent"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
@@ -50,5 +50,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/backgroundRecyclerView" />
+        android:background="@color/colorBgRecyclerView" />
 </android.support.v4.widget.DrawerLayout>
