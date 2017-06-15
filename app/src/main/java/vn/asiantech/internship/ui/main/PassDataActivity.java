@@ -16,13 +16,13 @@ import vn.asiantech.internship.models.MyData;
 
 
 /**
- * MainActivity
+ * PassDataActivity
  *
  * @author at-cuongcao
  * @version 1.0
  * @since 06/13/2017
  */
-public class MainActivity extends AppCompatActivity {
+public class PassDataActivity extends AppCompatActivity {
     private FirstFragment mFirstFragment;
     private SecondFragment mSecondFragment;
 

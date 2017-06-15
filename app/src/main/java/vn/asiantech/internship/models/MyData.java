@@ -2,23 +2,23 @@ package vn.asiantech.internship.models;
 
 import java.io.Serializable;
 
-import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.ui.main.PassDataActivity;
 
 /**
  * Created by PC on 6/13/2017.
  */
 public class MyData implements Serializable {
-    private MainActivity.OnClick listener;
+    private PassDataActivity.OnClick listener;
 
-    public MyData(MainActivity.OnClick listener) {
+    public MyData(PassDataActivity.OnClick listener) {
         this.listener = listener;
     }
 
-    public MainActivity.OnClick getListener() {
+    public PassDataActivity.OnClick getListener() {
         return listener;
     }
 
-    public void setListener(MainActivity.OnClick listener) {
+    public void setListener(PassDataActivity.OnClick listener) {
         this.listener = listener;
     }
 }

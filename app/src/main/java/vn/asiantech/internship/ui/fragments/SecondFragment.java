@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.ui.main.PassDataActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.MyData;
 
@@ -22,7 +22,7 @@ import vn.asiantech.internship.models.MyData;
  */
 public class SecondFragment extends Fragment {
     private TextView mTvOutput;
-    private MainActivity.OnClick mListener;
+    private PassDataActivity.OnClick mListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
