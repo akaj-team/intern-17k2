@@ -3,6 +3,7 @@
     <string name="imageview.description">this is image user</string>
     <string name="button.text.add">+ ADD</string>
     <string name="button.text.friends">Friends</string>
+    <string name="imageview.description_user">this is user for feed</string>
     <string-array name="list_user">
         <item name="susan">Susan</item>
         <item name="rian">Rian</item>
