@@ -60,6 +60,9 @@ public class SecondFragment extends Fragment {
         mTvOutput.setText(str);
     }
 
+    /**
+     * This interface used to handle Onclick item of Fragment
+     */
     public interface OnClickListener {
         void onClick(TextView textView);
     }
