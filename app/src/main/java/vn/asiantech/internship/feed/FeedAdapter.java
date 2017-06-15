@@ -41,44 +41,41 @@ public class FeedAdapter extends RecyclerView.Adapter {
         FeedViewHolder myViewHolder = (FeedViewHolder) holder;
         myViewHolder.mTvName.setText(feeds.get(position).getName());
         myViewHolder.mTvDescription.setText(feeds.get(position).getDescription());
-        myViewHolder.mImgAvater.setImageResource(feeds.get(position).getAvatar());
-        myViewHolder.mViewPager.setAdapter(new FeedPagerAdapter(mContext,feeds.get(position).getImages()));
+        myViewHolder.mViewPager.setAdapter(new FeedPagerAdapter(mContext, feeds.get(position).getImages()));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return feeds.size();
     }
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private TextView mTvDescription;
-        private ImageView mImgAvater;
         private ViewPager mViewPager;
 
         public FeedViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvDescription = (TextView) itemView.findViewById(R.id.tvDescribe);
-            mImgAvater = (ImageView) itemView.findViewById(R.id.imgAvatar);
             mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
         }
     }
 
     public static class FeedPagerAdapter extends PagerAdapter {
-        private int[] images;
+        private List<Integer> images;
         private LayoutInflater inflater;
-        private Context context;
+        private Context mContext;
 
-        public FeedPagerAdapter(Context context, int[] images) {
+        public FeedPagerAdapter(Context context, List<Integer> images) {
             this.images = images;
-            this.context = context;
-            inflater = LayoutInflater.from(context);
+            this.mContext = context;
+            inflater = LayoutInflater.from(mContext);
         }
 
         @Override
         public int getCount() {
-            return images.length;
+            return images.size();
         }
 
         @Override
@@ -86,17 +83,16 @@ public class FeedAdapter extends RecyclerView.Adapter {
             return view.equals(object);
         }
 
-        @Override
+       @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            super.destroyItem(container, position, object);
-            container.removeView((View) object);
-        }
+         container.removeView((View) object);
+       }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View imageLayout = inflater.inflate(R.layout.item_images, container, false);
-            final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
-            imageView.setImageResource(images[position]);
+            final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgItem);
+            imageView.setImageResource(images.get(position));
             container.addView(imageLayout, 0);
             return imageLayout;
         }

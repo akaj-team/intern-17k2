@@ -1,29 +1,21 @@
 package vn.asiantech.internship.feed;
 
 
+import java.util.List;
+
 /**
  * Created by sony on 15/06/2017.
  */
 
 public class Feed {
-    private int avatar;
     private String name;
     private String description;
-    private int[] images;
+    private List<Integer> images;
 
-    public Feed(int avatar, String name, String description, int[] images) {
-        this.avatar = avatar;
+    public Feed(String name, String description, List<Integer> images) {
         this.name = name;
         this.description = description;
         this.images = images;
-    }
-
-    public int getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(int avatar) {
-        this.avatar = avatar;
     }
 
     public String getName() {
@@ -42,11 +34,11 @@ public class Feed {
         this.description = description;
     }
 
-    public int[] getImages() {
+    public List<Integer> getImages() {
         return images;
     }
 
-    public void setImages(int[] images) {
+    public void setImages(List<Integer> images) {
         this.images = images;
     }
 }
