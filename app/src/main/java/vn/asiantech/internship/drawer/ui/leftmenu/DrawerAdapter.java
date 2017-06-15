@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.leftmenu;
+package vn.asiantech.internship.drawer.ui.leftmenu;
 
 import android.app.WallpaperManager;
 import android.content.Context;
@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.models.DrawerItem;
+import vn.asiantech.internship.drawer.models.DrawerItem;
 
 /**
  * Created by at-dinhvo on 12/06/2017.

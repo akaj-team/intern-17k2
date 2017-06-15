@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.main;
+package vn.asiantech.internship.drawer.ui.main;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -21,8 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.models.DrawerItem;
-import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
+import vn.asiantech.internship.drawer.models.DrawerItem;
+import vn.asiantech.internship.drawer.ui.feed.FeedActivity;
+import vn.asiantech.internship.drawer.ui.leftmenu.DrawerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_drawer);
         initView();
         initToolbar();
         initAdapter();
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 mItemSelected = position;
                 mDrawerLayout.closeDrawers();
                 mAdapter.notifyItemChanged(position + 1);
+                startActivity(new Intent(MainActivity.this, FeedActivity.class));
             }
 
             @Override
