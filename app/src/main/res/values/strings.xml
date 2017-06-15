@@ -1,22 +1,6 @@
 <resources>
     <string name="app_name">BaiTap1</string>
-    <string name="textview.name.user_name">User Name : </string>
-    <string name="textview.name.old">Old :</string>
-    <string name="button.text.send">Send</string>
-    <string name="textview.name.welcome">Welcome</string>
-    <string name="textview.name.you_are">You are</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="textview.text.user_name">User Name</string>
-    <string name="textview.text.user_address">User Address</string>
-    <string name="radiobutton.text.male">Male</string>
-    <string name="radiobutton.text.female">Female</string>
-    <string name="buton.text.submit">Submit</string>
-    <string name="textview.text.phone_number">Phone Number</string>
-    <string name="textview.text.user_gender">Gender</string>
-    <string name="error.message.only_type_integer">Only type integer</string>
-    <string name="error.message.please_enter_text">Please enter text</string>
-    <string name="error.message.nunber_must_have_eight_to_fifteen">Number must have 8 to 15 </string>
-    <string name="string.years_old">years old</string>
     <string name="textview.text.description">Description</string>
     <string name="button.text.add">+ Add</string>
     <string name="button.text.friend">✓ FRIENDS</string>
