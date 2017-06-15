@@ -37,7 +37,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private OnItemClickListener mListener;
     private Bitmap mBitmap;
     private Drawable mWallpaper;
-
     public DrawerAdapter(Context context, List<DrawerItem> items,
                          OnItemClickListener listener) {
         this.mDrawerItems = items;
