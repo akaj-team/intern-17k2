@@ -1,0 +1,20 @@
+machine:
+  ruby:
+    version: 2.0.0-p648
+  environment:
+    _JAVA_OPTIONS: "-Xms350m -Xmx2048m -XX:MaxPermSize=350m"
+    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1536m -XX:+HeapDumpOnOutOfMemoryError"'
+  java:
+    version:
+      oraclejdk8
+  timezone: Asia/Saigon
+dependencies:
+  cache_directories:
+    - ~/.android
+test:
+  override:
+    - scripts/saddler.sh
+  post:
+    - echo $CIRCLE_TEST_REPORTS
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type d -regex ".*/reports/tests$" -exec cp -r {} $CIRCLE_TEST_REPORTS/junit/ \;
