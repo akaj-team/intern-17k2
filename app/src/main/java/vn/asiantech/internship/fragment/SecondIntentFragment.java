@@ -1,4 +1,4 @@
-package vn.asiantech.internship.fragments;
+package vn.asiantech.internship.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -12,16 +12,16 @@ import android.widget.TextView;
 import vn.asiantech.internship.R;
 
 /**
- * fragment content button and text view show text in FirstFragment
+ * fragment content button and text view show text in FirstIntentFragment
  */
-public class SecondFragment extends Fragment {
+public class SecondIntentFragment extends Fragment {
     private TextView mTvDetail;
     private OnClickButton mOnClickButton;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_2, container, false);
+        View view = inflater.inflate(R.layout.fragment_intent_2, container, false);
         Button btnInFrag = (Button) view.findViewById(R.id.btnFragment);
         mTvDetail = (TextView) view.findViewById(R.id.tvDetail);
         btnInFrag.setOnClickListener(new View.OnClickListener() {

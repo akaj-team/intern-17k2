@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Internship</string>
+    <string name="button.add">add</string>
+    <string name="imageview.description">image user</string>
+    <string name="button.text.friend">Friend</string>
     <string name="button.text.activity">Button activity</string>
     <string name="button.text.fragment">Button fragment</string>
 </resources>

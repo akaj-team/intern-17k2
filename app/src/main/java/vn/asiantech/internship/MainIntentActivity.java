@@ -9,15 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import vn.asiantech.internship.fragments.FirstFragment;
-import vn.asiantech.internship.fragments.SecondFragment;
+import vn.asiantech.internship.fragment.FirstIntentFragment;
+import vn.asiantech.internship.fragment.SecondIntentFragment;
 
 /**
  * MainActivity content 2 fragments
  */
-public class MainIntentActivity extends AppCompatActivity implements SecondFragment.OnClickButton {
-    private FirstFragment mFirstFragment;
-    private SecondFragment mSecondFragment;
+public class MainIntentActivity extends AppCompatActivity implements SecondIntentFragment.OnClickButton {
+    private FirstIntentFragment mFirstIntentFragment;
+    private SecondIntentFragment mSecondIntentFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,20 +27,20 @@ public class MainIntentActivity extends AppCompatActivity implements SecondFragm
         btnActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String input = mFirstFragment.getData();
-                mSecondFragment.setData(input);
+                String input = mFirstIntentFragment.getData();
+                mSecondIntentFragment.setData(input);
             }
         });
-        mFirstFragment = new FirstFragment();
-        mSecondFragment = new SecondFragment();
-        switchFragment(mFirstFragment, true, R.id.flFrag1);
-        switchFragment(mSecondFragment, true, R.id.flFrag2);
+        mFirstIntentFragment = new FirstIntentFragment();
+        mSecondIntentFragment = new SecondIntentFragment();
+        switchFragment(mFirstIntentFragment, true, R.id.flFrag1);
+        switchFragment(mSecondIntentFragment, true, R.id.flFrag2);
     }
 
     @Override
     public void setClick() {
-        String input = mFirstFragment.getData();
-        mSecondFragment.setData(input);
+        String input = mFirstIntentFragment.getData();
+        mSecondIntentFragment.setData(input);
     }
 
     /**

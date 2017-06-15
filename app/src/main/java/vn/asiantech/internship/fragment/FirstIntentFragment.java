@@ -1,4 +1,4 @@
-package vn.asiantech.internship.fragments;
+package vn.asiantech.internship.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -13,13 +13,13 @@ import vn.asiantech.internship.R;
 /**
  * fragment content edittex
  */
-public class FirstFragment extends Fragment {
+public class FirstIntentFragment extends Fragment {
     private EditText mEdtInput;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_1, container, false);
+        View view = inflater.inflate(R.layout.fragment_intent_1, container, false);
         mEdtInput = (EditText) view.findViewById(R.id.edtInput);
         return view;
     }
