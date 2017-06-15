@@ -29,7 +29,7 @@ public class PassDataActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_day7_ex2);
 
         Button btnPassData = (Button) findViewById(R.id.btnPassData);
         btnPassData.setOnClickListener(new View.OnClickListener() {
