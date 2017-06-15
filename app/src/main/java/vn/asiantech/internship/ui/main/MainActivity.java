@@ -1,4 +1,4 @@
-package vn.asiantech.internship.main;
+package vn.asiantech.internship.ui.main;
 
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
@@ -35,12 +35,13 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_GALLERY = 1000;
     private static final int REQUEST_CODE_CROP = 1001;
     private static final int REQUEST_CODE_CAMERA = 1002;
-    private static final int STRING_ARRAY_POSITION_FIRST = 0;
-    private static final int STRING_ARRAY_POSITION_SECOND = 1;
+    private static final int STRING_ARRAY_POSITION_GALLERY = 0;
+    private static final int STRING_ARRAY_POSITION_CAMERA = 1;
     private static final String KEY_DATA = "data";
 
     private TextView mTvTitle;
     private RecyclerView mRecyclerViewDrawer;
+    private Toolbar mToolbar;
     private ImageView mImgToggle;
     private DrawerLayout mDrawerLayout;
     private LinearLayout mLlContent;
@@ -55,30 +56,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
+        initToolbar();
+        initAdapter();
+        initDrawer();
         onClickToggleButton();
-        handleDrawer();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data != null && resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            switch (requestCode) {
-                case REQUEST_CODE_GALLERY:
-                case REQUEST_CODE_CAMERA:
-                    cropImage(uri);
-                    break;
-                case REQUEST_CODE_CROP:
-                    Bundle bundle = data.getExtras();
-                    if (bundle != null) {
-                        Bitmap bitmap = bundle.getParcelable(KEY_DATA);
-                        mAdapter.setAvatar(bitmap);
-                        mAdapter.notifyItemChanged(0);
-                    }
-                    break;
-            }
-        }
     }
 
     private void initView() {
@@ -87,8 +68,12 @@ public class MainActivity extends AppCompatActivity {
         mLlContent = (LinearLayout) findViewById(R.id.llContent);
         mTvTitle = (TextView) findViewById(R.id.tvTitle);
         mImgToggle = (ImageView) findViewById(R.id.imgToggle);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
@@ -103,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void handleDrawer() {
+    private void initAdapter() {
         mAdapter = new DrawerAdapter(this, createData(), new DrawerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -126,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerViewDrawer.setLayoutManager(linearLayoutManager);
         mRecyclerViewDrawer.setAdapter(mAdapter);
+    }
 
+    private void initDrawer() {
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, null, 0, 0) {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -149,24 +136,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showDialogChangeAvatar() {
-        AlertDialog.Builder alertDialogBuider = new AlertDialog.Builder(MainActivity.this);
-        alertDialogBuider.setTitle(R.string.dialog_select_picture_message);
-        alertDialogBuider.setItems(R.array.dialog_items, new DialogInterface.OnClickListener() {
+        String[] dialogItems = new String[2];
+        dialogItems[0] = getResources().getString(R.string.dialog_item_gallery);
+        dialogItems[1] = getResources().getString(R.string.dialog_item_Camera);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setTitle(R.string.dialog_select_picture_message);
+        alertDialogBuilder.setItems(dialogItems, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (which == STRING_ARRAY_POSITION_FIRST) {
+                if (which == STRING_ARRAY_POSITION_GALLERY) {
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(intent, REQUEST_CODE_GALLERY);
-                } else if (which == STRING_ARRAY_POSITION_SECOND) {
+                } else if (which == STRING_ARRAY_POSITION_CAMERA) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(intent, REQUEST_CODE_CAMERA);
                 }
             }
         });
-        alertDialogBuider.create();
-        alertDialogBuider.show();
+        alertDialogBuilder.create();
+        alertDialogBuilder.show();
     }
 
     private void cropImage(Uri uri) {
@@ -187,10 +177,35 @@ public class MainActivity extends AppCompatActivity {
 
     private List<DrawerItem> createData() {
         mDrawerItems = new ArrayList<>();
-        String[] arr = getResources().getStringArray(R.array.drawer_items);
-        for (String anArr : arr) {
-            mDrawerItems.add(new DrawerItem(anArr));
-        }
+        mDrawerItems.add(0, new DrawerItem(getResources().getString(R.string.drawer_item_feed)));
+        mDrawerItems.add(1, new DrawerItem(getResources().getString(R.string.drawer_item_activity)));
+        mDrawerItems.add(2, new DrawerItem(getResources().getString(R.string.drawer_item_profile)));
+        mDrawerItems.add(3, new DrawerItem(getResources().getString(R.string.drawer_item_friend)));
+        mDrawerItems.add(4, new DrawerItem(getResources().getString(R.string.drawer_item_map)));
+        mDrawerItems.add(5, new DrawerItem(getResources().getString(R.string.drawer_item_chat)));
+        mDrawerItems.add(6, new DrawerItem(getResources().getString(R.string.drawer_item_setting)));
         return mDrawerItems;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            switch (requestCode) {
+                case REQUEST_CODE_GALLERY:
+                case REQUEST_CODE_CAMERA:
+                    cropImage(uri);
+                    break;
+                case REQUEST_CODE_CROP:
+                    Bundle bundle = data.getExtras();
+                    if (bundle != null) {
+                        Bitmap bitmap = bundle.getParcelable(KEY_DATA);
+                        mAdapter.setAvatar(bitmap);
+                        mAdapter.notifyItemChanged(0);
+                    }
+                    break;
+            }
+        }
     }
 }

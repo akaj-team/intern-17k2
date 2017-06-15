@@ -24,8 +24,8 @@ import vn.asiantech.internship.models.DrawerItem;
  * Created by Hai on 6/12/2017.
  */
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final int TYPE_HEADER = 0;
-    private static final int TYPE_ITEM = 1;
+    private static final int TYPE_HEADER = 100;
+    private static final int TYPE_ITEM = 101;
 
     private Context mContext;
     private List<DrawerItem> mDrawerItems;
