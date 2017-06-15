@@ -1,7 +1,24 @@
 <resources>
-    <string name="app_name">Internship</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textView.Name.User_Name">User Name : </string>
+    <string name="textView.Name.Old">Old :</string>
     <string name="Button.Text.Send">Send</string>
+    <string name="TextView.Name.Welcome">Welcome</string>
+    <string name="TextView.Name.You_Are">You are</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="TextView.Text.User_Name">User Name</string>
+    <string name="TextView.Text.User_Address">User Address</string>
+    <string name="RadioButton.Text.Male">Male</string>
+    <string name="RadioButton.Text.Female">Female</string>
+    <string name="Buton.Text.Submit">Submit</string>
+    <string name="TextView.Text.Phone_Number">Phone Number</string>
+    <string name="TextView.Text.User_Gender">Gender</string>
+    <string name="Error.Message.Only_Type_Integer">Only type integer</string>
+    <string name="Error.Message.Please_Enter_Text">Please enter text</string>
+    <string name="Error.Message.Nunber_Must_Have_Eight_To_Fifteen">Number must have 8 to 15 </string>
+    <string name="String.Years_Old">years old</string>
+    <string name="TextView.Text.Description">Description</string>
+    <string name="Button.Text.Add">+ Add</string>
+    <string name="Button.Text.Friend">✓ FRIENDS</string>
+    <string name="Button.Text.Friends"> FRIENDS</string>
+    <string name="app_name">Internship</string>
 </resources>

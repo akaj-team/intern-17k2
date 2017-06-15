@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="5"
-    android:orientation="vertical"
-    tools:context="vn.asiantech.internship.MainActivity">
-
-    <FrameLayout
-        android:id="@+id/fragmentA"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@color/colorPrimary" />
+    tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/lnParent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.luiss.baitap1.com.example.luiss.baitap.Buoi5.View.FriendsBuoi05">
 
-        <Button
-            android:id="@+id/btnSend"
-            android:layout_width="200dp"
+        <Toolbar
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Button.Text.Send" />
+            android:background="@color/friendsColorPrimaryDark"
+            tools:ignore="NewApi">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vector_menu" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/Button.Text.Friends"
+                android:textSize="@dimen/friendsTextSizes"
+                android:textStyle="bold" />
+        </Toolbar>
+
+        <fragment
+            android:name="vn.asiantech.internship.views.ListFriendFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/fragmentB"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@color/colorAccent" />
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
