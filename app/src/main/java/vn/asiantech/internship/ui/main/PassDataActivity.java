@@ -1,10 +1,10 @@
 package vn.asiantech.internship.ui.main;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.fragments.FirstFragment;
 import vn.asiantech.internship.ui.fragments.SecondFragment;
-import vn.asiantech.internship.models.MyData;
 
 
 /**
@@ -22,7 +21,7 @@ import vn.asiantech.internship.models.MyData;
  * @version 1.0
  * @since 06/13/2017
  */
-public class PassDataActivity extends AppCompatActivity {
+public class PassDataActivity extends AppCompatActivity implements SecondFragment.OnClickListener {
     private FirstFragment mFirstFragment;
     private SecondFragment mSecondFragment;
 
@@ -41,15 +40,7 @@ public class PassDataActivity extends AppCompatActivity {
 
         mFirstFragment = new FirstFragment();
         mSecondFragment = new SecondFragment();
-        MyData myData = new MyData(new OnClickListener() {
-            @Override
-            public void onClick(TextView tv) {
-                tv.setText(mFirstFragment.getText());
-            }
-        });
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("Data", myData);
-        mSecondFragment.setArguments(bundle);
+
         addFragment(mFirstFragment, R.id.frgContent1, false);
         addFragment(mSecondFragment, R.id.frgContent2, false);
     }
@@ -64,10 +55,8 @@ public class PassDataActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    /**
-     * This interface used to handle OnclickItem of Fragment
-     */
-    public interface OnClickListener {
-        void onClick(TextView tv);
+    @Override
+    public void onClick(TextView textView) {
+        textView.setText(mFirstFragment.getText());
     }
 }

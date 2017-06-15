@@ -1,5 +1,6 @@
 package vn.asiantech.internship.ui.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,9 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import vn.asiantech.internship.ui.main.PassDataActivity;
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.models.MyData;
 
 /**
  * Second Fragment
@@ -22,12 +21,11 @@ import vn.asiantech.internship.models.MyData;
  */
 public class SecondFragment extends Fragment {
     private TextView mTvOutput;
-    private PassDataActivity.OnClickListener mListener;
+    private OnClickListener mListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mListener = ((MyData) getArguments().getSerializable("Data")).getListener();
     }
 
     @Nullable
@@ -47,8 +45,22 @@ public class SecondFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnClickListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnClickListener");
+        }
+    }
+
     public void setText(String str) {
         mTvOutput.setText(str);
     }
 
+    public interface OnClickListener {
+        void onClick(TextView textView);
+    }
 }
