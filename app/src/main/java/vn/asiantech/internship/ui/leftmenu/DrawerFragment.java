@@ -28,7 +28,7 @@ import vn.asiantech.internship.ui.main.MainActivity;
 public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsListener {
 
     private String[] mListDrawer;
-    private DrawerAdapter mDrawerAdapter;
+    private DrawerAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,12 +48,12 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
 
     private void initDrawer(View v) {
         mListDrawer = getResources().getStringArray(R.array.listDrawer);
-        mDrawerAdapter = new DrawerAdapter(getContext(), mListDrawer, this);
+        mAdapter = new DrawerAdapter(getContext(), mListDrawer, this);
 
         RecyclerView rvDrawer = (RecyclerView) v.findViewById(R.id.rvDrawer);
 
         rvDrawer.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvDrawer.setAdapter(mDrawerAdapter);
+        rvDrawer.setAdapter(mAdapter);
     }
 
     @Override
@@ -74,18 +74,18 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
 
     @Override
     public void onItemCLick(int position) {
-        mDrawerAdapter.setPositionSelected(position);
+        mAdapter.setPositionSelected(position);
         if (getActivity() instanceof MainActivity) {
             if (position == 1) {
-                ((MainActivity) getActivity()).setMainText(mListDrawer[position - 1], true);
+                ((MainActivity) getActivity()).setMainText(mListDrawer[position - 1]);
             } else {
-                ((MainActivity) getActivity()).setMainText(mListDrawer[position - 1], true);
+                ((MainActivity) getActivity()).setMainText(mListDrawer[position - 1]);
             }
         }
     }
 
     private void setImage(Bitmap bitmap) {
-        mDrawerAdapter.setImageAvatar(bitmap);
+        mAdapter.setImageAvatar(bitmap);
     }
 
     private void openCamera() {

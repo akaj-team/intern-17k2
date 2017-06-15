@@ -96,7 +96,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemsListener.onItemCLick(getLayoutPosition());
+                    if (mOnItemsListener != null) {
+                        mOnItemsListener.onItemCLick(getLayoutPosition());
+                    }
                 }
             });
         }
