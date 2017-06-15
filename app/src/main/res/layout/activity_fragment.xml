@@ -6,7 +6,7 @@
     android:background="@color/colorBlack"
     android:orientation="vertical"
     android:padding="@dimen/activity2.layout_padding"
-    tools:context=".Bai2.ui.FragmentActivity">
+    tools:context=".ui.CommunicateActivity">
 
     <FrameLayout
         android:id="@+id/frContainerInput"

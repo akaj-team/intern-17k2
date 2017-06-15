@@ -1,12 +1,12 @@
-package vn.asiantech.internship.Bai2.ui;
+package vn.asiantech.internship.ui;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import vn.asiantech.internship.R;
 
-public class FragmentActivity extends AppCompatActivity {
+public class CommunicateActivity extends AppCompatActivity {
 
     private InputFragment mInputFragment;
     private ActionFragment mActionFragment;

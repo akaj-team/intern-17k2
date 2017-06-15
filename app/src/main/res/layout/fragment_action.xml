@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Bai2.ui.ActionFragment">
+    tools:context=".ui.ActionFragment">
 
     <TextView
         android:id="@+id/tvContent"
