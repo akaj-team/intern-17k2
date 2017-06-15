@@ -105,10 +105,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 if (mPositionChoose > -1){
-                    mDrawerLists.get(mPositionChoose).isChoose();
+                    mDrawerLists.get(mPositionChoose).setChoose();
                     mDrawerAdapter.notifyItemChanged(mPositionChoose + 1);
                 }
-                mDrawerLists.get(position).isChoose();
+                mDrawerLists.get(position).setChoose();
                 mPositionChoose = position;
                 mTvChoose.setText(mDrawerLists.get(position).getDrawerName());
                 mDrawerAdapter.notifyItemChanged(position + 1);
@@ -119,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
             public void dialogChoose(int position) {
                 if (position == REQUEST_CAMERA){
 //                    File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separatorChar + "Camera" + File.separatorChar);
-                    File file = Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_PICTURES);
+                    File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
                     Log.d("camera", "dialogChoose: " + file.getPath());
                     Log.d("camera", "dialogChoose: AA");
                     try{
