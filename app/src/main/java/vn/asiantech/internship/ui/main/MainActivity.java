@@ -1,7 +1,6 @@
 package vn.asiantech.internship.ui.main;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -24,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.models.Title;
-import vn.asiantech.internship.ui.leftmenu.NavigationAdapter;
+import vn.asiantech.internship.models.DrawerItem;
+import vn.asiantech.internship.ui.leftmenu.DrawerAdpater;
 import vn.asiantech.internship.models.User;
 
 /**
@@ -37,16 +36,15 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_CROP = 3;
 
     private DrawerLayout mDlMain;
-    private List<Title> mTitles;
+    private List<DrawerItem> mDrawerItems;
     private TextView mTvShow;
     private RecyclerView mRecyclerViewDrawer;
     private LinearLayout mLlContent;
-    private NavigationAdapter mNavigationAdapter;
+    private DrawerAdpater mDrawerAdpater;
     private Toolbar mToolbar;
     private ImageView mImgMenu;
     private TextView mTvTitle;
     private List<User> mUsers;
-    private ActionBarDrawerToggle mDrawerToggle;
     private int mSelectedPosition = -1;
 
     @Override
@@ -54,9 +52,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mUsers = new ArrayList<>();
-        reference();
+        initViews();
+        initData();
         setToolBar();
         initDrawer();
+    }
+
+    private void initViews() {
+        mDlMain = (DrawerLayout) findViewById(R.id.dlMain);
+        mTvShow = (TextView) findViewById(R.id.tvShow);
+        mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mLlContent = (LinearLayout) findViewById(R.id.llContent);
+        mImgMenu = (ImageView) findViewById(R.id.imgMenu);
+        mTvTitle = (TextView) findViewById(R.id.tvTitle);
     }
 
     private void setToolBar() {
@@ -72,32 +81,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDrawer() {
-        mNavigationAdapter = new NavigationAdapter(this, mTitles, mUsers, new NavigationAdapter.OnClickItemListener() {
+        mDrawerAdpater = new DrawerAdpater(this, mDrawerItems, mUsers, new DrawerAdpater.OnClickItemListener() {
             @Override
             public void onClickItem(int position) {
-                mTvShow.setText(mTitles.get(position).getName());
-                mTitles.get(position).setSelected(true);
+                mTvShow.setText(mDrawerItems.get(position).getName());
+                mDrawerItems.get(position).setSelected(true);
                 if (mSelectedPosition >= 0) {
-                    mTitles.get(mSelectedPosition).setSelected(false);
+                    mDrawerItems.get(mSelectedPosition).setSelected(false);
+                    mDrawerAdpater.notifyItemChanged(mSelectedPosition+1);
                 }
                 mSelectedPosition = position;
-                mNavigationAdapter.notifyDataSetChanged();
+                mDrawerAdpater.notifyItemChanged(position+1);
                 mDlMain.closeDrawer(Gravity.START);
             }
 
             @Override
             public void onClickAvatar(int key) {
-                if (key == NavigationAdapter.KEY_GALLERY) {
+                if (key == DrawerAdpater.KEY_GALLERY) {
                     getPhotoGallery();
                 }
-                if (key == NavigationAdapter.KEY_CAMERA) {
+                if (key == DrawerAdpater.KEY_CAMERA) {
                     getPhotoCamera();
                 }
             }
         });
         mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerViewDrawer.setAdapter(mNavigationAdapter);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDlMain, R.string.app_name, R.string.app_name) {
+        mRecyclerViewDrawer.setAdapter(mDrawerAdpater);
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDlMain, R.string.app_name, R.string.app_name) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -114,31 +124,24 @@ public class MainActivity extends AppCompatActivity {
                 mLlContent.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDlMain.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
+        drawerToggle.setDrawerIndicatorEnabled(true);
+        mDlMain.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
     }
 
     /**
      * relation param and id
      */
-    private void reference() {
+    private void initData() {
         mUsers.add(new User(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round), "LeDuc", "leanhduc2015"));
-        mTitles = new ArrayList<>();
-        mTitles.add(new Title(getResources().getString(R.string.feed)));
-        mTitles.add(new Title(getResources().getString(R.string.activity)));
-        mTitles.add(new Title(getResources().getString(R.string.profile)));
-        mTitles.add(new Title(getResources().getString(R.string.friends)));
-        mTitles.add(new Title(getResources().getString(R.string.map)));
-        mTitles.add(new Title(getResources().getString(R.string.chat)));
-        mTitles.add(new Title(getResources().getString(R.string.settings)));
-        mDlMain = (DrawerLayout) findViewById(R.id.dlMain);
-        mTvShow = (TextView) findViewById(R.id.tvShow);
-        mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mLlContent = (LinearLayout) findViewById(R.id.llContent);
-        mImgMenu = (ImageView) findViewById(R.id.imgMenu);
-        mTvTitle = (TextView) findViewById(R.id.tvTitle);
+        mDrawerItems = new ArrayList<>();
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.feed)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.activity)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.profile)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.friends)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.map)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.chat)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.settings)));
     }
 
     @Override
@@ -147,16 +150,18 @@ public class MainActivity extends AppCompatActivity {
         if (null != data) {
             if (requestCode == REQUEST_CODE_GALLERY) {
                 performCrop(data.getData());
+                return;
             }
             if (requestCode == REQUEST_CODE_CAMERA) {
                 performCrop(data.getData());
+                return;
             }
             if (requestCode == REQUEST_CODE_CROP) {
                 Bundle extras = data.getExtras();
                 Bitmap selectedBitmap = extras.getParcelable("data");
                 mUsers.get(0).setImgUser(selectedBitmap);
+                mDrawerAdpater.notifyItemChanged(0);
             }
-            mNavigationAdapter.notifyItemChanged(0);
         }
     }
 

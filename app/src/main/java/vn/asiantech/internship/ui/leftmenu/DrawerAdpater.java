@@ -18,26 +18,26 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.models.Title;
+import vn.asiantech.internship.models.DrawerItem;
 import vn.asiantech.internship.models.User;
 
 /**
  * Created by Administrator on 6/12/2017.
  * this adapter to custom recyclerView in navigation
  */
-public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DrawerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int KEY_GALLERY = 0;
     public static final int KEY_CAMERA = 1;
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
-    private List<Title> mTitles;
+    private List<DrawerItem> mDrawerItems;
     private OnClickItemListener mOnClickItemListener;
     private List<User> mUsers;
     private Drawable mDrawable;
 
 
-    public NavigationAdapter(Context context, List<Title> titles, List<User> users, OnClickItemListener onClickItemListener) {
-       mTitles=titles;
+    public DrawerAdpater(Context context, List<DrawerItem> drawerItems, List<User> users, OnClickItemListener onClickItemListener) {
+        mDrawerItems = drawerItems;
         mOnClickItemListener = onClickItemListener;
         mUsers = users;
         mDrawable = WallpaperManager.getInstance(context).getDrawable();
@@ -45,16 +45,16 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return mTitles == null ? 1 : mTitles.size()+ 1;
+        return mDrawerItems == null ? 1 : mDrawerItems.size() + 1;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_HEADER) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.header_navigation, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drawer_header, parent, false);
             return new HeaderViewHolder(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_navigation, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drawer, parent, false);
             return new ItemViewHolder(view);
         }
     }
@@ -69,11 +69,11 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             headerViewHolder.mImgBackground.setImageDrawable(mDrawable);
         } else {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            itemViewHolder.mTvItem.setText(mTitles.get(position-1).getName());
-            if (mTitles.get(position-1).isSelected()){
-                itemViewHolder.mTvItem.setTextColor(ContextCompat.getColor((itemViewHolder.mTvItem.getContext()),R.color.item_clicked));
-            }else{
-                itemViewHolder.mTvItem.setTextColor(ContextCompat.getColor((itemViewHolder.mTvItem.getContext()),R.color.white));
+            itemViewHolder.mTvItem.setText(mDrawerItems.get(position - 1).getName());
+            if (mDrawerItems.get(position - 1).isSelected()) {
+                itemViewHolder.mTvItem.setTextColor(ContextCompat.getColor((itemViewHolder.mTvItem.getContext()), R.color.item_clicked));
+            } else {
+                itemViewHolder.mTvItem.setTextColor(ContextCompat.getColor((itemViewHolder.mTvItem.getContext()), R.color.white));
             }
         }
     }

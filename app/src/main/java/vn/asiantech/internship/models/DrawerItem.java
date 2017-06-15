@@ -4,13 +4,13 @@ package vn.asiantech.internship.models;
  * Created by ducle on 15/06/2017.
  */
 
-public class Title {
+public class DrawerItem {
     private String name;
-    private boolean selected;
+    private boolean isSelected;
 
-    public Title(String name) {
+    public DrawerItem(String name) {
         this.name = name;
-        this.selected = false;
+        this.isSelected = false;
     }
 
     public String getName() {
@@ -22,10 +22,10 @@ public class Title {
     }
 
     public boolean isSelected() {
-        return selected;
+        return isSelected;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+    public void setSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 }
