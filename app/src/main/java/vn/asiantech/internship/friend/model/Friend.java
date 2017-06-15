@@ -1,4 +1,4 @@
-package vn.asiantech.internship.model;
+package vn.asiantech.internship.friend.model;
 
 /**
  * Created by at-dinhvo on 12/06/2017.

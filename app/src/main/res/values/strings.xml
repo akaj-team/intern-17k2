@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">Friend</string>
+    <string name="app_name">Intership</string>
+    <!--Splash-->
+    <string name="bai5">Bai5</string>
+    <string name="bai8">Bai8</string>
+    <!--Bai5-->
     <string name="friendfragment_button_friend_state">Friend</string>
     <string name="friendfragment_button_friend_add">Add</string>
 </resources>

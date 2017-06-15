@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.friend.ui;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +11,8 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Random;
 
-import vn.asiantech.internship.model.Friend;
+import vn.asiantech.internship.R;
+import vn.asiantech.internship.friend.model.Friend;
 
 /**
  * Created by BACKDOOR on 07-Feb-17.
