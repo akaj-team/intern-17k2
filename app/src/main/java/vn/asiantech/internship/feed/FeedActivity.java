@@ -21,7 +21,7 @@ public class FeedActivity extends AppCompatActivity {
         FeedFragment feedFragment = new FeedFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.flContent,feedFragment);
+        fragmentTransaction.add(R.id.flContent, feedFragment);
         fragmentTransaction.commit();
     }
 }

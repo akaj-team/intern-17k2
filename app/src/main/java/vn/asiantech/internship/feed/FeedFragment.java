@@ -32,7 +32,7 @@ public class FeedFragment extends Fragment {
         RecyclerView recyclerViewFeeds = (RecyclerView) view.findViewById(R.id.recyclerViewFeed);
         List<FeedItem> feeds = new ArrayList<>();
         // TODO: 6/15/2017 dummy data
-        feeds.add(new FeedItem("Daxua unty gank tem 15p gg", new int[]{R.drawable.bg_yasuo_1, R.drawable.bg_yasuo_2, R.drawable.bg_yasuo_3}, getResources().getString(R.string.yasuo)));
+        feeds.add(new FeedItem("Daxua unty gank tem 15p gg", new int[]{R.drawable.bg_yasuo_1, R.drawable.bg_yasuo_2, R.drawable.bg_yasuo_3, R.drawable.bg_yasuo_square_0}, getResources().getString(R.string.yasuo)));
         feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_aatrox_1, R.drawable.bg_aatrox_2, R.drawable.bg_anivia_4, R.drawable.bg_anivia_1,}, "Aatrox"));
         feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "Axtrox"));
         feeds.add(new FeedItem("Cao Van Cuong", new int[]{R.drawable.bg_anivia_0, R.drawable.bg_anivia_1, R.drawable.bg_anivia_4}, "sdfdsf"));
