@@ -27,17 +27,15 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int TYPE_HEADER = 100;
     private static final int TYPE_ITEM = 101;
 
-    private Context mContext;
     private List<DrawerItem> mDrawerItems;
     private OnItemClickListener mOnItemClickListener;
     private Bitmap mBitmap;
     private Drawable mWallPaperDrawable;
 
     public DrawerAdapter(Context context, List<DrawerItem> items, OnItemClickListener onItemClickListener) {
-        mContext = context;
         mDrawerItems = items;
         mOnItemClickListener = onItemClickListener;
-        WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
         mWallPaperDrawable = wallpaperManager.getDrawable();
     }
 
@@ -50,10 +48,10 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         View view;
         switch (viewType) {
             case TYPE_ITEM:
-                view = LayoutInflater.from(mContext).inflate(R.layout.item_drawer, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drawer, parent, false);
                 return new ItemViewHolder(view);
             case TYPE_HEADER:
-                view = LayoutInflater.from(mContext).inflate(R.layout.item_drawer_header, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drawer_header, parent, false);
                 return new ItemHeaderViewHolder(view);
         }
         return null;
@@ -65,9 +63,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ItemViewHolder itemHolder = (ItemViewHolder) holder;
             itemHolder.mTvItem.setText(mDrawerItems.get(position - 1).getTitle());
             if (mDrawerItems.get(position - 1).isSelected()) {
-                itemHolder.mTvItem.setTextColor(ContextCompat.getColor(mContext, R.color.textview_text_select_color));
+                itemHolder.mTvItem.setTextColor(ContextCompat.getColor(itemHolder.itemView.getContext(), R.color.textview_text_select_color));
             } else {
-                itemHolder.mTvItem.setTextColor(ContextCompat.getColor(mContext, R.color.textview_text_color));
+                itemHolder.mTvItem.setTextColor(ContextCompat.getColor(itemHolder.itemView.getContext(), R.color.textview_text_color));
             }
             return;
         }
