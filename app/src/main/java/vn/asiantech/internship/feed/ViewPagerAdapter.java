@@ -8,19 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+
 /**
- *
  * Created by Hai on 6/15/2017.
  */
-
-public class ViewPagerAdapter extends PagerAdapter {
+class ViewPagerAdapter extends PagerAdapter {
     private Context mContext;
     private int[] mImageArray;
 
-    public ViewPagerAdapter(Context context) {
-    }
-
-    public ViewPagerAdapter(Context context, int[] imageArray) {
+    ViewPagerAdapter(Context context, int[] imageArray) {
         mContext = context;
         mImageArray = imageArray;
     }
@@ -33,11 +29,13 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+//        View view = LayoutInflater.from(mContext).inflate(R.layout.item_viewpager, container, false);
+//        ImageView imageView = (ImageView) view.findViewById(R.id.imgViewPager);
         ImageView imageView = new ImageView(mContext);
         imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT));
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setBackgroundResource(mImageArray[position]);
-        container.addView(imageView, 0);
+        container.addView(imageView);
         return imageView;
     }
 

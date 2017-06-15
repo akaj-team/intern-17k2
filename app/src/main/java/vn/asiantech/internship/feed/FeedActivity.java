@@ -2,7 +2,6 @@ package vn.asiantech.internship.feed;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 
 import vn.asiantech.internship.R;
 

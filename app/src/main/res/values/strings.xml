@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Internship</string>
+    <string name="user.name">User_100001</string>
+    <string name="user.status">Với cái tiết trời ra đường chỉ muốn bùng cháy như
+        này thì nơi có thể tránh nóng và ngồi lầy lội lăn lê chỉ có quán cà phê boardgame.
+        #Pi coffee chính là ngồi nhà thân thương của team Ma sói và team Yugioh #danang,
+        và là tụ điểm offline boardgame của các bạn trẻ thế nên quán luôn ở trạng thái đông vui rộn ràng cực kì.
+    </string>
+    <string name="user.status.1">Con đường lên chuyên đã gần hơn chút chút so với hôm qua nhưng vẫn xa xa vạn dặm.
+        Hẹn các bạn tối nay 8 giờ Từ ngày em đến của Da LAB lên sóng nhé! Bản audio sẽ cùng lúc phát hành trên zing mp3
+    </string>
 </resources>
