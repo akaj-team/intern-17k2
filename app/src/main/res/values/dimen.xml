@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="view.padding">10dp</dimen>
+    <dimen name="viewpager.height">150dp</dimen>
+    <dimen name="feedactivity.imageview.avatar.width">50dp</dimen>
+    <dimen name="feedactivity.imageview.avatar.height">50dp</dimen>
+</resources>
