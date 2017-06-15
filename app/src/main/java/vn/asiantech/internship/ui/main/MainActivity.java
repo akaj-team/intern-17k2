@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
                         startActivityForResult(intent, REQUEST_CAMERA);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log.e("Error Create File: ", e.toString());
                     }
                 }
 
@@ -199,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
             cropIntent.putExtra("return-data", true);
             startActivityForResult(cropIntent, REQUEST_CROP);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("Crop Image: ", e.toString());
         }
     }
 

@@ -27,12 +27,12 @@ public class SplashActivity extends AppCompatActivity {
         onClickButton();
     }
 
-    private void initSplashView(){
+    private void initSplashView() {
         mBtnBai5 = (Button) findViewById(R.id.btnBai5);
         mBtnBai6 = (Button) findViewById(R.id.btnBai6);
     }
 
-    private void onClickButton(){
+    private void onClickButton() {
         mBtnBai6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
