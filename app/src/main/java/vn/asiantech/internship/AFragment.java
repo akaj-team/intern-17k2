@@ -12,14 +12,14 @@ import android.widget.EditText;
  */
 public class AFragment extends Fragment{
 
-    private EditText mEditText;
+    private EditText mEdtInput;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_a, container, false);
-        mEditText = (EditText) v.findViewById(R.id.edtName);
+        mEdtInput = (EditText) v.findViewById(R.id.edtInput);
         return v;
     }
 
@@ -28,6 +28,6 @@ public class AFragment extends Fragment{
      * @return editText of Fragment A
      */
     public String getText() {
-        return mEditText.getText().toString();
+        return mEdtInput.getText().toString();
     }
 }

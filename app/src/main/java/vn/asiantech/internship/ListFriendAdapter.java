@@ -1,8 +1,6 @@
 package vn.asiantech.internship;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +60,7 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
         private Button mBtnAdd;
         private boolean mIsFriend;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
             mTvFriendName = (TextView) itemView.findViewById(R.id.tvUserName);
             mBtnAdd = (Button) itemView.findViewById(R.id.btnAdd);

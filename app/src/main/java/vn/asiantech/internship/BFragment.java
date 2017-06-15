@@ -13,7 +13,7 @@ import android.widget.TextView;
  */
 public class BFragment extends Fragment {
 
-    private TextView mTVShow;
+    private TextView mTvShow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,9 +25,9 @@ public class BFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_b, container, false);
-        mTVShow = (TextView) v.findViewById(R.id.tvShow);
-        Button btnSend = (Button) v.findViewById(R.id.btnSend2);
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        mTvShow = (TextView) v.findViewById(R.id.tvShow);
+        Button btnSend2 = (Button) v.findViewById(R.id.btnSend2);
+        btnSend2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getActivity() instanceof MainActivity) {
@@ -44,9 +44,12 @@ public class BFragment extends Fragment {
      * @param s is a text of fragment A
      */
     public void setText(String s) {
-        mTVShow.setText(s);
+        mTvShow.setText(s);
     }
 
+    /**
+     * interface
+     */
     public interface BFragmentInterface {
         void setText();
     }

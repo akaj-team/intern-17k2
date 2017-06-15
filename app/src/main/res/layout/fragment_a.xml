@@ -5,7 +5,7 @@
     tools:context="vn.asiantech.internship.AFragment">
 
     <EditText
-        android:id="@+id/edtName"
+        android:id="@+id/edtInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/hello_blank_fragment"
