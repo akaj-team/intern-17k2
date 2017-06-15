@@ -25,11 +25,9 @@ import vn.asiantech.internship.models.DrawerItem;
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_HEADER = 0;
-    private static final int TYPE_LIST = 1;
+    private static final int TYPE_ITEM = 1;
 
-    private LinearLayout mLnHeader;
-
-    private List<DrawerItem> mTitles;
+    private List<DrawerItem> mDrawerItems;
     private Context mContext;
     private Bitmap mBitmap;
     private OnItemClickListener mOnItemClickListener;
@@ -37,10 +35,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Drawable mDrawable;
 
     public DrawerAdapter(Context context, List<DrawerItem> titles, OnItemClickListener onItemClickListener) {
-        mTitles = titles;
+        mDrawerItems = titles;
         mContext = context;
         mOnItemClickListener = onItemClickListener;
-        setBackgroundHeader();
+        mWallpaperManager = WallpaperManager.getInstance(mContext);
+        mDrawable = mWallpaperManager.getDrawable();
     }
 
     @Override
@@ -48,40 +47,34 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case TYPE_HEADER:
-                return new HeaderViewHolder(inflater.inflate(R.layout.header_drawer, parent, false));
+                return new ItemHeaderViewHolder(inflater.inflate(R.layout.header_drawer, parent, false));
             default:
-                return new TitleViewHolder(inflater.inflate(R.layout.item_list_title, parent, false));
+                return new ItemViewHolder(inflater.inflate(R.layout.item_list_title, parent, false));
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof TitleViewHolder) {
-            TitleViewHolder titleViewHolder = (TitleViewHolder) holder;
-            titleViewHolder.mTvTitle.setText(mTitles.get(position).getTitle());
-            if (mTitles.get(position).isSelected()) {
+        if (holder instanceof ItemViewHolder) {
+            ItemViewHolder titleViewHolder = (ItemViewHolder) holder;
+            titleViewHolder.mTvTitle.setText(mDrawerItems.get(position).getTitle());
+            if (mDrawerItems.get(position).isSelected()) {
                 titleViewHolder.mTvTitle.setTextColor(Color.BLUE);
             } else {
                 titleViewHolder.mTvTitle.setTextColor(Color.WHITE);
             }
-            titleViewHolder.mLinearLayout.setSelected(mTitles.get(position).isSelected());
+            titleViewHolder.mLinearLayout.setSelected(mDrawerItems.get(position).isSelected());
         } else {
-            HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
+            ItemHeaderViewHolder headerViewHolder = (ItemHeaderViewHolder) holder;
             headerViewHolder.mTvName.setText(R.string.header_name);
             headerViewHolder.mTvEmail.setText(R.string.header_email);
             if (mBitmap != null) {
                 headerViewHolder.mImgAvatar.setImageBitmap(mBitmap);
             }
-            setBackgroundHeader();
-        }
-    }
-
-    private void setBackgroundHeader() {
-        mWallpaperManager = WallpaperManager.getInstance(mContext);
-        mDrawable = mWallpaperManager.getDrawable();
-        if (mLnHeader != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                mLnHeader.setBackground(mDrawable);
+            if (headerViewHolder.mLnHeader != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    headerViewHolder.mLnHeader.setBackground(mDrawable);
+                }
             }
         }
     }
@@ -91,26 +84,26 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (position == 0) {
             return TYPE_HEADER;
         }
-        return TYPE_LIST;
+        return TYPE_ITEM;
     }
 
     @Override
     public int getItemCount() {
-        return mTitles.size();
+        return mDrawerItems.size();
     }
 
     /**
      * viewholder of title item
      */
-    private class TitleViewHolder extends RecyclerView.ViewHolder {
+    private class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvTitle;
         private LinearLayout mLinearLayout;
 
-        TitleViewHolder(View itemView) {
+        ItemViewHolder(View itemView) {
             super(itemView);
-            mTvTitle = (TextView) itemView.findViewById(R.id.tvItemTitle);
-            mLinearLayout = (LinearLayout) itemView.findViewById(R.id.lnItem);
+            mTvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+            mLinearLayout = (LinearLayout) itemView.findViewById(R.id.llItem);
             mLinearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -125,13 +118,14 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * viewholder of header
      */
-    private class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvName;
         private TextView mTvEmail;
         private ImageView mImgAvatar;
+        private LinearLayout mLnHeader;
 
-        HeaderViewHolder(View itemView) {
+        ItemHeaderViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvEmail = (TextView) itemView.findViewById(R.id.tvEmail);

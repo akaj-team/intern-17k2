@@ -1,15 +1,15 @@
-package vn.asiantech.internship.ui.mainview;
+package vn.asiantech.internship.ui.main;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -35,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private RecyclerView mRecyclerViewDrawer;
     private LinearLayout mLinearLayoutContent;
-    private TextView mTvContent;
     private Toolbar mToolbar;
 
-    private DrawerAdapter mAdapterDrawer;
-    private List<DrawerItem> mTitleLeftMenus;
+    private DrawerAdapter mAdapter;
+    private List<DrawerItem> mDrawerItems;
+    private int mItemSelected = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
         mToolbar = (Toolbar) findViewById(R.id.toolBar);
-        mLinearLayoutContent = (LinearLayout) findViewById(R.id.lnContent);
-        mTvContent = (TextView) findViewById(R.id.tvContent);
+        mLinearLayoutContent = (LinearLayout) findViewById(R.id.llContent);
     }
 
     private void initToolbar() {
@@ -71,14 +70,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                invalidateOptionsMenu();
-                mDrawerLayout.closeDrawers();
             }
 
             @Override
@@ -92,51 +88,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initAdapter() {
-        String[] titles = {"Feed", "Activity", "Profile", "Friends",
-                "Map", "Chat", "Settings", "Home",
-                "Store", "History", "Back", "Exit"};
-        mTitleLeftMenus = initData(titles);
-        mAdapterDrawer = new DrawerAdapter(MainActivity.this, mTitleLeftMenus, new DrawerAdapter.OnItemClickListener() {
+        mDrawerItems = initData();
+        mAdapter = new DrawerAdapter(MainActivity.this, mDrawerItems, new DrawerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-
-                TextView tvTitleScreen = (TextView) findViewById(R.id.tvTitleFragment);
-                DrawerItem drawerItem = mTitleLeftMenus.get(position);
-                tvTitleScreen.setText(drawerItem.getTitle());
-                mTvContent.setText(drawerItem.getTitle());
-                drawerItem.setSelected(true);
-                int size = mTitleLeftMenus.size();
-                for (int i = 0; i < size; i++) {
-                    if (i != position) {
-                        mTitleLeftMenus.get(i).setSelected(false);
-                    }
+                TextView tvTitleFragment = (TextView) findViewById(R.id.tvTitleFragment);
+                DrawerItem item = mDrawerItems.get(position);
+                tvTitleFragment.setText(item.getTitle());
+                if (mItemSelected >= 0) {
+                    mDrawerItems.get(mItemSelected).setSelected(false);
                 }
+                item.setSelected(true);
+                mItemSelected = position;
                 mDrawerLayout.closeDrawers();
-                mAdapterDrawer.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onImageClick() {
-                Dialog dialog = onCreateDialog();
+                Dialog dialog = showDialog();
                 dialog.show();
             }
         });
         mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         mRecyclerViewDrawer.setHasFixedSize(true);
-        mRecyclerViewDrawer.setAdapter(mAdapterDrawer);
+        mRecyclerViewDrawer.setAdapter(mAdapter);
     }
 
-    /**
-     * Initialize List and add DrawerItem
-     *
-     * @param items list title of navigation
-     * @return list of DrawerItem
-     */
-    private List<DrawerItem> initData(String[] items) {
+    private List<DrawerItem> initData() {
         List<DrawerItem> list = new ArrayList<>();
-        for (int i = 0; i < items.length; i++) {
-            list.add(new DrawerItem(items[i]));
-        }
+        list.add(new DrawerItem(getString(R.string.menuleft_title_feed)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_activity)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_profile)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_friend)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_map)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_chat)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_setting)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_home)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_store)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_history)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_back)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_exit)));
         return list;
     }
 
@@ -158,31 +150,13 @@ public class MainActivity extends AppCompatActivity {
                 if (data != null && resultCode == RESULT_OK) {
                     Bundle extras = data.getExtras();
                     Bitmap selectedBitmap = extras.getParcelable(KEY_DATA);
-                    mAdapterDrawer.setImageBitmap(selectedBitmap);
-                    mAdapterDrawer.notifyItemChanged(0);
+                    mAdapter.setImageBitmap(selectedBitmap);
+                    mAdapter.notifyItemChanged(0);
                 }
         }
     }
 
-    /*private File getFileFromIntent(Intent data) {
-        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-        FileOutputStream fo;
-        try {
-            destination.createNewFile();
-            fo = new FileOutputStream(destination);
-            fo.write(bytes.toByteArray());
-            fo.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return destination;
-    }*/
-
-    public Dialog onCreateDialog() {
+    private Dialog showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.dialog_title)
                 .setItems(R.array.dialog_items, new DialogInterface.OnClickListener() {
@@ -213,6 +187,6 @@ public class MainActivity extends AppCompatActivity {
         cropIntent.putExtra("outputY", R.dimen.header_image_size);
         cropIntent.putExtra("scale", true);
         cropIntent.putExtra("return-data", true);
-        startActivityForResult(cropIntent, REQUEST_CROP); //cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(cropIntent, REQUEST_CROP);
     }
 }

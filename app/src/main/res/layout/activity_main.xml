@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/lnContent"
+        android:id="@+id/llContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundContent"
@@ -36,15 +36,13 @@
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
 
-        <TextView
-            android:id="@+id/tvContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/activity.content_margin"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/header.name_text_size"
-            tools:text="Item Navigation" />
+        <LinearLayout
+            android:id="@+id/llContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
