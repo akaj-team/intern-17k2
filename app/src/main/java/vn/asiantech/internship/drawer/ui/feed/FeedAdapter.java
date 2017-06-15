@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -47,12 +46,13 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemImageViewHolder) {
             ItemImageViewHolder imageViewHolder = (ItemImageViewHolder) holder;
-
-        } else if (holder instanceof ItemImageViewHolder) {
+        } else if (holder instanceof ItemStatusViewHolder) {
             ItemStatusViewHolder statusViewHolder = (ItemStatusViewHolder) holder;
-
+//            statusViewHolder.mImgAvatar.setImageResource(R.drawable.ic_troll);
+//            statusViewHolder.mTvName.setText(mFeedItems.get(position).getName());
         } else {
             ItemCommentViewHolder commentViewHolder = (ItemCommentViewHolder) holder;
+            commentViewHolder.mTvComment.setText(mFeedItems.get(position).getComment());
         }
     }
 
@@ -70,34 +70,34 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     /**
-     * viewholder of title item
+     * viewholder of viewpager image
      */
     private class ItemImageViewHolder extends RecyclerView.ViewHolder {
 
         private ViewPager mViewPager;
 
-        private List<Integer> mImage;
+        private List<Integer> mImages;
 
         ItemImageViewHolder(View itemView) {
             super(itemView);
             mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
             initImage();
-            mViewPager.setAdapter(new FeedPagerAdapter(itemView.getContext(), mImage));
+            mViewPager.setAdapter(new FeedPagerAdapter(itemView.getContext(), mImages));
         }
 
         private void initImage() {
-            mImage = new ArrayList<>();
-            mImage.add(R.drawable.img_danang);
-            mImage.add(R.drawable.img_danang);
-            mImage.add(R.drawable.img_danang);
-            mImage.add(R.drawable.img_danang);
-            mImage.add(R.drawable.img_danang);
-            mImage.add(R.drawable.img_danang);
+            mImages = new ArrayList<>();
+            mImages.add(R.drawable.img_danang);
+            mImages.add(R.drawable.img_danang);
+            mImages.add(R.drawable.img_danang);
+            mImages.add(R.drawable.img_danang);
+            mImages.add(R.drawable.img_danang);
+            mImages.add(R.drawable.img_danang);
         }
     }
 
     /**
-     * viewholder of header
+     * viewholder of status
      */
     private class ItemStatusViewHolder extends RecyclerView.ViewHolder {
 
@@ -112,21 +112,15 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     /**
-     * viewholder of header
+     * viewholder of comment
      */
     private class ItemCommentViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTvName;
-        private TextView mTvEmail;
-        private ImageView mImgAvatar;
-        private LinearLayout mLnHeader;
+        private TextView mTvComment;
 
         ItemCommentViewHolder(View itemView) {
             super(itemView);
-            mTvName = (TextView) itemView.findViewById(R.id.tvName);
-            mTvEmail = (TextView) itemView.findViewById(R.id.tvEmail);
-            mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
-            mLnHeader = (LinearLayout) itemView.findViewById(R.id.lnHeader);
+            mTvComment = (TextView) itemView.findViewById(R.id.tvComment);
         }
     }
 }

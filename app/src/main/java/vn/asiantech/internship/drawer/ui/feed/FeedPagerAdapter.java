@@ -19,7 +19,7 @@ import vn.asiantech.internship.R;
 public class FeedPagerAdapter extends PagerAdapter {
 
     private List<Integer> mImageItems;
-    LayoutInflater mInflater;
+    private LayoutInflater mInflater;
 
     public FeedPagerAdapter(Context context, List<Integer> imageItems) {
         mImageItems = imageItems;
@@ -35,8 +35,8 @@ public class FeedPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View imageLayout = mInflater.inflate(R.layout.item_list_image, container, false);
 //        assert imageLayout != null;
-        final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgFeed);
-        imageView.setImageResource(mImageItems.get(position));
+        ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgFeed);
+//        imageView.setImageResource(mImageItems.get(position));
         container.addView(imageLayout, 0);
         return imageLayout;
     }

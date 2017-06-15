@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/item.textview_margin"
             android:layout_marginStart="@dimen/item.textview_margin"
-            android:background="@color/colorLight"
             android:textColor="@color/colorBlack" />
 
     </LinearLayout>
