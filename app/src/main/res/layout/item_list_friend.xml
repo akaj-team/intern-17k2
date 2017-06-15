@@ -11,7 +11,7 @@
         android:layout_width="@dimen/heightImageViewFriends"
         android:layout_height="@dimen/heightImageViewFriends"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/textview.text.description"
+        android:contentDescription="@string/textview.text.descriptions"
         android:src="@mipmap/ic_avatar" />
 
     <Button
