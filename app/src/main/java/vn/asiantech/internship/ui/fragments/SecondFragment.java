@@ -22,7 +22,7 @@ import vn.asiantech.internship.models.MyData;
  */
 public class SecondFragment extends Fragment {
     private TextView mTvOutput;
-    private PassDataActivity.OnClick mListener;
+    private PassDataActivity.OnClickListener mListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

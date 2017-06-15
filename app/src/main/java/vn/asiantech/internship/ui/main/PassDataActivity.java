@@ -41,7 +41,7 @@ public class PassDataActivity extends AppCompatActivity {
 
         mFirstFragment = new FirstFragment();
         mSecondFragment = new SecondFragment();
-        MyData myData = new MyData(new OnClick() {
+        MyData myData = new MyData(new OnClickListener() {
             @Override
             public void onClick(TextView tv) {
                 tv.setText(mFirstFragment.getText());
@@ -64,7 +64,10 @@ public class PassDataActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    public interface OnClick {
+    /**
+     * This interface used to handle OnclickItem of Fragment
+     */
+    public interface OnClickListener {
         void onClick(TextView tv);
     }
 }
