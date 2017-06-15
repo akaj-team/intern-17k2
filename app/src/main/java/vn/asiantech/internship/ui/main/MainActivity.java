@@ -177,13 +177,13 @@ public class MainActivity extends AppCompatActivity {
 
     private List<DrawerItem> createData() {
         mDrawerItems = new ArrayList<>();
-        mDrawerItems.add(0, new DrawerItem(getResources().getString(R.string.drawer_item_feed)));
-        mDrawerItems.add(1, new DrawerItem(getResources().getString(R.string.drawer_item_activity)));
-        mDrawerItems.add(2, new DrawerItem(getResources().getString(R.string.drawer_item_profile)));
-        mDrawerItems.add(3, new DrawerItem(getResources().getString(R.string.drawer_item_friend)));
-        mDrawerItems.add(4, new DrawerItem(getResources().getString(R.string.drawer_item_map)));
-        mDrawerItems.add(5, new DrawerItem(getResources().getString(R.string.drawer_item_chat)));
-        mDrawerItems.add(6, new DrawerItem(getResources().getString(R.string.drawer_item_setting)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.drawer_item_feed)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.drawer_item_activity)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.drawer_item_profile)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.drawer_item_friend)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.drawer_item_map)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.drawer_item_chat)));
+        mDrawerItems.add(new DrawerItem(getResources().getString(R.string.drawer_item_setting)));
         return mDrawerItems;
     }
 
