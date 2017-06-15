@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.ui.fragment.ContentSelectFragment;
 
 /**
  * Main of all fragment
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTvContent;
     private DrawerLayout mDlContainer;
     private View mFragmentDrawer;
-    private RelativeLayout mRlContentDefault;
     private RelativeLayout mRlContent;
     private Toolbar mToolbar;
 
@@ -77,14 +75,12 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("CommitTransaction")
     private void initView() {
-        setFragmentDefault(new ContentSelectFragment());
         mIsBackToOut = true;
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvContent = (TextView) findViewById(R.id.tvContent);
         mRlParent = (RelativeLayout) findViewById(R.id.rlParent);
         mFragmentDrawer = findViewById(R.id.fragmentDrawer);
-        mRlContentDefault = (RelativeLayout) findViewById(R.id.rlContentDefault);
         mRlContent = (RelativeLayout) findViewById(R.id.rlContent);
         mDlContainer = (DrawerLayout) findViewById(R.id.dlContainer);
         setWidthDrawer();
@@ -106,15 +102,12 @@ public class MainActivity extends AppCompatActivity {
         if (isShowText) {
             mTvContent.setVisibility(View.VISIBLE);
             if (mIsBackToOut) {
-                mRlContentDefault.setVisibility(View.GONE);
                 mRlContent.setVisibility(View.GONE);
             }
             mTvContent.setText(s);
         } else {
             mTvContent.setVisibility(View.GONE);
             if (mIsBackToOut) {
-                mRlContentDefault.setVisibility(View.VISIBLE);
-            } else {
                 mRlContent.setVisibility(View.VISIBLE);
             }
         }
@@ -138,13 +131,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_top, R.anim.slide_out_bottom);
         fragmentTransaction.replace(R.id.rlContent, fragmentContent).commit();
-    }
-
-    private void setFragmentDefault(Fragment fragmentDefault) {
-        currentFragmentOpen = fragmentDefault;
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.rlContentDefault, fragmentDefault);
-        fragmentTransaction.commit();
     }
 
     private void outFragment(Fragment fragment) {

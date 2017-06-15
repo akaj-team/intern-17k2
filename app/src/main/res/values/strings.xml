@@ -19,6 +19,7 @@
     <string name="No">No</string>
     <string name="Tip.Show.Text.Do_You_Want_To_Exit">Do you want to exit ?</string>
     <string name="Text.Friend">Friend</string>
+    <string name="Text.Friends">FRIENDS</string>
     <string-array name="listDrawer">
         <item>Feed</item>
         <item>Activity</item>

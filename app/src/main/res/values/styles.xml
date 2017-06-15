@@ -22,6 +22,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TextHeadFriendStyle">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/colorTextHead</item>
+        <item name="android:textSize">@dimen/textSizeHeadFriend</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="ToolbarColoredBackArrow" parent="AppTheme">
         <item name="android:textColorSecondary">@color/colorMenuArrow</item>
     </style>
@@ -39,4 +46,5 @@
         <item name="android:textColor">@color/friendsColorWhite</item>
     </style>
 
+    <dimen name="textSizeHeadFriend">20sp</dimen>
 </resources>

@@ -77,7 +77,7 @@ public class DrawerFragment extends Fragment implements DrawerAdapter.OnItemsLis
         mDrawerAdapter.setPositionSelected(position);
         if (getActivity() instanceof MainActivity) {
             if (position == 1) {
-                ((MainActivity) getActivity()).setMainText(mListDrawer[position - 1], false);
+                ((MainActivity) getActivity()).setMainText(mListDrawer[position - 1], true);
             } else {
                 ((MainActivity) getActivity()).setMainText(mListDrawer[position - 1], true);
             }
