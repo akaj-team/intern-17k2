@@ -32,7 +32,7 @@ public class FeedsFragment extends Fragment {
         mRvFeeds = (RecyclerView) v.findViewById(R.id.rvFeeds);
         mRvFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
         addData();
-        mAdapter = new FeedsAdapter(mFeeds, getContext());
+        mAdapter = new FeedsAdapter(mFeeds);
         mRvFeeds.setAdapter(mAdapter);
         return v;
     }

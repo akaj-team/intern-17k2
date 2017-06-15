@@ -5,11 +5,13 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/paddingSomeThings">
 
-    <android.support.v4.widget.CircleImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAvatar"
-        android:src="@drawable/ic_one"
         android:layout_width="45dp"
-        android:layout_height="45dp" />
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_one" />
 
     <TextView
         android:id="@+id/tvName"
@@ -22,10 +24,9 @@
         tools:ignore="RtlHardcoded"
         tools:text="Nguyen Thanh Thien" />
 
-    <ImageView
-        android:id="@+id/imgThumb"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/imgAvatar"
-        android:src="@drawable/bg_stevi" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvName" />
 </RelativeLayout>
