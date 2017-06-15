@@ -59,19 +59,19 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof ItemViewHolder) {
-            ItemViewHolder myViewHolder = (ItemViewHolder) viewHolder;
-            myViewHolder.mTextView.setText(mItems[position - 1]);
+            ItemViewHolder myItemViewHolder = (ItemViewHolder) viewHolder;
+            myItemViewHolder.mTvName.setText(mItems[position - 1]);
             if (position == mPositionSelected) {
-                viewHolder.itemView.setBackgroundColor(myViewHolder.itemView.getContext().getResources().getColor(R.color.colorItemChoise));
+                myItemViewHolder.itemView.setBackgroundColor(myItemViewHolder.itemView.getContext().getResources().getColor(R.color.colorItemChoise));
             } else {
-                viewHolder.itemView.setBackgroundColor(myViewHolder.itemView.getContext().getResources().getColor(R.color.colorItem));
+                myItemViewHolder.itemView.setBackgroundColor(myItemViewHolder.itemView.getContext().getResources().getColor(R.color.colorItem));
             }
         } else if (viewHolder instanceof ItemHeaderViewHolder) {
-            ItemHeaderViewHolder myViewHolder = (ItemHeaderViewHolder) viewHolder;
-            myViewHolder.mClParent.setBackgroundDrawable(mWallpaperDrawable);
-            myViewHolder.mTvAuthorName.setText(myViewHolder.itemView.getContext().getString(R.string.app_author));
+            ItemHeaderViewHolder myHeaderViewHolder = (ItemHeaderViewHolder) viewHolder;
+            myHeaderViewHolder.mClParent.setBackgroundDrawable(mWallpaperDrawable);
+            myHeaderViewHolder.mTvAuthorName.setText(myHeaderViewHolder.itemView.getContext().getString(R.string.app_author));
             if (mBitmap != null) {
-                myViewHolder.mCivAvatar.setImageBitmap(mBitmap);
+                myHeaderViewHolder.mCivAvatar.setImageBitmap(mBitmap);
             }
         }
     }
@@ -86,11 +86,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      */
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTextView;
+        private TextView mTvName;
 
         ItemViewHolder(final View itemView) {
             super(itemView);
-            mTextView = (TextView) itemView.findViewById(R.id.tvName);
+            mTvName = (TextView) itemView.findViewById(R.id.tvName);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
