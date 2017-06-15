@@ -143,7 +143,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private class DrawerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class DrawerViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvTitle;
 
         DrawerViewHolder(View itemView) {
@@ -158,11 +158,6 @@ public class DrawerAdapter extends RecyclerView.Adapter {
                     }
                 }
             });
-        }
-
-        @Override
-        public void onClick(View v) {
-
         }
     }
 
