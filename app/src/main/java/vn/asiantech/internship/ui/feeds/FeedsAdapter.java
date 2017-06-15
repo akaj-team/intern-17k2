@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,13 +17,14 @@ import vn.asiantech.internship.models.Feed;
 
 /**
  * Created by root on 6/15/17.
+ * Feed Adapter
  */
-
 public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder> {
 
     private List<Feed> mFeeds;
+    private LinearLayout thumbnailsContainer;
 
-    public FeedsAdapter(List<Feed> Feeds) {
+    FeedsAdapter(List<Feed> Feeds) {
         this.mFeeds = Feeds;
     }
 
@@ -63,7 +65,9 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
             mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
-            mFeedImagesAdapter = new FeedImagesAdapter(mImages);
+            if (itemView.getContext() instanceof FeedsActivity) {
+                mFeedImagesAdapter = new FeedImagesAdapter(mImages, ((FeedsActivity) itemView.getParent()));
+            }
         }
 
         @Override

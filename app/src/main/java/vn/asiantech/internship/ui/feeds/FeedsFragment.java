@@ -20,20 +20,18 @@ import vn.asiantech.internship.models.Feed;
  */
 public class FeedsFragment extends Fragment {
 
-    private RecyclerView mRvFeeds;
     private List<Feed> mFeeds = new ArrayList<>();
-    private FeedsAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_feeds, container, false);
-        mRvFeeds = (RecyclerView) v.findViewById(R.id.rvFeeds);
-        mRvFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView rvFeeds = (RecyclerView) v.findViewById(R.id.rvFeeds);
+        rvFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
         addData();
-        mAdapter = new FeedsAdapter(mFeeds);
-        mRvFeeds.setAdapter(mAdapter);
+        FeedsAdapter adapter = new FeedsAdapter(mFeeds);
+        rvFeeds.setAdapter(adapter);
         return v;
     }
 

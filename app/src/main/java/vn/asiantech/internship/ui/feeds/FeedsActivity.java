@@ -6,6 +6,9 @@ import android.support.v7.widget.Toolbar;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Feeds Activity
+ */
 public class FeedsActivity extends AppCompatActivity {
 
     @Override
