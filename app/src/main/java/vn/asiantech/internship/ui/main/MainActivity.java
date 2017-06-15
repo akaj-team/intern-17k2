@@ -1,6 +1,7 @@
 package vn.asiantech.internship.ui.main;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.models.Title;
 import vn.asiantech.internship.ui.leftmenu.NavigationAdapter;
 import vn.asiantech.internship.models.User;
 
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_CROP = 3;
 
     private DrawerLayout mDlMain;
-    private String[] mTitle;
+    private List<Title> mTitles;
     private TextView mTvShow;
     private RecyclerView mRecyclerViewDrawer;
     private LinearLayout mLlContent;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTvTitle;
     private List<User> mUsers;
     private ActionBarDrawerToggle mDrawerToggle;
+    private int mSelectedPosition = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,10 +72,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDrawer() {
-        mNavigationAdapter = new NavigationAdapter(this, mTitle, mUsers, new NavigationAdapter.OnClickItemListener() {
+        mNavigationAdapter = new NavigationAdapter(this, mTitles, mUsers, new NavigationAdapter.OnClickItemListener() {
             @Override
             public void onClickItem(int position) {
-                mTvShow.setText(mTitle[position]);
+                mTvShow.setText(mTitles.get(position).getName());
+                mTitles.get(position).setSelected(true);
+                if (mSelectedPosition >= 0) {
+                    mTitles.get(mSelectedPosition).setSelected(false);
+                }
+                mSelectedPosition = position;
+                mNavigationAdapter.notifyDataSetChanged();
                 mDlMain.closeDrawer(Gravity.START);
             }
 
@@ -115,7 +124,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private void reference() {
         mUsers.add(new User(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round), "LeDuc", "leanhduc2015"));
-        mTitle = getResources().getStringArray(R.array.navigation_item);
+        mTitles = new ArrayList<>();
+        mTitles.add(new Title(getResources().getString(R.string.feed)));
+        mTitles.add(new Title(getResources().getString(R.string.activity)));
+        mTitles.add(new Title(getResources().getString(R.string.profile)));
+        mTitles.add(new Title(getResources().getString(R.string.friends)));
+        mTitles.add(new Title(getResources().getString(R.string.map)));
+        mTitles.add(new Title(getResources().getString(R.string.chat)));
+        mTitles.add(new Title(getResources().getString(R.string.settings)));
         mDlMain = (DrawerLayout) findViewById(R.id.dlMain);
         mTvShow = (TextView) findViewById(R.id.tvShow);
         mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);

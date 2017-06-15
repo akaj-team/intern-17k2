@@ -4,6 +4,7 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.models.Title;
 import vn.asiantech.internship.models.User;
 
 /**
@@ -28,14 +30,14 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int KEY_CAMERA = 1;
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
-    private String[] mTitle;
+    private List<Title> mTitles;
     private OnClickItemListener mOnClickItemListener;
     private List<User> mUsers;
     private Drawable mDrawable;
-    private int mSelectedPosition = -1;
 
-    public NavigationAdapter(Context context, String[] title, List<User> users, OnClickItemListener onClickItemListener) {
-        mTitle = title;
+
+    public NavigationAdapter(Context context, List<Title> titles, List<User> users, OnClickItemListener onClickItemListener) {
+       mTitles=titles;
         mOnClickItemListener = onClickItemListener;
         mUsers = users;
         mDrawable = WallpaperManager.getInstance(context).getDrawable();
@@ -43,7 +45,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return mTitle == null ? 1 : mTitle.length + 1;
+        return mTitles == null ? 1 : mTitles.size()+ 1;
     }
 
     @Override
@@ -67,7 +69,12 @@ public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             headerViewHolder.mImgBackground.setImageDrawable(mDrawable);
         } else {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            itemViewHolder.mTvItem.setText(mTitle[position - 1]);
+            itemViewHolder.mTvItem.setText(mTitles.get(position-1).getName());
+            if (mTitles.get(position-1).isSelected()){
+                itemViewHolder.mTvItem.setTextColor(ContextCompat.getColor((itemViewHolder.mTvItem.getContext()),R.color.item_clicked));
+            }else{
+                itemViewHolder.mTvItem.setTextColor(ContextCompat.getColor((itemViewHolder.mTvItem.getContext()),R.color.white));
+            }
         }
     }
 
