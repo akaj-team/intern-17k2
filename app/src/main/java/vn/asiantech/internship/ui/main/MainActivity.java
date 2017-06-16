@@ -18,6 +18,9 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.model.DrawerItem;
 import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
 
+/**
+ * MainActivity
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String KEY_DATA = "data";
