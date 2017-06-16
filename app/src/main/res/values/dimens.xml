@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="textview.textsize.user">20dp</dimen>
+    <dimen name="textview.textsize.user">20sp</dimen>
     <dimen name="cardview.layout_height.item_feed">300dp</dimen>
     <dimen name="relativelayout.layout_height">80dp</dimen>
     <dimen name="imageview.layout_marginStart">5dp</dimen>
