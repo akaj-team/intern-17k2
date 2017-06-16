@@ -9,7 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * Javadoc
+ * Created by datbu on 14-06-2017.
+ */
 public class MainActivity extends AppCompatActivity {
+    public static final String KEY = "Data";
+
     private TopFragment mTopFragment;
     private BottomFragment mBottomFragment;
 
@@ -35,24 +41,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Bundle bundle = new Bundle();
-        bundle.putSerializable("Data", myData);
+        bundle.putSerializable(KEY, myData);
         mBottomFragment.setArguments(bundle);
-        addFragment(mTopFragment, R.id.frgContent1, false);
-        addFragment(mBottomFragment, R.id.frgContent2, false);
+        addFragment(mTopFragment, R.id.flContentPass, false);
+        addFragment(mBottomFragment, R.id.flContentTwo, false);
     }
 
-    public void addFragment(Fragment fragment, int idContaint, boolean addToBackStack) {
+    public void addFragment(Fragment fragment, int idContent, boolean addToBackStack) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(idContaint, fragment);
+        transaction.replace(idContent, fragment);
         if (addToBackStack) {
             transaction.addToBackStack(fragment.getTag());
         }
         transaction.commit();
     }
 
-    public interface OnClick {
+    /**
+     * Javadoc
+     * Created by datbu on 14-06-2017.
+     */
+    interface OnClick {
         void onClick(TextView tv);
     }
 }
-

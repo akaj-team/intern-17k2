@@ -10,18 +10,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- *
+ * Javadoc
  * Created by datbu on 14-06-2017.
  */
 
-public class BottomFragment extends Fragment{
+public class BottomFragment extends Fragment {
     private TextView mTvOutput;
     private MainActivity.OnClick mListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mListener = ((SendData) getArguments().getSerializable("Data")).getListener();
+        mListener = ((SendData) getArguments().getSerializable(MainActivity.KEY)).getListener();
     }
 
     @Nullable

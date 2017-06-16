@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 /**
- *
+ * Javadoc
  * Created by datbu on 14-06-2017.
  */
 
