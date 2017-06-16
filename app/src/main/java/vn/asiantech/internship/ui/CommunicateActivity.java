@@ -13,7 +13,6 @@ public class CommunicateActivity extends AppCompatActivity {
 
     private InputFragment mInputFragment;
     private ActionFragment mActionFragment;
-
     private String mContent = "";
 
     @Override

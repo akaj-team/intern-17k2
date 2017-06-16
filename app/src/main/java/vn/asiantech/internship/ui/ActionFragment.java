@@ -18,6 +18,7 @@ public class ActionFragment extends Fragment {
 
     private TextView mTvContent;
     private Button mBtnGet;
+
     private SendData mSendData;
 
     /**
