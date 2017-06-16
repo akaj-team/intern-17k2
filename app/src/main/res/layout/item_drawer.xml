@@ -8,8 +8,7 @@
         android:id="@+id/tvItem"
         android:layout_width="match_parent"
         android:layout_height="@dimen/textview.item.height"
-        android:layout_marginLeft="@dimen/textview.item.margin.left"
-        android:layout_marginStart="@dimen/textview.item.margin.left"
+        android:layout_margin="@dimen/textview.item.margin"
         android:gravity="start"
         android:textColor="@color/textview.text.color"
         android:textSize="@dimen/textview.item.textsize" />
@@ -17,7 +16,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginLeft="@dimen/view.margin.left"
-        android:layout_marginStart="@dimen/view.margin.left"
+        android:layout_margin="@dimen/view.margin"
         android:background="@color/view.divider.color" />
 </LinearLayout>

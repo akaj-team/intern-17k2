@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llHeader"
     android:layout_width="match_parent"
     android:layout_height="@dimen/header.height"
-    android:gravity="bottom"
     android:orientation="vertical">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgAvatar"
-        android:layout_width="@dimen/imageview.width"
-        android:layout_height="@dimen/imageview.height"
-        android:paddingLeft="@dimen/imageview.padding"
-        android:paddingRight="@dimen/imageview.padding"
-        android:src="@mipmap/ic_launcher" />
-
-    <TextView
-        android:id="@+id/tvName"
+    <ImageView
+        android:id="@+id/imgBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/textview.name.padding"
-        android:paddingLeft="@dimen/textview.name.padding"
-        android:paddingRight="@dimen/textview.name.padding"
-        android:text="@string/user.name"
-        android:textColor="@color/textview_user.text.color" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="@dimen/imageview.width"
+            android:layout_height="@dimen/imageview.height"
+            android:paddingLeft="@dimen/imageview.padding"
+            android:paddingRight="@dimen/imageview.padding"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/textview.name.padding"
+            android:paddingLeft="@dimen/textview.name.padding"
+            android:paddingRight="@dimen/textview.name.padding"
+            android:text="@string/user.name"
+            android:textColor="@color/textview_user.text.color" />
+    </LinearLayout>
+</FrameLayout>

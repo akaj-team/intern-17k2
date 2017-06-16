@@ -1,15 +1,12 @@
 package vn.asiantech.internship.ui.main;
 
-import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -72,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         mTvTitle = (TextView) findViewById(R.id.tvTitle);
         mImgToggle = (ImageView) findViewById(R.id.imgToggle);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
     }
 
     private void initToolbar() {
@@ -160,12 +156,6 @@ public class MainActivity extends AppCompatActivity {
         });
         alertDialogBuilder.create();
         alertDialogBuilder.show();
-    }
-
-    private void checkPermission() {
-        //TODO
-        ActivityCompat.requestPermissions(MainActivity.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_CAMERA);
     }
 
     private void cropImage(Uri uri) {

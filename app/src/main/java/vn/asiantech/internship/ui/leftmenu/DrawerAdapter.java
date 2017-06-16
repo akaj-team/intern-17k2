@@ -4,13 +4,12 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -71,11 +70,8 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return;
         }
         if (holder instanceof ItemHeaderViewHolder) {
-            final int sdk = Build.VERSION.SDK_INT;
             ItemHeaderViewHolder itemHeaderViewHolder = (ItemHeaderViewHolder) holder;
-            if (sdk > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                itemHeaderViewHolder.mLlHeader.setBackground(mWallPaperDrawable);
-            }
+            itemHeaderViewHolder.mImgBackground.setImageDrawable(mWallPaperDrawable);
             if (mBitmap != null) {
                 itemHeaderViewHolder.mImgAvatar.setImageBitmap(mBitmap);
             }
@@ -123,13 +119,13 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      * class set view to header
      */
     private class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout mLlHeader;
         private CircleImageView mImgAvatar;
+        private ImageView mImgBackground;
 
         ItemHeaderViewHolder(View itemView) {
             super(itemView);
-            mLlHeader = (LinearLayout) itemView.findViewById(R.id.llHeader);
             mImgAvatar = (CircleImageView) itemView.findViewById(R.id.imgAvatar);
+            mImgBackground = (ImageView) itemView.findViewById(R.id.imgBackground);
             mImgAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
