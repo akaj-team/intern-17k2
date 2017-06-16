@@ -15,10 +15,9 @@ import vn.asiantech.internship.R;
  * Javadoc
  * Created by datbu on 14-06-2017.
  */
-
 public class BottomFragment extends Fragment {
     private TextView mTvOutput;
-    private MainActivity.OnClick mListener;
+    private MainActivity.OnSendDataListener mListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class BottomFragment extends Fragment {
         btnGetText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onClick(mTvOutput);
+                mListener.onSendDataClick(mTvOutput);
             }
         });
         return view;

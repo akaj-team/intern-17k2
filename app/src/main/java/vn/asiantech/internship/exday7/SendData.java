@@ -6,16 +6,15 @@ import java.io.Serializable;
  * Javadoc
  * Created by datbu on 14-06-2017.
  */
-
 class SendData implements Serializable {
 
-    private MainActivity.OnClick listener;
+    private MainActivity.OnSendDataListener listener;
 
-    SendData(MainActivity.OnClick listener) {
+    SendData(MainActivity.OnSendDataListener listener) {
         this.listener = listener;
     }
 
-    MainActivity.OnClick getListener() {
+    MainActivity.OnSendDataListener getListener() {
         return listener;
     }
 

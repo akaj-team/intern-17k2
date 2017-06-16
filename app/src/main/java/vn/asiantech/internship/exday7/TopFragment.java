@@ -13,7 +13,6 @@ import vn.asiantech.internship.R;
  * Javadoc
  * Created by datbu on 14-06-2017.
  */
-
 public class TopFragment extends Fragment {
     private EditText mEdtInput;
 

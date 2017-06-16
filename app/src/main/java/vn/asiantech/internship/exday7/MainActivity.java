@@ -36,20 +36,20 @@ public class MainActivity extends AppCompatActivity {
 
         mTopFragment = new TopFragment();
         mBottomFragment = new BottomFragment();
-        SendData myData = new SendData(new OnClick() {
+        SendData myData = new SendData(new OnSendDataListener() {
             @Override
-            public void onClick(TextView tv) {
+            public void onSendDataClick(TextView tv) {
                 tv.setText(mTopFragment.getText());
             }
         });
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY, myData);
         mBottomFragment.setArguments(bundle);
-        addFragment(mTopFragment, R.id.flContentPass, false);
-        addFragment(mBottomFragment, R.id.flContentTwo, false);
+        replaceFragment(mTopFragment, R.id.flContentPass, false);
+        replaceFragment(mBottomFragment, R.id.flContentTwo, false);
     }
 
-    public void addFragment(Fragment fragment, int idContent, boolean addToBackStack) {
+    public void replaceFragment(Fragment fragment, int idContent, boolean addToBackStack) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(idContent, fragment);
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
      * Javadoc
      * Created by datbu on 14-06-2017.
      */
-    interface OnClick {
-        void onClick(TextView tv);
+    interface OnSendDataListener {
+        void onSendDataClick(TextView tv);
     }
 }
