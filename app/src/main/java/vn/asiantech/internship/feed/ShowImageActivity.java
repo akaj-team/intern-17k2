@@ -10,9 +10,10 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.feed.adapters.PhotoListAdapter;
 
 /**
- * Created by PC on 6/15/2017.
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/15/2017
  */
-
 public class ShowImageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

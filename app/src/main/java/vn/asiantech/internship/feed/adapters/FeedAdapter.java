@@ -37,7 +37,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemFeedHolder
             holder.mAdapter = new PhotoListAdapter(holder.mContext, mFeeds.get(position).getPhotoList());
             holder.mViewPagerPhotos.setAdapter(holder.mAdapter);
         } else {
-            holder.mAdapter.setmPhotoList(mFeeds.get(position).getPhotoList());
+            holder.mAdapter.setPhotoList(mFeeds.get(position).getPhotoList());
             holder.mAdapter.notifyDataSetChanged();
         }
         holder.mTvText.setText(mFeeds.get(position).getText());
