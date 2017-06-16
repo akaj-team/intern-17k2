@@ -1,105 +1,120 @@
 package vn.asiantech.internship.ui.main;
 
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.model.DrawableItem;
-import vn.asiantech.internship.ui.leftmenu.DrawableAdapter;
+import vn.asiantech.internship.model.DrawerItem;
+import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
 
-/**
- * MainActivity
- */
 public class MainActivity extends AppCompatActivity {
 
+    private static final String KEY_DATA = "data";
+    private static final int REQUEST_GALLERY = 1234;
+    private static final int REQUEST_CAMERA = 1235;
+    private static final int REQUEST_CROP = 1236;
+    private static final int TYPE_GALLERY = 0;
+
     private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private RecyclerView mRecyclerView;
-    private TextView mTvContent;
+    private RecyclerView mRecyclerViewDrawer;
+    private LinearLayout mLinearLayoutContent;
     private Toolbar mToolbar;
-    private DrawableAdapter mRecyclerAdapter;
-    private List<DrawableItem> mTitles;
+
+    private DrawerAdapter mAdapter;
+    private List<DrawerItem> mDrawerItems;
+    private int mItemSelected = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initUI();
-        addEvents();
+        initView();
+        initToolbar();
+        initAdapter();
+        initLeftMenu();
     }
 
-    private void addEvents() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
+    private void initView() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
+        mToolbar = (Toolbar) findViewById(R.id.toolBar);
+        mLinearLayoutContent = (LinearLayout) findViewById(R.id.llContent);
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(mToolbar);
+    }
+
+    private void initLeftMenu() {
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                invalidateOptionsMenu();
-                mDrawerLayout.closeDrawers();
+            }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                mLinearLayoutContent.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
     }
 
-    private void initUI() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mToolbar = (Toolbar) findViewById(R.id.toolBar);
-        setSupportActionBar(mToolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        String[] titles = {"Feed", "Activity", "Profile", "Friends", "Map",
-                "Chat", "Settings", "Home", "Store", "History", "Back", "Exit"};
-        mTitles = initData(titles);
-        mRecyclerAdapter = new DrawableAdapter(mTitles, new DrawableAdapter.OnItemClickListener() {
+    private void initAdapter() {
+        mDrawerItems = initData();
+        mAdapter = new DrawerAdapter(MainActivity.this, mDrawerItems, new DrawerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                mTvContent = (TextView) findViewById(R.id.tvContent);
-                mTvContent.setText(mTitles.get(position).getTitle());
-                mTitles.get(position).setSelect(true);
-                int size = mTitles.size();
-                for (int i = 0; i < size; i++) {
-                    if (i != position) {
-                        mTitles.get(i).setSelect(false);
-                    }
+                TextView tvTitleFragment = (TextView) findViewById(R.id.tvTitleFragment);
+                DrawerItem item = mDrawerItems.get(position);
+                tvTitleFragment.setText(item.getTitle());
+                if (mItemSelected >= 0) {
+                    mDrawerItems.get(mItemSelected).setSelect(false);
+                    mAdapter.notifyItemChanged(mItemSelected + 1);
                 }
+                item.setSelect(true);
+                mItemSelected = position;
                 mDrawerLayout.closeDrawers();
-                mRecyclerAdapter.notifyDataSetChanged();
+                mAdapter.notifyItemChanged(position + 1);
             }
         });
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mRecyclerAdapter);
+        mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        mRecyclerViewDrawer.setHasFixedSize(true);
+        mRecyclerViewDrawer.setAdapter(mAdapter);
     }
 
-    /**
-     * Initialize List and add DrawableItem
-     *
-     * @param items list title of navigation
-     * @return list of DrawableItem
-     */
-    private List<DrawableItem> initData(String[] items) {
-        List<DrawableItem> list = new ArrayList<>();
-        for (int i = 0; i < items.length; i++) {
-            list.add(new DrawableItem(items[i]));
-        }
+    private List<DrawerItem> initData() {
+        List<DrawerItem> list = new ArrayList<>();
+        list.add(new DrawerItem(getString(R.string.menuleft_title_feed)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_activity)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_profile)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_friend)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_map)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_chat)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_setting)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_home)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_store)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_history)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_back)));
+        list.add(new DrawerItem(getString(R.string.menuleft_title_exit)));
         return list;
     }
 }

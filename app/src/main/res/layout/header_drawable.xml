@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lnHeader"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/header.layout_weight"
     android:background="@color/colorDark"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="@dimen/header.layout_padding">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAvatar"
         android:layout_width="@dimen/header.image_size"
         android:layout_height="@dimen/header.image_size"
-        android:src="@drawable/ic_troll" />
+        android:src="@drawable/ic_troll"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_overlay="true"
+        app:civ_border_width="@dimen/header.image_border_weight" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -24,16 +30,16 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/header.name_text_size"
+            android:text="@string/header.name"
             android:textColor="@color/colorWhite"
-            android:text="Hi i'm troll" />
+            android:textSize="@dimen/header.name_text_size" />
 
         <TextView
             android:id="@+id/tvEmail"
-            android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/header.email_margin"
-            android:text="troll@gmail.com" />
+            android:text="@string/header.email"
+            android:textColor="@color/colorWhite" />
     </LinearLayout>
 </LinearLayout>

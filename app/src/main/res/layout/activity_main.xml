@@ -6,36 +6,47 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/llContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorBgContent"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity.toolbar_height"
-            android:background="@color/colorToolbar" />
+            android:background="@color/colorToolbar">
 
-        <TextView
-            android:layout_marginTop="@dimen/activity.content_margin"
-            android:id="@+id/tvContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/header.name_text_size"
-            tools:text="Item Navigation" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity.toolbar_margin"
+                android:layout_marginRight="@dimen/activity.toolbar_margin">
+
+                <TextView
+                    android:id="@+id/tvTitleFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/header.name_text_size"
+                    tools:text="Feed" />
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:id="@+id/llContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="240dp"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewDrawer"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        android:background="@color/colorBgRecyclerView" />
 </android.support.v4.widget.DrawerLayout>

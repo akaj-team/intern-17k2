@@ -3,12 +3,12 @@ package vn.asiantech.internship.model;
 /**
  * Created by at-dinhvo on 12/06/2017.
  */
-public class DrawableItem {
+public class DrawerItem {
 
     private String title;
     private boolean isSelect;
 
-    public DrawableItem(String title) {
+    public DrawerItem(String title) {
         this.title = title;
     }
 
