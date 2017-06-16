@@ -41,11 +41,11 @@ public class PassDataActivity extends AppCompatActivity implements SecondFragmen
         mFirstFragment = new FirstFragment();
         mSecondFragment = new SecondFragment();
 
-        addFragment(mFirstFragment, R.id.frgContent1, false);
-        addFragment(mSecondFragment, R.id.frgContent2, false);
+        replaceFragment(mFirstFragment, R.id.frgContent1, false);
+        replaceFragment(mSecondFragment, R.id.frgContent2, false);
     }
 
-    public void addFragment(Fragment fragment, int idContaint, boolean addToBackStack) {
+    public void replaceFragment(Fragment fragment, int idContaint, boolean addToBackStack) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(idContaint, fragment);
