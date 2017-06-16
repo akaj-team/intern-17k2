@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:background="@color/background"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
+
     <Button
         android:id="@+id/btnGo"
-        android:text="@string/button.text.go"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/button.text.go" />
+
     <TextView
         android:id="@+id/tvResult"
-        android:textSize="@dimen/textview.textSize.result"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textview.textSize.result" />
 </LinearLayout>

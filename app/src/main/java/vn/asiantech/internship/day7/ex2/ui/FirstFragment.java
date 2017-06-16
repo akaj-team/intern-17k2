@@ -1,9 +1,8 @@
-package vn.asiantech.internship.ui;
+package vn.asiantech.internship.day7.ex2.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +15,16 @@ import vn.asiantech.internship.R;
  */
 public class FirstFragment extends Fragment {
     private EditText mEdtInput;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_1,container,false);
-        mEdtInput= (EditText) v.findViewById(R.id.edtInput);
+        View v = inflater.inflate(R.layout.fragment_1, container, false);
+        mEdtInput = (EditText) v.findViewById(R.id.edtInput);
         return v;
     }
-    public String getInput(){
-        Log.i("Value "," "+mEdtInput.getText().toString());
+
+    public String getInput() {
         return mEdtInput.getText().toString();
     }
 }
