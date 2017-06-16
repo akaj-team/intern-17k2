@@ -23,8 +23,8 @@ class ViewPagerAdapter extends PagerAdapter {
         mContext = context;
     }
 
-    void setImage(int[] SampleImages) {
-        mSampleImages = SampleImages;
+    void setImage(int[] sampleImages) {
+        mSampleImages = sampleImages;
     }
 
     @Override

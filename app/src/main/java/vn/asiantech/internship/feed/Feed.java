@@ -6,31 +6,31 @@ package vn.asiantech.internship.feed;
  */
 
 class Feed {
-    private String Name;
-    private int[] Image;
-    private String Title;
+    private String name;
+    private int[] image;
+    private String title;
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     int[] getImage() {
-        return Image;
+        return image;
     }
 
     String getTitle() {
-        return Title;
+        return title;
     }
 
     Feed(String name, int[] image, String title) {
 
-        Name = name;
-        Image = image;
-        Title = title;
+        this.name = name;
+        this.image = image;
+        this.title = title;
     }
 
 }

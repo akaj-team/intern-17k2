@@ -32,15 +32,15 @@ public class FeedFragment extends Fragment {
 
         List<Feed> feedList = new ArrayList<>();
         int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
-        feedList.add(new Feed("dasdas", sampleImages, "1"));
-        feedList.add(new Feed("dasdas", sampleImages, "2"));
-        feedList.add(new Feed("dasdas", sampleImages, "3"));
-        feedList.add(new Feed("dasdas", sampleImages, "4"));
-        feedList.add(new Feed("dasdas", sampleImages, "5"));
-        feedList.add(new Feed("dasdas", sampleImages, "6"));
-        feedList.add(new Feed("dasdas", sampleImages, "7"));
-        feedList.add(new Feed("dasdas", sampleImages, "8"));
-        feedList.add(new Feed("dasdas", sampleImages, "9"));
+        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "1"));
+        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "2"));
+        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "3"));
+        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "4"));
+        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "5"));
+        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "6"));
+        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "7"));
+        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "8"));
+        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "9"));
 
         LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
