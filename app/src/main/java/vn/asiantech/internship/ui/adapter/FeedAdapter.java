@@ -57,7 +57,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      * Created by huypham on 15/6/2017
      */
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
+    private final class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTvUserName;
         private final TextView mTvContent;
         private final ViewPager mViewPager;
