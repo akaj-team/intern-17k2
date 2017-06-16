@@ -8,10 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import vn.asiantech.internship.R;
 
 /**
- * Created by anhhuy on 15/06/2017.
+ * Activity for Feed
+ * Created by huypham on 15/06/2017.
  */
 
-public class FeedActivity extends AppCompatActivity{
+public class FeedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +20,7 @@ public class FeedActivity extends AppCompatActivity{
         setFragment();
     }
 
-    private void setFragment(){
+    private void setFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.flFeed, new FeedFragment());
         fragmentTransaction.commit();
