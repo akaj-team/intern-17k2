@@ -97,10 +97,10 @@ public class MainActivity extends AppCompatActivity {
                 DrawerItem item = mDrawerItems.get(position);
                 tvTitleFragment.setText(item.getTitle());
                 if (mItemSelected >= 0) {
-                    mDrawerItems.get(mItemSelected).setChoose(false);
+                    mDrawerItems.get(mItemSelected).setSelect(false);
                     mAdapter.notifyItemChanged(mItemSelected + 1);
                 }
-                item.setChoose(true);
+                item.setSelect(true);
                 mItemSelected = position;
                 mDrawerLayout.closeDrawers();
                 mAdapter.notifyItemChanged(position + 1);

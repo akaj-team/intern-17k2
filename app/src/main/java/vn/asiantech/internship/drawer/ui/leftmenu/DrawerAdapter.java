@@ -55,12 +55,12 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder titleViewHolder = (ItemViewHolder) holder;
             titleViewHolder.mTvTitle.setText(mDrawerItems.get(position - 1).getTitle());
-            if (mDrawerItems.get(position - 1).isChoose()) {
+            if (mDrawerItems.get(position - 1).isSelect()) {
                 titleViewHolder.mTvTitle.setTextColor(Color.BLUE);
             } else {
                 titleViewHolder.mTvTitle.setTextColor(Color.WHITE);
             }
-            titleViewHolder.mLinearLayout.setSelected(mDrawerItems.get(position - 1).isChoose());
+            titleViewHolder.mLinearLayout.setSelected(mDrawerItems.get(position - 1).isSelect());
         } else {
             ItemHeaderViewHolder headerViewHolder = (ItemHeaderViewHolder) holder;
             headerViewHolder.mTvName.setText(R.string.header_name);
