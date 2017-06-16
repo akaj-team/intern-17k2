@@ -56,9 +56,10 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
 
     @Override
     public void onClick(View v) {
-        if (getTextViewMaxLines() == Integer.MAX_VALUE)
+        if (getTextViewMaxLines() == Integer.MAX_VALUE) {
             setMaxLines(MAX_LINES);
-        else
+        } else {
             setMaxLines(Integer.MAX_VALUE);
+        }
     }
 }
