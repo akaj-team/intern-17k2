@@ -36,6 +36,9 @@ public class SecondIntentFragment extends Fragment {
         return view;
     }
 
+    /**
+     * set click for button in fragment 2
+     */
     public interface OnClickButton {
         void setClick();
     }

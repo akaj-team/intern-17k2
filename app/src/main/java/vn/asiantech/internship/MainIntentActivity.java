@@ -58,8 +58,9 @@ public class MainIntentActivity extends AppCompatActivity implements SecondInten
         }
         if (fragment.getTag() == null) {
             ft.replace(id, fragment, fragment.toString());
-        } else
+        } else {
             ft.replace(id, fragment);
+        }
         ft.commit();
     }
 }
