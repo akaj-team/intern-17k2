@@ -42,6 +42,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return mPosts == null ? 0 : mPosts.size();
     }
 
+    /**
+     * holder view in RecyclerView Post
+     */
     class PostViewHolder extends RecyclerView.ViewHolder {
         private CircleImageView mImgUser;
         private TextView mTvName;
