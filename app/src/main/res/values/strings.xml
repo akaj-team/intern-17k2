@@ -2,8 +2,6 @@
     <string name="app_name">Internship</string>
     <string name="user.name">user_1001</string>
     <string name="dialog.select.picture.message">Select picture</string>
-    <string name="dialog.select.gallery">Gallery</string>
-    <string name="dialog.select.camera">Camera</string>
     <string name="drawer.item.feed">Feed</string>
     <string name="drawer.item.activity">Activity</string>
     <string name="drawer.item.profile">Profile</string>
@@ -15,10 +13,6 @@
     <string name="button.day6.ex1.text">Day6 Ex1</string>
     <string name="dialog.item.gallery">Gallery</string>
     <string name="dialog.item.Camera">Camera</string>
-    <string-array name="dialog_items">
-        <item>Gallery</item>
-        <item>Camera</item>
-    </string-array>
     <string name="friend">FRIEND</string>
     <string name="add">ADD</string>
 </resources>

@@ -73,9 +73,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (holder instanceof ItemHeaderViewHolder) {
             final int sdk = Build.VERSION.SDK_INT;
             ItemHeaderViewHolder itemHeaderViewHolder = (ItemHeaderViewHolder) holder;
-            if (sdk < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                itemHeaderViewHolder.mLlHeader.setBackgroundDrawable(mWallPaperDrawable);
-            } else {
+            if (sdk > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 itemHeaderViewHolder.mLlHeader.setBackground(mWallPaperDrawable);
             }
             if (mBitmap != null) {

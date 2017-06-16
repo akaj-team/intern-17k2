@@ -8,12 +8,12 @@
         android:id="@+id/btnDay5Ex1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Day5 Ex1" />
+        android:text="@string/button.day5.ex1.text" />
 
     <Button
         android:id="@+id/btnDay6Ex1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Day6 Ex1" />
+        android:text="@string/button.day6.ex1.text" />
 
 </LinearLayout>
