@@ -1,0 +1,184 @@
+package vn.asiantech.internship.ui.leftmenu;
+
+import android.app.WallpaperManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import vn.asiantech.internship.R;
+import vn.asiantech.internship.models.DrawerItem;
+import vn.asiantech.internship.ui.main.MainActivity;
+
+/**
+ * This class used to custom DrawerLayout
+ *
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/12/2017
+ */
+public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final int TYPE_HEADER = 1;
+    private static final int TYPE_ITEM = 0;
+    private List<DrawerItem> mDrawerItems;
+    private OnItemClickListener mListener;
+    private Bitmap mBitmap;
+    private Drawable mWallpaper;
+
+    public DrawerAdapter(Context context, List<DrawerItem> items,
+                         OnItemClickListener listener) {
+        this.mDrawerItems = items;
+        mListener = listener;
+        mWallpaper = WallpaperManager.getInstance(context).getDrawable();
+    }
+
+    public void setAvatar(Bitmap bitmap) {
+        mBitmap = bitmap;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        switch (viewType) {
+            case TYPE_HEADER:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drawer_header, parent, false);
+                return new ItemHeaderViewHolder(view);
+            default:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drawer, parent, false);
+                return new ItemViewHolder(view);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return TYPE_HEADER;
+        }
+        return TYPE_ITEM;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ItemViewHolder) {
+            ItemViewHolder item = (ItemViewHolder) holder;
+            DrawerItem drawerItem = mDrawerItems.get(position - 1);
+            item.mTvName.setText(drawerItem.getName());
+            if (drawerItem.isSelected()) {
+                item.mTvName.setTextColor(ContextCompat.getColor(item.itemView.getContext(), R.color.drawerItemChooserTextColor));
+            } else {
+                item.mTvName.setTextColor(Color.WHITE);
+            }
+            return;
+        }
+        if (holder instanceof ItemHeaderViewHolder) {
+            ItemHeaderViewHolder header = (ItemHeaderViewHolder) holder;
+            // TODO: 6/12/2017 dummy data
+            header.mTvName.setText(R.string.user_name);
+            header.mTVEmail.setText(R.string.email);
+            if (mBitmap != null) {
+                header.mImgAvatar.setImageBitmap(mBitmap);
+            }
+            header.mImgHeaderBg.setImageBitmap(((BitmapDrawable) mWallpaper).getBitmap());
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDrawerItems.size() + 1;
+    }
+
+    /**
+     * This class used to custom list Item of DrawerLayout
+     */
+    private final class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView mTvName;
+
+        private ItemViewHolder(View itemView) {
+            super(itemView);
+            mTvName = (TextView) itemView.findViewById(R.id.tvName);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mListener != null) {
+                mListener.onItemClick(getAdapterPosition() - 1);
+            }
+        }
+    }
+
+    /**
+     * This class used to custom header of DrawerLayout
+     */
+    private final class ItemHeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private static final int CAMERA_SELECTED = 0;
+        private static final int GALLERY_SELECTED = 1;
+        private TextView mTvName;
+        private TextView mTVEmail;
+        private CircleImageView mImgAvatar;
+        private ImageView mImgHeaderBg;
+
+        private ItemHeaderViewHolder(View itemView) {
+            super(itemView);
+            mTvName = (TextView) itemView.findViewById(R.id.tvName);
+            mTVEmail = (TextView) itemView.findViewById(R.id.tvEmail);
+            mImgAvatar = (CircleImageView) itemView.findViewById(R.id.imgAvatar);
+            mImgHeaderBg = (ImageView) itemView.findViewById(R.id.imgBackground);
+            mImgAvatar.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.imgAvatar:
+                    showImageChooser(v.getContext());
+                    break;
+            }
+        }
+
+        private void showImageChooser(Context context) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle(R.string.choose_action).setItems(R.array.pick_image_chooser, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case CAMERA_SELECTED:
+                            if (mListener != null) {
+                                mListener.onAvatarClick(MainActivity.REQUEST_CODE_GALLERY);
+                            }
+                            break;
+                        case GALLERY_SELECTED:
+                            if (mListener != null) {
+                                mListener.onAvatarClick(MainActivity.REQUEST_CODE_CAMERA);
+                            }
+                            break;
+                        default:
+                            dialog.dismiss();
+                    }
+                }
+            });
+            builder.show();
+        }
+    }
+    /**
+     * This interface used to handle DrawerLayoutItem onClick
+     */
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+
+        void onAvatarClick(int chooser);
+    }
+}
