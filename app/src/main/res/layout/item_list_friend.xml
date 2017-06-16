@@ -26,7 +26,6 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/marginSomeThings"
         android:layout_marginEnd="@dimen/marginSomeThings"
-        android:stateListAnimator="@null"
         android:text="@string/Button.Text.Add" />
 
     <LinearLayout
