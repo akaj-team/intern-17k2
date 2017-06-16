@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.exday7;
 
 import java.io.Serializable;
 
