@@ -10,7 +10,6 @@ import vn.asiantech.internship.R;
  * Copyright © 2016 AsianTech inc.
  * Created by datbu on 15-06-2017.
  */
-
 public class ActivityFeed extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {

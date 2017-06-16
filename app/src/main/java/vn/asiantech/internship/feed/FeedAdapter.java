@@ -17,7 +17,6 @@ import vn.asiantech.internship.R;
  * Copyright © 2016 AsianTech inc.
  * Created by datbu on 15-06-2017.
  */
-
 class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyHolder> {
 
     private List<Feed> mFeedList = new ArrayList<>();
