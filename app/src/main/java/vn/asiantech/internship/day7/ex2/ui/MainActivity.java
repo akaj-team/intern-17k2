@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
                 mSecondFragment.setOutput(mFirstFragment.getInput());
             }
         });
-
-
     }
 
     public String onClick() {
