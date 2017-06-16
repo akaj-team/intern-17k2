@@ -1,11 +1,11 @@
 package vn.asiantech.internship.drawer.ui.feed;
 
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -31,9 +31,9 @@ public class FeedPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         LayoutInflater inflater = LayoutInflater.from(container.getContext());
-        View imageLayout = inflater.inflate(R.layout.item_image, container, false);
+        View imageLayout = inflater.inflate(R.layout.item_list_image, container, false);
         ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgFeed);
-        imageView.setImageResource(R.drawable.img_danang);
+        imageView.setImageResource(mImageItems.get(position));
         container.addView(imageLayout);
         return imageLayout;
     }
@@ -50,6 +50,6 @@ public class FeedPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((CardView) object);
+        container.removeView((LinearLayout) object);
     }
 }

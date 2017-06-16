@@ -46,13 +46,11 @@ public class FeedFragment extends Fragment {
 
     private List<Integer> initImages(){
         List<Integer> integers = new ArrayList<>();
+        integers.add(R.drawable.img_sunwheel);
         integers.add(R.drawable.img_danang);
-        integers.add(R.drawable.img_danang);
-        integers.add(R.drawable.img_danang);
-        integers.add(R.drawable.img_danang);
-        integers.add(R.drawable.img_danang);
-        integers.add(R.drawable.img_danang);
-        integers.add(R.drawable.img_danang);
+        integers.add(R.drawable.img_binhdinh);
+        integers.add(R.drawable.img_caurong);
+        integers.add(R.drawable.img_biendanang);
         return integers;
     }
 

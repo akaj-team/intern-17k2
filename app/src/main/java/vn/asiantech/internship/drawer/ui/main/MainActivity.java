@@ -101,7 +101,11 @@ public class MainActivity extends AppCompatActivity {
                 mItemSelected = position;
                 mDrawerLayout.closeDrawers();
                 mAdapter.notifyItemChanged(position + 1);
-                startActivity(new Intent(MainActivity.this, FeedActivity.class));
+                switch (position){
+                    case 0:
+                        startActivity(new Intent(MainActivity.this, FeedActivity.class));
+                }
+
             }
 
             @Override
