@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,7 +24,6 @@ import vn.asiantech.internship.ui.adapter.FeedAdapter;
 
 public class FeedFragment extends Fragment {
     private RecyclerView mRecyclerViewFeed;
-    private FeedAdapter mFeedAdapter;
     private List<Food> mFoodLists;
 
     @Nullable
@@ -40,9 +38,9 @@ public class FeedFragment extends Fragment {
     }
 
     private void setFeedAdapter() {
-        mFeedAdapter = new FeedAdapter(mFoodLists);
+        FeedAdapter feedAdapter = new FeedAdapter(mFoodLists);
         mRecyclerViewFeed.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerViewFeed.setAdapter(mFeedAdapter);
+        mRecyclerViewFeed.setAdapter(feedAdapter);
         mRecyclerViewFeed.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
@@ -54,17 +52,23 @@ public class FeedFragment extends Fragment {
 
     private void initDataFeed() {
         mFoodLists = new ArrayList<>();
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
-        mFoodLists.add(new Food("Icream", new int[]{R.drawable.bg_cat, R.drawable.bg_cat}, "ABCDEFGHIKLMN"));
+        mFoodLists.add(new Food(getResources().getString(R.string.textview_fragment_icePuppy),
+                new int[]{R.drawable.img_ice_puppey, R.drawable.img_ice, R.drawable.img_ice_chip},
+                getResources().getString(R.string.textview_fragment_content)));
+        mFoodLists.add(new Food(getResources().getString(R.string.textview_fragment_ice),
+                new int[]{R.drawable.img_ice, R.drawable.img_ice_puppey, R.drawable.img_ice_chip},
+                getResources().getString(R.string.textview_fragment_content)));
+        mFoodLists.add(new Food(getResources().getString(R.string.textview_fragment_iceChip),
+                new int[]{R.drawable.img_ice_chip, R.drawable.img_ice_puppey, R.drawable.img_ice},
+                getResources().getString(R.string.textview_fragment_content)));
+        mFoodLists.add(new Food(getResources().getString(R.string.textview_fragment_icePuppy),
+                new int[]{R.drawable.img_ice_puppey, R.drawable.img_ice, R.drawable.img_ice_chip},
+                getResources().getString(R.string.textview_fragment_content)));
+        mFoodLists.add(new Food(getResources().getString(R.string.textview_fragment_ice),
+                new int[]{R.drawable.img_ice, R.drawable.img_ice_puppey, R.drawable.img_ice_chip},
+                getResources().getString(R.string.textview_fragment_content)));
+        mFoodLists.add(new Food(getResources().getString(R.string.textview_fragment_iceChip),
+                new int[]{R.drawable.img_ice_chip, R.drawable.img_ice_puppey, R.drawable.img_ice},
+                getResources().getString(R.string.textview_fragment_content)));
     }
 }

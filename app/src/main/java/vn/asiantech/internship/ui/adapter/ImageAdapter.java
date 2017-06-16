@@ -14,16 +14,16 @@ import vn.asiantech.internship.R;
  * Created by huypham on 15/06/2017.
  */
 
-public class ImageAdapter extends PagerAdapter {
-    private Context mContext;
+class ImageAdapter extends PagerAdapter {
+    private final Context mContext;
     private int[] mImageLists;
 
-    public ImageAdapter(Context context, int[] imageLists) {
+    ImageAdapter(Context context, int[] imageLists) {
         mContext = context;
         mImageLists = imageLists;
     }
 
-    public void setmImageLists(int[] imageLists) {
+    void setImageLists(int[] imageLists) {
         this.mImageLists = imageLists;
     }
 
@@ -44,5 +44,10 @@ public class ImageAdapter extends PagerAdapter {
         imgFood.setImageResource(mImageLists[position]);
         container.addView(view);
         return view;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((View) object);
     }
 }

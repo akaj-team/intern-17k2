@@ -19,7 +19,7 @@ import vn.asiantech.internship.models.Food;
  */
 
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Food> mFoodLists;
+    private final List<Food> mFoodLists;
 
     public FeedAdapter(List<Food> foodLists) {
         mFoodLists = foodLists;
@@ -41,7 +41,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 item.mImageAdapter = new ImageAdapter(item.mContext, mFoodLists.get(position).getImage());
                 item.mViewPager.setAdapter(item.mImageAdapter);
             } else {
-                item.mImageAdapter.setmImageLists(mFoodLists.get(position).getImage());
+                item.mImageAdapter.setImageLists(mFoodLists.get(position).getImage());
                 item.mImageAdapter.notifyDataSetChanged();
             }
         }
@@ -58,11 +58,11 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      */
 
     private class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTvUserName;
-        private TextView mTvContent;
-        private ViewPager mViewPager;
+        private final TextView mTvUserName;
+        private final TextView mTvContent;
+        private final ViewPager mViewPager;
         private ImageAdapter mImageAdapter;
-        private Context mContext;
+        private final Context mContext;
 
         private ViewHolder(Context context, View itemView) {
             super(itemView);
