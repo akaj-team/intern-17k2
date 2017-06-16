@@ -17,10 +17,10 @@
         android:layout_marginLeft="@dimen/recyclerView.linearLayout_padding"
         android:layout_marginStart="@dimen/recyclerView.linearLayout_padding">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/recycleView.textView.name" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recycleView.textView.name" />
 
         <TextView
             android:id="@+id/tvYourName"
