@@ -6,7 +6,7 @@ package vn.asiantech.internship.drawer.models;
 public class DrawerItem {
 
     private String title;
-    private boolean isSelected;
+    private boolean isChoose;
 
     public DrawerItem(String title) {
         this.title = title;
@@ -20,11 +20,11 @@ public class DrawerItem {
         this.title = title;
     }
 
-    public boolean isSelected() {
-        return isSelected;
+    public boolean isChoose() {
+        return isChoose;
     }
 
-    public void setSelected(boolean iSelected) {
-        this.isSelected = iSelected;
+    public void setChoose(boolean iSelected) {
+        this.isChoose = iSelected;
     }
 }

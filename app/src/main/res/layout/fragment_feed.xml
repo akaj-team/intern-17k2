@@ -2,13 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorDark"
     tools:context="vn.asiantech.internship.drawer.ui.feed.FeedFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewFeed"
-        android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite" />
 
 </LinearLayout>

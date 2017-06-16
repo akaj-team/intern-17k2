@@ -8,6 +8,9 @@ import android.view.View;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.friend.ui.MainActivity;
 
+/**
+ * SplashActivity
+ */
 public class SplashActivity extends AppCompatActivity {
 
     @Override

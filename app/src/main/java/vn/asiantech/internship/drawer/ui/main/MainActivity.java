@@ -25,6 +25,9 @@ import vn.asiantech.internship.drawer.models.DrawerItem;
 import vn.asiantech.internship.drawer.ui.feed.FeedActivity;
 import vn.asiantech.internship.drawer.ui.leftmenu.DrawerAdapter;
 
+/**
+ * MainActivity
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String KEY_DATA = "data";
@@ -94,14 +97,14 @@ public class MainActivity extends AppCompatActivity {
                 DrawerItem item = mDrawerItems.get(position);
                 tvTitleFragment.setText(item.getTitle());
                 if (mItemSelected >= 0) {
-                    mDrawerItems.get(mItemSelected).setSelected(false);
+                    mDrawerItems.get(mItemSelected).setChoose(false);
                     mAdapter.notifyItemChanged(mItemSelected + 1);
                 }
-                item.setSelected(true);
+                item.setChoose(true);
                 mItemSelected = position;
                 mDrawerLayout.closeDrawers();
                 mAdapter.notifyItemChanged(position + 1);
-                switch (position){
+                switch (position) {
                     case 0:
                         startActivity(new Intent(MainActivity.this, FeedActivity.class));
                 }

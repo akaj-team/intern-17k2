@@ -56,7 +56,8 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             mTvName = (TextView) itemView.findViewById(R.id.tvFeed);
             mTvComment = (TextView) itemView.findViewById(R.id.tvComment);
             mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
-            mViewPager.setPadding(0, 0, 0, 0);
+            mViewPager.setPageMargin(5); // TODO Convert 'px' to 'dp'
+            mViewPager.setPageMarginDrawable(R.color.colorBlack);
         }
     }
 }

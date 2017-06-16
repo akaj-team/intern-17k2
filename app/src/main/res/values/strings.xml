@@ -11,10 +11,6 @@
     <string name="drawer_close">Draw close</string>
     <string name="header.name">at-dinhvo</string>
     <string name="header.email">at-dinhvo@gmail.com</string>
-    <string name="crop.aspectX">aspectX</string>
-    <string name="crop.aspectY">aspectY</string>
-    <string name="crop.outputX">outputX</string>
-    <string name="crop.outputY">outputY</string>
     <string name="dialog.title">Choose Image From:</string>
     <string name="menuleft.title.feed">Feed</string>
     <string name="menuleft.title.activity">Activity</string>
@@ -32,6 +28,4 @@
         <item>Gallery</item>
         <item>Camera</item>
     </string-array><!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="button">Get Content</string>
 </resources>
