@@ -36,14 +36,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder instanceof ViewHolder) {
             ViewHolder item = (ViewHolder) holder;
             item.setData(position);
-            item.setData(position);
-            if (item.mImageAdapter == null) {
-                item.mImageAdapter = new ImageAdapter(item.mContext, mFoodLists.get(position).getImage());
-                item.mViewPager.setAdapter(item.mImageAdapter);
-            } else {
-                item.mImageAdapter.setImageLists(mFoodLists.get(position).getImage());
-                item.mImageAdapter.notifyDataSetChanged();
-            }
+            item.mImageAdapter = new ImageAdapter(item.mContext, mFoodLists.get(position).getImage());
+            item.mViewPager.setAdapter(item.mImageAdapter);
         }
     }
 

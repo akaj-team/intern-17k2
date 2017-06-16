@@ -23,10 +23,6 @@ class ImageAdapter extends PagerAdapter {
         mImageLists = imageLists;
     }
 
-    void setImageLists(int[] imageLists) {
-        this.mImageLists = imageLists;
-    }
-
     @Override
     public int getCount() {
         return mImageLists.length;
