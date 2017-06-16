@@ -23,7 +23,7 @@ public class ActionFragment extends Fragment {
     /**
      * callback senddata from activity.
      */
-    public interface SendData{
+    public interface SendData {
         void onSend();
     }
 
@@ -31,7 +31,7 @@ public class ActionFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public ActionFragment(SendData sendData){
+    public ActionFragment(SendData sendData) {
         mSendData = sendData;
     }
 
@@ -55,7 +55,7 @@ public class ActionFragment extends Fragment {
         });
     }
 
-    public void setText(String content){
+    public void setText(String content) {
         mTvContent.setText(content);
     }
 }

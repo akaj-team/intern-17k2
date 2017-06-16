@@ -28,7 +28,7 @@ public class InputFragment extends Fragment {
         return layout;
     }
 
-    public String getText(){
+    public String getText() {
         return mEdtInput.getText().toString();
     }
 }

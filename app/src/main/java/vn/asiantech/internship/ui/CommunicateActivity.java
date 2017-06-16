@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
 
+/**
+ * CommunicateActivity
+ */
 public class CommunicateActivity extends AppCompatActivity {
 
     private InputFragment mInputFragment;
