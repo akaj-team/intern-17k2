@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.models.ExpandableTextView;
 import vn.asiantech.internship.models.FeedItem;
 
 /**
@@ -50,13 +51,13 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder> {
     class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private ViewPager mViewPagerImage;
-        private TextView mTvStatus;
+        private ExpandableTextView mTvStatus;
 
         ItemViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mViewPagerImage = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
-            mTvStatus = (TextView) itemView.findViewById(R.id.tvStatus);
+            mTvStatus = (ExpandableTextView) itemView.findViewById(R.id.tvStatus);
         }
     }
 }
