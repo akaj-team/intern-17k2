@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * Created by ducle on 15/06/2017.
  */
-
 public class Post {
     private Bitmap imageUSer;
     private String name;
@@ -25,10 +24,6 @@ public class Post {
         return imageUSer;
     }
 
-    public void setImageUSer(Bitmap imageUSer) {
-        this.imageUSer = imageUSer;
-    }
-
     public String getName() {
         return name;
     }
@@ -41,15 +36,7 @@ public class Post {
         return imageList;
     }
 
-    public void setImageList(List<Bitmap> imageList) {
-        this.imageList = imageList;
-    }
-
     public String getDesription() {
         return desription;
-    }
-
-    public void setDesription(String desription) {
-        this.desription = desription;
     }
 }
