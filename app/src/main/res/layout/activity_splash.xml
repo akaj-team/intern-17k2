@@ -31,5 +31,4 @@
             android:layout_marginTop="20dp"
             android:text="Day 7" />
     </LinearLayout>
-
 </ScrollView>
