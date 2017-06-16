@@ -4,9 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:background="@color/friendsColorPrimary"
-    android:paddingBottom="@dimen/paddingSomeThings"
-    android:padding="@dimen/paddingSomeThings"
-    android:paddingTop="@dimen/paddingSomeThings">
+    android:padding="@dimen/paddingSomeThings">
 
     <ImageView
         android:id="@+id/imgAvatar"
@@ -14,7 +12,7 @@
         android:layout_height="@dimen/heightImageViewFriends"
         android:layout_centerVertical="true"
         android:src="@mipmap/ic_avatar"
-        android:contentDescription="@string/TextView.Text.Description" />
+        android:contentDescription="@string/textview.text.description" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -26,7 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/marginSomeThings"
         android:layout_marginEnd="@dimen/marginSomeThings"
-        android:text="@string/Button.Text.Add" />
+        android:text="@string/button.text.add" />
 
     <LinearLayout
         android:id="@+id/lnParent"
@@ -39,19 +37,17 @@
         android:layout_toRightOf="@id/imgAvatar"
         android:layout_toEndOf="@id/imgAvatar"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/tvUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/paddingSomeThings"
-            android:text="@string/TextView.Text.User_Name" />
-
+            android:text="@string/textview.text.user_name" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/paddingSomeThings"
-            android:text="@string/TextView.Text.Description" />
+            android:text="@string/textview.text.description" />
     </LinearLayout>
 
     <View

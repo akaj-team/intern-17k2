@@ -1,43 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dlContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/lnParent"
+    <RelativeLayout
+        android:id="@+id/rlParent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.example.luiss.baitap1.com.example.luiss.baitap.Buoi5.View.FriendsBuoi05">
+        android:layout_height="wrap_content">
 
-        <Toolbar
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/friendsColorPrimaryDark"
             tools:ignore="NewApi">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/vector_menu"
-                android:contentDescription="@string/TextView.Text.Description" />
-
             <TextView
+                style="@style/TextHeadStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/Button.Text.Friends"
-                android:textSize="@dimen/friendsTextSizes"
-                android:textStyle="bold" />
-        </Toolbar>
+                android:layout_height="@dimen/marginLarge"
+                android:layout_marginEnd="@dimen/marginLarge"
+                android:layout_marginRight="@dimen/marginLarge"
+                android:background="@color/colorPrimary"
+                android:gravity="center_vertical"
+                android:text="@string/app_name" />
+        </android.support.v7.widget.Toolbar>
 
-        <fragment
-            android:name="vn.asiantech.internship.views.ListFriendFragment"
+        <TextView
+            android:id="@+id/tvContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/fragment" />
-    </LinearLayout>
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <fragment
+        android:id="@+id/fragmentDrawer"
+        android:name="vn.asiantech.internship.ui.leftmenu.DrawerFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start" />
+</android.support.v4.widget.DrawerLayout>

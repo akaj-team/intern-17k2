@@ -2,13 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="vn.asiantech.internship.AFragment">
+    tools:context="vn.asiantech.internship.ui.fragment.AFragment">
 
     <EditText
         android:id="@+id/edtInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
+        android:text="@string/app_name"
         android:inputType="text" />
-
 </FrameLayout>

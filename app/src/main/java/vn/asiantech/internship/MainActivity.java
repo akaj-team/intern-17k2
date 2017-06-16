@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import vn.asiantech.internship.ui.fragment.AFragment;
+import vn.asiantech.internship.ui.fragment.BFragment;
+
 /**
  * MainActivity created by Thien 13/06
  */

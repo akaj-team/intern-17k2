@@ -14,8 +14,7 @@
         android:layout_height="@dimen/heightImageViewFriends"
         android:layout_centerVertical="true"
         android:src="@mipmap/ic_avatar"
-        android:contentDescription="@string/TextView.Text.Description" />
-
+        android:contentDescription="@string/textview.text.description" />
     <Button
         android:id="@+id/btnAdd"
         style="@style/ButtonAddStyle"
@@ -25,7 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/marginSomeThings"
         android:stateListAnimator="@null"
-        android:text="@string/Button.Text.Add" />
+        android:text="@string/button.text.add" />
 
     <LinearLayout
         android:id="@+id/lnParent"
@@ -41,13 +40,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/paddingSomeThings"
-            android:text="@string/TextView.Text.User_Name" />
-
+            android:text="@string/textview.text.user_name" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/paddingSomeThings"
-            android:text="@string/TextView.Text.Description" />
+            android:text="@string/textview.text.description" />
     </LinearLayout>
 
     <View

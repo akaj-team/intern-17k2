@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="vn.asiantech.internship.BFragment">
+    tools:context="vn.asiantech.internship.ui.fragment.BFragment">
 
     <Button
         android:id="@+id/btnSend2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Button.Text.Send" />
+        android:text="@string/button.text.send" />
 
     <TextView
         android:id="@+id/tvShow"

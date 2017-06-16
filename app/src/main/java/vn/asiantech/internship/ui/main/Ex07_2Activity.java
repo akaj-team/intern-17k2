@@ -1,7 +1,9 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.ui.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import vn.asiantech.internship.R;
 
 /**
  * Avtivity of Ex 7 .2

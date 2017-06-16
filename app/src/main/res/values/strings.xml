@@ -1,10 +1,38 @@
 <resources>
-    <string name="Button.Text.Send">Send</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="TextView.Text.User_Name">User Name</string>
-    <string name="TextView.Text.Description">Description</string>
-    <string name="Button.Text.Add">+ Add</string>
-    <string name="Button.Text.Friend">✓ FRIENDS</string>
-    <string name="Button.Text.Friends"> FRIENDS</string>
     <string name="app_name">Internship</string>
+    <string name="app_author">nguyen thanh thien</string>
+    <string name="textview.text.user_name">user name</string>
+    <string name="textview.text.description">description</string>
+    <string name="button.text.add">+ add</string>
+    <string name="button.text.friend">✓ fRIends</string>
+    <string name="text.messages.navigation_open">navigation Open</string>
+    <string name="text.messages.navigation_close">navigation close </string>
+    <string name="dialog.text.choice_select">choice select</string>
+    <string name="error.message.error">error !!</string>
+    <string name="title">title</string>
+    <string name="button.text.ex05">ex 05</string>
+    <string name="button.text.ex06">ex 06</string>
+    <string name="button.text.ex07_1">ex 07.1</string>
+    <string name="button.text.ex07_2">ex 07.2</string>
+    <string name="button.text.ex08">ex 08</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="tip.show.text.do_you_want_to_exit">do you want to exit ?</string>
+    <string name="text.friend">friend</string>
+    <string name="text.friends">Friends</string>
+    <string name="textview.text.descriptions">Descriptions</string>
+    <string name="button.text.send">send</string>
+    <string-array name="listdrawer">
+        <item>Feed</item>
+        <item>Activity</item>
+        <item>Profile</item>
+        <item>Friends</item>
+        <item>Map</item>
+        <item>Chat</item>
+        <item>Settings</item>
+    </string-array>
+    <string-array name="choice">
+        <item>Open Camera</item>
+        <item>Open Library</item>
+    </string-array>
 </resources>
