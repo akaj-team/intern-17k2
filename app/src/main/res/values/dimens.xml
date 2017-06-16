@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="textview.textsize.user">20dp</dimen>
-    <dimen name="linearlayout.layout_height.item_feed">180dp</dimen>
+    <dimen name="cardview.layout_height.item_feed">300dp</dimen>
     <dimen name="relativelayout.layout_height">80dp</dimen>
     <dimen name="imageview.layout_marginStart">5dp</dimen>
     <dimen name="textview.name.layout_marginStart">75dp</dimen>
@@ -11,4 +11,14 @@
     <dimen name="button.friends.layout_margin_Start">210dp</dimen>
     <dimen name="button.friends.layout_marginTop">5dp</dimen>
     <dimen name="textview.textSize.description_information_feed">15dp</dimen>
+    <dimen name="imageview.padding.feed">10dp</dimen>
+    <dimen name="cardview.textview.laayout_height.border">1dp</dimen>
+    <dimen name="cardview.ll.layout_height.feed">50dp</dimen>
+    <dimen name="cardview.imageview.layout_height.user">40dp</dimen>
+    <dimen name="cardview.textview.marginleft.user">5dp</dimen>
+    <dimen name="cardview.viewpager.layout_marginTop.feed">40dp</dimen>
+    <dimen name="cardview.viewpager.layout_marginBottom.feed">20dp</dimen>
+    <dimen name="cardview.viewpager.layout_width.feed">300dp</dimen>
+    <dimen name="cardview.textview.marginleft.description">20dp</dimen>
+    <dimen name="cardview.textview.marginTop.description">270dp</dimen>
 </resources>

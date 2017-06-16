@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="button.friends">#FFFFFF</color>
     <color name="btn.friends">#FF0033</color>
+    <color name="cardview.textview.background.border">#CCCCCC</color>
 </resources>

@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.asiantech.internship.day5.FriendActivity">
+    tools:context=".day9.ui.FeedActivity">
 
     <fragment
-        android:id="@+id/fragmentFriend"
-        android:name="vn.asiantech.internship.day5.FriendFragment"
+        android:id="@+id/frFeed"
+        android:name="vn.asiantech.internship.day9.ui.FeedFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_feed" />
 </LinearLayout>
