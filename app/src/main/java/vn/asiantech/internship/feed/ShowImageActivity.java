@@ -24,6 +24,7 @@ public class ShowImageActivity extends AppCompatActivity {
         int imageId = getIntent().getIntExtra(PhotoListAdapter.KEY_IMAGE, -1);
         if (imageId == -1) {
             finish();
+            return;
         }
         imgShow.setImageResource(imageId);
         PhotoViewAttacher photoViewAttacher = new PhotoViewAttacher(imgShow);
