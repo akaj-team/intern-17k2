@@ -11,7 +11,7 @@
         android:layout_width="@dimen/heightImageViewFriends"
         android:layout_height="@dimen/heightImageViewFriends"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/textview.text.descriptions"
+        android:contentDescription="@string/textview.text.description"
         android:src="@mipmap/ic_avatar" />
 
     <Button
@@ -20,9 +20,9 @@
         android:layout_width="wrap_content"
         android:layout_height="35sp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_margin="@dimen/paddingSomeThings"
+        android:stateListAnimator="@null"
         android:text="@string/button.text.add" />
 
     <LinearLayout
@@ -55,6 +55,5 @@
         android:layout_height="1dp"
         android:layout_below="@id/lnParent"
         android:layout_toEndOf="@id/imgAvatar"
-        android:layout_toRightOf="@id/imgAvatar"
         android:background="@color/friendsColorPrimaryDark" />
 </RelativeLayout>

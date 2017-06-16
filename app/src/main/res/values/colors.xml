@@ -1,10 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2196f3</color>
-    <color name="colorPrimaryDark">#0d47a1</color>
+    <color name="colorPrimary">#ECEBED</color>
+    <color name="colorPrimaryDark">#BFBDC4</color>
     <color name="colorAccent">#FF4081</color>
     <color name="friendsColorBorder">#C1BFC5</color>
     <color name="friendsColorPrimary">#F3F3F3</color>
     <color name="friendsColorPrimaryDark">#e0e0e0</color>
     <color name="friendsColorSelected">#FC0096</color>
     <color name="friendsColorWhite">#fff</color>
+    <color name="colorWhite">#fff</color>
+    <color name="colorTextHead">#86868B</color>
+    <color name="colorTextItem">#FFF</color>
+    <color name="colorItem">#86868B</color>
+    <color name="colorItemChoise">#5c5c5c</color>
+    <color name="colorMenuArrow">#FC0095</color>
+    <color name="colorLine">#9C9AA1</color>
 </resources>
