@@ -1,13 +1,14 @@
 package vn.asiantech.internship.feed;
 
 /**
+ * Copyright © 2016 AsianTech inc.
  * Created by datbu on 15-06-2017.
  */
 
-public class Feed {
-    String Name;
-    int[] image;
-    String title;
+class Feed {
+    private String Name;
+    private int[] Image;
+    private String Title;
 
     public String getName() {
         return Name;
@@ -17,27 +18,19 @@ public class Feed {
         Name = name;
     }
 
-    public int[] getImage() {
-        return image;
+    int[] getImage() {
+        return Image;
     }
 
-    public void setImage(int[] image) {
-        this.image = image;
+    String getTitle() {
+        return Title;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Feed(String name, int[] image, String title) {
+    Feed(String name, int[] image, String title) {
 
         Name = name;
-        this.image = image;
-        this.title = title;
+        Image = image;
+        Title = title;
     }
 
 }

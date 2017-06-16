@@ -11,21 +11,25 @@ import android.widget.ImageView;
 import vn.asiantech.internship.R;
 
 /**
+ * Copyright © 2016 AsianTech inc.
  * Created by datbu on 15-06-2017.
  */
-
-public class ViewPagerAdapter extends PagerAdapter {
+class ViewPagerAdapter extends PagerAdapter {
     private Context mContext;
-    private LayoutInflater mLayoutInflater;
-    private int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
+    private int[] mSampleImages;
 
-    public ViewPagerAdapter(Context context) {
+    ViewPagerAdapter(Context context, int[] sampleImages) {
+        mSampleImages = sampleImages;
         mContext = context;
+    }
+
+    void setImage(int[] SampleImages) {
+        mSampleImages = SampleImages;
     }
 
     @Override
     public int getCount() {
-        return sampleImages.length;
+        return mSampleImages.length;
     }
 
     @Override
@@ -35,13 +39,13 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = mLayoutInflater.inflate(R.layout.item_image_feed,null);
+        LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.item_feed, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.imgSlide);
-        imageView.setImageResource(sampleImages[position]);
+        imageView.setImageResource(mSampleImages[position]);
 
         ViewPager viewPager = (ViewPager) container;
-        viewPager.addView(view,0);
+        viewPager.addView(view, 0);
         return view;
     }
 

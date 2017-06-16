@@ -1,5 +1,6 @@
 package vn.asiantech.internship.feed;
 
+import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,44 +14,63 @@ import java.util.List;
 import vn.asiantech.internship.R;
 
 /**
+ * Copyright © 2016 AsianTech inc.
  * Created by datbu on 15-06-2017.
  */
 
-public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyHolder> {
-    List<Feed> feedList = new ArrayList<>();
+class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyHolder> {
+
+    private List<Feed> mFeedList = new ArrayList<>();
 
     FeedAdapter(List<Feed> feedList) {
-        feedList = feedList;
+
+        mFeedList = feedList;
     }
 
-    public class MyHolder extends RecyclerView.ViewHolder {
-        private ViewPager viewPager;
-        private TextView tvTitle;
+    /**
+     * Copyright © 2016 AsianTech inc.
+     * Created by datbu on 15-06-2017.
+     */
+    class MyHolder extends RecyclerView.ViewHolder {
+        private ViewPager mViewPager;
+        private TextView mTvTitle;
+        private TextView mTvName;
+        private Context mContext;
+        private ViewPagerAdapter mViewPagerAdapter;
 
-        public MyHolder(View itemView) {
+        MyHolder(Context context, View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-            viewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
-
+            mContext = context;
+            mTvName = (TextView) itemView.findViewById(R.id.tvStatus);
+            mTvTitle = (TextView) itemView.findViewById(R.id.tvImgTitle);
+            mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
         }
     }
 
-
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feed, parent, false);
-        return new MyHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image_feed, parent, false);
+        return new MyHolder(parent.getContext(), v);
     }
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
-        Feed feed = feedList.get(position);
-        holder.tvTitle.setText(feed.getTitle());
+        Feed feed = mFeedList.get(position);
+        holder.mTvTitle.setText(feed.getTitle());
+        holder.mTvName.setText(feed.getName());
+        if (holder.mViewPagerAdapter == null) {
+            holder.mViewPagerAdapter = new ViewPagerAdapter(holder.mContext, feed.getImage());
+            holder.mViewPager.setAdapter(holder.mViewPagerAdapter);
+        } else {
+            holder.mViewPagerAdapter.setImage(feed.getImage());
+            holder.mViewPagerAdapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return feedList.size();
-    }
+        return mFeedList.size();
 
+    }
 }

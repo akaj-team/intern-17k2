@@ -15,10 +15,11 @@ import java.util.List;
 import vn.asiantech.internship.R;
 
 /**
+ * Copyright © 2016 AsianTech inc.
  * Created by datbu on 15-06-2017.
  */
-
 public class FeedFragment extends Fragment {
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,7 @@ public class FeedFragment extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(manager);
+
         // Our classic custom Adapter.
         FeedAdapter adapter = new FeedAdapter(feedList);
         recyclerView.setAdapter(adapter);
