@@ -1,4 +1,4 @@
-package vn.asiantech.internship.Day6_Navigation;
+package vn.asiantech.internship.ui.leftmenu;
 
 import android.app.WallpaperManager;
 import android.graphics.Color;
@@ -14,11 +14,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.model.DrawableItem;
 
 /**
  * Created by at-dinhvo on 12/06/2017.
  */
-
 public class DrawableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int TYPE_HEADER = 0;
@@ -48,9 +48,9 @@ public class DrawableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof TitleViewHolder) {
             TitleViewHolder titleViewHolder = (TitleViewHolder) holder;
             titleViewHolder.mTvTitle.setText(mTitles.get(position).getTitle());
-            if (mTitles.get(position).isSelected()) {
+            if (mTitles.get(position).isSelect()) {
                 titleViewHolder.mTvTitle.setTextColor(Color.BLUE);
-                titleViewHolder.mLinearLayout.setSelected(mTitles.get(position).isSelected());
+                titleViewHolder.mLinearLayout.setSelected(mTitles.get(position).isSelect());
             }
         } else {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;

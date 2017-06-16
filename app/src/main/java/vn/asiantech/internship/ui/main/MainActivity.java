@@ -1,4 +1,4 @@
-package vn.asiantech.internship.Day6_Navigation;
+package vn.asiantech.internship.ui.main;
 
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,7 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.model.DrawableItem;
+import vn.asiantech.internship.ui.leftmenu.DrawableAdapter;
 
+/**
+ * MainActivity
+ */
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
@@ -68,11 +73,11 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(int position) {
                 mTvContent = (TextView) findViewById(R.id.tvContent);
                 mTvContent.setText(mTitles.get(position).getTitle());
-                mTitles.get(position).setSelected(true);
+                mTitles.get(position).setSelect(true);
                 int size = mTitles.size();
                 for (int i = 0; i < size; i++) {
                     if (i != position) {
-                        mTitles.get(i).setSelected(false);
+                        mTitles.get(i).setSelect(false);
                     }
                 }
                 mDrawerLayout.closeDrawers();

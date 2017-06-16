@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:padding="@dimen/item.layout_padding"
-    android:background="@drawable/selected">
+    android:background="@drawable/select">
 
     <TextView
         android:id="@+id/tvItemTitle"
