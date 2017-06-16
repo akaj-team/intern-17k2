@@ -72,19 +72,19 @@ class FeedAdapter extends RecyclerView.Adapter {
      * Used to register for viewpager.
      */
     private static class FeedPagerAdapter extends PagerAdapter {
-        private final List<Integer> images;
-        private final LayoutInflater inflater;
+        private final List<Integer> mImages;
+        private final LayoutInflater mInflater;
         private final Context mContext;
 
-        FeedPagerAdapter(Context context, List<Integer> images) {
-            this.images = images;
+        FeedPagerAdapter(Context context, List<Integer> mImages) {
+            this.mImages = mImages;
             this.mContext = context;
-            inflater = LayoutInflater.from(mContext);
+            mInflater = LayoutInflater.from(mContext);
         }
 
         @Override
         public int getCount() {
-            return images.size();
+            return mImages.size();
         }
 
         @Override
@@ -99,9 +99,9 @@ class FeedAdapter extends RecyclerView.Adapter {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            View imageLayout = inflater.inflate(R.layout.item_images, container, false);
+            View imageLayout = mInflater.inflate(R.layout.item_images, container, false);
             final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgItem);
-            imageView.setImageResource(images.get(position));
+            imageView.setImageResource(mImages.get(position));
             container.addView(imageLayout, 0);
             return imageLayout;
         }
