@@ -11,7 +11,8 @@ import android.widget.EditText;
 import vn.asiantech.internship.R;
 
 /**
- *
+ * fragment contain data input
+ * <p>
  * Created by Hai on 6/13/2017.
  */
 public class InputFragment extends Fragment {

@@ -1,6 +1,7 @@
 package vn.asiantech.internship.ui.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,12 +13,13 @@ import android.widget.TextView;
 import vn.asiantech.internship.R;
 
 /**
- *
+ * fragment get result
+ * <p>
  * Created by Hai on 6/13/2017.
  */
 public class ResultFragment extends Fragment {
     private TextView mTvResult;
-    private OnListener mOnListener;
+    private OnClickListener mOnClickListener;
 
     @Nullable
     @Override
@@ -28,16 +30,18 @@ public class ResultFragment extends Fragment {
         btnSendData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnListener != null) {
-                    mOnListener.onSendData();
+                if (mOnClickListener != null) {
+                    mOnClickListener.onSendData();
                 }
             }
         });
         return view;
     }
 
-    public ResultFragment(OnListener onListener) {
-        mOnListener = onListener;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mOnClickListener = (OnClickListener) context;
     }
 
     public void setText(String s) {
@@ -47,7 +51,7 @@ public class ResultFragment extends Fragment {
     /**
      * interface using in SendDataActivity handle event Click send data
      */
-    public interface OnListener {
+    public interface OnClickListener {
         void onSendData();
     }
 }

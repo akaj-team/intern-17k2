@@ -3,6 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="frg1.color">#bac0e4</color>
-    <color name="frg2.color">#e1d8b2</color>
+    <color name="frginput.color">#bac0e4</color>
+    <color name="frgresult.color">#e1d8b2</color>
+    <color name="button_friend.color">#F55A9E</color>
+    <color name="button_add.color">#ffffff</color>
+    <color name="recyclerview.background">#F5F5F6</color>
+    <color name="frgFriend.background">#818184</color>
+    <color name="item_list_friend.background">#F5F5F6</color>
 </resources>

@@ -12,10 +12,11 @@ import vn.asiantech.internship.ui.fragments.InputFragment;
 import vn.asiantech.internship.ui.fragments.ResultFragment;
 
 /**
- *
+ * activity send data
+ * <p>
  * Created by Hai on 6/13/2017.
  */
-public class SendDataActivity extends AppCompatActivity {
+public class SendDataActivity extends AppCompatActivity implements ResultFragment.OnClickListener {
     private InputFragment mInputFragment;
     private ResultFragment mResultFragment;
 
@@ -24,13 +25,7 @@ public class SendDataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_data);
         mInputFragment = new InputFragment();
-        mResultFragment = new ResultFragment(new ResultFragment.OnListener() {
-            @Override
-            public void onSendData() {
-                mResultFragment.setText(mInputFragment.getText());
-            }
-        });
-
+        mResultFragment = new ResultFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.flInput, mInputFragment);
@@ -40,8 +35,17 @@ public class SendDataActivity extends AppCompatActivity {
         btnSendData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mResultFragment.setText(mInputFragment.getText());
+                setText();
             }
         });
+    }
+
+    @Override
+    public void onSendData() {
+        setText();
+    }
+
+    private void setText() {
+        mResultFragment.setText(mInputFragment.getText());
     }
 }
