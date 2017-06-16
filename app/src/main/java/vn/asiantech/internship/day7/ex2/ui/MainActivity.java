@@ -7,6 +7,9 @@ import android.widget.Button;
 
 import vn.asiantech.internship.R;
 
+/**
+ * create by at-hoavo on 16/06/2017
+ */
 public class MainActivity extends AppCompatActivity {
     private FirstFragment mFirstFragment;
     private SecondFragment mSecondFragment;

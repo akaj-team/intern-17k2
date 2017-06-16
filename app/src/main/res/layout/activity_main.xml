@@ -12,7 +12,7 @@
         android:layout_width="@dimen/fragment.layout_width"
         android:layout_height="@dimen/fragment.layout_height.first"
         android:layout_marginBottom="@dimen/fragment.layout_marginBottom"
-        android:layout_marginLeft="@dimen/fragment.layout_marginLeft"
+        android:layout_marginStart="@dimen/fragment.layout_marginLeft"
         android:layout_marginTop="@dimen/fragment.layout_marginTop"
         tools:layout="@layout/fragment_1" />
 
@@ -20,7 +20,7 @@
         android:id="@+id/btnOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/button.layout_marginLeft.ok"
+        android:layout_marginStart="@dimen/button.layout_marginLeft.ok"
         android:gravity="center"
         android:text="@string/button.text.ok" />
 
@@ -29,7 +29,7 @@
         android:name="vn.asiantech.internship.day7.ex2.ui.SecondFragment"
         android:layout_width="@dimen/fragment.layout_width"
         android:layout_height="@dimen/fragment.layout_height.second"
-        android:layout_marginLeft="@dimen/fragment.layout_marginLeft"
+        android:layout_marginStart="@dimen/fragment.layout_marginLeft"
         android:layout_marginTop="@dimen/fragment.layout_marginTop"
         tools:layout="@layout/fragment_2" />
 </LinearLayout>

@@ -2,5 +2,5 @@
     <string name="app_name">Internship</string>
     <string name="edittext.text.input">Input here</string>
     <string name="button.text.go">Go</string>
-    <string name="button.text.ok">Ok</string>
+    <string name="button.text.ok">OK</string>
 </resources>
