@@ -19,4 +19,19 @@ Hắn phải biết, trong cảm xúc tuôn trào, vì sao chính ruột thịt 
 Yasuo chôn Yone xuống khi bình minh hửng sáng, nhưng thậm chí chẳng có thời gian để thương tiếc. Sẽ lại tiếp tục có người được cử đi săn hắn. Lời trăn trối của người anh trai đã cho hắn một đầu mối đầy quí giá dẫn tới kẻ thủ ác. Sau khi thu gom đồ đạc, hắn ngoái lại nhìn ngôi mộ của Yone lần cuối và lẩm nhẩm một lời tuyên thệ, rồi lại tiếp tục lên đường cùng những ngọn gió.
 
 "Câu chuyện của một thanh kiếm được viết lại bằng máu"</string>
+    <string name="user_name">Cao Van Cuong</string>
+    <string name="email">vancuong.itf@gmail.com</string>
+    <string name="crop_error">Your phone doesn\'t support Crop Image!</string>
+    <string name="choose_action">Choose action</string>
+    <string name="feed">Feed</string>
+    <string name="activity">Activity</string>
+    <string name="profile">Profile</string>
+    <string name="friends">Friends</string>
+    <string name="map">Map</string>
+    <string name="chat">Chat</string>
+    <string name="settings">Settings</string>
+    <string-array name="pick_image_chooser">
+        <item>Garelly</item>
+        <item>Camera</item>
+    </string-array>
 </resources>

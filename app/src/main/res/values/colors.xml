@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorGrey">#EEEEEE</color>
+    <color name="drawerBackground">#87888C</color>
+    <color name="toolbarBackground">#DDDDDD</color>
+    <color name="drawerItemChooserTextColor">#A6A7AB</color>
 </resources>
