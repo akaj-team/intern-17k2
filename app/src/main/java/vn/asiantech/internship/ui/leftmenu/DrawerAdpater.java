@@ -35,7 +35,6 @@ public class DrawerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<User> mUsers;
     private Drawable mDrawable;
 
-
     public DrawerAdpater(Context context, List<DrawerItem> drawerItems, List<User> users, OnClickItemListener onClickItemListener) {
         mDrawerItems = drawerItems;
         mOnClickItemListener = onClickItemListener;

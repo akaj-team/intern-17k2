@@ -1,9 +1,8 @@
 package vn.asiantech.internship.models;
 
 /**
- * Created by ducle on 15/06/2017.
+ * define item
  */
-
 public class DrawerItem {
     private String name;
     private boolean selected;
