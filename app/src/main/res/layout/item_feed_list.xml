@@ -36,7 +36,7 @@
         </LinearLayout>
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
+            android:id="@+id/viewPagerImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/feed.viewpager.height"
             android:layout_marginTop="@dimen/feed.viewpager.margin_top" />

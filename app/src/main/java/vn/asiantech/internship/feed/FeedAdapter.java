@@ -24,12 +24,12 @@ import vn.asiantech.internship.R;
  */
 class FeedAdapter extends RecyclerView.Adapter {
 
-    private List<Feed> feeds = new ArrayList<>();
+    private List<Feed> mFeeds = new ArrayList<>();
     private final Context mContext;
 
-    FeedAdapter(Context context, List<Feed> feeds) {
+    FeedAdapter(Context context, List<Feed> mFeeds) {
         this.mContext = context;
-        this.feeds = feeds;
+        this.mFeeds = mFeeds;
     }
 
     @Override
@@ -42,14 +42,14 @@ class FeedAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         FeedViewHolder myViewHolder = (FeedViewHolder) holder;
-        myViewHolder.mTvName.setText(feeds.get(position).getName());
-        myViewHolder.mTvDescription.setText(feeds.get(position).getDescription());
-        myViewHolder.mViewPager.setAdapter(new FeedPagerAdapter(mContext, feeds.get(position).getImages()));
+        myViewHolder.mTvName.setText(mFeeds.get(position).getName());
+        myViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
+        myViewHolder.mViewPager.setAdapter(new FeedPagerAdapter(mContext, mFeeds.get(position).getImages()));
     }
 
     @Override
     public int getItemCount() {
-        return feeds.size();
+        return mFeeds.size();
     }
 
     /**
@@ -64,7 +64,7 @@ class FeedAdapter extends RecyclerView.Adapter {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvDescription = (TextView) itemView.findViewById(R.id.tvDescribe);
-            mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
+            mViewPager = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
         }
     }
 
