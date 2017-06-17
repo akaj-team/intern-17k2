@@ -19,21 +19,21 @@ public class ActionFragment extends Fragment {
     private TextView mTvContent;
     private Button mBtnGet;
 
-    private SendData mSendData;
+    private onSendDataListener mOnSendDataListener;
 
     /**
      * callback senddata from activity.
      */
-    public interface SendData {
-        void onSend();
+    public interface onSendDataListener {
+        void onSendData();
     }
 
     public ActionFragment() {
         // Required empty public constructor
     }
 
-    public ActionFragment(SendData sendData) {
-        mSendData = sendData;
+    public ActionFragment(onSendDataListener sendData) {
+        mOnSendDataListener = sendData;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ActionFragment extends Fragment {
         mBtnGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSendData.onSend();
+                mOnSendDataListener.onSendData();
             }
         });
     }

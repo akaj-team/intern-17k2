@@ -24,18 +24,18 @@ public class CommunicateActivity extends AppCompatActivity {
 
     private void initUi() {
         mInputFragment = new InputFragment();
-        mActionFragment = new ActionFragment(new ActionFragment.SendData() {
+        mActionFragment = new ActionFragment(new ActionFragment.onSendDataListener() {
             @Override
-            public void onSend() {
+            public void onSendData() {
                 mContent = mInputFragment.getText();
                 mActionFragment.setText(mContent);
             }
         });
-        addFragment(R.id.frContainerInput, mInputFragment);
-        addFragment(R.id.frContainerAction, mActionFragment);
+        replaceFragment(R.id.frContainerInput, mInputFragment);
+        replaceFragment(R.id.frContainerAction, mActionFragment);
     }
 
-    private void addFragment(int container, Fragment fragment) {
+    private void replaceFragment(int container, Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
     }
 }
