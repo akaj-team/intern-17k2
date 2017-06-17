@@ -123,20 +123,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<DrawerItem> initData() {
-        List<DrawerItem> list = new ArrayList<>();
-        list.add(new DrawerItem(getString(R.string.menuleft_title_feed)));
-        list.add(new DrawerItem(getString(R.string.menuleft_title_activity)));
-        list.add(new DrawerItem(getString(R.string.menuleft_title_profile)));
-        list.add(new DrawerItem(getString(R.string.menuleft_title_friend)));
-        list.add(new DrawerItem(getString(R.string.menuleft_title_map)));
-        list.add(new DrawerItem(getString(R.string.menuleft_title_chat)));
-        list.add(new DrawerItem(getString(R.string.menuleft_title_setting)));
-        list.add(new DrawerItem(getString(R.string.menuleft_title_home)));
-        list.add(new DrawerItem(getString(R.string.menuleft_title_store)));
-        list.add(new DrawerItem(getString(R.string.menuleft_title_history)));
-        list.add(new DrawerItem(getString(R.string.menuleft_title_back)));
-        list.add(new DrawerItem(getString(R.string.menuleft_title_exit)));
-        return list;
+        List<DrawerItem> drawerItems = new ArrayList<>();
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_feed)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_activity)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_profile)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_friend)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_map)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_chat)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_setting)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_home)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_store)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_history)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_back)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_exit)));
+        return drawerItems;
     }
 
     @Override
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         return builder.create();
     }
 
-    public void functionCropImage(Uri picUri) {
+    private void functionCropImage(Uri picUri) {
         Intent cropIntent = new Intent("com.android.camera.action.CROP");
         cropIntent.setDataAndType(picUri, "image/*");
         cropIntent.putExtra("crop", "true");

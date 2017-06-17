@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".friend.ui.MainActivity" />
         <activity android:name=".drawer.ui.main.MainActivity" />
-        <activity android:name=".drawer.ui.feed.FeedActivity"></activity>
+        <activity android:name=".drawer.ui.feed.FeedActivity" />
+
     </application>
 
 </manifest>

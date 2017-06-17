@@ -54,12 +54,12 @@ public class FeedFragment extends Fragment {
         return integers;
     }
 
-    private void initFeed(List<FeedItem> list) {
-        list.add(new FeedItem("Hi i'm Gosu", initImages(), "No comment 1"));
-        list.add(new FeedItem("Imp", initImages(), "No comment 2"));
-        list.add(new FeedItem("Faker", initImages(), "No comment 3"));
-        list.add(new FeedItem("Madlife", initImages(), "No comment 4"));
-        list.add(new FeedItem("Sofm", initImages(), "No comment 5"));
-        list.add(new FeedItem("Impact", initImages(), "No comment 6"));
+    private void initFeed(List<FeedItem> items) {
+        items.add(new FeedItem("Hi i'm Gosu", initImages(), "No comment 1"));
+        items.add(new FeedItem("Imp", initImages(), "No comment 2"));
+        items.add(new FeedItem("Faker", initImages(), "No comment 3"));
+        items.add(new FeedItem("Madlife", initImages(), "No comment 4"));
+        items.add(new FeedItem("Sofm", initImages(), "No comment 5"));
+        items.add(new FeedItem("Impact", initImages(), "No comment 6"));
     }
 }
