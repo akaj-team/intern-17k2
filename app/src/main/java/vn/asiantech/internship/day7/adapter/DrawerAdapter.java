@@ -156,7 +156,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(mContext.getResources().getColor(R.color.avatar_bolder));
-        canvas.drawRoundRect(rectF,(float)pixels,(float)pixels,paint);
+        canvas.drawRoundRect(rectF, (float) pixels, (float) pixels, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
         return output;
