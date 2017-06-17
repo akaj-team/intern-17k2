@@ -35,8 +35,8 @@ import vn.asiantech.internship.R;
  *         create on 13/06/2017
  */
 public class MainActivity extends AppCompatActivity implements OnRecyclerViewClickListener {
-    public static final int GALLERY_TYPE = 0;
-    public static final int CAMERA_TYPE = 1;
+    public static final int TYPE_GALLERY = 0;
+    public static final int TYPE_CAMERA = 1;
 
     private DrawerLayout mDrawerLayout;
     private LinearLayout mLinearlayout;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     private ActionBarDrawerToggle mDrawerToggle;
     private Dialog mDialog;
 
-    private DrawerAdapter adapterDrawer;
+    private DrawerAdapter mAdapterDrawer;
     private List<String> mFunctions = new ArrayList<>();
 
     @Override
@@ -87,10 +87,10 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     }
 
     private void initRecyclerView() {
-        adapterDrawer = new DrawerAdapter(mFunctions, this, this);
+        mAdapterDrawer = new DrawerAdapter(mFunctions, this, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(adapterDrawer);
+        mRecyclerView.setAdapter(mAdapterDrawer);
     }
 
     private void initDrawerLayout() {
@@ -118,34 +118,34 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     public void onClick(int position, boolean check) {
         if (check) {
             mContentFragment.showContent(mFunctions.get(position));
-            adapterDrawer.setPosition(position);
+            mAdapterDrawer.setPosition(position);
         } else {
             mDialog = createDialog();
             mDialog.show();
         }
         mDrawerLayout.closeDrawers();
-        adapterDrawer.notifyDataSetChanged();
+        mAdapterDrawer.notifyDataSetChanged();
     }
 
-    //create dialog with list data got from resource
+    // Create dialog with list data got from resource
     public Dialog createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.dialog_title_please_choose)
                 .setItems(R.array.items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
-                            case GALLERY_TYPE:
+                            case TYPE_GALLERY:
                                 Intent intent = new Intent(Intent.ACTION_PICK,
                                         MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                                 intent.setType("image/*");
                                 setCropImage(intent);
-                                startActivityForResult(intent, GALLERY_TYPE);
+                                startActivityForResult(intent, TYPE_GALLERY);
                                 break;
                             default:
                                 try {
                                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                                     setCropImage(cameraIntent);
-                                    startActivityForResult(cameraIntent, CAMERA_TYPE);
+                                    startActivityForResult(cameraIntent, TYPE_CAMERA);
                                 } catch (ActivityNotFoundException anfe) {
                                     Toast toast = Toast
                                             .makeText(getApplicationContext(), "This device doesn't support the camera action!", Toast.LENGTH_SHORT);
@@ -162,9 +162,9 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
         if (resultCode == RESULT_OK && data != null) {
             final Bundle extras = data.getExtras();
             if (extras != null) {
-                //Get image
-                adapterDrawer.setBitMapAvatar((Bitmap) extras.getParcelable("data"));
-                adapterDrawer.notifyDataSetChanged();
+                // Get image
+                mAdapterDrawer.setBitMapAvatar((Bitmap) extras.getParcelable("data"));
+                mAdapterDrawer.notifyDataSetChanged();
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 mDialog.cancel();
             }

@@ -21,8 +21,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import vn.asiantech.internship.day7.event.OnRecyclerViewClickListener;
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.day7.event.OnRecyclerViewClickListener;
 
 /**
  * create RecyclerViewAdapter
@@ -51,7 +51,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemViewType(int position) {
         switch (position) {
-            case TYPE_HEADER:
+            case 0:
                 return TYPE_HEADER;
             default:
                 return TYPE_ITEM;
@@ -156,7 +156,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(mContext.getResources().getColor(R.color.avatar_bolder));
-        canvas.drawRoundRect(rectF, (float) pixels, (float) pixels, paint);
+        canvas.drawRoundRect(rectF, (float)0.5,(float)pixels , paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
         return output;
@@ -177,10 +177,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         } else {
             bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         }
-
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(R.dimen.avatar_position, R.dimen.avatar_position, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
         return bitmap;
     }
 }
