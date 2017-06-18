@@ -30,9 +30,7 @@ import vn.asiantech.internship.R;
 
 /**
  * create MainActivity
- *
- * @author at-hoavo
- *         create on 13/06/2017
+ * create by at-hoavo on 13/06/2017
  */
 public class MainActivity extends AppCompatActivity implements OnRecyclerViewClickListener {
     public static final int TYPE_GALLERY = 0;
@@ -42,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     private LinearLayout mLinearlayout;
     private RecyclerView mRecyclerView;
     private ContentFragment mContentFragment;
-    private ActionBarDrawerToggle mDrawerToggle;
     private Dialog mDialog;
 
     private DrawerAdapter mAdapterDrawer;
@@ -94,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     }
 
     private void initDrawerLayout() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -102,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
                 mLinearlayout.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
+        mDrawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
     }
 
     private void initFragment() {
@@ -128,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
     }
 
     // Create dialog with list data got from resource
-    public Dialog createDialog() {
+    private Dialog createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.dialog_title_please_choose)
                 .setItems(R.array.items, new DialogInterface.OnClickListener() {
@@ -172,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewCli
 
     }
 
-    public void setCropImage(Intent intent) {
+    private void setCropImage(Intent intent) {
         intent.putExtra("crop", "true");
         intent.putExtra("scale", true);
         intent.putExtra("outputX", R.dimen.image_outputx);
