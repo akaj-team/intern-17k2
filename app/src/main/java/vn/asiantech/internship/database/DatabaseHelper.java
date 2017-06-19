@@ -10,6 +10,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.asiantech.internship.models.Feed;
 import vn.asiantech.internship.models.Note;
 
 /**
@@ -18,7 +19,7 @@ import vn.asiantech.internship.models.Note;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String SEPARATER = "__,__";
+    public static final String SEPARATOR = "____";
     // Logcat tag
     private static final String LOG = "DatabaseHelper";
 
@@ -30,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table Names
     private static final String TABLE_NOTES = "NOTES";
+    private static final String TABLE_FEEDS = "FEEDS";
 
     // Common column names
     private static final String KEY_ID = "id";
@@ -39,19 +41,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_DATE = "date";
     private static final String KEY_IMAGE_URI = "image_uri";
+    // FEEDS Table - column
+    private static final String KEY_NAME = "name";
+    private static final String KEY_URI_AVATAR = "uri_avatar";
+    private static final String KEY_LIST_IMAGES = "list_images";
+
     // NOTES table create statement
     private static final String CREATE_TABLE_NOTES = "CREATE TABLE "
             + TABLE_NOTES + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TITLE
             + " TEXT," + KEY_DESCRIPTION + " TEXT," + KEY_DATE
             + " DATETIME" + KEY_IMAGE_URI + " TEXT" + ")";
 
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    // FEEDS table create statement
+    private static final String CREATE_TABLE_FEEDS = "CREATE TABLE "
+            + TABLE_FEEDS + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME
+            + " TEXT," + KEY_DESCRIPTION + " TEXT," + KEY_URI_AVATAR
+            + " TEXT" + KEY_LIST_IMAGES + " TEXT" + ")";
+
+    public DatabaseHelper(Context context) {
+        super(context,  DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_NOTES);
+        db.execSQL(CREATE_TABLE_FEEDS);
 
     }
 
@@ -70,7 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             str = str + array[i];
             // Do not append comma at the end of last element
             if (i < array.length - 1) {
-                str = str + SEPARATER;
+                str = str + SEPARATOR;
             }
         }
         return str;
@@ -81,7 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return array after cover
      */
     public static String[] convertStringToArray(String str) {
-        String[] arr = str.split(SEPARATER);
+        String[] arr = str.split(SEPARATOR);
         return arr;
     }
 
@@ -188,5 +202,91 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_DATE, note.getNoteDate());
         values.put(KEY_IMAGE_URI, note.getNoteImagesThumb());
         db.insert(TABLE_NOTES, null, values);
+    }
+
+
+    /**
+     * get all FEEDS
+     *
+     * @return List<Feed> FEEDS
+     */
+    public List<Feed> getAllFeeds() {
+
+        List<Feed> feeds = new ArrayList<>();
+        String selectQuery = "SELECT  * FROM " + TABLE_FEEDS;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Feed feed = new Feed();
+                feed.setName(c.getString((c.getColumnIndex(KEY_NAME))));
+                feed.setDescription((c.getString(c.getColumnIndex(KEY_DESCRIPTION))));
+                feed.setIdImgAvatar(c.getString(c.getColumnIndex(KEY_URI_AVATAR)));
+                String[] s = convertStringToArray(c.getString(c.getColumnIndex(KEY_LIST_IMAGES)));
+                feed.setIdImgThumb(s);
+
+                // adding to Feed list
+                feeds.add(feed);
+            } while (c.moveToNext());
+        }
+        return feeds;
+    }
+
+    /**
+     * get Feed
+     *
+     * @param Feed_id is a ID of Feed want to get
+     * @return Feed from id
+     */
+    public Feed getFeed(long Feed_id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_FEEDS + " WHERE "
+                + KEY_ID + " = " + Feed_id;
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        Feed Feed = new Feed();
+        Feed.setName(c.getString((c.getColumnIndex(KEY_NAME))));
+        Feed.setDescription((c.getString(c.getColumnIndex(KEY_DESCRIPTION))));
+        Feed.setIdImgAvatar(c.getString(c.getColumnIndex(KEY_URI_AVATAR)));
+        String[] s = convertStringToArray(c.getString(c.getColumnIndex(KEY_LIST_IMAGES)));
+        Feed.setIdImgThumb(s);
+
+        return Feed;
+    }
+
+
+    /**
+     * delete Feed
+     *
+     * @param Feed_id is a id wanna delete
+     */
+    public void deleteFeed(long Feed_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_FEEDS, KEY_ID + " = ?",
+                new String[]{String.valueOf(Feed_id)});
+    }
+
+    /**
+     * Create new Feed to database
+     *
+     * @param feed is a Feed wanna add to database
+     */
+    public void createFeed(Feed feed) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, feed.getName());
+        values.put(KEY_DESCRIPTION, feed.getDescription());
+        values.put(KEY_URI_AVATAR, feed.getIdImgAvatar());
+        String s = convertArrayToString(feed.getIdImgThumb());
+        values.put(KEY_LIST_IMAGES, s);
+        db.insert(TABLE_FEEDS, null, values);
     }
 }

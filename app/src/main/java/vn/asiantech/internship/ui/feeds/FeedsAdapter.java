@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -36,7 +38,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
         myViewHolder.mTvName.setText(mFeeds.get(position).getName());
-        myViewHolder.mImgAvatar.setImageResource(mFeeds.get(position).getIdImgAvatar());
+        Picasso.with(myViewHolder.itemView.getContext()).load(mFeeds.get(position).getIdImgAvatar()).into(myViewHolder.mImgAvatar);
         myViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
         myViewHolder.mViewPager.setAdapter(new ImageAdapter(myViewHolder.itemView.getContext(), mFeeds.get(position).getIdImgThumb()));
     }
@@ -69,11 +71,11 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
      * Used to register for viewpager.
      */
     private static class ImageAdapter extends PagerAdapter {
-        private int[] mImages;
+        private String[] mImages;
         private LayoutInflater mInflater;
         private Context mContext;
 
-        ImageAdapter(Context context, int[] images) {
+        ImageAdapter(Context context, String[] images) {
             mImages = images;
             mContext = context;
             mInflater = LayoutInflater.from(mContext);
@@ -98,7 +100,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         public Object instantiateItem(ViewGroup container, int position) {
             View imageLayout = mInflater.inflate(R.layout.item_image, container, false);
             ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgThumb);
-            imageView.setImageResource(mImages[position]);
+            Picasso.with(mContext).load(mImages[position]).into(imageView);
             container.addView(imageLayout, 0);
             return imageLayout;
         }
