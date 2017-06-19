@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
     android:background="@color/friendsColorPrimary"
-    android:padding="@dimen/paddingSomeThings">
+    android:paddingBottom="@dimen/paddingSomeThings"
+    android:padding="@dimen/paddingSomeThings"
+    android:paddingTop="@dimen/paddingSomeThings">
 
     <ImageView
         android:id="@+id/imgAvatar"
         android:layout_width="@dimen/heightImageViewFriends"
         android:layout_height="@dimen/heightImageViewFriends"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/textview.text.description"
-        android:src="@mipmap/ic_avatar" />
-
+        android:src="@mipmap/ic_avatar"
+        android:contentDescription="@string/textview.text.description" />
     <Button
         android:id="@+id/btnAdd"
         style="@style/ButtonAddStyle"
@@ -21,7 +22,7 @@
         android:layout_height="35sp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_margin="@dimen/paddingSomeThings"
+        android:layout_marginEnd="@dimen/marginSomeThings"
         android:stateListAnimator="@null"
         android:text="@string/button.text.add" />
 
@@ -29,12 +30,10 @@
         android:id="@+id/lnParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginSomeThings"
+        android:layout_marginStart="@dimen/paddingSomeThings"
+        android:layout_toStartOf="@id/btnAdd"
         android:layout_toEndOf="@id/imgAvatar"
-        android:layout_toLeftOf="@id/btnAdd"
-        android:layout_toRightOf="@id/imgAvatar"
-        android:orientation="vertical"
-        tools:ignore="RtlHardcoded">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvUserName"
@@ -42,7 +41,6 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/paddingSomeThings"
             android:text="@string/textview.text.user_name" />
-
         <TextView
             android:id="@+id/tvDescription"
             android:layout_width="match_parent"
