@@ -9,10 +9,33 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="vn.asiantech.internship.note.ui.NoteActivity">
-    
+
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height=""></android.support.v7.widget.Toolbar>
+        android:layout_height="@dimen/toolbar.width">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/toolbar.title_margin"
+                android:layout_marginStart="@dimen/toolbar.title_margin"
+                android:gravity="center_vertical" />
+
+            <ImageButton
+                android:id="@+id/btnAddNote"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_add_black_48dp" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
     <FrameLayout
         android:id="@+id/frContainer"
         android:layout_width="match_parent"
