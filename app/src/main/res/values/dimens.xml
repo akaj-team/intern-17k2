@@ -30,4 +30,7 @@
     <dimen name="feed.viewpager_height">300dp</dimen>
     <dimen name="feed.layout_corner">20dp</dimen>
     <dimen name="feed.item_marginbottom">5dp</dimen>
+    <dimen name="feed.item_padding">15dp</dimen>
+    <dimen name="feed.item.viewpager_marginbottom">3dp</dimen>
+    <dimen name="feed.item.viewpager.button_size">48dp</dimen>
 </resources>

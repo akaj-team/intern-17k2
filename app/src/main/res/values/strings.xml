@@ -24,6 +24,9 @@
     <string name="menuleft.title.back">Back</string>
     <string name="menuleft.title.setting">Settings</string>
     <string name="menuleft.title.exit">Exit</string>
+    <!--feedactivity-->
+    <string name="feed.buttonleft_description">Slide left</string>
+    <string name="feed.buttonright_description">Slide right</string>
     <string-array name="dialog_items">
         <item>Gallery</item>
         <item>Camera</item>
