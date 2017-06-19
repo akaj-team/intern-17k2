@@ -5,4 +5,12 @@
     <color name="colorAccent">#FF4081</color>
     <color name="button.friends">#FFFFFF</color>
     <color name="btn.friends">#FF0033</color>
+    <color name="colorItemPressed">#666666</color>
+    <color name="colorBorder">#CCCCCC</color>
+    <color name="colorItem">#86868B</color>
+    <color name="textview.function">#FFFFFF</color>
+    <color name="toolbar">#ECEBED</color>
+    <color name="stroke.custom_linearlayout_image_header">#CCCCCC</color>
+    <color name="solid.custom_linearlayout_image_header">#EEEEEE</color>
+    <color name="avatar_bolder">#FFFFCC</color>
 </resources>
