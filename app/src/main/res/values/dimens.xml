@@ -17,4 +17,16 @@
     <dimen name="recyclerView.textview_margin_left">5dp</dimen>
     <dimen name="recyclerView.linear_height">60dp</dimen>
     <dimen name="splash.linearLayout.margin_left_right">10dp</dimen>
+    <dimen name="recyclerView.linearLayout_margin_top_bottom">1dp</dimen>
+    <dimen name="recyclerView.linearLayout_margin_left_right">2dp</dimen>
+    <dimen name="recyclerView.linearLayout_padding">10dp</dimen>
+    <dimen name="recyclerView.linearLayout_height">60dp</dimen>
+    <dimen name="recyclerView.textView_margin_left">5dp</dimen>
+    <dimen name="feed.linearLayout.margin_top">5dp</dimen>
+    <dimen name="feed.textView.margin_left">5dp</dimen>
+    <dimen name="feed.viewpager.height">200dp</dimen>
+    <dimen name="feed.viewpager.margin_top">3dp</dimen>
+    <dimen name="feed.linearLayout.padding">10dp</dimen>
+    <dimen name="feed.textView.size">20sp</dimen>
+    <dimen name="feed.cardView.margin_left_right">5dp</dimen>
 </resources>
