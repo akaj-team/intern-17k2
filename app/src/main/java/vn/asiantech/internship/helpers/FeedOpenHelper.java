@@ -1,4 +1,4 @@
-package vn.asiantech.internship.feed.helpers;
+package vn.asiantech.internship.helpers;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by PC on 6/19/2017.
  */
-
 public class FeedOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "DB_FEED";
@@ -18,17 +17,21 @@ public class FeedOpenHelper extends SQLiteOpenHelper {
     public static final String COLUMN_TEXT = "text";
 
     public FeedOpenHelper(Context context) {
-        super(context, "ten", null, 1);
+        super(context, DATABASE_NAME, null, 1);
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE ");
+        db.execSQL("CREATE TABLE " + FEED_TABLE + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_USER_NAME + " TEXT, "
+                + COLUMN_PHOTO_LIST + " TEXT, "
+                + COLUMN_TEXT + " TEXT);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS" + FEED_TABLE);
     }
 }
