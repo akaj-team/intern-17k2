@@ -1,12 +1,18 @@
 package vn.asiantech.internship.ui.main;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -32,6 +38,8 @@ import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
  * Created by Hai on 6/12/2017.
  */
 public class MainActivity extends AppCompatActivity {
+    private static final int REQUEST_CODE_PERMISSION_CAMERA = 1234;
+    private static final int REQUEST_CODE_PERMISSION_GALLERY = 1235;
     private static final int REQUEST_CODE_GALLERY = 1000;
     private static final int REQUEST_CODE_CROP = 1001;
     private static final int REQUEST_CODE_CAMERA = 1002;
@@ -143,14 +151,10 @@ public class MainActivity extends AppCompatActivity {
         alertDialogBuilder.setItems(dialogItems, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (which == STRING_ARRAY_POSITION_GALLERY) {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(intent, REQUEST_CODE_GALLERY);
-                } else if (which == STRING_ARRAY_POSITION_CAMERA) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                if (which == STRING_ARRAY_POSITION_CAMERA) {
+                    checkPermissionCamera();
+                } else if (which == STRING_ARRAY_POSITION_GALLERY) {
+                    checkPermissionGallery();
                 }
             }
         });
@@ -206,5 +210,58 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    //Check permission Camera
+    private void checkPermissionCamera() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_PERMISSION_CAMERA);
+            }
+        } else {
+            intentCamera();
+        }
+    }
+
+    //Check permission WRITE_EXTERNAL_STORAGE
+    private void checkPermissionGallery() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION_GALLERY);
+            }
+        } else {
+            intentGallery();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_PERMISSION_CAMERA:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    intentCamera();
+                }
+                break;
+            case REQUEST_CODE_PERMISSION_GALLERY:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    intentGallery();
+                }
+                break;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void intentCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CODE_CAMERA);
+    }
+
+    private void intentGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, REQUEST_CODE_GALLERY);
     }
 }

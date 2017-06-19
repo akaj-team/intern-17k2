@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="recyclerview.height">170dp</dimen>
-    <dimen name="textview.item.height">60dp</dimen>
+    <dimen name="textview.item.height">20dp</dimen>
     <dimen name="header.height">140dp</dimen>
     <dimen name="textview.title.textsize">30sp</dimen>
     <dimen name="textview.item.margin">10dp</dimen>
