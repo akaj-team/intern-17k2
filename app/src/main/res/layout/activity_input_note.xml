@@ -11,13 +11,14 @@
         android:id="@+id/imgImageNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/image.description" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginLeft="@dimen/linearLayout.margin_left_right"
+        android:layout_marginRight="@dimen/linearLayout.margin_left_right">
 
         <TextView
             android:layout_width="0dp"
@@ -50,9 +51,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="8" />
     </LinearLayout>
+
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"/>
+        android:text="Add" />
 </LinearLayout>

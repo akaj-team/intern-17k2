@@ -3,6 +3,7 @@ package vn.asiantech.internship.notesqlite;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,11 +48,12 @@ public class InputNoteActivity extends AppCompatActivity {
                 try {
                     mDatabase.open();
                     Date date = new Date();
-                    String datee = getString(date.getDate());
-                    String day = getString(date.getDay());
-                    String month = getString(date.getMonth());
-                    String hour = getString(date.getHours());
-                    mDatabase.createData(new Note("aaaaa"+"", "aaa"+"", "aaa"+"", "aaaaaaa"+"", mEdtTitle.getText().toString(), mEdtContent.getText().toString(), "aaa"));
+                    String datee = String.valueOf(date.getDate());
+                    String day = String.valueOf(date.getDay());
+                    String month = String.valueOf(date.getMonth());
+                    String hour = String.valueOf(date.getHours());
+                    Log.i("aaaaaaaaaa", "onClick: "+datee);
+                    mDatabase.createData(new Note(datee,day,month,hour, mEdtTitle.getText().toString(), mEdtContent.getText().toString(), "aaa"));
                     mDatabase.close();
                 } catch (SQLException e) {
                     e.printStackTrace();

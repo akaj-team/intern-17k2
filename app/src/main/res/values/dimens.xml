@@ -17,4 +17,5 @@
     <dimen name="recyclerView.textview_margin_left">5dp</dimen>
     <dimen name="recyclerView.linear_height">60dp</dimen>
     <dimen name="splash.linearLayout.margin_left_right">10dp</dimen>
+    <dimen name="linearLayout.margin_left_right">10dp</dimen>
 </resources>

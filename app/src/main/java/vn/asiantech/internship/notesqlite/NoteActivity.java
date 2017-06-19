@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -52,6 +53,7 @@ public class NoteActivity extends AppCompatActivity {
             try {
                 mData.open();
                 mNotes = mData.getNotes();
+                Log.i("aaaaaaaaaa", "onActivityResult: "+mNotes.size());
                 mData.close();
                 mAdapter = new NoteAdapter(mNotes);
                 mRecyclerViewNote.setAdapter(mAdapter);

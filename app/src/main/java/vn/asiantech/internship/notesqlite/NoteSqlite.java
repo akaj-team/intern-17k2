@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class NoteSqlite {
 
 
     public long createData(Note note) {
+        Log.i("aaaaaaa", "createData: ");
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_DATE, note.getDate());
         cv.put(COLUMN_DAY, note.getDay());
