@@ -13,7 +13,6 @@ public class CommunicateActivity extends AppCompatActivity {
 
     private InputFragment mInputFragment;
     private ActionFragment mActionFragment;
-    private String mContent = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +23,10 @@ public class CommunicateActivity extends AppCompatActivity {
 
     private void initUi() {
         mInputFragment = new InputFragment();
-        mActionFragment = new ActionFragment(new ActionFragment.onSendDataListener() {
+        mActionFragment = new ActionFragment(new ActionFragment.OnSendDataListener() {
             @Override
             public void onSendData() {
-                mContent = mInputFragment.getText();
+                String mContent = mInputFragment.getText();
                 mActionFragment.setText(mContent);
             }
         });

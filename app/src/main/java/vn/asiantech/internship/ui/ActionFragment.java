@@ -19,21 +19,18 @@ public class ActionFragment extends Fragment {
     private TextView mTvContent;
     private Button mBtnGet;
 
-    private onSendDataListener mOnSendDataListener;
+    private OnSendDataListener mOnSendDataListener;
 
     /**
      * callback senddata from activity.
      */
-    public interface onSendDataListener {
+    public interface OnSendDataListener {
         void onSendData();
     }
 
-    public ActionFragment() {
+    public ActionFragment(OnSendDataListener onSendDataListener) {
         // Required empty public constructor
-    }
-
-    public ActionFragment(onSendDataListener sendData) {
-        mOnSendDataListener = sendData;
+        mOnSendDataListener = onSendDataListener;
     }
 
     @Override
