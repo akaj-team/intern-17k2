@@ -23,6 +23,7 @@
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".feed.FeedActivity" />
         <activity android:name=".feed.ShowImageActivity" />
+        <activity android:name=".ui.main.PassDataActivity" />
     </application>
 
 </manifest>

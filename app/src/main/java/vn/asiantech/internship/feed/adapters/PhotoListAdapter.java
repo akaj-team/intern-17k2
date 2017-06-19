@@ -22,10 +22,12 @@ public class PhotoListAdapter extends PagerAdapter {
 
     private int[] mPhotoList;
     private Context mContext;
+    private OnItemClickListener mListener;
 
-    public PhotoListAdapter(Context context, int[] photos) {
+    public PhotoListAdapter(Context context, int[] photos, OnItemClickListener listener) {
         this.mPhotoList = photos;
         this.mContext = context;
+        this.mListener = listener;
     }
 
     public void setPhotoList(int[] photos) {
@@ -46,9 +48,12 @@ public class PhotoListAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         View view = layoutInflater.inflate(R.layout.item_photo, container, false);
-        ImageView imageView = (ImageView) view.findViewById(R.id.imgPhoto);
-        imageView.setImageResource(mPhotoList[position]);
-        imageView.setOnClickListener(new View.OnClickListener() {
+        ImageView imgPicture = (ImageView) view.findViewById(R.id.imgPhoto);
+        ImageView imgPrevious = (ImageView) view.findViewById(R.id.imgPrevious);
+        ImageView imgNext = (ImageView) view.findViewById(R.id.imgNext);
+
+        imgPicture.setImageResource(mPhotoList[position]);
+        imgPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ShowImageActivity.class);
@@ -56,6 +61,24 @@ public class PhotoListAdapter extends PagerAdapter {
                 mContext.startActivity(intent);
             }
         });
+        if (position > 0) {
+            imgPrevious.setVisibility(View.VISIBLE);
+            imgPrevious.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.OnPreviousClick(position);
+                }
+            });
+        }
+        if (position < mPhotoList.length) {
+            imgNext.setVisibility(View.VISIBLE);
+            imgNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.OnNextClick(position);
+                }
+            });
+        }
         container.addView(view);
         return view;
     }
@@ -63,5 +86,11 @@ public class PhotoListAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((ViewGroup) object);
+    }
+
+    public interface OnItemClickListener {
+        public void OnPreviousClick(int position);
+
+        public void OnNextClick(int position);
     }
 }

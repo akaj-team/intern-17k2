@@ -35,7 +35,17 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemFeedHolder
     public void onBindViewHolder(ItemFeedHolder holder, int position) {
         holder.mTvName.setText(mFeeds.get(position).getUserName());
         if (holder.mAdapter == null) {
-            holder.mAdapter = new PhotoListAdapter(holder.mContext, mFeeds.get(position).getPhotoList());
+            holder.mAdapter = new PhotoListAdapter(holder.mContext, mFeeds.get(position).getPhotoList(), new PhotoListAdapter.OnItemClickListener() {
+                @Override
+                public void OnPreviousClick(int position) {
+
+                }
+
+                @Override
+                public void OnNextClick(int position) {
+
+                }
+            });
             holder.mViewPagerPhotos.setAdapter(holder.mAdapter);
         } else {
             holder.mAdapter.setPhotoList(mFeeds.get(position).getPhotoList());
