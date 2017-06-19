@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
+    public void onBindViewHolder(final ItemViewHolder holder, int position) {
         holder.mTvName.setText(mFeedItems.get(position).getName());
         holder.mTvStatus.setText(mFeedItems.get(position).getStatus());
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(mFeedItems.get(position).getImageArray());
