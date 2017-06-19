@@ -76,7 +76,7 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                     if (mCurrentPage > 0) {
                         mCurrentPage--;
                         mBtnRightSlide.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         mBtnLeftSlide.setVisibility(View.GONE);
                     }
                     mViewPager.setCurrentItem(mCurrentPage);
@@ -88,7 +88,7 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                     if (mCurrentPage < mPagerAdapter.getCount()) {
                         mCurrentPage++;
                         mBtnLeftSlide.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         mBtnRightSlide.setVisibility(View.GONE);
                     }
                     mViewPager.setCurrentItem(mCurrentPage);
