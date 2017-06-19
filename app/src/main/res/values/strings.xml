@@ -3,6 +3,8 @@
     <string name="button.add">add</string>
     <string name="imageview.description">image user</string>
     <string name="button.text.friend">Friend</string>
+    <string name="button.text.activity">Button activity</string>
+    <string name="button.text.fragment">Button fragment</string>
     <string name="dialog_title">Choose one</string>
     <string name="feed">Feed</string>
     <string name="activity">Activity</string>
