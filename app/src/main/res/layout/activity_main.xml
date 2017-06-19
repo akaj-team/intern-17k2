@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dlContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.main.MainActivity">
+
 
     <RelativeLayout
         android:id="@+id/rlParent"
@@ -12,9 +16,11 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/friendsColorPrimaryDark"
-            tools:ignore="NewApi">
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ToolbarColoredBackArrow">
 
             <TextView
                 style="@style/TextHeadStyle"
@@ -30,7 +36,12 @@
         <TextView
             android:id="@+id/tvContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="#000"
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <fragment

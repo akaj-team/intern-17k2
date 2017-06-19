@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/marginSomeThings"
+    android:padding="@dimen/paddingSomeText">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="@dimen/paddingSomeThings"
+            android:src="@drawable/ic_one" />
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/TextViewStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:layout_toRightOf="@id/imgAvatar"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/textSizeNormal"
+            tools:ignore="RtlHardcoded"
+            tools:text="Nguyen Thanh Thien" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:layout_below="@id/tvName"
+            android:padding="@dimen/paddingSomeThings" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewPager"
+            android:padding="@dimen/paddingSomeThings" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

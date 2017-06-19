@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.ui.feeds.FeedsActivity;
 import vn.asiantech.internship.ui.main.Ex05Activity;
 import vn.asiantech.internship.ui.main.MainActivity;
 
@@ -44,7 +45,7 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
                 showToast("I did not add to this activity"); // i'll change when i add this Ex
                 break;
             case R.id.btnEx08:
-                showToast("Nothing to show"); // i'll change when i add this Ex
+                openActivity(FeedsActivity.class);
                 break;
         }
 

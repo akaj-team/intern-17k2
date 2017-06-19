@@ -5,6 +5,7 @@
     <dimen name="marginSomeThings">5dp</dimen>
     <dimen name="friendsTextSize">16sp</dimen>
     <dimen name="paddingSomeText">8dp</dimen>
+    <dimen name="textSizeNormal">18sp</dimen>
     <dimen name="avatarHeight">64dp</dimen>
     <dimen name="textSizeAuthor">16sp</dimen>
     <dimen name="textSizeItem">20sp</dimen>
@@ -12,4 +13,6 @@
     <dimen name="paddingSomeThing">7dp</dimen>
     <dimen name="marginLarge">50dp</dimen>
     <dimen name="marginButtonContent">15dp</dimen>
+    <dimen name="friendsTextSizes">18sp</dimen>
+    <dimen name="textSizeHeadFriend">20sp</dimen>
 </resources>

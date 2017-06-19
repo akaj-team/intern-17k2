@@ -4,7 +4,7 @@
     <string name="textview.text.user_name">user name</string>
     <string name="textview.text.description">description</string>
     <string name="button.text.add">+ add</string>
-    <string name="button.text.friend">✓ fRIends</string>
+    <string name="button.text.friend">✓ Friends</string>
     <string name="text.messages.navigation_open">navigation Open</string>
     <string name="text.messages.navigation_close">navigation close </string>
     <string name="dialog.text.choice_select">choice select</string>
@@ -22,6 +22,8 @@
     <string name="text.friends">Friends</string>
     <string name="textview.text.descriptions">Descriptions</string>
     <string name="button.text.send">send</string>
+    <string name="button.text.friends">Friends</string>
+     <string name="string_text">Steven George \"Stevie\" Gerrard, MBE (born 30 May 1980) is an English professional football coach and former footballer who serves as an academy coach at Liverpool. He spent the majority of his playing career as a central midfielder for Liverpool and the England national team, with most of that time spent as club captain. In 2009, Zinedine Zidane and Pele said that they considered Gerrard to be the best footballer in the world.</string>
     <string-array name="listdrawer">
         <item>Feed</item>
         <item>Activity</item>

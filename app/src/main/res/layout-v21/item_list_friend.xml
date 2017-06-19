@@ -42,6 +42,7 @@
             android:padding="@dimen/paddingSomeThings"
             android:text="@string/textview.text.user_name" />
         <TextView
+            android:id="@+id/tvDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/paddingSomeThings"
