@@ -11,6 +11,9 @@
         android:theme="@style/AppTheme">
         <!--d5-->
         <activity android:name=".RecyclerViewActivity">
+
+        </activity>
+        <activity android:name=".note.NoteActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
