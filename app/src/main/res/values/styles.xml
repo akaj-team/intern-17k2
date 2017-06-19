@@ -8,4 +8,12 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="frgInputTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/frginput.color</item>
+    </style>
+
+    <style name="frgResultTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/frgresult.color</item>
+    </style>
 </resources>
