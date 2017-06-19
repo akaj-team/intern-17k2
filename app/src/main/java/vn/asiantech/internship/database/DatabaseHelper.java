@@ -17,6 +17,8 @@ import vn.asiantech.internship.models.Note;
  * Database helper
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    public static final String SEPARATER = "__,__";
     // Logcat tag
     private static final String LOG = "DatabaseHelper";
 
@@ -56,6 +58,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    /**
+     * @param array want to cover
+     * @return string after cover
+     */
+    public static String convertArrayToString(String[] array) {
+        String str = "";
+        for (int i = 0; i < array.length; i++) {
+            str = str + array[i];
+            // Do not append comma at the end of last element
+            if (i < array.length - 1) {
+                str = str + SEPARATER;
+            }
+        }
+        return str;
+    }
+
+    /**
+     * @param str is string before cover
+     * @return array after cover
+     */
+    public static String[] convertStringToArray(String str) {
+        String[] arr = str.split(SEPARATER);
+        return arr;
     }
 
     /**
@@ -119,6 +146,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * update note
+     *
      * @param note is a note wanna update
      * @return 1 = true, 0 = false;
      */
@@ -138,6 +166,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * delete Note
+     *
      * @param note_id is a id wanna delete
      */
     public void deleteNote(long note_id) {
@@ -148,6 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Create new note to database
+     *
      * @param note is a note wanna add to database
      */
     public void createNote(Note note) {
