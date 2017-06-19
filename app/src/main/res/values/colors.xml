@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Bai5-->
     <color name="colorPrimary">#6171ca</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4081</color>
@@ -7,7 +8,9 @@
     <color name="colorSelect">#a3beff</color>
     <color name="colorDark">#4f4f50</color>
     <color name="colorBgContent">#7f7f81</color>
+    <!--Bai8-->
     <color name="colorBlack">#000000</color>
+    <color name="colorLight">#f4f9fc</color>
     <color name="colorToolbar">#bcc5ca</color>
     <color name="colorBgRecyclerView">#515151</color>
 </resources>
