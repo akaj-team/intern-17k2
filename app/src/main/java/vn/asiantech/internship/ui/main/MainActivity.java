@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout mLlContent;
     private DrawerAdapter mDrawerAdapter;
 
-    private List<Drawer> mDrawerLists;
+    private List<Drawer> mDrawerList;
     private int mPositionChoose = -1;
     private Uri mUri;
 
@@ -91,27 +91,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDataDrawer() {
-        mDrawerLists = new ArrayList<>();
-        mDrawerLists.add(new Drawer(getResources().getString(R.string.textview_main_feed)));
-        mDrawerLists.add(new Drawer(getResources().getString(R.string.textview_main_activity)));
-        mDrawerLists.add(new Drawer(getResources().getString(R.string.textview_main_profile)));
-        mDrawerLists.add(new Drawer(getResources().getString(R.string.textview_main_friends)));
-        mDrawerLists.add(new Drawer(getResources().getString(R.string.textview_main_map)));
-        mDrawerLists.add(new Drawer(getResources().getString(R.string.textview_main_chat)));
-        mDrawerLists.add(new Drawer(getResources().getString(R.string.textview_main_settings)));
+        mDrawerList = new ArrayList<>();
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_feed)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_activity)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_profile)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_friends)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_map)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_chat)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_settings)));
     }
 
     private void setDrawerAdapter() {
-        mDrawerAdapter = new DrawerAdapter(this, mDrawerLists, new OnItemClickListener() {
+        mDrawerAdapter = new DrawerAdapter(this, mDrawerList, new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 if (mPositionChoose > -1) {
-                    mDrawerLists.get(mPositionChoose).setChoose();
+                    mDrawerList.get(mPositionChoose).setChoose();
                     mDrawerAdapter.notifyItemChanged(mPositionChoose + 1);
                 }
-                mDrawerLists.get(position).setChoose();
+                mDrawerList.get(position).setChoose();
                 mPositionChoose = position;
-                mTvChoose.setText(mDrawerLists.get(position).getDrawerName());
+                mTvChoose.setText(mDrawerList.get(position).getDrawerName());
                 mDrawerAdapter.notifyItemChanged(position + 1);
                 mDrawerLayout.closeDrawers();
             }

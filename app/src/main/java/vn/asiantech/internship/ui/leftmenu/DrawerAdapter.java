@@ -28,12 +28,12 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int TYPE_DRAWER = 1;
 
     private MainActivity.OnItemClickListener mItemClickListener;
-    private List<Drawer> mDrawerLists;
+    private List<Drawer> mDrawerList;
     private Bitmap mBitmap;
 
-    public DrawerAdapter(Context context, List<Drawer> drawerLists, MainActivity.OnItemClickListener itemClickListener) {
+    public DrawerAdapter(Context context, List<Drawer> drawerList, MainActivity.OnItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
-        mDrawerLists = drawerLists;
+        mDrawerList = drawerList;
     }
 
     public void setBitmap(Bitmap bitmap) {
@@ -57,7 +57,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof DrawerViewHolder) {
             DrawerViewHolder drawer = (DrawerViewHolder) holder;
-            Drawer itemDrawer = mDrawerLists.get(position - 1);
+            Drawer itemDrawer = mDrawerList.get(position - 1);
             drawer.mTvColor.setText(itemDrawer.getDrawerName());
             if (itemDrawer.isChoose()) {
                 drawer.mTvColor.setTextColor(ContextCompat.getColor(drawer.itemView.getContext(), R.color.colorAccent));
@@ -78,7 +78,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return mDrawerLists.size() + 1;
+        return mDrawerList.size() + 1;
     }
 
     @Override
