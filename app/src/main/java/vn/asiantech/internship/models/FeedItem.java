@@ -17,7 +17,7 @@ public class FeedItem {
 
     public FeedItem(String userName, String photoList, String text) {
         this.userName = userName;
-        String lists[] = photoList.split(",");
+        String[] lists = photoList.split(",");
         this.photoList = new int[lists.length];
         for (int i = 0; i < lists.length; i++) {
             this.photoList[i] = Integer.parseInt(lists[i]);
