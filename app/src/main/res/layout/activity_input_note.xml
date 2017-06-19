@@ -50,4 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="8" />
     </LinearLayout>
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"/>
 </LinearLayout>

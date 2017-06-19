@@ -1,11 +1,15 @@
 package vn.asiantech.internship.notesqlite;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 import vn.asiantech.internship.R;
 
@@ -20,6 +24,7 @@ public class InputNoteActivity extends AppCompatActivity {
     private EditText mEdtContent;
     private ImageView mImgChooseImage;
     private ImageView mImgDelete;
+    private Button mBtnAdd;
     private NoteSqlite mDatabase;
 
 
@@ -30,15 +35,30 @@ public class InputNoteActivity extends AppCompatActivity {
         mImgNote = (ImageView) findViewById(R.id.imgImageNote);
         mEdtTitle = (EditText) findViewById(R.id.edtTitle);
         mEdtContent = (EditText) findViewById(R.id.edtContent);
-        mImgChooseImage =(ImageView) findViewById(R.id.imgAddImage);
-        mImgDelete =(ImageView) findViewById(R.id.imgDelete);
+        mImgChooseImage = (ImageView) findViewById(R.id.imgAddImage);
+        mImgDelete = (ImageView) findViewById(R.id.imgDelete);
+        mBtnAdd = (Button) findViewById(R.id.btnAdd);
         mDatabase = new NoteSqlite(this);
 
-        try {
-            mDatabase.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
+        mBtnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    mDatabase.open();
+                    Date date = new Date();
+                    String datee = getString(date.getDate());
+                    String day = getString(date.getDay());
+                    String month = getString(date.getMonth());
+                    String hour = getString(date.getHours());
+                    mDatabase.createData(new Note("aaaaa"+"", "aaa"+"", "aaa"+"", "aaaaaaa"+"", mEdtTitle.getText().toString(), mEdtContent.getText().toString(), "aaa"));
+                    mDatabase.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                setResult(NoteActivity.REQSULT_CODE,new Intent(InputNoteActivity.this, NoteActivity.class));
+                finish();
+            }
+        });
     }
 }

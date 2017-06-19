@@ -25,6 +25,16 @@ public class Note {
         this.pathImage = pathImage;
     }
 
+    public Note(String date, String day, String month, String hour, String title, String content, String pathImage) {
+        this.date = date;
+        this.day = day;
+        this.month = month;
+        this.hour = hour;
+        this.title = title;
+        this.content = content;
+        this.pathImage = pathImage;
+    }
+
     public int getId() {
         return id;
     }
