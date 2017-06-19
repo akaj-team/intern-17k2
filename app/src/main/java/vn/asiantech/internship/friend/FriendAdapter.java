@@ -12,17 +12,17 @@ import java.util.List;
 import java.util.Random;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.friend.model.Friend;
+import vn.asiantech.internship.friend.model.Note;
 
 /**
  * Created by BACKDOOR on 07-Feb-17.
  */
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder> {
 
-    private List<Friend> mFriends;
+    private List<Note> mNotes;
 
-    public FriendAdapter(List<Friend> data) {
-        mFriends = data;
+    public FriendAdapter(List<Note> data) {
+        mNotes = data;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTvFriendName.setText(mFriends.get(position).getFriendName());
+        holder.mTvFriendName.setText(mNotes.get(position).getFriendName());
         switch (new Random().nextInt(4)) {
             case 0:
                 holder.mImgFriend.setImageResource(R.drawable.img_summer);
@@ -52,7 +52,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mFriends.size();
+        return mNotes.size();
     }
 
     /**
@@ -73,15 +73,15 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             mBtnAddFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Friend friendObject = mFriends.get(getAdapterPosition());
-                    if (!friendObject.isFriend()) {
+                    Note noteObject = mNotes.get(getAdapterPosition());
+                    if (!noteObject.isFriend()) {
                         mBtnAddFriend.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_friend_check_button, 0, 0, 0);
                         mBtnAddFriend.setText(R.string.friendfragment_button_friend_state);
-                        friendObject.setFriend(true);
+                        noteObject.setFriend(true);
                     } else {
                         mBtnAddFriend.setText(R.string.friendfragment_button_friend_add);
                         mBtnAddFriend.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_friend_add_button, 0, 0, 0);
-                        friendObject.setFriend(false);
+                        noteObject.setFriend(false);
                     }
                 }
             });

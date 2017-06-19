@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import vn.asiantech.internship.friend.FriendActivity;
+import vn.asiantech.internship.note.ui.NoteActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,10 +20,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, FriendActivity.class));
             }
         });
-        findViewById(R.id.btnFriend).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnNote).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, FriendActivity.class));
+                startActivity(new Intent(MainActivity.this, NoteActivity.class));
             }
         });
     }

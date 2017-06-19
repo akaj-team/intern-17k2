@@ -1,4 +1,4 @@
-package vn.asiantech.internship.note.models;
+package vn.asiantech.internship.note.model;
 
 /**
  * Created by at-dinhvo on 19/06/2017.
