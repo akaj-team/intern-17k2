@@ -69,8 +69,10 @@ public class PhotoListAdapter extends PagerAdapter {
                     mListener.OnPreviousClick(position);
                 }
             });
+        } else {
+            imgPrevious.setVisibility(View.GONE);
         }
-        if (position < mPhotoList.length) {
+        if (position < mPhotoList.length - 1) {
             imgNext.setVisibility(View.VISIBLE);
             imgNext.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -78,6 +80,8 @@ public class PhotoListAdapter extends PagerAdapter {
                     mListener.OnNextClick(position);
                 }
             });
+        } else {
+            imgNext.setVisibility(View.GONE);
         }
         container.addView(view);
         return view;

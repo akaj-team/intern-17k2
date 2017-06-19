@@ -32,18 +32,18 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemFeedHolder
     }
 
     @Override
-    public void onBindViewHolder(ItemFeedHolder holder, int position) {
+    public void onBindViewHolder(final ItemFeedHolder holder, int position) {
         holder.mTvName.setText(mFeeds.get(position).getUserName());
         if (holder.mAdapter == null) {
             holder.mAdapter = new PhotoListAdapter(holder.mContext, mFeeds.get(position).getPhotoList(), new PhotoListAdapter.OnItemClickListener() {
                 @Override
-                public void OnPreviousClick(int position) {
-
+                public void OnPreviousClick(int pos) {
+                    holder.mViewPagerPhotos.setCurrentItem(pos - 1);
                 }
 
                 @Override
-                public void OnNextClick(int position) {
-
+                public void OnNextClick(int pos) {
+                    holder.mViewPagerPhotos.setCurrentItem(pos + 1);
                 }
             });
             holder.mViewPagerPhotos.setAdapter(holder.mAdapter);
