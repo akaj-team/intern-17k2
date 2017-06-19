@@ -27,9 +27,9 @@ class FeedAdapter extends RecyclerView.Adapter {
     private List<Feed> mFeeds = new ArrayList<>();
     private final Context mContext;
 
-    FeedAdapter(Context context, List<Feed> mFeeds) {
+    FeedAdapter(Context context, List<Feed> feeds) {
         this.mContext = context;
-        this.mFeeds = mFeeds;
+        this.mFeeds = feeds;
     }
 
     @Override
@@ -76,8 +76,8 @@ class FeedAdapter extends RecyclerView.Adapter {
         private final LayoutInflater mInflater;
         private final Context mContext;
 
-        FeedPagerAdapter(Context context, List<Integer> mImages) {
-            this.mImages = mImages;
+        FeedPagerAdapter(Context context, List<Integer> images) {
+            this.mImages = images;
             this.mContext = context;
             mInflater = LayoutInflater.from(mContext);
         }
