@@ -26,7 +26,7 @@ import vn.asiantech.internship.drawer.ui.feed.FeedActivity;
 import vn.asiantech.internship.drawer.ui.leftmenu.DrawerAdapter;
 
 /**
- * MainActivity
+ * Day6Activity
  */
 public class MainActivity extends AppCompatActivity {
 
