@@ -23,7 +23,6 @@ import vn.asiantech.internship.ui.main.MainActivity;
  * Adapter for Navigation
  * Created by anhhuy on 14/06/2017.
  */
-
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_DRAWER = 1;
@@ -94,7 +93,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      * View Holder for Drawer Item
      * Created by huypham on 15/6/2017
      */
-
     private class DrawerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvColor;
 
@@ -116,12 +114,12 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      * View Holder for Drawer Header
      * Created by huypham on 15/6/2017
      */
-
     private class DrawerHeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private static final int CAMERA = 0;
         private static final int GALLERY = 1;
 
-        private TextView mTvName, mTvEmail;
+        private TextView mTvName;
+        private TextView mTvEmail;
         private CircleImageView mCivAvatar;
 
         public DrawerHeaderViewHolder(View itemView) {

@@ -32,7 +32,6 @@ import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
  * Main Activity with DrawerAdapter
  * Created by anhhuy on 14/06/2017.
  */
-
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CAMERA = 1337;
     public static final int REQUEST_GALLERY = 1;
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     private List<Drawer> mDrawerLists;
     private int mPositionChoose = -1;
     private Uri mUri;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

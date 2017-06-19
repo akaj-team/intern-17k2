@@ -11,12 +11,11 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
- * Created by anhhuy on 15/06/2017.
+ * Activity for Splash
+ * Created by huypham on 15/06/2017.
  */
-
 public class SplashActivity extends AppCompatActivity {
-    private Button mBtnBai5;
-    private Button mBtnBai6;
+    private Button mBtnEx6;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,16 +27,15 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void initSplashView() {
-        mBtnBai5 = (Button) findViewById(R.id.btnBai5);
-        mBtnBai6 = (Button) findViewById(R.id.btnBai6);
+        mBtnEx6 = (Button) findViewById(R.id.btnEx6);
     }
 
     private void onClickButton() {
-        mBtnBai6.setOnClickListener(new View.OnClickListener() {
+        mBtnEx6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentBai6 = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intentBai6);
+                Intent intentEx6 = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intentEx6);
             }
         });
     }
