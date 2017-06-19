@@ -58,10 +58,10 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyHolder> {
         holder.mTvTitle.setText(feed.getTitle());
         holder.mTvName.setText(feed.getName());
         if (holder.mViewPagerAdapter == null) {
-            holder.mViewPagerAdapter = new ViewPagerAdapter(holder.mContext, feed.getImage());
+            holder.mViewPagerAdapter = new ViewPagerAdapter(holder.mContext, feed.getImages());
             holder.mViewPager.setAdapter(holder.mViewPagerAdapter);
         } else {
-            holder.mViewPagerAdapter.setImage(feed.getImage());
+            holder.mViewPagerAdapter.setImage(feed.getImages());
             holder.mViewPagerAdapter.notifyDataSetChanged();
         }
 

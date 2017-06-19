@@ -6,12 +6,12 @@ package vn.asiantech.internship.feed;
  */
 class Feed {
     private String name;
-    private int[] image;
+    private int[] images;
     private String title;
 
-    Feed(String name, int[] image, String title) {
+    Feed(String name, int[] images, String title) {
         this.name = name;
-        this.image = image;
+        this.images = images;
         this.title = title;
     }
 
@@ -23,8 +23,8 @@ class Feed {
         this.name = name;
     }
 
-    int[] getImage() {
-        return image;
+    int[] getImages() {
+        return images;
     }
 
     String getTitle() {
