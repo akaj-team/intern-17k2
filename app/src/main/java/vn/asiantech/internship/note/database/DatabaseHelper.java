@@ -18,18 +18,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_DATE = "date";
     public static final String COL_TIME = "time";
     private static final String DATABASE_NAME = "DATABASE_NOTE";
+    private static final int VERSION = 1;
 
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    private static DatabaseHelper sDatabaseHelper;
+
+    private DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+        String sqlCreateTable = "CREATE TABLE " + TABLE_NAME
+                + "(" + COL_ID + " INTEGER PRIMARY KEY,"
+                + COL_TITLE + " TEXT NOT NULL,"
+                + COL_CONTENT + " TEXT,"
+                + COL_PATH + " TEXT,"
+                + COL_DATE + " DATE,"
+                + COL_TIME + " TIME"
+                + ");";
+        sqLiteDatabase.execSQL(sqlCreateTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        if(i != i1){
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+            onCreate(sqLiteDatabase);
+        }
+    }
 
+    public static DatabaseHelper getInstance(Context context){
+        if(sDatabaseHelper == null){
+            sDatabaseHelper = new DatabaseHelper(context);
+        }
+        return sDatabaseHelper;
     }
 }

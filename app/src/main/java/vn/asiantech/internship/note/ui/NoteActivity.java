@@ -15,6 +15,7 @@ import vn.asiantech.internship.R;
 public class NoteActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
+    private Menu mMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class NoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        mMenu = menu;
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
@@ -44,7 +46,7 @@ public class NoteActivity extends AppCompatActivity {
             frameAddNote.setVisibility(View.VISIBLE);
             frameContainer.setVisibility(View.GONE);
             mToolbar.setTitle("Add Note");
-//            getMenuInflater().inflate(R.menu.menu_create_note, null);
+            getMenuInflater().inflate(R.menu.menu_create_note, mMenu);
         }
         return super.onOptionsItemSelected(item);
     }
