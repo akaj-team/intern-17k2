@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">Internship</string>
     <string name="button.text">Send</string>
+    <string name="user.name">user_1001</string>
+    <string name="dialog.select.picture.message">Select picture</string>
+    <string name="drawer.item.feed">Feed</string>
+    <string name="drawer.item.activity">Activity</string>
+    <string name="drawer.item.profile">Profile</string>
+    <string name="drawer.item.friend">Friend</string>
+    <string name="drawer.item.map">Map</string>
+    <string name="drawer.item.chat">Chat</string>
+    <string name="drawer.item.setting">Setting</string>
+    <string name="button.day5.ex1.text">Day5 Ex1</string>
+    <string name="button.day6.ex1.text">Day6 Ex1</string>
+    <string name="dialog.item.gallery">Gallery</string>
+    <string name="dialog.item.Camera">Camera</string>
     <string name="friend">FRIEND</string>
     <string name="add">ADD</string>
 </resources>
