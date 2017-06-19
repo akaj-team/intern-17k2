@@ -39,9 +39,9 @@ public class FeedsFragment extends Fragment {
         int[] images = {R.drawable.bg_steve, R.drawable.bg_stevi, R.drawable.bg_steve, R.drawable.bg_stevi, R.drawable.bg_steve, R.drawable.bg_stevi};
         for (int i = 0; i < 20; i++) {
             if (i % 2 == 0) {
-                mFeeds.add(new Feed(R.drawable.ic_one, getString(R.string.author) + " " + i, images, getString(R.string.string_text)));
+                mFeeds.add(new Feed(R.drawable.ic_one, getString(R.string.app_author) + " " + i, images, getString(R.string.string_text)));
             } else {
-                mFeeds.add(new Feed(R.drawable.ic_two, getString(R.string.author) + " " + i, images, getString(R.string.string_text)));
+                mFeeds.add(new Feed(R.drawable.ic_two, getString(R.string.app_author) + " " + i, images, getString(R.string.string_text)));
             }
         }
     }

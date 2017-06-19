@@ -2,7 +2,7 @@ package vn.asiantech.internship.models;
 
 /**
  * Created by root on 6/9/17.
- * Friends
+ * Friend class
  */
 public class Friend {
     private int idFriend;

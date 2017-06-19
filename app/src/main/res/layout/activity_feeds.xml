@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@string/Button.Text.Friends"
+            android:text="@string/button.text.friends"
             android:textSize="@dimen/friendsTextSizes"
             android:textStyle="bold" />
     </android.support.v7.widget.Toolbar>

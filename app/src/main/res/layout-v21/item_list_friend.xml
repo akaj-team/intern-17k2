@@ -11,7 +11,7 @@
         android:layout_width="@dimen/heightImageViewFriends"
         android:layout_height="@dimen/heightImageViewFriends"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/textview.text.descriptions"
+        android:contentDescription="@string/textview.text.description"
         android:src="@mipmap/ic_avatar" />
 
     <Button
@@ -19,10 +19,9 @@
         style="@style/ButtonAddStyle"
         android:layout_width="wrap_content"
         android:layout_height="35sp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/marginSomeThings"
-        android:layout_weight="3"
+        android:layout_margin="@dimen/paddingSomeThings"
         android:stateListAnimator="@null"
         android:text="@string/button.text.add" />
 
@@ -56,20 +55,5 @@
         android:layout_height="1dp"
         android:layout_below="@id/lnParent"
         android:layout_toEndOf="@id/imgAvatar"
-        android:layout_toRightOf="@id/imgAvatar"
-        android:background="@color/friendsColorPrimaryDark" />
-
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/paddingSomeThings"
-        android:text="@string/textview.text.description" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/lnParent"
-        android:layout_toRightOf="@id/imgAvatar"
         android:background="@color/friendsColorPrimaryDark" />
 </RelativeLayout>
