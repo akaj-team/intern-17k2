@@ -10,4 +10,5 @@
     <dimen name="item.imageview_margin">10dp</dimen>
     <dimen name="item.button_padding">5dp</dimen>
     <dimen name="item.button_margin">10dp</dimen>
+    <dimen name="toolbar.width">10dp</dimen>
 </resources>
