@@ -11,9 +11,9 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
- * Created by datbu on 15-06-2017.
+ * Copyright © 2016 AsianTech inc.
+ * Created by DatBui on 15/06/2017.
  */
-
 public class SplashActivity extends Activity implements View.OnClickListener {
     private Intent mIntent;
 
@@ -42,6 +42,5 @@ public class SplashActivity extends Activity implements View.OnClickListener {
                 startActivity(mIntent);
                 break;
         }
-
     }
 }

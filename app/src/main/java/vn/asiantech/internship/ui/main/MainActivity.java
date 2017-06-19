@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_CAMERA = 33;
 
     private List<DrawerItem> mDrawerItems;
-    private int mMenuItemChooser = 0;
+    private int mMenuItemChooser;
     private DrawerAdapter mAdapter;
     private LinearLayout mLlDrawer;
     private TextView mTvShow;
@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         initData();
         initAdapter();
         initDrawer();
-
     }
 
     private void initView() {
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvShow = (TextView) findViewById(R.id.tvShow);
         mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
-
     }
 
     private void initToolbar() {
@@ -81,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        //set Data
+        // set Data
         mDrawerItems = new ArrayList<>();
         mDrawerItems.add(new DrawerItem(getString(R.string.iten_feed)));
         mDrawerItems.add(new DrawerItem(getString(R.string.item_activity)));
@@ -90,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         mDrawerItems.add(new DrawerItem(getString(R.string.item_map)));
         mDrawerItems.add(new DrawerItem(getString(R.string.item_chat)));
         mDrawerItems.add(new DrawerItem(getString(R.string.item_setting)));
-
     }
 
     private void initAdapter() {
@@ -177,34 +174,23 @@ public class MainActivity extends AppCompatActivity {
                     mAdapter.notifyItemChanged(0);
                     break;
             }
-
         }
     }
 
     private void performCrop(Uri uri) {
         try {
-            //call the standard crop action intent (the user device may not support it)
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            //indicate image type and Uri
             cropIntent.setDataAndType(uri, "image/*");
-            //set crop properties
             cropIntent.putExtra("crop", "true");
-            //indicate aspect of desired crop
             cropIntent.putExtra("aspectX", 1);
             cropIntent.putExtra("aspectY", 1);
-            //indicate output X and Y
             cropIntent.putExtra("outputX", 256);
             cropIntent.putExtra("outputY", 256);
-            //retrieve data on return
             cropIntent.putExtra("return-data", true);
-            //start the activity - we handle returning in onActivityResult
             startActivityForResult(cropIntent, REQUEST_CODE_CROP);
         } catch (ActivityNotFoundException e) {
-            //display an error message
             String errorMessage = "Whoops - your device doesn't support the crop action!";
-            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         }
     }
-
 }

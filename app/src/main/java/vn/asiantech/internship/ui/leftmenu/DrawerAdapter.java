@@ -46,7 +46,6 @@ public class DrawerAdapter extends RecyclerView.Adapter {
             return TYPE_HEADER;
         }
         return TYPE_ITEM;
-
     }
 
     @Override
@@ -83,10 +82,8 @@ public class DrawerAdapter extends RecyclerView.Adapter {
 
             } else {
                 drawerViewHolder.mTvTitle.setTextColor(drawerViewHolder.mTvTitle.getContext().getResources().getColor(R.color.white));
-
             }
         }
-
     }
 
     @Override
@@ -97,6 +94,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     public void setAvatar(Bitmap avatar) {
         mAvatar = avatar;
     }
+
     /**
      * Copyright © 2016 AsianTech inc.
      * Created by DatBui on 15/06/2017.
@@ -143,9 +141,9 @@ public class DrawerAdapter extends RecyclerView.Adapter {
                 });
                 builder.show();
             }
-
         }
     }
+
     /**
      * Copyright © 2016 AsianTech inc.
      * Created by DatBui on 15/06/2017.
@@ -167,6 +165,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
             });
         }
     }
+
     /**
      * Copyright © 2016 AsianTech inc.
      * Created by DatBui on 15/06/2017.
