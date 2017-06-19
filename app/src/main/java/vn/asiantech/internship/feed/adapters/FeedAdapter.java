@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.models.FeedItem;
 
 /**
  * @author at-cuongcao

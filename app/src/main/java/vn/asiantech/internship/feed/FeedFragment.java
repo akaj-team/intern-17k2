@@ -14,7 +14,7 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.feed.adapters.FeedAdapter;
-import vn.asiantech.internship.feed.adapters.FeedItem;
+import vn.asiantech.internship.models.FeedItem;
 
 /**
  * FeedFragment

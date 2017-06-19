@@ -1,4 +1,4 @@
-package vn.asiantech.internship.feed.adapters;
+package vn.asiantech.internship.models;
 
 /**
  * Created by PC on 6/15/2017.
