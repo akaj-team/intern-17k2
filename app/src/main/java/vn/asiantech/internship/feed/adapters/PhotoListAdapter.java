@@ -28,8 +28,8 @@ public class PhotoListAdapter extends PagerAdapter {
         this.mContext = context;
     }
 
-    public void setPhotoList(int[] mPhotoList) {
-        this.mPhotoList = mPhotoList;
+    public void setPhotoList(int[] photos) {
+        this.mPhotoList = photos;
     }
 
     @Override
