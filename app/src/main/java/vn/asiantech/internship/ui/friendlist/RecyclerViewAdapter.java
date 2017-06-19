@@ -1,4 +1,4 @@
-package vn.asiantech.internship.adapter;
+package vn.asiantech.internship.ui.friendlist;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
