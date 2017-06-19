@@ -8,6 +8,7 @@
     <dimen name="item_list.padding">10dp</dimen>
     <dimen name="padding_margin_default">10dp</dimen>
     <dimen name="text_size_default">16sp</dimen>
+    <dimen name="text_size_small">10sp</dimen>
     <dimen name="bigger_text_size">24sp</dimen>
     <dimen name="avatar_size">76dp</dimen>
     <dimen name="header_height">170dp</dimen>
