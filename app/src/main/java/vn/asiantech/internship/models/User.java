@@ -1,4 +1,4 @@
-package vn.asiantech.internship.model;
+package vn.asiantech.internship.models;
 
 /**
  * Model class get and set data to User object

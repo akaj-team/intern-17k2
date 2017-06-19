@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.model.User;
+import vn.asiantech.internship.models.User;
 
 /**
  * Class RecyclerViewAdapter transfer data and show list data to RecyclerView
