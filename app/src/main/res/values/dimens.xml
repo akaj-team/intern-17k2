@@ -5,4 +5,5 @@
     <dimen name="textview.size">20sp</dimen>
     <dimen name="imageview.size">70dp</dimen>
     <dimen name="button.padding.right">10dp</dimen>
+    <dimen name="fragment.padding">10dp</dimen>
 </resources>
