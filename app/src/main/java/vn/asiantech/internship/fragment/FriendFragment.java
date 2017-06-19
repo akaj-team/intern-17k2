@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapter.RecyclerViewAdapter;
-import vn.asiantech.internship.model.User;
+import vn.asiantech.internship.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
