@@ -6,6 +6,7 @@ package vn.asiantech.internship.note.models;
 
 public class Note {
 
+    private int id;
     private String title;
     private String content;
     private String path;
@@ -15,10 +16,19 @@ public class Note {
         this.content = content;
     }
 
-    public Note(String title, String content, String path) {
+    public Note(int id, String title, String content, String path) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.path = path;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

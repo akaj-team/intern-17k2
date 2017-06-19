@@ -10,6 +10,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    public static final String TABLE_NAME = "TABLE_NOTE";
+    public static final String COL_ID = "id";
+    public static final String COL_TITLE = "title";
+    public static final String COL_CONTENT = "content";
+    public static final String COL_PATH = "path";
+    public static final String COL_DATE = "date";
+    public static final String COL_TIME = "time";
+    private static final String DATABASE_NAME = "DATABASE_NOTE";
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
