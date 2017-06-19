@@ -37,12 +37,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemFeedHolder
         if (holder.mAdapter == null) {
             holder.mAdapter = new PhotoListAdapter(holder.mContext, mFeeds.get(position).getPhotoList(), new PhotoListAdapter.OnItemClickListener() {
                 @Override
-                public void OnPreviousClick(int pos) {
+                public void onPreviousClick(int pos) {
                     holder.mViewPagerPhotos.setCurrentItem(pos - 1);
                 }
 
                 @Override
-                public void OnNextClick(int pos) {
+                public void onNextClick(int pos) {
                     holder.mViewPagerPhotos.setCurrentItem(pos + 1);
                 }
             });

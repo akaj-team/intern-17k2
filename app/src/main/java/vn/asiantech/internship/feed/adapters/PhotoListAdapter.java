@@ -66,7 +66,7 @@ public class PhotoListAdapter extends PagerAdapter {
             imgPrevious.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.OnPreviousClick(position);
+                    mListener.onPreviousClick(position);
                 }
             });
         } else {
@@ -77,7 +77,7 @@ public class PhotoListAdapter extends PagerAdapter {
             imgNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.OnNextClick(position);
+                    mListener.onNextClick(position);
                 }
             });
         } else {
@@ -92,9 +92,12 @@ public class PhotoListAdapter extends PagerAdapter {
         container.removeView((ViewGroup) object);
     }
 
+    /**
+     * This interface used to handle on item of ViewPager click
+     */
     public interface OnItemClickListener {
-        public void OnPreviousClick(int position);
+        void onPreviousClick(int position);
 
-        public void OnNextClick(int position);
+        void onNextClick(int position);
     }
 }
