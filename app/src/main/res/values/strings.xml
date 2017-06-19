@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Friends</string>
-    <string name="imageview.description">this is image user</string>
+   <string name="imageview.description">this is image user</string>
     <string name="button.text.add">+ ADD</string>
     <string name="button.text.friends">Friends</string>
     <string-array name="list_user">
@@ -30,4 +29,16 @@
     <string name="edittext.text.input">Input here</string>
     <string name="button.text.go">Go</string>
     <string name="button.text.ok">OK</string>
+    <string name="app_name">Internship</string>
+    <string name="drawer_open">Open Drawer</string>
+    <string name="drawer_close">Close Drawer</string>
+    <string name="textview.text.content">Drawer</string>
+    <string name="dialog.title.please_choose">Please choose one</string>
+    <string name="textview.title.text">AAAAAA</string>
+    <string name="imageview.home.description">this is image</string>
+    <string name="imageview.screen.description">this is screen</string>
+    <string-array name="items">
+        <item name="Gallery">Gallery</item>
+        <item name="Camera">Camera</item>
+    </string-array>
 </resources>

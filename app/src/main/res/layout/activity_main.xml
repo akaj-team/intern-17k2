@@ -1,35 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".day7.ex2.ui.MainActivity">
+    android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/fragmentFirst"
-        android:name="vn.asiantech.internship.day7.ex2.ui.FirstFragment"
-        android:layout_width="@dimen/fragment.layout_width"
-        android:layout_height="@dimen/fragment.layout_height.first"
-        android:layout_marginBottom="@dimen/fragment.layout_marginBottom"
-        android:layout_marginStart="@dimen/fragment.layout_marginLeft"
-        android:layout_marginTop="@dimen/fragment.layout_marginTop"
-        tools:layout="@layout/fragment_1" />
+    <LinearLayout
+        android:id="@+id/llDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnOk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/button.layout_marginLeft.ok"
-        android:gravity="center"
-        android:text="@string/button.text.ok" />
-
-    <fragment
-        android:id="@+id/fragmentSecond"
-        android:name="vn.asiantech.internship.day7.ex2.ui.SecondFragment"
-        android:layout_width="@dimen/fragment.layout_width"
-        android:layout_height="@dimen/fragment.layout_height.second"
-        android:layout_marginStart="@dimen/fragment.layout_marginLeft"
-        android:layout_marginTop="@dimen/fragment.layout_marginTop"
-        tools:layout="@layout/fragment_2" />
-</LinearLayout>
+        <include layout="@layout/toolbar" />
+        <!-- The main content view -->
+        <FrameLayout
+            android:id="@+id/frContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <!-- The navigation drawer -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewDrawer"
+        android:layout_width="@dimen/recyclerView.layout_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorItem"
+        android:choiceMode="singleChoice" />
+</android.support.v4.widget.DrawerLayout>

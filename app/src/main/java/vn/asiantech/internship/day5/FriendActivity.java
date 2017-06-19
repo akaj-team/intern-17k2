@@ -1,4 +1,4 @@
-package vn.asiantech.internship.Day5;
+package vn.asiantech.internship.day5;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
