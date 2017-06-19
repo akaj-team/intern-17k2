@@ -53,7 +53,7 @@ public class BFragment extends Fragment {
     /**
      * interface
      */
-    public interface BFragmentInterface {
+    public interface OnBFragmentListener {
         void setText();
     }
 }

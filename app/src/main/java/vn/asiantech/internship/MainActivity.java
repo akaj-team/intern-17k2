@@ -12,7 +12,7 @@ import vn.asiantech.internship.ui.fragment.BFragment;
 /**
  * MainActivity created by Thien 13/06
  */
-public class MainActivity extends AppCompatActivity implements BFragment.BFragmentInterface {
+public class MainActivity extends AppCompatActivity implements BFragment.OnBFragmentListener {
 
     private AFragment mAFragment;
     private BFragment mBFragment;

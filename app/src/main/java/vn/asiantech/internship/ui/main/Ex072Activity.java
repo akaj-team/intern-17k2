@@ -8,11 +8,11 @@ import vn.asiantech.internship.R;
 /**
  * Avtivity of Ex 7 .2
  */
-public class Ex07_2Activity extends AppCompatActivity {
+public class Ex072Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ex07_2);
+        setContentView(R.layout.activity_ex072);
     }
 }
