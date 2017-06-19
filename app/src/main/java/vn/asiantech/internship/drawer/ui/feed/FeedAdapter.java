@@ -69,7 +69,6 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             mViewPager.setPageMargin(5);
             mViewPager.setPageMarginDrawable(R.color.colorBlack);
             mCurrentPage = mViewPager.getCurrentItem();
-
             mBtnLeftSlide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
