@@ -18,5 +18,6 @@
         </activity>
         <activity android:name="recyclerview.FriendActivity" />
         <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".notesqlite.InputNoteActivity" />
     </application>
 </manifest>
