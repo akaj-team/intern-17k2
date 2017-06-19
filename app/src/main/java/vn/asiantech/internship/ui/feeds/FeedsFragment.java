@@ -51,7 +51,6 @@ public class FeedsFragment extends Fragment {
         String ic = saveToSdCard(R.drawable.ic_one);
         String ic2 = saveToSdCard(R.drawable.ic_two);
         String[] images = {s, s2, s, s2, s};
-        //TODO move to sdcard
         for (int i = 0; i < 20; i++) {
             if (i % 2 == 0) {
                 Feed feed = new Feed(ic, getString(R.string.app_author) + " " + i, images, getString(R.string.string_text));
