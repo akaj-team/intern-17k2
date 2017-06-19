@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import vn.asiantech.internship.R;
 
+/**
+ * FeedActivity javadoc
+ */
 public class FeedActivity extends AppCompatActivity {
 
     @Override
