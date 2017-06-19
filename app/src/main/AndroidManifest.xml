@@ -22,6 +22,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.feeds.FeedsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".ui.main.Ex05Activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity

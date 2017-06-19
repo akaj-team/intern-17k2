@@ -1,10 +1,10 @@
 package vn.asiantech.internship.ui.main;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -15,10 +15,6 @@ import android.widget.TextView;
 
 import vn.asiantech.internship.R;
 
-/**
- * Main of all fragment
- * Created by Thanh Thien
- */
 public class MainActivity extends AppCompatActivity {
 
     public static final int KEY_CAMERA = 1773;
