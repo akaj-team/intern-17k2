@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,14 +86,18 @@ public class AddNoteFragment extends Fragment {
         try {
             String[] proj = {MediaStore.Images.Media.DATA};
             cursor = getActivity().getContentResolver().query(tempUri, proj, null, null, null);
-            int column_index = cursor != null ? cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA) : 0;
+            int column_index;
+            if (cursor != null) {
+                column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            } else {
+                column_index = 0;
+            }
             cursor.moveToFirst();
             return cursor.getString(column_index);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+        } catch (NullPointerException e) {
+            Log.e("Pointer is null", e.toString());
         }
+        return "";
     }
 
     @Override

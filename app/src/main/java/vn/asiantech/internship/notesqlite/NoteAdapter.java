@@ -24,7 +24,7 @@ import vn.asiantech.internship.R;
 class NoteAdapter extends RecyclerView.Adapter {
     private List<Note> mNotes = new ArrayList<>();
 
-     NoteAdapter(List<Note> notes) {
+    NoteAdapter(List<Note> notes) {
         this.mNotes = notes;
     }
 
@@ -52,6 +52,9 @@ class NoteAdapter extends RecyclerView.Adapter {
         return mNotes.size();
     }
 
+    /**
+     * Used to register for note.
+     */
     private class NoteViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTvDayOfWeek;
         private final TextView mTvDay;

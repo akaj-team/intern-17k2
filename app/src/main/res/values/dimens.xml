@@ -30,10 +30,10 @@
     <dimen name="feed.textView.size">20sp</dimen>
     <dimen name="feed.cardView.margin_left_right">5dp</dimen>
     <dimen name="cardView.margin_left_right_top">5dp</dimen>
-    <dimen name="textView.time">15dp</dimen>
+    <dimen name="textView.time">15sp</dimen>
     <dimen name="view.with_height">5dp</dimen>
     <dimen name="linearLayout.margin_left">5dp</dimen>
-    <dimen name="textView.size.title_content">25dp</dimen>
+    <dimen name="textView.size.title_content">25sp</dimen>
     <dimen name="note.imageView.with_height">200dp</dimen>
     <dimen name="note.imageView.margin_top">10dp</dimen>
     <dimen name="linearLayout.margin_left_right_top">5dp</dimen>
