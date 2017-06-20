@@ -8,4 +8,5 @@
     <dimen name="textview.title.size">24sp</dimen>
     <dimen name="image.add.size">30dp</dimen>
     <dimen name="image.height">300dp</dimen>
+    <dimen name="linearlayout.margin">5dp</dimen>
 </resources>
