@@ -17,62 +17,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by sony on 20/06/2017.
+ * Used to save data.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-9
  */
-
-public class FeedSqlite extends SQLiteOpenHelper {
-    private Context mycontext;
+class FeedSqlite extends SQLiteOpenHelper {
+    private Context mContext;
     private static String DB_NAME = "list_image.sqlite";
-    private  String TABLE = "images";
-    private  String DB_PATH = "/data/data/vn.asiantech.internship/databases/";
-    public SQLiteDatabase myDataBase;
+    private final String TABLE = "images";
+    private String mPath;
+    private SQLiteDatabase mDataBase;
 
-    public FeedSqlite(Context context) throws IOException {
+    FeedSqlite(Context context) throws IOException {
         super(context, DB_NAME, null, 1);
-        this.mycontext = context;
-        boolean dbexist = checkdatabase();
+        this.mContext = context;
+        mPath = context.getFilesDir().getPath();
+        boolean dbexist = checkDatabase();
         if (dbexist) {
-            System.out.println("Database exists");
             try {
                 opendatabase();
             } catch (SQLException e) {
-                e.printStackTrace();
+                Log.e("Can't open database", e.toString());
             }
         } else {
-            System.out.println("Database doesn't exist");
-            createdatabase();
+            createDatabase();
         }
     }
 
-    public void createdatabase() throws IOException {
-        boolean dbexist = checkdatabase();
-        if (dbexist) {
-            System.out.println(" Database exists.");
-        } else {
+    private void createDatabase() {
+        boolean dbExist = checkDatabase();
+        if (!dbExist) {
             this.getReadableDatabase();
             try {
                 copydatabase();
             } catch (IOException e) {
-                throw new Error("Error copying database");
+                Log.e("Can't open database", e.toString());
             }
         }
     }
 
-    private boolean checkdatabase() {
-        boolean checkdb = false;
+    private boolean checkDatabase() {
+        boolean checkDb = false;
         try {
-            String myPath = DB_PATH + DB_NAME;
+            String myPath = mPath + DB_NAME;
             File dbfile = new File(myPath);
-            checkdb = dbfile.exists();
+            checkDb = dbfile.exists();
         } catch (SQLiteException e) {
-            System.out.println("Database doesn't exist");
+            Log.e("Database doesn't exist", e.toString());
         }
-        return checkdb;
+        return checkDb;
     }
 
-    private void copydatabase() throws IOException{
-        InputStream myinput = mycontext.getAssets().open(DB_NAME);
-        String outfilename = DB_PATH + DB_NAME;
+    private void copydatabase() throws IOException {
+        InputStream myinput = mContext.getAssets().open(DB_NAME);
+        String outfilename = mPath + DB_NAME;
         OutputStream myoutput = new FileOutputStream(outfilename);
         byte[] buffer = new byte[1024];
         int length;
@@ -84,14 +84,14 @@ public class FeedSqlite extends SQLiteOpenHelper {
         myinput.close();
     }
 
-    public void opendatabase() throws SQLException {
-        String mypath = DB_PATH + DB_NAME;
-        myDataBase = SQLiteDatabase.openDatabase(mypath, null, SQLiteDatabase.OPEN_READWRITE);
+    private void opendatabase() throws SQLException {
+        String mypath = mPath + DB_NAME;
+        mDataBase = SQLiteDatabase.openDatabase(mypath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     public synchronized void close() {
-        if (myDataBase != null) {
-            myDataBase.close();
+        if (mDataBase != null) {
+            mDataBase.close();
         }
         super.close();
     }
@@ -101,14 +101,15 @@ public class FeedSqlite extends SQLiteOpenHelper {
         try {
             opendatabase();
         } catch (SQLException e) {
-            Log.i("aaaaaaaaaa", "dont't open");
+            Log.e("Can't open databse", e.toString());
         }
-        Cursor cursor = myDataBase.rawQuery("SELECT * from " + TABLE, null);
+        Cursor cursor = mDataBase.rawQuery("SELECT * from " + TABLE, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             images.add(new Image(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
             cursor.moveToNext();
         }
+        cursor.close();
         return images;
     }
 
@@ -119,6 +120,6 @@ public class FeedSqlite extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE);
-             onCreate(sqLiteDatabase);
+        onCreate(sqLiteDatabase);
     }
 }
