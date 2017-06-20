@@ -40,7 +40,7 @@ public class FeedFragment extends Fragment {
         String userStatus = getResources().getString(R.string.user_status);
         String userStatus1 = getResources().getString(R.string.user_status_1);
         mSQLiteHelper.addFeed(new FeedItem(userName, new int[]{R.drawable.img_01, R.drawable.img_02}, userStatus));
-        mSQLiteHelper.addFeed(new FeedItem(userName, new int[]{R.drawable.img_03}, userStatus1));
+        mSQLiteHelper.addFeed(new FeedItem(userName, new int[]{R.drawable.img_01}, userStatus1));
         mSQLiteHelper.addFeed(new FeedItem(userName, new int[]{R.drawable.img_04, R.drawable.img_05, R.drawable.img_06}, userStatus1));
     }
 }
