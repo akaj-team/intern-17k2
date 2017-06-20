@@ -58,8 +58,7 @@ class DataBaseHandler extends SQLiteOpenHelper {
     }
 
     private boolean checkdatabase() {
-        //SQLiteDatabase checkdb = null;
-        boolean checkdb = false;
+        boolean checkdb;
         try {
             String myPath = mPath + DATABASE_NAME;
             File dbfile = new File(myPath);
@@ -98,16 +97,16 @@ class DataBaseHandler extends SQLiteOpenHelper {
     }
 
     List<Feed> getFeeds() {
-        List<Feed> feeds = new ArrayList<>();
+        List<Feed> feed = new ArrayList<>();
         opendatabase();
         Cursor cursor = mDb.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            feeds.add(new Feed(cursor.getString(1), cursor.getString(3), cursor.getString(2)));
+            feed.add(new Feed(cursor.getString(1), cursor.getString(3), cursor.getString(2)));
             cursor.moveToNext();
         }
         cursor.close();
-        return feeds;
+        return feed;
     }
 
     @Override
