@@ -19,8 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".drawer.ui.main.MainActivity" />
-        <activity android:name=".drawer.ui.feed.Fe" />
-        <activity android:name=".drawer.ui.feed.FeedActivity"></activity>
+        <activity android:name=".drawer.ui.feed.FeedActivity" />
     </application>
 
 </manifest>

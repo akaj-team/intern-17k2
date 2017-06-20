@@ -14,7 +14,6 @@ import vn.asiantech.internship.R;
 /**
  * Created by at-dinhvo on 15/06/2017.
  */
-
 class FeedPagerAdapter extends PagerAdapter {
 
     private List<Integer> mImageItems;
