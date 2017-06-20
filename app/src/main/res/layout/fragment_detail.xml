@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="vn.asiantech.internship.note.ui.DetailFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBarDetailNote"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar.width"
+        android:background="#ccc" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/imgDetailNote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#aaa" />
+
+        <TextView
+            android:layout_gravity="end"
+            android:id="@+id/tvDateAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="20 Jun"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_gravity="end"
+            android:id="@+id/tvTimeAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="15:00"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="Title:" />
+
+        <TextView
+            android:id="@+id/tvNoteTitle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Content:" />
+
+    <TextView
+        android:id="@+id/tvNoteContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

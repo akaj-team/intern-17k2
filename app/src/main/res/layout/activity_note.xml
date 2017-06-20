@@ -7,19 +7,8 @@
     android:padding="@dimen/activity_vertical_padding"
     tools:context="vn.asiantech.internship.note.ui.NoteActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolBar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar.width"/>
-
     <FrameLayout
         android:id="@+id/frContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <FrameLayout
-        android:id="@+id/frAddNote"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible" />
 </LinearLayout>

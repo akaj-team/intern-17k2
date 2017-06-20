@@ -18,9 +18,11 @@ import vn.asiantech.internship.note.model.Note;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     private List<Note> mNotes;
+    private OnClickItemNote mOnClickItemNote;
 
-    public NoteAdapter(List<Note> data) {
+    public NoteAdapter(List<Note> data, OnClickItemNote onClickItemNote) {
         mNotes = data;
+        mOnClickItemNote = onClickItemNote;
     }
 
     @Override
@@ -34,6 +36,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.mTvNoteTitle.setText(mNotes.get(position).getTitle());
         holder.mTvNoteContent.setText(mNotes.get(position).getContent());
+        holder.mTvDate.setText(mNotes.get(position).getDate());
+        holder.mTvTime.setText(mNotes.get(position).getTime());
 //        holder.mImgNote.
     }
 
@@ -49,13 +53,27 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
         private TextView mTvNoteTitle;
         private TextView mTvNoteContent;
+        private TextView mTvDate;
+        private TextView mTvTime;
         private ImageView mImgNote;
 
         ViewHolder(View itemView) {
             super(itemView);
             mTvNoteTitle = (TextView) itemView.findViewById(R.id.tvNoteTitle);
             mTvNoteContent = (TextView) itemView.findViewById(R.id.tvNoteContent);
+            mTvDate = (TextView) itemView.findViewById(R.id.tvDate);
+            mTvTime = (TextView) itemView.findViewById(R.id.tvTime);
             mImgNote = (ImageView) itemView.findViewById(R.id.imgFriend);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnClickItemNote.onClick(getAdapterPosition());
+                }
+            });
         }
+    }
+
+    public interface OnClickItemNote{
+        void onClick(int pos);
     }
 }

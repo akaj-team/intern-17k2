@@ -5,10 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by at-dinhvo on 19/06/2017.
+ * Created by at-dinhvo on 20/06/2017.
  */
-
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class NoteOpenHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_NAME = "TABLE_NOTE";
     public static final String COL_ID = "id";
@@ -20,37 +19,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "DATABASE_NOTE";
     private static final int VERSION = 1;
 
-    private static DatabaseHelper sDatabaseHelper;
+    private String sqlCreateTable = "CREATE TABLE " + TABLE_NAME
+            + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COL_TITLE + " TEXT NOT NULL, "
+            + COL_CONTENT + " TEXT, "
+            + COL_PATH + " TEXT, "
+            + COL_DATE + " TEXT, "
+            + COL_TIME + " TEXT "
+            + ");";
 
-    private DatabaseHelper(Context context) {
+    public NoteOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sqlCreateTable = "CREATE TABLE " + TABLE_NAME
-                + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COL_TITLE + " TEXT NOT NULL,"
-                + COL_CONTENT + " TEXT,"
-                + COL_PATH + " TEXT,"
-                + COL_DATE + " DATE,"
-                + COL_TIME + " TIME"
-                + ");";
         sqLiteDatabase.execSQL(sqlCreateTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        if(i != i1){
-            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-            onCreate(sqLiteDatabase);
-        }
-    }
-
-    public static DatabaseHelper getInstance(Context context){
-        if(sDatabaseHelper == null){
-            sDatabaseHelper = new DatabaseHelper(context);
-        }
-        return sDatabaseHelper;
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(sqLiteDatabase);
     }
 }
