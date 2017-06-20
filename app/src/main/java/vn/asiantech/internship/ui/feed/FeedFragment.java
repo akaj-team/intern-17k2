@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.database.ImageDatabase;
 
 /**
  * Created by ducle on 15/06/2017.
@@ -23,20 +25,26 @@ public class FeedFragment extends Fragment {
     private RecyclerView mRecyclerViewPost;
     private PostAdapter mPostAdapter;
     private List<Post> mPosts;
+    private ImageDatabase mImageDatabase;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         mPosts = new ArrayList<>();
-        List<Bitmap> images = new ArrayList<>();
-        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
-        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
-        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
-        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeDuc", images, "Who is he?"));
-        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeA", images, "He is Mr. Luom"));
-        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeB", images, "he is good man"));
-        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeC", images, "i trusted him"));
+        try {
+            mImageDatabase=new ImageDatabase(container.getContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mPosts=mImageDatabase.getList();
+//        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
+//        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
+//        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
+//        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeDuc", images, "Who is he?"));
+//        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeA", images, "He is Mr. Luom"));
+//        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeB", images, "he is good man"));
+//        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeC", images, "i trusted him"));
         mRecyclerViewPost = (RecyclerView) view.findViewById(R.id.recyclerViewPost);
         mPostAdapter = new PostAdapter(mPosts);
         mRecyclerViewPost.setHasFixedSize(true);
