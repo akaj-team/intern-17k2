@@ -27,15 +27,22 @@ public class NoteDatabase {
     private NoteOpenHelper mDatabaseHelper;
     private SQLiteDatabase mSqLiteDatabase;
 
-    public NoteDatabase(Context context) {
+    private static NoteDatabase mNoteDatabase;
+
+    public static NoteDatabase getInstantDatabase(Context context) {
+        if (mNoteDatabase == null) {
+            mNoteDatabase = new NoteDatabase(context);
+        }
+        return mNoteDatabase;
+    }
+
+    private NoteDatabase(Context context) {
         mContext = context;
     }
 
     public NoteDatabase open() { // context null if don't init constructor in activitycreated
         mDatabaseHelper = new NoteOpenHelper(mContext);
-        if (mDatabaseHelper != null) {
-            mSqLiteDatabase = mDatabaseHelper.getWritableDatabase();
-        }
+        mSqLiteDatabase = mDatabaseHelper.getWritableDatabase();
         return this;
     }
 
@@ -76,7 +83,7 @@ public class NoteDatabase {
         Log.e("Grzzzzrrrrrrr", "wtf ID: " + id);
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_ID + " = " + id;
         Cursor cursor = mSqLiteDatabase.rawQuery(sql, null);
-        if (cursor != null){
+        if (cursor != null) {
             cursor.moveToFirst();
             note.setTitle(cursor.getString(1));
             note.setContent(cursor.getString(2));

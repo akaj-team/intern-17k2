@@ -45,7 +45,6 @@ public class NoteAddFragment extends Fragment {
     private EditText mEdtTitle;
     private EditText mEdtContent;
     private ImageView mImageView;
-    private Toolbar mToolbar;
 
     private NoteDatabase mNoteDatabase;
     private Calendar mCalendar;
@@ -67,7 +66,7 @@ public class NoteAddFragment extends Fragment {
         mEdtTitle = (EditText) view.findViewById(R.id.edtNoteTitle);
         mEdtContent = (EditText) view.findViewById(R.id.edtNoteContent);
         mImageView = (ImageView) view.findViewById(R.id.imgAddNote);
-        mToolbar = (Toolbar) view.findViewById(R.id.toolBarAddNote);
+        Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolBarAddNote);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("AddNote");
         setHasOptionsMenu(true);
@@ -76,7 +75,7 @@ public class NoteAddFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mNoteDatabase = new NoteDatabase(getContext());
+        mNoteDatabase = NoteDatabase.getInstantDatabase(getContext());
         mNoteDatabase.open();
     }
 

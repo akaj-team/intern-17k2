@@ -28,14 +28,13 @@ public class NoteFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private Toolbar mToolbar;
 
-    private List<Note> mNotes;
-    private NoteAdapter mNoteAdapter;
     private NoteDatabase mNoteDatabase;
     private OnChangeFragment mOnChangeFragment;
 
-    public interface OnChangeFragment{
+    public interface OnChangeFragment {
         void onChange(int key, int position);
     }
+
     public NoteFragment(OnChangeFragment onChangeFragment) {
         mOnChangeFragment = onChangeFragment;
     }
@@ -54,7 +53,7 @@ public class NoteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mNoteDatabase = new NoteDatabase(getContext());
+        mNoteDatabase = NoteDatabase.getInstantDatabase(getContext());
         mNoteDatabase.open();
         initUI();
     }
@@ -62,8 +61,8 @@ public class NoteFragment extends Fragment {
     private void initUI() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("AppNote");
-        mNotes = mNoteDatabase.getAllData();
-        mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnClickItemNote() {
+        List<Note> mNotes = mNoteDatabase.getAllData();
+        NoteAdapter mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnClickItemNote() {
             @Override
             public void onClick(int position) {
                 mOnChangeFragment.onChange(2, position);
@@ -77,7 +76,7 @@ public class NoteFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.mnAdd){
+        if (item.getItemId() == R.id.mnAdd) {
             mOnChangeFragment.onChange(1, 0);
         }
         return super.onOptionsItemSelected(item);
@@ -85,7 +84,7 @@ public class NoteFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-         getActivity().getMenuInflater().inflate(R.menu.menu, menu);
+        getActivity().getMenuInflater().inflate(R.menu.menu, menu);
     }
 
     @Override
