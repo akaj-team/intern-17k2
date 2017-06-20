@@ -7,24 +7,5 @@
         android:id="@+id/imgViewPager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/viewpager.height"
-        android:contentDescription="@null"
-        android:src="@drawable/img_07" />
-
-    <ImageView
-        android:id="@+id/imgArrowLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_keyboard_arrow_left_black_48dp"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/imgArrowRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|right"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_keyboard_arrow_right_black_48dp"
-        android:visibility="gone" />
+        android:contentDescription="@null" />
 </FrameLayout>

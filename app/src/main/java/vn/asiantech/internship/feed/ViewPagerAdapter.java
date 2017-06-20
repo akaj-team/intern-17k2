@@ -17,9 +17,9 @@ import vn.asiantech.internship.R;
  * Created by Hai on 6/15/2017.
  */
 class ViewPagerAdapter extends PagerAdapter {
-    private int[] mImageArray;
+    private String[] mImageArray;
 
-    ViewPagerAdapter(int[] imageArray) {
+    ViewPagerAdapter(String[] imageArray) {
         mImageArray = imageArray;
     }
 
@@ -33,33 +33,9 @@ class ViewPagerAdapter extends PagerAdapter {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_viewpager, container, false);
         final ImageView imageView = (ImageView) view.findViewById(R.id.imgViewPager);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageResource(mImageArray[position]);
-        ImageLoader imageLoader = ImageLoader.getInstance();
+        final ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(container.getContext()));
-//        ImageView imgArrowLeft = (ImageView) view.findViewById(R.id.imgArrowLeft);
-//        ImageView imgArrowRight = (ImageView) view.findViewById(R.id.imgArrowRight);
-//        if (mImageArray.length > 1 && position < mImageArray.length - 1) {
-//            imgArrowRight.setVisibility(View.VISIBLE);
-//            imgArrowRight.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    imageView.setImageResource(mImageArray[position + 1]);
-//                }
-//            });
-//        } else {
-//            imgArrowRight.setVisibility(View.INVISIBLE);
-//        }
-//        if (mImageArray.length > 1 && position > mImageArray[0]) {
-//            imgArrowLeft.setVisibility(View.VISIBLE);
-//            imgArrowRight.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    imageView.setImageResource(mImageArray[position - 1]);
-//                }
-//            });
-//        } else {
-//            imgArrowLeft.setVisibility(View.INVISIBLE);
-//        }
+        imageLoader.displayImage(mImageArray[position], imageView);
         container.addView(view);
         return view;
     }

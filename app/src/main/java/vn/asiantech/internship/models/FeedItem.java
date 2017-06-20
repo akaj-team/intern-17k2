@@ -8,13 +8,13 @@ package vn.asiantech.internship.models;
 
 public class FeedItem {
     private String name;
-    private int[] imageArray;
+    private String[] imageArray;
     private String status;
 
     public FeedItem() {
     }
 
-    public FeedItem(String name, int[] imageArray, String status) {
+    public FeedItem(String name, String[] imageArray, String status) {
         this.name = name;
         this.imageArray = imageArray;
         this.status = status;
@@ -28,11 +28,11 @@ public class FeedItem {
         this.name = name;
     }
 
-    public int[] getImageArray() {
+    public String[] getImageArray() {
         return imageArray;
     }
 
-    public void setImageArray(int[] imageArray) {
+    public void setImageArray(String[] imageArray) {
         this.imageArray = imageArray;
     }
 
