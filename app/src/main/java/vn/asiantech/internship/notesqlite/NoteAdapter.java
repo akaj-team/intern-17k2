@@ -1,5 +1,6 @@
 package vn.asiantech.internship.notesqlite;
 
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +14,17 @@ import java.util.List;
 import vn.asiantech.internship.R;
 
 /**
- * Created by sony on 19/06/2017.
+ * Used to collect and display list data to the View.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-9
  */
 
-public class NoteAdapter extends RecyclerView.Adapter {
+class NoteAdapter extends RecyclerView.Adapter {
     private List<Note> mNotes = new ArrayList<>();
 
-    public NoteAdapter(List<Note> notes) {
+     NoteAdapter(List<Note> notes) {
         this.mNotes = notes;
     }
 
@@ -33,13 +38,13 @@ public class NoteAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         NoteViewHolder noteViewHolder = (NoteViewHolder) holder;
-        noteViewHolder.mTvDate.setText(mNotes.get(position).getDate());
+        noteViewHolder.mTvDayOfWeek.setText(mNotes.get(position).getDayOfWeek());
         noteViewHolder.mTvDay.setText(mNotes.get(position).getDay());
         noteViewHolder.mTvMonth.setText(mNotes.get(position).getMonth());
         noteViewHolder.mTvHour.setText(mNotes.get(position).getHour());
         noteViewHolder.mTvTitle.setText(mNotes.get(position).getTitle());
         noteViewHolder.mTvContent.setText(mNotes.get(position).getContent());
-       // noteViewHolder.mImage.set(mNotes.get(position).getPathImage());
+        noteViewHolder.mImage.setImageBitmap(BitmapFactory.decodeFile(mNotes.get(position).getPathImage()));
     }
 
     @Override
@@ -48,24 +53,23 @@ public class NoteAdapter extends RecyclerView.Adapter {
     }
 
     private class NoteViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTvDate;
-        private TextView mTvDay;
-        private TextView mTvMonth;
-        private TextView mTvHour;
-        private TextView mTvTitle;
-        private TextView mTvContent;
-        private ImageView mImage;
+        private final TextView mTvDayOfWeek;
+        private final TextView mTvDay;
+        private final TextView mTvMonth;
+        private final TextView mTvHour;
+        private final TextView mTvTitle;
+        private final TextView mTvContent;
+        private final ImageView mImage;
 
         NoteViewHolder(View itemView) {
             super(itemView);
-//            mTvDate = (TextView) itemView.findViewById(R.id.tvDate);
-//            mTvDay = (TextView) itemView.findViewById(R.id.tvDay);
-//            mTvMonth = (TextView) itemView.findViewById(R.id.tvMonth);
-//            mTvHour = (TextView) itemView.findViewById(R.id.tvHour);
-//            mTvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-//            mTvContent = (TextView) itemView.findViewById(R.id.tvContent);
-//            mImage = (ImageView) itemView.findViewById(R.id.imgNote);
+            mTvDayOfWeek = (TextView) itemView.findViewById(R.id.tvDayOfWeek);
+            mTvDay = (TextView) itemView.findViewById(R.id.tvDay);
+            mTvMonth = (TextView) itemView.findViewById(R.id.tvMonth);
+            mTvHour = (TextView) itemView.findViewById(R.id.tvHour);
+            mTvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+            mTvContent = (TextView) itemView.findViewById(R.id.tvContent);
+            mImage = (ImageView) itemView.findViewById(R.id.imgNote);
         }
     }
-
 }

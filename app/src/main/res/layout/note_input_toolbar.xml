@@ -15,25 +15,25 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="8"
+            android:layout_weight="6"
             android:text="@string/name.node_add"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/textView.size" />
 
         <ImageView
-            android:id="@+id/imgDelete"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/image.description"
-            android:src="@drawable/ic_delete_white_24dp" />
-
-        <ImageView
             android:id="@+id/imgAddImage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:contentDescription="@string/image.description"
             android:src="@drawable/ic_filter_white_24dp" />
+
+        <ImageView
+            android:id="@+id/btnAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:contentDescription="@string/image.description"
+            android:src="@drawable/ic_save_white_24dp" />
     </LinearLayout>
 </android.support.v7.widget.Toolbar>

@@ -1,12 +1,15 @@
 package vn.asiantech.internship.notesqlite;
 
 /**
- * Created by sony on 19/06/2017.
+ * Used as a object.
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-20
  */
-
-public class Note {
+class Note {
     private int id;
-    private String date;
+    private String dayOfWeek;
     private String day;
     private String month;
     private String hour;
@@ -14,19 +17,9 @@ public class Note {
     private String content;
     private String pathImage;
 
-    public Note(int id, String date, String day, String month, String hour, String title, String content, String pathImage) {
-        this.id = id;
-        this.date = date;
-        this.day = day;
-        this.month = month;
-        this.hour = hour;
-        this.title = title;
-        this.content = content;
-        this.pathImage = pathImage;
-    }
 
-    public Note(String date, String day, String month, String hour, String title, String content, String pathImage) {
-        this.date = date;
+    public Note(String dayOfWeek, String day, String month, String hour, String title, String content, String pathImage) {
+        this.dayOfWeek = dayOfWeek;
         this.day = day;
         this.month = month;
         this.hour = hour;
@@ -43,12 +36,12 @@ public class Note {
         this.id = id;
     }
 
-    public String getDate() {
-        return date;
+    public String getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     public String getDay() {

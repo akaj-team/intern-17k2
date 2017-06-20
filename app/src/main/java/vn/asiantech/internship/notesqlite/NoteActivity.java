@@ -1,66 +1,41 @@
 package vn.asiantech.internship.notesqlite;
 
-import android.content.Intent;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import vn.asiantech.internship.R;
 
 /**
- * Created by sony on 19/06/2017.
+ * Use to contain and show note fragment and add fragment
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-20
  */
-
 public class NoteActivity extends AppCompatActivity {
-    private static final int REQUEST_CODE = 1;
-    public static final int REQSULT_CODE = 2;
-    private ImageView mImgAdd;
-
-    private RecyclerView mRecyclerViewNote;
-    private NoteAdapter mAdapter;
-    private List<Note> mNotes = new ArrayList<>();
-    private NoteSqlite mData;
+    FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
-        mData = new NoteSqlite(this);
-
-        mImgAdd = (ImageView) findViewById(R.id.imgAddNote);
-        mRecyclerViewNote = (RecyclerView) findViewById(R.id.recyclerViewNote);
-
-        mImgAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(new Intent(NoteActivity.this, InputNoteActivity.class), REQUEST_CODE);
-            }
-        });
-
+        mFragmentManager = getFragmentManager();
+        showList();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == REQSULT_CODE) {
-            try {
-                mData.open();
-                mNotes = mData.getNotes();
-                Log.i("aaaaaaaaaa", "onActivityResult: "+mNotes.size());
-                mData.close();
-                mAdapter = new NoteAdapter(mNotes);
-                mRecyclerViewNote.setAdapter(mAdapter);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    public void showAdd() {
+        AddNoteFragment addNoteFragment = new AddNoteFragment();
+        FragmentTransaction addNoteFragmentTransaction = mFragmentManager.beginTransaction();
+        addNoteFragmentTransaction.replace(R.id.flContainer, addNoteFragment);
+        addNoteFragmentTransaction.commit();
+    }
 
-        }
+    public void showList() {
+        NoteFragment noteFragment = new NoteFragment();
+        FragmentTransaction noteFragmentTransaction = mFragmentManager.beginTransaction();
+        noteFragmentTransaction.replace(R.id.flContainer, noteFragment);
+        noteFragmentTransaction.commit();
     }
 }

@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/recyclerView.linearlayout_margin_top_bottom"
-    android:layout_marginLeft="@dimen/recyclerView.linearlayout_margin_left_right"
-    android:layout_marginRight="@dimen/recyclerView.linearlayout_margin_left_right"
-    android:layout_marginTop="@dimen/recyclerView.linearlayout_margin_top_bottom"
+    android:layout_marginBottom="@dimen/recyclerView.linearLayout_margin_top_bottom"
+    android:layout_marginLeft="@dimen/recyclerView.linearLayout_margin_left_right"
+    android:layout_marginRight="@dimen/recyclerView.linearLayout_margin_left_right"
+    android:layout_marginTop="@dimen/recyclerView.linearLayout_margin_top_bottom"
     android:background="@drawable/bg_item_list_friend"
     android:gravity="center"
-    android:padding="@dimen/recyclerView.linearlayout_padding">
+    android:padding="@dimen/recyclerView.linearLayout_padding">
 
     <ImageView
         android:layout_width="0dp"
@@ -19,9 +19,9 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="@dimen/recyclerView.linearlayout_height"
-        android:layout_marginLeft="@dimen/recyclerView.linearlayout_margin_left_right"
-        android:layout_marginStart="@dimen/recyclerView.linearlayout_margin_left_right"
+        android:layout_height="@dimen/recyclerView.linearLayout_height"
+        android:layout_marginLeft="@dimen/recyclerView.linearLayout_margin_left_right"
+        android:layout_marginStart="@dimen/recyclerView.linearLayout_margin_left_right"
         android:layout_weight="9"
         android:gravity="center"
         android:orientation="vertical">
@@ -39,14 +39,14 @@
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/recyclerView.textview_margin_left"
-                android:layout_marginStart="@dimen/recyclerView.textview_margin_left" />
+                android:layout_marginLeft="@dimen/recyclerView.textView_margin_left"
+                android:layout_marginStart="@dimen/recyclerView.textView_margin_left" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/recyclerView.textview_margin_left">
+            android:layout_marginTop="@dimen/recyclerView.textView_margin_left">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,8 +57,8 @@
                 android:id="@+id/tvDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/recyclerView.textview_margin_left"
-                android:layout_marginStart="@dimen/recyclerView.textview_margin_left" />
+                android:layout_marginLeft="@dimen/recyclerView.textView_margin_left"
+                android:layout_marginStart="@dimen/recyclerView.textView_margin_left" />
         </LinearLayout>
     </LinearLayout>
 
@@ -66,8 +66,8 @@
         android:id="@+id/imgBtnFriend"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/recyclerView.textview_margin_left"
-        android:layout_marginStart="@dimen/recyclerView.textview_margin_left"
+        android:layout_marginLeft="@dimen/recyclerView.textView_margin_left"
+        android:layout_marginStart="@dimen/recyclerView.textView_margin_left"
         android:layout_weight="1"
         android:contentDescription="@string/image.description.recyclerView"
         android:textAllCaps="false"
