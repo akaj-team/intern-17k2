@@ -16,10 +16,10 @@ public class FeedActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-        setFragment();
+        repalceFragment();
     }
 
-    private void setFragment() {
+    private void repalceFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.flFeed, new FeedFragment());
         fragmentTransaction.commit();

@@ -53,7 +53,7 @@ public class FeedFragment extends Fragment {
                 }
             });
             itemDatabase.closeDatabase();
-        } catch (IOException e){
+        } catch (IOException e) {
             Log.i("Error", "Read Database: " + e.getMessage());
         }
     }
