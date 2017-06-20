@@ -29,6 +29,10 @@ public class NoteDatabase extends Activity {
         return this;
     }
 
+    public void close() {
+        mOpenHelper.close();
+    }
+
     public long insertNote(NoteItem note) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(NoteOpenHelper.COLUMN_TITLE, note.getTitle());
@@ -45,6 +49,7 @@ public class NoteDatabase extends Activity {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             listNote.add(new NoteItem(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
+            cursor.moveToNext();
         }
         return listNote;
     }

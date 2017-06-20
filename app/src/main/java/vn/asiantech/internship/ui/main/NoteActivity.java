@@ -25,6 +25,8 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mImgAddNote;
     private ImageView mImgAddImage;
     private ImageView mImgSave;
+    private NoteFragment mNoteFragment;
+    private AddNoteFragment mAddNoteFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,8 +35,9 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
 
         initToolbar();
         initView();
-        NoteFragment noteFragment = new NoteFragment();
-        replaceFragment(noteFragment, true);
+        mNoteFragment = new NoteFragment();
+        mAddNoteFragment = new AddNoteFragment();
+        replaceFragment(mNoteFragment, true);
     }
 
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
@@ -78,6 +81,8 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
         mImgSave = (ImageView) findViewById(R.id.imgSave);
 
         mImgAddNote.setOnClickListener(this);
+        mImgAddImage.setOnClickListener(this);
+        mImgSave.setOnClickListener(this);
     }
 
     @Override
@@ -95,8 +100,10 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgAddNote:
-                AddNoteFragment addNoteFragment = new AddNoteFragment();
-                replaceFragment(addNoteFragment, true);
+                replaceFragment(mAddNoteFragment, true);
+                break;
+            case R.id.imgSave:
+                mAddNoteFragment.addNote();
                 break;
         }
     }

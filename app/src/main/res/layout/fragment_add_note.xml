@@ -14,6 +14,7 @@
         android:visibility="gone" />
 
     <EditText
+        android:id="@+id/edtNoteTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_margin_default"
@@ -25,6 +26,7 @@
         android:textSize="@dimen/text_size_default" />
 
     <EditText
+        android:id="@+id/edtNoteContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_margin_default"

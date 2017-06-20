@@ -1,6 +1,12 @@
 package vn.asiantech.internship.models;
 
+import android.text.format.DateFormat;
+import android.util.Log;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Data of Item for Note RecyclerView
@@ -23,10 +29,14 @@ public class NoteItem implements Serializable {
         this.time = time;
     }
 
-    public NoteItem(String title, String content, String time) {
+    public NoteItem(String title, String content) {
         this.title = title;
         this.content = content;
-        this.time = time;
+        Date date = new Date();
+        SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
+        time = dayOfWeekFormat.format(date) + "\n" + DateFormat.format("dd", date) + " " + monthFormat.format(date) + "\n" + DateFormat.format("hh:mm:ss", date);
+        Log.i("tag11", time);
     }
 
     public String getTitle() {
