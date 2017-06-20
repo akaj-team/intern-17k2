@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.io.File;
@@ -35,8 +34,8 @@ public class FeedDatabase extends SQLiteOpenHelper {
     public FeedDatabase(Context context) throws IOException {
         super(context, DB_NAME, null, DB_VERSION);
         this.mContext = context;
-        boolean dbexist = checkDatabase();
-        if (dbexist) {
+        boolean dbExist = checkDatabase();
+        if (dbExist) {
             openDatabase();
         } else {
             createDatabase();
@@ -44,8 +43,8 @@ public class FeedDatabase extends SQLiteOpenHelper {
     }
 
     public void createDatabase() throws IOException {
-        boolean dbexist = checkDatabase();
-        if (!dbexist) {
+        boolean dbExist = checkDatabase();
+        if (!dbExist) {
             this.getReadableDatabase();
             try {
                 copyDatabase();
@@ -56,16 +55,9 @@ public class FeedDatabase extends SQLiteOpenHelper {
     }
 
     private boolean checkDatabase() {
-
-        boolean checkdb = false;
-        try {
-            String myPath = DB_PATH + DB_NAME;
-            File dbfile = new File(myPath);
-            checkdb = dbfile.exists();
-        } catch (SQLiteException e) {
-            e.printStackTrace();
-        }
-        return checkdb;
+        String myPath = DB_PATH + DB_NAME;
+        File dbFile = new File(myPath);
+        return dbFile.exists();
     }
 
     private void copyDatabase() throws IOException {
