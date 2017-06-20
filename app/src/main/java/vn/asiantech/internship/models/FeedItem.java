@@ -2,10 +2,9 @@ package vn.asiantech.internship.models;
 
 /**
  * model store data
- *
+ * <p>
  * Created by Hai on 6/15/2017.
  */
-
 public class FeedItem {
     private String name;
     private int[] imageArray;
