@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +48,7 @@ class FeedAdapter extends RecyclerView.Adapter {
         myViewHolder.mTvName.setText(mFeeds.get(position).getName());
         myViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
         myViewHolder.mViewPager.setAdapter(new FeedPagerAdapter(mContext, mFeeds.get(position).getImages()));
+
     }
 
     @Override
@@ -59,22 +63,66 @@ class FeedAdapter extends RecyclerView.Adapter {
         private final TextView mTvName;
         private final TextView mTvDescription;
         private final ViewPager mViewPager;
+        private ImageView mImgNext;
+        private ImageView mImgBack;
 
         FeedViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvDescription = (TextView) itemView.findViewById(R.id.tvDescribe);
             mViewPager = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
+            mImgNext = (ImageView) itemView.findViewById(R.id.imgNext);
+            mImgBack = (ImageView) itemView.findViewById(R.id.imgBack);
+
+            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    if (position == 0) {
+                        mImgBack.setEnabled(false);
+                    } else {
+                        mImgBack.setEnabled(true);
+                    }
+                    if (position == mFeeds.get(0).getImages().size() - 1) {
+                        mImgNext.setEnabled(false);
+                    } else {
+                        mImgNext.setEnabled(true);
+                    }
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+            mImgNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
+                }
+            });
+
+            mImgBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+                }
+            });
         }
     }
 
     /**
      * Used to register for viewpager.
      */
-    private static class FeedPagerAdapter extends PagerAdapter {
+    private class FeedPagerAdapter extends PagerAdapter {
         private final List<Image> mImages;
         private final LayoutInflater mInflater;
         private final Context mContext;
+
 
         FeedPagerAdapter(Context context, List<Image> images) {
             this.mImages = images;
@@ -100,8 +148,10 @@ class FeedAdapter extends RecyclerView.Adapter {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View imageLayout = mInflater.inflate(R.layout.item_images, container, false);
-            final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgItem);
-          //  imageView.setImageResource(mImages.get(position).getLink());
+            final ImageView imgItem = (ImageView) imageLayout.findViewById(R.id.imgItem);
+            ImageLoader imageLoader = ImageLoader.getInstance();
+            imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
+            imageLoader.displayImage(mImages.get(position).getLink(), imgItem);
             container.addView(imageLayout, 0);
             return imageLayout;
         }

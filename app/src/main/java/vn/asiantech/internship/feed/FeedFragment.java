@@ -25,8 +25,8 @@ import vn.asiantech.internship.R;
  * @since 2017-6-9
  */
 public class FeedFragment extends Fragment {
-    FeedSqlite mdata;
-    List<Image> images = new ArrayList<>();
+    private List<Image> images = new ArrayList<>();
+    private static final String TAG = "Error";
 
     @Nullable
     @Override
@@ -36,25 +36,23 @@ public class FeedFragment extends Fragment {
         List<Feed> feeds = new ArrayList<>();
 
         try {
-            mdata = new FeedSqlite(getActivity());
+            FeedSqlite data = new FeedSqlite(getActivity());
             try {
-                mdata.opendatabase();
-                images.addAll(mdata.getList());
-                Log.i("aaaaaaaa2", "onCreateView: "+images.size());
-                mdata.close();
+                data.opendatabase();
+                images.addAll(data.getList());
+                data.close();
             } catch (SQLException e) {
-                Log.i("aaaaaaaa", "Can't open");
+                Log.i(TAG, "Can't open");
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-       // List<Integer> images = Arrays.asList(R.mipmap.ic_one, R.mipmap.ic_two, R.mipmap.ic_three, R.mipmap.ic_four, R.mipmap.ic_five, R.mipmap.ic_six, R.mipmap.ic_seven, R.mipmap.ic_eight, R.mipmap.ic_nine, R.mipmap.ic_ten);
-       String[] names = getResources().getStringArray(R.array.names);
-       String[] descriptions = getResources().getStringArray(R.array.descriptions);
+        String[] names = getResources().getStringArray(R.array.names);
+        String[] descriptions = getResources().getStringArray(R.array.descriptions);
         for (int i = 0; i < names.length; i++) {
-           feeds.add(new Feed(names[i], descriptions[i], images));
-      }
+            feeds.add(new Feed(names[i], descriptions[i], images));
+        }
         FeedAdapter adapter = new FeedAdapter(getActivity(), feeds);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
