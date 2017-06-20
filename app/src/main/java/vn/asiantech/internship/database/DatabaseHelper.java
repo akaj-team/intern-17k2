@@ -77,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
             createDataBase();
         } catch (IOException e) {
-            Log.d("DatabaseHelper", "onCreate: " + e.toString());
+            Log.d(LOG, "onCreate: " + e.toString());
         }
     }
 
@@ -96,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             try {
                 copyDataBase();
             } catch (IOException mIOException) {
-                Log.d("DatabaseHelper", "onCreate: " + mIOException.toString());
+                Log.d(LOG, "onCreate: " + mIOException.toString());
                 throw new Error("Error copying database");
             } finally {
                 this.close();
@@ -113,7 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             final File file = new File(mPath);
             return file.exists();
         } catch (SQLiteException e) {
-            Log.d("DatabaseHelper", "checkDataBase: " + e.toString());
+            Log.d(LOG, "checkDataBase: " + e.toString());
             return false;
         }
     }
@@ -136,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             mOutputStream.close();
             mInputStream.close();
         } catch (Exception e) {
-            Log.d("DatabaseHelper", "copyDataBase: " + e.toString());
+            Log.d(LOG, "copyDataBase: " + e.toString());
         }
     }
 
