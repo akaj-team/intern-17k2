@@ -63,10 +63,8 @@ public class FeedsFragment extends Fragment implements FeedsAdapter.OnFeedsListe
             outStream.flush();
             outStream.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
             Log.d("FeedsFragment", "saveImageToSdCard: " + e.toString());
         } catch (IOException e) {
-            e.printStackTrace();
             Log.d("FeedsFragment", "saveImageToSdCard: " + e.toString());
         }
         return file.toString();
