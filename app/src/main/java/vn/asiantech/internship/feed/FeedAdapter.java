@@ -55,6 +55,7 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyHolder> {
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
         Feed feed = mFeedList.get(position);
+
         holder.mTvTitle.setText(feed.getTitle());
         holder.mTvName.setText(feed.getName());
         if (holder.mViewPagerAdapter == null) {

@@ -23,6 +23,7 @@ import vn.asiantech.internship.R;
  */
 public class FeedFragment extends Fragment {
     private Context mContext;
+    private Feed mFeed;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,18 +40,17 @@ public class FeedFragment extends Fragment {
         Log.d("tag", "onCreateView: " + sampleImages);
         String test = Arrays.toString(sampleImages);
         Log.d("tag", "onCreateView: " + test);
-        String[] array = test.substring(1, test.length() - 1).split(",");
+        String[] array = test.substring(1, test.length() - 1).split(", ");
 
-        Log.d("tag1", "onCreateView: " + array);
-        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "1"));
-        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "2"));
-        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "3"));
-        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "4"));
-        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "5"));
-        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "6"));
-        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "7"));
-        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "8"));
+//        Log.d("tag1", "onCreateView: " + array);
         feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "9"));
+        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "9"));
+        feedList.add(new Feed(getString(R.string.feedlist_name), sampleImages, "9"));
+//        Log.d("tag", "onCreateView: " + feedList);
+
+        DataBaseFeed dataBaseFeed = new DataBaseFeed(getContext());
+        dataBaseFeed.open();
+        dataBaseFeed.insertItemFeed(mFeed);
 
         LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
