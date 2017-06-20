@@ -7,6 +7,8 @@
     <color name="btn.friends">#FF0033</color>
     <color name="colorItemPressed">#666666</color>
     <color name="colorBorder">#CCCCCC</color>
+    <color name="toolbar.edit_information.background">#CCCCCC</color>
+    <color name="toolbar.note.background">#CCCCCC</color>
     <color name="colorItem">#86868B</color>
     <color name="textview.function">#FFFFFF</color>
     <color name="toolbar">#ECEBED</color>

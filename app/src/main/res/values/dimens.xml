@@ -18,6 +18,7 @@
     <item name="image.aspectx" type="dimen">1</item>
     <item name="image.aspecty" type="dimen">1</item>
     <item name="drawable.pixel" type="dimen">20</item>
+    <item name="linearlayout.information.layout_weight" type="dimen" format="float">1.5</item>
     <dimen name="relativelayout.layout_height">80dp</dimen>
     <dimen name="imageview.layout_marginStart">5dp</dimen>
     <dimen name="textview.name.layout_marginStart">75dp</dimen>
@@ -28,4 +29,22 @@
     <dimen name="button.friends.layout_marginTop">5dp</dimen>
     <dimen name="imageview.avatar.layout_height">80dp</dimen>
     <dimen name="imageview.avatar.layout_width">80dp</dimen>
+    <dimen name="imageview.photo.layout_marginLeft">300dp</dimen>
+    <dimen name="imageview.save.layout_marginLeft">5dp</dimen>
+    <dimen name="imageview.Edit_information.layout_marginTop">50dp</dimen>
+    <dimen name="imageview.Edit_information.layout_marginLeft">50dp</dimen>
+    <dimen name="edittext.title.layout_width">230dp</dimen>
+    <dimen name="edittext.title.layout_marginLeft">20dp</dimen>
+    <dimen name="edittext.title.textSize">20sp</dimen>
+    <dimen name="linearlayout.description.layout_marginTop">50dp</dimen>
+    <dimen name="linearlayout.title.layout_marginTop">40dp</dimen>
+    <dimen name="imageview.add.layout_marginLeft">320dp</dimen>
+    <dimen name="linearlayout.item_note.layout_height">100dp</dimen>
+    <dimen name="textview.title_note.layout_width">150dp</dimen>
+    <dimen name="textview.title_note.layout_height">40dp</dimen>
+    <dimen name="textview.title_note.textSize">30sp</dimen>
+    <dimen name="textview.description_note.layout_width">150dp</dimen>
+    <dimen name="textview.description_note.layout_height">40dp</dimen>
+    <dimen name="textview.description_note.textSize">20sp</dimen>
+    <dimen name="linearlayout.imageNote.layout_weight">2</dimen>
 </resources>

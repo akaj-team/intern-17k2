@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_edit_information" />
+
+    <ImageView
+        android:id="@+id/imgEditInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/imageview.Edit_information.layout_marginLeft"
+        android:layout_marginTop="@dimen/imageview.Edit_information.layout_marginTop"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/linearlayout.title.layout_marginTop">
+
+        <EditText
+            android:id="@+id/edtTitle"
+            android:layout_width="@dimen/edittext.title.layout_width"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/edittext.title.layout_marginLeft"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/edittext.title.layout_marginLeft"
+            android:text="@string/textview.title_edit.text"
+            android:textSize="@dimen/edittext.title.textSize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/linearlayout.description.layout_marginTop">
+
+        <EditText
+            android:id="@+id/edtDescription"
+            android:layout_width="@dimen/edittext.title.layout_width"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/edittext.title.layout_marginLeft"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/edittext.title.layout_marginLeft"
+            android:text="@string/textview.description_edit.text"
+            android:textSize="@dimen/edittext.title.textSize" />
+    </LinearLayout>
+</LinearLayout>

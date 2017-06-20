@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/linearlayout.item_note.layout_height"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/textview.border.layout_height" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_marginLeft="10dp"
+                tools:text="Monday"/>
+            <TextView
+                android:id="@+id/tvMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:layout_marginLeft="10dp"
+                tools:text="Month"/>
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:layout_marginLeft="10dp"
+                tools:text="Time"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="@dimen/linearlayout.information.layout_weight"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitleNote"
+                android:layout_width="@dimen/textview.title_note.layout_width"
+                android:layout_height="@dimen/textview.title_note.layout_height"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textview.title_note.textSize"
+                tools:text="Title" />
+
+            <TextView
+                android:id="@+id/tvDescriptionNote"
+                android:layout_width="@dimen/textview.description_note.layout_width"
+                android:layout_height="@dimen/textview.description_note.layout_height"
+                android:textColor="@color/colorItem"
+                android:textSize="@dimen/textview.description_note.textSize"
+                tools:text="Description" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgItemNote"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="@dimen/linearlayout.imageNote.layout_weight"
+            android:contentDescription="@null" />
+    </LinearLayout>
+</LinearLayout>
