@@ -18,35 +18,34 @@ import java.util.List;
 import vn.asiantech.internship.models.FeedItem;
 
 /**
- * Created by PC on 6/20/2017.
+ * Feed Database
+ *
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/20/2017
  */
-
 public class FeedDatabase extends SQLiteOpenHelper {
-    private Context mycontext;
-    private static String DB_NAME = "list_image.sqlite";
-    private static String TABLE = "images";
-    private static String DB_PATH = "/data/data/vn.asiantech.internship/databases/";
-    private static int DB_VERSION = 1;
-    public SQLiteDatabase myDataBase;
+    private Context mContext;
+    private static final String DB_NAME = "list_image.sqlite";
+    private static final String TABLE = "images";
+    private static final String DB_PATH = "/data/data/vn.asiantech.internship/databases/";
+    private static final int DB_VERSION = 1;
+    private SQLiteDatabase myDataBase;
 
     public FeedDatabase(Context context) throws IOException {
         super(context, DB_NAME, null, DB_VERSION);
-        this.mycontext = context;
+        this.mContext = context;
         boolean dbexist = checkDatabase();
         if (dbexist) {
-            System.out.println("Database exists");
             openDatabase();
         } else {
-            System.out.println("Database doesn't exist");
             createDatabase();
         }
     }
 
     public void createDatabase() throws IOException {
         boolean dbexist = checkDatabase();
-        if (dbexist) {
-            System.out.println(" Database exists.");
-        } else {
+        if (!dbexist) {
             this.getReadableDatabase();
             try {
                 copyDatabase();
@@ -64,13 +63,13 @@ public class FeedDatabase extends SQLiteOpenHelper {
             File dbfile = new File(myPath);
             checkdb = dbfile.exists();
         } catch (SQLiteException e) {
-            System.out.println("Database doesn't exist");
+            e.printStackTrace();
         }
         return checkdb;
     }
 
     private void copyDatabase() throws IOException {
-        InputStream source = mycontext.getAssets().open(DB_NAME);
+        InputStream source = mContext.getAssets().open(DB_NAME);
         String target = DB_PATH + DB_NAME;
         OutputStream outputStream = new FileOutputStream(target);
         byte[] buffer = new byte[1024];
@@ -97,15 +96,16 @@ public class FeedDatabase extends SQLiteOpenHelper {
     }
 
     public List<FeedItem> getFeeds() {
-        List<FeedItem> Words = new ArrayList<>();
+        List<FeedItem> feeds = new ArrayList<>();
         openDatabase();
         Cursor cursor = myDataBase.rawQuery("SELECT * from " + TABLE, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Words.add(new FeedItem(cursor.getString(1), cursor.getString(3), cursor.getString(2)));
+            feeds.add(new FeedItem(cursor.getString(1), cursor.getString(3), cursor.getString(2)));
             cursor.moveToNext();
         }
-        return Words;
+        cursor.close();
+        return feeds;
     }
 
     @Override
