@@ -29,10 +29,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     @Override
-    public void onBindViewHolder(PostViewHolder holder, int position) {
+    public void onBindViewHolder(final PostViewHolder holder, int position) {
         holder.mImgUser.setImageBitmap(mPosts.get(position).getImageUSer());
         holder.mTvName.setText(mPosts.get(position).getName());
-        ImageAdapter imageAdapter = new ImageAdapter(mPosts.get(position).getImageList());
+        final int[] currentItem = {holder.mViewPagerImage.getCurrentItem()};
+        ImageAdapter imageAdapter = new ImageAdapter(mPosts.get(position).getImageList(), new ImageAdapter.OnClickArrowListener() {
+            @Override
+            public void onClickLeft() {
+                currentItem[0] -= 1;
+                holder.mViewPagerImage.setCurrentItem(currentItem[0]);
+            }
+
+            @Override
+            public void onClickRight() {
+                currentItem[0] += 1;
+                holder.mViewPagerImage.setCurrentItem(currentItem[0]);
+            }
+        });
         holder.mViewPagerImage.setAdapter(imageAdapter);
         holder.mTvDescription.setText(mPosts.get(position).getDesription());
     }

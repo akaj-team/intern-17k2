@@ -32,6 +32,7 @@ public class FeedFragment extends Fragment {
         List<Bitmap> images = new ArrayList<>();
         images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
         images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
+        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
         mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeDuc", images, "Who is he?"));
         mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeA", images, "He is Mr. Luom"));
         mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeB", images, "he is good man"));
