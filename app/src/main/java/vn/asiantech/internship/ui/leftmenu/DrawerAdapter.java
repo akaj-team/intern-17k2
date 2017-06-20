@@ -61,7 +61,6 @@ public class DrawerAdapter extends RecyclerView.Adapter {
         }
     }
 
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
