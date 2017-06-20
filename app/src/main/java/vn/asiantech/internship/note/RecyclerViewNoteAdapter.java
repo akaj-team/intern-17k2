@@ -14,7 +14,6 @@ import vn.asiantech.internship.R;
  * Copyright © 2016 AsianTech inc.
  * Created by DatBui on 19/06/2017.
  */
-
 public class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapter.MyHolder> {
 
     public RecyclerViewNoteAdapter() {

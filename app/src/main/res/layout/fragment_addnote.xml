@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imgNote"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:background="@mipmap/ic_launcher" />
+        android:background="@mipmap/ic_launcher"
+        android:visibility="invisible" />
 
     <EditText
         android:id="@+id/edtTitle"
-        android:layout_below="@+id/imgNote"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="@string/edt.title"/>
+        android:layout_below="@+id/imgNote"
+        android:hint="@string/edt.title"
+        />
+
     <EditText
+        android:id="@+id/edtNote"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/edtTitle"
+        android:background="@drawable/edt_custom"
         android:hint="@string/edt.note"
-        android:lines="20"/>
+        android:inputType="textMultiLine|text|textCapWords|textAutoCorrect" />
+
 </RelativeLayout>

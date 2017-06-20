@@ -3,7 +3,6 @@ package vn.asiantech.internship.note;
 /**
  * Created by datbu on 19-06-2017.
  */
-
 public class ItemNote {
     private String title;
     private String note;
