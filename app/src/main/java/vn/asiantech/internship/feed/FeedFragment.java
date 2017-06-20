@@ -39,7 +39,7 @@ public class FeedFragment extends Fragment {
             mFeedList = dataBaseHandler.getFeeds();
             dataBaseHandler.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new Error("Error copying database");
         }
 
         LinearLayoutManager manager = new LinearLayoutManager(view.getContext());

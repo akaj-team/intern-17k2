@@ -38,11 +38,9 @@ class DataBaseHandler extends SQLiteOpenHelper {
         if (dbexist) {
             opendatabase();
         } else {
-            System.out.println("Database doesn't exist");
             createdatabase();
         }
     }
-
 
 
     private void createdatabase() throws IOException {
@@ -68,7 +66,7 @@ class DataBaseHandler extends SQLiteOpenHelper {
             //checkdb = SQLiteDatabase.openDatabase(myPath,null,SQLiteDatabase.OPEN_READWRITE);
             checkdb = dbfile.exists();
         } catch (SQLiteException e) {
-            System.out.println("Database doesn't exist");
+            throw new Error("Error copying database");
         }
         return checkdb;
     }
@@ -108,6 +106,7 @@ class DataBaseHandler extends SQLiteOpenHelper {
             feeds.add(new Feed(cursor.getString(1), cursor.getString(3), cursor.getString(2)));
             cursor.moveToNext();
         }
+        cursor.close();
         return feeds;
     }
 
