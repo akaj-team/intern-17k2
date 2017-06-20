@@ -35,7 +35,6 @@ public class FeedFragment extends Fragment {
             }
             FeedRecyclerViewAdapter feedAdapter = new FeedRecyclerViewAdapter(getActivity(), mUsers);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             recyclerViewFeed.setLayoutManager(linearLayoutManager);
             recyclerViewFeed.setAdapter(feedAdapter);
         }
