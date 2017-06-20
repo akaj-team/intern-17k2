@@ -27,7 +27,6 @@ public class FeedDatabase extends SQLiteOpenHelper {
     private Context mContext;
     private static final String DB_NAME = "list_image.sqlite";
     private static final String TABLE = "images";
-    private static final String DB_PATH = "/data/data/vn.asiantech.internship/databases/";
     private static final int DB_VERSION = 1;
     private SQLiteDatabase myDataBase;
 
@@ -55,14 +54,14 @@ public class FeedDatabase extends SQLiteOpenHelper {
     }
 
     private boolean checkDatabase() {
-        String myPath = DB_PATH + DB_NAME;
+        String myPath = mContext.getFilesDir().getPath() + File.separatorChar + DB_NAME;
         File dbFile = new File(myPath);
         return dbFile.exists();
     }
 
     private void copyDatabase() throws IOException {
         InputStream source = mContext.getAssets().open(DB_NAME);
-        String target = DB_PATH + DB_NAME;
+        String target = mContext.getFilesDir().getPath() + File.separatorChar + DB_NAME;
         OutputStream outputStream = new FileOutputStream(target);
         byte[] buffer = new byte[1024];
         int length;
@@ -76,7 +75,7 @@ public class FeedDatabase extends SQLiteOpenHelper {
 
     public void openDatabase() throws SQLException {
         //Open the database
-        String dbPath = DB_PATH + DB_NAME;
+        String dbPath = mContext.getFilesDir().getPath() + File.separatorChar + DB_NAME;
         myDataBase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
