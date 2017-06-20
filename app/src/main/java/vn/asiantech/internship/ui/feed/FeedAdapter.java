@@ -1,4 +1,4 @@
-package vn.asiantech.internship.feed;
+package vn.asiantech.internship.ui.feed;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;

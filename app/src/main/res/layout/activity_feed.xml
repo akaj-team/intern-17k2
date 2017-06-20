@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="vn.asiantech.internship.feed.FeedActivity">
+    tools:context=".ui.feed.FeedActivity">
 
     <fragment
         android:id="@+id/frgFeed"
-        android:name="vn.asiantech.internship.feed.FeedFragment"
+        android:name="vn.asiantech.internship.ui.feed.FeedFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

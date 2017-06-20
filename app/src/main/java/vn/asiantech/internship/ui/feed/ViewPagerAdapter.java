@@ -1,4 +1,4 @@
-package vn.asiantech.internship.feed;
+package vn.asiantech.internship.ui.feed;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
