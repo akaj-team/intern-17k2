@@ -19,7 +19,5 @@ public class NoteActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 0);
         setContentView(R.layout.activity_note);
-
-
     }
 }
