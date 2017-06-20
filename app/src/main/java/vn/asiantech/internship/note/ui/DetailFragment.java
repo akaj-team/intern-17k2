@@ -51,11 +51,13 @@ public class DetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mNoteDatabase = new NoteDatabase(getContext());
+        mNoteDatabase = NoteDatabase.getInstantDatabase(getContext());
         mNoteDatabase.open();
         Bundle bundle = getArguments();
         mPosition = bundle.getInt("keykey", -1);
-        showNoteDetail();
+        if(mPosition > -1){
+            showNoteDetail();
+        }
     }
 
     private void showNoteDetail() {

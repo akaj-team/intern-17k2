@@ -1,12 +1,16 @@
 package vn.asiantech.internship.note.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -34,11 +38,21 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTvNoteTitle.setText(mNotes.get(position).getTitle());
-        holder.mTvNoteContent.setText(mNotes.get(position).getContent());
-        holder.mTvDate.setText(mNotes.get(position).getDate());
-        holder.mTvTime.setText(mNotes.get(position).getTime());
-//        holder.mImgNote.
+        Note note = mNotes.get(position);
+        holder.mTvNoteTitle.setText(note.getTitle());
+        holder.mTvNoteContent.setText(note.getContent());
+        holder.mTvDate.setText(note.getDate());
+        holder.mTvTime.setText(note.getTime());
+        setImage(holder.mImgNote, note.getPath());
+    }
+
+    private void setImage(ImageView imageView, String path) {
+        File imgFile = new File(path);
+        if (imgFile.exists()) {
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+//            imageView.setImageBitmap(myBitmap);
+            Log.e("Grzzzzzzzzzz",  path);
+        }
     }
 
     @Override
@@ -73,7 +87,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         }
     }
 
-    public interface OnClickItemNote{
+    public interface OnClickItemNote {
         void onClick(int pos);
     }
 }

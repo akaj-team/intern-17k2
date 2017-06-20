@@ -25,7 +25,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -128,9 +127,12 @@ public class NoteAddFragment extends Fragment {
                 InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
                 Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 mImageView.setImageBitmap(selectedImage);
-                Uri tempUri = getImageUri(getContext(), selectedImage);
-                // CALL THIS METHOD TO GET THE ACTUAL PATH
-                File finalFile = new File(getRealPathFromURI(tempUri));
+                Uri uri = data.getData();
+//                Uri tempUri = getImageUri(getContext(), selectedImage);
+                /*// CALL THIS METHOD TO GET THE ACTUAL PATH
+                File finalFile = new File(getRealPathFromURI(tempUri));*/
+                mPathImage = getRealPathFromURI(getContext(), uri);
+                Log.e("Grzzzzzzzzzzzzzz", mPathImage);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -150,6 +152,21 @@ public class NoteAddFragment extends Fragment {
         cursor.moveToFirst();
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
+    }
+
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 
     @Override
