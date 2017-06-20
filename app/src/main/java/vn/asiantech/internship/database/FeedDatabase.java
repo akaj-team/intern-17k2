@@ -74,7 +74,7 @@ public class FeedDatabase extends SQLiteOpenHelper {
     }
 
     public void openDatabase() throws SQLException {
-        //path of Database will open
+        // Open the database
         String dbPath = mContext.getFilesDir().getPath() + File.separatorChar + DB_NAME;
         mSQLiteDatabase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
