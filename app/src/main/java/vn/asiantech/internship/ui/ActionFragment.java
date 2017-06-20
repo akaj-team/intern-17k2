@@ -31,6 +31,10 @@ public class ActionFragment extends Fragment {
         void onSendData();
     }
 
+    public ActionFragment(){
+
+    }
+
     public ActionFragment(OnSendDataListener onSendDataListener) {
         // Required empty public constructor
         mOnSendDataListener = onSendDataListener;
