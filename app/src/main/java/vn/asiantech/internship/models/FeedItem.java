@@ -6,10 +6,10 @@ package vn.asiantech.internship.models;
 
 public class FeedItem {
     private String userName;
-    private int[] photoList;
+    private String[] photoList;
     private String text;
 
-    public FeedItem(String userName, int[] photoList, String text) {
+    public FeedItem(String userName, String[] photoList, String text) {
         this.userName = userName;
         this.photoList = photoList;
         this.text = text;
@@ -17,11 +17,7 @@ public class FeedItem {
 
     public FeedItem(String userName, String photoList, String text) {
         this.userName = userName;
-        String[] lists = photoList.split(",");
-        this.photoList = new int[lists.length];
-        for (int i = 0; i < lists.length; i++) {
-            this.photoList[i] = Integer.parseInt(lists[i]);
-        }
+        this.photoList = photoList.split(",");
         this.text = text;
     }
 
@@ -29,7 +25,7 @@ public class FeedItem {
         return userName;
     }
 
-    public int[] getPhotoList() {
+    public String[] getPhotoList() {
         return photoList;
     }
 
@@ -41,7 +37,7 @@ public class FeedItem {
         this.userName = userName;
     }
 
-    public void setPhotoList(int[] photoList) {
+    public void setPhotoList(String[] photoList) {
         this.photoList = photoList;
     }
 

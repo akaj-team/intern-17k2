@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +33,18 @@ public class FeedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         RecyclerView recyclerViewFeeds = (RecyclerView) view.findViewById(R.id.recyclerViewFeed);
         List<FeedItem> feeds = new ArrayList<>();
-        FeedDatabase feedDatabase = new FeedDatabase(getContext());
-        feedDatabase.open();
-        feeds = feedDatabase.getFeeds();
-        FeedAdapter adapter = new FeedAdapter(feeds);
-        recyclerViewFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewFeeds.setAdapter(adapter);
-        feedDatabase.close();
+        FeedDatabase feedDatabase = null;
+        try {
+            feedDatabase = new FeedDatabase(getContext());
+            feedDatabase.openDatabase();
+            feeds = feedDatabase.getFeeds();
+            FeedAdapter adapter = new FeedAdapter(feeds);
+            recyclerViewFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerViewFeeds.setAdapter(adapter);
+            feedDatabase.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return view;
     }
 }

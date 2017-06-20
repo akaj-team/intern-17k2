@@ -1,15 +1,17 @@
 package vn.asiantech.internship.feed.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.feed.ShowImageActivity;
 
 /**
  * @author at-cuongcao
@@ -20,17 +22,20 @@ public class PhotoListAdapter extends PagerAdapter {
 
     public static final String KEY_IMAGE = "Image";
 
-    private int[] mPhotoList;
+    private String[] mPhotoList;
     private Context mContext;
-    private OnItemClickListener mListener;
+    private ImageLoader mImageLoader;
 
-    public PhotoListAdapter(Context context, int[] photos, OnItemClickListener listener) {
+    public PhotoListAdapter(Context context, String[] photos) {
         this.mPhotoList = photos;
         this.mContext = context;
-        this.mListener = listener;
+        DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder().showImageOnLoading(context.getResources().getDrawable(R.mipmap.ic_launcher_round)).cacheInMemory(true).cacheOnDisk(true).build();
+        ImageLoaderConfiguration imageLoaderConfig = new ImageLoaderConfiguration.Builder(context).defaultDisplayImageOptions(displayImageOptions).build();
+        mImageLoader = ImageLoader.getInstance();
+        mImageLoader.init(imageLoaderConfig);
     }
 
-    public void setPhotoList(int[] photos) {
+    public void setPhotoList(String[] photos) {
         this.mPhotoList = photos;
     }
 
@@ -47,42 +52,10 @@ public class PhotoListAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+
         View view = layoutInflater.inflate(R.layout.item_photo, container, false);
         ImageView imgPicture = (ImageView) view.findViewById(R.id.imgPhoto);
-        ImageView imgPrevious = (ImageView) view.findViewById(R.id.imgPrevious);
-        ImageView imgNext = (ImageView) view.findViewById(R.id.imgNext);
-
-        imgPicture.setImageResource(mPhotoList[position]);
-        imgPicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, ShowImageActivity.class);
-                intent.putExtra(KEY_IMAGE, mPhotoList[position]);
-                mContext.startActivity(intent);
-            }
-        });
-        if (position > 0) {
-            imgPrevious.setVisibility(View.VISIBLE);
-            imgPrevious.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onPreviousClick(position);
-                }
-            });
-        } else {
-            imgPrevious.setVisibility(View.GONE);
-        }
-        if (position < mPhotoList.length - 1) {
-            imgNext.setVisibility(View.VISIBLE);
-            imgNext.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onNextClick(position);
-                }
-            });
-        } else {
-            imgNext.setVisibility(View.GONE);
-        }
+        mImageLoader.displayImage(mPhotoList[position].trim(), imgPicture);
         container.addView(view);
         return view;
     }
@@ -90,14 +63,5 @@ public class PhotoListAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((ViewGroup) object);
-    }
-
-    /**
-     * This interface used to handle on item of ViewPager click
-     */
-    public interface OnItemClickListener {
-        void onPreviousClick(int position);
-
-        void onNextClick(int position);
     }
 }
