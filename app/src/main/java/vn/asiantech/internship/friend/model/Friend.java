@@ -3,12 +3,12 @@ package vn.asiantech.internship.friend.model;
 /**
  * Created by at-dinhvo on 12/06/2017.
  */
-public class Note {
+public class Friend {
 
     private String name;
     private boolean isFriend;
 
-    public Note(String name) {
+    public Friend(String name) {
         this.name = name;
     }
 

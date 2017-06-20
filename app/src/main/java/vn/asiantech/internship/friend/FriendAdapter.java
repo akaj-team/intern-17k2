@@ -12,16 +12,16 @@ import java.util.List;
 import java.util.Random;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.friend.model.Note;
+import vn.asiantech.internship.friend.model.Friend;
 
 /**
  * Created by BACKDOOR on 07-Feb-17.
  */
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder> {
 
-    private List<Note> mNotes;
+    private List<Friend> mNotes;
 
-    public FriendAdapter(List<Note> data) {
+    public FriendAdapter(List<Friend> data) {
         mNotes = data;
     }
 
@@ -73,7 +73,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             mBtnAddFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Note noteObject = mNotes.get(getAdapterPosition());
+                    Friend noteObject = mNotes.get(getAdapterPosition());
                     if (!noteObject.isFriend()) {
                         mBtnAddFriend.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_friend_check_button, 0, 0, 0);
                         mBtnAddFriend.setText(R.string.friendfragment_button_friend_state);

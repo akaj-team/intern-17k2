@@ -10,17 +10,36 @@ public class Note {
     private String title;
     private String content;
     private String path;
+    private String date;
+    private String time;
 
     public Note(String title, String content) {
         this.title = title;
         this.content = content;
     }
 
-    public Note(int id, String title, String content, String path) {
-        this.id = id;
+    public Note(String title, String content, String path, String date, String time) {
         this.title = title;
         this.content = content;
         this.path = path;
+        this.date = date;
+        this.time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public int getId() {

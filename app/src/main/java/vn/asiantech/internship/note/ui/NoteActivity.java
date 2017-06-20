@@ -40,12 +40,12 @@ public class NoteActivity extends AppCompatActivity {
             FrameLayout frameAddNote = (FrameLayout) findViewById(R.id.frAddNote);
             FrameLayout frameContainer = (FrameLayout) findViewById(R.id.frContainer);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.frAddNote, new AddNoteFragment());
+            transaction.replace(R.id.frAddNote, new NoteAddFragment());
             transaction.addToBackStack(null);
             transaction.commit();
             frameAddNote.setVisibility(View.VISIBLE);
             frameContainer.setVisibility(View.GONE);
-            mToolbar.setTitle("Add Note");
+            mToolbar.setTitle("Add Friend");
             getMenuInflater().inflate(R.menu.menu_create_note, mMenu);
         }
         return super.onOptionsItemSelected(item);

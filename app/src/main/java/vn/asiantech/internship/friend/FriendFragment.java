@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.friend.model.Note;
+import vn.asiantech.internship.friend.model.Friend;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +20,7 @@ import vn.asiantech.internship.friend.model.Note;
 public class FriendFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private List<Note> mNotes;
+    private List<Friend> mNotes;
     private FriendAdapter mFriendAdapter;
 
     public FriendFragment() {
@@ -49,16 +49,16 @@ public class FriendFragment extends Fragment {
         mRecyclerView.setAdapter(mFriendAdapter);
     }
 
-    private void initFriendData(List<Note> arrayList) {
-        arrayList.add(new Note("Abc xyz 001"));
-        arrayList.add(new Note("Abc xyz 001"));
-        arrayList.add(new Note("Abc xyz 001"));
-        arrayList.add(new Note("Abc xyz 001"));
-        arrayList.add(new Note("Abc xyz 001"));
-        arrayList.add(new Note("Abc xyz 001"));
-        arrayList.add(new Note("Abc xyz 001"));
-        arrayList.add(new Note("Abc xyz 001"));
-        arrayList.add(new Note("Abc xyz 001"));
-        arrayList.add(new Note("Abc xyz 001"));
+    private void initFriendData(List<Friend> arrayList) {
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
+        arrayList.add(new Friend("Abc xyz 001"));
     }
 }
