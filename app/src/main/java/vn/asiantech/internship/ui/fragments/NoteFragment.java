@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.fragment;
+package vn.asiantech.internship.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
