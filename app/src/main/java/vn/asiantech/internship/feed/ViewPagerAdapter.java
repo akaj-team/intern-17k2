@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import vn.asiantech.internship.R;
 
 /**
@@ -31,8 +34,10 @@ class ViewPagerAdapter extends PagerAdapter {
         final ImageView imageView = (ImageView) view.findViewById(R.id.imgViewPager);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setImageResource(mImageArray[position]);
-        ImageView imgArrowLeft = (ImageView) view.findViewById(R.id.imgArrowLeft);
-        ImageView imgArrowRight = (ImageView) view.findViewById(R.id.imgArrowRight);
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(container.getContext()));
+//        ImageView imgArrowLeft = (ImageView) view.findViewById(R.id.imgArrowLeft);
+//        ImageView imgArrowRight = (ImageView) view.findViewById(R.id.imgArrowRight);
 //        if (mImageArray.length > 1 && position < mImageArray.length - 1) {
 //            imgArrowRight.setVisibility(View.VISIBLE);
 //            imgArrowRight.setOnClickListener(new View.OnClickListener() {
