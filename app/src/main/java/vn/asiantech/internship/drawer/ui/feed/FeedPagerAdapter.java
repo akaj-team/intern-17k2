@@ -15,11 +15,11 @@ import vn.asiantech.internship.R;
  * Created by at-dinhvo on 15/06/2017.
  */
 
-public class FeedPagerAdapter extends PagerAdapter {
+class FeedPagerAdapter extends PagerAdapter {
 
     private List<Integer> mImageItems;
 
-    public FeedPagerAdapter(List<Integer> imageItems) {
+    FeedPagerAdapter(List<Integer> imageItems) {
         mImageItems = imageItems;
     }
 
