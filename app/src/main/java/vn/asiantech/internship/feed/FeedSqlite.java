@@ -84,7 +84,7 @@ class FeedSqlite extends SQLiteOpenHelper {
         myinput.close();
     }
 
-    private void opendatabase() throws SQLException {
+    void opendatabase() throws SQLException {
         String mypath = mPath + DB_NAME;
         mDataBase = SQLiteDatabase.openDatabase(mypath, null, SQLiteDatabase.OPEN_READWRITE);
     }
