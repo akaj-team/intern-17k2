@@ -19,6 +19,9 @@ public class ActionFragment extends Fragment {
     private TextView mTvContent;
     private Button mBtnGet;
 
+    /**
+     * callback to send event click
+     */
     private OnSendDataListener mOnSendDataListener;
 
     /**
