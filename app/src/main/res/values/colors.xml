@@ -9,4 +9,5 @@
     <color name="colorGreyDark">#4b4b4e</color>
     <color name="colorWhite">#fffefe</color>
     <color name="colorGrey">#ECEBEC</color>
+    <color name="colorAccent">#FF4081</color>
 </resources>
