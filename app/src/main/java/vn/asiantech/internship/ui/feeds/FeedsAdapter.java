@@ -74,10 +74,12 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             mImgBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnFeedsListener.onScrollToPosition(getItemCount() -1);
-                    mImgNext.setVisibility(View.VISIBLE);
-                    if (getItemCount() == 0){
-                        mImgBack.setVisibility(View.GONE);
+                    if (mOnFeedsListener != null) {
+                        mOnFeedsListener.onScrollToPosition(getItemCount() - 1);
+                        mImgNext.setVisibility(View.VISIBLE);
+                        if (getItemCount() == 0) {
+                            mImgBack.setVisibility(View.GONE);
+                        }
                     }
                 }
             });
@@ -85,10 +87,12 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             mImgNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnFeedsListener.onScrollToPosition(getItemCount() + 1);
-                    mImgNext.setVisibility(View.VISIBLE);
-                    if (getItemCount() > mFeeds.get(getItemCount()).getIdImgThumb().length){
-                        mImgNext.setVisibility(View.GONE);
+                    if (mOnFeedsListener != null) {
+                        mOnFeedsListener.onScrollToPosition(getItemCount() + 1);
+                        mImgNext.setVisibility(View.VISIBLE);
+                        if (getItemCount() > mFeeds.get(getItemCount()).getIdImgThumb().length) {
+                            mImgNext.setVisibility(View.GONE);
+                        }
                     }
                 }
             });
@@ -128,12 +132,15 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         public Object instantiateItem(ViewGroup container, int position) {
             View imageLayout = mInflater.inflate(R.layout.item_image, container, false);
             ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgThumb);
-            Picasso.with(mContext).load(mImages[position]).into(imageView);
+            Picasso.with(mContext).load(mImages[position]).placeholder(R.drawable.ic_loading).error(R.drawable.ic_no_internet).into(imageView);
             container.addView(imageLayout, 0);
             return imageLayout;
         }
     }
 
+    /**
+     * OnFeedsListener using when user click button next or back
+     */
     public interface OnFeedsListener {
         void onScrollToPosition(int position);
     }

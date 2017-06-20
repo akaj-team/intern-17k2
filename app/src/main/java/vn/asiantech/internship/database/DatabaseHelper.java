@@ -77,7 +77,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
             createDataBase();
         } catch (IOException e) {
-            e.printStackTrace();
             Log.d("DatabaseHelper", "onCreate: " + e.toString());
         }
     }
@@ -97,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             try {
                 copyDataBase();
             } catch (IOException mIOException) {
-                mIOException.printStackTrace();
+                Log.d("DatabaseHelper", "onCreate: " + mIOException.toString());
                 throw new Error("Error copying database");
             } finally {
                 this.close();
@@ -114,7 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             final File file = new File(mPath);
             return file.exists();
         } catch (SQLiteException e) {
-            e.printStackTrace();
+            Log.d("DatabaseHelper", "checkDataBase: " + e.toString());
             return false;
         }
     }
@@ -125,7 +124,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      **/
     private void copyDataBase() throws IOException {
         try {
-
             InputStream mInputStream = mContext.getAssets().open(LIST_IMAGE);
             String outFileName = mContext.getFilesDir().getPath() + LIST_IMAGE;
             OutputStream mOutputStream = new FileOutputStream(outFileName);
@@ -138,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             mOutputStream.close();
             mInputStream.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("DatabaseHelper", "copyDataBase: " + e.toString());
         }
     }
 
@@ -154,8 +152,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      **/
     @Override
     public synchronized void close() {
-        if (mSqLiteDatabase != null)
+        if (mSqLiteDatabase != null) {
             mSqLiteDatabase.close();
+        }
         SQLiteDatabase.releaseMemory();
         super.close();
     }

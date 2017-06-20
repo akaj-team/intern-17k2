@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Note;
 
 /**
@@ -39,12 +40,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         return 0;
     }
 
+    /**
+     * Note view holder
+     */
     class NoteViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvTitle;
         private TextView mTvDescription;
         private TextView mTvDate;
+
         NoteViewHolder(View itemView) {
             super(itemView);
+            mTvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+            mTvDate = (TextView) itemView.findViewById(R.id.tvDate);
+            mTvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
         }
     }
 }

@@ -8,7 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.adapter.NoteAdapter;
+import vn.asiantech.internship.models.Note;
 
 /**
  * A simple Note class.
@@ -22,6 +27,8 @@ public class NoteFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_note, container, false);
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+        List<Note> notes = new ArrayList<>();
+        recyclerView.setAdapter(new NoteAdapter(R.layout.item_note, notes));
         return v;
     }
 
