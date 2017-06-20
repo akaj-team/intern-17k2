@@ -19,4 +19,6 @@
         <item>Garelly</item>
         <item>Camera</item>
     </string-array>
+    <string name="note_hint_title">Title</string>
+    <string name="note_hint_content">Content</string>
 </resources>
