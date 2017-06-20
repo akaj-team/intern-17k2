@@ -59,6 +59,11 @@ public class ImageAdapter extends PagerAdapter implements View.OnClickListener {
     }
 
     @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((FrameLayout) object);
     }
@@ -75,9 +80,12 @@ public class ImageAdapter extends PagerAdapter implements View.OnClickListener {
         }
     }
 
+    /**
+     * interface handle click arrow event in viewpager
+     */
     interface OnClickArrowListener {
-        public void onClickLeft();
+        void onClickLeft();
 
-        public void onClickRight();
+        void onClickRight();
     }
 }

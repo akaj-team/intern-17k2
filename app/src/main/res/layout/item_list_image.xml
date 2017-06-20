@@ -11,16 +11,20 @@
         android:contentDescription="@null"
         android:scaleType="centerInside"
         tool:src="@drawable/lu2" />
+
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/imgBtnLeft"
-        android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-        android:layout_gravity="center_vertical"/>
-    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+
+    <ImageButton
         android:id="@+id/imgBtnRight"
-        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-        android:layout_gravity="center_vertical|right"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 </FrameLayout>
