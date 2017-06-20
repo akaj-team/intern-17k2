@@ -10,6 +10,7 @@ import android.widget.Button;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.friend.ListFriendActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.ui.main.NoteActivity;
 
 /**
  * Created by PC on 6/15/2017.
@@ -22,9 +23,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_splash);
         Button btnDay5 = (Button) findViewById(R.id.btnDay5);
         Button btnDay6 = (Button) findViewById(R.id.btnDay6);
+        Button btnDay11 = (Button) findViewById(R.id.btnDay11);
 
         btnDay5.setOnClickListener(this);
         btnDay6.setOnClickListener(this);
+        btnDay11.setOnClickListener(this);
     }
 
     @Override
@@ -37,6 +40,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btnDay6:
                 Intent intent1 = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.btnDay11:
+                Intent intent4 = new Intent(SplashActivity.this, NoteActivity.class);
+                startActivity(intent4);
+                break;
         }
     }
 }
