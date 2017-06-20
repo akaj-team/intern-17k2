@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import vn.asiantech.internship.R;
 
 /**
- * Use to contain fragment that had a recyclerview
+ * Use to contain fragment that had a recyclerView
  *
  * @author at-HangTran
  * @version 1.0

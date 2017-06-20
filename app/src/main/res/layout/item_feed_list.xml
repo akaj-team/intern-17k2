@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/feed.cardView.margin_left_right"
+    android:layout_marginRight="@dimen/feed.cardView.margin_left_right"
+    android:layout_marginStart="@dimen/feed.cardView.margin_left_right"
+    android:layout_marginTop="@dimen/feed.linearLayout.margin_top">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/feed.linearLayout.padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/image.description.recyclerView"
+                android:src="@mipmap/ic_person3" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/feed.textView.margin_left"
+                android:layout_marginStart="@dimen/feed.textView.margin_left"
+                android:textSize="@dimen/feed.textView.size" />
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPagerImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/feed.viewpager.height"
+            android:layout_marginTop="@dimen/feed.viewpager.margin_top" />
+
+        <TextView
+            android:id="@+id/tvDescribe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

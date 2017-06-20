@@ -7,5 +7,5 @@
         android:id="@+id/fragmentFriend"
         android:name="recyclerview.FriendFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </LinearLayout>

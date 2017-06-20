@@ -45,6 +45,9 @@
     <string name="button.day5">Day 5</string>
     <string name="button.day6">Day 6</string>
     <string name="button.day7">Day 7</string>
+    <string name="button.send">Send1</string>
+    <string name="button.name">Send</string>
+    <string name="editText.hint">Input</string>
     <string name="name.node_add">Input Note</string>
     <string name="name.note">Note</string>
     <string name="textView.title">Title</string>
