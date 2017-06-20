@@ -8,6 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import vn.asiantech.internship.R;
 
 /**
@@ -16,14 +20,19 @@ import vn.asiantech.internship.R;
  */
 class ViewPagerAdapter extends PagerAdapter {
     private Context mContext;
-    private int[] mSampleImages;
+    private String[] mSampleImages;
+    private ImageLoader mImageLoader;
 
-    ViewPagerAdapter(Context context, int[] sampleImages) {
+    ViewPagerAdapter(Context context, String[] sampleImages) {
         mSampleImages = sampleImages;
         mContext = context;
+        DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder().showImageOnLoading(context.getResources().getDrawable(R.mipmap.ic_launcher_round)).cacheInMemory(true).cacheOnDisk(true).build();
+        ImageLoaderConfiguration imageLoaderConfig = new ImageLoaderConfiguration.Builder(context).defaultDisplayImageOptions(displayImageOptions).build();
+        mImageLoader = ImageLoader.getInstance();
+        mImageLoader.init(imageLoaderConfig);
     }
 
-    void setImage(int[] sampleImages) {
+    void setImage(String[] sampleImages) {
         mSampleImages = sampleImages;
     }
 
@@ -42,7 +51,7 @@ class ViewPagerAdapter extends PagerAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.item_feed, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.imgSlide);
-        imageView.setImageResource(mSampleImages[position]);
+        mImageLoader.displayImage(mSampleImages[position].trim(), imageView);
 
         ViewPager viewPager = (ViewPager) container;
         viewPager.addView(view, 0);
@@ -50,10 +59,14 @@ class ViewPagerAdapter extends PagerAdapter {
     }
 
     @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         ViewPager viewPager = (ViewPager) container;
         View view = (View) object;
         viewPager.removeView(view);
-
     }
 }
