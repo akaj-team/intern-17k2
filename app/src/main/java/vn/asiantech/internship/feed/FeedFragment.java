@@ -32,7 +32,7 @@ public class FeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
-        RecyclerView recyclerViewFeeds = (RecyclerView) view.findViewById(R.id.recyclerViewFeed);
+        RecyclerView recyclerViewFeed = (RecyclerView) view.findViewById(R.id.recyclerViewFeed);
         List<FeedItem> feeds = new ArrayList<>();
         FeedDatabase feedDatabase = null;
         try {
@@ -40,8 +40,8 @@ public class FeedFragment extends Fragment {
             feedDatabase.openDatabase();
             feeds = feedDatabase.getFeeds();
             FeedAdapter adapter = new FeedAdapter(feeds);
-            recyclerViewFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerViewFeeds.setAdapter(adapter);
+            recyclerViewFeed.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerViewFeed.setAdapter(adapter);
             feedDatabase.close();
         } catch (IOException e) {
             Log.i("TagError", e.getMessage());

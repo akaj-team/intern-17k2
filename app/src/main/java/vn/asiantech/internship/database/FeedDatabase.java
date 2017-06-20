@@ -28,7 +28,7 @@ public class FeedDatabase extends SQLiteOpenHelper {
     private static final String DB_NAME = "list_image.sqlite";
     private static final String TABLE = "images";
     private static final int DB_VERSION = 1;
-    private SQLiteDatabase myDataBase;
+    private SQLiteDatabase mSQLiteDatabase;
 
     public FeedDatabase(Context context) throws IOException {
         super(context, DB_NAME, null, DB_VERSION);
@@ -74,14 +74,14 @@ public class FeedDatabase extends SQLiteOpenHelper {
     }
 
     public void openDatabase() throws SQLException {
-        //Open the database
+        //path of Database will open
         String dbPath = mContext.getFilesDir().getPath() + File.separatorChar + DB_NAME;
-        myDataBase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
+        mSQLiteDatabase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     public synchronized void close() {
-        if (myDataBase != null) {
-            myDataBase.close();
+        if (mSQLiteDatabase != null) {
+            mSQLiteDatabase.close();
         }
         super.close();
     }
@@ -89,7 +89,7 @@ public class FeedDatabase extends SQLiteOpenHelper {
     public List<FeedItem> getFeeds() {
         List<FeedItem> feeds = new ArrayList<>();
         openDatabase();
-        Cursor cursor = myDataBase.rawQuery("SELECT * from " + TABLE, null);
+        Cursor cursor = mSQLiteDatabase.rawQuery("SELECT * from " + TABLE, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             feeds.add(new FeedItem(cursor.getString(1), cursor.getString(3), cursor.getString(2)));
