@@ -9,40 +9,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.database.DatabaseHelper;
 import vn.asiantech.internship.models.Feed;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FeedsFragment extends Fragment {
+public class FeedsFragment extends Fragment implements FeedsAdapter.OnFeedsListener {
 
-    private List<Feed> mFeeds = new ArrayList<>();
+    private DatabaseHelper mDatabaseHelper;
+    private RecyclerView mRvFeeds;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_feeds, container, false);
-        RecyclerView rvFeeds = (RecyclerView) v.findViewById(R.id.rvFeeds);
-        rvFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
-        addData();
-        FeedsAdapter adapter = new FeedsAdapter(mFeeds);
-        rvFeeds.setAdapter(adapter);
+        mRvFeeds = (RecyclerView) v.findViewById(R.id.rvFeeds);
+        mRvFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
+        mDatabaseHelper = new DatabaseHelper(getContext(), true);
+        List<Feed> feeds = getDataFromDatabase();
+        FeedsAdapter adapter = new FeedsAdapter(feeds, this);
+        mRvFeeds.setAdapter(adapter);
         return v;
     }
 
-    private void addData() {
-        int[] images = {R.drawable.bg_steve, R.drawable.bg_stevi, R.drawable.bg_steve, R.drawable.bg_stevi, R.drawable.bg_steve, R.drawable.bg_stevi};
-        for (int i = 0; i < 20; i++) {
-            if (i % 2 == 0) {
-                mFeeds.add(new Feed(R.drawable.ic_one, getString(R.string.app_author) + " " + i, images, getString(R.string.string_text)));
-            } else {
-                mFeeds.add(new Feed(R.drawable.ic_two, getString(R.string.app_author) + " " + i, images, getString(R.string.string_text)));
-            }
-        }
+    private List<Feed> getDataFromDatabase() {
+        return mDatabaseHelper.getAllFeeds();
+    }
+
+    @Override
+    public void onScrollToPosition(int position) {
+        mRvFeeds.scrollToPosition(position);
     }
 }

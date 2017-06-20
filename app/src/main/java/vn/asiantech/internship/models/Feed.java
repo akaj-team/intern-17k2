@@ -5,24 +5,27 @@ package vn.asiantech.internship.models;
  * Feed moldes
  */
 public class Feed {
-    private int idImgAvatar;
+    private int id;
     private String name;
-    private int[] idImgThumb;
+    private String[] idImgThumb;
     private String description;
 
-    public Feed(int idImgAvatar, String name, int[] idImgThumb, String description) {
-        this.idImgAvatar = idImgAvatar;
+    public Feed() {
+    }
+
+    public Feed(int id, String name, String[] idImgThumb, String description) {
+        this.id = id;
         this.name = name;
         this.idImgThumb = idImgThumb;
         this.description = description;
     }
 
-    public int getIdImgAvatar() {
-        return idImgAvatar;
+    public int getId() {
+        return id;
     }
 
-    public void setIdImgAvatar(int idImgAvatar) {
-        this.idImgAvatar = idImgAvatar;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -33,11 +36,11 @@ public class Feed {
         this.name = name;
     }
 
-    public int[] getIdImgThumb() {
+    public String[] getIdImgThumb() {
         return idImgThumb;
     }
 
-    public void setIdImgThumb(int[] idImgThumb) {
+    public void setIdImgThumb(String[] idImgThumb) {
         this.idImgThumb = idImgThumb;
     }
 
