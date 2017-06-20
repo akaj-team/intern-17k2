@@ -1,9 +1,10 @@
 package vn.asiantech.internship.day11.model;
 
 /**
- * Created by rimoka on 19/06/2017.
+ * Created by at-hoavo on 19/06/2017.
  */
 public class Note {
+    private int _id;
     private String title;
     private String description;
     private String imageNote;
@@ -12,11 +13,20 @@ public class Note {
     public Note() {
     }
 
-    public Note(String title, String description, String imageNote,String time) {
+    public Note(int _id, String title, String description, String imageNote, String time) {
+        this._id = _id;
         this.title = title;
         this.description = description;
         this.imageNote = imageNote;
-        this.time=time;
+        this.time = time;
+    }
+
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
     public String getTitle() {

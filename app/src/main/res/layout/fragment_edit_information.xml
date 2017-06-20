@@ -8,11 +8,12 @@
 
     <ImageView
         android:id="@+id/imgEditInformation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/imageview.Edit_information.layout_marginLeft"
+        android:layout_width="@dimen/imagview.edit_information.layout_width"
+        android:layout_height="@dimen/imagview.edit_information.layout_height"
+        android:layout_marginStart="@dimen/imageview.Edit_information.layout_marginLeft"
         android:layout_marginTop="@dimen/imageview.Edit_information.layout_marginTop"
-        android:contentDescription="@null" />
+        android:contentDescription="@null"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,14 +24,15 @@
             android:id="@+id/edtTitle"
             android:layout_width="@dimen/edittext.title.layout_width"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/edittext.title.layout_marginLeft"
+            android:layout_marginStart="@dimen/edittext.title.layout_marginLeft"
             android:inputType="textPersonName" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/edittext.title.layout_marginLeft"
+            android:layout_marginStart="@dimen/edittext.title.layout_marginLeft"
             android:text="@string/textview.title_edit.text"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/edittext.title.textSize" />
     </LinearLayout>
 
@@ -43,14 +45,15 @@
             android:id="@+id/edtDescription"
             android:layout_width="@dimen/edittext.title.layout_width"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/edittext.title.layout_marginLeft"
+            android:layout_marginStart="@dimen/edittext.title.layout_marginLeft"
             android:inputType="textPersonName" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/edittext.title.layout_marginLeft"
+            android:layout_marginStart="@dimen/edittext.title.layout_marginLeft"
             android:text="@string/textview.description_edit.text"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/edittext.title.textSize" />
     </LinearLayout>
 </LinearLayout>

@@ -7,44 +7,55 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/textview.border.layout_height" />
+        android:layout_height="@dimen/textview.border.layout_height"
+        android:background="@color/colorBorder" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ll.time.layout_marginTop"
+            android:layout_weight="@dimen/linearlayout.time.layout_weight"
+            android:background="@color/ll.time.background"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tvDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:layout_marginLeft="10dp"
-                tools:text="Monday"/>
+                android:layout_marginStart="@dimen/textview.time.layout_marginLeft"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/textview.time.textSize"
+                tools:text="Monday" />
+
             <TextView
-                android:id="@+id/tvMonth"
+                android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
-                android:layout_marginLeft="10dp"
-                tools:text="Month"/>
+                android:layout_marginStart="@dimen/textview.time.layout_marginLeft"
+                android:layout_marginTop="@dimen/textview.time.layout_marginTop"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/textview.time.textSize"
+                tools:text="Month" />
+
             <TextView
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
-                android:layout_marginLeft="10dp"
-                tools:text="Time"/>
+                android:layout_marginStart="@dimen/textview.time.layout_marginLeft"
+                android:layout_marginTop="@dimen/textview.time.layout_marginTop"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/textview.time.textSize"
+                tools:text="Time" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ll.title.layout_marginLeft"
             android:layout_weight="@dimen/linearlayout.information.layout_weight"
             android:orientation="vertical">
 
@@ -68,7 +79,8 @@
         <ImageView
             android:id="@+id/imgItemNote"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/imagview.item_note.layout_height"
+            android:layout_marginTop="@dimen/imagview.item_note.layout_marginTop"
             android:layout_weight="@dimen/linearlayout.imageNote.layout_weight"
             android:contentDescription="@null" />
     </LinearLayout>

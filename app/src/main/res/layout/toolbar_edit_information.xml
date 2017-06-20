@@ -6,19 +6,18 @@
     android:background="@color/toolbar.edit_information.background">
 
     <ImageView
-        android:id="@+id/imgPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/imageview.photo.layout_marginLeft"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_photo" />
-
-    <ImageView
         android:id="@+id/imgSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/imageview.save.layout_marginLeft"
         android:contentDescription="@null"
-        android:src="@drawable/ic_save" />
+        android:src="@mipmap/ic_save" />
 
+    <ImageView
+        android:id="@+id/imgPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/imageview.photo.layout_marginLeft"
+        android:contentDescription="@null"
+        android:src="@mipmap/ic_photo" />
 </android.support.v7.widget.Toolbar>
