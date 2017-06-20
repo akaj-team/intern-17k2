@@ -38,6 +38,7 @@ public class FeedFragment extends Fragment {
         FeedAdapter adapter = new FeedAdapter(feeds);
         recyclerViewFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewFeeds.setAdapter(adapter);
+        feedDatabase.close();
         return view;
     }
 }
