@@ -14,39 +14,25 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapter.FriendAdapter;
-import vn.asiantech.internship.model.User;
+import vn.asiantech.internship.models.User;
 
 /**
  * fragment store list friend
  */
 public class FriendFragment extends Fragment {
-    private RecyclerView mRecyclerViewFriend;
-    private List<User> mUsers;
-    private FriendAdapter mFriendsAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friend, container, false);
-        mRecyclerViewFriend = (RecyclerView) view.findViewById(R.id.recyclerViewFriend);
-        mUsers = new ArrayList<>();
-        mUsers.add(new User("Anh A", true));
-        mUsers.add(new User("Anh B", true));
-        mUsers.add(new User("Anh C", true));
-        mUsers.add(new User("Anh D", false));
-        mUsers.add(new User("Anh E", false));
-        mUsers.add(new User("Anh F", false));
-        mUsers.add(new User("Anh E", false));
-        mUsers.add(new User("Anh A", false));
-        mUsers.add(new User("Anh B", false));
-        mUsers.add(new User("Anh C", false));
-        mUsers.add(new User("Anh D", false));
-        mUsers.add(new User("Anh E", false));
-        mUsers.add(new User("Anh F", false));
-        mUsers.add(new User("Anh E", false));
-        mFriendsAdapter = new FriendAdapter(mUsers, getActivity());
-        mRecyclerViewFriend.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerViewFriend.setAdapter(mFriendsAdapter);
+        RecyclerView recyclerViewFriend = (RecyclerView) view.findViewById(R.id.recyclerViewFriend);
+        List<User> users = new ArrayList<>();
+        for (char i = 'A'; i <= 'Z'; i++) {
+            users.add(new User("Anh " + i, true));
+        }
+        FriendAdapter friendAdapter = new FriendAdapter(users, getActivity());
+        recyclerViewFriend.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewFriend.setAdapter(friendAdapter);
         return view;
     }
 }
