@@ -4,9 +4,18 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="recyclerview.feed.color">#e4cccc</color>
+    <color name="frginput.color">#bac0e4</color>
+    <color name="frgresult.color">#e1d8b2</color>
+    <color name="textview.text.select.color">#87888C</color>
+    <color name="textview.text.color">#ffffff</color>
+    <color name="textview_user.text.color">#ffffff</color>
+    <color name="recyclerview.color">#5c5d60</color>
+    <color name="view.divider.color">#C0C0C5</color>
+    <color name="toolbar.color">#ECECED</color>
     <color name="button_friend.color">#F55A9E</color>
     <color name="button_add.color">#ffffff</color>
     <color name="recyclerview.background">#F5F5F6</color>
     <color name="frgFriend.background">#818184</color>
     <color name="item_list_friend.background">#F5F5F6</color>
+    <color name="splash.button.color">#d1a3a3</color>
 </resources>
