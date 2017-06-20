@@ -1,8 +1,3 @@
 <resources>
     <string name="app_name">Internship</string>
-
-    <string name="textview.fragment.icePuppy">Ice Cream Puppy</string>
-    <string name="textview.fragment.ice">Ice Cream</string>
-    <string name="textview.fragment.iceChip">Ice Cream Chips</string>
-    <string name="textview.fragment.content">ABCDEFGHIKLMN</string>
 </resources>

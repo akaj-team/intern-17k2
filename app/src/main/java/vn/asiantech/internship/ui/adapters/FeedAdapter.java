@@ -1,31 +1,29 @@
-package vn.asiantech.internship.ui.adapter;
+package vn.asiantech.internship.ui.adapters;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.models.Food;
+import vn.asiantech.internship.models.Feed;
 
 /**
  * Adapter for Feed
  * Created by huypham on 15/06/2017.
  * Change on 19/06/2017 - add button next and previous
  */
-
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final List<Food> mFoodLists;
+    private final List<Feed> mFeedList;
 
-    public FeedAdapter(List<Food> foodLists) {
-        mFoodLists = foodLists;
+    public FeedAdapter(List<Feed> feedList) {
+        mFeedList = feedList;
     }
 
     @Override
@@ -39,20 +37,22 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder instanceof ViewHolder) {
             final ViewHolder item = (ViewHolder) holder;
             item.setData(position);
-            item.mImageAdapter = new ImageAdapter(item.mContext, mFoodLists.get(position).getImage());
+            item.mImageAdapter = new ImageAdapter(item.mContext, mFeedList.get(position).getImageList());
             item.mViewPager.setAdapter(item.mImageAdapter);
 
             item.mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     int lastPosition = item.mImageAdapter.getCount();
-                    if (position == 0) {
-                        item.mBtnPrevious.setVisibility(View.INVISIBLE);
-                    } else if (position == (lastPosition - 1)) {
-                        item.mBtnNext.setVisibility(View.INVISIBLE);
+                    if (position > 0) {
+                        item.mImgPrevious.setVisibility(View.VISIBLE);
                     } else {
-                        item.mBtnPrevious.setVisibility(View.VISIBLE);
-                        item.mBtnNext.setVisibility(View.VISIBLE);
+                        item.mImgPrevious.setVisibility(View.INVISIBLE);
+                    }
+                    if (position < (lastPosition - 1)) {
+                        item.mImgNext.setVisibility(View.VISIBLE);
+                    } else {
+                        item.mImgNext.setVisibility(View.INVISIBLE);
                     }
                 }
 
@@ -71,7 +71,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mFoodLists.size();
+        return mFeedList.size();
     }
 
     /**
@@ -79,15 +79,14 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      * Created by huypham on 15/6/2017
      * Change on 19/06/2017 - press on next and previous
      */
-
     private class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvUserName;
         private TextView mTvContent;
         private ViewPager mViewPager;
         private ImageAdapter mImageAdapter;
         private Context mContext;
-        private Button mBtnPrevious;
-        private Button mBtnNext;
+        private ImageView mImgPrevious;
+        private ImageView mImgNext;
 
         private ViewHolder(Context context, View itemView) {
             super(itemView);
@@ -95,29 +94,26 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mTvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
             mTvContent = (TextView) itemView.findViewById(R.id.tvContent);
             mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
-            mBtnNext = (Button) itemView.findViewById(R.id.btnNext);
-            mBtnPrevious = (Button) itemView.findViewById(R.id.btnPrevious);
+            mImgNext = (ImageView) itemView.findViewById(R.id.imgNext);
+            mImgPrevious = (ImageView) itemView.findViewById(R.id.imgPrevious);
 
-            mBtnNext.setOnClickListener(this);
-            mBtnPrevious.setOnClickListener(this);
-            mBtnNext.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_keyboard_arrow_right, 0, 0, 0);
-            mBtnPrevious.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_keyboard_arrow_left, 0, 0, 0);
-
+            mImgNext.setOnClickListener(this);
+            mImgPrevious.setOnClickListener(this);
         }
 
         private void setData(int position) {
-            Food food = mFoodLists.get(position);
-            mTvUserName.setText(food.getFoodName());
-            mTvContent.setText(food.getContent());
+            Feed feed = mFeedList.get(position);
+            mTvUserName.setText(feed.getTitle());
+            mTvContent.setText(feed.getDescription());
         }
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btnNext:
+                case R.id.imgNext:
                     mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
                     break;
-                case R.id.btnPrevious:
+                case R.id.imgPrevious:
                     mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
                     break;
             }

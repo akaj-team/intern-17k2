@@ -11,7 +11,6 @@ import vn.asiantech.internship.R;
  * Activity for Feed
  * Created by huypham on 15/06/2017.
  */
-
 public class FeedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

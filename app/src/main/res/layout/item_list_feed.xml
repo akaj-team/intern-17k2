@@ -37,33 +37,33 @@
                 android:textSize="17sp" />
         </LinearLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnPrevious"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="3"/>
+            android:layout_height="wrap_content">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="7dp"
-                android:layout_weight="1"/>
+                android:layout_marginTop="7dp" />
 
-            <Button
-                android:id="@+id/btnNext"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/imgPrevious"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="3"/>
+                android:contentDescription="@string/app_name"
+                android:layout_gravity="center_vertical|start"
+                android:src="@drawable/ic_keyboard_arrow_left_red"/>
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/imgNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:layout_gravity="center_vertical|end"
+                android:src="@drawable/ic_keyboard_arrow_right_red"/>
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tvContent"
