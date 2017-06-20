@@ -24,9 +24,11 @@ import vn.asiantech.internship.models.Feed;
 public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder> {
 
     private List<Feed> mFeeds;
+    private OnFeedsListener mOnFeedsListener;
 
-    FeedsAdapter(List<Feed> feeds) {
-        this.mFeeds = feeds;
+    FeedsAdapter(List<Feed> feeds, OnFeedsListener onFeedsListener) {
+        mFeeds = feeds;
+        mOnFeedsListener = onFeedsListener;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
         myViewHolder.mTvName.setText(mFeeds.get(position).getName());
-        Picasso.with(myViewHolder.itemView.getContext()).load(mFeeds.get(position).getIdImgAvatar()).into(myViewHolder.mImgAvatar);
+        myViewHolder.mImgAvatar.setImageResource(R.drawable.ic_one);
         myViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
         myViewHolder.mViewPager.setAdapter(new ImageAdapter(myViewHolder.itemView.getContext(), mFeeds.get(position).getIdImgThumb()));
     }
@@ -56,6 +58,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         private TextView mTvName;
         private ImageView mImgAvatar;
         private ViewPager mViewPager;
+        private ImageView mImgBack;
+        private ImageView mImgNext;
         private TextView mTvDescription;
 
         MyViewHolder(View itemView) {
@@ -64,6 +68,30 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
             mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
             mTvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
+            mImgBack = (ImageView) itemView.findViewById(R.id.imgBack);
+            mImgNext = (ImageView) itemView.findViewById(R.id.imgNext);
+            mImgBack.setVisibility(View.GONE);
+            mImgBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnFeedsListener.onScrollToPosition(getItemCount() -1);
+                    mImgNext.setVisibility(View.VISIBLE);
+                    if (getItemCount() == 0){
+                        mImgBack.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            mImgNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnFeedsListener.onScrollToPosition(getItemCount() + 1);
+                    mImgNext.setVisibility(View.VISIBLE);
+                    if (getItemCount() > mFeeds.get(getItemCount()).getIdImgThumb().length){
+                        mImgNext.setVisibility(View.GONE);
+                    }
+                }
+            });
         }
     }
 
@@ -104,5 +132,9 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             container.addView(imageLayout, 0);
             return imageLayout;
         }
+    }
+
+    public interface OnFeedsListener {
+        void onScrollToPosition(int position);
     }
 }

@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Note activity create by Thien
+ */
 public class NoteActivity extends AppCompatActivity {
 
     @Override

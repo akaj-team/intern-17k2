@@ -12,8 +12,8 @@ import vn.asiantech.internship.models.Note;
 
 /**
  * Created by root on 6/19/17.
+ * Note Adapter
  */
-
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
     private int mResource;
     private List<Note> mNotes;
@@ -39,11 +39,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         return 0;
     }
 
-    public class NoteViewHolder extends RecyclerView.ViewHolder {
+    class NoteViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvTitle;
         private TextView mTvDescription;
         private TextView mTvDate;
-        public NoteViewHolder(View itemView) {
+        NoteViewHolder(View itemView) {
             super(itemView);
         }
     }

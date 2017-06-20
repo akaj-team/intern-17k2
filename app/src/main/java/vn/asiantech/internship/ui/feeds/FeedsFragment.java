@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,45 +27,33 @@ import vn.asiantech.internship.models.Feed;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FeedsFragment extends Fragment {
+public class FeedsFragment extends Fragment implements FeedsAdapter.OnFeedsListener {
 
-    private List<Feed> mFeeds = new ArrayList<>();
+    private List<Feed> mFeeds;
     private DatabaseHelper mDatabaseHelper;
+    private RecyclerView mRvFeeds;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_feeds, container, false);
-        RecyclerView rvFeeds = (RecyclerView) v.findViewById(R.id.rvFeeds);
-        rvFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRvFeeds = (RecyclerView) v.findViewById(R.id.rvFeeds);
+        mRvFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
         mDatabaseHelper = new DatabaseHelper(getContext());
-        addData();
-        FeedsAdapter adapter = new FeedsAdapter(mFeeds);
-        rvFeeds.setAdapter(adapter);
+        mFeeds = new ArrayList<>();
+        mFeeds = getDataFromDatabase();
+        FeedsAdapter adapter = new FeedsAdapter(mFeeds, this);
+        mRvFeeds.setAdapter(adapter);
         return v;
     }
 
-    private void addData() {
-        String s = saveToSdCard(R.drawable.bg_steve);
-        String s2 = saveToSdCard(R.drawable.bg_stevi);
-        String ic = saveToSdCard(R.drawable.ic_one);
-        String ic2 = saveToSdCard(R.drawable.ic_two);
-        String[] images = {s, s2, s, s2, s};
-        for (int i = 0; i < 20; i++) {
-            if (i % 2 == 0) {
-                Feed feed = new Feed(ic, getString(R.string.app_author) + " " + i, images, getString(R.string.string_text));
-                mFeeds.add(feed);
-                mDatabaseHelper.createFeed(feed);
-            } else {
-                Feed feed = new Feed(ic2, getString(R.string.app_author) + " " + i, images, getString(R.string.string_text));
-                mFeeds.add(feed);
-                mDatabaseHelper.createFeed(feed);
-            }
-        }
+    private List<Feed> getDataFromDatabase() {
+        return mDatabaseHelper.getAllFeeds();
     }
 
-    private String saveToSdCard(int id) {
+    //TODO for next ex
+    private String saveImageToSdCard(int id) {
         Bitmap bm = BitmapFactory.decodeResource(getResources(), id);
         String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
         File file = new File(extStorageDirectory, id + ".thg");
@@ -75,9 +64,16 @@ public class FeedsFragment extends Fragment {
             outStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            Log.d("FeedsFragment", "saveImageToSdCard: " + e.toString());
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d("FeedsFragment", "saveImageToSdCard: " + e.toString());
         }
         return file.toString();
+    }
+
+    @Override
+    public void onScrollToPosition(int position) {
+        mRvFeeds.scrollToPosition(position);
     }
 }
