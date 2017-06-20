@@ -13,28 +13,46 @@
             android:layout_height="wrap_content"
             android:gravity="right">
 
-            <ImageView
-                android:id="@+id/imgSave"
+            <ImageButton
+                android:id="@+id/imgBtnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/marginSomething"
                 android:contentDescription="@string/textview.text.description"
                 android:src="@drawable/ic_save" />
 
-            <ImageView
-                android:id="@+id/imgOpenImage"
+            <ImageButton
+                android:id="@+id/imgBtnOpenImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/marginSomething"
-                android:layout_toLeftOf="@id/imgSave"
+                android:layout_toLeftOf="@id/imgBtnSave"
                 android:contentDescription="@string/textview.text.description"
                 android:src="@drawable/ic_image" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_below="@id/toolbar"
+        android:contentDescription="@string/textview.text.description"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/edtTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgAvatar"
+        android:hint="@string/title"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtTitle"
+        android:hint="@string/textview.text.description"
+        android:inputType="textMultiLine" />
 </RelativeLayout>

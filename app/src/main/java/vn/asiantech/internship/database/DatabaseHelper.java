@@ -68,7 +68,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        mContext = context;
     }
+
     public DatabaseHelper(Context context, boolean isLisImages) {
         super(context, LIST_IMAGE, null, DATABASE_VERSION);
         mContext = context;
@@ -77,6 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         mSqLiteDatabase = db;
+        db.execSQL(CREATE_TABLE_NOTES);
         try {
             createDataBase();
         } catch (IOException e) {
@@ -278,13 +281,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param note is a note wanna add to database
      */
     public void createNote(Note note) {
-        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, note.getNoteTile());
         values.put(KEY_DESCRIPTION, note.getNoteDescription());
         values.put(KEY_DATE, note.getNoteDate());
         values.put(KEY_IMAGE_URI, note.getNoteImagesThumb());
-        db.insert(TABLE_NOTES, null, values);
+        mSqLiteDatabase.insert(TABLE_NOTES, null, values);
     }
 
     /**
