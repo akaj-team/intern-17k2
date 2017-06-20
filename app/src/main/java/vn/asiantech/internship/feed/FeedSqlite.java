@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,8 +23,8 @@ import java.util.List;
 public class FeedSqlite extends SQLiteOpenHelper {
     private Context mycontext;
     private static String DB_NAME = "list_image.sqlite";
-    private static String TABLE = "images";
-    private static String DB_PATH = "/data/data/vn.asiantech.internship/databases/";
+    private  String TABLE = "images";
+    private  String DB_PATH = "/data/data/vn.asiantech.internship/databases/";
     public SQLiteDatabase myDataBase;
 
     public FeedSqlite(Context context) throws IOException {
@@ -100,7 +101,7 @@ public class FeedSqlite extends SQLiteOpenHelper {
         try {
             opendatabase();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.i("aaaaaaaaaa", "dont't open");
         }
         Cursor cursor = myDataBase.rawQuery("SELECT * from " + TABLE, null);
         cursor.moveToFirst();
@@ -117,5 +118,7 @@ public class FeedSqlite extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE);
+             onCreate(sqLiteDatabase);
     }
 }
