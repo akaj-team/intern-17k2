@@ -32,7 +32,6 @@
     <dimen name="item.icon_size">50dp</dimen>
     <dimen name="feed.layout_padding">5dp</dimen>
     <dimen name="feed.viewpager_height">300dp</dimen>
-    <dimen name="feed.layout_corner">20dp</dimen>
     <dimen name="feed.item_marginbottom">5dp</dimen>
     <dimen name="feed.item_padding">15dp</dimen>
     <dimen name="feed.item.viewpager_marginbottom">3dp</dimen>
