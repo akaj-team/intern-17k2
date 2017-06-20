@@ -5,8 +5,6 @@
     android:background="@android:color/darker_gray"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_note" />
-
     <ImageView
         android:id="@+id/imgNotePicture"
         android:layout_width="@dimen/note_image_size"

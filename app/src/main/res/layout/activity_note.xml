@@ -7,7 +7,7 @@
     <include layout="@layout/toolbar_note" />
 
     <FrameLayout
-        android:id="@+id/flFragmetContent"
+        android:id="@+id/flFragmentContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
