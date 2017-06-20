@@ -48,7 +48,7 @@ class NoteSqlite {
     }
 
 
-    long createData(Note note) {
+    long createNote(Note note) {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_DATE, note.getDayOfWeek());
         cv.put(COLUMN_DAY, note.getDay());
