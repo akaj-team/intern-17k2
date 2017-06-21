@@ -17,10 +17,6 @@ import vn.asiantech.internship.models.Note;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String SEPARATOR = ",";
-    // Logcat tag
-    private static final String LOG = "DatabaseHelper";
-
     // Database Version
     private static final int DATABASE_VERSION = 1;
 
@@ -45,19 +41,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_NOTES = "CREATE TABLE "
             + TABLE_NOTES + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TITLE
             + TEXT + KEY_DESCRIPTION + TEXT + KEY_DATE
-            + " DATETIME" + KEY_IMAGE_URI + " TEXT" + ")";
-
-    private Context mContext;
-    private SQLiteDatabase mSqLiteDatabase;
+            + " DATETIME, " + KEY_IMAGE_URI + " TEXT" + ")";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        mContext = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        mSqLiteDatabase = db;
         db.execSQL(CREATE_TABLE_NOTES);
     }
 
@@ -162,11 +153,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param note is a note wanna add to database
      */
     public void createNote(Note note) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, note.getNoteTile());
         values.put(KEY_DESCRIPTION, note.getNoteDescription());
         values.put(KEY_DATE, note.getNoteDate());
         values.put(KEY_IMAGE_URI, note.getNoteImagesThumb());
-        mSqLiteDatabase.insert(TABLE_NOTES, null, values);
+        db.insert(TABLE_NOTES, null, values);
     }
 }

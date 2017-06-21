@@ -26,9 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import vn.asiantech.internship.R;
@@ -42,7 +40,6 @@ import vn.asiantech.internship.ui.main.MainActivity;
  */
 public class NoteFragment extends Fragment implements View.OnClickListener {
 
-    private Toolbar mToolbar;
     private ImageView mImgAvatar;
     private EditText mEdtTitle;
     private EditText mEdtDescription;
@@ -55,13 +52,12 @@ public class NoteFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_note, container, false);
         initView(v);
-        List<Note> notes = new ArrayList<>();
         mDatabaseHelper = new DatabaseHelper(getContext());
         return v;
     }
 
     private void initView(View v) {
-        mToolbar = (Toolbar) v.findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
         ImageButton imgBtnOpenImages = (ImageButton) v.findViewById(R.id.imgBtnOpenImage);
         ImageButton imgBtnSave = (ImageButton) v.findViewById(R.id.imgBtnSave);
         mEdtTitle = (EditText) v.findViewById(R.id.edtTitle);
@@ -69,7 +65,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener {
         mImgAvatar = (ImageView) v.findViewById(R.id.imgAvatar);
 
         if (getActivity() instanceof NoteActivity) {
-            ((NoteActivity) getActivity()).setToolbar(mToolbar);
+            ((NoteActivity) getActivity()).setToolbar(toolbar);
         }
 
         imgBtnOpenImages.setOnClickListener(this);
@@ -108,16 +104,19 @@ public class NoteFragment extends Fragment implements View.OnClickListener {
     private void saveData() {
         Note note = new Note();
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", Locale.US);
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        String writeDay = dateFormat.format(date) + " " + timeFormat.format(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMM HH:mm", Locale.US);
+        String writeDay = dateFormat.format(date);
 
         note.setNoteTile(mEdtTitle.getText().toString());
         note.setNoteDescription(mEdtDescription.getText().toString());
         note.setNoteDate(writeDay);
-        note.setNoteImagesThumb(mFilePath);
+        if (mFilePath == null) {
+            note.setNoteImagesThumb("");
+        } else {
+            note.setNoteImagesThumb(mFilePath);
+        }
         mDatabaseHelper.createNote(note);
-        Toast.makeText(getContext(), writeDay, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getString(R.string.complete), Toast.LENGTH_SHORT).show();
     }
 
     private void openLibrary() {

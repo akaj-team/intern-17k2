@@ -6,10 +6,13 @@
     android:orientation="horizontal">
 
     <TextView
-        android:layout_width="0dp"
         android:id="@+id/tvDate"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2" />
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/paddingSomeThing"
+        tools:text="Monday 20 jul 20:06" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -32,8 +35,9 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/imgAvatar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/textview.text.description"
-        android:layout_weight="2" />
+        android:layout_weight="2"
+        android:contentDescription="@string/textview.text.description" />
 </LinearLayout>
