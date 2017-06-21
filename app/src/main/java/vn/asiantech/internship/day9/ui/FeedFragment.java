@@ -37,8 +37,8 @@ public class FeedFragment extends Fragment {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
             recyclerViewFeed.setLayoutManager(linearLayoutManager);
             recyclerViewFeed.setAdapter(feedAdapter);
+            feedAdapter.notifyDataSetChanged();
         }
-
         return v;
     }
 }

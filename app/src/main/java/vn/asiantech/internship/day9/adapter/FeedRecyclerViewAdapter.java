@@ -52,16 +52,25 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        try {
-            holder.mImgUser.setImageDrawable(ContextCompat.getDrawable(mContext, mUsers.get(position).getImage()));
-            holder.mTvUser.setText(mUsers.get(position).getName());
-            holder.mTvDescription.setText(mUsers.get(position).getDescription());
+        CustomFeedPagerAdapter pagerAdapter = null;
+        holder.mImgUser.setImageDrawable(ContextCompat.getDrawable(mContext, mUsers.get(position).getImage()));
+        holder.mTvUser.setText(mUsers.get(position).getName());
+        holder.mTvDescription.setText(mUsers.get(position).getDescription());
+        if (position < mImages.size()) {
             seperateLink(mImages.get(position));
-            CustomFeedPagerAdapter pagerAdapter = new CustomFeedPagerAdapter(mImages.get(position).getLinks(), mContext);
+            pagerAdapter = new CustomFeedPagerAdapter(mImages.get(position).getLinks(), mContext);
+            if (mImages.get(position).getLinks().size() != 1) {
+                holder.mImgArrowRight.setVisibility(View.VISIBLE);
+            }
+        } else {
+            Log.e("ERROR NUMBER IMAGE", " Image size get from database too small with recyclerview ");
+        }
+        try {
             holder.mViewPagerFeed.setAdapter(pagerAdapter);
             holder.mViewPagerFeed.getAdapter().notifyDataSetChanged();
-        } catch (IndexOutOfBoundsException e) {
-            Log.e("ERROR NUMBER IMAGE", " Image size get from database too small with recyclerview ");
+            mImages.get(position).setLinks(new ArrayList<String>());
+        } catch (NullPointerException e) {
+            Log.d("ERROR NULL", ": not set adapter ");
         }
     }
 
@@ -89,39 +98,44 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
             mViewPagerFeed = (ViewPager) itemView.findViewById(R.id.viewPagerFeed);
             mImgArrowLeft = (ImageView) itemView.findViewById(R.id.imgArrowLeft);
             mImgArrowRight = (ImageView) itemView.findViewById(R.id.imgArrowRight);
-            if(mViewPagerFeed.getCurrentItem()==0){
-                mImgArrowLeft.setVisibility(View.INVISIBLE);
-                mImgArrowRight.setVisibility(View.VISIBLE);
-            }
-            else if(mViewPagerFeed.getCurrentItem()== mImages.get(getAdapterPosition()).getLinks().size() - 1){
-                mImgArrowRight.setVisibility(View.INVISIBLE);
-                mImgArrowLeft.setVisibility(View.VISIBLE);
-            }
-            else{
-                mImgArrowRight.setVisibility(View.INVISIBLE);
-                mImgArrowLeft.setVisibility(View.VISIBLE);
-            }
+            mViewPagerFeed.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    Log.d("Positionnnnnnnnnn", "onPageSelected: " + position);
+                    Log.d("Positionnnnnnnnnn", "onPageSelected2: " + mImages.get(getAdapterPosition()).getLinks().size());
+                    if (position != 0 && position != (mImages.get(getAdapterPosition()).getLinks().size()) - 1) {
+                        mImgArrowLeft.setVisibility(View.VISIBLE);
+                        mImgArrowRight.setVisibility(View.VISIBLE);
+                    } else if (position == 0) {
+                        mImgArrowLeft.setVisibility(View.INVISIBLE);
+                        mImgArrowRight.setVisibility(View.VISIBLE);
+                    } else if (position == (mImages.get(getAdapterPosition()).getLinks().size())) {
+                        mImgArrowRight.setVisibility(View.INVISIBLE);
+                        mImgArrowLeft.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
             mImgArrowLeft.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mViewPagerFeed.getCurrentItem() != 0) {
-                        mImgArrowLeft.setVisibility(View.VISIBLE);
-                        mImgArrowRight.setVisibility(View.VISIBLE);
-                        mViewPagerFeed.setCurrentItem(mViewPagerFeed.getCurrentItem() - 1);
-                    } else {
-                        mImgArrowLeft.setVisibility(View.INVISIBLE);
-                    }
+                    mViewPagerFeed.setCurrentItem(mViewPagerFeed.getCurrentItem() - 1);
                 }
             });
             mImgArrowRight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mViewPagerFeed.getCurrentItem() != mImages.get(getAdapterPosition()).getLinks().size() - 1) {
-                        mImgArrowRight.setVisibility(View.VISIBLE);
-                        mImgArrowLeft.setVisibility(View.VISIBLE);
+                    if (getAdapterPosition() < mImages.size()) {
                         mViewPagerFeed.setCurrentItem(mViewPagerFeed.getCurrentItem() + 1);
-                    } else {
-                        mImgArrowRight.setVisibility(View.INVISIBLE);
                     }
                 }
             });
@@ -144,5 +158,9 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
             links.add(link);
         }
         image.setLinks(links);
+        Log.d("imagesize", ": " + image.getLinks().size());
+        for (int i = 0; i < image.getLinks().size(); i++) {
+            Log.d("imagelink", ": " + image.getLinks().get(i));
+        }
     }
 }
