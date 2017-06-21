@@ -1,7 +1,6 @@
 package vn.asiantech.internship.ui.feed;
 
 import android.app.Fragment;
-import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,13 +1,12 @@
 package vn.asiantech.internship.databases;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.BitmapFactory;
 import android.support.compat.BuildConfig;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +16,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.feed.Post;
 
 /**
@@ -25,22 +23,22 @@ import vn.asiantech.internship.ui.feed.Post;
  */
 public class ImageDatabase extends SQLiteOpenHelper {
     private Context mContext;
-    private static String DB_NAME = "list_image.sqlite";
-    private static String DB_PATH = "/data/data/" + BuildConfig.APPLICATION_ID + "/databases/";
-    private SQLiteDatabase db;
+    private static final String DB_NAME = "list_image.sqlite";
+    private static final String DB_PATH = "/data/data/" + BuildConfig.APPLICATION_ID + "/databases/";
+    private SQLiteDatabase database;
 
     public ImageDatabase(Context context) throws IOException {
         super(context, DB_NAME, null, 1);
         mContext = context;
-        if (db != null && db.isOpen()) {
-            db.close();
+        if (database != null && database.isOpen()) {
+            database.close();
         }
         boolean dbexist = checkdatabase();
         if (dbexist) {
-            System.out.println("Database exists");
+            Log.i("tag11","Database exists");
             opendatabase();
         } else {
-            System.out.println("Database doesn't exist");
+            Log.i("tag11","Database doesn't exist");
             createdatabase();
             opendatabase();
         }
@@ -49,13 +47,13 @@ public class ImageDatabase extends SQLiteOpenHelper {
     private void createdatabase() throws IOException {
         boolean dbexist = checkdatabase();
         if (dbexist) {
-            System.out.println(" Database exists.");
+            Log.i("tag11"," Database exists.");
         } else {
             this.getReadableDatabase();
             try {
                 copydatabase();
             } catch (IOException e) {
-                //throw new Error("Error copying database");
+                throw new Error("Error copying database");
             }
         }
     }
@@ -76,7 +74,7 @@ public class ImageDatabase extends SQLiteOpenHelper {
 
     public void opendatabase() throws SQLiteException {
         String myPath = mContext.getFilesDir().getPath() + DB_NAME;
-        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+        database = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     private boolean checkdatabase() {
@@ -86,14 +84,14 @@ public class ImageDatabase extends SQLiteOpenHelper {
             File dbFile = new File(myPath);
             checkdb = dbFile.exists();
         } catch (SQLiteException e) {
-            System.out.println("Database doesn't exist 2");
+            Log.i("tag11","Database doesn't exist 2");
         }
         return checkdb;
     }
 
     public synchronized void close() {
-        if (db != null) {
-            db.close();
+        if (database != null) {
+            database.close();
         }
         super.close();
     }
@@ -101,8 +99,10 @@ public class ImageDatabase extends SQLiteOpenHelper {
     public List<Post> getList() {
         List<Post> posts = new ArrayList<>();
         opendatabase();
-        if (db == null) return null;
-        Cursor cursor = db.rawQuery("SELECT * FROM images", null);
+        if (database == null) {
+            return null;
+        }
+        Cursor cursor = database.rawQuery("SELECT * FROM images", null);
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             Post post = new Post();
             post.setName(cursor.getString(cursor.getColumnIndex("title")));
@@ -116,12 +116,12 @@ public class ImageDatabase extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase database) {
 
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
 
     }
 }

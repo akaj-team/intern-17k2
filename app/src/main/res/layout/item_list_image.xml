@@ -7,9 +7,9 @@
     <ImageView
         android:id="@+id/imgPost"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/viewpager.height"
         android:contentDescription="@null"
-        android:scaleType="centerInside"
+        android:scaleType="fitXY"
         tool:src="@drawable/lu2" />
 
     <ImageButton
@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
         android:contentDescription="@null"
         android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
@@ -25,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
+        android:background="@android:color/transparent"
         android:contentDescription="@null"
         android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 </FrameLayout>
