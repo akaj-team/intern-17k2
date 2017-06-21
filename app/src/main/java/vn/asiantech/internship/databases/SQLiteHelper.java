@@ -55,7 +55,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             os.close();
             is.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 

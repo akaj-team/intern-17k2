@@ -24,7 +24,7 @@ public class FeedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         RecyclerView recyclerViewFeed = (RecyclerView) view.findViewById(R.id.recyclerViewFeed);
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(container.getContext());
         FeedAdapter feedAdapter = new FeedAdapter(sqLiteHelper.getAllFeedItems());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewFeed.setLayoutManager(layoutManager);
