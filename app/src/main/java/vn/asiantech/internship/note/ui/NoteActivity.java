@@ -13,6 +13,8 @@ import vn.asiantech.internship.R;
 
 public class NoteActivity extends AppCompatActivity {
 
+    public static final String KEY_ID = "keykey";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +34,7 @@ public class NoteActivity extends AppCompatActivity {
                         FragmentTransaction frtransaction = getSupportFragmentManager().beginTransaction();
                         DetailFragment detailFragment = new DetailFragment();
                         Bundle bundle = new Bundle();
-                        bundle.putInt("keykey", id);
+                        bundle.putInt(KEY_ID, id);
                         detailFragment.setArguments(bundle);
                         frtransaction.replace(R.id.frContainer, detailFragment);
                         frtransaction.addToBackStack(null);
