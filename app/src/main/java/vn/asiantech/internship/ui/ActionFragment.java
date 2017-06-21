@@ -31,7 +31,7 @@ public class ActionFragment extends Fragment {
         void onSendData();
     }
 
-    public ActionFragment(){
+    public ActionFragment() {
 
     }
 
