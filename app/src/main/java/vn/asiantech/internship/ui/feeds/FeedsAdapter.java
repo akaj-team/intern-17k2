@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -125,11 +126,15 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         private String[] mImages;
         private LayoutInflater mInflater;
         private Context mContext;
+        private ImageLoader mImageLoader;
+        private DisplayImageOptions mDisplayImageOptions;
 
         ImageAdapter(Context context, String[] images) {
             mImages = images;
             mContext = context;
             mInflater = LayoutInflater.from(mContext);
+            mImageLoader = ImageLoader.getInstance();
+            mDisplayImageOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_no_internet).showImageOnFail(R.drawable.ic_no_internet).build();
         }
 
         @Override
@@ -151,7 +156,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         public Object instantiateItem(ViewGroup container, int position) {
             View imageLayout = mInflater.inflate(R.layout.item_image, container, false);
             ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgThumb);
-            Picasso.with(mContext).load(mImages[position]).placeholder(R.drawable.ic_loading).error(R.drawable.ic_no_internet).into(imageView);
+            mImageLoader.displayImage(mImages[position], imageView, mDisplayImageOptions);
             container.addView(imageLayout, 0);
             return imageLayout;
         }
