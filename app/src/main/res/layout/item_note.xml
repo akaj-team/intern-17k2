@@ -46,6 +46,7 @@
             android:id="@+id/imgNotePicture"
             android:layout_width="@dimen/avatar_size"
             android:layout_height="@dimen/avatar_size"
+            android:contentDescription="@null"
             android:scaleType="centerCrop"
             android:visibility="visible" />
 

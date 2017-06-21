@@ -11,6 +11,7 @@
         android:layout_height="@dimen/note_image_size"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/padding_margin_default"
+        android:contentDescription="@null"
         android:visibility="gone" />
 
     <EditText
