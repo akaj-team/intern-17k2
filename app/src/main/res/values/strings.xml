@@ -51,5 +51,5 @@
     <string name="editText.hint">Input</string>
     <string name="chat.toolbar.title">MY FRIEND</string>
     <string name="chat.button.back">Back</string>
-    <string name="edittext.input.hint">Enter sms...</string>
+    <string name="edittext.input.hint">Enter sms</string>
 </resources>
