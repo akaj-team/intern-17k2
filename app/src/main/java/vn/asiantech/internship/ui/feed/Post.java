@@ -1,12 +1,6 @@
 package vn.asiantech.internship.ui.feed;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import java.util.List;
-
-import vn.asiantech.internship.R;
 
 /**
  * Created by ducle on 15/06/2017.
@@ -14,21 +8,17 @@ import vn.asiantech.internship.R;
 public class Post {
     private Bitmap imageUSer;
     private String name;
-    private List<Bitmap> imageList;
+    private String imageList;
     private String desription;
 
     public Post() {
-        this.imageUSer= BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ic_accessibility_green_700_24dp);
     }
 
-    public Post(Bitmap imageUSer, String name, List<Bitmap> imageList, String desription) {
+    public void setImageUSer(Bitmap imageUSer) {
         this.imageUSer = imageUSer;
-        this.name = name;
-        this.imageList = imageList;
-        this.desription = desription;
     }
 
-    public void setImageList(List<Bitmap> imageList) {
+    public void setImageList(String imageList) {
         this.imageList = imageList;
     }
 
@@ -48,7 +38,7 @@ public class Post {
         this.name = name;
     }
 
-    public List<Bitmap> getImageList() {
+    public String getImageList() {
         return imageList;
     }
 

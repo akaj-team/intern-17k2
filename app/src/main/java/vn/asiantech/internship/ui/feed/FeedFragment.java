@@ -1,7 +1,7 @@
 package vn.asiantech.internship.ui.feed;
 
 import android.app.Fragment;
-import android.graphics.Bitmap;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.database.ImageDatabase;
+import vn.asiantech.internship.databases.ImageDatabase;
 
 /**
  * Created by ducle on 15/06/2017.
@@ -33,18 +33,15 @@ public class FeedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         mPosts = new ArrayList<>();
         try {
-            mImageDatabase=new ImageDatabase(container.getContext());
+            mImageDatabase = new ImageDatabase(container.getContext());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mPosts=mImageDatabase.getList();
-//        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
-//        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
-//        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.lu2));
-//        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeDuc", images, "Who is he?"));
-//        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeA", images, "He is Mr. Luom"));
-//        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeB", images, "he is good man"));
-//        mPosts.add(new Post(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "LeC", images, "i trusted him"));
+        mImageDatabase.opendatabase();
+        mPosts = mImageDatabase.getList();
+        for (Post post : mPosts) {
+            post.setImageUSer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_accessibility_green_700_24dp));
+        }
         mRecyclerViewPost = (RecyclerView) view.findViewById(R.id.recyclerViewPost);
         mPostAdapter = new PostAdapter(mPosts);
         mRecyclerViewPost.setHasFixedSize(true);
