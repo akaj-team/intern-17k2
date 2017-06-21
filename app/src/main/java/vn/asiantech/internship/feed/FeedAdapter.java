@@ -29,6 +29,7 @@ class FeedAdapter extends RecyclerView.Adapter {
 
     private List<Feed> mFeeds = new ArrayList<>();
     private final Context mContext;
+    private FeedViewHolder mFeedViewHolder;
 
     FeedAdapter(Context context, List<Feed> feeds) {
         this.mContext = context;
@@ -43,12 +44,36 @@ class FeedAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        FeedViewHolder myViewHolder = (FeedViewHolder) holder;
-        myViewHolder.mTvName.setText(mFeeds.get(position).getName());
-        myViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
-        myViewHolder.mFeedViewPager.setAdapter(new FeedPagerAdapter(mContext, mFeeds.get(position).getImages()));
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        mFeedViewHolder = (FeedViewHolder) holder;
+        mFeedViewHolder.mTvName.setText(mFeeds.get(position).getName());
+        mFeedViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
+        mFeedViewHolder.mFeedViewPager.setAdapter(new FeedPagerAdapter(mContext, mFeeds.get(position).getImages()));
+        mFeedViewHolder.mFeedViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int pos, float positionOffset, int positionOffsetPixels) {
+                if (pos == 0) {
+                    mFeedViewHolder.mImgBack.setEnabled(false);
+                } else {
+                    mFeedViewHolder.mImgBack.setEnabled(true);
+                }
+                if (pos == mFeeds.get(position).getImages().size() - 1) {
+                    mFeedViewHolder.mImgNext.setEnabled(false);
+                } else {
+                    mFeedViewHolder.mImgNext.setEnabled(true);
+                }
+            }
 
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -73,32 +98,6 @@ class FeedAdapter extends RecyclerView.Adapter {
             mFeedViewPager = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
             mImgNext = (ImageView) itemView.findViewById(R.id.imgNext);
             mImgBack = (ImageView) itemView.findViewById(R.id.imgBack);
-
-            mFeedViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                    if (position == 0) {
-                        mImgBack.setEnabled(false);
-                    } else {
-                        mImgBack.setEnabled(true);
-                    }
-                    if (position == mFeeds.get(0).getImages().size() - 1) {
-                        mImgNext.setEnabled(false);
-                    } else {
-                        mImgNext.setEnabled(true);
-                    }
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
             mImgNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -122,7 +121,6 @@ class FeedAdapter extends RecyclerView.Adapter {
         private final List<Image> mImages;
         private final LayoutInflater mInflater;
         private final Context mContext;
-
 
         FeedPagerAdapter(Context context, List<Image> images) {
             this.mImages = images;

@@ -20,6 +20,10 @@ class Image {
         this.link = link;
     }
 
+    public Image(String link) {
+        this.link = link;
+    }
+
     public int getId() {
         return id;
     }

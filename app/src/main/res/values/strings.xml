@@ -13,9 +13,6 @@
         <item>Nguyễn Văn E</item>
         <item>Nguyễn Văn F</item>
         <item>Nguyễn Văn G</item>
-        <item>Nguyễn Văn H</item>
-        <item>Nguyễn Văn I</item>
-        <item>Nguyễn Văn J</item>
     </string-array>
 
     <string-array name="descriptions">
@@ -26,9 +23,6 @@
         <item>15 tuổi,Quảng Nam</item>
         <item>20 tuổi,Đà Nẵng</item>
         <item>50 tuổi,Quảng Nam</item>
-        <item>40 tuổi,Đà Nẵng</item>
-        <item>24 tuổi,Quảng Nam</item>
-        <item>24 tuổi,Quảng Nam</item>
     </string-array>
 
     <string name="feed">Feed</string>
