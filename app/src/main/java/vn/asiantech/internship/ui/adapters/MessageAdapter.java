@@ -12,9 +12,10 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Message;
 
 /**
- * Created by PC on 6/21/2017.
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/21/2017
  */
-
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
     private static final int TYPE_INBOX = 1;
@@ -39,7 +40,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
-        //holder.mTvMessage.setText(mList.get());
+        holder.mTvMessage.setText(mList.get(position).getMessage());
     }
 
     @Override
@@ -61,7 +62,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     class MessageViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvMessage;
 
-        public MessageViewHolder(View itemView) {
+        private MessageViewHolder(View itemView) {
             super(itemView);
             mTvMessage = (TextView) itemView.findViewById(R.id.tvMessage);
         }

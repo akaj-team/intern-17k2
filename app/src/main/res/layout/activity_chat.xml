@@ -25,16 +25,19 @@
             android:layout_height="@dimen/chat_edit_text_height"
             android:layout_weight="1"
             android:background="@android:color/white"
+            android:gravity="top"
+            android:hint="@string/message_hint"
             android:inputType="textMultiLine"
             android:padding="@dimen/padding_margin_default"
             android:textSize="@dimen/text_size_default" />
 
         <Button
-            android:id="@+id/btnSent"
+            android:id="@+id/btnSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_margin_default"
             android:text="@string/sent"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

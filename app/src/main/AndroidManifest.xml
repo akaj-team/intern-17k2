@@ -21,6 +21,7 @@
         <activity android:name=".friend.ListFriendActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.main.PassDataActivity" />
+        <activity android:name=".ui.main.ChatActivity" />
     </application>
 
 </manifest>

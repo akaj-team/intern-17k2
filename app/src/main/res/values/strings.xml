@@ -22,4 +22,5 @@
         <item>Camera</item>
     </string-array>
     <string name="sent">Send</string>
+    <string name="message_hint">Send Message</string>
 </resources>

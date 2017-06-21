@@ -14,6 +14,10 @@ public class Message {
         this.inbox = inbox;
     }
 
+    public Message() {
+        this.inbox = true;
+    }
+
     public String getMessage() {
         return message;
     }
@@ -26,7 +30,7 @@ public class Message {
         this.message = message;
     }
 
-    public void setInbox(boolean inbox) {
-        this.inbox = inbox;
+    public void setInbox() {
+        this.inbox = !this.inbox;
     }
 }

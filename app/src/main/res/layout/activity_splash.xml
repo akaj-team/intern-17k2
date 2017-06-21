@@ -30,5 +30,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Day 7" />
+
+        <Button
+            android:id="@+id/btnDay13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Day 13" />
     </LinearLayout>
 </ScrollView>
