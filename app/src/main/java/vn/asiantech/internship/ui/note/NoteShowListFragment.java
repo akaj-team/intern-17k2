@@ -17,6 +17,9 @@ import vn.asiantech.internship.adapter.NoteAdapter;
 import vn.asiantech.internship.database.DatabaseHelper;
 import vn.asiantech.internship.models.Note;
 
+/**
+ * NoteShowListFragment Created by Thanh Thien
+ */
 public class NoteShowListFragment extends Fragment {
 
     @Override
