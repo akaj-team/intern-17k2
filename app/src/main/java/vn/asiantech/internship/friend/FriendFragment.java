@@ -49,16 +49,16 @@ public class FriendFragment extends Fragment {
         mRecyclerView.setAdapter(mFriendAdapter);
     }
 
-    private void initFriendData(List<Friend> arrayList) {
-        arrayList.add(new Friend("Abc xyz 001"));
-        arrayList.add(new Friend("Abc xyz 001"));
-        arrayList.add(new Friend("Abc xyz 001"));
-        arrayList.add(new Friend("Abc xyz 001"));
-        arrayList.add(new Friend("Abc xyz 001"));
-        arrayList.add(new Friend("Abc xyz 001"));
-        arrayList.add(new Friend("Abc xyz 001"));
-        arrayList.add(new Friend("Abc xyz 001"));
-        arrayList.add(new Friend("Abc xyz 001"));
-        arrayList.add(new Friend("Abc xyz 001"));
+    private void initFriendData(List<Friend> friends) {
+        friends.add(new Friend("Abc xyz 001"));
+        friends.add(new Friend("Abc xyz 001"));
+        friends.add(new Friend("Abc xyz 001"));
+        friends.add(new Friend("Abc xyz 001"));
+        friends.add(new Friend("Abc xyz 001"));
+        friends.add(new Friend("Abc xyz 001"));
+        friends.add(new Friend("Abc xyz 001"));
+        friends.add(new Friend("Abc xyz 001"));
+        friends.add(new Friend("Abc xyz 001"));
+        friends.add(new Friend("Abc xyz 001"));
     }
 }

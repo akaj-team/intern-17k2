@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="vn.asiantech.internship.friend.FriendActivity">
+    android:padding="@dimen/activity_horizontal_margin"
+    tools:context="vn.asiantech.internship.drawer.ui.splash.SplashActivity">
 
     <Button
         android:id="@+id/btnFriend"
@@ -15,9 +15,18 @@
         android:text="@string/button_friend" />
 
     <Button
+        android:id="@+id/btnBai8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item.button_margin"
+        android:text="@string/DrawerLayout" />
+
+    <Button
         android:id="@+id/btnNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/item.button_margin"
         android:text="@string/button_note" />
+
+
 </LinearLayout>
