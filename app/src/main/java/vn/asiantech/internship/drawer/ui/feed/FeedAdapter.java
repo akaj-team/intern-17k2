@@ -13,8 +13,6 @@ import java.util.List;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.drawer.models.FeedItem;
 
-import static vn.asiantech.internship.R.id.viewPager;
-
 /**
  * Created by BACKDOOR on 07-Feb-17.
  */
@@ -63,7 +61,7 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvFeed);
             mTvComment = (TextView) itemView.findViewById(R.id.tvComment);
-            mViewPager = (ViewPager) itemView.findViewById(viewPager);
+            mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
             mBtnLeftSlide = (ImageButton) itemView.findViewById(R.id.btnLeftSlide);
             mBtnRightSlide = (ImageButton) itemView.findViewById(R.id.btnRightSlide);
             mViewPager.setPageMargin(5);
