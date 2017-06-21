@@ -1,5 +1,6 @@
 package vn.asiantech.internship.ui.note.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +20,6 @@ import java.util.Locale;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Note;
-import vn.asiantech.internship.ui.note.activity.NoteActivity;
 import vn.asiantech.internship.ui.note.databases.DatabaseHelper;
 
 /**
@@ -28,6 +28,7 @@ import vn.asiantech.internship.ui.note.databases.DatabaseHelper;
  * Created by Hai on 6/20/2017.
  */
 public class NewNoteFragment extends Fragment implements OnClickListener {
+    public static final String KEY_SEND_NOTE = "send_note";
     private static final int REQUEST_CODE_GALLERY = 100000;
 
     private ImageView mImgAddImage;
@@ -64,8 +65,9 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
                 String time = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
                 Note note = new Note(dayOfWeek, dateTime, time, mEdtInputContent.getText().toString(), mUri.toString());
                 databaseHelper.insertDb(note);
-                Intent intent = new Intent(getActivity(), NoteActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent();
+                intent.putExtra(KEY_SEND_NOTE, note);
+                getActivity().setResult(Activity.RESULT_OK, intent);
                 getActivity().finish();
             }
         }

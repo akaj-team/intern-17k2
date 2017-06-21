@@ -1,6 +1,10 @@
 package vn.asiantech.internship.models;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 
 /**
  * model store data
@@ -8,7 +12,7 @@ import android.net.Uri;
  * Created by Hai on 6/19/2017.
  */
 
-public class Note {
+public class Note implements Parcelable {
     private String dayOfWeek;
     private String dayOfMonth;
     private String time;
@@ -25,6 +29,26 @@ public class Note {
         this.content = content;
         this.image = image;
     }
+
+    protected Note(Parcel in) {
+        dayOfWeek = in.readString();
+        dayOfMonth = in.readString();
+        time = in.readString();
+        content = in.readString();
+        image = in.readString();
+    }
+
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
 
     public String getDayOfWeek() {
         return dayOfWeek;
@@ -64,5 +88,19 @@ public class Note {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(dayOfWeek);
+        dest.writeString(dayOfMonth);
+        dest.writeString(time);
+        dest.writeString(content);
+        dest.writeString(image);
     }
 }
