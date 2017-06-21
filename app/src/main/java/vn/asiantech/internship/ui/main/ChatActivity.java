@@ -34,6 +34,8 @@ public class ChatActivity extends AppCompatActivity {
         final Button btnSend = (Button) findViewById(R.id.btnSend);
 
         final List<Message> messages = new ArrayList<>();
+        messages.add(new Message(getString(R.string.message1), false));
+        messages.add(new Message(getString(R.string.message2), true));
         final MessageAdapter adapter = new MessageAdapter(messages);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -69,9 +71,9 @@ public class ChatActivity extends AppCompatActivity {
         Message message = new Message();
         Random random = new Random();
         if (random.nextInt(2) % 2 == 0) {
-            message.setMessage("Đã xem và không trả lời");
+            message.setText("Đã xem và không trả lời");
         } else {
-            message.setMessage("Đây là câu trả lời.");
+            message.setText("Đây là câu trả lời.");
         }
         return message;
     }

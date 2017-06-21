@@ -40,7 +40,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
-        holder.mTvMessage.setText(mList.get(position).getMessage());
+        holder.mTvMessage.setText(mList.get(position).getText());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     /**
      * Custom item for MessageList
      */
-    class MessageViewHolder extends RecyclerView.ViewHolder {
+    final class MessageViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvMessage;
 
         private MessageViewHolder(View itemView) {

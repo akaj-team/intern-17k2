@@ -6,11 +6,11 @@ package vn.asiantech.internship.models;
  * @since 06/21/2017
  */
 public class Message {
-    private String message;
+    private String text;
     private boolean inbox;
 
-    public Message(String message, boolean inbox) {
-        this.message = message;
+    public Message(String text, boolean inbox) {
+        this.text = text;
         this.inbox = inbox;
     }
 
@@ -18,16 +18,16 @@ public class Message {
         this.inbox = true;
     }
 
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
     public boolean isInbox() {
         return inbox;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public void setInbox() {
