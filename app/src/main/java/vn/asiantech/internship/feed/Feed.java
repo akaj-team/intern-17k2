@@ -8,12 +8,12 @@ class Feed {
     private int id;
     private String name;
     private String title;
-    private String[] strimages;
+    private String[] strImages;
 
-    Feed(String name, String strimages, String title) {
+    Feed(String name, String strImages, String title) {
         this.name = name;
         this.title = title;
-        this.strimages = strimages.split(",");
+        this.strImages = strImages.split(",");
     }
 
     public String getName() {
@@ -24,8 +24,8 @@ class Feed {
         this.name = name;
     }
 
-    String[] getStrimages() {
-        return strimages;
+    String[] getStrImages() {
+        return strImages;
     }
 
     String getTitle() {

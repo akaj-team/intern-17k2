@@ -16,8 +16,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * Copyright © 2016 AsianTech inc.
  * Created by datbu on 15-06-2017.
@@ -42,11 +40,10 @@ class DataBaseHandler extends SQLiteOpenHelper {
         }
     }
 
-
     private void createdatabase() throws IOException {
         boolean dbexist = checkdatabase();
         if (dbexist) {
-            Log.d(TAG, "createdatabase: ");
+            Log.d("tag", "createdatabase: ");
         } else {
             this.getReadableDatabase();
             try {
