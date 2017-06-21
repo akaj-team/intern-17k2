@@ -24,13 +24,13 @@ public class ImageDatabase extends SQLiteOpenHelper {
     private Context mContext;
     private static final String DB_NAME = "list_image.sqlite";
     private static final String TAG = "tag11";
-    private static String DB_PATH;
+    private String dbPath;
     private SQLiteDatabase database;
 
     public ImageDatabase(Context context) throws IOException {
         super(context, DB_NAME, null, 1);
         mContext = context;
-        DB_PATH = mContext.getFilesDir().getPath();
+        dbPath = mContext.getFilesDir().getPath();
         if (database != null && database.isOpen()) {
             database.close();
         }
@@ -61,7 +61,7 @@ public class ImageDatabase extends SQLiteOpenHelper {
 
     private void copydatabase() throws IOException {
         InputStream inputStream = mContext.getAssets().open(DB_NAME);
-        String outFileName = DB_PATH + DB_NAME;
+        String outFileName = dbPath + DB_NAME;
         OutputStream outputStream = new FileOutputStream(outFileName);
         byte[] buffer = new byte[1024];
         int lenght;
@@ -81,7 +81,7 @@ public class ImageDatabase extends SQLiteOpenHelper {
     private boolean checkdatabase() {
         boolean checkdb = false;
         try {
-            String myPath = DB_PATH + DB_NAME;
+            String myPath = dbPath + DB_NAME;
             File dbFile = new File(myPath);
             checkdb = dbFile.exists();
         } catch (SQLiteException e) {

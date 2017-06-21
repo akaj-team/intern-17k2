@@ -35,7 +35,7 @@ public class FeedFragment extends Fragment {
         try {
             mImageDatabase = new ImageDatabase(container.getContext());
         } catch (IOException e) {
-            Log.i("TAG","error");
+            Log.i("TAG", "error");
         }
         mImageDatabase.opendatabase();
         mPosts = mImageDatabase.getList();
