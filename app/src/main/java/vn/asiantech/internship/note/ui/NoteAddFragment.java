@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -88,14 +87,12 @@ public class NoteAddFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mnAttachFile:
-                // TODO: 20/06/2017
                 Intent galleryIntent = new Intent(
                         Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, REQUEST_GALLERY);
                 break;
-
             case R.id.mnSave:
                 String date = String.valueOf(mCalendar.get(Calendar.DATE) + " " + mCalendar.get(Calendar.MONTH));
                 String time = mCalendar.get(Calendar.HOUR) + " : " + mCalendar.get(Calendar.MINUTE);
@@ -113,7 +110,7 @@ public class NoteAddFragment extends Fragment {
                 }
                 break;
             default:
-                // TODO: 20/06/2017
+                //todo something
         }
         return super.onOptionsItemSelected(item);
     }
@@ -128,34 +125,17 @@ public class NoteAddFragment extends Fragment {
                 Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 mImageView.setImageBitmap(selectedImage);
                 Uri uri = data.getData();
-//                Uri tempUri = getImageUri(getContext(), selectedImage);
-                /*// CALL THIS METHOD TO GET THE ACTUAL PATH
-                File finalFile = new File(getRealPathFromURI(tempUri));*/
                 mPathImage = getRealPathFromURI(getContext(), uri);
-                Log.e("Grzzzzzzzzzzzzzz", mPathImage);
-
+//                mPathImage = Environment.getExternalStorageDirectory().toString();
+                Log.e("Grzzzzzzzzzz",  mPathImage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
-    public String getRealPathFromURI(Uri uri) {
-        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-        return cursor.getString(idx);
-    }
-
     public String getRealPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = null;
+        /*Cursor cursor = null;
         try {
             String[] proj = { MediaStore.Images.Media.DATA };
             cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
@@ -166,7 +146,18 @@ public class NoteAddFragment extends Fragment {
             if (cursor != null) {
                 cursor.close();
             }
+        }*/
+        String result;
+        Cursor cursor = context.getContentResolver().query(contentUri, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentUri.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
         }
+        return result;
     }
 
     @Override

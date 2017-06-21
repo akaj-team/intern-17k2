@@ -2,41 +2,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tool="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:padding="5dp"
     tools:context="vn.asiantech.internship.note.ui.DetailFragment">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBarDetailNote"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar.width"
-        android:background="#ccc" />
+        android:background="@color/colorToolbar" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_margin="10dp">
+        android:layout_height="@dimen/detail.image_size"
+        android:layout_margin="@dimen/detail.textview_margin">
 
         <ImageView
             android:id="@+id/imgDetailNote"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#aaa" />
+            android:background="@color/colorGrayLight"
+            android:contentDescription="@string/detail.imageview_image" />
 
         <TextView
-            android:layout_gravity="end"
             android:id="@+id/tvDateAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="20 Jun"/>
+            android:layout_gravity="end"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            tools:text="20 Jun" />
 
         <TextView
-            android:layout_marginTop="20dp"
-            android:layout_gravity="end"
             android:id="@+id/tvTimeAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="15:00"/>
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/detail.textview.time_margin"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            tools:text="15:00" />
     </FrameLayout>
 
     <LinearLayout
@@ -48,24 +53,38 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/detail.textview_margin"
+            android:layout_marginStart="@dimen/detail.textview_margin"
             android:gravity="center_vertical"
-            android:text="Title:" />
+            android:text="@string/detail.textview_title"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvNoteTitle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/detail.layout_padding"
+            android:paddingRight="@dimen/detail.layout_padding"
+            android:textColor="@color/colorBlack" />
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/detail.textview_margin"
+        android:layout_marginStart="@dimen/detail.textview_margin"
         android:gravity="center_vertical"
-        android:text="Content:" />
+        android:text="@string/detail.textview_content"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvNoteContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/detail.textview_margin"
+        android:layout_marginStart="@dimen/detail.textview_margin"
+        android:textColor="@color/colorBlack" />
 </LinearLayout>

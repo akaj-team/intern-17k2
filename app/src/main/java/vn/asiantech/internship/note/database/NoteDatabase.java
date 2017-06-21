@@ -25,7 +25,7 @@ public class NoteDatabase {
 
     private Context mContext;
     private NoteOpenHelper mDatabaseHelper;
-    private SQLiteDatabase mSqLiteDatabase;
+    public SQLiteDatabase mSqLiteDatabase;
 
     private static NoteDatabase mNoteDatabase;
 
@@ -72,6 +72,7 @@ public class NoteDatabase {
                     cursor.getString(3),
                     cursor.getString(4),
                     cursor.getString(5));
+            note.setId(cursor.getInt(0));
             notes.add(note);
         }
         cursor.close();
@@ -85,14 +86,19 @@ public class NoteDatabase {
         Cursor cursor = mSqLiteDatabase.rawQuery(sql, null);
         if (cursor != null) {
             cursor.moveToFirst();
+            note.setId(cursor.getInt(0));
             note.setTitle(cursor.getString(1));
             note.setContent(cursor.getString(2));
             note.setPath(cursor.getString(3));
             note.setDate(cursor.getString(4));
             note.setTime(cursor.getString(5));
+            cursor.close();
         }
-        cursor.close();
         return note;
+    }
+
+    public boolean deleteNote(int id) {
+        return mSqLiteDatabase.delete(TABLE_NAME, COL_ID + "=" + id, null) > 0;
     }
 
     public int deleteNoteAll() {

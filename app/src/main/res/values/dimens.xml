@@ -3,9 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_padding">5dp</dimen>
     <dimen name="item.textview_padding">5dp</dimen>
+    <dimen name="item.textview_margin">5dp</dimen>
+    <dimen name="item.layout_margin">5dp</dimen>
+    <dimen name="item.layout_height">80dp</dimen>
     <dimen name="item.textview_text_size">18sp</dimen>
     <dimen name="item.cardview_padding">5dp</dimen>
-    <dimen name="item.textview_margin">10dp</dimen>
     <dimen name="item.imageview_padding">5dp</dimen>
     <dimen name="item.imageview_margin">10dp</dimen>
     <dimen name="item.button_padding">5dp</dimen>
@@ -13,4 +15,8 @@
     <dimen name="item.image_size">64dp</dimen>
     <dimen name="toolbar.width">60dp</dimen>
     <dimen name="toolbar.title_margin">20dp</dimen>
+    <dimen name="detail.textview_margin">10dp</dimen>
+    <dimen name="detail.layout_padding">5dp</dimen>
+    <dimen name="detail.textview.time_margin">20dp</dimen>
+    <dimen name="detail.image_size">250dp</dimen>
 </resources>

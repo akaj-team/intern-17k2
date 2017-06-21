@@ -6,45 +6,60 @@
     tools:context="vn.asiantech.internship.note.ui.NoteAddFragment">
 
     <android.support.v7.widget.Toolbar
-        android:background="#ccc"
         android:id="@+id/toolBarAddNote"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar.width"/>
+        android:layout_height="@dimen/toolbar.width"
+        android:background="@color/colorToolbar" />
 
     <ImageView
-        android:background="#aaa"
-        android:layout_margin="10dp"
         android:id="@+id/imgAddNote"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="@dimen/detail.image_size"
+        android:layout_margin="@dimen/detail.textview_margin"
+        android:background="@color/colorGrayLight"
+        android:contentDescription="@string/detail.imageview_image" />
 
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/detail.textview_margin"
+            android:layout_marginStart="@dimen/detail.textview_margin"
             android:gravity="center_vertical"
-            android:text="Title:" />
+            android:text="@string/detail.textview_title"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edtNoteTitle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:inputType="text"
+            android:paddingLeft="@dimen/detail.layout_padding"
+            android:paddingRight="@dimen/detail.layout_padding" />
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/detail.textview_margin"
+        android:layout_marginStart="@dimen/detail.textview_margin"
         android:gravity="center_vertical"
-        android:text="Content:" />
+        android:text="@string/detail.textview_content"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edtNoteContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/detail.textview_margin"
+        android:layout_marginStart="@dimen/detail.textview_margin"
+        android:inputType="text" />
 </LinearLayout>

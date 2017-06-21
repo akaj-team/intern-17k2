@@ -32,7 +32,7 @@ public class NoteFragment extends Fragment {
     private OnChangeFragment mOnChangeFragment;
 
     public interface OnChangeFragment {
-        void onChange(int key, int position);
+        void onChange(int key, int id);
     }
 
     public NoteFragment(OnChangeFragment onChangeFragment) {
@@ -64,8 +64,8 @@ public class NoteFragment extends Fragment {
         List<Note> mNotes = mNoteDatabase.getAllData();
         NoteAdapter mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnClickItemNote() {
             @Override
-            public void onClick(int position) {
-                mOnChangeFragment.onChange(2, position);
+            public void onClick(int id) {
+                mOnChangeFragment.onChange(2, id);
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

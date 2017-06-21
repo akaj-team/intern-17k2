@@ -1,11 +1,13 @@
 package vn.asiantech.internship.note.ui;
 
 
+import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.note.database.NoteDatabase;
+import vn.asiantech.internship.note.database.NoteOpenHelper;
 import vn.asiantech.internship.note.model.Note;
 
 /**
@@ -55,7 +58,7 @@ public class DetailFragment extends Fragment {
         mNoteDatabase.open();
         Bundle bundle = getArguments();
         mPosition = bundle.getInt("keykey", -1);
-        if(mPosition > -1){
+        if (mPosition > -1) {
             showNoteDetail();
         }
     }
@@ -83,7 +86,22 @@ public class DetailFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
+            case R.id.mnDelete:
+                if(mNoteDatabase.deleteNote(mPosition)) {
+                    mNoteDatabase.mSqLiteDatabase.execSQL("DELETE FROM " + NoteOpenHelper.TABLE_NAME
+                            + " WHERE " + NoteOpenHelper.COL_ID + " = " + mPosition);
+                    long lastID = DatabaseUtils.longForQuery(mNoteDatabase.mSqLiteDatabase, "SELECT MAX(" + NoteOpenHelper.COL_ID + ") FROM "
+                            + NoteOpenHelper.TABLE_NAME, null);
+                    if (lastID > mPosition)
+                        mNoteDatabase.mSqLiteDatabase.execSQL("UPDATE " + NoteOpenHelper.TABLE_NAME + " SET "
+                                + NoteOpenHelper.COL_ID + " = " + mPosition + " WHERE " + NoteOpenHelper.COL_ID + " = " + lastID);
+                    getActivity().onBackPressed();
+                }else {
+                    Log.e("Grzzzzzzzzzzzzz", "Delete that bai");
+                }
+                break;
+            default:
+                // TODO: 21/06/2017
         }
         return super.onOptionsItemSelected(item);
     }

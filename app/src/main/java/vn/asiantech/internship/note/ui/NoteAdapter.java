@@ -43,14 +43,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         holder.mTvNoteContent.setText(note.getContent());
         holder.mTvDate.setText(note.getDate());
         holder.mTvTime.setText(note.getTime());
-        setImage(holder.mImgNote, note.getPath());
+//        setImage(holder.mImgNote, note.getPath());
     }
 
     private void setImage(ImageView imageView, String path) {
         File imgFile = new File(path);
         if (imgFile.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-//            imageView.setImageBitmap(myBitmap);
+            imageView.setImageBitmap(myBitmap);
             Log.e("Grzzzzzzzzzz",  path);
         }
     }
@@ -81,7 +81,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mOnClickItemNote.onClick(getAdapterPosition());
+                    mOnClickItemNote.onClick(mNotes.get(getAdapterPosition()).getId());
                 }
             });
         }

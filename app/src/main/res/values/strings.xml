@@ -12,4 +12,7 @@
     <string name="toolBar_title_screenlist">App Note</string>
     <string name="toolBar_title_screenadd">Add Note</string>
 
+    <string name="detail.textview_content">Content:</string>
+    <string name="detail.textview_title">Title:</string>
+    <string name="detail.imageview_image">Avatar</string>
 </resources>
