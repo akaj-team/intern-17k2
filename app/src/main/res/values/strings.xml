@@ -21,4 +21,5 @@
         <item>Garelly</item>
         <item>Camera</item>
     </string-array>
+    <string name="sent">Send</string>
 </resources>

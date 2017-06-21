@@ -15,4 +15,7 @@
     <dimen name="header_height">170dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="drawer_width">200dp</dimen>
+    <dimen name="chat_item_padding">50dp</dimen>
+    <dimen name="chat_text_padding">20dp</dimen>
+    <dimen name="chat_edit_text_height">80dp</dimen>
 </resources>
