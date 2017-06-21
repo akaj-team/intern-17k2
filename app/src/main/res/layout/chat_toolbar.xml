@@ -13,6 +13,7 @@
         android:src="@drawable/ic_keyboard_backspace_red_900_24dp" />
 
     <TextView
+        android:layout_marginLeft="@dimen/textView.margin_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/chat.button.back"
@@ -24,5 +25,5 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/chat.toolbar.title"
-        android:textColor="@color/colorRed" />
+        android:textColor="@color/colorGreyDark" />
 </LinearLayout>

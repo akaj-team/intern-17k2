@@ -31,4 +31,5 @@
     <dimen name="feed.cardView.margin_left_right">5dp</dimen>
     <dimen name="chat.toolbar.height">56dp</dimen>
     <dimen name="chat.relativeLayout.margin_top">5dp</dimen>
+    <dimen name="textView.margin_left">5dp</dimen>
 </resources>
