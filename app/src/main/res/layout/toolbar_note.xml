@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:maxLines="1"
             android:textSize="@dimen/bigger_text_size" />
 
         <LinearLayout
@@ -48,6 +49,26 @@
                 android:visibility="gone" />
 
             <ImageView
+                android:id="@+id/imgEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_margin_default"
+                android:layout_marginStart="@dimen/padding_margin_default"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_edit_red_700_24dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imgDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_margin_default"
+                android:layout_marginStart="@dimen/padding_margin_default"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_delete_red_700_24dp"
+                android:visibility="gone" />
+
+            <ImageView
                 android:id="@+id/imgSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,6 +77,7 @@
                 android:contentDescription="@null"
                 android:src="@drawable/ic_check_red_700_24dp"
                 android:visibility="gone" />
+
         </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

@@ -1,10 +1,10 @@
 package vn.asiantech.internship.models;
 
 import android.text.format.DateFormat;
-import android.util.Log;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -17,26 +17,31 @@ import java.util.Locale;
  */
 
 public class NoteItem implements Serializable {
+    private int id;
     private String title;
     private String content;
     private String image;
-    private String time;
+    private long time;
 
-    public NoteItem(String title, String content, String image, String time) {
+    public NoteItem(int id, String title, String content, String image, long time) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.image = image;
         this.time = time;
     }
 
+    public NoteItem(String title, String content, String image) {
+        this.title = title;
+        this.content = content;
+        this.image = image;
+        this.time = Calendar.getInstance().getTimeInMillis();
+    }
+
     public NoteItem(String title, String content) {
         this.title = title;
         this.content = content;
-        Date date = new Date();
-        SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
-        time = dayOfWeekFormat.format(date) + "\n" + DateFormat.format("dd", date) + " " + monthFormat.format(date) + "\n" + DateFormat.format("hh:mm:ss", date);
-        Log.i("tag11", time);
+        this.time = Calendar.getInstance().getTimeInMillis();
     }
 
     public String getTitle() {
@@ -51,7 +56,7 @@ public class NoteItem implements Serializable {
         return image;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
@@ -67,7 +72,22 @@ public class NoteItem implements Serializable {
         this.image = image;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTime() {
+        this.time = Calendar.getInstance().getTimeInMillis();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getStringTime() {
+        Date date = new Date(time);
+        SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
+        return dayOfWeekFormat.format(date) + "\n" + DateFormat.format("dd", date) + " " + monthFormat.format(date) + "\n" + DateFormat.format("hh:mm:ss", date);
     }
 }

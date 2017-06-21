@@ -1,7 +1,6 @@
 package vn.asiantech.internship.ui.adapter;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.NoteItem;
-import vn.asiantech.internship.ui.main.NoteDetailActivity;
 
 /**
  * Custom Note RecylerView
@@ -22,15 +20,14 @@ import vn.asiantech.internship.ui.main.NoteDetailActivity;
  * @version 1.0
  * @since 06/19/2017
  */
-
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteItemHolder> {
 
-    public static final String NOTE_KEY = "Note";
-
     private List<NoteItem> mNoteList;
+    private OnItemClickListener mListener;
 
-    public NoteAdapter(List<NoteItem> notes) {
+    public NoteAdapter(List<NoteItem> notes, OnItemClickListener listener) {
         mNoteList = notes;
+        mListener = listener;
     }
 
     @Override
@@ -41,9 +38,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteItemHolder
 
     @Override
     public void onBindViewHolder(NoteItemHolder holder, int position) {
-        holder.mTvTime.setText(mNoteList.get(position).getTime());
+        holder.mTvTime.setText(mNoteList.get(position).getStringTime());
         holder.mTvTitle.setText(mNoteList.get(position).getTitle());
         holder.mTvContent.setText(mNoteList.get(position).getContent());
+        if (mNoteList.get(position).getImage() != null) {
+            holder.mImgPhoto.setVisibility(View.VISIBLE);
+            holder.mImgPhoto.setImageURI(Uri.parse(mNoteList.get(position).getImage()));
+        }
+
     }
 
     @Override
@@ -65,19 +67,23 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteItemHolder
             mTvTime = (TextView) itemView.findViewById(R.id.tvNoteTime);
             mTvTitle = (TextView) itemView.findViewById(R.id.tvNoteTitle);
             mTvContent = (TextView) itemView.findViewById(R.id.tvNoteContent);
-            mImgPhoto = (ImageView) itemView.findViewById(R.id.imgNotePhoto);
+            mImgPhoto = (ImageView) itemView.findViewById(R.id.imgNotePicture);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(itemView.getContext(), NoteDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(NOTE_KEY, mNoteList.get(getAdapterPosition()));
-                    intent.putExtras(bundle);
-                    itemView.getContext().startActivity(intent);
+                    if (mListener != null) {
+                        mListener.OnItemClick(mNoteList.get(getAdapterPosition()));
+                    }
                 }
             });
         }
     }
 
+    /**
+     * This interface used to handle item of RecyclerView click
+     */
+    public interface OnItemClickListener {
+        void OnItemClick(NoteItem note);
+    }
 }

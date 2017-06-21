@@ -1,13 +1,14 @@
-package vn.asiantech.internship.models;
+package vn.asiantech.internship.helpers;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by PC on 6/19/2017.
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/20/2017
  */
-
 public class NoteOpenHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "DB_NOTE";
@@ -30,7 +31,7 @@ public class NoteOpenHelper extends SQLiteOpenHelper {
                 + COLUMN_TITLE + " TEXT, "
                 + COLUMN_CONTENT + " TEXT, "
                 + COLUMN_IMAGE + " TEXT, "
-                + COLUMN_TIME + " TEXT);");
+                + COLUMN_TIME + " LONG);");
     }
 
     @Override

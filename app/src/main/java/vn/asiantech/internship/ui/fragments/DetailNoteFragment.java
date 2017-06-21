@@ -10,61 +10,71 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.databases.NoteDatabase;
 import vn.asiantech.internship.models.NoteItem;
+import vn.asiantech.internship.ui.main.NoteActivity;
 
 /**
  * @author at-cuongcao
  * @version 1.0
  * @since 06/20/2017
  */
-public class AddNoteFragment extends Fragment {
+public class DetailNoteFragment extends Fragment {
+
     private ImageView mImgNotePicture;
     private EditText mEdtNoteTitle;
     private EditText mEdtNoteContent;
+
     private String mImagePath;
-    private NoteDatabase mNoteDatabase;
+    private NoteItem mNote;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_note, container, false);
+        View view = inflater.inflate(R.layout.fragment_note_detail, container, false);
         mImgNotePicture = (ImageView) view.findViewById(R.id.imgNotePicture);
         mEdtNoteTitle = (EditText) view.findViewById(R.id.edtNoteTitle);
         mEdtNoteContent = (EditText) view.findViewById(R.id.edtNoteContent);
+        TextView tvNoteTime = (TextView) view.findViewById(R.id.tvNoteTime);
 
-        mNoteDatabase = new NoteDatabase(getContext());
-        mNoteDatabase.open();
+        mNote = (NoteItem) getArguments().getSerializable(NoteActivity.KEY_NOTE);
+
+        if (mNote.getImage() != null) {
+            mImgNotePicture.setVisibility(View.VISIBLE);
+            mImgNotePicture.setImageURI(Uri.parse(mNote.getImage()));
+        }
+        mEdtNoteTitle.setText(mNote.getTitle());
+        mEdtNoteContent.setText(mNote.getContent());
+        tvNoteTime.setText(mNote.getStringTime());
+
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mNoteDatabase.close();
+    public void prepareEditNote() {
+        mEdtNoteTitle.setEnabled(true);
+        mEdtNoteContent.setEnabled(true);
     }
 
-    public void addNote() {
-
+    public long editNote() {
         if (TextUtils.isEmpty(mEdtNoteContent.getText()) || TextUtils.isEmpty(mEdtNoteTitle.getText())) {
-            Toast.makeText(getContext(), "Bạn phải nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.validate), Toast.LENGTH_SHORT).show();
+            return -1;
         } else {
-            NoteItem noteItem;
+            mNote.setTime();
+            mNote.setTitle(mEdtNoteTitle.getText().toString());
+            mNote.setContent(mEdtNoteContent.getText().toString());
             if (mImagePath != null) {
-                noteItem = new NoteItem(mEdtNoteTitle.getText().toString(), mEdtNoteContent.getText().toString(), mImagePath);
-            } else {
-                noteItem = new NoteItem(mEdtNoteTitle.getText().toString(), mEdtNoteContent.getText().toString());
+                mNote.setImage(mImagePath);
             }
-            if (mNoteDatabase.insertNote(noteItem) > 0) {
-                Toast.makeText(getContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
-                mEdtNoteContent.setText("");
-                mEdtNoteTitle.setText("");
-            } else {
-                Toast.makeText(getContext(), getString(R.string.fail), Toast.LENGTH_SHORT).show();
-            }
+            NoteDatabase noteDatabase = new NoteDatabase(getContext());
+            noteDatabase.open();
+            long result = noteDatabase.editNote(mNote);
+            noteDatabase.close();
+            return result;
         }
     }
 
@@ -76,5 +86,9 @@ public class AddNoteFragment extends Fragment {
         } else {
             mImgNotePicture.setVisibility(View.GONE);
         }
+    }
+
+    public int getNoteId() {
+        return mNote.getId();
     }
 }

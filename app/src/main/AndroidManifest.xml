@@ -22,5 +22,4 @@
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.main.NoteActivity"/>
     </application>
-
 </manifest>
