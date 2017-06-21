@@ -1,10 +1,13 @@
 package vn.asiantech.internship.feed;
 
 /**
- * Created by sony on 20/06/2017.
+ * Used as a image project
+ *
+ * @author at-HangTran
+ * @version 1.0
+ * @since 2017-6-15
  */
-
-public class Image {
+class Image {
     private int id;
     private String title;
     private String description;

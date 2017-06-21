@@ -47,7 +47,7 @@ class FeedAdapter extends RecyclerView.Adapter {
         FeedViewHolder myViewHolder = (FeedViewHolder) holder;
         myViewHolder.mTvName.setText(mFeeds.get(position).getName());
         myViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
-        myViewHolder.mViewPager.setAdapter(new FeedPagerAdapter(mContext, mFeeds.get(position).getImages()));
+        myViewHolder.mFeedViewPager.setAdapter(new FeedPagerAdapter(mContext, mFeeds.get(position).getImages()));
 
     }
 
@@ -62,19 +62,19 @@ class FeedAdapter extends RecyclerView.Adapter {
     private class FeedViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTvName;
         private final TextView mTvDescription;
-        private final ViewPager mViewPager;
-        private ImageView mImgNext;
-        private ImageView mImgBack;
+        private final ViewPager mFeedViewPager;
+        private final ImageView mImgNext;
+        private final ImageView mImgBack;
 
         FeedViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvDescription = (TextView) itemView.findViewById(R.id.tvDescribe);
-            mViewPager = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
+            mFeedViewPager = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
             mImgNext = (ImageView) itemView.findViewById(R.id.imgNext);
             mImgBack = (ImageView) itemView.findViewById(R.id.imgBack);
 
-            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            mFeedViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     if (position == 0) {
@@ -102,14 +102,14 @@ class FeedAdapter extends RecyclerView.Adapter {
             mImgNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
+                    mFeedViewPager.setCurrentItem(mFeedViewPager.getCurrentItem() + 1, true);
                 }
             });
 
             mImgBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+                    mFeedViewPager.setCurrentItem(mFeedViewPager.getCurrentItem() - 1, true);
                 }
             });
         }

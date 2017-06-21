@@ -12,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,23 +23,19 @@ import java.util.List;
  * @since 2017-6-9
  */
 class FeedSqlite extends SQLiteOpenHelper {
-    private Context mContext;
-    private static String DB_NAME = "list_image.sqlite";
-    private final String TABLE = "images";
-    private String mPath;
+    private final Context mContext;
+    private static final String DB_NAME = "list_image.sqlite";
+    private static final String TABLE = "images";
+    private final String mPath;
     private SQLiteDatabase mDataBase;
 
-    FeedSqlite(Context context) throws IOException {
+    FeedSqlite(Context context) {
         super(context, DB_NAME, null, 1);
         this.mContext = context;
         mPath = context.getFilesDir().getPath();
-        boolean dbexist = checkDatabase();
-        if (dbexist) {
-            try {
-                opendatabase();
-            } catch (SQLException e) {
-                Log.e("Can't open database", e.toString());
-            }
+        boolean dbExist = checkDatabase();
+        if (dbExist) {
+            openDatabase();
         } else {
             createDatabase();
         }
@@ -51,7 +46,7 @@ class FeedSqlite extends SQLiteOpenHelper {
         if (!dbExist) {
             this.getReadableDatabase();
             try {
-                copydatabase();
+                copyDatabase();
             } catch (IOException e) {
                 Log.e("Can't open database", e.toString());
             }
@@ -70,23 +65,23 @@ class FeedSqlite extends SQLiteOpenHelper {
         return checkDb;
     }
 
-    private void copydatabase() throws IOException {
-        InputStream myinput = mContext.getAssets().open(DB_NAME);
-        String outfilename = mPath + DB_NAME;
-        OutputStream myoutput = new FileOutputStream(outfilename);
+    private void copyDatabase() throws IOException {
+        InputStream inputStream = mContext.getAssets().open(DB_NAME);
+        String outFileName = mPath + DB_NAME;
+        OutputStream outputStream = new FileOutputStream(outFileName);
         byte[] buffer = new byte[1024];
         int length;
-        while ((length = myinput.read(buffer)) > 0) {
-            myoutput.write(buffer, 0, length);
+        while ((length = inputStream.read(buffer)) > 0) {
+            outputStream.write(buffer, 0, length);
         }
-        myoutput.flush();
-        myoutput.close();
-        myinput.close();
+        outputStream.flush();
+        outputStream.close();
+        inputStream.close();
     }
 
-    void opendatabase() throws SQLException {
-        String mypath = mPath + DB_NAME;
-        mDataBase = SQLiteDatabase.openDatabase(mypath, null, SQLiteDatabase.OPEN_READWRITE);
+    void openDatabase() {
+        String path = mPath + DB_NAME;
+        mDataBase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     public synchronized void close() {
@@ -98,11 +93,7 @@ class FeedSqlite extends SQLiteOpenHelper {
 
     public List<Image> getList() {
         List<Image> images = new ArrayList<>();
-        try {
-            opendatabase();
-        } catch (SQLException e) {
-            Log.e("Can't open databse", e.toString());
-        }
+        openDatabase();
         Cursor cursor = mDataBase.rawQuery("SELECT * from " + TABLE, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

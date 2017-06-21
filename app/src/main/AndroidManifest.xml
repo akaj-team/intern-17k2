@@ -19,8 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="recyclerview.FriendActivity" />
+        <activity android:name="recyclerView.FriendActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name="demo.RecyclerViewActivity" />
+        <activity android:name=".SendActivity" />
+        <activity android:name=".ui.splash.SplashActivity" />
     </application>
 </manifest>
