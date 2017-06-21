@@ -20,6 +20,7 @@
     <string name="bai5">Bai 5</string>
     <string name="bai6">Bai 6</string>
     <string name="bai7">Bai 7</string>
+    <string name="bai11">Bai 11</string>
     <string name="edittext.hint.title">Title</string>
     <string name="editetext.hint.content">Content</string>
 </resources>

@@ -18,4 +18,5 @@
     <dimen name="image.add.size">30dp</dimen>
     <dimen name="image.height">300dp</dimen>
     <dimen name="linearlayout.margin">5dp</dimen>
+    <dimen name="cardview.radius">14.5sp</dimen>
 </resources>

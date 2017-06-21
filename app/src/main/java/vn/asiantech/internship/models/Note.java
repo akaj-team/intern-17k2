@@ -10,6 +10,10 @@ public class Note {
     private String content;
     private String urlImage;
 
+    public Note() {
+
+    }
+
     public Note(String date, String title, String content, String urlImage) {
         this.date = date;
         this.title = title;

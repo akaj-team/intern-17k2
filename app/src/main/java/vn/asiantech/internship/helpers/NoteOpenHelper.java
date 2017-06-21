@@ -22,8 +22,7 @@ public class NoteOpenHelper extends SQLiteOpenHelper {
                 NoteDataBase.COLUMN_TITLE + " TEXT NOT NULL, " +
                 NoteDataBase.COLUMN_CONTENT + " TEXT NOT NULL, " +
                 NoteDataBase.COLUMN_DATE + " TEXT NOT NULL, " +
-                NoteDataBase.COLUMN_URL_IMAGE + " TEXT NOT NULL);");
-
+                NoteDataBase.COLUMN_URL_IMAGE + " TEXT);");
     }
 
     @Override
