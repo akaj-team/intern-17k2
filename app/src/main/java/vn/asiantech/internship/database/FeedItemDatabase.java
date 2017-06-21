@@ -20,7 +20,6 @@ import vn.asiantech.internship.models.Feed;
  * Read Database list_image
  * Created by huypham on 20/06/2017.
  */
-
 public class FeedItemDatabase extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "list_image.sqlite";
     private static final String TABLE = "images";
