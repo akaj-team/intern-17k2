@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.database.DatabaseHelper;
+import vn.asiantech.internship.database.FeedDatabaseHelper;
 import vn.asiantech.internship.models.Feed;
 
 /**
@@ -20,7 +20,7 @@ import vn.asiantech.internship.models.Feed;
  */
 public class FeedsFragment extends Fragment implements FeedsAdapter.OnFeedsListener {
 
-    private DatabaseHelper mDatabaseHelper;
+    private FeedDatabaseHelper mFeedDatabaseHelper;
     private RecyclerView mRvFeeds;
 
     @Override
@@ -30,7 +30,7 @@ public class FeedsFragment extends Fragment implements FeedsAdapter.OnFeedsListe
         View v = inflater.inflate(R.layout.fragment_feeds, container, false);
         mRvFeeds = (RecyclerView) v.findViewById(R.id.rvFeeds);
         mRvFeeds.setLayoutManager(new LinearLayoutManager(getContext()));
-        mDatabaseHelper = new DatabaseHelper(getContext(), true);
+        mFeedDatabaseHelper = new FeedDatabaseHelper(getContext());
         List<Feed> feeds = getDataFromDatabase();
         FeedsAdapter adapter = new FeedsAdapter(feeds, this);
         mRvFeeds.setAdapter(adapter);
@@ -38,7 +38,7 @@ public class FeedsFragment extends Fragment implements FeedsAdapter.OnFeedsListe
     }
 
     private List<Feed> getDataFromDatabase() {
-        return mDatabaseHelper.getAllFeeds();
+        return mFeedDatabaseHelper.getAllFeeds();
     }
 
     @Override
