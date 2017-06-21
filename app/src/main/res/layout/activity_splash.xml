@@ -8,7 +8,7 @@
     <Button
         android:id="@+id/btnDay5Ex1"
         style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/splash.button.width"
         android:layout_height="wrap_content"
         android:background="@color/splash.button.color"
         android:text="@string/button.day5.ex1.text" />
@@ -16,9 +16,27 @@
     <Button
         android:id="@+id/btnDay6Ex1"
         style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/splash.button.width"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/splash.button.margin.top"
         android:background="@color/splash.button.color"
         android:text="@string/button.day6.ex1.text" />
+
+    <Button
+        android:id="@+id/btnFragment"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="@dimen/splash.button.width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/splash.button.margin.top"
+        android:background="@color/splash.button.color"
+        android:text="@string/button.fragment.text" />
+
+    <Button
+        android:id="@+id/btnDay11Ex2"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="@dimen/splash.button.width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/splash.button.margin.top"
+        android:background="@color/splash.button.color"
+        android:text="@string/button.day11.ex2.text" />
 </LinearLayout>

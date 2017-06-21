@@ -19,7 +19,6 @@ import vn.asiantech.internship.models.FeedItem;
  * <p>
  * Created by Hai on 6/19/2017.
  */
-
 public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "list_image.sqlite";
     private static final int DATABASE_VERSION = 1;

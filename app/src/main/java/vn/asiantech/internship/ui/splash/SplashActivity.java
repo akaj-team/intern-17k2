@@ -7,10 +7,13 @@ import android.view.View;
 import android.widget.Button;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.ui.feed.FeedActivity;
+import vn.asiantech.internship.ui.fragments.SendDataActivity;
 import vn.asiantech.internship.ui.friendlist.FriendActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
+ *
  * Created by Hai on 6/15/2017.
  */
 
@@ -26,8 +29,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private void intitView() {
         Button btnDay5Ex1 = (Button) findViewById(R.id.btnDay5Ex1);
         Button btnDay6Ex1 = (Button) findViewById(R.id.btnDay6Ex1);
+        Button btnDay11Ex1 = (Button) findViewById(R.id.btnDay11Ex2);
+        Button btnFragment = (Button) findViewById(R.id.btnFragment);
         btnDay5Ex1.setOnClickListener(this);
         btnDay6Ex1.setOnClickListener(this);
+        btnDay11Ex1.setOnClickListener(this);
+        btnFragment.setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +48,13 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 Intent intentDrawerActivity = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intentDrawerActivity);
                 break;
+            case R.id.btnDay11Ex2:
+                Intent intentDay11Ex2 = new Intent(SplashActivity.this, FeedActivity.class);
+                startActivity(intentDay11Ex2);
+                break;
+            case R.id.btnFragment:
+                Intent intentFragment = new Intent(SplashActivity.this, SendDataActivity.class);
+                startActivity(intentFragment);
         }
     }
 }
