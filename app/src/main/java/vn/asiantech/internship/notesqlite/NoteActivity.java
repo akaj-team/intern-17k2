@@ -15,7 +15,7 @@ import vn.asiantech.internship.R;
  * @since 2017-6-20
  */
 public class NoteActivity extends AppCompatActivity {
-    FragmentManager mFragmentManager;
+    private FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

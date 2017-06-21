@@ -84,17 +84,20 @@ public class AddNoteFragment extends Fragment {
     private String getRealPathFromUri(Uri tempUri) {
         Cursor cursor;
         try {
-            String[] datas = {MediaStore.Images.Media.DATA};
-            cursor = getActivity().getContentResolver().query(tempUri, datas, null, null, null);
+            String[] images = {MediaStore.Images.Media.DATA};
+            cursor = getActivity().getContentResolver().query(tempUri, images, null, null, null);
             int column_index;
+            String path;
             if (cursor != null) {
                 column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 cursor.moveToFirst();
+                path = cursor.getString(column_index);
             } else {
-                column_index = 0;
+                path = null;
             }
-            String path =cursor.getString(column_index);
-            cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
             return path;
         } catch (NullPointerException e) {
             Log.e("Pointer is null", e.toString());

@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * @since 2017-6-20
  */
 class OpenHelper extends SQLiteOpenHelper {
-    static final String TEXT_NOT_NULL = " TEXT NOT NULL, ";
+    private static final String TEXT_NOT_NULL = " TEXT NOT NULL, ";
 
     OpenHelper(Context context) {
         super(context, NoteSqlite.DB_NAME, null, NoteSqlite.DB_VERSION);

@@ -31,20 +31,19 @@ class NoteSqlite {
 
     private final Context mContext;
     private SQLiteDatabase mDatabase;
-    private OpenHelper openHelper;
+    private OpenHelper mOpenHelper;
 
     NoteSqlite(Context context) {
         this.mContext = context;
     }
 
-    NoteSqlite open() throws SQLException {
-        openHelper = new OpenHelper(mContext);
-        mDatabase = openHelper.getWritableDatabase();
-        return this;
+    void open() throws SQLException {
+        mOpenHelper = new OpenHelper(mContext);
+        mDatabase = mOpenHelper.getWritableDatabase();
     }
 
     void close() {
-        openHelper.close();
+        mOpenHelper.close();
     }
 
 

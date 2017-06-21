@@ -10,12 +10,6 @@
     <dimen name="image.margin">10dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="recyclerView.linearlayout_margin_top_bottom">1dp</dimen>
-    <dimen name="recyclerView.linearlayout_margin_left_right">2dp</dimen>
-    <dimen name="recyclerView.linearlayout_padding">10dp</dimen>
-    <dimen name="recyclerView.linearlayout_height">60dp</dimen>
-    <dimen name="recyclerView.textview_margin_left">5dp</dimen>
-    <dimen name="recyclerView.linear_height">60dp</dimen>
     <dimen name="splash.linearLayout.margin_left_right">10dp</dimen>
     <dimen name="recyclerView.linearLayout_margin_top_bottom">1dp</dimen>
     <dimen name="recyclerView.linearLayout_margin_left_right">2dp</dimen>
