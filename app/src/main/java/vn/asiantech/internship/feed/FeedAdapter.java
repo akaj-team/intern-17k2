@@ -29,6 +29,7 @@ class FeedAdapter extends RecyclerView.Adapter {
 
     private List<Feed> mFeeds = new ArrayList<>();
     private final Context mContext;
+    private int mPosition;
 
     FeedAdapter(Context context, List<Feed> feeds) {
         this.mContext = context;
@@ -48,10 +49,7 @@ class FeedAdapter extends RecyclerView.Adapter {
         feedViewHolder.mTvName.setText(mFeeds.get(position).getName());
         feedViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
         feedViewHolder.mFeedViewPager.setAdapter(new FeedPagerAdapter(mContext, mFeeds.get(position).getImages()));
-        if (mFeeds.get(position).getImages().size() == 1) {
-            feedViewHolder.mImgBack.setVisibility(View.GONE);
-            feedViewHolder.mImgNext.setVisibility(View.GONE);
-        }
+        mPosition = position;
     }
 
     @Override
@@ -76,6 +74,10 @@ class FeedAdapter extends RecyclerView.Adapter {
             mFeedViewPager = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
             mImgNext = (ImageView) itemView.findViewById(R.id.imgNext);
             mImgBack = (ImageView) itemView.findViewById(R.id.imgBack);
+            if (mFeeds.get(mPosition).getImages().size() == 1) {
+                mImgBack.setVisibility(View.GONE);
+                mImgNext.setVisibility(View.GONE);
+            }
             mFeedViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
