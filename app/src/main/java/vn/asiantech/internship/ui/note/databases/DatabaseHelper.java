@@ -1,13 +1,21 @@
 package vn.asiantech.internship.ui.note.databases;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import vn.asiantech.internship.models.Note;
+
 /**
+ * create and action with database
+ * <p>
  * Created by Hai on 6/19/2017.
  */
-
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Note_Manager";
     private static final int DATABASE_VERSION = 1;
@@ -35,5 +43,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists " + TABLE_NOTE);
+    }
+
+    public void insertDb(Note note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NOTE_DAY_OF_WEEK, note.getDayOfWeek());
+        values.put(COLUMN_NOTE_DAY_OF_MONTH, note.getDayOfMonth());
+        values.put(COLUMN_NOTE_TIME, note.getTime());
+        values.put(COLUMN_NOTE_CONTENT, note.getContent());
+        values.put(COLUMN_NOTE_IMAGE_URI, note.getImage());
+        db.insert(TABLE_NOTE, null, values);
+        db.close();
+    }
+
+    public List<Note> getAllNote() {
+        List<Note> notes = new ArrayList<>();
+        String selectQuery = "SELECT  * FROM " + TABLE_NOTE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Note note = new Note();
+                note.setDayOfWeek(cursor.getString(1));
+                note.setDayOfMonth(cursor.getString(2));
+                note.setTime(cursor.getString(3));
+                note.setContent(cursor.getString(4));
+                note.setImage(cursor.getString(5));
+                // Thêm vào danh sách.
+                notes.add(note);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return notes;
     }
 }

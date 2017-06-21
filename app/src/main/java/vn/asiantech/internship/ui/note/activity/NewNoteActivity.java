@@ -7,14 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import vn.asiantech.internship.R;
 
 /**
- * activity contain NoteFragment
+ * activity containt NewNoteFragment
  * <p>
- * Created by Hai on 6/19/2017.
+ * Created by Hai on 6/20/2017.
  */
-public class NoteActivity extends AppCompatActivity {
+public class NewNoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note);
+        setContentView(R.layout.activity_new_note);
     }
 }

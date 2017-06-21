@@ -16,4 +16,5 @@
     <string name="dialog.item.Camera">Camera</string>
     <string name="friend">FRIEND</string>
     <string name="add">ADD</string>
+    <string name="add.note">New note</string>
 </resources>

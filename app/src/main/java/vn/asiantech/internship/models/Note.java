@@ -3,15 +3,17 @@ package vn.asiantech.internship.models;
 import android.net.Uri;
 
 /**
+ * model store data
+ * <p>
  * Created by Hai on 6/19/2017.
  */
 
 public class Note {
-    String dayOfWeek;
-    String dayOfMonth;
-    String time;
-    String content;
-    String image;
+    private String dayOfWeek;
+    private String dayOfMonth;
+    private String time;
+    private String content;
+    private String image;
 
     public Note() {
     }

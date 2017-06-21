@@ -1,5 +1,6 @@
 package vn.asiantech.internship.ui.note.adapter;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +15,10 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Note;
 
 /**
+ * adapter recyclerview of NoteFragment
+ * <p>
  * Created by Hai on 6/19/2017.
  */
-
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ItemNoteViewHolder> {
     private List<Note> mNotes = new ArrayList<>();
 
@@ -36,14 +38,17 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ItemNoteViewHo
         holder.mTvDayOfMonth.setText(mNotes.get(position).getDayOfMonth());
         holder.mTvTime.setText(mNotes.get(position).getTime());
         holder.mTvContent.setText(mNotes.get(position).getContent());
-        holder.mImgContent.setImageURI(mNotes.get(position).getImageUri());
+        holder.mImgContent.setImageURI(Uri.parse(mNotes.get(position).getImage()));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mNotes.size();
     }
 
+    /**
+     * item of recyclerview
+     */
     class ItemNoteViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvDayOfWeek;
         private TextView mTvDayOfMonth;
