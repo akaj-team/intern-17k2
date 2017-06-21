@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.compat.BuildConfig;
 import android.util.Log;
 
 import java.io.File;
@@ -24,21 +23,23 @@ import vn.asiantech.internship.ui.feed.Post;
 public class ImageDatabase extends SQLiteOpenHelper {
     private Context mContext;
     private static final String DB_NAME = "list_image.sqlite";
-    private static final String DB_PATH = "/data/data/" + BuildConfig.APPLICATION_ID + "/databases/";
+    private static final String TAG = "tag11";
+    private static String DB_PATH;
     private SQLiteDatabase database;
 
     public ImageDatabase(Context context) throws IOException {
         super(context, DB_NAME, null, 1);
         mContext = context;
+        DB_PATH = mContext.getFilesDir().getPath();
         if (database != null && database.isOpen()) {
             database.close();
         }
         boolean dbexist = checkdatabase();
         if (dbexist) {
-            Log.i("tag11","Database exists");
+            Log.i(TAG, "Database exists");
             opendatabase();
         } else {
-            Log.i("tag11","Database doesn't exist");
+            Log.i(TAG, "Database doesn't exist");
             createdatabase();
             opendatabase();
         }
@@ -47,7 +48,7 @@ public class ImageDatabase extends SQLiteOpenHelper {
     private void createdatabase() throws IOException {
         boolean dbexist = checkdatabase();
         if (dbexist) {
-            Log.i("tag11"," Database exists.");
+            Log.i(TAG, " Database exists.");
         } else {
             this.getReadableDatabase();
             try {
@@ -60,7 +61,7 @@ public class ImageDatabase extends SQLiteOpenHelper {
 
     private void copydatabase() throws IOException {
         InputStream inputStream = mContext.getAssets().open(DB_NAME);
-        String outFileName = mContext.getFilesDir().getPath() + DB_NAME;
+        String outFileName = DB_PATH + DB_NAME;
         OutputStream outputStream = new FileOutputStream(outFileName);
         byte[] buffer = new byte[1024];
         int lenght;
@@ -84,7 +85,7 @@ public class ImageDatabase extends SQLiteOpenHelper {
             File dbFile = new File(myPath);
             checkdb = dbFile.exists();
         } catch (SQLiteException e) {
-            Log.i("tag11","Database doesn't exist 2");
+            Log.i(TAG, "Database doesn't exist 2");
         }
         return checkdb;
     }
@@ -116,12 +117,12 @@ public class ImageDatabase extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase database) {
+    public void onCreate(SQLiteDatabase imageDatabase) {
 
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase imageDatabase, int oldVersion, int newVersion) {
 
     }
 }

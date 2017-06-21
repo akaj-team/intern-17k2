@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class FeedFragment extends Fragment {
         try {
             mImageDatabase = new ImageDatabase(container.getContext());
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.i("TAG","error");
         }
         mImageDatabase.opendatabase();
         mPosts = mImageDatabase.getList();
