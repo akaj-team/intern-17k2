@@ -50,15 +50,17 @@ public class ImageAdapter extends PagerAdapter implements View.OnClickListener {
         ImageView imgPost = (ImageView) view.findViewById(R.id.imgPost);
         ImageButton mImgBtnLeft = (ImageButton) view.findViewById(R.id.imgBtnLeft);
         ImageButton mImgBtnRight = (ImageButton) view.findViewById(R.id.imgBtnRight);
-        if (position == 0) {
-            mImgBtnLeft.setVisibility(View.GONE);
-        }
-        if (position == mImages.size() - 1) {
-            mImgBtnRight.setVisibility(View.GONE);
-        }
+
         if (position != 0 && position != mImages.size() - 1) {
             mImgBtnLeft.setVisibility(View.VISIBLE);
             mImgBtnRight.setVisibility(View.VISIBLE);
+        } else {
+            if (position == 0) {
+                mImgBtnLeft.setVisibility(View.GONE);
+            }
+            if (position == mImages.size() - 1) {
+                mImgBtnRight.setVisibility(View.GONE);
+            }
         }
         mImgBtnLeft.setOnClickListener(this);
         mImgBtnRight.setOnClickListener(this);

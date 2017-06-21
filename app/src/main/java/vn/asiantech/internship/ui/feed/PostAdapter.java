@@ -46,7 +46,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 holder.mViewPagerImage.setCurrentItem(currentItem[0]);
             }
         });
-        //holder.mViewPagerImage.setAdapter(imageAdapter);
+        holder.mViewPagerImage.setAdapter(imageAdapter);
         holder.mTvDescription.setText(mPosts.get(position).getDesription());
     }
 
