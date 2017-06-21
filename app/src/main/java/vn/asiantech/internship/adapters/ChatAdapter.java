@@ -52,7 +52,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
      * View Holder for Recycler View All Chat.
      * Created by huypham on 21/06/2017.
      */
-    class ViewHolder extends RecyclerView.ViewHolder {
+    final class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvMessageSend;
         private TextView mTvMessageReceive;
 
