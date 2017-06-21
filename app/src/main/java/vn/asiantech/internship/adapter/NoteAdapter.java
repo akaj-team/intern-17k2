@@ -1,7 +1,6 @@
 package vn.asiantech.internship.adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Random;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Note;
@@ -19,7 +19,9 @@ import vn.asiantech.internship.models.Note;
  * Note Adapter
  */
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
+
     private List<Note> mNotes;
+    private int[] colors = {0xfff44336, 0xffe91e63, 0xff9c27b0, 0xff3f51b5, 0xff2196f3, 0xff00bcd4, 0xff4caf50, 0xff8bc34a, 0xffcddc39, 0xffffeb3b, 0xffffc107, 0xffff5722, 0xff795548, 0xff607d8b};
 
     public NoteAdapter(List<Note> notes) {
         mNotes = notes;
@@ -34,23 +36,21 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     @Override
     public void onBindViewHolder(NoteViewHolder holder, int position) {
         Note note = mNotes.get(position);
+        Random random = new Random();
         holder.mTvDate.setText(note.getNoteDate());
         holder.mTvTitle.setText(note.getNoteTile());
         holder.mTvDescription.setText(note.getNoteDescription());
-        if (note.getNoteImagesThumb().equalsIgnoreCase("")){
+        holder.mView.setBackgroundColor(colors[random.nextInt(colors.length)]);
+        if (note.getNoteImagesThumb().equalsIgnoreCase("")) {
             holder.mImgAvatar.setVisibility(View.GONE);
         } else {
-            holder.mImgAvatar.setImageBitmap(getBitmap(note.getNoteImagesThumb()));
+            holder.mImgAvatar.setImageURI(Uri.parse(note.getNoteImagesThumb().trim() + ".thumb"));
         }
-    }
-
-    private Bitmap getBitmap(String noteImagesThumb) {
-        return BitmapFactory.decodeFile(noteImagesThumb);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mNotes.size();
     }
 
     /**
@@ -61,6 +61,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         private TextView mTvDescription;
         private TextView mTvDate;
         private ImageView mImgAvatar;
+        private View mView;
 
         NoteViewHolder(View itemView) {
             super(itemView);
@@ -68,6 +69,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             mTvDate = (TextView) itemView.findViewById(R.id.tvDate);
             mTvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
             mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
+            mView = itemView.findViewById(R.id.view);
         }
     }
 }

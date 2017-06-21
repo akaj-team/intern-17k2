@@ -1,157 +1,69 @@
 package vn.asiantech.internship.ui.note;
 
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import android.widget.RelativeLayout;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.database.DatabaseHelper;
-import vn.asiantech.internship.models.Note;
-import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
  * A simple Note class.
  * Create by Thanh Thien
  */
-public class NoteFragment extends Fragment implements View.OnClickListener {
-
-    private ImageView mImgAvatar;
-    private EditText mEdtTitle;
-    private EditText mEdtDescription;
-    private DatabaseHelper mDatabaseHelper;
-    private String mFilePath;
+public class NoteFragment extends Fragment {
+    private RelativeLayout mRlSecond;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_note, container, false);
-        initView(v);
-        mDatabaseHelper = new DatabaseHelper(getContext());
-        return v;
-    }
-
-    private void initView(View v) {
+        mRlSecond = (RelativeLayout) v.findViewById(R.id.rlSecond);
+        ImageView imgBtnAdd = (ImageView) v.findViewById(R.id.imgBtnAdd);
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
-        ImageButton imgBtnOpenImages = (ImageButton) v.findViewById(R.id.imgBtnOpenImage);
-        ImageButton imgBtnSave = (ImageButton) v.findViewById(R.id.imgBtnSave);
-        mEdtTitle = (EditText) v.findViewById(R.id.edtTitle);
-        mEdtDescription = (EditText) v.findViewById(R.id.edtDescription);
-        mImgAvatar = (ImageView) v.findViewById(R.id.imgAvatar);
-
+        imgBtnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragmentAddContent(getActivity(), new NoteAddNewFragment());
+                mRlSecond.setVisibility(View.VISIBLE);
+            }
+        });
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+        checkContent(databaseHelper);
         if (getActivity() instanceof NoteActivity) {
             ((NoteActivity) getActivity()).setToolbar(toolbar);
         }
-
-        imgBtnOpenImages.setOnClickListener(this);
-        imgBtnSave.setOnClickListener(this);
+        return v;
     }
 
-    //TODO for next ex
-    private String saveImageToSdCard(Bitmap bitmap) {
-        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-        File file = new File(extStorageDirectory, new Date().toString() + ".thg");
-        try {
-            FileOutputStream outStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            outStream.flush();
-            outStream.close();
-        } catch (FileNotFoundException e) {
-            Log.d("FeedsFragment", "saveImageToSdCard: " + e.toString());
-        } catch (IOException e) {
-            Log.d("FeedsFragment", "saveImageToSdCard: " + e.toString());
+    private void checkContent(DatabaseHelper databaseHelper) {
+        if (databaseHelper.getAllNotes().size() != 0) {
+            setFragmentAddContent(getActivity(), new NoteShowListFragment());
+            mRlSecond.setVisibility(View.VISIBLE);
+            return;
         }
-        return file.toString();
+        mRlSecond.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.imgBtnOpenImage:
-                openLibrary();
-                break;
-
-            case R.id.imgBtnSave:
-                saveData();
-        }
-    }
-
-    private void saveData() {
-        Note note = new Note();
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMM HH:mm", Locale.US);
-        String writeDay = dateFormat.format(date);
-
-        note.setNoteTile(mEdtTitle.getText().toString());
-        note.setNoteDescription(mEdtDescription.getText().toString());
-        note.setNoteDate(writeDay);
-        if (mFilePath == null) {
-            note.setNoteImagesThumb("");
-        } else {
-            note.setNoteImagesThumb(mFilePath);
-        }
-        mDatabaseHelper.createNote(note);
-        Toast.makeText(getContext(), getString(R.string.complete), Toast.LENGTH_SHORT).show();
-    }
-
-    private void openLibrary() {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, MainActivity.KEY_LIBRARY);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap;
-        if (data != null) {
-            switch (requestCode) {
-                case MainActivity.KEY_LIBRARY:
-                    Uri uriSelectedImage = data.getData();
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    @SuppressLint("Recycle") Cursor cursor = getActivity().getContentResolver().query(uriSelectedImage,
-                            filePathColumn, null, null, null);
-                    assert cursor != null;
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    bitmap = BitmapFactory.decodeFile(picturePath);
-                    setImage(bitmap);
-                    mFilePath = saveImageToSdCard(bitmap);
-                    cursor.close();
-                    break;
-            }
-        }
-    }
-
-    private void setImage(Bitmap bitmap) {
-        mImgAvatar.setVisibility(View.VISIBLE);
-        mImgAvatar.setImageBitmap(bitmap);
+    /**
+     * setFragmentAddContent in Note Fragment
+     * @param fragmentActivity Activity Fragment
+     * @param fragment to replace
+     */
+    public static void setFragmentAddContent(FragmentActivity fragmentActivity, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top);
+        fragmentTransaction.replace(R.id.rlSecond, fragment);
+        fragmentTransaction.commit();
     }
 }
 

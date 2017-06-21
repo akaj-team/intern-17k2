@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    style="@style/styleLayoutNormal">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,29 +15,46 @@
             android:gravity="end">
 
             <ImageButton
-                android:id="@+id/imgBtnMenuOption"
+                android:id="@+id/imgBtnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/marginSomething"
                 android:contentDescription="@string/textview.text.description"
-                android:src="@drawable/vector_option" />
+                android:src="@drawable/vector_save" />
 
             <ImageButton
-                android:id="@+id/imgBtnAdd"
+                android:id="@+id/imgBtnOpenImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/marginSomething"
-                android:layout_toLeftOf="@id/imgBtnMenuOption"
-                android:layout_toStartOf="@id/imgBtnMenuOption"
+                android:layout_toLeftOf="@id/imgBtnSave"
+                android:layout_toStartOf="@id/imgBtnSave"
                 android:contentDescription="@string/textview.text.description"
-                android:src="@drawable/vector_add" />
+                android:src="@drawable/vector_image" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
         android:layout_below="@id/toolbar"
-        android:tag="@string/app_name" />
+        android:contentDescription="@string/textview.text.description"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/edtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgAvatar"
+        android:hint="@string/title"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtTitle"
+        android:hint="@string/textview.text.description"
+        android:inputType="textMultiLine" />
 </RelativeLayout>
