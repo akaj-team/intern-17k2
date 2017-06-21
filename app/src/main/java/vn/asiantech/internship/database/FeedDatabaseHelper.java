@@ -17,13 +17,13 @@ import java.util.List;
 import vn.asiantech.internship.models.Feed;
 
 /**
- * Created by root on 6/21/17.
+ * Created by Thanh Thien on 6/21/17.
+ * Feed Database
  */
-
 public class FeedDatabaseHelper extends SQLiteOpenHelper {
 
     private Context mContext;
-    private static String SEPARATOR = ",";
+    private static final String SEPARATOR = ",";
     private static final String DB_NAME = "list_image.sqlite";
     private static final String TABLE_IMAGES = "images";
     private static final int DB_VERSION = 1;
