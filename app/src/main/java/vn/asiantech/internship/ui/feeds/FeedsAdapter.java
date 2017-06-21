@@ -24,11 +24,9 @@ import vn.asiantech.internship.models.Feed;
 public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder> {
 
     private List<Feed> mFeeds;
-    private OnFeedsListener mOnFeedsListener;
 
-    FeedsAdapter(List<Feed> feeds, OnFeedsListener onFeedsListener) {
+    FeedsAdapter(List<Feed> feeds) {
         mFeeds = feeds;
-        mOnFeedsListener = onFeedsListener;
     }
 
     @Override
@@ -43,6 +41,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         myViewHolder.mImgAvatar.setImageResource(R.drawable.ic_one);
         myViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
         myViewHolder.mViewPager.setAdapter(new ImageAdapter(myViewHolder.itemView.getContext(), mFeeds.get(position).getIdImgThumb()));
+        myViewHolder.setArrow(position, myViewHolder.mViewPager.getCurrentItem());
     }
 
     @Override
@@ -62,7 +61,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         private ImageView mImgNext;
         private TextView mTvDescription;
 
-        MyViewHolder(View itemView) {
+        MyViewHolder(final View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
@@ -74,28 +73,48 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             mImgBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mOnFeedsListener != null) {
-                        mOnFeedsListener.onScrollToPosition(getItemCount() - 1);
-                        mImgNext.setVisibility(View.VISIBLE);
-                        if (getItemCount() == 0) {
-                            mImgBack.setVisibility(View.GONE);
-                        }
-                    }
+                    setArrow(getItemCount() - 1, mViewPager.getCurrentItem() - 1);
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
                 }
             });
 
             mImgNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mOnFeedsListener != null) {
-                        mOnFeedsListener.onScrollToPosition(getItemCount() + 1);
-                        mImgNext.setVisibility(View.VISIBLE);
-                        if (getItemCount() > mFeeds.get(getItemCount()).getIdImgThumb().length) {
-                            mImgNext.setVisibility(View.GONE);
-                        }
-                    }
+                    setArrow(getItemCount() - 1, mViewPager.getCurrentItem() + 1);
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
                 }
             });
+            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                    setArrow(getItemCount() - 1, mViewPager.getCurrentItem());
+                }
+            });
+
+        }
+
+        void setArrow(int posItemParent, int posImage) {
+            int sizeArray = mFeeds.get(posItemParent).getIdImgThumb().length;
+            if (sizeArray == 1 || posImage == sizeArray - 1) {
+                mImgNext.setVisibility(View.GONE);
+            } else {
+                mImgNext.setVisibility(View.VISIBLE);
+            }
+            if (sizeArray == 1 || posImage == 0) {
+                mImgBack.setVisibility(View.GONE);
+            } else {
+                mImgBack.setVisibility(View.VISIBLE);
+            }
+
         }
     }
 
@@ -136,12 +155,5 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             container.addView(imageLayout, 0);
             return imageLayout;
         }
-    }
-
-    /**
-     * OnFeedsListener using when user click button next or back
-     */
-    public interface OnFeedsListener {
-        void onScrollToPosition(int position);
     }
 }
