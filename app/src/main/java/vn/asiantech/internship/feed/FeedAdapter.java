@@ -29,7 +29,6 @@ class FeedAdapter extends RecyclerView.Adapter {
 
     private List<Feed> mFeeds = new ArrayList<>();
     private final Context mContext;
-    private FeedViewHolder mFeedViewHolder;
 
     FeedAdapter(Context context, List<Feed> feeds) {
         this.mContext = context;
@@ -45,35 +44,14 @@ class FeedAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        mFeedViewHolder = (FeedViewHolder) holder;
-        mFeedViewHolder.mTvName.setText(mFeeds.get(position).getName());
-        mFeedViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
-        mFeedViewHolder.mFeedViewPager.setAdapter(new FeedPagerAdapter(mContext, mFeeds.get(position).getImages()));
-        mFeedViewHolder.mFeedViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int pos, float positionOffset, int positionOffsetPixels) {
-                if (pos == 0) {
-                    mFeedViewHolder.mImgBack.setEnabled(false);
-                } else {
-                    mFeedViewHolder.mImgBack.setEnabled(true);
-                }
-                if (pos == mFeeds.get(position).getImages().size() - 1) {
-                    mFeedViewHolder.mImgNext.setEnabled(false);
-                } else {
-                    mFeedViewHolder.mImgNext.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        FeedViewHolder feedViewHolder = (FeedViewHolder) holder;
+        feedViewHolder.mTvName.setText(mFeeds.get(position).getName());
+        feedViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
+        feedViewHolder.mFeedViewPager.setAdapter(new FeedPagerAdapter(mContext, mFeeds.get(position).getImages()));
+        if (mFeeds.get(position).getImages().size() == 1) {
+            feedViewHolder.mImgBack.setVisibility(View.GONE);
+            feedViewHolder.mImgNext.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -98,10 +76,38 @@ class FeedAdapter extends RecyclerView.Adapter {
             mFeedViewPager = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
             mImgNext = (ImageView) itemView.findViewById(R.id.imgNext);
             mImgBack = (ImageView) itemView.findViewById(R.id.imgBack);
+            mFeedViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    if (position == 0) {
+                        mImgBack.setVisibility(View.GONE);
+                    } else {
+                        mImgBack.setVisibility(View.VISIBLE);
+                    }
+                    if (position == mFeeds.get(getAdapterPosition()).getImages().size() - 1) {
+                        mImgNext.setVisibility(View.GONE);
+                    } else {
+                        mImgNext.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
             mImgNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mFeedViewPager.setCurrentItem(mFeedViewPager.getCurrentItem() + 1, true);
+                    if (mFeedViewPager.getCurrentItem() == mFeeds.get(getAdapterPosition()).getImages().size() - 1) {
+                        mImgNext.setVisibility(View.INVISIBLE);
+                    }
                 }
             });
 
@@ -109,6 +115,11 @@ class FeedAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View view) {
                     mFeedViewPager.setCurrentItem(mFeedViewPager.getCurrentItem() - 1, true);
+                    if (mFeedViewPager.getCurrentItem() == 0) {
+                        mImgBack.setVisibility(View.INVISIBLE);
+                    } else {
+                        mImgBack.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         }

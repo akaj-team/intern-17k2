@@ -41,7 +41,7 @@ public class FeedFragment extends Fragment {
             List<Image> links = new ArrayList<>();
             String link = mImages.get(i).getLink();
             for (String sub : link.split(",", 0)) {
-                links.add(new Image(sub));
+                links.add(new Image(sub.trim()));
             }
             feeds.add(new Feed(names[i], descriptions[i], links));
         }

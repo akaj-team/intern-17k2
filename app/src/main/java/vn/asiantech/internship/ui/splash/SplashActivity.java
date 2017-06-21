@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import recyclerView.FriendActivity;
+import recyclerview.FriendActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.main.MainActivity;
 

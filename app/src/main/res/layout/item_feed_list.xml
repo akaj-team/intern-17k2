@@ -45,7 +45,7 @@
                 android:layout_height="@dimen/feed.viewpager.height"
                 android:layout_marginTop="@dimen/feed.viewpager.margin_top" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/imgNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,8 +55,9 @@
                 android:contentDescription="@string/image.description"
                 android:src="@drawable/ic_navigate_next_red_900_36dp" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/imgBack"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
