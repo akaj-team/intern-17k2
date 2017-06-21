@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/chat_toolbar" />
+
     <android.support.v7.widget.RecyclerView
+        android:padding="5dp"
         android:id="@+id/smsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -17,15 +20,19 @@
         android:padding="10dp">
 
         <EditText
+            android:id="@+id/edtInputSms"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="8"
-            android:background="@drawable/bg_input_editext" />
+            android:background="@drawable/bg_input_editext"
+            android:hint="@string/edittext.input.hint" />
 
         <ImageView
+            android:id="@+id/imgSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:contentDescription="@string/image.description"
             android:src="@drawable/ic_send_red_400_24dp" />
     </LinearLayout>
 </LinearLayout>
