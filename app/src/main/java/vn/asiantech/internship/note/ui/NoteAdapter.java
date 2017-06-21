@@ -51,7 +51,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         if (imgFile.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
             imageView.setImageBitmap(myBitmap);
-            Log.e("Grzzzzzzzzzz",  path);
+            Log.e("Grzzzzzzzzzz", path);
         }
     }
 

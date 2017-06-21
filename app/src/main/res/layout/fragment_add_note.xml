@@ -40,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:hint="@string/detail.textview_title"
             android:inputType="text"
             android:paddingLeft="@dimen/detail.layout_padding"
             android:paddingRight="@dimen/detail.layout_padding" />
@@ -61,5 +62,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/detail.textview_margin"
         android:layout_marginStart="@dimen/detail.textview_margin"
+        android:hint="@string/detail.textview_content"
         android:inputType="text" />
 </LinearLayout>

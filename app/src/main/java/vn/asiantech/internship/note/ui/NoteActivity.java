@@ -10,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
 
-
+/**
+ * NoteActivity
+ */
 public class NoteActivity extends AppCompatActivity {
 
     public static final String KEY_ID = "keykey";

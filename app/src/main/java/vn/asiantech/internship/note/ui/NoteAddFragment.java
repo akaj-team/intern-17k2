@@ -66,7 +66,7 @@ public class NoteAddFragment extends Fragment {
         mImageView = (ImageView) view.findViewById(R.id.imgAddNote);
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolBarAddNote);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("AddNote");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.toolBar_title_screenadd);
         setHasOptionsMenu(true);
     }
 
@@ -127,7 +127,7 @@ public class NoteAddFragment extends Fragment {
                 Uri uri = data.getData();
                 mPathImage = getRealPathFromURI(getContext(), uri);
 //                mPathImage = Environment.getExternalStorageDirectory().toString();
-                Log.e("Grzzzzzzzzzz",  mPathImage);
+                Log.e("Grzzzzzzzzzz", mPathImage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

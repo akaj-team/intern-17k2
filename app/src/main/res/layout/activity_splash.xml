@@ -28,5 +28,4 @@
         android:layout_margin="@dimen/item.button_margin"
         android:text="@string/button_note" />
 
-
 </LinearLayout>

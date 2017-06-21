@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/activity_vertical_padding"
-    tools:context="vn.asiantech.internship.note.ui.NoteActivity">
+    tools:context="vn.asiantech.internship.note.ui.NoteActivity"
+    tools:ignore="ContentDescription">
 
     <FrameLayout
         android:id="@+id/frContainer"
