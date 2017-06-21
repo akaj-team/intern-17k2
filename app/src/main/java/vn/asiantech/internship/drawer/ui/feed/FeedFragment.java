@@ -66,15 +66,13 @@ public class FeedFragment extends Fragment {
     private void initFeed(List<FeedItem> items) {
         ArrayList<String> listImage = mDatabase.getAllData();
         Log.e("Grzzzzzzzzzzzz", "list size: " + listImage.size());
-        items.add(new FeedItem("Hi i'm Gosu", initImages(), "No comment 1"));
-        items.add(new FeedItem("Imp", initImages(), "No comment 2"));
-        items.add(new FeedItem("Faker", initImages(), "No comment 3"));
-        items.add(new FeedItem("Madlife", initImages(), "No comment 4"));
-        items.add(new FeedItem("Sofm", initImages(), "No comment 5"));
-        items.add(new FeedItem("Impact", initImages(), "No comment 6"));
+        items.add(new FeedItem("Hi i'm Gosu", listImage, "No comment 1"));
+        items.add(new FeedItem("Imp", listImage, "No comment 2"));
+        items.add(new FeedItem("Faker", listImage, "No comment 3"));
+        items.add(new FeedItem("Madlife", listImage, "No comment 4"));
+        items.add(new FeedItem("Sofm", listImage, "No comment 5"));
+        items.add(new FeedItem("Impact", listImage, "No comment 6"));
     }
-
-
 
     @Override
     public void onDestroy() {

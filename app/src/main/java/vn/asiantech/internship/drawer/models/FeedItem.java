@@ -8,7 +8,7 @@ import java.util.List;
 public class FeedItem {
 
     private String name;
-    private List<Integer> images;
+    private List<String> images;
     private String comment;
 
     public FeedItem(String name, String comment) {
@@ -16,17 +16,17 @@ public class FeedItem {
         this.comment = comment;
     }
 
-    public FeedItem(String name, List<Integer> images, String comment) {
+    public FeedItem(String name, List<String> images, String comment) {
         this.name = name;
         this.images = images;
         this.comment = comment;
     }
 
-    public List<Integer> getImages() {
+    public List<String> getImages() {
         return images;
     }
 
-    public void setImages(List<Integer> images) {
+    public void setImages(List<String> images) {
         this.images = images;
     }
 

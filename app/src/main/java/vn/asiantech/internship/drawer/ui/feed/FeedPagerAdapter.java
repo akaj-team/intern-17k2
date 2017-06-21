@@ -24,10 +24,10 @@ import vn.asiantech.internship.R;
  */
 class FeedPagerAdapter extends PagerAdapter {
 
-    private List<Integer> mImageItems;
+    private List<String> mImageItems;
     private Context mContext;
 
-    FeedPagerAdapter(Context context, List<Integer> imageItems) {
+    FeedPagerAdapter(Context context, List<String> imageItems) {
         mContext = context;
         mImageItems = imageItems;
     }
@@ -42,13 +42,12 @@ class FeedPagerAdapter extends PagerAdapter {
         LayoutInflater inflater = LayoutInflater.from(container.getContext());
         View imageLayout = inflater.inflate(R.layout.item_list_image, container, false);
         ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgFeed);
-        imageView.setImageResource(mImageItems.get(position));
+        loadImage(mImageItems.get(position).toString(), imageView);
         container.addView(imageLayout);
         return imageLayout;
     }
 
     private void loadImage(String link, ImageView imageView){
-        // Cấu hình tùy chọn hiển thị ảnh
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheOnDisc(true).cacheInMemory(true)
                 .imageScaleType(ImageScaleType.EXACTLY)
@@ -59,13 +58,8 @@ class FeedPagerAdapter extends PagerAdapter {
                 .defaultDisplayImageOptions(defaultOptions)
                 .memoryCache(new WeakMemoryCache())
                 .discCacheSize(100 * 1024 * 1024).build();
-
-        // Khởi tại đối tượng imageLoader với cấu hình ta đã set vên trên
-        // bạn cũng có thể sử dụng config mặc định bằng cách
-        // imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
-        ImageLoader imageLoader = ImageLoader.getInstance().init(config);
-
-        //download ảnh và show ImageView tại đây
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.init(config);
         imageLoader.displayImage(link, imageView, defaultOptions);
     }
 

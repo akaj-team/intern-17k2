@@ -3,6 +3,7 @@ package vn.asiantech.internship.drawer.ui.feed;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +41,8 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.mTvName.setText(mFeedItems.get(position).getName());
         holder.mTvComment.setText(mFeedItems.get(position).getComment());
-        mPagerAdapter = new FeedPagerAdapter(mFeedItems.get(position).getImages());
-        holder.mViewPager.setAdapter(mContext, mPagerAdapter);
+        mPagerAdapter = new FeedPagerAdapter(mContext, mFeedItems.get(position).getImages());
+        holder.mViewPager.setAdapter(mPagerAdapter);
     }
 
     @Override
@@ -70,11 +71,13 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             mViewPager.setPageMargin(5);
             mViewPager.setPageMarginDrawable(R.color.colorBlack);
             mCurrentPage = mViewPager.getCurrentItem();
+            Log.e("page_number", " " + mCurrentPage);
             mBtnLeftSlide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    --mCurrentPage;
+                    Log.e("page_number", " " + mCurrentPage);
                     if (mCurrentPage > 0) {
-                        mCurrentPage--;
                         mBtnRightSlide.setVisibility(View.VISIBLE);
                     } else {
                         mBtnLeftSlide.setVisibility(View.GONE);
@@ -85,8 +88,9 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             mBtnRightSlide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ++mCurrentPage;
+                    Log.e("page_number", " " + mCurrentPage);
                     if (mCurrentPage < mPagerAdapter.getCount()) {
-                        mCurrentPage++;
                         mBtnLeftSlide.setVisibility(View.VISIBLE);
                     } else {
                         mBtnRightSlide.setVisibility(View.GONE);
