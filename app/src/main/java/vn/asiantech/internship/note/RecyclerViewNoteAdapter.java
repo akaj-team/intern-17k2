@@ -5,8 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.List;
 
 import vn.asiantech.internship.R;
 
@@ -14,9 +15,13 @@ import vn.asiantech.internship.R;
  * Copyright © 2016 AsianTech inc.
  * Created by DatBui on 19/06/2017.
  */
-public class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapter.MyHolder> {
+class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapter.MyHolder> {
+    private List<ItemNote> mNoteList;
+    private OnItemClickListener mOnItemClickListener;
 
-    public RecyclerViewNoteAdapter() {
+    RecyclerViewNoteAdapter(List<ItemNote> noteList, OnItemClickListener onItemClickListener) {
+        mNoteList = noteList;
+        mOnItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -27,45 +32,49 @@ public class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNo
 
     @Override
     public void onBindViewHolder(RecyclerViewNoteAdapter.MyHolder holder, int position) {
-
+        holder.mTvTitle.setText(mNoteList.get(position).getTitle());
+        holder.mTvNote.setText(mNoteList.get(position).getNote());
+        holder.mTvTime.setText(mNoteList.get(position).getStringTime());
+        if (mNoteList.get(position).getImage() != null) {
+            holder.mImgNote.setVisibility(View.VISIBLE);
+            holder.mImgNote.setImageResource(Integer.parseInt(mNoteList.get(position).getImage()));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mNoteList.size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView mTvDay;
-        private TextView mTvNumDay;
-        private TextView mTvMonth;
         private TextView mTvTime;
         private TextView mTvTitle;
         private TextView mTvNote;
         private ImageView mImgNote;
-        private LinearLayout mLnItem;
-
 
         MyHolder(View itemView) {
             super(itemView);
-            mTvDay = (TextView) itemView.findViewById(R.id.tvDay);
-            mTvNumDay = (TextView) itemView.findViewById(R.id.tvNumDay);
-            mTvMonth = (TextView) itemView.findViewById(R.id.tvMonth);
             mTvTime = (TextView) itemView.findViewById(R.id.tvTime);
             mTvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             mTvNote = (TextView) itemView.findViewById(R.id.tvNote);
             mImgNote = (ImageView) itemView.findViewById(R.id.imgNote);
-            mLnItem = (LinearLayout) itemView.findViewById(R.id.lnNote);
 
-            mLnItem.setOnClickListener(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.OnItemClick(mNoteList.get(getAdapterPosition()));
+                    }
+                }
+            });
         }
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.lnNote:
-                    break;
-            }
         }
+    }
+
+    interface OnItemClickListener {
+        void OnItemClick(ItemNote itemNote);
     }
 }

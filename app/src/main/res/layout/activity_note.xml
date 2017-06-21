@@ -5,12 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".note.NoteActivity">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/fragmentNote"
         android:name="vn.asiantech.internship.note.NoteFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </fragment>
-
+    </FrameLayout>
 </LinearLayout>

@@ -1,52 +1,49 @@
 package vn.asiantech.internship.note;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 
 import vn.asiantech.internship.R;
 
+import static vn.asiantech.internship.R.id.imgSave;
+
 /**
  * Created by datbu on 19-06-2017.
  */
-public class NoteActivity extends AppCompatActivity implements View.OnClickListener {
-    private Toolbar mToolbar;
+public class NoteActivity extends AppCompatActivity {
     private ImageView mImgAdd;
+    private ImageView mImgSave;
+
+    private NoteFragment mNoteFragment;
+    private AddNoteFragment mAddNoteFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
-        mToolbar = (Toolbar) findViewById(R.id.toolbarNote);
         mImgAdd = (ImageView) findViewById(R.id.imgAdd);
+        mImgSave = (ImageView) findViewById(imgSave);
+
+        mNoteFragment = new NoteFragment();
+        mAddNoteFragment = new AddNoteFragment();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         NoteFragment noteFragment = new NoteFragment();
         transaction.replace(R.id.fragmentNote, noteFragment).commit();
+        replaceFragment(mNoteFragment,false);
 
-        mImgAdd.setOnClickListener(this);
-        // Toolbar
-        setSupportActionBar(mToolbar);
-        ActionBar actionbar = getSupportActionBar();
-        if (actionbar != null) {
-            actionbar.setDisplayShowTitleEnabled(true);
-            actionbar.setDisplayShowHomeEnabled(true);
-            actionbar.setDisplayShowCustomEnabled(true);
-        }
     }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.imgAdd:
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                NoteFragment noteFragment = new NoteFragment();
-                transaction.replace(R.id.fragmentNote, noteFragment).commit();
-                break;
+    public void replaceFragment(Fragment fragment, boolean backStack) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentNote, fragment);
+        if (backStack) {
+            fragmentTransaction.addToBackStack(fragment.getTag());
         }
+        fragmentTransaction.commit();
     }
 }
