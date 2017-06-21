@@ -21,5 +21,7 @@
         <activity android:name=".friend.ListFriendActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.main.NoteActivity"/>
+        <activity android:name=".ui.main.PassDataActivity" />
     </application>
+
 </manifest>

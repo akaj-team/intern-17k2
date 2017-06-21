@@ -73,7 +73,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteItemHolder
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
-                        mListener.OnItemClick(mNoteList.get(getAdapterPosition()));
+                        mListener.onItemClick(mNoteList.get(getAdapterPosition()));
                     }
                 }
             });
@@ -84,6 +84,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteItemHolder
      * This interface used to handle item of RecyclerView click
      */
     public interface OnItemClickListener {
-        void OnItemClick(NoteItem note);
+        void onItemClick(NoteItem note);
     }
 }

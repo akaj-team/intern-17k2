@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,8 +70,8 @@ public class AddNoteFragment extends Fragment {
     }
 
     public void addImage(String filePath) {
-        mImagePath = filePath;
         if (filePath != null) {
+            mImagePath = filePath;
             mImgNotePicture.setVisibility(View.VISIBLE);
             mImgNotePicture.setImageURI(Uri.parse(filePath));
         } else {

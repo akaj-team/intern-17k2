@@ -193,6 +193,7 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
             String filePath = saveImage(uri);
+            Log.i("tag11", filePath + "---" + uri.toString());
             Fragment fragment = getCurrentFragment();
             if (fragment instanceof AddNoteFragment) {
                 mAddNoteFragment.addImage(filePath);
@@ -205,7 +206,7 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void OnItemClick(NoteItem noteItem) {
+    public void onItemClick(NoteItem noteItem) {
         DetailNoteFragment detailNoteFragment = new DetailNoteFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_NOTE, noteItem);
@@ -229,9 +230,7 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
         try {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
             File targetFolder = new File(targetFolderPath);
-            if (!targetFolder.mkdirs()) {
-                return "";
-            }
+            targetFolder.mkdirs();
             File targetFile = File.createTempFile("img", ".png", targetFolder);
             outputStream = new FileOutputStream(targetFile);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
@@ -240,6 +239,6 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
         } catch (IOException x) {
             Log.i("tag11", x.getMessage());
         }
-        return "";
+        return null;
     }
 }

@@ -79,8 +79,8 @@ public class DetailNoteFragment extends Fragment {
     }
 
     public void addImage(String filePath) {
-        mImagePath = filePath;
         if (filePath != null) {
+            mImagePath = filePath;
             mImgNotePicture.setVisibility(View.VISIBLE);
             mImgNotePicture.setImageURI(Uri.parse(filePath));
         } else {
