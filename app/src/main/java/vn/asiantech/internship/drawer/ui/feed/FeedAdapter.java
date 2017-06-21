@@ -1,5 +1,6 @@
 package vn.asiantech.internship.drawer.ui.feed;
 
+import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,8 +22,10 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     private List<FeedItem> mFeedItems;
     private FeedPagerAdapter mPagerAdapter;
     private int mCurrentPage;
+    private Context mContext;
 
-    FeedAdapter(List<FeedItem> feedItems) {
+    FeedAdapter(Context context, List<FeedItem> feedItems) {
+        mContext = context;
         mFeedItems = feedItems;
     }
 
@@ -38,7 +41,7 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         holder.mTvName.setText(mFeedItems.get(position).getName());
         holder.mTvComment.setText(mFeedItems.get(position).getComment());
         mPagerAdapter = new FeedPagerAdapter(mFeedItems.get(position).getImages());
-        holder.mViewPager.setAdapter(mPagerAdapter);
+        holder.mViewPager.setAdapter(mContext, mPagerAdapter);
     }
 
     @Override

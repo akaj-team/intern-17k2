@@ -5,15 +5,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.drawer.models.FeedItem;
+import vn.asiantech.internship.drawer.ui.database.DatabaseHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +24,8 @@ import vn.asiantech.internship.drawer.models.FeedItem;
 public class FeedFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
+
+    private DatabaseHelper mDatabase;
 
     public FeedFragment() {
     }
@@ -36,11 +41,16 @@ public class FeedFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        try {
+            mDatabase = new DatabaseHelper(getContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         List<FeedItem> feedItems = new ArrayList<>();
         initFeed(feedItems);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(new FeedAdapter(feedItems));
+        mRecyclerView.setAdapter(new FeedAdapter(getContext(), feedItems));
     }
 
     private List<Integer> initImages() {
@@ -54,11 +64,21 @@ public class FeedFragment extends Fragment {
     }
 
     private void initFeed(List<FeedItem> items) {
+        ArrayList<String> listImage = mDatabase.getAllData();
+        Log.e("Grzzzzzzzzzzzz", "list size: " + listImage.size());
         items.add(new FeedItem("Hi i'm Gosu", initImages(), "No comment 1"));
         items.add(new FeedItem("Imp", initImages(), "No comment 2"));
         items.add(new FeedItem("Faker", initImages(), "No comment 3"));
         items.add(new FeedItem("Madlife", initImages(), "No comment 4"));
         items.add(new FeedItem("Sofm", initImages(), "No comment 5"));
         items.add(new FeedItem("Impact", initImages(), "No comment 6"));
+    }
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDatabase.close();
     }
 }

@@ -1,11 +1,19 @@
 package vn.asiantech.internship.drawer.ui.feed;
 
+import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.List;
 
@@ -17,8 +25,10 @@ import vn.asiantech.internship.R;
 class FeedPagerAdapter extends PagerAdapter {
 
     private List<Integer> mImageItems;
+    private Context mContext;
 
-    FeedPagerAdapter(List<Integer> imageItems) {
+    FeedPagerAdapter(Context context, List<Integer> imageItems) {
+        mContext = context;
         mImageItems = imageItems;
     }
 
@@ -35,6 +45,28 @@ class FeedPagerAdapter extends PagerAdapter {
         imageView.setImageResource(mImageItems.get(position));
         container.addView(imageLayout);
         return imageLayout;
+    }
+
+    private void loadImage(String link, ImageView imageView){
+        // Cấu hình tùy chọn hiển thị ảnh
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisc(true).cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300)).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                mContext.getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new WeakMemoryCache())
+                .discCacheSize(100 * 1024 * 1024).build();
+
+        // Khởi tại đối tượng imageLoader với cấu hình ta đã set vên trên
+        // bạn cũng có thể sử dụng config mặc định bằng cách
+        // imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
+        ImageLoader imageLoader = ImageLoader.getInstance().init(config);
+
+        //download ảnh và show ImageView tại đây
+        imageLoader.displayImage(link, imageView, defaultOptions);
     }
 
     @Override
