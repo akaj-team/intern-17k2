@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.List;
 
@@ -134,6 +135,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             mContext = context;
             mInflater = LayoutInflater.from(mContext);
             mImageLoader = ImageLoader.getInstance();
+            mImageLoader.init(ImageLoaderConfiguration.createDefault(context));
             mDisplayImageOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_no_internet).showImageOnFail(R.drawable.ic_no_internet).build();
         }
 
