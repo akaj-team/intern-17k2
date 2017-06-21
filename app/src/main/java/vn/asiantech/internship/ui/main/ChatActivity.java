@@ -57,7 +57,7 @@ public class ChatActivity extends AppCompatActivity {
                     messages.add(new Message(edtMessage.getText().toString().trim(), false));
                     edtMessage.setText("");
                     adapter.notifyItemInserted(messages.size() - 1);
-                    messages.add(Reply());
+                    messages.add(reply());
                     adapter.notifyItemInserted(messages.size() - 1);
                     linearLayoutManager.scrollToPosition(messages.size() - 1);
                 }
@@ -65,7 +65,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private static Message Reply() {
+    private static Message reply() {
         Message message = new Message();
         Random random = new Random();
         if (random.nextInt(2) % 2 == 0) {
