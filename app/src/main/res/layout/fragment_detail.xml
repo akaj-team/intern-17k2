@@ -25,23 +25,13 @@
             android:contentDescription="@string/detail.imageview_image" />
 
         <TextView
-            android:id="@+id/tvDateAdd"
+            android:id="@+id/tvDateTimeAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
             tools:text="20 Jun" />
-
-        <TextView
-            android:id="@+id/tvTimeAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="@dimen/detail.textview.time_margin"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            tools:text="15:00" />
     </FrameLayout>
 
     <LinearLayout

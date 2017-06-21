@@ -14,8 +14,7 @@ public class NoteOpenHelper extends SQLiteOpenHelper {
     public static final String COL_TITLE = "title";
     public static final String COL_CONTENT = "content";
     public static final String COL_PATH = "path";
-    public static final String COL_DATE = "date";
-    public static final String COL_TIME = "time";
+    public static final String COL_DATETIME = "datetime";
     private static final String DATABASE_NAME = "DATABASE_NOTE";
     private static final int VERSION = 1;
 
@@ -24,8 +23,7 @@ public class NoteOpenHelper extends SQLiteOpenHelper {
             + COL_TITLE + " TEXT NOT NULL, "
             + COL_CONTENT + " TEXT, "
             + COL_PATH + " TEXT, "
-            + COL_DATE + " TEXT, "
-            + COL_TIME + " TEXT "
+            + COL_DATETIME + " TEXT "
             + ");";
 
     public NoteOpenHelper(Context context) {

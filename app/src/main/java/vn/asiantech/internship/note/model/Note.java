@@ -10,8 +10,7 @@ public class Note {
     private String title;
     private String content;
     private String path;
-    private String date;
-    private String time;
+    private String datetime;
 
     public Note() {
     }
@@ -21,28 +20,19 @@ public class Note {
         this.content = content;
     }
 
-    public Note(String title, String content, String path, String date, String time) {
+    public Note(String title, String content, String path, String datetime) {
         this.title = title;
         this.content = content;
         this.path = path;
-        this.date = date;
-        this.time = time;
+        this.datetime = datetime;
     }
 
-    public String getDate() {
-        return date;
+    public String getDatetime() {
+        return datetime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 
     public int getId() {

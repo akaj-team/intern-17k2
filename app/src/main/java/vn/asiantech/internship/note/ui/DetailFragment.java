@@ -28,7 +28,6 @@ public class DetailFragment extends Fragment {
     private TextView mTvTitle;
     private TextView mTvContent;
     private TextView mTvDate;
-    private TextView mTvTime;
     private ImageView mImageNote;
 
     private NoteDatabase mNoteDatabase;
@@ -63,14 +62,12 @@ public class DetailFragment extends Fragment {
         Note note = mNoteDatabase.getItem(mPosition);
         mTvTitle.setText(note.getTitle());
         mTvContent.setText(note.getContent());
-        mTvDate.setText(note.getDate());
-        mTvTime.setText(note.getTime());
+        mTvDate.setText(note.getDatetime());
     }
 
     private void initUI(View view) {
         mToolbar = (Toolbar) view.findViewById(R.id.toolBarDetailNote);
-        mTvDate = (TextView) view.findViewById(R.id.tvDateAdd);
-        mTvTime = (TextView) view.findViewById(R.id.tvTimeAdd);
+        mTvDate = (TextView) view.findViewById(R.id.tvDateTimeAdd);
         mTvTitle = (TextView) view.findViewById(R.id.tvNoteTitle);
         mTvContent = (TextView) view.findViewById(R.id.tvNoteContent);
         mImageNote = (ImageView) view.findViewById(R.id.imgDetailNote);

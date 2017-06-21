@@ -11,10 +11,9 @@ import java.util.ArrayList;
 import vn.asiantech.internship.note.model.Note;
 
 import static vn.asiantech.internship.note.database.NoteOpenHelper.COL_CONTENT;
-import static vn.asiantech.internship.note.database.NoteOpenHelper.COL_DATE;
+import static vn.asiantech.internship.note.database.NoteOpenHelper.COL_DATETIME;
 import static vn.asiantech.internship.note.database.NoteOpenHelper.COL_ID;
 import static vn.asiantech.internship.note.database.NoteOpenHelper.COL_PATH;
-import static vn.asiantech.internship.note.database.NoteOpenHelper.COL_TIME;
 import static vn.asiantech.internship.note.database.NoteOpenHelper.COL_TITLE;
 import static vn.asiantech.internship.note.database.NoteOpenHelper.TABLE_NAME;
 
@@ -56,22 +55,20 @@ public class NoteDatabase {
         contentValues.put(NoteOpenHelper.COL_TITLE, note.getTitle());
         contentValues.put(NoteOpenHelper.COL_CONTENT, note.getContent());
         contentValues.put(NoteOpenHelper.COL_PATH, note.getPath());
-        contentValues.put(COL_DATE, note.getDate());
-        contentValues.put(COL_TIME, note.getTime());
+        contentValues.put(COL_DATETIME, note.getDatetime());
         return mSqLiteDatabase.insert(NoteOpenHelper.TABLE_NAME, null, contentValues);
     }
 
     public ArrayList<Note> getAllData() {
         ArrayList<Note> notes = new ArrayList<>();
-        String[] columns = new String[]{COL_ID, COL_TITLE, COL_CONTENT, COL_PATH, COL_DATE, COL_TIME};
+        String[] columns = new String[]{COL_ID, COL_TITLE, COL_CONTENT, COL_PATH, COL_DATETIME};
         Cursor cursor = mSqLiteDatabase.query(NoteOpenHelper.TABLE_NAME, columns, null, null, null, null, null);
         Note note;
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             note = new Note(cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getString(5));
+                    cursor.getString(4));
             note.setId(cursor.getInt(0));
             notes.add(note);
         }
@@ -90,8 +87,7 @@ public class NoteDatabase {
             note.setTitle(cursor.getString(1));
             note.setContent(cursor.getString(2));
             note.setPath(cursor.getString(3));
-            note.setDate(cursor.getString(4));
-            note.setTime(cursor.getString(5));
+            note.setDatetime(cursor.getString(4));
             cursor.close();
         }
         return note;

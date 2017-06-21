@@ -32,6 +32,7 @@
     <dimen name="header.image_border_weight">3dp</dimen>
     <dimen name="item.layout_padding">5dp</dimen>
     <dimen name="item.layout_minheight">60dp</dimen>
+    <dimen name="item.text_size">17dp</dimen>
     <dimen name="activity.toolbar_height">60dp</dimen>
     <dimen name="activity.toolbar_margin">20dp</dimen>
     <dimen name="activity.content_margin">20dp</dimen>

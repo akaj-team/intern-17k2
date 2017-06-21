@@ -60,7 +60,7 @@ public class NoteFragment extends Fragment {
 
     private void initUI() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.toolBar_title_screenlist);
+        mToolbar.setTitle(R.string.toolBar_title_screenlist);
         List<Note> mNotes = mNoteDatabase.getAllData();
         NoteAdapter mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnClickItemNote() {
             @Override

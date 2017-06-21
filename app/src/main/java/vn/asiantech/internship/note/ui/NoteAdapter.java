@@ -2,6 +2,7 @@ package vn.asiantech.internship.note.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,15 +42,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         Note note = mNotes.get(position);
         holder.mTvNoteTitle.setText(note.getTitle());
         holder.mTvNoteContent.setText(note.getContent());
-        holder.mTvDate.setText(note.getDate());
-        holder.mTvTime.setText(note.getTime());
+        holder.mTvDateTime.setText(note.getDatetime());
 //        setImage(holder.mImgNote, note.getPath());
+        holder.mImgNote.setImageURI(Uri.parse(note.getPath()));
     }
 
     private void setImage(ImageView imageView, String path) {
         File imgFile = new File(path);
         if (imgFile.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            Bitmap myBitmap = BitmapFactory.decodeFile(path);
             imageView.setImageBitmap(myBitmap);
             Log.e("Grzzzzzzzzzz", path);
         }
@@ -67,17 +68,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
         private TextView mTvNoteTitle;
         private TextView mTvNoteContent;
-        private TextView mTvDate;
-        private TextView mTvTime;
+        private TextView mTvDateTime;
         private ImageView mImgNote;
 
         ViewHolder(View itemView) {
             super(itemView);
             mTvNoteTitle = (TextView) itemView.findViewById(R.id.tvNoteTitle);
             mTvNoteContent = (TextView) itemView.findViewById(R.id.tvNoteContent);
-            mTvDate = (TextView) itemView.findViewById(R.id.tvDate);
-            mTvTime = (TextView) itemView.findViewById(R.id.tvTime);
-            mImgNote = (ImageView) itemView.findViewById(R.id.imgFriend);
+            mTvDateTime = (TextView) itemView.findViewById(R.id.tvDateTime);
+            mImgNote = (ImageView) itemView.findViewById(R.id.imgNote);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
