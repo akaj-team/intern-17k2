@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.PatchImage;
+package vn.asiantech.internship.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
