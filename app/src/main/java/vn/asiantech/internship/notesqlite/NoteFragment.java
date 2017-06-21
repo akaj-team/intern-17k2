@@ -45,7 +45,7 @@ public class NoteFragment extends Fragment {
         database.open();
         mNotes.addAll(database.getNotes());
         database.close();
-        NoteAdapter adapter = new NoteAdapter(mNotes);
+        NoteAdapter adapter = new NoteAdapter(getActivity(),mNotes);
         recyclerViewNote.setAdapter(adapter);
         return view;
     }
