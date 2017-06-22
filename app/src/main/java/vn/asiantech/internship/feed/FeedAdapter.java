@@ -71,6 +71,7 @@ class FeedAdapter extends RecyclerView.Adapter {
             mFeedViewPager = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
             mImgNext = (ImageView) itemView.findViewById(R.id.imgNext);
             mImgBack = (ImageView) itemView.findViewById(R.id.imgBack);
+
             mFeedViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -87,6 +88,7 @@ class FeedAdapter extends RecyclerView.Adapter {
 
                 }
             });
+
             mImgNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
