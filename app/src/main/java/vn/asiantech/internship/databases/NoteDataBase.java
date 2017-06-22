@@ -49,7 +49,7 @@ public class NoteDataBase {
         contentValues.put(COLUMN_DATE, note.getDate());
         contentValues.put(COLUMN_TITLE, note.getTitle());
         contentValues.put(COLUMN_CONTENT, note.getContent());
-        //contentValues.put(COLUMN_URL_IMAGE, note.getUrlImage());
+        contentValues.put(COLUMN_URL_IMAGE, note.getUrlImage());
         return mSQLiteDatabase.insert(TABLE_NOTE, null, contentValues);
     }
 
@@ -61,7 +61,7 @@ public class NoteDataBase {
             note.setDate(cursor.getString(cursor.getColumnIndex(COLUMN_DATE)));
             note.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
             note.setContent(cursor.getString(cursor.getColumnIndex(COLUMN_CONTENT)));
-            //note.setUrlImage(cursor.getString(cursor.getColumnIndex(COLUMN_URL_IMAGE)));
+            note.setUrlImage(cursor.getString(cursor.getColumnIndex(COLUMN_URL_IMAGE)));
             notes.add(note);
         }
         cursor.close();

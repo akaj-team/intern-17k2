@@ -41,7 +41,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
     private EditText mEdtContent;
     private ImageView mImgPicPhoto;
     private ImageView mImgSave;
-    private Bitmap bitmapImage;
+    private Bitmap mBitmapImage;
     private NoteDataBase mNoteDataBase;
 
     @Nullable
@@ -75,7 +75,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                 Note note = new Note();
                 String date = getDate();
                 note.setDate(date);
-                saveImageToSDCard(bitmapImage,NoteActivity.folder,getName(date)+".png");
+                saveImageToSDCard(mBitmapImage,NoteActivity.folder,getName(date)+".png");
                 String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + NoteActivity.folder + "/";
                 note.setUrlImage(fullPath + getName(date)+".png");
                 note.setTitle(mEdtTitle.getText().toString());
@@ -98,7 +98,8 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUESTCODE_GALLERY) {
                 try {
-                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                    mBitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                    mImageViewNote.setImageBitmap(mBitmapImage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
