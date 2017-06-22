@@ -30,7 +30,7 @@ class ItemChat {
         return check;
     }
 
-    public void setCheck(boolean check) {
+    void setCheck() {
         this.check = !this.check;
     }
 }

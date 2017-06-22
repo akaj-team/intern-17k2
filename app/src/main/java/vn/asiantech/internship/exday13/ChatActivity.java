@@ -84,13 +84,13 @@ public class ChatActivity extends AppCompatActivity {
         int m = random.nextInt();
         if (m % 2 == 0) {
             itemChat.setText(getString(R.string.chat_d));
-            itemChat.setCheck(true);
+            itemChat.setCheck();
         } else if (m % 3 == 0) {
             itemChat.setText(getString(R.string.chat_c));
-            itemChat.setCheck(true);
+            itemChat.setCheck();
         } else {
             itemChat.setText(getString(R.string.chat_a));
-            itemChat.setCheck(true);
+            itemChat.setCheck();
         }
         return itemChat;
     }
