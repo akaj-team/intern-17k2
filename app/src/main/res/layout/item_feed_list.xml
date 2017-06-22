@@ -53,6 +53,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/image.description"
+                android:visibility="gone"
                 android:src="@drawable/ic_navigate_next_red_900_36dp" />
 
             <ImageView

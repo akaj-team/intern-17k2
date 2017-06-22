@@ -20,6 +20,12 @@ class Image {
         this.link = link;
     }
 
+    public Image(String title, String description, String link) {
+        this.title = title;
+        this.description = description;
+        this.link = link;
+    }
+
     public Image(String link) {
         this.link = link;
     }

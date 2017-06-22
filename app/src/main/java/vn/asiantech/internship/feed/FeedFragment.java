@@ -35,15 +35,13 @@ public class FeedFragment extends Fragment {
         mImages.addAll(data.getList());
 
         data.close();
-        String[] names = getResources().getStringArray(R.array.names);
-        String[] descriptions = getResources().getStringArray(R.array.descriptions);
         for (int i = 0; i < mImages.size(); i++) {
             List<Image> links = new ArrayList<>();
             String link = mImages.get(i).getLink();
             for (String sub : link.split(",", 0)) {
                 links.add(new Image(sub.trim()));
             }
-            feeds.add(new Feed(names[i], descriptions[i], links));
+            feeds.add(new Feed(mImages.get(i).getTitle(), mImages.get(i).getDescription(), links));
         }
         FeedAdapter adapter = new FeedAdapter(getActivity(), feeds);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

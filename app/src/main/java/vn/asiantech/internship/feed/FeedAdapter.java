@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,6 @@ class FeedAdapter extends RecyclerView.Adapter {
 
     private List<Feed> mFeeds = new ArrayList<>();
     private final Context mContext;
-    private int mPosition;
 
     FeedAdapter(Context context, List<Feed> feeds) {
         this.mContext = context;
@@ -49,7 +47,7 @@ class FeedAdapter extends RecyclerView.Adapter {
         feedViewHolder.mTvName.setText(mFeeds.get(position).getName());
         feedViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
         feedViewHolder.mFeedViewPager.setAdapter(new FeedPagerAdapter(mContext, mFeeds.get(position).getImages()));
-        mPosition = position;
+        feedViewHolder.updateArrow(feedViewHolder.mFeedViewPager.getCurrentItem());
     }
 
     @Override
@@ -74,10 +72,7 @@ class FeedAdapter extends RecyclerView.Adapter {
             mFeedViewPager = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
             mImgNext = (ImageView) itemView.findViewById(R.id.imgNext);
             mImgBack = (ImageView) itemView.findViewById(R.id.imgBack);
-            if (mFeeds.get(mPosition).getImages().size() == 1) {
-                mImgBack.setVisibility(View.GONE);
-                mImgNext.setVisibility(View.GONE);
-            }
+
             mFeedViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -86,16 +81,7 @@ class FeedAdapter extends RecyclerView.Adapter {
 
                 @Override
                 public void onPageSelected(int position) {
-                    if (position == 0) {
-                        mImgBack.setVisibility(View.GONE);
-                    } else {
-                        mImgBack.setVisibility(View.VISIBLE);
-                    }
-                    if (position == mFeeds.get(getAdapterPosition()).getImages().size() - 1) {
-                        mImgNext.setVisibility(View.GONE);
-                    } else {
-                        mImgNext.setVisibility(View.VISIBLE);
-                    }
+                    updateArrow(position);
                 }
 
                 @Override
@@ -107,9 +93,6 @@ class FeedAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View view) {
                     mFeedViewPager.setCurrentItem(mFeedViewPager.getCurrentItem() + 1, true);
-                    if (mFeedViewPager.getCurrentItem() == mFeeds.get(getAdapterPosition()).getImages().size() - 1) {
-                        mImgNext.setVisibility(View.INVISIBLE);
-                    }
                 }
             });
 
@@ -117,13 +100,19 @@ class FeedAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View view) {
                     mFeedViewPager.setCurrentItem(mFeedViewPager.getCurrentItem() - 1, true);
-                    if (mFeedViewPager.getCurrentItem() == 0) {
-                        mImgBack.setVisibility(View.INVISIBLE);
-                    } else {
-                        mImgBack.setVisibility(View.VISIBLE);
-                    }
                 }
             });
+        }
+
+        private void updateArrow(int position) {
+            if (mFeeds.get(getAdapterPosition()).getImages().size() == 1) {
+                mImgBack.setVisibility(View.GONE);
+                mImgNext.setVisibility(View.GONE);
+            } else {
+                mImgBack.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
+                mImgNext.setVisibility(position == mFeeds.get(getAdapterPosition()).getImages().size() - 1
+                        ? View.GONE : View.VISIBLE);
+            }
         }
     }
 
@@ -160,9 +149,7 @@ class FeedAdapter extends RecyclerView.Adapter {
         public Object instantiateItem(ViewGroup container, int position) {
             View imageLayout = mInflater.inflate(R.layout.item_images, container, false);
             final ImageView imgItem = (ImageView) imageLayout.findViewById(R.id.imgItem);
-            ImageLoader imageLoader = ImageLoader.getInstance();
-            imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
-            imageLoader.displayImage(mImages.get(position).getLink(), imgItem);
+            ImageLoader.getInstance().displayImage(mImages.get(position).getLink(), imgItem);
             container.addView(imageLayout, 0);
             return imageLayout;
         }
