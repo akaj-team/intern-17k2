@@ -41,6 +41,9 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ItemMessageViewHolder
         return mMessages.size();
     }
 
+    /**
+     * Item of recyclerview
+     */
     class ItemMessageViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvMessage;
 

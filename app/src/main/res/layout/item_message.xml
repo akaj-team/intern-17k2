@@ -3,15 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="right">
+    android:gravity="end">
 
     <TextView
         android:id="@+id/tvMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/chat.tvmessage.margin.left"
+        android:layout_marginStart="@dimen/chat.tvmessage.margin.left"
         android:layout_marginTop="@dimen/chat.tvmessage.margin"
         android:layout_marginRight="@dimen/chat.tvmessage.margin"
+        android:layout_marginEnd="@dimen/chat.tvmessage.margin"
         android:background="@drawable/bg_message"
         android:padding="@dimen/chat.tvmessage.padding"
         tools:text="Chatttttt" />
