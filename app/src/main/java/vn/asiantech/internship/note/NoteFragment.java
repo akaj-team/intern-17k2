@@ -1,5 +1,6 @@
 package vn.asiantech.internship.note;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,8 +25,8 @@ import vn.asiantech.internship.R;
  * Created by datbu on 19-06-2017.
  */
 public class NoteFragment extends Fragment {
+    private Context mContext;
     private AddNoteFragment mAddNoteFragment;
-    private RecyclerViewNoteAdapter.OnItemClickListener mOnItemClickListener;
     List<ItemNote> mItemNote = new ArrayList<>();
 
     @Override
@@ -56,7 +57,7 @@ public class NoteFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewNote);
         recyclerView.setLayoutManager(manager);
         // Our classic custom Adapter.
-        RecyclerViewNoteAdapter adapter = new RecyclerViewNoteAdapter(mItemNote, mOnItemClickListener);
+        RecyclerViewNoteAdapter adapter = new RecyclerViewNoteAdapter(mContext, mItemNote);
         recyclerView.setAdapter(adapter);
 
         imgAdd.setOnClickListener(new View.OnClickListener() {

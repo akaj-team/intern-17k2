@@ -1,14 +1,11 @@
 package vn.asiantech.internship.note;
 
-import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -35,12 +32,12 @@ public class AddNoteFragment extends Fragment {
 
     private ImageView mImgSave;
     private ImageView mImgPhoto;
-
+    private RecyclerViewNoteAdapter mAdapter;
     private NoteFragment mNoteFragment;
     private DatabaseHandler mDatabaseHandler;
+    private List<ItemNote> mItemNote;
     private List<ItemNote> mItemNotes = new ArrayList<>();
 
-    private RecyclerViewNoteAdapter.OnItemClickListener mOnItemClickListener;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,45 +66,13 @@ public class AddNoteFragment extends Fragment {
             actionbar.setDisplayShowCustomEnabled(true);
         }
 
-
-        addNote();
-
         mImgSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 replaceFragment(mNoteFragment, false);
-                DatabaseHandler db = new DatabaseHandler(getContext());
-                db.addContact(new ItemNote(mEdtTitle.getText().toString(), mEdtNote.getText().toString(), mImagePath));
-            }
-        });
-
-        mImgPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Choose").setItems(R.array.choose, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                mOnItemClickListener.onAvatarClick(NoteActivity.REQUEST_CODE_GALERY);
-                                break;
-                            case 1:
-                                mOnItemClickListener.onAvatarClick(NoteActivity.REQUEST_CODE_CAMERA);
-                                break;
-                            default:
-                                dialog.dismiss();
-                        }
-                    }
-                }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
-            }
-        });
+                addNote();
+            }}
+        );
         return view;
     }
 
@@ -139,16 +104,6 @@ public class AddNoteFragment extends Fragment {
             } else {
                 Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-
-    public void addImage(String filePath) {
-        if (filePath != null) {
-            mImagePath = filePath;
-            mImgPhoto.setVisibility(View.VISIBLE);
-            mImgPhoto.setImageURI(Uri.parse(filePath));
-        } else {
-            mImgPhoto.setVisibility(View.GONE);
         }
     }
 }

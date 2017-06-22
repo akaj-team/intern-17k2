@@ -21,12 +21,14 @@ class ItemNote {
     public ItemNote(String title, String note) {
         this.title = title;
         this.note = note;
+        this.time = Calendar.getInstance().getTimeInMillis();
     }
 
     ItemNote(String title, String note, String image) {
         this.title = title;
         this.note = note;
         this.image = image;
+        this.time = Calendar.getInstance().getTimeInMillis();
 
     }
 
@@ -46,7 +48,7 @@ class ItemNote {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime() {
         this.time = Calendar.getInstance().getTimeInMillis();
     }
 

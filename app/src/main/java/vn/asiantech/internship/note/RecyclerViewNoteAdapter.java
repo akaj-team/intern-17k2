@@ -1,5 +1,7 @@
 package vn.asiantech.internship.note;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +18,18 @@ import vn.asiantech.internship.R;
  * Created by DatBui on 19/06/2017.
  */
 class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapter.MyHolder> {
+    private Context mContext;
     private List<ItemNote> mNoteList;
-    private OnItemClickListener mOnItemClickListener;
+    private Bitmap mImage;
 
-    RecyclerViewNoteAdapter(List<ItemNote> noteList, OnItemClickListener onItemClickListener) {
+    RecyclerViewNoteAdapter(Context context, List<ItemNote> noteList) {
+        mContext = context;
         mNoteList = noteList;
-        mOnItemClickListener = onItemClickListener;
+
+    }
+
+    void setAvatar(Bitmap image) {
+        mImage = image;
     }
 
     @Override
@@ -37,7 +45,7 @@ class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapt
         holder.mTvTime.setText(mNoteList.get(position).getStringTime());
         if (mNoteList.get(position).getImage() != null) {
             holder.mImgNote.setVisibility(View.VISIBLE);
-            holder.mImgNote.setImageResource(Integer.parseInt(mNoteList.get(position).getImage()));
+//            holder.mImgNote.setImageResource(Integer.parseInt(mNoteList.get(position).getImage()));
         }
     }
 
@@ -58,28 +66,10 @@ class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapt
             mTvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             mTvNote = (TextView) itemView.findViewById(R.id.tvNote);
             mImgNote = (ImageView) itemView.findViewById(R.id.imgNote);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mOnItemClickListener != null) {
-                        mOnItemClickListener.OnItemClick(mNoteList.get(getAdapterPosition()));
-                    }
-                }
-            });
         }
 
         @Override
         public void onClick(View v) {
         }
     }
-
-    public interface OnItemClickListener {
-        void OnItemClick(ItemNote itemNote);
-
-        void onItemClick(int position);
-
-        void onAvatarClick(int select);
-    }
 }
-

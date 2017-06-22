@@ -1,5 +1,6 @@
 package vn.asiantech.internship.note;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,13 +18,13 @@ import static vn.asiantech.internship.R.id.imgSave;
 public class NoteActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_CROP = 11;
     public static final int REQUEST_CODE_GALERY = 22;
-    public static final int REQUEST_CODE_CAMERA = 33;
-
+    private Uri mUri;
     private ImageView mImgAdd;
     private ImageView mImgSave;
 
     private NoteFragment mNoteFragment;
     private AddNoteFragment mAddNoteFragment;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,6 @@ public class NoteActivity extends AppCompatActivity {
         NoteFragment noteFragment = new NoteFragment();
         transaction.replace(R.id.fragmentNote, noteFragment).commit();
         replaceFragment(mNoteFragment, false);
-
     }
 
     public void replaceFragment(Fragment fragment, boolean backStack) {
@@ -51,4 +51,5 @@ public class NoteActivity extends AppCompatActivity {
         }
         fragmentTransaction.commit();
     }
+
 }
