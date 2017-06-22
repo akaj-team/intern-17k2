@@ -24,44 +24,50 @@ import vn.asiantech.internship.ui.adapters.MessageAdapter;
  * @since 06/21/2017
  */
 public class ChatActivity extends AppCompatActivity {
+
+    RecyclerView mRecyclerView;
+    EditText mEdtMessage;
+    private Button mBtnSend;
+    private List<Message> mMessages;
+    private MessageAdapter mAdapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMessages);
-        final EditText edtMessage = (EditText) findViewById(R.id.edtMessage);
-        final Button btnSend = (Button) findViewById(R.id.btnSend);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewMessages);
+        mEdtMessage = (EditText) findViewById(R.id.edtMessage);
+        mBtnSend = (Button) findViewById(R.id.btnSend);
 
-        final List<Message> messages = new ArrayList<>();
-        messages.add(new Message(getString(R.string.message1), false));
-        messages.add(new Message(getString(R.string.message2), true));
-        final MessageAdapter adapter = new MessageAdapter(messages);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
+        mMessages = new ArrayList<>();
+        mMessages.add(new Message(getString(R.string.message1), false));
+        mMessages.add(new Message(getString(R.string.message2), true));
+        mAdapter = new MessageAdapter(mMessages);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mAdapter);
 
-        edtMessage.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mEdtMessage.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    btnSend.setVisibility(View.VISIBLE);
+                    mBtnSend.setVisibility(View.VISIBLE);
                 } else {
-                    btnSend.setVisibility(View.GONE);
+                    mBtnSend.setVisibility(View.GONE);
                 }
             }
         });
 
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        mBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(edtMessage.getText())) {
-                    messages.add(new Message(edtMessage.getText().toString().trim(), false));
-                    edtMessage.setText("");
-                    adapter.notifyItemInserted(messages.size() - 1);
-                    messages.add(reply());
-                    adapter.notifyItemInserted(messages.size() - 1);
-                    linearLayoutManager.scrollToPosition(messages.size() - 1);
+                if (!TextUtils.isEmpty(mEdtMessage.getText())) {
+                    mMessages.add(new Message(mEdtMessage.getText().toString().trim(), false));
+                    mEdtMessage.setText("");
+                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+                    mMessages.add(reply());
+                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+                    mRecyclerView.scrollToPosition(mMessages.size() - 1);
                 }
             }
         });

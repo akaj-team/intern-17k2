@@ -21,10 +21,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     private static final int TYPE_INBOX = 1;
     private static final int TYPE_SENT = 0;
 
-    private List<Message> mList;
+    private List<Message> mMessages;
 
     public MessageAdapter(List<Message> messages) {
-        this.mList = messages;
+        this.mMessages = messages;
     }
 
     @Override
@@ -40,12 +40,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
-        holder.mTvMessage.setText(mList.get(position).getText());
+        holder.mTvMessage.setText(mMessages.get(position).getText());
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (mList.get(position).isInbox()) {
+        if (mMessages.get(position).isInbox()) {
             return TYPE_INBOX;
         }
         return TYPE_SENT;
@@ -53,7 +53,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mMessages.size();
     }
 
     /**
