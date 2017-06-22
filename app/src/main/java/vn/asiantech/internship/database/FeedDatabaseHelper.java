@@ -41,15 +41,8 @@ public class FeedDatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createDatabase() throws IOException {
-        boolean dbExist = checkDatabase();
-        if (!dbExist) {
-            this.getReadableDatabase();
-            try {
-                copyDatabase();
-            } catch (IOException e) {
-                throw new Error("Error copying database");
-            }
-        }
+        this.getReadableDatabase();
+        copyDatabase();
     }
 
     private boolean checkDatabase() {
@@ -97,6 +90,7 @@ public class FeedDatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
         cursor.close();
+        close();
         return feeds;
     }
 
