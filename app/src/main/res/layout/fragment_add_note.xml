@@ -28,37 +28,29 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/textView.title" />
+            android:text="@string/textView.title"
+            android:textSize="@dimen/textView.name.size"/>
 
         <EditText
             android:id="@+id/edtTitle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="8"
-            android:background="@drawable/bg_input_note"
+            android:background="@android:color/transparent"
+            android:hint="@string/title.hint"
             android:inputType="text" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/linerLayout.height"
-        android:layout_marginLeft="@dimen/linearLayout.margin_left_right_top"
-        android:layout_marginRight="@dimen/linearLayout.margin_left_right_top"
-        android:layout_marginTop="@dimen/linearLayout.margin_left_right_top"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/textView.content" />
-
-        <EditText
-            android:id="@+id/edtContent"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:background="@drawable/bg_input_note"
-            android:inputType="text" />
-    </LinearLayout>
+    <EditText
+        android:id="@+id/edtContent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/editText.hint"
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical" />
 </LinearLayout>

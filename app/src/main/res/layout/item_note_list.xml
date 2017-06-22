@@ -75,9 +75,8 @@
                 android:id="@+id/tvContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:textColor="@color/colorGreyLight"
-                android:textSize="@dimen/textView.size.title_content" />
+                android:textSize="@dimen/textView.size.small.title_content" />
         </LinearLayout>
 
         <ImageView

@@ -2,15 +2,13 @@
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolBar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="56dp"
     android:background="@color/colorGreyDark">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:gravity="center">
 
         <TextView
             android:layout_width="0dp"
@@ -23,9 +21,9 @@
         <ImageView
             android:id="@+id/imgAddNote"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
             android:contentDescription="@string/image.description"
-            android:src="@drawable/ic_add_white_24dp" />
+            android:src="@drawable/ic_add_box_white_24dp" />
     </LinearLayout>
 </android.support.v7.widget.Toolbar>

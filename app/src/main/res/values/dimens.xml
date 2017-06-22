@@ -32,4 +32,5 @@
     <dimen name="note.imageView.margin_top">10dp</dimen>
     <dimen name="linearLayout.margin_left_right_top">5dp</dimen>
     <dimen name="linerLayout.height">40dp</dimen>
+    <dimen name="textView.size.small.title_content">20dp</dimen>
 </resources>

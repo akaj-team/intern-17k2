@@ -50,6 +50,7 @@
     <string name="editText.hint">Input</string>
     <string name="name.node_add">Input Note</string>
     <string name="name.note">Note</string>
-    <string name="textView.title">Title</string>
-    <string name="textView.content">Content</string>
+    <string name="textView.title">Title:</string>
+    <string name="textView.content">Your content</string>
+    <string name="title.hint">Your title</string>
 </resources>

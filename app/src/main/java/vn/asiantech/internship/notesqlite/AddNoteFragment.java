@@ -3,9 +3,12 @@ package vn.asiantech.internship.notesqlite;
 import android.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.text.format.DateFormat;
@@ -17,6 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -113,7 +120,37 @@ public class AddNoteFragment extends Fragment {
                 mUriImage = data.getData();
                 mImgNote.setVisibility(View.VISIBLE);
                 mImgNote.setImageBitmap(BitmapFactory.decodeFile(getRealPathFromUri(mUriImage)));
+                Date date = new Date();
+                SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmss", Locale.ENGLISH);
+                saveImage(mImgNote, ft.format(date));
             }
+        }
+    }
+
+    private void saveImage(ImageView imageView, String name) {
+        BitmapDrawable btmpDr = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bm = btmpDr.getBitmap();
+        File sdCardDirectory = Environment.getExternalStorageDirectory();
+        File image = new File(sdCardDirectory, name + ".png");
+        boolean success = false;
+        try {
+
+            FileOutputStream outStream = new FileOutputStream(image);
+            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            try {
+                outStream.flush();
+                outStream.close();
+            } catch (IOException e) {
+                Log.e("SaveImage: ", e.toString());
+            }
+            success = true;
+        } catch (FileNotFoundException e) {
+            Log.e("SaveImage: ", e.toString());
+        }
+        if (success) {
+            Toast.makeText(getActivity(), "Image saved with success", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getActivity(), "Error during image saving", Toast.LENGTH_LONG).show();
         }
     }
 }
