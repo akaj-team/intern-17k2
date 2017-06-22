@@ -117,7 +117,7 @@ public class InformationEditFragment extends Fragment {
         mImgPhoto = (ImageView) v.findViewById(R.id.imgPhoto);
     }
 
-    public void convertBitmapToFile(Bitmap bitmap){
+    public void convertBitmapToFile(Bitmap bitmap) {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//check if device mount with externalStorage
             String path = Environment.getExternalStorageDirectory().getPath();
             File file = new File(path, "ImageNote"); //create folder with absolute dir and filename
