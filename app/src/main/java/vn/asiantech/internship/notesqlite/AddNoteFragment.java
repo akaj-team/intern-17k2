@@ -80,7 +80,7 @@ public class AddNoteFragment extends Fragment {
                     mDatabase.open();
                     mDatabase.createNote(new Note(dayOfWeekFormat.format(date), String.valueOf(DateFormat.format("dd", date)), monthFormat.format(date), String.valueOf(DateFormat.format("hh:mm:ss", date)), mEdtTitle.getText().toString(), mEdtContent.getText().toString(), getRealPathFromUri(mUriImage)));
                     mDatabase.close();
-                    ((NoteActivity) (getActivity())).showList();
+                    ((NoteActivity) (getActivity())).replaceNoteFragment();
                 }
             }
         });

@@ -37,7 +37,7 @@ public class NoteFragment extends Fragment {
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((NoteActivity) getActivity()).showAdd();
+                ((NoteActivity) getActivity()).replaceAddNoteFragment();
             }
         });
 

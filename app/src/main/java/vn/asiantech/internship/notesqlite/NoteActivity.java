@@ -22,17 +22,17 @@ public class NoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
         mFragmentManager = getFragmentManager();
-        showList();
+        replaceNoteFragment();
     }
 
-    public void showAdd() {
+    public void replaceAddNoteFragment() {
         AddNoteFragment addNoteFragment = new AddNoteFragment();
         FragmentTransaction addNoteFragmentTransaction = mFragmentManager.beginTransaction();
         addNoteFragmentTransaction.replace(R.id.flContainer, addNoteFragment);
         addNoteFragmentTransaction.commit();
     }
 
-    public void showList() {
+    public void replaceNoteFragment() {
         NoteFragment noteFragment = new NoteFragment();
         FragmentTransaction noteFragmentTransaction = mFragmentManager.beginTransaction();
         noteFragmentTransaction.replace(R.id.flContainer, noteFragment);
