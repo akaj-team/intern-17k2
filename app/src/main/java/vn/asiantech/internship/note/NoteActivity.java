@@ -15,6 +15,10 @@ import static vn.asiantech.internship.R.id.imgSave;
  * Created by datbu on 19-06-2017.
  */
 public class NoteActivity extends AppCompatActivity {
+    public static final int REQUEST_CODE_CROP = 11;
+    public static final int REQUEST_CODE_GALERY = 22;
+    public static final int REQUEST_CODE_CAMERA = 33;
+
     private ImageView mImgAdd;
     private ImageView mImgSave;
 
@@ -34,9 +38,10 @@ public class NoteActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         NoteFragment noteFragment = new NoteFragment();
         transaction.replace(R.id.fragmentNote, noteFragment).commit();
-        replaceFragment(mNoteFragment,false);
+        replaceFragment(mNoteFragment, false);
 
     }
+
     public void replaceFragment(Fragment fragment, boolean backStack) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

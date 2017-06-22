@@ -74,7 +74,12 @@ class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapt
         }
     }
 
-    interface OnItemClickListener {
+    public interface OnItemClickListener {
         void OnItemClick(ItemNote itemNote);
+
+        void onItemClick(int position);
+
+        void onAvatarClick(int select);
     }
 }
+

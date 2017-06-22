@@ -5,4 +5,8 @@
     <string name="tv_value">asdsadasdsadsad</string>
     <string name="edt.title">Title</string>
     <string name="edt.note">Note ...</string>
+    <string-array name="choose">
+        <item>Galery</item>
+        <item>Camera</item>
+    </string-array>
 </resources>
