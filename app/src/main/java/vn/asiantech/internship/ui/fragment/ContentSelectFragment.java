@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.ui.feeds.FeedsActivity;
 import vn.asiantech.internship.ui.main.Ex05Activity;
 import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.ui.ninepatch.ChatActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +45,16 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
                 showToast("I did not add to this activity"); // i'll change when i add this Ex
                 break;
             case R.id.btnEx08:
-                openActivity(FeedsActivity.class);
+
+                break;
+            case R.id.btnEx11:
+
+                break;
+            case R.id.btnEx11_2:
+
+                break;
+            case R.id.btnEx13:
+                openActivity(ChatActivity.class);
                 break;
         }
 
@@ -58,6 +67,7 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
     private void openActivity(Class<?> className) {
         Intent intent = new Intent(getContext(), className);
         getContext().startActivity(intent);
+        getActivity().finish();
     }
 
     private void init(View v) {
@@ -66,11 +76,17 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         Button btnEx07_1 = (Button) v.findViewById(R.id.btnEx07_1);
         Button btnEx07_2 = (Button) v.findViewById(R.id.btnEx07_2);
         Button btnEx08 = (Button) v.findViewById(R.id.btnEx08);
+        Button btnEx11 = (Button) v.findViewById(R.id.btnEx11);
+        Button btnEx11_2 = (Button) v.findViewById(R.id.btnEx11_2);
+        Button btnEx13 = (Button) v.findViewById(R.id.btnEx13);
 
         btnEx05.setOnClickListener(this);
         btnEx06.setOnClickListener(this);
         btnEx07_1.setOnClickListener(this);
         btnEx07_2.setOnClickListener(this);
         btnEx08.setOnClickListener(this);
+        btnEx11.setOnClickListener(this);
+        btnEx11_2.setOnClickListener(this);
+        btnEx13.setOnClickListener(this);
     }
 }
