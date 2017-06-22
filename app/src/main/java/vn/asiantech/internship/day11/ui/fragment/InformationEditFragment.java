@@ -35,6 +35,7 @@ import vn.asiantech.internship.day11.ui.activity.NoteActivity;
 import static android.app.Activity.RESULT_OK;
 
 /**
+ *  Copyright © 2016 AsianTech inc.
  * Created by at-hoavo on 19/06/2017.
  */
 public class InformationEditFragment extends Fragment {
