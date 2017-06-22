@@ -21,6 +21,7 @@ import vn.asiantech.internship.models.Note;
  * NoteShowListFragment Created by Thanh Thien
  */
 public class NoteShowListFragment extends Fragment {
+    private NoteFragment mNoteFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,6 +31,7 @@ public class NoteShowListFragment extends Fragment {
         ImageView imgBtnAdd = (ImageView) v.findViewById(R.id.imgBtnAdd);
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        mNoteFragment = new NoteFragment();
         List<Note> notes = databaseHelper.getAllNotes();
 
         RecyclerView mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
@@ -43,7 +45,7 @@ public class NoteShowListFragment extends Fragment {
         imgBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NoteFragment.replaceFragmentAddContent(getActivity(), new NoteAddNewFragment());
+                mNoteFragment.replaceFragmentAddContent(getActivity(), new NoteAddNewFragment());
             }
         });
         return v;

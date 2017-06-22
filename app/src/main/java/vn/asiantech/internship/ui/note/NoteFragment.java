@@ -1,6 +1,5 @@
 package vn.asiantech.internship.ui.note;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -59,11 +58,10 @@ public class NoteFragment extends Fragment {
      * @param fragmentActivity Activity Fragment
      * @param fragment to replace
      */
-    public static void replaceFragmentAddContent(FragmentActivity fragmentActivity, Fragment fragment) {
+    public void replaceFragmentAddContent(FragmentActivity fragmentActivity, Fragment fragment) {
         FragmentTransaction fragmentTransaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top);
         fragmentTransaction.replace(R.id.rlSecond, fragment);
         fragmentTransaction.commit();
     }
 }
-

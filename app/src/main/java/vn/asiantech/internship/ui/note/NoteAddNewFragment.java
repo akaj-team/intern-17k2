@@ -44,6 +44,7 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
 
     private DatabaseHelper mDatabaseHelper;
     private String mFilePath;
+    private NoteFragment mNoteFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +63,7 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
         mEdtTitle = (EditText) v.findViewById(R.id.edtTitle);
         mEdtDescription = (EditText) v.findViewById(R.id.edtDescription);
         mImgAvatar = (ImageView) v.findViewById(R.id.imgAvatar);
+        mNoteFragment = new NoteFragment();
 
         if (getActivity() instanceof NoteActivity) {
             ((NoteActivity) getActivity()).setToolbar(toolbar);
@@ -91,7 +93,7 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
         } catch (IOException e) {
             Log.d("FeedsFragment", "saveImageToSdCard: " + e.toString());
         }
-        return fileThumb.toString();
+        return file.toString();
     }
 
     @Override
@@ -120,7 +122,7 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
             note.setNoteImagesThumb(mFilePath);
         }
         mDatabaseHelper.createNote(note);
-        NoteFragment.replaceFragmentAddContent(getActivity(), new NoteShowListFragment());
+        mNoteFragment.replaceFragmentAddContent(getActivity(), new NoteShowListFragment());
         Toast.makeText(getContext(), getString(R.string.complete), Toast.LENGTH_SHORT).show();
     }
 
