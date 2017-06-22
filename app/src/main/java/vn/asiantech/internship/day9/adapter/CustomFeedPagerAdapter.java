@@ -20,15 +20,29 @@ import java.util.List;
 import vn.asiantech.internship.R;
 
 /**
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 15/06/2017.
  */
 public class CustomFeedPagerAdapter extends PagerAdapter {
     private List<String> mLinks;
     private Context mContext;
+    private ImageLoader mImageLoader;
 
     public CustomFeedPagerAdapter(List<String> links, Context context) {
         mContext = context;
         mLinks = links;
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisc(true).cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300)).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                mContext)
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new WeakMemoryCache())
+                .discCacheSize(100 * 1024 * 1024).build();
+        mImageLoader = ImageLoader.getInstance();
+        mImageLoader.init(config);
     }
 
     @Override
@@ -45,7 +59,7 @@ public class CustomFeedPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_list_pager, container, false);
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imgFeed);
-        initImageLoader(imageView, mLinks.get(position));
+        mImageLoader.displayImage(mLinks.get(position), imageView);
         container.addView(itemView);
         return itemView;
     }
@@ -53,21 +67,5 @@ public class CustomFeedPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((LinearLayout) object);
-    }
-
-    private void initImageLoader(ImageView image, String url) {
-        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheOnDisc(true).cacheInMemory(true)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .displayer(new FadeInBitmapDisplayer(300)).build();
-
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-                mContext)
-                .defaultDisplayImageOptions(defaultOptions)
-                .memoryCache(new WeakMemoryCache())
-                .discCacheSize(100 * 1024 * 1024).build();
-        ImageLoader imageLoader = ImageLoader.getInstance();
-        imageLoader.init(config);
-        imageLoader.displayImage(url, image, defaultOptions);
     }
 }

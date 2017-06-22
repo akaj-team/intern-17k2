@@ -1,6 +1,7 @@
 package vn.asiantech.internship.day9.model;
 
 /**
+ *  Copyright © 2017 AsianTech inc.
  * Created by rimoka on 15/06/2017.
  */
 public class User {

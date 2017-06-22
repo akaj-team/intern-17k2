@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
+ * Copyright © 2016 AsianTech inc.
  * Created by at-hoavo on 20/06/2017.
  */
 public class DatabaseHelperImage extends SQLiteOpenHelper {
@@ -53,14 +54,8 @@ public class DatabaseHelperImage extends SQLiteOpenHelper {
 
 
     private void copyDatabase() throws IOException {
-
-//        AssetManager dirPath = mContext.getAssets();
-
         InputStream myInput = mContext.getAssets().open(DB_NAME);
-
-//        String outFileName = DB_PATH + DB_NAME;
-
-        OutputStream myOutput = new FileOutputStream("data/data/vn.asiantech.internship/list_image.sqlite");
+        OutputStream myOutput = new FileOutputStream(DB_PATH + DB_NAME);
 
         byte[] buffer = new byte[1024];
         int length;
@@ -97,10 +92,6 @@ public class DatabaseHelperImage extends SQLiteOpenHelper {
         }
 
         return checkdb;
-    }
-
-    private DatabaseHelperImage(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
     }
 
     @Override

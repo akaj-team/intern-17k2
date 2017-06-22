@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 20/06/2017.
  */
 public class ImageModify {

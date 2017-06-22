@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *  Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 20/06/2017.
  */
 public class Image {

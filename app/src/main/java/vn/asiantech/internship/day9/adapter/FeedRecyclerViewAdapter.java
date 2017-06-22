@@ -20,6 +20,7 @@ import vn.asiantech.internship.day9.model.Image;
 import vn.asiantech.internship.day9.model.User;
 
 /**
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 15/06/2017.
  */
 public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerViewAdapter.ItemViewHolder> {
@@ -38,7 +39,7 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
         ImageModify imageModify = new ImageModify(mContext);
         Cursor cursor = imageModify.getInformation();
         while (!cursor.isAfterLast()) {
-            Image image = new Image(cursor.getInt(cursor.getColumnIndex(imageModify.KEY_ID)), cursor.getString(cursor.getColumnIndex(imageModify.KEY_TITLE)), cursor.getString(cursor.getColumnIndex(imageModify.KEY_DESCRIPTION)), cursor.getString(cursor.getColumnIndex(imageModify.KEY_LINK)));
+            Image image = new Image(cursor.getInt(cursor.getColumnIndex(ImageModify.KEY_ID)), cursor.getString(cursor.getColumnIndex(ImageModify.KEY_TITLE)), cursor.getString(cursor.getColumnIndex(ImageModify.KEY_DESCRIPTION)), cursor.getString(cursor.getColumnIndex(ImageModify.KEY_LINK)));
             mImages.add(image);
             cursor.moveToNext();
         }
@@ -52,16 +53,13 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        CustomFeedPagerAdapter pagerAdapter = null;
+        CustomFeedPagerAdapter pagerAdapter;
         holder.mImgUser.setImageDrawable(ContextCompat.getDrawable(mContext, mUsers.get(position).getImage()));
         holder.mTvUser.setText(mUsers.get(position).getName());
         holder.mTvDescription.setText(mUsers.get(position).getDescription());
         pagerAdapter = new CustomFeedPagerAdapter(mImages.get(position).getLinks(), mContext);
         if (mImages.get(position).getLinks().size() > 1) {
             holder.mImgArrowRight.setVisibility(View.VISIBLE);
-        } else {
-            holder.mImgArrowRight.setVisibility(View.INVISIBLE);
-            holder.mImgArrowLeft.setVisibility(View.INVISIBLE);
         }
         holder.mViewPagerFeed.setAdapter(pagerAdapter);
         holder.mViewPagerFeed.getAdapter().notifyDataSetChanged();
@@ -137,17 +135,9 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
         for (int j = 0; j < mImages.size(); j++) {
             List<String> links = mImages.get(j).getLinks();
             String link = mImages.get(j).getLink().trim();
-            int vitri = 0;
-            if (link.contains(",")) {
-                for (int i = 0; i < link.length(); i++) {
-                    if (link.charAt(i) == ',') {
-                        links.add(link.substring(vitri, i));
-                        vitri = i + 1;
-                    }
-                }
-                links.add(link.substring(vitri + 1, link.length()));
-            } else {
-                links.add(link);
+            String[] s = link.split("[,]");
+            for (String value : s) {
+                links.add(value.trim());
             }
             mImages.get(j).setLinks(links);
         }
