@@ -34,6 +34,7 @@ public class AddNoteFragment extends Fragment {
     private EditText mEdtNoteTitle;
     private EditText mEdtNoteContent;
     private NoteDatabase mNoteDatabase;
+    private boolean mHaveBitmap = false;
 
     @Nullable
     @Override
@@ -42,6 +43,7 @@ public class AddNoteFragment extends Fragment {
         mImgNotePicture = (ImageView) view.findViewById(R.id.imgNotePicture);
         mEdtNoteTitle = (EditText) view.findViewById(R.id.edtNoteTitle);
         mEdtNoteContent = (EditText) view.findViewById(R.id.edtNoteContent);
+
 
         mNoteDatabase = new NoteDatabase(getContext());
         mNoteDatabase.open();
@@ -60,7 +62,10 @@ public class AddNoteFragment extends Fragment {
             Toast.makeText(getContext(), "Bạn phải nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
         } else {
             NoteItem noteItem;
-            String savePath = saveImage(((BitmapDrawable) mImgNotePicture.getDrawable()).getBitmap());
+            String savePath = null;
+            if (mHaveBitmap) {
+                savePath = saveImage(((BitmapDrawable) mImgNotePicture.getDrawable()).getBitmap());
+            }
             if (savePath != null) {
                 noteItem = new NoteItem(mEdtNoteTitle.getText().toString(), mEdtNoteContent.getText().toString(), savePath);
             } else {
@@ -74,12 +79,15 @@ public class AddNoteFragment extends Fragment {
                 Toast.makeText(getContext(), getString(R.string.fail), Toast.LENGTH_SHORT).show();
             }
         }
+        mEdtNoteContent.setFocusable(false);
+        mEdtNoteTitle.setFocusable(false);
     }
 
     public void addImage(Bitmap bitmap) {
         if (bitmap != null) {
             mImgNotePicture.setVisibility(View.VISIBLE);
             mImgNotePicture.setImageBitmap(bitmap);
+            mHaveBitmap = true;
         } else {
             mImgNotePicture.setVisibility(View.GONE);
         }

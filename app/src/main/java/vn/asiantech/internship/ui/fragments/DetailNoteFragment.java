@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import vn.asiantech.internship.databases.NoteDatabase;
 import vn.asiantech.internship.models.NoteItem;
 import vn.asiantech.internship.ui.main.NoteActivity;
 
+import static vn.asiantech.internship.ui.fragments.AddNoteFragment.saveImage;
+
 /**
  * @author at-cuongcao
  * @version 1.0
@@ -32,6 +35,7 @@ public class DetailNoteFragment extends Fragment {
     private EditText mEdtNoteContent;
 
     private NoteItem mNote;
+    private boolean mHaveBitmap = false;
 
     @Nullable
     @Override
@@ -45,6 +49,7 @@ public class DetailNoteFragment extends Fragment {
         mNote = (NoteItem) getArguments().getSerializable(NoteActivity.KEY_NOTE);
 
         if (mNote.getImage() != null) {
+            Log.i("tag1111", mNote.getImage()+"ggggg");
             mImgNotePicture.setVisibility(View.VISIBLE);
             mImgNotePicture.setImageURI(Uri.parse(mNote.getImage()));
         }
@@ -61,6 +66,8 @@ public class DetailNoteFragment extends Fragment {
     }
 
     public long editNote() {
+        mEdtNoteContent.setFocusable(false);
+        mEdtNoteTitle.setFocusable(false);
         if (TextUtils.isEmpty(mEdtNoteContent.getText()) || TextUtils.isEmpty(mEdtNoteTitle.getText())) {
             Toast.makeText(getContext(), getString(R.string.validate), Toast.LENGTH_SHORT).show();
             return -1;
@@ -68,9 +75,12 @@ public class DetailNoteFragment extends Fragment {
             mNote.setTime();
             mNote.setTitle(mEdtNoteTitle.getText().toString());
             mNote.setContent(mEdtNoteContent.getText().toString());
-            String imagePath = AddNoteFragment.saveImage(((BitmapDrawable) mImgNotePicture.getDrawable()).getBitmap());
-            if (imagePath != null) {
-                mNote.setImage(imagePath);
+            String savePath = "";
+            if (mHaveBitmap) {
+                savePath = saveImage(((BitmapDrawable) mImgNotePicture.getDrawable()).getBitmap());
+            }
+            if (savePath != null) {
+                mNote.setImage(savePath);
             }
             NoteDatabase noteDatabase = new NoteDatabase(getContext());
             noteDatabase.open();
@@ -84,6 +94,7 @@ public class DetailNoteFragment extends Fragment {
         if (bitmap != null) {
             mImgNotePicture.setVisibility(View.VISIBLE);
             mImgNotePicture.setImageBitmap(bitmap);
+            mHaveBitmap = true;
         } else {
             mImgNotePicture.setVisibility(View.GONE);
         }

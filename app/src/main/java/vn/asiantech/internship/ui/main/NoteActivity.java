@@ -1,5 +1,6 @@
 package vn.asiantech.internship.ui.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,10 +73,10 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
         updateToolbar(fragment);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.flFragmentContent, fragment);
         if (addToBackStack) {
-            fragmentTransaction.addToBackStack(fragment.getTag());
+            fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
         }
+        fragmentTransaction.replace(R.id.flFragmentContent, fragment);
         fragmentTransaction.commit();
     }
 
@@ -149,16 +151,21 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
                 replaceFragment(mAddNoteFragment, true);
                 break;
             case R.id.imgSave:
+                View view = this.getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
                 Fragment fragment = getCurrentFragment();
                 if (fragment instanceof AddNoteFragment) {
                     mAddNoteFragment.addNote();
-                    replaceFragment(mNoteFragment, true);
+                    onBackPressed();
                     break;
                 }
                 if (fragment instanceof DetailNoteFragment) {
                     if (((DetailNoteFragment) fragment).editNote() > -1) {
-                        Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show();
-                        replaceFragment(mNoteFragment, true);
+                        onBackPressed();
+                        replaceFragment(mNoteFragment, false);
                     } else {
                         Toast.makeText(this, getString(R.string.fail), Toast.LENGTH_SHORT).show();
                     }
