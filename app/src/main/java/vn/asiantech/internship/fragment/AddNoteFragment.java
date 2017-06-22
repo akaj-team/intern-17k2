@@ -2,17 +2,25 @@ package vn.asiantech.internship.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.databases.NoteDataBase;
@@ -32,7 +40,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
     private EditText mEdtContent;
     private ImageView mImgPicPhoto;
     private ImageView mImgSave;
-    private String mUriImage;
+    private Bitmap bitmapImage;
     private NoteDataBase mNoteDataBase;
 
     @Nullable
@@ -64,7 +72,9 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.imgSave:
                 Note note = new Note();
-                note.setDate(getDate());
+                String date=getDate();
+                note.setDate(date);
+
                 note.setTitle(mEdtTitle.getText().toString());
                 note.setContent(mEdtContent.getText().toString());
                 try {
@@ -84,18 +94,46 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUESTCODE_GALLERY) {
-                mUriImage = data.getData().toString();
+                try {
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),data.getData());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     public String getDate() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE MM dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE MMM dd HH:mm", Locale.ENGLISH);
         String arr[] = simpleDateFormat.format(Calendar.getInstance().getTime()).split(" ");
-        return arr[0] + "\n" + arr[1] + arr[2] + "\n" + arr[3];
+        Log.i("tag11", simpleDateFormat.format(Calendar.getInstance().getTime()));
+        return arr[0] + "\n" + arr[1] + " " + arr[2] + "\n" + arr[3];
     }
+    public String getName(String date){
+        return date.replace("\n","").replace(" ","");
+    }
+    private static boolean saveImageToSDCard(Bitmap image, String folder, String name) {
+        String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + folder + "/";
+        try {
+            File dir = new File(fullPath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
 
-    private void saveToSDCard() {
+            OutputStream fOut = null;
+            File file = new File(fullPath, name);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
 
+            fOut = new FileOutputStream(file);
+            image.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
