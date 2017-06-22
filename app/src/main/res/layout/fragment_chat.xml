@@ -14,7 +14,8 @@
             android:id="@+id/edtInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="8" />
+            android:layout_weight="8"
+            android:inputType="text"/>
 
         <ImageView
             android:id="@+id/imgSend"
@@ -22,7 +23,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="@dimen/imageview.padding.send"
-            android:src="@drawable/ic_send_black_24dp" />
+            android:src="@drawable/ic_send_black_24dp"
+            android:contentDescription="@null" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

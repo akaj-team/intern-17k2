@@ -8,6 +8,7 @@
         android:id="@+id/tvChat1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_marginEnd="@dimen/linearlayout.marging.left_right"
         android:layout_marginRight="@dimen/linearlayout.marging.left_right"
