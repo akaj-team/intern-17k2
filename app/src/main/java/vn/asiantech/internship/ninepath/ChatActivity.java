@@ -34,7 +34,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         mChatRecyclerView = (RecyclerView) findViewById(R.id.smsRecyclerView);
         mEdtInput = (EditText) findViewById(R.id.edtInputSms);
-        ImageView imgSend = (ImageView) findViewById(R.id.imgSend);
+        ImageView imgSend = (ImageView) findViewById(R.id.imgBtnSend);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mChatRecyclerView.setLayoutManager(linearLayoutManager);
         mMessages = new ArrayList<>();
