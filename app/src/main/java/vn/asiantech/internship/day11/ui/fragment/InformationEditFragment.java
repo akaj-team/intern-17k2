@@ -126,7 +126,11 @@ public class InformationEditFragment extends Fragment {
                 File f = new File(file, "Image" + setFileName() + ".png");
                 boolean isfileCreated = f.exists();
                 if (!isfileCreated) {
-                    isfileCreated = file.mkdir();
+                    try {
+                        isfileCreated = f.createNewFile();
+                    } catch (IOException e) {
+                        Log.d("Exception", "IoException");
+                    }
                 }
                 if (isfileCreated) {
                     try {
