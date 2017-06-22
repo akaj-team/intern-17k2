@@ -13,9 +13,7 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/chat2"
         android:textColor="@color/colorWhite"
-        android:textSize="20sp"
-
-        android:visibility="gone" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tvRecieve"
