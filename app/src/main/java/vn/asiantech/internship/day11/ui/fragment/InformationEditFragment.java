@@ -46,8 +46,7 @@ public class InformationEditFragment extends Fragment {
     private ImageView mImgNote;
     private ImageView mImgSave;
     private ImageView mImgPhoto;
-    //    private Uri mUri;
-    Uri saveUriImage;
+    private Uri mSaveUriImage;
 
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -69,13 +68,13 @@ public class InformationEditFragment extends Fragment {
                     Toast.makeText(getContext(), "input title", Toast.LENGTH_LONG).show();
                 } else if (TextUtils.isEmpty(mEdtDescription.getText().toString())) {
                     Toast.makeText(getContext(), "input description", Toast.LENGTH_LONG).show();
-                } else if (saveUriImage == null) {
+                } else if (mSaveUriImage == null) {
                     Toast.makeText(getContext(), "input picture", Toast.LENGTH_LONG).show();
                 } else {
                     NoteModify noteModify = new NoteModify(getContext());
                     Date date = new Date();
                     SimpleDateFormat ft = new SimpleDateFormat("E yyyy.MM.dd hh:mm:ss ", Locale.getDefault());
-                    Note note = new Note(0, mEdtTitle.getText().toString(), mEdtDescription.getText().toString(), saveUriImage.toString(), ft.format(date));
+                    Note note = new Note(0, mEdtTitle.getText().toString(), mEdtDescription.getText().toString(), mSaveUriImage.toString(), ft.format(date));
                     noteModify.insert(note);
                     if (getActivity() instanceof NoteActivity) {
                         ((NoteActivity) getActivity()).changeFragment(new NoteFragment());
@@ -116,9 +115,9 @@ public class InformationEditFragment extends Fragment {
     }
 
     public void convertBitmapToFile(Bitmap bitmap) {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//check if device mount with externalStorage
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {// Check if device mount with externalStorage
             String path = Environment.getExternalStorageDirectory().getPath();
-            File file = new File(path, "ImageNote"); //create folder with absolute dir and filename
+            File file = new File(path, "ImageNote"); // Create folder with absolute dir and filename
             boolean isDirectoryCreated = file.exists();
             if (!isDirectoryCreated) {
                 isDirectoryCreated = file.mkdir();
@@ -131,15 +130,15 @@ public class InformationEditFragment extends Fragment {
                 }
                 if (isfileCreated) {
                     try {
-                        OutputStream os = new FileOutputStream(f);  //create outputstream to write file
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, os); // compress bitmap to PNG
+                        OutputStream os = new FileOutputStream(f);  // Create outputstream to write file
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, os); // Compress bitmap to PNG
                         os.flush();
                         os.close();
                     } catch (IOException e) {
                         Log.d("Exception", "IOException");
                     }
-                    saveUriImage = Uri.parse(f.getAbsolutePath());
-                    Toast.makeText(getContext(), "uri:  " + saveUriImage, Toast.LENGTH_LONG).show();
+                    mSaveUriImage = Uri.parse(f.getAbsolutePath());
+                    Toast.makeText(getContext(), "uri:  " + mSaveUriImage, Toast.LENGTH_LONG).show();
                 }
             }
         }

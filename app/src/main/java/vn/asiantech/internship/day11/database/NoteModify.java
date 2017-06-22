@@ -27,7 +27,7 @@ public class NoteModify {
         values.put(DatabaseHelper.KEY_IMAGE, note.getImageNote());
         values.put(DatabaseHelper.KEY_TIME, note.getTime());
         db.insert(DatabaseHelper.DATABASE_TABLE, null, values);
-        //Dong ket noi
+        // Dong ket noi
         db.close();
     }
 
