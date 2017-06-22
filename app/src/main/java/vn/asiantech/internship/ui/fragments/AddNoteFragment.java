@@ -60,7 +60,7 @@ public class AddNoteFragment extends Fragment {
             Toast.makeText(getContext(), "Bạn phải nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
         } else {
             NoteItem noteItem;
-            String savePath = saveImage(((BitmapDrawable)mImgNotePicture.getDrawable()).getBitmap());
+            String savePath = saveImage(((BitmapDrawable) mImgNotePicture.getDrawable()).getBitmap());
             if (savePath != null) {
                 noteItem = new NoteItem(mEdtNoteTitle.getText().toString(), mEdtNoteContent.getText().toString(), savePath);
             } else {
@@ -84,6 +84,7 @@ public class AddNoteFragment extends Fragment {
             mImgNotePicture.setVisibility(View.GONE);
         }
     }
+
     public static String saveImage(Bitmap bitmap) {
         String targetFolderPath = Environment.getExternalStorageDirectory().getPath() + File.separatorChar + "MyImage";
         OutputStream outputStream;
