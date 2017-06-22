@@ -19,7 +19,7 @@ import java.io.OutputStream;
 public class DatabaseHelperImage extends SQLiteOpenHelper {
     private Context mContext;
 
-    private final String DB_PATH = "data/data/vn.asiantech.internship/";
+    private static final String DB_PATH = "data/data/vn.asiantech.internship/";
     private static final String DB_NAME = "list_image.sqlite";
     private SQLiteDatabase mMyDatabase;
 
