@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,7 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
         mContext = context;
         mUsers = users;
         initListImage();
+        seperateLink();
     }
 
     private void initListImage() {
@@ -56,22 +56,15 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
         holder.mImgUser.setImageDrawable(ContextCompat.getDrawable(mContext, mUsers.get(position).getImage()));
         holder.mTvUser.setText(mUsers.get(position).getName());
         holder.mTvDescription.setText(mUsers.get(position).getDescription());
-        if (position < mImages.size()) {
-            seperateLink(mImages.get(position));
-            pagerAdapter = new CustomFeedPagerAdapter(mImages.get(position).getLinks(), mContext);
-            if (mImages.get(position).getLinks().size() != 1) {
-                holder.mImgArrowRight.setVisibility(View.VISIBLE);
-            }
+        pagerAdapter = new CustomFeedPagerAdapter(mImages.get(position).getLinks(), mContext);
+        if (mImages.get(position).getLinks().size() > 1) {
+            holder.mImgArrowRight.setVisibility(View.VISIBLE);
         } else {
-            Log.e("ERROR NUMBER IMAGE", " Image size get from database too small with recyclerview ");
+            holder.mImgArrowRight.setVisibility(View.INVISIBLE);
+            holder.mImgArrowLeft.setVisibility(View.INVISIBLE);
         }
-        try {
-            holder.mViewPagerFeed.setAdapter(pagerAdapter);
-            holder.mViewPagerFeed.getAdapter().notifyDataSetChanged();
-            mImages.get(position).setLinks(new ArrayList<String>());
-        } catch (NullPointerException e) {
-            Log.d("ERROR NULL", ": not set adapter ");
-        }
+        holder.mViewPagerFeed.setAdapter(pagerAdapter);
+        holder.mViewPagerFeed.getAdapter().notifyDataSetChanged();
     }
 
     @Override
@@ -106,17 +99,15 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
 
                 @Override
                 public void onPageSelected(int position) {
-                    Log.d("Positionnnnnnnnnn", "onPageSelected: " + position);
-                    Log.d("Positionnnnnnnnnn", "onPageSelected2: " + mImages.get(getAdapterPosition()).getLinks().size());
-                    if (position != 0 && position != (mImages.get(getAdapterPosition()).getLinks().size()) - 1) {
+                    if (position != 0) {
                         mImgArrowLeft.setVisibility(View.VISIBLE);
-                        mImgArrowRight.setVisibility(View.VISIBLE);
-                    } else if (position == 0) {
+                    } else {
                         mImgArrowLeft.setVisibility(View.INVISIBLE);
+                    }
+                    if (position != (mImages.get(getAdapterPosition()).getLinks().size()) - 1) {
                         mImgArrowRight.setVisibility(View.VISIBLE);
-                    } else if (position == (mImages.get(getAdapterPosition()).getLinks().size())) {
+                    } else {
                         mImgArrowRight.setVisibility(View.INVISIBLE);
-                        mImgArrowLeft.setVisibility(View.INVISIBLE);
                     }
                 }
 
@@ -142,25 +133,23 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
         }
     }
 
-    private void seperateLink(Image image) {
-        List<String> links = image.getLinks();
-        String link = image.getLink().trim();
-        int vitri = 0;
-        if (link.contains(",")) {
-            for (int i = 0; i < link.length(); i++) {
-                if (link.charAt(i) == ',') {
-                    links.add(link.substring(vitri, i));
-                    vitri = i + 1;
+    private void seperateLink() {
+        for (int j = 0; j < mImages.size(); j++) {
+            List<String> links = mImages.get(j).getLinks();
+            String link = mImages.get(j).getLink().trim();
+            int vitri = 0;
+            if (link.contains(",")) {
+                for (int i = 0; i < link.length(); i++) {
+                    if (link.charAt(i) == ',') {
+                        links.add(link.substring(vitri, i));
+                        vitri = i + 1;
+                    }
                 }
+                links.add(link.substring(vitri + 1, link.length()));
+            } else {
+                links.add(link);
             }
-            links.add(link.substring(vitri + 1, link.length()));
-        } else {
-            links.add(link);
-        }
-        image.setLinks(links);
-        Log.d("imagesize", ": " + image.getLinks().size());
-        for (int i = 0; i < image.getLinks().size(); i++) {
-            Log.d("imagelink", ": " + image.getLinks().get(i));
+            mImages.get(j).setLinks(links);
         }
     }
 }
