@@ -38,7 +38,7 @@ public class ChatActivity extends AppCompatActivity {
         itemChats.add(new ItemChat(getString(R.string.chat_meet), false));
         itemChats.add(new ItemChat(getString(R.string.chat_goodbye), true));
         itemChats.add(new ItemChat(getString(R.string.chat_kaka), false));
-        itemChats.add(new ItemChat(getString(R.string.chat_bla), true));
+        itemChats.add(new ItemChat(getString(R.string.chat_say), true));
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         final ChatAdapter adapter = new ChatAdapter(itemChats);
