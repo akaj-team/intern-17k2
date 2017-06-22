@@ -7,5 +7,13 @@
     <string name="btn_friend">Friend</string>
     <string name="btn_add">Add</string>
     <string name="tv_value">asdsadasdsadsad</string>
+    <string name="chat.hello">Hello</string>
+    <string name="chat.meet">Nice to meet you</string>
+    <string name="chat.goodbye">GoodBye</string>
+    <string name="chat.kaka">Ka ka</string>
+    <string name="chat.bla">Bla bla bla</string>
+    <string name="chat.d">DDDDDDDD</string>
+    <string name="chat.c">CCCCCCCCC</string>
+    <string name="chat.a">AAAAAAAAAA</string>
 
 </resources>
