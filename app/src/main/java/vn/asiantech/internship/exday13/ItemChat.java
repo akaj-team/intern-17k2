@@ -3,7 +3,6 @@ package vn.asiantech.internship.exday13;
 /**
  * Created by datbu on 21-06-2017.
  */
-
 class ItemChat {
     private String text;
     private boolean check;

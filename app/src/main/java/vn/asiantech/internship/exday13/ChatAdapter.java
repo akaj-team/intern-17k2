@@ -52,6 +52,9 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.Myholder> {
         return mItemChat.size();
     }
 
+    /**
+     * Created by datbu on 21-06-2017.
+     */
     class Myholder extends RecyclerView.ViewHolder {
         private TextView mTvChat;
 
