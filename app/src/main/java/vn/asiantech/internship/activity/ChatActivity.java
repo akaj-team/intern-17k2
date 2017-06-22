@@ -22,7 +22,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         mChatFragment = new ChatFragment();
-        switchFragment(mChatFragment, true, R.id.flContain);
+        switchFragment(mChatFragment, false, R.id.flContain);
     }
 
     /**

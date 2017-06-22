@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/linearlayout.marging.left_right"
         android:layout_marginStart="@dimen/linearlayout.marging.left_right"
         android:background="@drawable/chat2"

@@ -13,6 +13,7 @@
         android:layout_marginEnd="@dimen/linearlayout.marging.left_right"
         android:layout_marginRight="@dimen/linearlayout.marging.left_right"
         android:background="@drawable/chat1"
+        android:gravity="center_vertical"
         android:padding="@dimen/textview.padding"
         android:textSize="@dimen/textview.size"
         tool:text="hello world " />
