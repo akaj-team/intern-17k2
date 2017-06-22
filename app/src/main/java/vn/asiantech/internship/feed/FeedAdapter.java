@@ -41,7 +41,7 @@ class FeedAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         FeedViewHolder feedViewHolder = (FeedViewHolder) holder;
         feedViewHolder.mTvName.setText(mFeeds.get(position).getName());
         feedViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
