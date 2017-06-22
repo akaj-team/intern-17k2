@@ -35,13 +35,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         final int[] currentItem = {holder.mViewPagerImage.getCurrentItem()};
         ImageAdapter imageAdapter = new ImageAdapter(mPosts.get(position).getImageList(), new ImageAdapter.OnClickArrowListener() {
             @Override
-            public void onClickLeft() {
+            public void onLeftClick() {
                 currentItem[0] -= 1;
                 holder.mViewPagerImage.setCurrentItem(currentItem[0]);
             }
 
             @Override
-            public void onClickRight() {
+            public void onRightClick() {
                 currentItem[0] += 1;
                 holder.mViewPagerImage.setCurrentItem(currentItem[0]);
             }

@@ -24,15 +24,15 @@ public class ImageDatabase extends SQLiteOpenHelper {
     private Context mContext;
     private static final String DB_NAME = "list_image.sqlite";
     private static final String TAG = "tag11";
-    private String dbPath;
-    private SQLiteDatabase database;
+    private String mDbPath;
+    private SQLiteDatabase mSQLiteDatabase;
 
     public ImageDatabase(Context context) throws IOException {
         super(context, DB_NAME, null, 1);
         mContext = context;
-        dbPath = mContext.getFilesDir().getPath();
-        if (database != null && database.isOpen()) {
-            database.close();
+        mDbPath = mContext.getFilesDir().getPath();
+        if (mSQLiteDatabase != null && mSQLiteDatabase.isOpen()) {
+            mSQLiteDatabase.close();
         }
         boolean dbexist = checkdatabase();
         if (dbexist) {
@@ -54,14 +54,14 @@ public class ImageDatabase extends SQLiteOpenHelper {
             try {
                 copydatabase();
             } catch (IOException e) {
-                throw new Error("Error copying database");
+                Log.e(TAG, "error create database");
             }
         }
     }
 
     private void copydatabase() throws IOException {
         InputStream inputStream = mContext.getAssets().open(DB_NAME);
-        String outFileName = dbPath + DB_NAME;
+        String outFileName = mDbPath + DB_NAME;
         OutputStream outputStream = new FileOutputStream(outFileName);
         byte[] buffer = new byte[1024];
         int lenght;
@@ -75,13 +75,13 @@ public class ImageDatabase extends SQLiteOpenHelper {
 
     public void opendatabase() throws SQLiteException {
         String myPath = mContext.getFilesDir().getPath() + DB_NAME;
-        database = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+        mSQLiteDatabase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     private boolean checkdatabase() {
         boolean checkdb = false;
         try {
-            String myPath = dbPath + DB_NAME;
+            String myPath = mDbPath + DB_NAME;
             File dbFile = new File(myPath);
             checkdb = dbFile.exists();
         } catch (SQLiteException e) {
@@ -91,8 +91,8 @@ public class ImageDatabase extends SQLiteOpenHelper {
     }
 
     public synchronized void close() {
-        if (database != null) {
-            database.close();
+        if (mSQLiteDatabase != null) {
+            mSQLiteDatabase.close();
         }
         super.close();
     }
@@ -100,10 +100,10 @@ public class ImageDatabase extends SQLiteOpenHelper {
     public List<Post> getList() {
         List<Post> posts = new ArrayList<>();
         opendatabase();
-        if (database == null) {
+        if (mSQLiteDatabase == null) {
             return null;
         }
-        Cursor cursor = database.rawQuery("SELECT * FROM images", null);
+        Cursor cursor = mSQLiteDatabase.rawQuery("SELECT * FROM images", null);
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             Post post = new Post();
             post.setName(cursor.getString(cursor.getColumnIndex("title")));

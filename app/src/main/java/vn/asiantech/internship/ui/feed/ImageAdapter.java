@@ -77,10 +77,10 @@ public class ImageAdapter extends PagerAdapter implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgBtnLeft:
-                mOnClickArrowListener.onClickLeft();
+                mOnClickArrowListener.onLeftClick();
                 break;
             case R.id.imgBtnRight:
-                mOnClickArrowListener.onClickRight();
+                mOnClickArrowListener.onRightClick();
                 break;
         }
     }
@@ -89,8 +89,8 @@ public class ImageAdapter extends PagerAdapter implements View.OnClickListener {
      * interface handle click arrow event in viewpager
      */
     interface OnClickArrowListener {
-        void onClickLeft();
+        void onLeftClick();
 
-        void onClickRight();
+        void onRightClick();
     }
 }
