@@ -21,7 +21,6 @@ import vn.asiantech.internship.models.Feed;
  * Feed Database
  */
 public class FeedDatabaseHelper extends SQLiteOpenHelper {
-
     private Context mContext;
     private static final String SEPARATOR = ",";
     private static final String DB_NAME = "list_image.sqlite";

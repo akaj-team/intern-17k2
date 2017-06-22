@@ -7,16 +7,16 @@ package vn.asiantech.internship.models;
 public class Feed {
     private int id;
     private String name;
-    private String[] idImgThumb;
+    private String[] idImgThumbs;
     private String description;
 
     public Feed() {
     }
 
-    public Feed(int id, String name, String[] idImgThumb, String description) {
+    public Feed(int id, String name, String[] idImgThumbs, String description) {
         this.id = id;
         this.name = name;
-        this.idImgThumb = idImgThumb;
+        this.idImgThumbs = idImgThumbs;
         this.description = description;
     }
 
@@ -36,12 +36,12 @@ public class Feed {
         this.name = name;
     }
 
-    public String[] getIdImgThumb() {
-        return idImgThumb;
+    public String[] getIdImgThumbs() {
+        return idImgThumbs;
     }
 
-    public void setIdImgThumb(String[] idImgThumb) {
-        this.idImgThumb = idImgThumb;
+    public void setIdImgThumbs(String[] idImgThumbs) {
+        this.idImgThumbs = idImgThumbs;
     }
 
     public String getDescription() {

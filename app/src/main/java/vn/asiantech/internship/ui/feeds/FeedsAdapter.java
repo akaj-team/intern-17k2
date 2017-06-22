@@ -42,7 +42,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         myViewHolder.mTvName.setText(mFeeds.get(position).getName());
         myViewHolder.mImgAvatar.setImageResource(R.drawable.ic_one);
         myViewHolder.mTvDescription.setText(mFeeds.get(position).getDescription());
-        myViewHolder.mViewPager.setAdapter(new ImageAdapter(myViewHolder.itemView.getContext(), mFeeds.get(position).getIdImgThumb()));
+        myViewHolder.mViewPager.setAdapter(new ImageAdapter(myViewHolder.itemView.getContext(), mFeeds.get(position).getIdImgThumbs()));
         myViewHolder.setArrow(position, myViewHolder.mViewPager.getCurrentItem());
     }
 
@@ -105,7 +105,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         }
 
         void setArrow(int posItemParent, int posImage) {
-            int sizeArray = mFeeds.get(posItemParent).getIdImgThumb().length;
+            int sizeArray = mFeeds.get(posItemParent).getIdImgThumbs().length;
             if (sizeArray == 1 || posImage == sizeArray - 1) {
                 mImgNext.setVisibility(View.GONE);
             } else {

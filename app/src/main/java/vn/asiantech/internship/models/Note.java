@@ -6,20 +6,20 @@ package vn.asiantech.internship.models;
  */
 public class Note {
     private int id;
-    private String noteDate;
-    private String noteTile;
-    private String noteDescription;
-    private String noteImagesThumb;
+    private String date;
+    private String tile;
+    private String description;
+    private String imagesThumb;
 
     public Note() {
     }
 
-    public Note(int id, String noteDate, String noteTile, String noteDescription, String noteImagesThumb) {
+    public Note(int id, String date, String tile, String description, String imagesThumb) {
         this.id = id;
-        this.noteDate = noteDate;
-        this.noteTile = noteTile;
-        this.noteDescription = noteDescription;
-        this.noteImagesThumb = noteImagesThumb;
+        this.date = date;
+        this.tile = tile;
+        this.description = description;
+        this.imagesThumb = imagesThumb;
     }
 
     public int getId() {
@@ -30,35 +30,35 @@ public class Note {
         this.id = id;
     }
 
-    public String getNoteDate() {
-        return noteDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setNoteDate(String noteDate) {
-        this.noteDate = noteDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getNoteTile() {
-        return noteTile;
+    public String getTile() {
+        return tile;
     }
 
-    public void setNoteTile(String noteTile) {
-        this.noteTile = noteTile;
+    public void setTile(String tile) {
+        this.tile = tile;
     }
 
-    public String getNoteDescription() {
-        return noteDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setNoteDescription(String noteDescription) {
-        this.noteDescription = noteDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getNoteImagesThumb() {
-        return noteImagesThumb;
+    public String getImagesThumb() {
+        return imagesThumb;
     }
 
-    public void setNoteImagesThumb(String noteImagesThumb) {
-        this.noteImagesThumb = noteImagesThumb;
+    public void setImagesThumb(String imagesThumb) {
+        this.imagesThumb = imagesThumb;
     }
 }
