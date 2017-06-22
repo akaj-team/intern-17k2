@@ -117,7 +117,7 @@ public class InformationEditFragment extends Fragment {
         mImgPhoto = (ImageView) v.findViewById(R.id.imgPhoto);
     }
 
-    public void convertBitmapToFile(Bitmap bitmap) {
+    public void convertBitmapToFile(Bitmap bitmap){
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//check if device mount with externalStorage
             String path = Environment.getExternalStorageDirectory().getPath();
             File file = new File(path, "ImageNote"); //create folder with absolute dir and filename
@@ -131,7 +131,7 @@ public class InformationEditFragment extends Fragment {
                 try {
                     file.createNewFile();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.d("Exception", "IOException");
                 }
             }
             try {
@@ -140,7 +140,7 @@ public class InformationEditFragment extends Fragment {
                 os.flush();
                 os.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.d("Exception", "IOException");
             }
             saveUriImage = Uri.parse(f.getAbsolutePath());
             Toast.makeText(getContext(), "uri:  " + saveUriImage, Toast.LENGTH_LONG).show();

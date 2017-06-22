@@ -22,6 +22,7 @@
 
         <EditText
             android:id="@+id/edtTitle"
+            android:labelFor="@+id/tvTitleNote"
             android:layout_width="@dimen/edittext.title.layout_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/edittext.title.layout_marginLeft"
@@ -30,6 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:labelFor="@+id/tvDescriptionNote"
             android:layout_marginStart="@dimen/edittext.title.layout_marginLeft"
             android:text="@string/textview.title_edit.text"
             android:textColor="@color/colorPrimaryDark"

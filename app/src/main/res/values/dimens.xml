@@ -55,7 +55,6 @@
     <dimen name="ll.time.layout_marginTop">8dp</dimen>
     <dimen name="imagview.edit_information.layout_width">300dp</dimen>
     <dimen name="imagview.edit_information.layout_height">200dp</dimen>
-    <dimen name="textview.notify.note">30sp</dimen>
     <item name="linearlayout.time.layout_weight" type="dimen">2</item>
     <item name="linearlayout.imageNote.layout_weight" type="dimen">2</item>
 </resources>
