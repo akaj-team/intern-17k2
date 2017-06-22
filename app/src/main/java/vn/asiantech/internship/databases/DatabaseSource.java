@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.note.databases;
+package vn.asiantech.internship.databases;
 
 import android.content.Context;
 
@@ -6,8 +6,8 @@ import android.content.Context;
  *
  * Created by Hai on 6/19/2017.
  */
-public class DatabaseResource extends DatabaseHelper {
-    public DatabaseResource(Context context) {
+public class DatabaseSource extends DatabaseHelper {
+    public DatabaseSource(Context context) {
         super(context);
     }
 

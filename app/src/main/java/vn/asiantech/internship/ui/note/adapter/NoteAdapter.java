@@ -20,10 +20,12 @@ import vn.asiantech.internship.models.Note;
  * Created by Hai on 6/19/2017.
  */
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ItemNoteViewHolder> {
+    private OnListener mOnListener;
     private List<Note> mNotes = new ArrayList<>();
 
-    public NoteAdapter(List<Note> notes) {
+    public NoteAdapter(List<Note> notes, OnListener onListener) {
         mNotes = notes;
+        mOnListener = onListener;
     }
 
     @Override
@@ -37,8 +39,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ItemNoteViewHo
         holder.mTvDayOfWeek.setText(mNotes.get(position).getDayOfWeek());
         holder.mTvDayOfMonth.setText(mNotes.get(position).getDayOfMonth());
         holder.mTvTime.setText(mNotes.get(position).getTime());
+        holder.mTvTitle.setText(mNotes.get(position).getTitle());
         holder.mTvContent.setText(mNotes.get(position).getContent());
-        holder.mImgContent.setImageURI(Uri.parse(mNotes.get(position).getImage()));
+        if (mNotes.get(position).getImage() != null) {
+            holder.mImgContent.setImageURI(Uri.parse(mNotes.get(position).getImage()));
+        }
     }
 
     @Override
@@ -53,6 +58,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ItemNoteViewHo
         private TextView mTvDayOfWeek;
         private TextView mTvDayOfMonth;
         private TextView mTvTime;
+        private TextView mTvTitle;
         private TextView mTvContent;
         private ImageView mImgContent;
 
@@ -61,8 +67,21 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ItemNoteViewHo
             mTvDayOfWeek = (TextView) itemView.findViewById(R.id.tvDayOfWeek);
             mTvDayOfMonth = (TextView) itemView.findViewById(R.id.tvDatOfMonth);
             mTvTime = (TextView) itemView.findViewById(R.id.tvTime);
+            mTvTitle = (TextView) itemView.findViewById(R.id.tvNoteTitle);
             mTvContent = (TextView) itemView.findViewById(R.id.tvContent);
             mImgContent = (ImageView) itemView.findViewById(R.id.imgContent);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnListener != null) {
+                        mOnListener.onItemClick(getAdapterPosition());
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnListener {
+        void onItemClick(int position);
     }
 }

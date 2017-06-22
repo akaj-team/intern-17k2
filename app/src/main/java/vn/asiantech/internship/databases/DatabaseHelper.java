@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.note.databases;
+package vn.asiantech.internship.databases;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -24,6 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NOTE_DAY_OF_WEEK = "Day_Of_Week";
     private static final String COLUMN_NOTE_DAY_OF_MONTH = "Day_Of_Month";
     private static final String COLUMN_NOTE_TIME = "Time";
+    private static final String COLUMN_NOTE_TITLE = "Title";
     private static final String COLUMN_NOTE_CONTENT = "Note_Content";
     private static final String COLUMN_NOTE_IMAGE_URI = "Image_Uri";
 
@@ -35,8 +36,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table " + TABLE_NOTE + "(" + COLUMN_NOTE_ID + " Integer primary key, "
                 + COLUMN_NOTE_DAY_OF_WEEK + " text, " + COLUMN_NOTE_DAY_OF_MONTH + " text, "
-                + COLUMN_NOTE_TIME + " text, " + COLUMN_NOTE_CONTENT + " text, "
-                + COLUMN_NOTE_IMAGE_URI + " text)";
+                + COLUMN_NOTE_TIME + " text, " + COLUMN_NOTE_TITLE + " text, "
+                + COLUMN_NOTE_CONTENT + " text, " + COLUMN_NOTE_IMAGE_URI + " text)";
         db.execSQL(sql);
     }
 
@@ -45,17 +46,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("drop table if exists " + TABLE_NOTE);
     }
 
-    public void insertDb(Note note) {
+    public void insertNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOTE_DAY_OF_WEEK, note.getDayOfWeek());
         values.put(COLUMN_NOTE_DAY_OF_MONTH, note.getDayOfMonth());
         values.put(COLUMN_NOTE_TIME, note.getTime());
+        values.put(COLUMN_NOTE_TITLE, note.getTitle());
         values.put(COLUMN_NOTE_CONTENT, note.getContent());
         values.put(COLUMN_NOTE_IMAGE_URI, note.getImage());
         db.insert(TABLE_NOTE, null, values);
         db.close();
     }
+
+//    public int updateNote(Note note) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_NOTE_DAY_OF_WEEK, note.getDayOfWeek());
+//        values.put(COLUMN_NOTE_DAY_OF_MONTH, note.getDayOfMonth());
+//        values.put(COLUMN_NOTE_TIME, note.getTime());
+//        values.put(COLUMN_NOTE_TITLE, note.getTitle());
+//        values.put(COLUMN_NOTE_CONTENT, note.getContent());
+//        values.put(COLUMN_NOTE_IMAGE_URI, note.getImage());
+//        return db.update(TABLE_NOTE, values, COLUMN_NOTE_TITLE + "=?", new String[]{String.valueOf(note.getTitle())});
+//    }
 
     public List<Note> getAllNote() {
         List<Note> notes = new ArrayList<>();
@@ -68,8 +82,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 note.setDayOfWeek(cursor.getString(1));
                 note.setDayOfMonth(cursor.getString(2));
                 note.setTime(cursor.getString(3));
-                note.setContent(cursor.getString(4));
-                note.setImage(cursor.getString(5));
+                note.setTitle(cursor.getString(4));
+                note.setContent(cursor.getString(5));
+                note.setImage(cursor.getString(6));
                 // Thêm vào danh sách.
                 notes.add(note);
             } while (cursor.moveToNext());

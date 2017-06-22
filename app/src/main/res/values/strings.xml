@@ -17,4 +17,6 @@
     <string name="friend">FRIEND</string>
     <string name="add">ADD</string>
     <string name="add.note">New note</string>
+    <string name="newnote.hint.title">Title</string>
+    <string name="newnote.hint.content">Content</string>
 </resources>

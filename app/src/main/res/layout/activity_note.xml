@@ -3,9 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/frgNote"
-        android:name="vn.asiantech.internship.ui.note.fragment.NoteFragment"
+    <FrameLayout
+        android:id="@+id/fmContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

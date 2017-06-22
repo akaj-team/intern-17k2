@@ -16,16 +16,18 @@ public class Note implements Parcelable {
     private String dayOfWeek;
     private String dayOfMonth;
     private String time;
+    private String title;
     private String content;
     private String image;
 
     public Note() {
     }
 
-    public Note(String dayOfWeek, String dayOfMonth, String time, String content, String image) {
+    public Note(String dayOfWeek, String dayOfMonth, String time, String title, String content, String image) {
         this.dayOfWeek = dayOfWeek;
         this.dayOfMonth = dayOfMonth;
         this.time = time;
+        this.title = title;
         this.content = content;
         this.image = image;
     }
@@ -34,6 +36,7 @@ public class Note implements Parcelable {
         dayOfWeek = in.readString();
         dayOfMonth = in.readString();
         time = in.readString();
+        title = in.readString();
         content = in.readString();
         image = in.readString();
     }
@@ -74,6 +77,14 @@ public class Note implements Parcelable {
         this.time = time;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getContent() {
         return content;
     }
@@ -100,6 +111,7 @@ public class Note implements Parcelable {
         dest.writeString(dayOfWeek);
         dest.writeString(dayOfMonth);
         dest.writeString(time);
+        dest.writeString(title);
         dest.writeString(content);
         dest.writeString(image);
     }
