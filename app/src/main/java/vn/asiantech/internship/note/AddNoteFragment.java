@@ -76,6 +76,15 @@ public class AddNoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 replaceFragment(mNoteFragment, false);
+                DatabaseHandler db = new DatabaseHandler(getContext());
+                db.addContact(new ItemNote(mEdtTitle.getText().toString(), mEdtNote.getText().toString(), mImagePath));
+            }
+        });
+
+        mImgPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
         return view;
@@ -97,9 +106,6 @@ public class AddNoteFragment extends Fragment {
             Toast.makeText(getContext(), "Bạn phải nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
         } else {
             ItemNote noteItem;
-            DatabaseHandler db = new DatabaseHandler(getContext());
-
-            db.addContact(new ItemNote(mEdtTitle.getText().toString(), mEdtNote.getText().toString(), mImagePath));
             if (mImgSave != null) {
                 noteItem = new ItemNote(mEdtTitle.getText().toString(), mEdtNote.getText().toString(), mImagePath);
             } else {
