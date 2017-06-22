@@ -1,11 +1,14 @@
 package vn.asiantech.internship.ui.adapter;
 
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -30,14 +33,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     @Override
     public void onBindViewHolder(NoteViewHolder holder, int position) {
-        Note note=mNotes.get(position);
+        Note note = mNotes.get(position);
         holder.mTvDate.setText(note.getDate());
         holder.mTvTitle.setText(note.getTitle());
         holder.mTvContent.setText(note.getContent());
-//        File file=new File(note.getUrlImage());
-//        if (file.exists()){
-//            holder.mImgNote.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
-//        }
+        ;
+        File file = new File(note.getUrlImage());
+        if (file.exists()) {
+            holder.mImgNote.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+        }
     }
 
     @Override
@@ -59,5 +63,4 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             mImgNote = (ImageView) itemView.findViewById(R.id.imgNote);
         }
     }
-
 }

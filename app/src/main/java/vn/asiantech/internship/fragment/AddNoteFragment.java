@@ -3,11 +3,14 @@ package vn.asiantech.internship.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -75,9 +79,10 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                 Note note = new Note();
                 String date = getDate();
                 note.setDate(date);
-                saveImageToSDCard(mBitmapImage,NoteActivity.folder,getName(date)+".png");
+                saveImageToSDCard(mBitmapImage, NoteActivity.folder, getName(date)+".png");
                 String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + NoteActivity.folder + "/";
                 note.setUrlImage(fullPath + getName(date)+".png");
+                Log.i("tag11", fullPath + getName(date) + ".png");
                 note.setTitle(mEdtTitle.getText().toString());
                 note.setContent(mEdtContent.getText().toString());
                 try {
@@ -98,9 +103,9 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUESTCODE_GALLERY) {
                 try {
-                    mBitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                    mBitmapImage = getImageNote(data.getData());
                     mImageViewNote.setImageBitmap(mBitmapImage);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -108,7 +113,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
     }
 
     public String getDate() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE MMM dd HH:mm", Locale.ENGLISH);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE MMM dd HH:mm:ss", Locale.ENGLISH);
         String arr[] = simpleDateFormat.format(Calendar.getInstance().getTime()).split(" ");
         Log.i("tag11", simpleDateFormat.format(Calendar.getInstance().getTime()));
         return arr[0] + "\n" + arr[1] + " " + arr[2] + "\n" + arr[3];
@@ -141,6 +146,40 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    private Bitmap getImageNote(Uri imageFileUri) {
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int dw = size.x;
+        int dh = size.y;
+        Bitmap bmp;
+        try {
+// Load up the image's dimensions not the image itself
+            BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+            bmpFactoryOptions.inJustDecodeBounds = true;
+            //bmp = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
+            int heightRatio = (int) Math
+                    .ceil(bmpFactoryOptions.outHeight / (float) dh);
+            int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth
+                    / (float) dw);
+            if (heightRatio > 1 && widthRatio > 1) {
+                if (heightRatio > widthRatio) {
+                    bmpFactoryOptions.inSampleSize = heightRatio;
+                } else {
+                    bmpFactoryOptions.inSampleSize = widthRatio;
+                }
+            }
+            bmpFactoryOptions.inJustDecodeBounds = false;
+            bmp = BitmapFactory.decodeStream(getActivity().getContentResolver()
+                            .openInputStream(imageFileUri), null,
+                    bmpFactoryOptions);
+            return bmp;
+        } catch (FileNotFoundException e) {
+            Log.v("ERROR", e.toString());
+            return null;
         }
     }
 }
