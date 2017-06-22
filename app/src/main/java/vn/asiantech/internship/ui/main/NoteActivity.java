@@ -179,7 +179,7 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.imgDelete:
                 DetailNoteFragment detailNoteFragment = (DetailNoteFragment) getCurrentFragment();
                 mNoteDatabase.deleteById(detailNoteFragment.getNoteId());
-                replaceFragment(mNoteFragment, true);
+                onBackPressed();
                 break;
             case R.id.imgEdit:
                 DetailNoteFragment detail = (DetailNoteFragment) getCurrentFragment();

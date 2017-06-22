@@ -73,7 +73,7 @@ public class DetailNoteFragment extends Fragment {
             mNote.setTime();
             mNote.setTitle(mEdtNoteTitle.getText().toString());
             mNote.setContent(mEdtNoteContent.getText().toString());
-            String savePath = "";
+            String savePath = null;
             if (mHaveBitmap) {
                 savePath = saveImage(((BitmapDrawable) mImgNotePicture.getDrawable()).getBitmap());
             }
