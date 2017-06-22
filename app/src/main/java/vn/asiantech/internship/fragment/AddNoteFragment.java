@@ -26,6 +26,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.databases.NoteDataBase;
 import vn.asiantech.internship.interfaces.OnReplaceFragmentListener;
 import vn.asiantech.internship.models.Note;
+import vn.asiantech.internship.ui.main.NoteActivity;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -72,9 +73,11 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.imgSave:
                 Note note = new Note();
-                String date=getDate();
+                String date = getDate();
                 note.setDate(date);
-
+                saveImageToSDCard(bitmapImage,NoteActivity.folder,getName(date)+".png");
+                String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + NoteActivity.folder + "/";
+                note.setUrlImage(fullPath + getName(date)+".png");
                 note.setTitle(mEdtTitle.getText().toString());
                 note.setContent(mEdtContent.getText().toString());
                 try {
@@ -95,7 +98,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUESTCODE_GALLERY) {
                 try {
-                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),data.getData());
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -109,11 +112,14 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
         Log.i("tag11", simpleDateFormat.format(Calendar.getInstance().getTime()));
         return arr[0] + "\n" + arr[1] + " " + arr[2] + "\n" + arr[3];
     }
-    public String getName(String date){
-        return date.replace("\n","").replace(" ","");
+
+    public String getName(String date) {
+        return date.replace("\n", "").replace(" ", "");
     }
+
     private static boolean saveImageToSDCard(Bitmap image, String folder, String name) {
         String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + folder + "/";
+        Log.i("tag11", name);
         try {
             File dir = new File(fullPath);
             if (!dir.exists()) {

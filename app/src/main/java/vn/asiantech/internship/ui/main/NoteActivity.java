@@ -18,6 +18,7 @@ import vn.asiantech.internship.interfaces.OnReplaceFragmentListener;
  */
 
 public class NoteActivity extends AppCompatActivity implements OnReplaceFragmentListener{
+    public static final String folder="imagenote";
     private MainNoteFragment mMainNoteFragment;
     private AddNoteFragment mAddNoteFragment;
     @Override
