@@ -49,7 +49,6 @@ public class DetailNoteFragment extends Fragment {
         mNote = (NoteItem) getArguments().getSerializable(NoteActivity.KEY_NOTE);
 
         if (mNote.getImage() != null) {
-            Log.i("tag1111", mNote.getImage()+"ggggg");
             mImgNotePicture.setVisibility(View.VISIBLE);
             mImgNotePicture.setImageURI(Uri.parse(mNote.getImage()));
         }
