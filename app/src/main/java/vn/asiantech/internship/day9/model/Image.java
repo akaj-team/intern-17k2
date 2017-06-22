@@ -4,30 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  Copyright © 2017 AsianTech inc.
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 20/06/2017.
  */
 public class Image {
-    private int _id;
+    private int id;
     private String title;
     private String description;
     private String link;
-    private List<String>  links;
+    private List<String> links;
 
-    public Image(int _id, String title, String description, String link) {
-        this._id = _id;
+    public Image(int id, String title, String description, String link) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.link = link;
-        links=new ArrayList<>();
+        links = new ArrayList<>();
     }
 
-    public int get_id() {
-        return _id;
+    public int getId() {
+        return id;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

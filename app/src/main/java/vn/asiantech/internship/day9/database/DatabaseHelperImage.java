@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,20 +19,17 @@ import java.io.OutputStream;
 public class DatabaseHelperImage extends SQLiteOpenHelper {
     private Context mContext;
 
-    private String DB_PATH = "data/data/vn.asiantech.internship/";
-    private static String DB_NAME = "list_image.sqlite";
-    private SQLiteDatabase myDatabase;
+    private final String DB_PATH = "data/data/vn.asiantech.internship/";
+    private static final String DB_NAME = "list_image.sqlite";
+    private SQLiteDatabase mMyDatabase;
 
-    public DatabaseHelperImage(Context context) {
+    DatabaseHelperImage(Context context) {
         super(context, DB_NAME, null, 1);
 
-        this.mContext = context;
+        mContext = context;
         boolean dbexist = checkdatabase();
 
-        if (dbexist) {
-        } else {
-            System.out.println("Database doesn't exist!");
-
+        if (!dbexist) {
             createDatabse();
         }
     }
@@ -43,13 +41,13 @@ public class DatabaseHelperImage extends SQLiteOpenHelper {
         try {
             copyDatabase();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("Exception", "Exception: IoException");
         }
     }
 
 
-    public SQLiteDatabase getMyDatabase() {
-        return myDatabase;
+    SQLiteDatabase getmMyDatabase() {
+        return mMyDatabase;
     }
 
 
@@ -69,13 +67,13 @@ public class DatabaseHelperImage extends SQLiteOpenHelper {
         myInput.close();
     }
 
-    public void open() {
+    void open() {
         String myPath = DB_PATH + DB_NAME;
-        myDatabase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+        mMyDatabase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     public synchronized void close() {
-        myDatabase.close();
+        mMyDatabase.close();
         super.close();
     }
 
@@ -88,7 +86,7 @@ public class DatabaseHelperImage extends SQLiteOpenHelper {
             File dbfile = new File(myPath);
             checkdb = dbfile.exists();
         } catch (SQLiteException e) {
-            System.out.println("Databse doesn't exist!");
+            Log.d("Exception", "Exception: SQLiteException");
         }
 
         return checkdb;

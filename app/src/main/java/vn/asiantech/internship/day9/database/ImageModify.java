@@ -24,7 +24,7 @@ public class ImageModify {
     }
 
     public Cursor getInformation() {
-        SQLiteDatabase sqliteDatabase = mDatabaseHelperImage.getMyDatabase();
+        SQLiteDatabase sqliteDatabase = mDatabaseHelperImage.getmMyDatabase();
         String sql = "select * from " + ImageModify.DATABASE_TABLE;
         Cursor cursor = sqliteDatabase.rawQuery(sql, null);
         if (cursor != null) {

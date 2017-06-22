@@ -18,7 +18,7 @@ import vn.asiantech.internship.day9.model.User;
 
 /**
  * Copyright © 2017 AsianTech inc.
- * Created by rimoka on 15/06/2017.
+ * Created by at-hoavo on 15/06/2017.
  */
 public class FeedFragment extends Fragment {
     private List<User> mUsers = new ArrayList<>();

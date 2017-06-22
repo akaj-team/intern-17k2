@@ -28,7 +28,7 @@ public class CustomFeedPagerAdapter extends PagerAdapter {
     private Context mContext;
     private ImageLoader mImageLoader;
 
-    public CustomFeedPagerAdapter(List<String> links, Context context) {
+    CustomFeedPagerAdapter(List<String> links, Context context) {
         mContext = context;
         mLinks = links;
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
