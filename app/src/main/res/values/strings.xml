@@ -12,8 +12,10 @@
     <string name="drawer.item.setting">Setting</string>
     <string name="button.day5.ex1.text">Day5 Ex1</string>
     <string name="button.day6.ex1.text">Day6 Ex1</string>
+    <string name="button.day13.note.text">Day13 Note</string>
     <string name="dialog.item.gallery">Gallery</string>
     <string name="dialog.item.Camera">Camera</string>
     <string name="friend">FRIEND</string>
     <string name="add">ADD</string>
+    <string name="chat.button.send">SEND</string>
 </resources>
