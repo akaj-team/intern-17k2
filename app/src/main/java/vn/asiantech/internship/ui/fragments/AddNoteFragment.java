@@ -1,16 +1,24 @@
 package vn.asiantech.internship.ui.fragments;
 
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.databases.NoteDatabase;
@@ -25,7 +33,6 @@ public class AddNoteFragment extends Fragment {
     private ImageView mImgNotePicture;
     private EditText mEdtNoteTitle;
     private EditText mEdtNoteContent;
-    private String mImagePath;
     private NoteDatabase mNoteDatabase;
 
     @Nullable
@@ -53,8 +60,9 @@ public class AddNoteFragment extends Fragment {
             Toast.makeText(getContext(), "Bạn phải nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
         } else {
             NoteItem noteItem;
-            if (mImagePath != null) {
-                noteItem = new NoteItem(mEdtNoteTitle.getText().toString(), mEdtNoteContent.getText().toString(), mImagePath);
+            String savePath = saveImage(((BitmapDrawable)mImgNotePicture.getDrawable()).getBitmap());
+            if (savePath != null) {
+                noteItem = new NoteItem(mEdtNoteTitle.getText().toString(), mEdtNoteContent.getText().toString(), savePath);
             } else {
                 noteItem = new NoteItem(mEdtNoteTitle.getText().toString(), mEdtNoteContent.getText().toString());
             }
@@ -68,13 +76,28 @@ public class AddNoteFragment extends Fragment {
         }
     }
 
-    public void addImage(String filePath) {
-        if (filePath != null) {
-            mImagePath = filePath;
+    public void addImage(Bitmap bitmap) {
+        if (bitmap != null) {
             mImgNotePicture.setVisibility(View.VISIBLE);
-            mImgNotePicture.setImageURI(Uri.parse(filePath));
+            mImgNotePicture.setImageBitmap(bitmap);
         } else {
             mImgNotePicture.setVisibility(View.GONE);
         }
+    }
+    public static String saveImage(Bitmap bitmap) {
+        String targetFolderPath = Environment.getExternalStorageDirectory().getPath() + File.separatorChar + "MyImage";
+        OutputStream outputStream;
+        try {
+            File targetFolder = new File(targetFolderPath);
+            targetFolder.mkdirs();
+            File targetFile = File.createTempFile("img", ".png", targetFolder);
+            outputStream = new FileOutputStream(targetFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+            outputStream.close();
+            return targetFile.getPath();
+        } catch (IOException x) {
+            Log.i("tag11", x.getMessage());
+        }
+        return null;
     }
 }

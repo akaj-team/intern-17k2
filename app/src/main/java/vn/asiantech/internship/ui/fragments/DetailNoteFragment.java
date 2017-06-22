@@ -1,5 +1,7 @@
 package vn.asiantech.internship.ui.fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,7 +31,6 @@ public class DetailNoteFragment extends Fragment {
     private EditText mEdtNoteTitle;
     private EditText mEdtNoteContent;
 
-    private String mImagePath;
     private NoteItem mNote;
 
     @Nullable
@@ -67,8 +68,9 @@ public class DetailNoteFragment extends Fragment {
             mNote.setTime();
             mNote.setTitle(mEdtNoteTitle.getText().toString());
             mNote.setContent(mEdtNoteContent.getText().toString());
-            if (mImagePath != null) {
-                mNote.setImage(mImagePath);
+            String imagePath = AddNoteFragment.saveImage(((BitmapDrawable) mImgNotePicture.getDrawable()).getBitmap());
+            if (imagePath != null) {
+                mNote.setImage(imagePath);
             }
             NoteDatabase noteDatabase = new NoteDatabase(getContext());
             noteDatabase.open();
@@ -78,11 +80,10 @@ public class DetailNoteFragment extends Fragment {
         }
     }
 
-    public void addImage(String filePath) {
-        if (filePath != null) {
-            mImagePath = filePath;
+    public void addImage(Bitmap bitmap) {
+        if (bitmap != null) {
             mImgNotePicture.setVisibility(View.VISIBLE);
-            mImgNotePicture.setImageURI(Uri.parse(filePath));
+            mImgNotePicture.setImageBitmap(bitmap);
         } else {
             mImgNotePicture.setVisibility(View.GONE);
         }

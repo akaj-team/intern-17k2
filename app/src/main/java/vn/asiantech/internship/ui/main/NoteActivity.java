@@ -2,10 +2,10 @@ package vn.asiantech.internship.ui.main;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,15 +13,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.FileNotFoundException;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.databases.NoteDatabase;
@@ -192,15 +190,16 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
-            String filePath = saveImage(uri);
-            Log.i("tag11", filePath + "---" + uri.toString());
+            Bitmap bitmap = getBitmap(uri);
             Fragment fragment = getCurrentFragment();
-            if (fragment instanceof AddNoteFragment) {
-                mAddNoteFragment.addImage(filePath);
-                return;
-            }
-            if (fragment instanceof DetailNoteFragment) {
-                ((DetailNoteFragment) fragment).addImage(filePath);
+            if (bitmap != null) {
+                if (fragment instanceof AddNoteFragment) {
+                    mAddNoteFragment.addImage(bitmap);
+                    return;
+                }
+                if (fragment instanceof DetailNoteFragment) {
+                    ((DetailNoteFragment) fragment).addImage(bitmap);
+                }
             }
         }
     }
@@ -224,20 +223,38 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
         return getSupportFragmentManager().findFragmentById(R.id.flFragmentContent);
     }
 
-    public String saveImage(Uri uri) {
-        String targetFolderPath = Environment.getExternalStorageDirectory().getPath() + File.separatorChar + "MyImage";
-        OutputStream outputStream;
+    private Bitmap getBitmap(Uri uri) {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int dw = size.x;
+        int dh = size.y;
         try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-            File targetFolder = new File(targetFolderPath);
-            targetFolder.mkdirs();
-            File targetFile = File.createTempFile("img", ".png", targetFolder);
-            outputStream = new FileOutputStream(targetFile);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-            outputStream.close();
-            return targetFile.getPath();
-        } catch (IOException x) {
-            Log.i("tag11", x.getMessage());
+            // Load up the image's dimensions not the image itself
+            BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+            bmpFactoryOptions.inJustDecodeBounds = true;
+            Bitmap bmp;
+            bmp = BitmapFactory.decodeStream(
+                    getContentResolver().openInputStream(uri),
+                    null, bmpFactoryOptions);
+            int heightRatio = (int) Math
+                    .ceil(bmpFactoryOptions.outHeight / (float) dh);
+            int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth
+                    / (float) dw);
+            if (heightRatio > 1 && widthRatio > 1) {
+                if (heightRatio > widthRatio) {
+                    bmpFactoryOptions.inSampleSize = heightRatio;
+                } else {
+                    bmpFactoryOptions.inSampleSize = widthRatio;
+                }
+            }
+            bmpFactoryOptions.inJustDecodeBounds = false;
+            bmp = BitmapFactory.decodeStream(getContentResolver()
+                            .openInputStream(uri), null,
+                    bmpFactoryOptions);
+            return bmp;
+        } catch (FileNotFoundException e) {
+            Log.v("ERROR", e.toString());
         }
         return null;
     }
