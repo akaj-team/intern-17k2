@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,6 @@ public class NoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (getActivity() instanceof NoteActivity) {
-                    Toast.makeText(getActivity(), "ok", Toast.LENGTH_LONG).show();
                     ((NoteActivity) getActivity()).changeFragment(new InformationEditFragment());
                 }
             }

@@ -4,7 +4,7 @@ package vn.asiantech.internship.day11.model;
  * Created by at-hoavo on 19/06/2017.
  */
 public class Note {
-    private int _id;
+    private int id;
     private String title;
     private String description;
     private String imageNote;
@@ -13,20 +13,20 @@ public class Note {
     public Note() {
     }
 
-    public Note(int _id, String title, String description, String imageNote, String time) {
-        this._id = _id;
+    public Note(int id, String title, String description, String imageNote, String time) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.imageNote = imageNote;
         this.time = time;
     }
 
-    public int get_id() {
-        return _id;
+    public int getId() {
+        return id;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
