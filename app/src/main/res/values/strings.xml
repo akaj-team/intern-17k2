@@ -1,5 +1,5 @@
 <resources>
-   <string name="imageview.description">this is image user</string>
+    <string name="imageview.description">this is image user</string>
     <string name="button.text.add">+ ADD</string>
     <string name="button.text.friends">Friends</string>
     <string-array name="list_user">
