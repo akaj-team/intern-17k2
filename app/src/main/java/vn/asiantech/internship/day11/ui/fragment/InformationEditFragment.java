@@ -35,7 +35,7 @@ import vn.asiantech.internship.day11.ui.activity.NoteActivity;
 import static android.app.Activity.RESULT_OK;
 
 /**
- *  Copyright © 2016 AsianTech inc.
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 19/06/2017.
  */
 public class InformationEditFragment extends Fragment {
@@ -89,16 +89,13 @@ public class InformationEditFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && data != null && requestCode == TYPE_GALLERY) {
-            if (data != null) {
-                Uri selectedImage = data.getData();
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-                Cursor cursor = getActivity().getContentResolver().query(
-                        selectedImage, filePathColumn, null, null, null);
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                }
-
+            Cursor cursor = getActivity().getContentResolver().query(
+                    selectedImage, filePathColumn, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 String filePath = cursor.getString(columnIndex);
                 cursor.close();
@@ -122,29 +119,29 @@ public class InformationEditFragment extends Fragment {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//check if device mount with externalStorage
             String path = Environment.getExternalStorageDirectory().getPath();
             File file = new File(path, "ImageNote"); //create folder with absolute dir and filename
-            if (!file.exists()) {
-                file.mkdir();
-            } else {
-                Log.d("Error", "  Folder isn't create ");
+            boolean isDirectoryCreated = file.exists();
+            if (!isDirectoryCreated) {
+                isDirectoryCreated = file.mkdir();
             }
-            File f = new File(file, "Image" + setFileName() + ".png");
-            if (!file.exists()) {
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    Log.d("Exception", "IOException");
+            if (isDirectoryCreated) {
+                File f = new File(file, "Image" + setFileName() + ".png");
+                boolean isfileCreated = f.exists();
+                if (!isfileCreated) {
+                    isfileCreated = file.mkdir();
+                }
+                if (isfileCreated) {
+                    try {
+                        OutputStream os = new FileOutputStream(f);  //create outputstream to write file
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, os); // compress bitmap to PNG
+                        os.flush();
+                        os.close();
+                    } catch (IOException e) {
+                        Log.d("Exception", "IOException");
+                    }
+                    saveUriImage = Uri.parse(f.getAbsolutePath());
+                    Toast.makeText(getContext(), "uri:  " + saveUriImage, Toast.LENGTH_LONG).show();
                 }
             }
-            try {
-                OutputStream os = new FileOutputStream(f);  //create outputstream to write file
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, os); // compress bitmap to PNG
-                os.flush();
-                os.close();
-            } catch (IOException e) {
-                Log.d("Exception", "IOException");
-            }
-            saveUriImage = Uri.parse(f.getAbsolutePath());
-            Toast.makeText(getContext(), "uri:  " + saveUriImage, Toast.LENGTH_LONG).show();
         }
     }
 

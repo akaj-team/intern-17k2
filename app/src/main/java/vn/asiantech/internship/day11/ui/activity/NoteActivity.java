@@ -11,6 +11,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.day11.ui.fragment.NoteFragment;
 
 /**
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 19/06/2017.
  */
 public class NoteActivity extends AppCompatActivity {

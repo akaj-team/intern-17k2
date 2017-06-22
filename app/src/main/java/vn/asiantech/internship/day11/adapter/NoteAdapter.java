@@ -15,6 +15,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.day11.model.Note;
 
 /**
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 19/06/2017.
  */
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {

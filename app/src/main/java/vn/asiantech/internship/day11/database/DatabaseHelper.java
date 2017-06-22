@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
 /**
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 20/06/2017.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -13,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_DESCRIPTION = "descriptiom";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_TIME = "time";
-    public static final String DATABASE_TABLE = "note";
+    static final String DATABASE_TABLE = "note";
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "db_note";

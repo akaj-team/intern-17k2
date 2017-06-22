@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import vn.asiantech.internship.day11.model.Note;
 
 /**
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 20/06/2017.
  */
 public class NoteModify {

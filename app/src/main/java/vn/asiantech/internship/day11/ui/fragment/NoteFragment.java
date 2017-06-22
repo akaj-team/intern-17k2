@@ -22,6 +22,7 @@ import vn.asiantech.internship.day11.model.Note;
 import vn.asiantech.internship.day11.ui.activity.NoteActivity;
 
 /**
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 19/06/2017.
  */
 public class NoteFragment extends Fragment {

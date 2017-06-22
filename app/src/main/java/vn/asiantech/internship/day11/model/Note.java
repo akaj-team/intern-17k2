@@ -1,6 +1,7 @@
 package vn.asiantech.internship.day11.model;
 
 /**
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 19/06/2017.
  */
 public class Note {
