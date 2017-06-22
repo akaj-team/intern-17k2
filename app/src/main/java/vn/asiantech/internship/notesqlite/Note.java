@@ -17,7 +17,6 @@ class Note {
     private String content;
     private String pathImage;
 
-
     public Note(String dayOfWeek, String day, String month, String hour, String title, String content, String pathImage) {
         this.dayOfWeek = dayOfWeek;
         this.day = day;

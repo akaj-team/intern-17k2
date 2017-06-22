@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -51,7 +51,7 @@ public class AddNoteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_note, container, false);
-        mImgNote = (ImageView) view.findViewById(R.id.imgImageNote);
+        mImgNote = (ImageView) view.findViewById(R.id.imgNote);
         mEdtTitle = (EditText) view.findViewById(R.id.edtTitle);
         mEdtContent = (EditText) view.findViewById(R.id.edtContent);
         ImageView imgChooseImage = (ImageView) view.findViewById(R.id.imgAddImage);
@@ -68,14 +68,13 @@ public class AddNoteFragment extends Fragment {
             }
         });
 
-
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Date date = new Date();
                 SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
                 SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
-                if (mEdtTitle.getText().toString().equals("") || mEdtContent.getText().toString().equals("") || mUriImage == null) {
+                if (TextUtils.equals(mEdtTitle.getText().toString(), "") || TextUtils.equals(mEdtContent.getText().toString(), "") || mUriImage == null) {
                     Toast.makeText(getActivity(), "Inquire enough data entry!", Toast.LENGTH_LONG).show();
                 } else {
                     mDatabase.open();
@@ -99,11 +98,9 @@ public class AddNoteFragment extends Fragment {
                 column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 cursor.moveToFirst();
                 path = cursor.getString(column_index);
+                cursor.close();
             } else {
                 path = null;
-            }
-            if (cursor != null) {
-                cursor.close();
             }
             return path;
         } catch (NullPointerException e) {
@@ -134,17 +131,12 @@ public class AddNoteFragment extends Fragment {
         File image = new File(sdCardDirectory, name + ".png");
         boolean success = false;
         try {
-
             FileOutputStream outStream = new FileOutputStream(image);
             bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            try {
-                outStream.flush();
-                outStream.close();
-            } catch (IOException e) {
-                Log.e("SaveImage: ", e.toString());
-            }
+            outStream.flush();
+            outStream.close();
             success = true;
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             Log.e("SaveImage: ", e.toString());
         }
         if (success) {

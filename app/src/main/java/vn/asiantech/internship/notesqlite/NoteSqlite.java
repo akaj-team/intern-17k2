@@ -46,7 +46,6 @@ class NoteSqlite {
         mOpenHelper.close();
     }
 
-
     long createNote(Note note) {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_DATE, note.getDayOfWeek());

@@ -20,7 +20,6 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-9
  */
-
 class NoteAdapter extends RecyclerView.Adapter {
     private List<Note> mNotes = new ArrayList<>();
 
