@@ -8,13 +8,11 @@ class ItemChat {
     private boolean check;
 
     ItemChat(String text, boolean check) {
-
         this.text = text;
         this.check = check;
     }
 
     ItemChat() {
-
     }
 
     public String getText() {

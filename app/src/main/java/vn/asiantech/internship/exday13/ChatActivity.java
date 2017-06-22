@@ -22,7 +22,7 @@ import vn.asiantech.internship.R;
  * Created by datbu on 21-06-2017.
  */
 public class ChatActivity extends AppCompatActivity {
-    private EditText mditText;
+    private EditText mEditText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mditText = (EditText) findViewById(R.id.edtChat);
+        mEditText = (EditText) findViewById(R.id.edtChat);
         final Button button = (Button) findViewById(R.id.btnChat);
 
         final List<ItemChat> itemChats = new ArrayList<>();
@@ -46,7 +46,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        mditText.addTextChangedListener(new TextWatcher() {
+        mEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -68,17 +68,17 @@ public class ChatActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemChats.add(new ItemChat(mditText.getText().toString().trim(), false));
-                mditText.setText("");
+                itemChats.add(new ItemChat(mEditText.getText().toString().trim(), false));
+                mEditText.setText("");
                 adapter.notifyItemInserted(itemChats.size());
-                itemChats.add(rep());
+                itemChats.add(replyMessage());
                 adapter.notifyItemInserted(itemChats.size() - 1);
                 layoutManager.scrollToPosition(itemChats.size() - 1);
             }
         });
     }
 
-    public ItemChat rep() {
+    public ItemChat replyMessage() {
         ItemChat itemChat = new ItemChat();
         Random random = new Random();
         int m = random.nextInt();
