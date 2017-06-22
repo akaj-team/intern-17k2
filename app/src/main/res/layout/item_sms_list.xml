@@ -14,7 +14,7 @@
         android:background="@drawable/chat2"
         android:gravity="center_vertical"
         android:textColor="@color/colorWhite"
-        android:textSize="20sp" />
+        android:textSize="@dimen/chat.textView.size" />
 
     <TextView
         android:id="@+id/tvRecieve"
@@ -23,6 +23,6 @@
         android:background="@drawable/chat1"
         android:gravity="center_vertical"
         android:textColor="@color/colorWhite"
-        android:textSize="20sp"
+        android:textSize="@dimen/chat.textView.size"
         android:visibility="gone" />
 </RelativeLayout>

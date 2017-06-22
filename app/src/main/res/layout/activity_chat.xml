@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
-        android:padding="5dp" />
+        android:padding="@dimen/chat.recyclerView.padding" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="@dimen/chat.linearLayout.height"
         android:background="@color/colorGrey"
-        android:padding="10dp">
+        android:padding="@dimen/chat.linearLayout.padding">
 
         <EditText
             android:id="@+id/edtInputSms"

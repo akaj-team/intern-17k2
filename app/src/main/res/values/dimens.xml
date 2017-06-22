@@ -32,4 +32,8 @@
     <dimen name="chat.toolbar.height">56dp</dimen>
     <dimen name="chat.relativeLayout.margin_top">5dp</dimen>
     <dimen name="textView.margin_left">5dp</dimen>
+    <dimen name="chat.textView.size">20dp</dimen>
+    <dimen name="chat.linearLayout.padding">10dp</dimen>
+    <dimen name="chat.linearLayout.height">70dp</dimen>
+    <dimen name="chat.recyclerView.padding">10dp</dimen>
 </resources>
