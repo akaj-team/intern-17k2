@@ -10,7 +10,7 @@
         android:layout_height="@dimen/viewpager.height"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        tool:src="@drawable/lu2" />
+        tool:src="@drawable/img_luffy" />
 
     <ImageButton
         android:id="@+id/imgBtnLeft"
