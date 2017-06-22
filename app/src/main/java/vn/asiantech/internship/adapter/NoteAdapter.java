@@ -21,7 +21,7 @@ import vn.asiantech.internship.models.Note;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
     private List<Note> mNotes;
-    private int[] colors = {0xfff44336, 0xffe91e63, 0xff9c27b0, 0xff3f51b5, 0xff2196f3, 0xff00bcd4, 0xff4caf50, 0xff8bc34a, 0xffcddc39, 0xffffeb3b, 0xffffc107, 0xffff5722, 0xff795548, 0xff607d8b};
+    private int[] mColors = {0xfff44336, 0xffe91e63, 0xff9c27b0, 0xff3f51b5, 0xff2196f3, 0xff00bcd4, 0xff4caf50, 0xff8bc34a, 0xffcddc39, 0xffffeb3b, 0xffffc107, 0xffff5722, 0xff795548, 0xff607d8b};
 
     public NoteAdapter(List<Note> notes) {
         mNotes = notes;
@@ -40,7 +40,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.mTvDate.setText(note.getNoteDate());
         holder.mTvTitle.setText(note.getNoteTile());
         holder.mTvDescription.setText(note.getNoteDescription());
-        holder.mView.setBackgroundColor(colors[random.nextInt(colors.length)]);
+        holder.mView.setBackgroundColor(mColors[random.nextInt(mColors.length)]);
         if (note.getNoteImagesThumb().equalsIgnoreCase("")) {
             holder.mImgAvatar.setVisibility(View.GONE);
         } else {

@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -78,19 +77,17 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
         File file = new File(extStorageDirectory, fileName + ".thg");
         File fileThumb = new File(extStorageDirectory, fileName + ".thg.thumb");
         try {
-            //using when show full HD images
+            // Using when show full HD images
             FileOutputStream outStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
             outStream.flush();
             outStream.close();
 
-            //Save thumb using to set image thumb
+            // Save thumb using to set image thumb
             FileOutputStream outStreamThumb = new FileOutputStream(fileThumb);
             bitmap.compress(Bitmap.CompressFormat.PNG, 20, outStreamThumb);
             outStreamThumb.flush();
             outStreamThumb.close();
-        } catch (FileNotFoundException e) {
-            Log.d("FeedsFragment", "saveImageToSdCard: " + e.toString());
         } catch (IOException e) {
             Log.d("FeedsFragment", "saveImageToSdCard: " + e.toString());
         }
@@ -112,9 +109,8 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
     private void saveData() {
         Note note = new Note();
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEE dd MMM HH:mm", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMM HH:mm", Locale.US);
         String writeDay = dateFormat.format(date);
-
         note.setNoteTile(mEdtTitle.getText().toString());
         note.setNoteDescription(mEdtDescription.getText().toString());
         note.setNoteDate(writeDay);
@@ -124,7 +120,7 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
             note.setNoteImagesThumb(mFilePath);
         }
         mDatabaseHelper.createNote(note);
-        NoteFragment.setFragmentAddContent(getActivity(), new NoteShowListFragment());
+        NoteFragment.replaceFragmentAddContent(getActivity(), new NoteShowListFragment());
         Toast.makeText(getContext(), getString(R.string.complete), Toast.LENGTH_SHORT).show();
     }
 
@@ -142,12 +138,12 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
             switch (requestCode) {
                 case MainActivity.KEY_LIBRARY:
                     Uri uriSelectedImage = data.getData();
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    String[] filePathColumns = {MediaStore.Images.Media.DATA};
                     @SuppressLint("Recycle") Cursor cursor = getActivity().getContentResolver().query(uriSelectedImage,
-                            filePathColumn, null, null, null);
+                            filePathColumns, null, null, null);
                     assert cursor != null;
                     cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    int columnIndex = cursor.getColumnIndex(filePathColumns[0]);
                     String picturePath = cursor.getString(columnIndex);
                     bitmap = BitmapFactory.decodeFile(picturePath);
                     setImage(bitmap);

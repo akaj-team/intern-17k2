@@ -23,7 +23,7 @@ public class Ex072Activity extends AppCompatActivity implements BFragment.OnBFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ex072);
         Button btnSend = (Button) findViewById(R.id.btnSend);
-        setFragment();
+        replaceFragment();
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,7 +32,7 @@ public class Ex072Activity extends AppCompatActivity implements BFragment.OnBFra
         });
     }
 
-    private void setFragment() {
+    private void replaceFragment() {
         mAFragment = new AFragment();
         mBFragment = new BFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

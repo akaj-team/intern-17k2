@@ -63,14 +63,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return List<Note> Notes
      */
     public List<Note> getAllNotes() {
-
         List<Note> notes = new ArrayList<>();
         String selectQuery = SELECT_FROM + TABLE_NOTES;
-
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
+        // Looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
                 Note note = new Note();
@@ -80,7 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 note.setNoteDate(c.getString(c.getColumnIndex(KEY_DATE)));
                 note.setNoteImagesThumb(c.getString(c.getColumnIndex(KEY_IMAGE_URI)));
 
-                // adding to Note list
+                // Adding to Note list
                 notes.add(note);
             } while (c.moveToNext());
         }
@@ -124,14 +122,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public int updateNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, note.getNoteTile());
         values.put(KEY_DESCRIPTION, note.getNoteDescription());
         values.put(KEY_DATE, note.getNoteDate());
         values.put(KEY_IMAGE_URI, note.getNoteImagesThumb());
 
-        // updating row
+        // Updating row
         return db.update(TABLE_NOTES, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(note.getId())});
     }

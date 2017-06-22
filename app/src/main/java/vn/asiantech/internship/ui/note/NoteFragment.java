@@ -33,7 +33,7 @@ public class NoteFragment extends Fragment {
         imgBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragmentAddContent(getActivity(), new NoteAddNewFragment());
+                replaceFragmentAddContent(getActivity(), new NoteAddNewFragment());
                 mRlSecond.setVisibility(View.VISIBLE);
             }
         });
@@ -47,7 +47,7 @@ public class NoteFragment extends Fragment {
 
     private void checkContent(DatabaseHelper databaseHelper) {
         if (databaseHelper.getAllNotes().size() != 0) {
-            setFragmentAddContent(getActivity(), new NoteShowListFragment());
+            replaceFragmentAddContent(getActivity(), new NoteShowListFragment());
             mRlSecond.setVisibility(View.VISIBLE);
             return;
         }
@@ -59,7 +59,7 @@ public class NoteFragment extends Fragment {
      * @param fragmentActivity Activity Fragment
      * @param fragment to replace
      */
-    public static void setFragmentAddContent(FragmentActivity fragmentActivity, Fragment fragment) {
+    public static void replaceFragmentAddContent(FragmentActivity fragmentActivity, Fragment fragment) {
         FragmentTransaction fragmentTransaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top);
         fragmentTransaction.replace(R.id.rlSecond, fragment);

@@ -43,7 +43,7 @@ public class NoteShowListFragment extends Fragment {
         imgBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NoteFragment.setFragmentAddContent(getActivity(), new NoteAddNewFragment());
+                NoteFragment.replaceFragmentAddContent(getActivity(), new NoteAddNewFragment());
             }
         });
         return v;
