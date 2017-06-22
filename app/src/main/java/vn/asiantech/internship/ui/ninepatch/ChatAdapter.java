@@ -28,20 +28,20 @@ class ChatAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_line_chat, parent, false);
-        return new FeedViewHolder(itemView);
+        return new ChatViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        FeedViewHolder myViewHolder = (FeedViewHolder) holder;
-        myViewHolder.mTvShowMessage.setText(mMessages.get(position).getContent());
-        myViewHolder.mImgAvatar.setImageResource(mMessages.get(position).getState());
+        ChatViewHolder chatViewHolder = (ChatViewHolder) holder;
+        chatViewHolder.mTvShowMessage.setText(mMessages.get(position).getContent());
+        chatViewHolder.mImgAvatar.setImageResource(mMessages.get(position).getState());
         if (mMessages.get(position).getState() == R.drawable.ic_three) {
-            myViewHolder.mTvShowMessage.setBackgroundResource(R.drawable.bg_chat_badboy);
+            chatViewHolder.mTvShowMessage.setBackgroundResource(R.drawable.bg_chat_badboy);
         } else if (mMessages.get(position).getState() == R.drawable.ic_two) {
-            myViewHolder.mTvShowMessage.setBackgroundResource(R.drawable.bg_chat_vegeta);
+            chatViewHolder.mTvShowMessage.setBackgroundResource(R.drawable.bg_chat_vegeta);
         } else {
-            myViewHolder.mTvShowMessage.setBackgroundResource(R.drawable.bg_chat_power);
+            chatViewHolder.mTvShowMessage.setBackgroundResource(R.drawable.bg_chat_power);
         }
     }
 
@@ -53,11 +53,11 @@ class ChatAdapter extends RecyclerView.Adapter {
     /**
      * Used to register for message.
      */
-    private class FeedViewHolder extends RecyclerView.ViewHolder {
+    private class ChatViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvShowMessage;
         private ImageView mImgAvatar;
 
-        FeedViewHolder(View itemView) {
+        ChatViewHolder(View itemView) {
             super(itemView);
             mTvShowMessage = (TextView) itemView.findViewById(R.id.tvShowMessage);
             mImgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);

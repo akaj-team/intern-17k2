@@ -45,13 +45,13 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
                 showToast("I did not add to this activity"); // i'll change when i add this Ex
                 break;
             case R.id.btnEx08:
-
+                // TODO add code Ex 08
                 break;
             case R.id.btnEx11:
-
+                // TODO add code Ex 11.1
                 break;
             case R.id.btnEx11_2:
-
+                // TODO add code Ex 11.2
                 break;
             case R.id.btnEx13:
                 openActivity(ChatActivity.class);
