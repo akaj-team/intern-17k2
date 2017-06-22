@@ -25,7 +25,6 @@ import vn.asiantech.internship.R;
  * @since 2017-6-9
  */
 class FeedAdapter extends RecyclerView.Adapter {
-
     private List<Feed> mFeeds = new ArrayList<>();
     private final Context mContext;
 
@@ -72,7 +71,6 @@ class FeedAdapter extends RecyclerView.Adapter {
             mFeedViewPager = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
             mImgNext = (ImageView) itemView.findViewById(R.id.imgNext);
             mImgBack = (ImageView) itemView.findViewById(R.id.imgBack);
-
             mFeedViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

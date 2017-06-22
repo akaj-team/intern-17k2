@@ -33,7 +33,6 @@ public class FeedFragment extends Fragment {
         FeedSqlite data = new FeedSqlite(getActivity());
         data.openDatabase();
         mImages.addAll(data.getList());
-
         data.close();
         for (int i = 0; i < mImages.size(); i++) {
             List<Image> links = new ArrayList<>();
