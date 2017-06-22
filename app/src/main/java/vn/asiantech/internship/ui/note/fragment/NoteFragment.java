@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,9 +23,6 @@ import vn.asiantech.internship.databases.DatabaseHelper;
  * Created by Hai on 6/19/2017.
  */
 public class NoteFragment extends Fragment {
-    public static final String KEY_NOTE = "123";
-    public static final int VALUE_NEW_NOTE = 123;
-    public static final int VALUE_EDIT_NOTE = 1234;
     private NoteAdapter mNoteAdapter;
     private List<Note> mNotes;
 
@@ -44,7 +40,7 @@ public class NoteFragment extends Fragment {
         mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnListener() {
             @Override
             public void onItemClick(int position) {
-                replaceFragment(new NewNoteFragment(), KEY_NOTE, VALUE_EDIT_NOTE);
+                replaceFragment(new NewNoteFragment());
             }
         });
         getBundle();
@@ -52,7 +48,7 @@ public class NoteFragment extends Fragment {
         imgNewNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new NewNoteFragment(), KEY_NOTE, VALUE_NEW_NOTE);
+                replaceFragment(new NewNoteFragment());
             }
         });
         return view;
@@ -67,10 +63,7 @@ public class NoteFragment extends Fragment {
         }
     }
 
-    private void replaceFragment(Fragment fragment, String key, int value) {
-        Bundle bundle = new Bundle();
-        bundle.putInt(key, value);
-        fragment.setArguments(bundle);
+    private void replaceFragment(Fragment fragment) {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fmContent, fragment, null)
                 .addToBackStack(null)

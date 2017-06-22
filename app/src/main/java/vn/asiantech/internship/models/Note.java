@@ -1,17 +1,13 @@
 package vn.asiantech.internship.models;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
 
 /**
  * model store data
  * <p>
  * Created by Hai on 6/19/2017.
  */
-
 public class Note implements Parcelable {
     private String dayOfWeek;
     private String dayOfMonth;

@@ -57,7 +57,6 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
         mEdtTitle = (EditText) view.findViewById(R.id.edtNoteTitle);
         mEdtInputContent = (EditText) view.findViewById(R.id.edtInputContent);
 
-        mImgAddImage.setOnClickListener(this);
         imgSaveNote.setOnClickListener(this);
         imgAttach.setOnClickListener(this);
         return view;
@@ -66,9 +65,6 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.imgAddImage:
-                //intentGallery();
-                break;
             case R.id.imgSaveNote:
                 saveNote();
                 break;
@@ -102,7 +98,7 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
             fOut.close();
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
             return false;
         }
     }
@@ -117,7 +113,7 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
         if (!title.isEmpty()) {
             DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
             Date now = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", Locale.US);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", java.util.Locale.getDefault());
             String dayOfWeek = dateFormat.format(now);
             String dateTime = new SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().getTime());
             String time = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
@@ -126,7 +122,7 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
                 try {
                     copyImageToSDCard(getBitmapFromUri(mUri), PATH, mFileName);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    e.getMessage();
                 }
                 Log.d("xxxx", PATH.concat(mFileName));
                 note = new Note(dayOfWeek, dateTime, time, title, content, PATH.concat(mFileName));

@@ -81,6 +81,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ItemNoteViewHo
         }
     }
 
+    /**
+     * interface event itemView click
+     */
     public interface OnListener {
         void onItemClick(int position);
     }
