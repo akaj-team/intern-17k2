@@ -19,9 +19,6 @@ public class ActionFragment extends Fragment {
     private TextView mTvContent;
     private Button mBtnGet;
 
-    /**
-     * callback to send event click
-     */
     private OnSendDataListener mOnSendDataListener;
 
     /**
@@ -31,12 +28,11 @@ public class ActionFragment extends Fragment {
         void onSendData();
     }
 
-    public void setOnSendDataListener(OnSendDataListener onSendDataListener){
+    public void setOnSendDataListener(OnSendDataListener onSendDataListener) {
         mOnSendDataListener = onSendDataListener;
     }
 
     public ActionFragment() {
-
     }
 
     @Override
