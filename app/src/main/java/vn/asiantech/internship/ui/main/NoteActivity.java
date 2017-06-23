@@ -29,7 +29,7 @@ public class NoteActivity extends AppCompatActivity implements OnReplaceFragment
         setContentView(R.layout.activity_note);
         mMainNoteFragment=new MainNoteFragment();
         mAddNoteFragment=new AddNoteFragment();
-        switchFragment(mMainNoteFragment,true,R.id.flContain);
+        switchFragment(mMainNoteFragment,false,R.id.flContain);
     }
 
     public void switchFragment(Fragment fragment, boolean addToBackStack, int id) {
@@ -48,13 +48,13 @@ public class NoteActivity extends AppCompatActivity implements OnReplaceFragment
 
     @Override
     public void onReplaceFragmentAdd() {
-        switchFragment(mAddNoteFragment,true,R.id.flContain);
+        switchFragment(mAddNoteFragment,false,R.id.flContain);
     }
 
     @Override
     public void OnReplaceFragmentMain() {
         mMainNoteFragment.updateData();
-        switchFragment(mMainNoteFragment,true,R.id.flContain);
+        switchFragment(mMainNoteFragment,false,R.id.flContain);
     }
 
 }

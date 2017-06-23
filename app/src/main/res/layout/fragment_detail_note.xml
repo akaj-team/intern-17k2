@@ -55,11 +55,17 @@
         android:id="@+id/tvTitleNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/textview.size"/>
+        android:textSize="@dimen/textview.size" />
 
     <TextView
         android:id="@+id/tvContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/textview.size"/>
+        android:textSize="@dimen/textview.size" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textview.size" />
 </LinearLayout>
