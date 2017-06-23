@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Internship</string>
+
+    <!--Activity-->
+    <string name="textview.test_activity.previous">Previous</string>
+    <string name="textview.test_activity.next">Next</string>
+    <string name="textview.test_activity.result">Result</string>
+    <string name="textview_test_activity.file_name">My Test</string>
 </resources>
