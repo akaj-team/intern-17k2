@@ -8,29 +8,30 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="TextAuthorStyle">
-    <item name="android:textColor">@color/colorWhite</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:padding">@dimen/paddingSomeThing</item>
-    <item name="android:textSize">@dimen/textSizeAuthor</item>
-</style>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">@dimen/paddingSomeThing</item>
+        <item name="android:textSize">@dimen/textSizeAuthor</item>
+    </style>
 
-<style name="TextHeadStyle">
-<item name="android:textColor">@color/colorTextHead</item>
-<item name="android:textSize">@dimen/textSizeAuthor</item>
-<item name="android:textStyle">bold</item>
-</style>
+    <style name="TextHeadStyle">
+        <item name="android:textColor">@color/colorTextHead</item>
+        <item name="android:textSize">@dimen/textSizeAuthor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
-<style name="TextHeadFriendStyle">
-<item name="android:layout_gravity">center_horizontal</item>
-<item name="android:textColor">@color/colorTextHead</item>
-<item name="android:textSize">@dimen/textSizeHeadFriend</item>
-<item name="android:textStyle">bold</item>
-</style>
+    <style name="TextHeadFriendStyle">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/colorTextHead</item>
+        <item name="android:textSize">@dimen/textSizeHeadFriend</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
-<style name="ToolbarColoredBackArrow" parent="AppTheme">
-<item name="android:textColorSecondary">@color/colorMenuArrow</item>
-</style>
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/colorMenuArrow</item>
+    </style>
 
     <style name="TextViewStyleNormal">
         <item name="android:textColor">#000</item>
@@ -48,5 +49,10 @@
         <item name="android:layout_margin">@dimen/marginButtonContent</item>
         <item name="android:textSize">@dimen/friendsTextSize</item>
         <item name="android:textColor">@color/friendsColorWhite</item>
+    </style>
+
+    <style name="TextViewStyleNormalQuestion">
+        <item name="android:textColor">@color/colorMenuArrow</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>
