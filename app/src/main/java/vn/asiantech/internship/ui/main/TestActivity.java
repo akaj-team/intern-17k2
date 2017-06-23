@@ -41,7 +41,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-
         mViewPagerContent = (ViewPager) findViewById(R.id.viewPagerContent);
         mTvTitle = (TextView) findViewById(R.id.tvTitle);
         mTvPrev = (TextView) findViewById(R.id.tvPrev);
@@ -53,9 +52,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         mTvResult.setOnClickListener(this);
         mTvNext.setVisibility(View.VISIBLE);
 
-
-        mQuestionSet = Question.GetQuestionSet(loadJSONFromAsset(), 10);
-
+        mQuestionSet = Question.getQuestionSet(loadJSONFromAsset(), 10);
         mAdapter = new TestAdapter(getSupportFragmentManager(), mQuestionSet);
         mViewPagerContent.setAdapter(mAdapter);
 

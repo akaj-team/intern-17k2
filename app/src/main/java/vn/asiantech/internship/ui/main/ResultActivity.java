@@ -65,13 +65,13 @@ public class ResultActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.re_test_title));
         builder.setMessage(R.string.re_test_message);
-        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 finish();
             }
-        }).setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(ResultActivity.this, TestActivity.class);
