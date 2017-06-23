@@ -1,4 +1,8 @@
 <resources>
+
+    <string name="get_text">Get Text</string>
+    <string name="pass_data">Pass Data</string>
+
     <string name="app_name">MyProject</string>
     <string name="btn_friend">Friend</string>
     <string name="btn_add">Add</string>
