@@ -25,14 +25,14 @@ public class CommunicateActivity extends AppCompatActivity {
     private void initUi() {
         mInputFragment = new InputFragment();
         mActionFragment = new ActionFragment();
-        OnSendDataListener mOnSendDataListener = new OnSendDataListener() {
+        OnSendDataListener onSendDataListener = new OnSendDataListener() {
             @Override
             public void onSendData() {
                 String mContent = mInputFragment.getText();
                 mActionFragment.setText(mContent);
             }
         };
-        mActionFragment.setOnSendDataListener(mOnSendDataListener);
+        mActionFragment.setOnSendDataListener(onSendDataListener);
         replaceFragment(R.id.frContainerInput, mInputFragment);
         replaceFragment(R.id.frContainerAction, mActionFragment);
     }
