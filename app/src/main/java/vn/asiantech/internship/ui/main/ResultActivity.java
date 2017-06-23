@@ -63,7 +63,7 @@ public class ResultActivity extends AppCompatActivity {
 
     public void showConfirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.re_test));
+        builder.setTitle(getString(R.string.re_test_title));
         builder.setMessage(R.string.re_test_message);
         builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
             @Override

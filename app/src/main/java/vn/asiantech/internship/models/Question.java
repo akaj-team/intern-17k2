@@ -106,7 +106,7 @@ public class Question implements Serializable, Parcelable {
         return false;
     }
 
-    public static ArrayList<Question> GetQuestionSet(JSONArray jsonArray, int dataSetLenght) {
+    public static ArrayList<Question> getQuestionSet(JSONArray jsonArray, int dataSetLenght) {
         ArrayList<Question> questionSet = new ArrayList<>();
         List<JSONObject> jsonObjects = new ArrayList<>();
         Random random = new Random();
