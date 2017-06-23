@@ -28,7 +28,7 @@ public class NinePathActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewChat);
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewChat);
         final EditText edtChat = (EditText) findViewById(R.id.edtChat);
         Button btnSend = (Button) findViewById(R.id.btnSend);
         final List<Chat> chats = new ArrayList<>();
@@ -43,6 +43,7 @@ public class NinePathActivity extends AppCompatActivity {
                     Random random = new Random();
                     chats.add(new Chat(text, random.nextBoolean()));
                     ninePathAdapter.notifyDataSetChanged();
+                    recyclerView.scrollToPosition(chats.size()-1);
                     edtChat.setText("");
                 } else {
                     Toast.makeText(getApplicationContext(), "input content", Toast.LENGTH_LONG).show();
