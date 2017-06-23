@@ -41,6 +41,7 @@ public class QuizFragment extends Fragment {
     private TextView mTvResult;
     private QuizAdapter mQuizAdapter;
     private List<Question> mQuestions;
+    private List<Question> mQuestionsRandom;
     private List<Answer> mAnswers=new ArrayList<>();
 
     @Nullable
@@ -54,7 +55,7 @@ public class QuizFragment extends Fragment {
         mTvResult= (TextView) v.findViewById(R.id.tvResultLabel);
         mQuestions=getData();
         getAnswer();
-        mQuizAdapter=new QuizAdapter(getFragmentManager(),mQuestions,mAnswers);
+        mQuizAdapter=new QuizAdapter(getFragmentManager(),mQuestionsRandom,mAnswers);
         mViewPager.setAdapter(mQuizAdapter);
         mTvQuiz.setText("Question 1");
         mImgPrevious.setVisibility(View.INVISIBLE);
