@@ -31,6 +31,9 @@ public class NoteFragment extends Fragment {
     private NoteDatabase mNoteDatabase;
     private OnChangeFragment mOnChangeFragment;
 
+    /**
+     * interface to change fragment
+     */
     interface OnChangeFragment {
         void onChange(int key, int id);
     }

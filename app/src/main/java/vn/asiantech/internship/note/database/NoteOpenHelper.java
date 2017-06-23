@@ -18,20 +18,19 @@ public class NoteOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "DATABASE_NOTE";
     private static final int VERSION = 1;
 
-    private String sqlCreateTable = "CREATE TABLE " + TABLE_NAME
-            + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COL_TITLE + " TEXT NOT NULL, "
-            + COL_CONTENT + " TEXT, "
-            + COL_PATH + " TEXT, "
-            + COL_DATETIME + " TEXT "
-            + ");";
-
     public NoteOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        String sqlCreateTable = "CREATE TABLE " + TABLE_NAME
+                + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_TITLE + " TEXT NOT NULL, "
+                + COL_CONTENT + " TEXT, "
+                + COL_PATH + " TEXT, "
+                + COL_DATETIME + " TEXT "
+                + ");";
         sqLiteDatabase.execSQL(sqlCreateTable);
     }
 

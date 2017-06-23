@@ -137,7 +137,7 @@ public class NoteAddFragment extends Fragment {
                 mBmpAttach = BitmapFactory.decodeStream(bufferedInputStream);
                 mImageView.setImageBitmap(mBmpAttach);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Log.e("Error", "FileNotFoundException");
             }
         }
     }

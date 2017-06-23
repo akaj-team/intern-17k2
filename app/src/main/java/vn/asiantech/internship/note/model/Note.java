@@ -3,7 +3,6 @@ package vn.asiantech.internship.note.model;
 /**
  * Created by at-dinhvo on 19/06/2017.
  */
-
 public class Note {
 
     private int id;

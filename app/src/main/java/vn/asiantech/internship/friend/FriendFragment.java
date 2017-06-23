@@ -51,14 +51,14 @@ public class FriendFragment extends Fragment {
 
     private void initFriendData(List<Friend> friends) {
         friends.add(new Friend("Abc xyz 001"));
-        friends.add(new Friend("Abc xyz 001"));
-        friends.add(new Friend("Abc xyz 001"));
-        friends.add(new Friend("Abc xyz 001"));
-        friends.add(new Friend("Abc xyz 001"));
-        friends.add(new Friend("Abc xyz 001"));
-        friends.add(new Friend("Abc xyz 001"));
-        friends.add(new Friend("Abc xyz 001"));
-        friends.add(new Friend("Abc xyz 001"));
-        friends.add(new Friend("Abc xyz 001"));
+        friends.add(new Friend("Abc xyz 002"));
+        friends.add(new Friend("Abc xyz 003"));
+        friends.add(new Friend("Abc xyz 004"));
+        friends.add(new Friend("Abc xyz 005"));
+        friends.add(new Friend("Abc xyz 006"));
+        friends.add(new Friend("Abc xyz 007"));
+        friends.add(new Friend("Abc xyz 008"));
+        friends.add(new Friend("Abc xyz 009"));
+        friends.add(new Friend("Abc xyz 010"));
     }
 }

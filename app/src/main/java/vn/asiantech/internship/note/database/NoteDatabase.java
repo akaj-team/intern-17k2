@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ public class NoteDatabase {
 
     private Context mContext;
     private NoteOpenHelper mDatabaseHelper;
-    public SQLiteDatabase mSqLiteDatabase;
+    private SQLiteDatabase mSqLiteDatabase;
 
     private static NoteDatabase mNoteDatabase;
 
@@ -51,18 +50,17 @@ public class NoteDatabase {
 
     public long createData(Note note) {
         ContentValues contentValues = new ContentValues();
-//        contentValues.put(COL_ID, note.getId());
-        contentValues.put(NoteOpenHelper.COL_TITLE, note.getTitle());
-        contentValues.put(NoteOpenHelper.COL_CONTENT, note.getContent());
-        contentValues.put(NoteOpenHelper.COL_PATH, note.getPath());
+        contentValues.put(COL_TITLE, note.getTitle());
+        contentValues.put(COL_CONTENT, note.getContent());
+        contentValues.put(COL_PATH, note.getPath());
         contentValues.put(COL_DATETIME, note.getDatetime());
-        return mSqLiteDatabase.insert(NoteOpenHelper.TABLE_NAME, null, contentValues);
+        return mSqLiteDatabase.insert(TABLE_NAME, null, contentValues);
     }
 
     public ArrayList<Note> getAllData() {
         ArrayList<Note> notes = new ArrayList<>();
         String[] columns = new String[]{COL_ID, COL_TITLE, COL_CONTENT, COL_PATH, COL_DATETIME};
-        Cursor cursor = mSqLiteDatabase.query(NoteOpenHelper.TABLE_NAME, columns, null, null, null, null, null);
+        Cursor cursor = mSqLiteDatabase.query(TABLE_NAME, columns, null, null, null, null, null);
         Note note;
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             note = new Note(cursor.getString(1),
@@ -78,7 +76,6 @@ public class NoteDatabase {
 
     public Note getItem(int id) {
         Note note = new Note();
-        Log.e("Grzzzzrrrrrrr", "wtf ID: " + id);
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_ID + " = " + id;
         Cursor cursor = mSqLiteDatabase.rawQuery(sql, null);
         if (cursor != null) {
@@ -95,9 +92,5 @@ public class NoteDatabase {
 
     public boolean deleteNote(int id) {
         return mSqLiteDatabase.delete(TABLE_NAME, COL_ID + "=" + id, null) > 0;
-    }
-
-    public int deleteNoteAll() {
-        return mSqLiteDatabase.delete(NoteOpenHelper.TABLE_NAME, null, null);
     }
 }
