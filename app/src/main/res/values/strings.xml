@@ -28,5 +28,5 @@
     <string name="next">Next</string>
     <string name="result">Result</string>
     <string name="confirm_title">Confirm to sunbit</string>
-    <string name="confirm_message">You was completed %d/%d question.Do you want to submit?</string>
+    <string name="confirm_message">You was completed  question.Do you want to submit?</string>
 </resources>
