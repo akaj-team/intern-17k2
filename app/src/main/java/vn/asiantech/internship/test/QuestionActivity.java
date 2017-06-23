@@ -1,6 +1,5 @@
 package vn.asiantech.internship.test;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -17,6 +16,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -47,6 +47,7 @@ public class QuestionActivity extends AppCompatActivity {
         mQuestionViewPager = (ViewPager) findViewById(R.id.testViewPager);
         mQuestions = new ArrayList<>();
         mQuestions.addAll(getObject());
+        Collections.shuffle(mQuestions);
         mAdapter = new QuestionViewPagerAdapter(getSupportFragmentManager(), mQuestions);
         mQuestionViewPager.setAdapter(mAdapter);
 
@@ -56,7 +57,6 @@ public class QuestionActivity extends AppCompatActivity {
 
             }
 
-            @SuppressLint("SetTextI18n")
             @Override
             public void onPageSelected(int position) {
                 updateButton(position);

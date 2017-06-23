@@ -30,7 +30,7 @@ public class ResultActivity extends AppCompatActivity {
         List<Result> results = new ArrayList<>();
         List<Question> questions = getIntent().getParcelableArrayListExtra(ResultDialog.TEST_LIST);
         for (int i = 0; i < questions.size(); i++) {
-            results.add(new Result(getString(R.string.textView_question) + " " + i + 1, questions.get(i).isTrue()));
+            results.add(new Result(getString(R.string.textView_question) + " " + (i + 1), questions.get(i).isTrue()));
         }
         ResultAdapter adapter = new ResultAdapter(results);
         resultRecyclerView.setAdapter(adapter);
