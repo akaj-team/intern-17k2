@@ -50,7 +50,6 @@ public class NoteAddFragment extends Fragment {
 
     private Bitmap mBmpAttach;
     private NoteDatabase mNoteDatabase;
-    private String mPathImage = "";
 
     public NoteAddFragment() {
     }
@@ -147,25 +146,6 @@ public class NoteAddFragment extends Fragment {
         getActivity().getMenuInflater().inflate(R.menu.menu_create_note, menu);
     }
 
-    /*public static Bitmap readImage(String folder, String filename, Context context) {
-        Bitmap img = null;
-        String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + folder + "/" + filename;
-        try {
-            img = BitmapFactory.decodeFile(fullPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            File myFile = context.getFileStreamPath(filename);
-            FileInputStream fIn = new FileInputStream(myFile);
-            img = BitmapFactory.decodeStream(fIn);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return img;
-    }*/
-
     public static String convertStringDatetimeToFileName(String date) {
         return date.replace(":", "").replace(" ", "").replace("-", "");
     }
@@ -185,7 +165,7 @@ public class NoteAddFragment extends Fragment {
             fOut.close();
             return file.getPath();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("Error", "IOException");
             return null;
         }
     }
