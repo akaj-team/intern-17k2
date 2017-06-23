@@ -41,7 +41,7 @@ public class MainNoteFragment extends Fragment {
             Log.i("TAG111", mNotes.size() + "");
             mNoteDataBase.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("tag","ERROR");
         }
         mNoteAdapter = new NoteAdapter(mNotes);
         mRecyclerViewNote.setAdapter(mNoteAdapter);
@@ -68,7 +68,7 @@ public class MainNoteFragment extends Fragment {
             mNoteAdapter.notifyDataSetChanged();
             mNoteDataBase.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("tag1","ERROR");
         }
     }
 }

@@ -85,8 +85,8 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                     break;
                 }
                 if (mBitmapImage != null) {
-                    saveImageToSDCard(mBitmapImage, NoteActivity.folder, getName(date) + ".png");
-                    String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + NoteActivity.folder + "/";
+                    saveImageToSDCard(mBitmapImage, NoteActivity.FOLDER, getName(date) + ".png");
+                    String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + NoteActivity.FOLDER + "/";
                     note.setUrlImage(fullPath + getName(date) + ".png");
                     Log.i("tag11", fullPath + getName(date) + ".png");
                 }
@@ -97,9 +97,9 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                     mNoteDataBase.addNote(note);
                     mNoteDataBase.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.d("tag","ERROR");
                 }
-                ((OnReplaceFragmentListener) v.getContext()).OnReplaceFragmentMain();
+                ((OnReplaceFragmentListener) v.getContext()).onReplaceFragmentMain();
                 break;
         }
     }
@@ -113,7 +113,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                     mBitmapImage = getImageNote(data.getData());
                     mImageViewNote.setImageBitmap(mBitmapImage);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.i("tag111","ERROR");
                 }
             }
         }
@@ -126,7 +126,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
      */
     public String getDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE MMM dd HH:mm:ss", Locale.ENGLISH);
-        String arr[] = simpleDateFormat.format(Calendar.getInstance().getTime()).split(" ");
+        String[] arr = simpleDateFormat.format(Calendar.getInstance().getTime()).split(" ");
         Log.i("tag11", simpleDateFormat.format(Calendar.getInstance().getTime()));
         return arr[0] + "\n" + arr[1] + " " + arr[2] + "\n" + arr[3];
     }
@@ -142,10 +142,10 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * save image to folder in SDCard
+     * save image to FOLDER in SDCard
      *
      * @param image  is image need save
-     * @param folder is folder that image saved
+     * @param folder is FOLDER that image saved
      * @param name   is name of image
      * @return
      */
@@ -170,7 +170,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
             fOut.close();
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("tag1111","ERROR");
             return false;
         }
     }

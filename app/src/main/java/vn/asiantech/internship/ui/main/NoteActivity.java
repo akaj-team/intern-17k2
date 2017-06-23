@@ -19,9 +19,8 @@ import vn.asiantech.internship.ui.adapter.NoteAdapter;
  * Created by ducle on 19/06/2017.
  */
 public class NoteActivity extends AppCompatActivity implements OnReplaceFragmentListener, NoteAdapter.OnClickItemNoteListener {
-    public static final String folder = "imagenote";
+    public static final String FOLDER = "imagenote";
     private MainNoteFragment mMainNoteFragment;
-    private AddNoteFragment mAddNoteFragment;
     private DetailNoteFragment mDetailNoteFragment;
 
     @Override
@@ -31,7 +30,6 @@ public class NoteActivity extends AppCompatActivity implements OnReplaceFragment
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 0);
         setContentView(R.layout.activity_note);
         mMainNoteFragment = new MainNoteFragment();
-        mAddNoteFragment = new AddNoteFragment();
         mDetailNoteFragment = new DetailNoteFragment();
         switchFragment(mMainNoteFragment, false, R.id.flContain);
     }
@@ -59,11 +57,12 @@ public class NoteActivity extends AppCompatActivity implements OnReplaceFragment
 
     @Override
     public void onReplaceFragmentAdd() {
-        switchFragment(mAddNoteFragment, false, R.id.flContain);
+        AddNoteFragment addNoteFragment = new AddNoteFragment();
+        switchFragment(addNoteFragment, false, R.id.flContain);
     }
 
     @Override
-    public void OnReplaceFragmentMain() {
+    public void onReplaceFragmentMain() {
         mMainNoteFragment.updateData();
         switchFragment(mMainNoteFragment, false, R.id.flContain);
     }

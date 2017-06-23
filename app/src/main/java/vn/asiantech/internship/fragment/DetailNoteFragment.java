@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
             mNotes = mNoteDataBase.getList();
             mNoteDataBase.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("tag","ERROR");
         }
         Bundle bundle = getArguments();
         int position = bundle.getInt("position");
@@ -88,9 +89,9 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
             mNoteDataBase.open();
             mNoteDataBase.delete(mNote);
             mNoteDataBase.close();
-            ((OnReplaceFragmentListener) getActivity()).OnReplaceFragmentMain();
+            ((OnReplaceFragmentListener) getActivity()).onReplaceFragmentMain();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("tag1","ERROR");
         }
     }
 }
