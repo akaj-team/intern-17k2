@@ -43,6 +43,7 @@
 
         <ImageView
             android:id="@+id/imgNote"
+            android:background="@color/colorSelect"
             android:layout_width="@dimen/item.image_size"
             android:layout_height="@dimen/item.image_size"
             android:layout_gravity="center_vertical"
