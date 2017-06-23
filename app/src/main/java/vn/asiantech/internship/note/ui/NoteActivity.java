@@ -27,23 +27,20 @@ public class NoteActivity extends AppCompatActivity {
         OnChangeFragment onChangeFragment = new OnChangeFragment() {
             @Override
             public void onChange(int key, int id) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 switch (key) {
                     case 1:
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.frContainer, new NoteAddFragment());
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
                         break;
                     case 2:
-                        FragmentTransaction frtransaction = getSupportFragmentManager().beginTransaction();
                         DetailFragment detailFragment = new DetailFragment();
                         Bundle bundle = new Bundle();
                         bundle.putInt(KEY_ID, id);
                         detailFragment.setArguments(bundle);
-                        frtransaction.replace(R.id.frContainer, detailFragment);
-                        frtransaction.addToBackStack(null);
-                        frtransaction.commit();
+                        fragmentTransaction.replace(R.id.frContainer, detailFragment);
                 }
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         };
         noteFragment.setOnChangeFragment(onChangeFragment);

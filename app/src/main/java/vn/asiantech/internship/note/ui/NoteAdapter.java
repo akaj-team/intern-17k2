@@ -1,17 +1,13 @@
 package vn.asiantech.internship.note.ui;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -20,12 +16,12 @@ import vn.asiantech.internship.note.model.Note;
 /**
  * Created by at-dinhvo on 19/06/2017.
  */
-public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
+class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     private List<Note> mNotes;
     private OnClickItemNote mOnClickItemNote;
 
-    public NoteAdapter(List<Note> data, OnClickItemNote onClickItemNote) {
+    NoteAdapter(List<Note> data, OnClickItemNote onClickItemNote) {
         mNotes = data;
         mOnClickItemNote = onClickItemNote;
     }
@@ -43,17 +39,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         holder.mTvNoteTitle.setText(note.getTitle());
         holder.mTvNoteContent.setText(note.getContent());
         holder.mTvDateTime.setText(note.getDatetime());
-//        setImage(holder.mImgNote, note.getPath());
         holder.mImgNote.setImageURI(Uri.parse(note.getPath()));
-    }
-
-    private void setImage(ImageView imageView, String path) {
-        File imgFile = new File(path);
-        if (imgFile.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(path);
-            imageView.setImageBitmap(myBitmap);
-            Log.e("Grzzzzzzzzzz", path);
-        }
     }
 
     @Override
@@ -86,7 +72,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         }
     }
 
-    public interface OnClickItemNote {
+    /**
+     * send position
+     */
+    interface OnClickItemNote {
         void onClick(int pos);
     }
 }

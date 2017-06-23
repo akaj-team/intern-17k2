@@ -1,15 +1,11 @@
 package vn.asiantech.internship.note.ui;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +23,6 @@ import android.widget.ImageView;
 
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -109,7 +104,7 @@ public class NoteAddFragment extends Fragment {
                         mNoteDatabase.createData(new Note(
                                 mEdtTitle.getText().toString(),
                                 mEdtContent.getText().toString(),
-                                saveImageToSDCard(mBmpAttach, "at-dinhvo", imageName),
+                                saveImageToSDCard(mBmpAttach, "at-dinhvo"),
                                 dateTime
                         ));
                     }
@@ -133,16 +128,6 @@ public class NoteAddFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK && data != null) {
-            /*Uri imageUri = data.getData();
-            try {
-                InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                mImageView.setImageBitmap(selectedImage);
-                Uri uri = data.getData();
-                mPathImage = getRealPathFromURI(getContext(), uri);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }*/
             try {
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(data.getData());
                 BufferedInputStream bufferedInputStream = null;
@@ -157,26 +142,12 @@ public class NoteAddFragment extends Fragment {
         }
     }
 
-    public String getRealPathFromURI(Context context, Uri contentUri) {
-        String result;
-        Cursor cursor = context.getContentResolver().query(contentUri, null, null, null, null);
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = contentUri.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-        return result;
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         getActivity().getMenuInflater().inflate(R.menu.menu_create_note, menu);
     }
 
-    public static Bitmap readImage(String folder, String filename, Context context) {
+    /*public static Bitmap readImage(String folder, String filename, Context context) {
         Bitmap img = null;
         String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + folder + "/" + filename;
         try {
@@ -193,27 +164,25 @@ public class NoteAddFragment extends Fragment {
             e.printStackTrace();
         }
         return img;
-    }
+    }*/
 
     public static String convertStringDatetimeToFileName(String date) {
-        return date.toString().replace(":", "").replace(" ", "").replace("-", "");
+        return date.replace(":", "").replace(" ", "").replace("-", "");
     }
 
-    public static String saveImageToSDCard(Bitmap image, String folder, String name) {
+    public static String saveImageToSDCard(Bitmap image, String folder) {
         String fullPath = Environment.getExternalStorageDirectory().getPath() + "/" + folder + "/";
         try {
             File folders = new File(fullPath);
             if (!folders.exists()) {
                 folders.mkdirs();
             }
-
             OutputStream fOut = null;
-            File file = File.createTempFile("img",".png",folders);
+            File file = File.createTempFile("img", ".png", folders);
             fOut = new FileOutputStream(file);
             image.compress(Bitmap.CompressFormat.PNG, 100, fOut);
             fOut.flush();
             fOut.close();
-            Log.e("grrrrrrrrrrr", fullPath);
             return file.getPath();
         } catch (IOException e) {
             e.printStackTrace();

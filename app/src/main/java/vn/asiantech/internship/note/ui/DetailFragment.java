@@ -1,6 +1,7 @@
 package vn.asiantech.internship.note.ui;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,7 +25,6 @@ import vn.asiantech.internship.note.model.Note;
  */
 public class DetailFragment extends Fragment {
 
-    private Toolbar mToolbar;
     private TextView mTvTitle;
     private TextView mTvContent;
     private TextView mTvDate;
@@ -63,16 +63,17 @@ public class DetailFragment extends Fragment {
         mTvTitle.setText(note.getTitle());
         mTvContent.setText(note.getContent());
         mTvDate.setText(note.getDatetime());
+        mImageNote.setImageURI(Uri.parse(note.getPath()));
     }
 
     private void initUI(View view) {
-        mToolbar = (Toolbar) view.findViewById(R.id.toolBarDetailNote);
+        Toolbar toolBar = (Toolbar) view.findViewById(R.id.toolBarDetailNote);
         mTvDate = (TextView) view.findViewById(R.id.tvDateTimeAdd);
         mTvTitle = (TextView) view.findViewById(R.id.tvNoteTitle);
         mTvContent = (TextView) view.findViewById(R.id.tvNoteContent);
         mImageNote = (ImageView) view.findViewById(R.id.imgDetailNote);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Note");
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolBar);
+        toolBar.setTitle("Detail Note");
         setHasOptionsMenu(true);
     }
 
