@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Internship</string>
     <!--Splash-->
-    <string name="bai5">Bai5</string>
+    <string name="bai13">Bai13</string>
     <string name="bai8">Bai8</string>
     <!--Bai5-->
     <string name="friendfragment_button_friend_state">Friend</string>
@@ -31,6 +31,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button">Get Content</string>
+
     <!--Bai8-->
     <!--feedactivity-->
     <string name="feed.buttonleft_description">Slide left</string>
@@ -38,5 +39,8 @@
     <string-array name="dialog_items">
         <item>Gallery</item>
         <item>Camera</item>
-    </string-array><!-- TODO: Remove or change this placeholder text -->
+    </string-array>
+    <!--Bai13-->
+    <string name="button_message">Send</string>
+    <string name="chat_app">Chat App</string>
 </resources>

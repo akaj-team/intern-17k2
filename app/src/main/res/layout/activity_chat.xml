@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="vn.asiantech.internship.drawer.day13.ChatActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBarChat"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity.toolbar_height"
+        android:background="@color/colorToolbar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewChat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/item.cardview_padding"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item.cardview_padding"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edtMessage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:inputType="textCapSentences" />
+
+        <Button
+            android:id="@+id/btnMessage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/button_message" />
+    </LinearLayout>
+</LinearLayout>
