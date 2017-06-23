@@ -1,6 +1,7 @@
 package vn.asiantech.internship.ui.adapter;
 
 import android.graphics.BitmapFactory;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,6 @@ import vn.asiantech.internship.models.Note;
 /**
  * Created by ducle on 21/06/2017.
  */
-
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
     private List<Note> mNotes;
 
@@ -37,10 +37,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.mTvDate.setText(note.getDate());
         holder.mTvTitle.setText(note.getTitle());
         holder.mTvContent.setText(note.getContent());
-        ;
-        File file = new File(note.getUrlImage());
-        if (file.exists()) {
-            holder.mImgNote.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+        if (note.getUrlImage() != null) {
+            File file = new File(note.getUrlImage());
+            if (file.exists()) {
+                holder.mImgNote.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+            }
         }
     }
 
@@ -49,11 +50,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         return mNotes != null ? mNotes.size() : 0;
     }
 
-    class NoteViewHolder extends RecyclerView.ViewHolder {
+    class NoteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvDate;
         private TextView mTvTitle;
         private TextView mTvContent;
         private ImageView mImgNote;
+        private CardView mCardViewItem;
 
         public NoteViewHolder(View itemView) {
             super(itemView);
@@ -61,6 +63,21 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             mTvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             mTvContent = (TextView) itemView.findViewById(R.id.tvContent);
             mImgNote = (ImageView) itemView.findViewById(R.id.imgNote);
+            mCardViewItem = (CardView) itemView.findViewById(R.id.cardViewItem);
+            mCardViewItem.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.cardViewItem:
+                    ((OnClickItemNoteListener) v.getContext()).onItemClick(getAdapterPosition());
+                    break;
+            }
+        }
+    }
+
+    public interface OnClickItemNoteListener {
+        void onItemClick(int positon);
     }
 }

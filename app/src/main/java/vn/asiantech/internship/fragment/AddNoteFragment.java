@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -79,10 +80,16 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                 Note note = new Note();
                 String date = getDate();
                 note.setDate(date);
-                saveImageToSDCard(mBitmapImage, NoteActivity.folder, getName(date)+".png");
-                String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + NoteActivity.folder + "/";
-                note.setUrlImage(fullPath + getName(date)+".png");
-                Log.i("tag11", fullPath + getName(date) + ".png");
+                if (mEdtTitle.getText().toString().equals("")||mEdtContent.getText().toString().equals("")){
+                    Toast.makeText(getActivity(),"vui long nhap day du",Toast.LENGTH_LONG).show();
+                    break;
+                }
+                if (mBitmapImage != null) {
+                    saveImageToSDCard(mBitmapImage, NoteActivity.folder, getName(date) + ".png");
+                    String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + NoteActivity.folder + "/";
+                    note.setUrlImage(fullPath + getName(date) + ".png");
+                    Log.i("tag11", fullPath + getName(date) + ".png");
+                }
                 note.setTitle(mEdtTitle.getText().toString());
                 note.setContent(mEdtContent.getText().toString());
                 try {

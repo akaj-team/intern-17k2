@@ -10,17 +10,19 @@ import android.view.WindowManager;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.fragment.AddNoteFragment;
+import vn.asiantech.internship.fragment.DetailNoteFragment;
 import vn.asiantech.internship.fragment.MainNoteFragment;
 import vn.asiantech.internship.interfaces.OnReplaceFragmentListener;
+import vn.asiantech.internship.ui.adapter.NoteAdapter;
 
 /**
  * Created by ducle on 19/06/2017.
  */
-
-public class NoteActivity extends AppCompatActivity implements OnReplaceFragmentListener{
+public class NoteActivity extends AppCompatActivity implements OnReplaceFragmentListener,NoteAdapter.OnClickItemNoteListener{
     public static final String folder="imagenote";
     private MainNoteFragment mMainNoteFragment;
     private AddNoteFragment mAddNoteFragment;
+    private DetailNoteFragment mDetailNoteFragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,7 @@ public class NoteActivity extends AppCompatActivity implements OnReplaceFragment
         setContentView(R.layout.activity_note);
         mMainNoteFragment=new MainNoteFragment();
         mAddNoteFragment=new AddNoteFragment();
+        mDetailNoteFragment=new DetailNoteFragment();
         switchFragment(mMainNoteFragment,false,R.id.flContain);
     }
 
@@ -57,4 +60,20 @@ public class NoteActivity extends AppCompatActivity implements OnReplaceFragment
         switchFragment(mMainNoteFragment,false,R.id.flContain);
     }
 
+    @Override
+    public void onItemClick(int positon) {
+        Bundle bundle=new Bundle();
+        bundle.putInt("position",positon);
+        mDetailNoteFragment.setArguments(bundle);
+        switchFragment(mDetailNoteFragment,false,R.id.flContain);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Fragment fragment=getFragmentManager().findFragmentById(R.id.flContain);
+        if (!(fragment instanceof MainNoteFragment)){
+            switchFragment(mMainNoteFragment,false,R.id.flContain);
+        }
+    }
 }
