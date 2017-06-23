@@ -31,12 +31,15 @@ public class NoteFragment extends Fragment {
     private NoteDatabase mNoteDatabase;
     private OnChangeFragment mOnChangeFragment;
 
-    public interface OnChangeFragment {
+    interface OnChangeFragment {
         void onChange(int key, int id);
     }
 
-    public NoteFragment(OnChangeFragment onChangeFragment) {
+    public void setOnChangeFragment(OnChangeFragment onChangeFragment) {
         mOnChangeFragment = onChangeFragment;
+    }
+
+    public NoteFragment() {
     }
 
     @Override

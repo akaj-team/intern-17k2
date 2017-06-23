@@ -9,20 +9,22 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.note.ui.NoteFragment.OnChangeFragment;
 
 /**
  * NoteActivity
  */
 public class NoteActivity extends AppCompatActivity {
 
-    public static final String KEY_ID = "keykey";
+    public static final String KEY_ID = "id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frContainer, new NoteFragment(new NoteFragment.OnChangeFragment() {
+        NoteFragment noteFragment = new NoteFragment();
+        OnChangeFragment onChangeFragment = new OnChangeFragment() {
             @Override
             public void onChange(int key, int id) {
                 switch (key) {
@@ -43,7 +45,9 @@ public class NoteActivity extends AppCompatActivity {
                         frtransaction.commit();
                 }
             }
-        }));
+        };
+        noteFragment.setOnChangeFragment(onChangeFragment);
+        transaction.replace(R.id.frContainer, noteFragment);
         transaction.addToBackStack(null);
         transaction.commit();
         if (ContextCompat.checkSelfPermission(NoteActivity.this,
