@@ -38,7 +38,7 @@ public class MainNoteFragment extends Fragment {
         try {
             mNoteDataBase.open();
             mNotes = mNoteDataBase.getList();
-            Log.i("TAG111",mNotes.size()+"");
+            Log.i("TAG111", mNotes.size() + "");
             mNoteDataBase.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,12 +56,15 @@ public class MainNoteFragment extends Fragment {
         return view;
     }
 
+    /**
+     * update list note after add note or delete note
+     */
     public void updateData() {
         try {
             mNoteDataBase.open();
             mNotes.clear();
             mNotes.addAll(mNoteDataBase.getList());
-            Log.i("TAG11",mNotes.size()+"");
+            Log.i("TAG11", mNotes.size() + "");
             mNoteAdapter.notifyDataSetChanged();
             mNoteDataBase.close();
         } catch (IOException e) {

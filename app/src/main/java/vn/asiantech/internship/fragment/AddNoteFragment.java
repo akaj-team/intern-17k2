@@ -80,8 +80,8 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                 Note note = new Note();
                 String date = getDate();
                 note.setDate(date);
-                if (mEdtTitle.getText().toString().equals("")||mEdtContent.getText().toString().equals("")){
-                    Toast.makeText(getActivity(),"vui long nhap day du",Toast.LENGTH_LONG).show();
+                if (mEdtTitle.getText().toString().equals("") || mEdtContent.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "vui long nhap day du", Toast.LENGTH_LONG).show();
                     break;
                 }
                 if (mBitmapImage != null) {
@@ -119,6 +119,11 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * get current time
+     *
+     * @return current time
+     */
     public String getDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE MMM dd HH:mm:ss", Locale.ENGLISH);
         String arr[] = simpleDateFormat.format(Calendar.getInstance().getTime()).split(" ");
@@ -126,10 +131,24 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
         return arr[0] + "\n" + arr[1] + " " + arr[2] + "\n" + arr[3];
     }
 
+    /**
+     * get name from time that maked note
+     *
+     * @param date time that maked note
+     * @return
+     */
     public String getName(String date) {
         return date.replace("\n", "").replace(" ", "");
     }
 
+    /**
+     * save image to folder in SDCard
+     *
+     * @param image  is image need save
+     * @param folder is folder that image saved
+     * @param name   is name of image
+     * @return
+     */
     private static boolean saveImageToSDCard(Bitmap image, String folder, String name) {
         String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + folder + "/";
         Log.i("tag11", name);
@@ -156,6 +175,12 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * get image with smaller size
+     *
+     * @param imageFileUri is uri of image
+     * @return
+     */
     private Bitmap getImageNote(Uri imageFileUri) {
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -164,7 +189,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
         int dh = size.y;
         Bitmap bmp;
         try {
-// Load up the image's dimensions not the image itself
+            // Load up the image's dimensions not the image itself
             BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
             bmpFactoryOptions.inJustDecodeBounds = true;
             //bmp = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);

@@ -50,6 +50,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         return mNotes != null ? mNotes.size() : 0;
     }
 
+    /**
+     * NoteViewHolder defined for an item of list
+     */
     class NoteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvDate;
         private TextView mTvTitle;
@@ -77,6 +80,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         }
     }
 
+    /**
+     * interface set click item event
+     */
     public interface OnClickItemNoteListener {
         void onItemClick(int positon);
     }

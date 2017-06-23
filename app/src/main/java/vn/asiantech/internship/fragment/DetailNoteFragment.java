@@ -53,6 +53,9 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
         return view;
     }
 
+    /**
+     * set data to show in ui
+     */
     private void setData() {
         if (mNote.getUrlImage() != null) {
             File file = new File(mNote.getUrlImage());
@@ -65,6 +68,11 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
         mTvDate.setText(mNote.getDate());
     }
 
+    /**
+     * relation value and ui
+     *
+     * @param view is view need show
+     */
     private void initeViews(View view) {
         mImgDelete = (ImageView) view.findViewById(R.id.imgDelete);
         mImgNote = (ImageView) view.findViewById(R.id.imgNote);
