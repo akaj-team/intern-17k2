@@ -1,5 +1,7 @@
 package vn.asiantech.internship.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -16,7 +18,7 @@ import java.util.Random;
  * @version 1.0
  * @since 06/26/2017
  */
-public class Question implements Serializable {
+public class Question implements Serializable, Parcelable {
     private String question;
     private List<String> answers;
     private int userAnswer = -1;
@@ -42,6 +44,25 @@ public class Question implements Serializable {
             Log.i("tag11", e.getMessage());
         }
     }
+
+    private Question(Parcel in) {
+        question = in.readString();
+        answers = in.createStringArrayList();
+        userAnswer = in.readInt();
+        rightAnswer = in.readString();
+    }
+
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
 
     public String getQuestion() {
         return question;
@@ -85,8 +106,8 @@ public class Question implements Serializable {
         return false;
     }
 
-    public static List<Question> GetQuestionSet(JSONArray jsonArray, int dataSetLenght) {
-        List<Question> questionSet = new ArrayList<>();
+    public static ArrayList<Question> GetQuestionSet(JSONArray jsonArray, int dataSetLenght) {
+        ArrayList<Question> questionSet = new ArrayList<>();
         List<JSONObject> jsonObjects = new ArrayList<>();
         Random random = new Random();
         int index;
@@ -105,5 +126,18 @@ public class Question implements Serializable {
             jsonObjects.remove(index);
         }
         return questionSet;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(question);
+        dest.writeStringList(answers);
+        dest.writeInt(userAnswer);
+        dest.writeString(rightAnswer);
     }
 }

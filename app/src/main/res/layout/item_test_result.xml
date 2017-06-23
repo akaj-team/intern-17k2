@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/result_item_height"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_margin_default">
+
+    <TextView
+        android:id="@+id/tvQuestionNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_weight="1"
+        android:padding="@dimen/padding_margin_default"
+        android:textSize="@dimen/text_size_default"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@null" />
+</LinearLayout>
+

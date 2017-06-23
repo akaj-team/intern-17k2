@@ -22,11 +22,17 @@
         <item>Gallery</item>
         <item>Camera</item>
     </string-array>
+    <string name="result_format">"Your point: %1$d/%2$d"</string>
+    <string name="your_result">Your Result</string>
     <string name="title_format">Question %d</string>
     <string name="question_title">Question 1</string>
     <string name="previous">Prev.</string>
     <string name="next">Next</string>
     <string name="result">Result</string>
-    <string name="confirm_title">Confirm to sunbit</string>
-    <string name="confirm_message">You was completed  question.Do you want to submit?</string>
+    <string name="re_test">Re Test</string>
+    <string name="confirm_title">Confirm to submit</string>
+    <string name="question_number">Question %d: </string>
+    <string name="confirm_message">You are complete %1$d / %2$d.Do you want to submit?</string>
+    <string name="re_test_title">Retest confirm</string>
+    <string name="re_test_message">Do you want to retest?</string>
 </resources>

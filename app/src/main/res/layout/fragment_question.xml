@@ -9,7 +9,6 @@
         android:id="@+id/tvQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Câu 1: Sông Thạch Hãn ở tỉnh Quảng Trị đổ ra biển bởi cửa sông nào?"
         android:textSize="@dimen/text_size_default"
         android:textStyle="bold" />
 
@@ -23,7 +22,6 @@
             android:id="@+id/rbAnswerA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cửa Việt"
             android:textSize="@dimen/text_size_default" />
 
         <RadioButton
@@ -32,7 +30,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_margin_default"
-            android:text="Cửa Việt"
             android:textSize="@dimen/text_size_default" />
 
         <RadioButton
@@ -40,7 +37,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_margin_default"
-            android:text="Cửa Việt"
             android:textSize="@dimen/text_size_default" />
 
         <RadioButton
@@ -48,7 +44,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_margin_default"
-            android:text="Cửa Việt"
             android:textSize="@dimen/text_size_default" />
 
     </RadioGroup>

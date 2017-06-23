@@ -15,7 +15,9 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Question;
 
 /**
- * Created by PC on 6/23/2017.
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/23/2017
  */
 public class QuestionFragment extends Fragment {
 
@@ -31,7 +33,6 @@ public class QuestionFragment extends Fragment {
 
     private int mPosition;
     private Question mQuestion;
-    private int mAnswer = -1;
     private OnDataChanged mListener;
 
     public static QuestionFragment getNewInstance(Question question, int position) {
@@ -46,8 +47,10 @@ public class QuestionFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mQuestion = (Question) getArguments().getSerializable(QUESTION_KEY);
-        mPosition = getArguments().getInt(POSITION_KEY);
+        if (getArguments() != null) {
+            mQuestion = (Question) getArguments().getSerializable(QUESTION_KEY);
+            mPosition = getArguments().getInt(POSITION_KEY);
+        }
     }
 
     @Nullable
@@ -70,6 +73,7 @@ public class QuestionFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 RadioButton rdChooser = (RadioButton) mRgAnswer.findViewById(checkedId);
+                mListener.onAnswerChoose(mPosition, mRgAnswer.indexOfChild(rdChooser));
             }
         });
 
@@ -80,8 +84,11 @@ public class QuestionFragment extends Fragment {
         mListener = listener;
     }
 
+    /**
+     * This interface used to handle answer choose event
+     */
     public interface OnDataChanged {
-        void onAnswerChoosed(int question, int answer);
+        void onAnswerChoose(int question, int answer);
     }
 
 }

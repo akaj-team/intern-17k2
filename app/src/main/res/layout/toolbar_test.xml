@@ -45,7 +45,8 @@
             android:layout_marginRight="@dimen/padding_margin_default"
             android:text="@string/next"
             android:textColor="@color/colorRed"
-            android:textSize="@dimen/bigger_text_size" />
+            android:textSize="@dimen/bigger_text_size"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvResult"
