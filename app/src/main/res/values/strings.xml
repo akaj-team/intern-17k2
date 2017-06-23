@@ -2,6 +2,7 @@
     <string name="app_name">Internship</string>
 
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="friend">Friend</string>
     <string name="add">Add</string>
     <string name="pass_data">Pass Data</string>
@@ -18,7 +19,14 @@
     <string name="chat">Chat</string>
     <string name="settings">Settings</string>
     <string-array name="pick_image_chooser">
-        <item>Garelly</item>
+        <item>Gallery</item>
         <item>Camera</item>
     </string-array>
+    <string name="title_format">Question %d</string>
+    <string name="question_title">Question 1</string>
+    <string name="previous">Prev.</string>
+    <string name="next">Next</string>
+    <string name="result">Result</string>
+    <string name="confirm_title">Confirm to sunbit</string>
+    <string name="confirm_message">You was completed %d/%d question.Do you want to submit?</string>
 </resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/main_layout.padding">
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Câu 1: Sông Thạch Hãn ở tỉnh Quảng Trị đổ ra biển bởi cửa sông nào?"
+        android:textSize="@dimen/text_size_default"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/rgAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_margin_default">
+
+        <RadioButton
+            android:id="@+id/rbAnswerA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cửa Việt"
+            android:textSize="@dimen/text_size_default" />
+
+        <RadioButton
+
+            android:id="@+id/rbAnswerB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_margin_default"
+            android:text="Cửa Việt"
+            android:textSize="@dimen/text_size_default" />
+
+        <RadioButton
+            android:id="@+id/rbAnswerC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_margin_default"
+            android:text="Cửa Việt"
+            android:textSize="@dimen/text_size_default" />
+
+        <RadioButton
+            android:id="@+id/rbAnswerD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_margin_default"
+            android:text="Cửa Việt"
+            android:textSize="@dimen/text_size_default" />
+
+    </RadioGroup>
+</LinearLayout>

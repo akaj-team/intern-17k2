@@ -7,4 +7,5 @@
     <color name="drawerBackground">#87888C</color>
     <color name="toolbarBackground">#DDDDDD</color>
     <color name="drawerItemChooserTextColor">#A6A7AB</color>
+    <color name="colorRed">#F44336</color>
 </resources>
