@@ -49,7 +49,7 @@ public class DetailFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mNoteDatabase = NoteDatabase.getInstantDatabase(getContext());
+        mNoteDatabase = new NoteDatabase(getContext());
         mNoteDatabase.open();
         Bundle bundle = getArguments();
         mPosition = bundle.getInt(NoteActivity.KEY_ID, -1);

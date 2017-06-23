@@ -25,16 +25,7 @@ public class NoteDatabase {
     private NoteOpenHelper mDatabaseHelper;
     private SQLiteDatabase mSqLiteDatabase;
 
-    private static NoteDatabase mNoteDatabase;
-
-    public static NoteDatabase getInstantDatabase(Context context) {
-        if (mNoteDatabase == null) {
-            mNoteDatabase = new NoteDatabase(context);
-        }
-        return mNoteDatabase;
-    }
-
-    private NoteDatabase(Context context) {
+    public NoteDatabase(Context context) {
         mContext = context;
     }
 

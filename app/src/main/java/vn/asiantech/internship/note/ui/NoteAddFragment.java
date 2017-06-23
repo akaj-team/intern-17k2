@@ -75,7 +75,7 @@ public class NoteAddFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mNoteDatabase = NoteDatabase.getInstantDatabase(getContext());
+        mNoteDatabase = new NoteDatabase(getContext());
         mNoteDatabase.open();
     }
 

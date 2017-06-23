@@ -59,7 +59,7 @@ public class NoteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mNoteDatabase = NoteDatabase.getInstantDatabase(getContext());
+        mNoteDatabase = new NoteDatabase(getContext());
         mNoteDatabase.open();
         initUI();
     }

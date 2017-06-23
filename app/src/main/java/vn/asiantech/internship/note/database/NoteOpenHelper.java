@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by at-dinhvo on 20/06/2017.
  */
-public class NoteOpenHelper extends SQLiteOpenHelper {
+class NoteOpenHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_NAME = "TABLE_NOTE";
     public static final String COL_ID = "id";
@@ -17,8 +17,16 @@ public class NoteOpenHelper extends SQLiteOpenHelper {
     public static final String COL_DATETIME = "datetime";
     private static final String DATABASE_NAME = "DATABASE_NOTE";
     private static final int VERSION = 1;
+    private static NoteOpenHelper mNoteOpenHelper;
 
-    public NoteOpenHelper(Context context) {
+    public static NoteOpenHelper getNoteOpenHelper(Context context) {
+        if (mNoteOpenHelper == null) {
+            mNoteOpenHelper = new NoteOpenHelper(context);
+        }
+        return mNoteOpenHelper;
+    }
+
+    NoteOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
