@@ -18,31 +18,32 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.day13.adapter.NinePathAdapter;
 import vn.asiantech.internship.day13.model.Chat;
 
+/**
+ * Copyright © 2017 AsianTech inc.
+ * Created by at-hoavo on 22/06/2017.
+ */
 public class NinePathActivity extends AppCompatActivity {
-    private RecyclerView mRecyclerView;
-    private EditText mEdtChat;
-    private Button mBtnSend;
-    private List<Chat> mChats = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nine_path);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewChat);
-        mEdtChat = (EditText) findViewById(R.id.edtChat);
-        mBtnSend = (Button) findViewById(R.id.btnSend);
-        final NinePathAdapter ninePathAdapter = new NinePathAdapter(mChats);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(ninePathAdapter);
-        mBtnSend.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_chat);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewChat);
+        final EditText edtChat = (EditText) findViewById(R.id.edtChat);
+        Button btnSend = (Button) findViewById(R.id.btnSend);
+        final List<Chat> chats = new ArrayList<>();
+        final NinePathAdapter ninePathAdapter = new NinePathAdapter(chats);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(ninePathAdapter);
+        btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(mEdtChat.getText())) {
-                    String text = mEdtChat.getText().toString();
+                if (!TextUtils.isEmpty(edtChat.getText())) {
+                    String text = edtChat.getText().toString();
                     Random random = new Random();
-                    mChats.add(new Chat(text, random.nextBoolean()));
+                    chats.add(new Chat(text, random.nextBoolean()));
                     ninePathAdapter.notifyDataSetChanged();
-                    mEdtChat.setText("");
+                    edtChat.setText("");
                 } else {
                     Toast.makeText(getApplicationContext(), "input content", Toast.LENGTH_LONG).show();
                 }

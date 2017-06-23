@@ -1,6 +1,7 @@
 package vn.asiantech.internship.day13.model;
 
 /**
+ * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 22/06/2017.
  */
 public class Chat {
