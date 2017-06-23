@@ -42,5 +42,4 @@
     </string-array>
     <!--Bai13-->
     <string name="button_message">Send</string>
-    <string name="chat_app">Chat App</string>
 </resources>
