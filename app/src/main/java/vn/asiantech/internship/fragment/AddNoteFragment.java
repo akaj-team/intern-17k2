@@ -97,7 +97,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                     mNoteDataBase.addNote(note);
                     mNoteDataBase.close();
                 } catch (IOException e) {
-                    Log.d("tag","ERROR");
+                    Log.d("tag", "ERROR1");
                 }
                 ((OnReplaceFragmentListener) v.getContext()).onReplaceFragmentMain();
                 break;
@@ -113,7 +113,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                     mBitmapImage = getImageNote(data.getData());
                     mImageViewNote.setImageBitmap(mBitmapImage);
                 } catch (Exception e) {
-                    Log.i("tag111","ERROR");
+                    Log.i("tag111", "ERROR2");
                 }
             }
         }
@@ -170,7 +170,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
             fOut.close();
             return true;
         } catch (IOException e) {
-            Log.d("tag1111","ERROR");
+            Log.d("tag1111", "ERROR3");
             return false;
         }
     }
@@ -210,7 +210,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                     bmpFactoryOptions);
             return bmp;
         } catch (FileNotFoundException e) {
-            Log.v("ERROR", e.toString());
+            Log.v("ERROR4", e.toString());
             return null;
         }
     }

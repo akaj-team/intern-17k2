@@ -44,7 +44,7 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
             mNotes = mNoteDataBase.getList();
             mNoteDataBase.close();
         } catch (IOException e) {
-            Log.d("tag","ERROR");
+            Log.d("tag", "ERROR");
         }
         Bundle bundle = getArguments();
         int position = bundle.getInt("position");
@@ -91,7 +91,7 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
             mNoteDataBase.close();
             ((OnReplaceFragmentListener) getActivity()).onReplaceFragmentMain();
         } catch (IOException e) {
-            Log.d("tag1","ERROR");
+            Log.d("tag1", "ERROR");
         }
     }
 }
