@@ -1,5 +1,6 @@
 package vn.asiantech.internship.test;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -34,7 +35,7 @@ public class QuestionActivity extends AppCompatActivity {
     private TextView mTvBigQuestion;
     private ViewPager mQuestionViewPager;
     private List<Question> mQuestions;
-    public static final String TAG = "error";
+    private static final String TAG = "error";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,10 +56,11 @@ public class QuestionActivity extends AppCompatActivity {
 
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onPageSelected(int position) {
                 updateButton(position);
-                mTvBigQuestion.setText("Question " + (position + 1));
+                mTvBigQuestion.setText(getString(R.string.textView_question) + " " + (position + 1));
             }
 
             @Override
@@ -98,7 +100,7 @@ public class QuestionActivity extends AppCompatActivity {
         resultDialog.show(fm, null);
     }
 
-    public String loadJSONFromAsset() {
+    private String loadJSONFromAsset() {
         String json;
         try {
             InputStream inputStream = getAssets().open("question.json");
@@ -114,7 +116,7 @@ public class QuestionActivity extends AppCompatActivity {
         return json;
     }
 
-    public List<Question> getObject() {
+    private List<Question> getObject() {
         List<Question> questions = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(loadJSONFromAsset());

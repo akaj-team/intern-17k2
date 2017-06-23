@@ -23,15 +23,12 @@ import vn.asiantech.internship.R;
  * @since 2017-6-23
  */
 public class ExitDialog extends DialogFragment {
-    private TextView mTvTitle;
-    private Button mBtnCancel;
-    private Button mBtnOk;
-    public static final String DIALOG_TITLE = "title";
+    private static final String DIALOG_TITLE = "title";
 
-    public static ExitDialog newInstance(String title) {
+    public static ExitDialog newInstance() {
         ExitDialog dialog = new ExitDialog();
         Bundle args = new Bundle();
-        args.putString(DIALOG_TITLE, title);
+        args.putString(DIALOG_TITLE, "Do you want to exit this app?");
         dialog.setArguments(args);
         return dialog;
     }
@@ -46,11 +43,11 @@ public class ExitDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        mTvTitle = (TextView) view.findViewById(R.id.tvTitle);
-        mTvTitle.setText(getArguments().getString(DIALOG_TITLE));
-        mBtnOk = (Button) view.findViewById(R.id.btnOk);
-        mBtnCancel = (Button) view.findViewById(R.id.btnCancel);
-        mBtnOk.setOnClickListener(new View.OnClickListener() {
+        TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+        tvTitle.setText(getArguments().getString(DIALOG_TITLE));
+        Button btnOk = (Button) view.findViewById(R.id.btnOk);
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -59,7 +56,7 @@ public class ExitDialog extends DialogFragment {
                 startActivity(intent);
             }
         });
-        mBtnCancel.setOnClickListener(new View.OnClickListener() {
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getDialog().dismiss();

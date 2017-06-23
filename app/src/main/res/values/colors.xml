@@ -6,14 +6,11 @@
     <color name="colorWhiteRecyclerView">#ffffff</color>
     <color name="colorGreyRecyclerView">#a3a0a0</color>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorGreyLight">#86868B</color>
     <color name="colorGreyDark">#4b4b4e</color>
     <color name="colorWhite">#fffefe</color>
     <color name="colorGrey">#ECEBEC</color>
-    <color name="colorBlue">#191280</color>
-    <color name="colorRed">#892916</color>
     <color name="colorBack">#252323</color>
     <color name="colorYellow">#bf7a11</color>
     <color name="colorYellowLight">#e1b675</color>

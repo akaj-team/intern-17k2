@@ -29,7 +29,7 @@ public class Question implements Parcelable {
         this.answer_right = answer_right;
     }
 
-    protected Question(Parcel in) {
+    private Question(Parcel in) {
         question = in.readString();
         answer_a = in.readString();
         answer_b = in.readString();

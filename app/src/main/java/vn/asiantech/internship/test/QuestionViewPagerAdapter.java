@@ -14,9 +14,9 @@ import java.util.List;
  * @since 2017-6-23
  */
 class QuestionViewPagerAdapter extends FragmentStatePagerAdapter {
-    private List<Question> mQuestion;
+    private final List<Question> mQuestion;
 
-     QuestionViewPagerAdapter(FragmentManager fm, List<Question> questions) {
+    QuestionViewPagerAdapter(FragmentManager fm, List<Question> questions) {
         super(fm);
         mQuestion = questions;
     }
