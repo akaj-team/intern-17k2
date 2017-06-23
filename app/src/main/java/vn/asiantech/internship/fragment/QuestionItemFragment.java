@@ -50,19 +50,18 @@ public class QuestionItemFragment extends Fragment {
         String[] answerArray = new String[]{mQuestion.getAnswerA(), mQuestion.getAnswerB(), mQuestion.getAnswerC(), mQuestion.getAnswerD()};
         Random random = new Random();
         Vector vector = new Vector();
-        int[] positions = new int[]{};
-        int position = 0;
+        int position;
         for (int i = 0; i < 4; ) {
             position = random.nextInt(4);
             if (!vector.contains(position)) {
-                positions[i] = position;
                 i++;
+                vector.add(position);
             }
         }
-        mRbAnswerA.setText(answerArray[positions[0]]);
-        mRbAnswerB.setText(answerArray[positions[1]]);
-        mRbAnswerC.setText(answerArray[positions[2]]);
-        mRbAnswerD.setText(answerArray[positions[3]]);
+        mRbAnswerA.setText(answerArray[(int) vector.get(0)]);
+        mRbAnswerB.setText(answerArray[(int) vector.get(1)]);
+        mRbAnswerC.setText(answerArray[(int) vector.get(2)]);
+        mRbAnswerD.setText(answerArray[(int) vector.get(3)]);
     }
 
     private void initViews(View view) {
