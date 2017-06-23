@@ -34,7 +34,7 @@ public class QuestionActivity extends AppCompatActivity {
     private TextView mTvNext;
     private TextView mTvBigQuestion;
     private ViewPager mQuestionViewPager;
-    private List<Question> mQuestions;
+    private List<Test> mTests;
     private static final String TAG = "error";
 
     @Override
@@ -45,10 +45,10 @@ public class QuestionActivity extends AppCompatActivity {
         mTvPrev = (TextView) findViewById(R.id.tvPrev);
         mTvNext = (TextView) findViewById(R.id.tvNext);
         mQuestionViewPager = (ViewPager) findViewById(R.id.testViewPager);
-        mQuestions = new ArrayList<>();
-        mQuestions.addAll(getObject());
-        Collections.shuffle(mQuestions);
-        mAdapter = new QuestionViewPagerAdapter(getSupportFragmentManager(), mQuestions);
+        mTests = new ArrayList<>();
+        mTests.addAll(getObject());
+        Collections.shuffle(mTests);
+        mAdapter = new QuestionViewPagerAdapter(getSupportFragmentManager(), mTests);
         mQuestionViewPager.setAdapter(mAdapter);
 
         mQuestionViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -96,7 +96,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void showDialog() {
         android.app.FragmentManager fm = this.getFragmentManager();
-        ResultDialog resultDialog = ResultDialog.newInstance(mQuestions, new QuestionFragment().getCorrect());
+        ResultDialog resultDialog = ResultDialog.newInstance(mTests, new QuestionFragment().getCorrect());
         resultDialog.show(fm, null);
     }
 
@@ -116,14 +116,14 @@ public class QuestionActivity extends AppCompatActivity {
         return json;
     }
 
-    private List<Question> getObject() {
-        List<Question> questions = new ArrayList<>();
+    private List<Test> getObject() {
+        List<Test> questions = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(loadJSONFromAsset());
             JSONArray jsonArray = jsonObject.getJSONArray("test");
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jb = (JSONObject) jsonArray.get(i);
-                questions.add(new Question(jb.getString("question"), jb.getString("answer_a"), jb.getString("answer_b"),
+                questions.add(new Test(jb.getString("question"), jb.getString("answer_a"), jb.getString("answer_b"),
                         jb.getString("answer_c"), jb.getString("answer_d"), jb.getString("answer_right")));
             }
         } catch (JSONException e) {

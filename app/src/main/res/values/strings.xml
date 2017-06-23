@@ -57,4 +57,6 @@
     <string name="dialog.OK">OK</string>
     <string name="textView.title.result">Your result</string>
     <string name="textView.question">Question </string>
+    <string name="textView.yourResult">Your result: </string>
+    <string name="text.cross">Your result: </string>
 </resources>

@@ -14,22 +14,22 @@ import java.util.List;
  * @since 2017-6-23
  */
 class QuestionViewPagerAdapter extends FragmentStatePagerAdapter {
-    private final List<Question> mQuestion;
+    private final List<Test> mTests;
 
-    QuestionViewPagerAdapter(FragmentManager fm, List<Question> questions) {
+    QuestionViewPagerAdapter(FragmentManager fm, List<Test> tests) {
         super(fm);
-        mQuestion = questions;
+        mTests = tests;
     }
 
     @Override
     public Fragment getItem(int position) {
         QuestionFragment questionFragment = new QuestionFragment();
-        questionFragment.setData(mQuestion.get(position));
+        questionFragment.setData(mTests.get(position));
         return questionFragment;
     }
 
     @Override
     public int getCount() {
-        return mQuestion.size();
+        return mTests.size();
     }
 }

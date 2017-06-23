@@ -27,7 +27,7 @@ public class QuestionFragment extends Fragment {
     private RadioButton mRbB;
     private RadioButton mRbC;
     private RadioButton mRbD;
-    private Question mQuestion;
+    private Test mTest;
     private String mAnswer;
     private static int mRightAnswerNumber = 0;
 
@@ -41,11 +41,11 @@ public class QuestionFragment extends Fragment {
         mRbC = (RadioButton) view.findViewById(R.id.rbAnswerC);
         mRbD = (RadioButton) view.findViewById(R.id.rbAnswerD);
         TextView tvQuestion = (TextView) view.findViewById(R.id.tvQuestion);
-        tvQuestion.setText(mQuestion.getQuestion());
-        mRbA.setText(mQuestion.getAnswer_a());
-        mRbB.setText(mQuestion.getAnswer_b());
-        mRbC.setText(mQuestion.getAnswer_c());
-        mRbD.setText(mQuestion.getAnswer_d());
+        tvQuestion.setText(mTest.getQuestion());
+        mRbA.setText(mTest.getAnswerA());
+        mRbB.setText(mTest.getAnswerB());
+        mRbC.setText(mTest.getAnswerC());
+        mRbD.setText(mTest.getAnswerD());
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -64,19 +64,19 @@ public class QuestionFragment extends Fragment {
                         mAnswer = mRbD.getText().toString();
                         break;
                 }
-                if (TextUtils.equals(mQuestion.getAnswer_right(), mAnswer)) {
-                    mQuestion.setTrue(true);
+                if (TextUtils.equals(mTest.getRightAnswer(), mAnswer)) {
+                    mTest.setTrue(true);
                     mRightAnswerNumber++;
                 } else {
-                    mQuestion.setTrue(false);
+                    mTest.setTrue(false);
                 }
             }
         });
         return view;
     }
 
-    public void setData(Question test) {
-        mQuestion = test;
+    public void setData(Test test) {
+        mTest = test;
     }
 
     public int getCorrect() {

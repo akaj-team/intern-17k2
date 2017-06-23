@@ -30,7 +30,7 @@ public class ResultDialog extends DialogFragment {
     public static final String TEST_LIST = "test list";
     private static final String RIGHT_ANSWER_NUMBER = "right answer number";
 
-    public static ResultDialog newInstance(List<Question> tests, int numberCorrect) {
+    public static ResultDialog newInstance(List<Test> tests, int numberCorrect) {
         ResultDialog dialog = new ResultDialog();
         Bundle args = new Bundle();
         args.putParcelableArrayList(TEST_LIST, (ArrayList<? extends Parcelable>) tests);
@@ -49,10 +49,10 @@ public class ResultDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        final List<Question> questions = getArguments().getParcelableArrayList(TEST_LIST);
+        final List<Test> tests = getArguments().getParcelableArrayList(TEST_LIST);
         int number = getArguments().getInt(RIGHT_ANSWER_NUMBER);
         TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-        tvTitle.setText("Your result : " + number + "/" + questions.size());
+        tvTitle.setText(R.string.textView_yourResult + number + R.string.text_cross + tests.size());
         Button btnOk = (Button) view.findViewById(R.id.btnOk);
         Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
 
@@ -61,7 +61,7 @@ public class ResultDialog extends DialogFragment {
             public void onClick(View view) {
                 getDialog().dismiss();
                 Intent intent = new Intent(getActivity(), ResultActivity.class);
-                intent.putParcelableArrayListExtra(TEST_LIST, (ArrayList<? extends Parcelable>) questions);
+                intent.putParcelableArrayListExtra(TEST_LIST, (ArrayList<? extends Parcelable>) tests);
                 startActivity(intent);
             }
         });

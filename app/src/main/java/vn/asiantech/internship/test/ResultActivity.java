@@ -28,9 +28,9 @@ public class ResultActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         resultRecyclerView.setLayoutManager(linearLayoutManager);
         List<Result> results = new ArrayList<>();
-        List<Question> questions = getIntent().getParcelableArrayListExtra(ResultDialog.TEST_LIST);
-        for (int i = 0; i < questions.size(); i++) {
-            results.add(new Result(getString(R.string.textView_question) + " " + (i + 1), questions.get(i).isTrue()));
+        List<Test> tests = getIntent().getParcelableArrayListExtra(ResultDialog.TEST_LIST);
+        for (int i = 0; i < tests.size(); i++) {
+            results.add(new Result(getString(R.string.textView_question) + " " + (i + 1), tests.get(i).isTrue()));
         }
         ResultAdapter adapter = new ResultAdapter(results);
         resultRecyclerView.setAdapter(adapter);
