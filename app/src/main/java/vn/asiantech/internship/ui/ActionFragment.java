@@ -27,17 +27,16 @@ public class ActionFragment extends Fragment {
     /**
      * callback senddata from activity.
      */
-    public interface OnSendDataListener {
+    interface OnSendDataListener {
         void onSendData();
+    }
+
+    public void setOnSendDataListener(OnSendDataListener onSendDataListener){
+        mOnSendDataListener = onSendDataListener;
     }
 
     public ActionFragment() {
 
-    }
-
-    public ActionFragment(OnSendDataListener onSendDataListener) {
-        // Required empty public constructor
-        mOnSendDataListener = onSendDataListener;
     }
 
     @Override

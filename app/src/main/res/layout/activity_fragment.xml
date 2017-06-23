@@ -21,5 +21,4 @@
         android:layout_marginTop="@dimen/activity2.layout_padding"
         android:layout_weight="1"
         android:background="@color/colorToolbar" />
-
 </LinearLayout>
