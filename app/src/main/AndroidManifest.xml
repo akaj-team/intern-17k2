@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".feed.FeedActivity">
+        <activity android:name=".test.QuestionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,5 +20,6 @@
         <activity android:name="recyclerview.FriendActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name="demo.RecyclerViewActivity" />
+        <activity android:name=".test.ResultActivity" />
     </application>
 </manifest>

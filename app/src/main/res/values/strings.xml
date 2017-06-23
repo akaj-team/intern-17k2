@@ -49,4 +49,12 @@
     <string name="button.send">Send1</string>
     <string name="button.name">Send</string>
     <string name="editText.hint">Input</string>
+    <string name="test.textView.back">Prev</string>
+    <string name="test.textView.next">Next</string>
+    <string name="test.textView.question">Question 1</string>
+    <string name="textView.result">Result</string>
+    <string name="dialog.cancle">Cancle</string>
+    <string name="dialog.ok">Ok</string>
+    <string name="textView.title.result">Your result</string>
+    <string name="question">Question </string>
 </resources>
