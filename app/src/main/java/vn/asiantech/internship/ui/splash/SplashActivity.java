@@ -11,6 +11,7 @@ import vn.asiantech.internship.MainIntentActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.activity.FriendActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.activity.TestActivity;
 
 /**
  * Created by ducle on 15/06/2017.
@@ -19,6 +20,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private Button mBtnBai5;
     private Button mBtnBai6;
     private Button mBtnBai7;
+    private Button mBtnBai15;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,12 +34,14 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai5.setOnClickListener(this);
         mBtnBai6.setOnClickListener(this);
         mBtnBai7.setOnClickListener(this);
+        mBtnBai15.setOnClickListener(this);
     }
 
     private void initViews() {
         mBtnBai5 = (Button) findViewById(R.id.btnBai5);
         mBtnBai6 = (Button) findViewById(R.id.btnBai6);
         mBtnBai7 = (Button) findViewById(R.id.btnBai7);
+        mBtnBai15 = (Button) findViewById(R.id.btnBai15);
     }
 
     @Override
@@ -51,6 +55,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btnBai7:
                 startActivity(new Intent(this, MainIntentActivity.class));
+                break;
+            case R.id.btnBai15:
+                startActivity(new Intent(this, TestActivity.class));
                 break;
         }
     }

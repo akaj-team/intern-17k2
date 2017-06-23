@@ -20,4 +20,8 @@
     <string name="bai5">Bai 5</string>
     <string name="bai6">Bai 6</string>
     <string name="bai7">Bai 7</string>
+    <string name="bai15">Bai 15</string>
+    <string name="question">Question</string>
+    <string name="previous">previous</string>
+    <string name="next">next</string>
 </resources>
