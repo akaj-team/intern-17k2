@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -98,10 +99,10 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
             json = new String(buffer, "UTF-8");
             jsonArray = new JSONArray(json);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Log.i("tag11", ex.getMessage());
             return null;
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.i("tag11", e.getMessage());
         }
         return jsonArray;
     }
