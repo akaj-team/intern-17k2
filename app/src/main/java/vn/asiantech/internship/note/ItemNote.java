@@ -1,6 +1,7 @@
 package vn.asiantech.internship.note;
 
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,8 +18,7 @@ class ItemNote {
     private String image;
     private int id;
 
-
-    public ItemNote(String title, String note) {
+    ItemNote(String title, String note) {
         this.title = title;
         this.note = note;
         this.time = Calendar.getInstance().getTimeInMillis();
@@ -29,7 +29,6 @@ class ItemNote {
         this.note = note;
         this.image = image;
         this.time = Calendar.getInstance().getTimeInMillis();
-
     }
 
     ItemNote(int id, String title, String note, String image, long time) {
@@ -38,10 +37,6 @@ class ItemNote {
         this.note = note;
         this.id = id;
         this.time = time;
-    }
-
-    ItemNote() {
-
     }
 
     long getTime() {
@@ -84,11 +79,12 @@ class ItemNote {
         this.id = id;
     }
 
-    public String getStringTime() {
-
+    String getStringTime() {
         Date date = new Date(time);
         SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
         SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
-        return dayOfWeekFormat.format(date) + "\n" + DateFormat.format("dd", date) + " " + monthFormat.format(date) + "\n" + DateFormat.format("hh:mm:ss", date);
+        String day =dayOfWeekFormat.format(date) + "\n" + DateFormat.format("dd", date) + " " + monthFormat.format(date) + "\n" + DateFormat.format("hh:mm", date);
+        Log.d("tag", "getStringTime: "+day);
+        return day;
     }
 }

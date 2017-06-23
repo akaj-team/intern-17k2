@@ -1,5 +1,6 @@
 package vn.asiantech.internship.note;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,8 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 
+import static vn.asiantech.internship.note.NoteActivity.REQUEST_CODE_GALERY;
+
 /**
  * Created by datbu on 20-06-2017.
  */
@@ -31,7 +34,7 @@ public class AddNoteFragment extends Fragment {
     private EditText mEdtNote;
 
     private ImageView mImgSave;
-    private ImageView mImgPhoto;
+    private ImageView mImgEdit;
     private RecyclerViewNoteAdapter mAdapter;
     private NoteFragment mNoteFragment;
     private DatabaseHandler mDatabaseHandler;
@@ -49,7 +52,7 @@ public class AddNoteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_addnote, container, false);
         Toolbar toolbarAddNote = (Toolbar) view.findViewById(R.id.toolbarAddNote);
         mImgSave = (ImageView) view.findViewById(R.id.imgSave);
-        mImgPhoto = (ImageView) view.findViewById(R.id.imgEdit);
+        mImgEdit = (ImageView) view.findViewById(R.id.imgEdit);
         mNoteFragment = new NoteFragment();
         mEdtNote = (EditText) view.findViewById(R.id.edtNote);
         mEdtTitle = (EditText) view.findViewById(R.id.edtTitle);
@@ -73,6 +76,14 @@ public class AddNoteFragment extends Fragment {
                 addNote();
             }}
         );
+        mImgEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_GALERY);
+            }
+        });
         return view;
     }
 
