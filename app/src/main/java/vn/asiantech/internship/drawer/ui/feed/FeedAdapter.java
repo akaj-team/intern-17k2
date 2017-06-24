@@ -68,7 +68,48 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             mBtnRightSlide = (ImageButton) itemView.findViewById(R.id.btnRightSlide);
             mViewPager.setPageMargin(5);
             mViewPager.setPageMarginDrawable(R.color.colorBlack);
+
+            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    updateArrow(getLayoutPosition());
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
             mBtnLeftSlide.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+                }
+            });
+            mBtnRightSlide.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+                }
+            });
+        }
+
+        private void updateArrow(int position) {
+            String[] mImageArray = mFeedItems.get(position).getImages();
+            if (mImageArray.length > 1) {
+                mBtnLeftSlide.setVisibility(mViewPager.getCurrentItem() != 0 ? View.VISIBLE : View.GONE);
+                mBtnRightSlide.setVisibility(mViewPager.getCurrentItem() != mImageArray.length - 1 ? View.VISIBLE : View.GONE);
+            } else {
+                mBtnLeftSlide.setVisibility(View.GONE);
+                mBtnRightSlide.setVisibility(View.GONE);
+            }
+        }
+            /*mBtnLeftSlide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mCurrentPage = mViewPager.getCurrentItem();
@@ -93,7 +134,6 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                     }
                     mViewPager.setCurrentItem(mCurrentPage);
                 }
-            });
-        }
+            });*/
     }
 }
