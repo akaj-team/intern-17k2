@@ -53,7 +53,7 @@ public class FeedFragment extends Fragment {
         return integers;
     }
 
-    private List<FeedItem> initFeed(List<FeedItem> feedItems){
+    private List<FeedItem> initFeed(List<FeedItem> feedItems) {
         List<Integer> images = initImages();
         feedItems.add(new FeedItem("At-Dinhvo-01", images, "No comment 01"));
         feedItems.add(new FeedItem("At-Dinhvo-02", images, "No comment 02"));
@@ -62,13 +62,4 @@ public class FeedFragment extends Fragment {
         feedItems.add(new FeedItem("At-Dinhvo-05", images, "No comment 05"));
         return feedItems;
     }
-    /*private void initFeed(List<FeedItem> items) {
-        ArrayList<String[]> listImage = mDatabase.getAllData();
-        int index = 0;
-        for (String[] urls :
-                listImage) {
-            ++index;
-            items.add(new FeedItem("Hi i'm DinhVo" + index, urls, "No comment" + index));
-        }
-    }*/
 }
