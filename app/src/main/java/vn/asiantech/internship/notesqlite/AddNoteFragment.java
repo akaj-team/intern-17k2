@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -74,7 +77,7 @@ public class AddNoteFragment extends Fragment {
                 Date date = new Date();
                 SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
                 SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
-                if (TextUtils.equals(mEdtTitle.getText().toString(), "") || TextUtils.equals(mEdtContent.getText().toString(), "") || mUriImage == null) {
+                if (TextUtils.equals(mEdtTitle.getText().toString(), "") || TextUtils.equals(mEdtContent.getText().toString(), "")) {
                     Toast.makeText(getActivity(), "Inquire enough data entry!", Toast.LENGTH_LONG).show();
                 } else {
                     mDatabase.open();
@@ -116,7 +119,7 @@ public class AddNoteFragment extends Fragment {
             if (requestCode == REQUEST_CODE) {
                 mUriImage = data.getData();
                 mImgNote.setVisibility(View.VISIBLE);
-                mImgNote.setImageBitmap(BitmapFactory.decodeFile(getRealPathFromUri(mUriImage)));
+                mImgNote.setImageBitmap(decreaseImageSize(mUriImage));
                 Date date = new Date();
                 SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmss", Locale.ENGLISH);
                 saveImage(mImgNote, ft.format(date));
@@ -144,5 +147,33 @@ public class AddNoteFragment extends Fragment {
         } else {
             Toast.makeText(getActivity(), "Error during image saving", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public Bitmap decreaseImageSize(Uri imageFileUri) {
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int dw = size.x;
+        int dh = size.y;
+        try {
+            BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+            bmpFactoryOptions.inJustDecodeBounds = true;
+            Bitmap bmp = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
+            int heightRatio = (int) Math.ceil(bmpFactoryOptions.outHeight / (float) dh);
+            int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth / (float) dw);
+            if (heightRatio > 1 && widthRatio > 1) {
+                if (heightRatio > widthRatio) {
+                    bmpFactoryOptions.inSampleSize = heightRatio;
+                } else {
+                    bmpFactoryOptions.inSampleSize = widthRatio;
+                }
+            }
+            bmpFactoryOptions.inJustDecodeBounds = false;
+            bmp = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
+            return bmp;
+        } catch (FileNotFoundException e) {
+            Log.v("ERROR", e.toString());
+        }
+        return null;
     }
 }

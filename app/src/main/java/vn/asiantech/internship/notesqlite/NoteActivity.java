@@ -38,4 +38,11 @@ public class NoteActivity extends AppCompatActivity {
         noteFragmentTransaction.replace(R.id.flContainer, noteFragment);
         noteFragmentTransaction.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
 }
