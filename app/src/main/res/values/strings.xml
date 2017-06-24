@@ -58,5 +58,5 @@
     <string name="textView.title.result">Your result</string>
     <string name="textView.question">Question </string>
     <string name="textView.yourResult">Your result: </string>
-    <string name="text.cross">Your result: </string>
+    <string name="text.cross">/</string>
 </resources>

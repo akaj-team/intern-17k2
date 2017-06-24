@@ -23,7 +23,7 @@ class QuestionViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        QuestionFragment questionFragment = new QuestionFragment();
+        TestFragment questionFragment = new TestFragment();
         questionFragment.setData(mTests.get(position));
         return questionFragment;
     }

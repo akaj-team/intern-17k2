@@ -22,7 +22,7 @@
             android:visibility="invisible" />
 
         <TextView
-            android:id="@+id/tvBigQuestion"
+            android:id="@+id/tvQuestionTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"

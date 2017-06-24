@@ -22,14 +22,13 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-23
  */
-public class QuestionFragment extends Fragment {
+public class TestFragment extends Fragment {
     private RadioButton mRbA;
     private RadioButton mRbB;
     private RadioButton mRbC;
     private RadioButton mRbD;
     private Test mTest;
     private String mAnswer;
-    private static int mRightAnswerNumber = 0;
 
     @Nullable
     @Override
@@ -66,7 +65,6 @@ public class QuestionFragment extends Fragment {
                 }
                 if (TextUtils.equals(mTest.getRightAnswer(), mAnswer)) {
                     mTest.setTrue(true);
-                    mRightAnswerNumber++;
                 } else {
                     mTest.setTrue(false);
                 }
@@ -78,9 +76,4 @@ public class QuestionFragment extends Fragment {
     public void setData(Test test) {
         mTest = test;
     }
-
-    public int getCorrect() {
-        return mRightAnswerNumber;
-    }
-
 }

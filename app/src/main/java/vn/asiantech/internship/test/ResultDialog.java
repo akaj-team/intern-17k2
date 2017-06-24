@@ -28,13 +28,11 @@ import vn.asiantech.internship.R;
  */
 public class ResultDialog extends DialogFragment {
     public static final String TEST_LIST = "test list";
-    private static final String RIGHT_ANSWER_NUMBER = "right answer number";
 
-    public static ResultDialog newInstance(List<Test> tests, int numberCorrect) {
+    public static ResultDialog newInstance(List<Test> tests) {
         ResultDialog dialog = new ResultDialog();
         Bundle args = new Bundle();
         args.putParcelableArrayList(TEST_LIST, (ArrayList<? extends Parcelable>) tests);
-        args.putInt(RIGHT_ANSWER_NUMBER, numberCorrect);
         dialog.setArguments(args);
         return dialog;
     }
@@ -50,9 +48,14 @@ public class ResultDialog extends DialogFragment {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         final List<Test> tests = getArguments().getParcelableArrayList(TEST_LIST);
-        int number = getArguments().getInt(RIGHT_ANSWER_NUMBER);
+        int k = 0;
+        for (int i = 0; i < tests.size(); i++) {
+            if (tests.get(i).isTrue()) {
+                k++;
+            }
+        }
         TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-        tvTitle.setText(R.string.textView_yourResult + number + R.string.text_cross + tests.size());
+        tvTitle.setText(getString(R.string.textView_yourResult) + k + getString(R.string.text_cross) + tests.size());
         Button btnOk = (Button) view.findViewById(R.id.btnOk);
         Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
 

@@ -28,7 +28,7 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-23
  */
-public class QuestionActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity {
     private QuestionViewPagerAdapter mAdapter;
     private TextView mTvPrev;
     private TextView mTvNext;
@@ -41,7 +41,7 @@ public class QuestionActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        mTvBigQuestion = (TextView) findViewById(R.id.tvBigQuestion);
+        mTvBigQuestion = (TextView) findViewById(R.id.tvQuestionTitle);
         mTvPrev = (TextView) findViewById(R.id.tvPrev);
         mTvNext = (TextView) findViewById(R.id.tvNext);
         mQuestionViewPager = (ViewPager) findViewById(R.id.testViewPager);
@@ -96,7 +96,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void showDialog() {
         android.app.FragmentManager fm = this.getFragmentManager();
-        ResultDialog resultDialog = ResultDialog.newInstance(mTests, new QuestionFragment().getCorrect());
+        ResultDialog resultDialog = ResultDialog.newInstance(mTests);
         resultDialog.show(fm, null);
     }
 
