@@ -109,31 +109,5 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 mBtnRightSlide.setVisibility(View.GONE);
             }
         }
-            /*mBtnLeftSlide.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mCurrentPage = mViewPager.getCurrentItem();
-                    --mCurrentPage;
-                    if (mCurrentPage > 0) {
-                        mBtnRightSlide.setVisibility(View.VISIBLE);
-                    } else {
-                        mBtnLeftSlide.setVisibility(View.GONE);
-                    }
-                    mViewPager.setCurrentItem(mCurrentPage);
-                }
-            });
-            mBtnRightSlide.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mCurrentPage = mViewPager.getCurrentItem();
-                    ++mCurrentPage;
-                    if (mCurrentPage < mFeedItems.get(getAdapterPosition()).getImages().length) {
-                        mBtnLeftSlide.setVisibility(View.VISIBLE);
-                    } else {
-                        mBtnRightSlide.setVisibility(View.GONE);
-                    }
-                    mViewPager.setCurrentItem(mCurrentPage);
-                }
-            });*/
     }
 }
