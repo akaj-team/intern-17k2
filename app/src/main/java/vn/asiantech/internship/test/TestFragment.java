@@ -27,8 +27,8 @@ public class TestFragment extends Fragment {
     private RadioButton mRbB;
     private RadioButton mRbC;
     private RadioButton mRbD;
-    private Test mTest;
     private String mAnswer;
+    private Test mTest;
 
     @Nullable
     @Override

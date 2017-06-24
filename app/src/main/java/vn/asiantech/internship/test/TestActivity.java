@@ -29,13 +29,13 @@ import vn.asiantech.internship.R;
  * @since 2017-6-23
  */
 public class TestActivity extends AppCompatActivity {
-    private QuestionViewPagerAdapter mAdapter;
+    private static final String TAG = "error";
     private TextView mTvPrev;
     private TextView mTvNext;
     private TextView mTvBigQuestion;
     private ViewPager mQuestionViewPager;
+    private QuestionViewPagerAdapter mAdapter;
     private List<Test> mTests;
-    private static final String TAG = "error";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class TestActivity extends AppCompatActivity {
         mTvNext = (TextView) findViewById(R.id.tvNext);
         mQuestionViewPager = (ViewPager) findViewById(R.id.testViewPager);
         mTests = new ArrayList<>();
-        mTests.addAll(getObject());
+        mTests.addAll(getTests());
         Collections.shuffle(mTests);
         mAdapter = new QuestionViewPagerAdapter(getSupportFragmentManager(), mTests);
         mQuestionViewPager.setAdapter(mAdapter);
@@ -83,7 +83,6 @@ public class TestActivity extends AppCompatActivity {
                     showDialog();
                 } else {
                     mQuestionViewPager.setCurrentItem(mQuestionViewPager.getCurrentItem() + 1, true);
-
                 }
             }
         });
@@ -116,7 +115,7 @@ public class TestActivity extends AppCompatActivity {
         return json;
     }
 
-    private List<Test> getObject() {
+    private List<Test> getTests() {
         List<Test> questions = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(loadJSONFromAsset());
