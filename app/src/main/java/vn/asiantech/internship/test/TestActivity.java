@@ -32,7 +32,7 @@ public class TestActivity extends AppCompatActivity {
     private static final String TAG = "error";
     private TextView mTvPrev;
     private TextView mTvNext;
-    private TextView mTvBigQuestion;
+    private TextView mTvQuestionTitle;
     private ViewPager mQuestionViewPager;
     private QuestionViewPagerAdapter mAdapter;
     private List<Test> mTests;
@@ -41,7 +41,7 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        mTvBigQuestion = (TextView) findViewById(R.id.tvQuestionTitle);
+        mTvQuestionTitle = (TextView) findViewById(R.id.tvQuestionTitle);
         mTvPrev = (TextView) findViewById(R.id.tvPrev);
         mTvNext = (TextView) findViewById(R.id.tvNext);
         mQuestionViewPager = (ViewPager) findViewById(R.id.testViewPager);
@@ -60,7 +60,7 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 updateButton(position);
-                mTvBigQuestion.setText(getString(R.string.textView_question) + " " + (position + 1));
+                mTvQuestionTitle.setText(getString(R.string.textView_question) + " " + (position + 1));
             }
 
             @Override
