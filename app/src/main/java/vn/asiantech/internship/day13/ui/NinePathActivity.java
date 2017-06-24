@@ -43,7 +43,7 @@ public class NinePathActivity extends AppCompatActivity {
                     Random random = new Random();
                     chats.add(new Chat(text, random.nextBoolean()));
                     ninePathAdapter.notifyDataSetChanged();
-                    recyclerView.scrollToPosition(chats.size()-1);
+                    recyclerView.scrollToPosition(chats.size() - 1);
                     edtChat.setText("");
                 } else {
                     Toast.makeText(getApplicationContext(), "input content", Toast.LENGTH_LONG).show();
