@@ -9,13 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.drawer.models.FeedItem;
-import vn.asiantech.internship.drawer.ui.database.DatabaseHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,8 +21,6 @@ import vn.asiantech.internship.drawer.ui.database.DatabaseHelper;
 public class FeedFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-
-    private DatabaseHelper mDatabase;
 
     public FeedFragment() {
     }
@@ -40,16 +36,11 @@ public class FeedFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        try {
-            mDatabase = new DatabaseHelper(getContext());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         List<FeedItem> feedItems = new ArrayList<>();
         initFeed(feedItems);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(new FeedAdapter(getContext(), feedItems));
+        mRecyclerView.setAdapter(new FeedAdapter(feedItems));
     }
 
     private List<Integer> initImages() {
@@ -62,7 +53,16 @@ public class FeedFragment extends Fragment {
         return integers;
     }
 
-    private void initFeed(List<FeedItem> items) {
+    private List<FeedItem> initFeed(List<FeedItem> feedItems){
+        List<Integer> images = initImages();
+        feedItems.add(new FeedItem("At-Dinhvo-01", images, "No comment 01"));
+        feedItems.add(new FeedItem("At-Dinhvo-02", images, "No comment 02"));
+        feedItems.add(new FeedItem("At-Dinhvo-03", images, "No comment 03"));
+        feedItems.add(new FeedItem("At-Dinhvo-04", images, "No comment 04"));
+        feedItems.add(new FeedItem("At-Dinhvo-05", images, "No comment 05"));
+        return feedItems;
+    }
+    /*private void initFeed(List<FeedItem> items) {
         ArrayList<String[]> listImage = mDatabase.getAllData();
         int index = 0;
         for (String[] urls :
@@ -70,11 +70,5 @@ public class FeedFragment extends Fragment {
             ++index;
             items.add(new FeedItem("Hi i'm DinhVo" + index, urls, "No comment" + index));
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mDatabase.close();
-    }
+    }*/
 }

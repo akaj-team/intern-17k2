@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/feed.item_marginbottom"
+    android:layout_marginBottom="@dimen/feed.item_marginBottom"
     android:padding="@dimen/feed.item_padding">
 
     <LinearLayout
@@ -33,8 +33,8 @@
                 android:id="@+id/tvFeed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/item.textview_margin"
-                android:layout_marginStart="@dimen/item.textview_margin"
+                android:layout_marginLeft="@dimen/item.textView_margin"
+                android:layout_marginStart="@dimen/item.textView_margin"
                 android:gravity="center_vertical"
                 android:textColor="@color/colorBlack"
                 tools:text="Hello world" />
@@ -43,7 +43,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/feed.item.viewpager_marginbottom">
+            android:layout_marginBottom="@dimen/feed.item.viewpager_marginBottom">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                     android:layout_width="@dimen/feed.item.viewpager.button_size"
                     android:layout_height="@dimen/feed.item.viewpager.button_size"
                     android:layout_gravity="center_vertical|start"
-                    android:contentDescription="@string/feed.buttonleft_description"
+                    android:contentDescription="@string/feed.buttonLeft_description"
                     android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
                     android:visibility="gone" />
 
@@ -69,7 +69,7 @@
                     android:layout_width="@dimen/feed.item.viewpager.button_size"
                     android:layout_height="@dimen/feed.item.viewpager.button_size"
                     android:layout_gravity="center_vertical|end"
-                    android:contentDescription="@string/feed.buttonright_description"
+                    android:contentDescription="@string/feed.buttonRight_description"
                     android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
             </FrameLayout>
         </android.support.v7.widget.CardView>
@@ -78,8 +78,8 @@
             android:id="@+id/tvComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/item.textview_margin"
-            android:layout_marginStart="@dimen/item.textview_margin"
+            android:layout_marginLeft="@dimen/item.textView_margin"
+            android:layout_marginStart="@dimen/item.textView_margin"
             android:gravity="center_vertical"
             android:textColor="@color/colorBlack"
             tools:text="Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world " />
