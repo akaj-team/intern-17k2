@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,14 +63,13 @@ public class FeedFragment extends Fragment {
     }
 
     private void initFeed(List<FeedItem> items) {
-        ArrayList<String> listImage = mDatabase.getAllData();
-        Log.e("Grzzzzzzzzzzzz", "list size: " + listImage.size());
-        items.add(new FeedItem("Hi i'm Gosu", listImage, "No comment 1"));
-        items.add(new FeedItem("Imp", listImage, "No comment 2"));
-        items.add(new FeedItem("Faker", listImage, "No comment 3"));
-        items.add(new FeedItem("Madlife", listImage, "No comment 4"));
-        items.add(new FeedItem("Sofm", listImage, "No comment 5"));
-        items.add(new FeedItem("Impact", listImage, "No comment 6"));
+        ArrayList<String[]> listImage = mDatabase.getAllData();
+        int index = 0;
+        for (String[] urls :
+                listImage) {
+            ++index;
+            items.add(new FeedItem("Hi i'm DinhVo" + index, urls, "No comment" + index));
+        }
     }
 
     @Override

@@ -21,8 +21,6 @@ import vn.asiantech.internship.drawer.models.FeedItem;
 class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     private List<FeedItem> mFeedItems;
-    private FeedPagerAdapter mPagerAdapter;
-    private int mCurrentPage;
     private Context mContext;
 
     FeedAdapter(Context context, List<FeedItem> feedItems) {
@@ -41,8 +39,8 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.mTvName.setText(mFeedItems.get(position).getName());
         holder.mTvComment.setText(mFeedItems.get(position).getComment());
-        mPagerAdapter = new FeedPagerAdapter(mContext, mFeedItems.get(position).getImages());
-        holder.mViewPager.setAdapter(mPagerAdapter);
+        FeedPagerAdapter pagerAdapter = new FeedPagerAdapter(mContext, mFeedItems.get(position).getImages());
+        holder.mViewPager.setAdapter(pagerAdapter);
     }
 
     @Override
@@ -60,6 +58,7 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         private ViewPager mViewPager;
         private ImageButton mBtnLeftSlide;
         private ImageButton mBtnRightSlide;
+        private int mCurrentPage;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -71,6 +70,7 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             mViewPager.setPageMargin(5);
             mViewPager.setPageMarginDrawable(R.color.colorBlack);
             mCurrentPage = mViewPager.getCurrentItem();
+
             Log.e("page_number", " " + mCurrentPage);
             mBtnLeftSlide.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,7 +90,7 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 public void onClick(View view) {
                     ++mCurrentPage;
                     Log.e("page_number", " " + mCurrentPage);
-                    if (mCurrentPage < mPagerAdapter.getCount()) {
+                    if (mCurrentPage < mFeedItems.get(getAdapterPosition()).getImages().length - 1) {
                         mBtnLeftSlide.setVisibility(View.VISIBLE);
                     } else {
                         mBtnRightSlide.setVisibility(View.GONE);

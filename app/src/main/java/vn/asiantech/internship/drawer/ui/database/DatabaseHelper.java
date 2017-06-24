@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,14 +22,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "list_image.sqlite";
     private static final String TABLE_IMAGE = "images";
+    private static final String COL_LINK = "link";
     private SQLiteDatabase mDatabase;
-//    private static final String DB_PATH = "/data/data/databases/";
-    private String DB_PATH;
+    private String dataPath;
     private Context mContext;
 
     public DatabaseHelper(Context context) throws IOException {
         super(context, DB_NAME, null, 1);
-        DB_PATH = context.getFilesDir().getPath();
+        dataPath = context.getFilesDir().getPath();
         this.mContext = context;
         boolean dbexist = checkDatabase();
         if (dbexist) {
@@ -43,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void createDatabase() throws IOException {
         boolean isExist = checkDatabase();
         if (isExist) {
-            System.out.println(" Database exists.");
+            Log.e("IOException", "Database exists");
         } else {
             this.getReadableDatabase();
             try {
@@ -55,45 +56,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private boolean checkDatabase() {
-        //SQLiteDatabase checkdb = null;
-        boolean checkdb = false;
+        boolean checkDatabase = false;
         try {
-            String path = DB_PATH + DB_NAME;
-            File dbfile = new File(path);
-            //checkdb = SQLiteDatabase.openDatabase(path,null,SQLiteDatabase.OPEN_READWRITE);
-            checkdb = dbfile.exists();
+            String path = dataPath + DB_NAME;
+            File dbFile = new File(path);
+            checkDatabase = dbFile.exists();
         } catch (SQLiteException e) {
-            System.out.println("Database doesn't exist");
+            Log.e("SQLiteException", "Database doesn't exist");
         }
-        return checkdb;
+        return checkDatabase;
     }
 
     private void copyDatabase() throws IOException {
-        //Open your local db as the input stream
         InputStream myinput = mContext.getAssets().open(DB_NAME);
-
-        // Path to the just created empty db
-        String outfilename = DB_PATH + DB_NAME;
-
-        //Open the empty db as the output stream
+        String outfilename = dataPath + DB_NAME;
         OutputStream myoutput = new FileOutputStream(outfilename);
-
-        // transfer byte to inputfile to outputfile
         byte[] buffer = new byte[1024];
         int length;
         while ((length = myinput.read(buffer)) > 0) {
             myoutput.write(buffer, 0, length);
         }
-
-        //Close the streams
         myoutput.flush();
         myoutput.close();
         myinput.close();
     }
 
     private void openDatabase() throws SQLException {
-        //Open the database
-        String mypath = DB_PATH + DB_NAME;
+        String mypath = dataPath + DB_NAME;
         mDatabase = SQLiteDatabase.openDatabase(mypath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
@@ -104,15 +93,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super.close();
     }
 
-    public ArrayList<String> getAllData() {
-        ArrayList<String> links = new ArrayList<>();
-        String[] columns = new String[]{"link"};
-        Cursor cursor = mDatabase.query(TABLE_IMAGE, columns, null, null, null, null, null);
-        String s;
-        int c = cursor.getColumnIndex("link");
+    public ArrayList<String[]> getAllData() {
+        ArrayList<String[]> links = new ArrayList<>();
+        String sql = "SELECT " + COL_LINK + " FROM " + TABLE_IMAGE;
+        Cursor cursor = mDatabase.rawQuery(sql, null);
+        String listUrl[];
+        String url;
+        int c = cursor.getColumnIndex(COL_LINK);
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            s = cursor.getString(c);
-            links.add(s);
+            url = cursor.getString(c);
+            listUrl = url.split(",");
+            for (int i = 0; i < listUrl.length; i++) {
+                listUrl[i] = listUrl[i].trim();
+            }
+            links.add(listUrl);
         }
         cursor.close();
         return links;

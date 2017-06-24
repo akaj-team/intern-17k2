@@ -15,8 +15,6 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
-import java.util.List;
-
 import vn.asiantech.internship.R;
 
 /**
@@ -24,17 +22,17 @@ import vn.asiantech.internship.R;
  */
 class FeedPagerAdapter extends PagerAdapter {
 
-    private List<String> mImageItems;
+    private String[] mImageItems;
     private Context mContext;
 
-    FeedPagerAdapter(Context context, List<String> imageItems) {
+    FeedPagerAdapter(Context context, String[] imageItems) {
         mContext = context;
         mImageItems = imageItems;
     }
 
     @Override
     public int getCount() {
-        return mImageItems.size();
+        return mImageItems.length;
     }
 
     @Override
@@ -42,7 +40,7 @@ class FeedPagerAdapter extends PagerAdapter {
         LayoutInflater inflater = LayoutInflater.from(container.getContext());
         View imageLayout = inflater.inflate(R.layout.item_list_image, container, false);
         ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgFeed);
-        loadImage(mImageItems.get(position).toString(), imageView);
+        loadImage(mImageItems[position], imageView);
         container.addView(imageLayout);
         return imageLayout;
     }
