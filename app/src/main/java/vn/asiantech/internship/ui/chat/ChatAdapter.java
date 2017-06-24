@@ -29,12 +29,10 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ItemMessageViewHolder
         return new ItemMessageViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(ItemMessageViewHolder holder, int position) {
         holder.mTvMessage.setText(mMessages.get(position));
     }
-
 
     @Override
     public int getItemCount() {
