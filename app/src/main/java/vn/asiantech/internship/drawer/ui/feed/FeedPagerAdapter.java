@@ -1,5 +1,6 @@
 package vn.asiantech.internship.drawer.ui.feed;
 
+import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,25 +8,31 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import java.util.List;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import vn.asiantech.internship.R;
 
 /**
  * Created by at-dinhvo on 15/06/2017.
  */
-
 class FeedPagerAdapter extends PagerAdapter {
 
-    private List<Integer> mImageItems;
+    private String[] mImageItems;
+    private Context mContext;
 
-    FeedPagerAdapter(List<Integer> imageItems) {
+    FeedPagerAdapter(Context context, String[] imageItems) {
+        mContext = context;
         mImageItems = imageItems;
     }
 
     @Override
     public int getCount() {
-        return mImageItems.size();
+        return mImageItems.length;
     }
 
     @Override
@@ -33,9 +40,25 @@ class FeedPagerAdapter extends PagerAdapter {
         LayoutInflater inflater = LayoutInflater.from(container.getContext());
         View imageLayout = inflater.inflate(R.layout.item_list_image, container, false);
         ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgFeed);
-        imageView.setImageResource(mImageItems.get(position));
+        loadImage(mImageItems[position], imageView);
         container.addView(imageLayout);
         return imageLayout;
+    }
+
+    private void loadImage(String link, ImageView imageView) {
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisc(true).cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300)).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                mContext.getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new WeakMemoryCache())
+                .discCacheSize(100 * 1024 * 1024).build();
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.init(config);
+        imageLoader.displayImage(link, imageView, defaultOptions);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package vn.asiantech.internship.drawer.ui.feed;
 
+import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,18 +14,16 @@ import java.util.List;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.drawer.models.FeedItem;
 
-import static vn.asiantech.internship.R.id.viewPager;
-
 /**
  * Created by BACKDOOR on 07-Feb-17.
  */
 class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     private List<FeedItem> mFeedItems;
-    private FeedPagerAdapter mPagerAdapter;
-    private int mCurrentPage;
+    private Context mContext;
 
-    FeedAdapter(List<FeedItem> feedItems) {
+    FeedAdapter(Context context, List<FeedItem> feedItems) {
+        mContext = context;
         mFeedItems = feedItems;
     }
 
@@ -39,8 +38,8 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.mTvName.setText(mFeedItems.get(position).getName());
         holder.mTvComment.setText(mFeedItems.get(position).getComment());
-        mPagerAdapter = new FeedPagerAdapter(mFeedItems.get(position).getImages());
-        holder.mViewPager.setAdapter(mPagerAdapter);
+        FeedPagerAdapter pagerAdapter = new FeedPagerAdapter(mContext, mFeedItems.get(position).getImages());
+        holder.mViewPager.setAdapter(pagerAdapter);
     }
 
     @Override
@@ -58,23 +57,23 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         private ViewPager mViewPager;
         private ImageButton mBtnLeftSlide;
         private ImageButton mBtnRightSlide;
+        private int mCurrentPage;
 
         ViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvFeed);
             mTvComment = (TextView) itemView.findViewById(R.id.tvComment);
-            mViewPager = (ViewPager) itemView.findViewById(viewPager);
+            mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
             mBtnLeftSlide = (ImageButton) itemView.findViewById(R.id.btnLeftSlide);
             mBtnRightSlide = (ImageButton) itemView.findViewById(R.id.btnRightSlide);
             mViewPager.setPageMargin(5);
             mViewPager.setPageMarginDrawable(R.color.colorBlack);
-            mCurrentPage = mViewPager.getCurrentItem();
-
             mBtnLeftSlide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    mCurrentPage = mViewPager.getCurrentItem();
+                    --mCurrentPage;
                     if (mCurrentPage > 0) {
-                        mCurrentPage--;
                         mBtnRightSlide.setVisibility(View.VISIBLE);
                     } else {
                         mBtnLeftSlide.setVisibility(View.GONE);
@@ -85,8 +84,9 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             mBtnRightSlide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mCurrentPage < mPagerAdapter.getCount()) {
-                        mCurrentPage++;
+                    mCurrentPage = mViewPager.getCurrentItem();
+                    ++mCurrentPage;
+                    if (mCurrentPage < mFeedItems.get(getAdapterPosition()).getImages().length) {
                         mBtnLeftSlide.setVisibility(View.VISIBLE);
                     } else {
                         mBtnRightSlide.setVisibility(View.GONE);
