@@ -102,7 +102,7 @@ public class QuizFragment extends Fragment {
 
     private void getAnswer() {
         for(int i=0;i<mQuestions.size();i++){
-            mAnswers.add(new Answer(""));
+            mAnswers.add(new Answer(" "));
         }
     }
 
@@ -112,7 +112,7 @@ public class QuizFragment extends Fragment {
         try {
             jsonText = readText(getActivity(), R.raw.question);
         } catch (IOException e) {
-            Log.d("Exception", "IOException when get JSON from resource");
+            Log.v("Exception", "IOException when get JSON from resource");
         }
         try {
             JSONObject jsonRoot = new JSONObject(jsonText);
@@ -123,7 +123,7 @@ public class QuizFragment extends Fragment {
                 questions.add(new Question(jsonObject.getString("question"),jsonObject.getString("answer_a"),jsonObject.getString("answer_b"),jsonObject.getString("answer_c"),jsonObject.getString("answer_d"),jsonObject.getString("answer_right")));
             }
         } catch (JSONException e) {
-            Log.d("Exception", "JSONException");
+            Log.v("Exception", "JSONException");
         }
        return questions;
     }
