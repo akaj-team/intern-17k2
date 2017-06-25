@@ -2,6 +2,7 @@ package vn.asiantech.internship.note;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,10 +29,6 @@ class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapt
 
     }
 
-    void setAvatar(Bitmap image) {
-        mImage = image;
-    }
-
     @Override
     public RecyclerViewNoteAdapter.MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_note, parent, false);
@@ -40,12 +37,14 @@ class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapt
 
     @Override
     public void onBindViewHolder(RecyclerViewNoteAdapter.MyHolder holder, int position) {
-        holder.mTvTitle.setText(mNoteList.get(position).getTitle());
-        holder.mTvNote.setText(mNoteList.get(position).getNote());
-        holder.mTvTime.setText(mNoteList.get(position).getStringTime());
-        if (mNoteList.get(position).getImage() != null) {
+        ItemNote itemNote = mNoteList.get(position);
+        holder.mTvTitle.setText(itemNote.getTitle());
+        holder.mTvNote.setText(itemNote.getNote());
+        holder.mTvTime.setText(itemNote.getTime());
+        if (itemNote.getImage() != null) {
             holder.mImgNote.setVisibility(View.VISIBLE);
-//            holder.mImgNote.setImageResource(Integer.parseInt(mNoteList.get(position).getImage()));
+            holder.mImgNote.setImageURI(Uri.parse(mNoteList.get(position).getImage()));
+
         }
     }
 

@@ -16,15 +16,11 @@ import static vn.asiantech.internship.R.id.imgSave;
  * Created by datbu on 19-06-2017.
  */
 public class NoteActivity extends AppCompatActivity {
-    public static final int REQUEST_CODE_CROP = 11;
-    public static final int REQUEST_CODE_GALERY = 22;
     private Uri mUri;
     private ImageView mImgAdd;
     private ImageView mImgSave;
-
     private NoteFragment mNoteFragment;
     private AddNoteFragment mAddNoteFragment;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,5 +47,4 @@ public class NoteActivity extends AppCompatActivity {
         }
         fragmentTransaction.commit();
     }
-
 }

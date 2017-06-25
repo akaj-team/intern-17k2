@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -26,8 +26,12 @@ import vn.asiantech.internship.R;
  */
 public class NoteFragment extends Fragment {
     private Context mContext;
+    private ImageView mImgAdd;
+    private Toolbar mToolbarNote;
+    private NoteDatabase mNoteDatabase;
     private AddNoteFragment mAddNoteFragment;
-    List<ItemNote> mItemNote = new ArrayList<>();
+    private RecyclerViewNoteAdapter mRecyclerViewNoteAdapter;
+    private List<ItemNote> mItemNotse;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,36 +41,46 @@ public class NoteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note, container, false);
-        Toolbar toolbarNote = (Toolbar) view.findViewById(R.id.toolbarNote);
-        ImageView imgAdd = (ImageView) view.findViewById(R.id.imgAdd);
+        initView(view);
+        initToolbar();
         mAddNoteFragment = new AddNoteFragment();
-
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbarNote);
-        ActionBar actionbar = activity.getSupportActionBar();
-        if (actionbar != null) {
-            actionbar.setDisplayShowTitleEnabled(true);
-            actionbar.setDisplayShowHomeEnabled(true);
-            actionbar.setDisplayShowCustomEnabled(true);
+        mNoteDatabase = new NoteDatabase(getContext());
+        try {
+            mNoteDatabase.open();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        DatabaseHandler databaseHandler = new DatabaseHandler(getContext());
-        mItemNote = databaseHandler.getAllContacts();
-
+        mItemNotse = mNoteDatabase.getList();
         LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewNote);
         recyclerView.setLayoutManager(manager);
         // Our classic custom Adapter.
-        RecyclerViewNoteAdapter adapter = new RecyclerViewNoteAdapter(mContext, mItemNote);
-        recyclerView.setAdapter(adapter);
+        mRecyclerViewNoteAdapter = new RecyclerViewNoteAdapter(mContext, mItemNotse);
+        recyclerView.setAdapter(mRecyclerViewNoteAdapter);
 
-        imgAdd.setOnClickListener(new View.OnClickListener() {
+        mImgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 replaceFragment(mAddNoteFragment, true);
             }
         });
         return view;
+    }
+
+    public void initView(View view) {
+        mToolbarNote = (Toolbar) view.findViewById(R.id.toolbarNote);
+        mImgAdd = (ImageView) view.findViewById(R.id.imgAdd);
+    }
+
+    public void initToolbar() {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setSupportActionBar(mToolbarNote);
+        ActionBar actionbar = activity.getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setDisplayShowTitleEnabled(true);
+            actionbar.setDisplayShowHomeEnabled(true);
+            actionbar.setDisplayShowCustomEnabled(true);
+        }
     }
 
     public void replaceFragment(Fragment fragment, boolean backStack) {
