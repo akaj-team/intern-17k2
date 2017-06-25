@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.main.Ex05Activity;
@@ -42,20 +41,19 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
                 openActivity(MainActivity.class);
                 break;
             case R.id.btnEx07_2:
-                showToast("I did not add to this activity"); // i'll change when i add this Ex
+                //TODO watiing to add Ex
                 break;
             case R.id.btnEx08:
-
+                //TODO watiing to add Ex
                 break;
             case R.id.btnEx11:
+                //TODO watiing to add Ex
+                break;
+            case R.id.btnEx11_2:
                 openActivity(NoteActivity.class);
                 break;
         }
 
-    }
-
-    private void showToast(String s) {
-        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
     }
 
     private void openActivity(Class<?> className) {
@@ -70,12 +68,14 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         Button btnEx07_2 = (Button) v.findViewById(R.id.btnEx07_2);
         Button btnEx08 = (Button) v.findViewById(R.id.btnEx08);
         Button btnEx11 = (Button) v.findViewById(R.id.btnEx11);
+        Button btnEx11_2 = (Button) v.findViewById(R.id.btnEx11_2);
 
         btnEx05.setOnClickListener(this);
         btnEx06.setOnClickListener(this);
         btnEx07_1.setOnClickListener(this);
         btnEx07_2.setOnClickListener(this);
-        btnEx11.setOnClickListener(this);
         btnEx08.setOnClickListener(this);
+        btnEx11.setOnClickListener(this);
+        btnEx11_2.setOnClickListener(this);
     }
 }

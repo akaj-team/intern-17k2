@@ -28,7 +28,7 @@ public class NoteShowListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_note_show_list, container, false);
-        ImageView imgBtnAdd = (ImageView) v.findViewById(R.id.imgBtnAdd);
+        ImageView imgAdd = (ImageView) v.findViewById(R.id.imgAdd);
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         mNoteFragment = new NoteFragment();
@@ -42,7 +42,7 @@ public class NoteShowListFragment extends Fragment {
         if (getActivity() instanceof NoteActivity) {
             ((NoteActivity) getActivity()).setToolbar(toolbar);
         }
-        imgBtnAdd.setOnClickListener(new View.OnClickListener() {
+        imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mNoteFragment.replaceFragmentAddContent(getActivity(), new NoteAddNewFragment());

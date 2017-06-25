@@ -1,10 +1,9 @@
 package vn.asiantech.internship.ui.note;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,15 +11,16 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -58,8 +58,8 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
 
     private void initView(View v) {
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
-        ImageButton imgBtnOpenImages = (ImageButton) v.findViewById(R.id.imgBtnOpenImage);
-        ImageButton imgBtnSave = (ImageButton) v.findViewById(R.id.imgBtnSave);
+        ImageView imgOpenImages = (ImageView) v.findViewById(R.id.imgOpenImage);
+        ImageView imgSave = (ImageView) v.findViewById(R.id.imgSave);
         mEdtTitle = (EditText) v.findViewById(R.id.edtTitle);
         mEdtDescription = (EditText) v.findViewById(R.id.edtDescription);
         mImgAvatar = (ImageView) v.findViewById(R.id.imgAvatar);
@@ -69,15 +69,14 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
             ((NoteActivity) getActivity()).setToolbar(toolbar);
         }
 
-        imgBtnOpenImages.setOnClickListener(this);
-        imgBtnSave.setOnClickListener(this);
+        imgOpenImages.setOnClickListener(this);
+        imgSave.setOnClickListener(this);
     }
 
     private String saveImageToSdCard(Bitmap bitmap) {
         String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
         String fileName = new Date().toString().replaceAll(" ", "");
         File file = new File(extStorageDirectory, fileName + ".thg");
-        File fileThumb = new File(extStorageDirectory, fileName + ".thg.thumb");
         try {
             // Using when show full HD images
             FileOutputStream outStream = new FileOutputStream(file);
@@ -85,11 +84,6 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
             outStream.flush();
             outStream.close();
 
-            // Save thumb using to set image thumb
-            FileOutputStream outStreamThumb = new FileOutputStream(fileThumb);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 20, outStreamThumb);
-            outStreamThumb.flush();
-            outStreamThumb.close();
         } catch (IOException e) {
             Log.d("FeedsFragment", "saveImageToSdCard: " + e.toString());
         }
@@ -99,11 +93,11 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.imgBtnOpenImage:
+            case R.id.imgOpenImage:
                 openLibrary();
                 break;
 
-            case R.id.imgBtnSave:
+            case R.id.imgSave:
                 saveData();
         }
     }
@@ -135,22 +129,41 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap;
         if (data != null) {
             switch (requestCode) {
                 case MainActivity.KEY_LIBRARY:
                     Uri uriSelectedImage = data.getData();
-                    String[] filePathColumns = {MediaStore.Images.Media.DATA};
-                    @SuppressLint("Recycle") Cursor cursor = getActivity().getContentResolver().query(uriSelectedImage,
-                            filePathColumns, null, null, null);
-                    assert cursor != null;
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumns[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    bitmap = BitmapFactory.decodeFile(picturePath);
-                    setImage(bitmap);
-                    mFilePath = saveImageToSdCard(bitmap);
-                    cursor.close();
+
+                    Display display = getActivity().getWindowManager().getDefaultDisplay();
+                    Point size = new Point();
+                    display.getSize(size);
+                    int dw = size.x;
+                    int dh = size.y;
+                    try {
+                        // Load up the image's dimensions not the image itself
+                        BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+                        bmpFactoryOptions.inJustDecodeBounds = true;
+                        int heightRatio = (int) Math
+                                .ceil(bmpFactoryOptions.outHeight / (float) dh);
+                        int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth
+                                / (float) dw);
+                        if (heightRatio > 1 && widthRatio > 1) {
+                            if (heightRatio > widthRatio) {
+                                bmpFactoryOptions.inSampleSize = heightRatio;
+                            } else {
+                                bmpFactoryOptions.inSampleSize = widthRatio;
+                            }
+                        }
+                        bmpFactoryOptions.inJustDecodeBounds = false;
+                        Bitmap bmp = BitmapFactory.decodeStream(getActivity().getContentResolver()
+                                        .openInputStream(uriSelectedImage), null,
+                                bmpFactoryOptions);
+
+                        setImage(bmp);
+                        mFilePath = saveImageToSdCard(bmp);
+                    } catch (FileNotFoundException e) {
+                        Log.v("ERROR", e.toString());
+                    }
                     break;
             }
         }

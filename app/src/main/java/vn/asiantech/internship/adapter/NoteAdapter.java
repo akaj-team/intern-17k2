@@ -44,7 +44,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         if (note.getNoteImagesThumb().equalsIgnoreCase("")) {
             holder.mImgAvatar.setVisibility(View.GONE);
         } else {
-            holder.mImgAvatar.setImageURI(Uri.parse(note.getNoteImagesThumb().trim() + ".thumb"));
+            holder.mImgAvatar.setImageURI(Uri.parse(note.getNoteImagesThumb().trim()));
         }
     }
 

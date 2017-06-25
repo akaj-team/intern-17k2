@@ -11,24 +11,28 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end">
+            android:layout_height="45dp">
 
-            <ImageButton
-                android:id="@+id/imgBtnMenuOption"
+            <ImageView
+                android:id="@+id/imgMenuOption"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/marginSomething"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="@dimen/marginButtonContent"
+                android:layout_marginLeft="@dimen/marginButtonContent"
+                android:layout_marginRight="@dimen/marginButtonContent"
+                android:layout_marginStart="@dimen/marginButtonContent"
                 android:contentDescription="@string/textview.text.description"
                 android:src="@drawable/vector_option" />
 
-            <ImageButton
-                android:id="@+id/imgBtnAdd"
+            <ImageView
+                android:id="@+id/imgAdd"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/marginSomething"
-                android:layout_toLeftOf="@id/imgBtnMenuOption"
-                android:layout_toStartOf="@id/imgBtnMenuOption"
+                android:layout_toLeftOf="@id/imgMenuOption"
+                android:layout_toStartOf="@id/imgMenuOption"
                 android:contentDescription="@string/textview.text.description"
                 android:src="@drawable/vector_add" />
         </RelativeLayout>

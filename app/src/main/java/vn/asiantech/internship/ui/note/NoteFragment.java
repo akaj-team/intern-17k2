@@ -26,21 +26,25 @@ public class NoteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_note, container, false);
+
         mRlSecond = (RelativeLayout) v.findViewById(R.id.rlSecond);
-        ImageView imgBtnAdd = (ImageView) v.findViewById(R.id.imgBtnAdd);
+        ImageView imgAdd = (ImageView) v.findViewById(R.id.imgAdd);
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
-        imgBtnAdd.setOnClickListener(new View.OnClickListener() {
+
+        imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 replaceFragmentAddContent(getActivity(), new NoteAddNewFragment());
                 mRlSecond.setVisibility(View.VISIBLE);
             }
         });
+
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         checkContent(databaseHelper);
         if (getActivity() instanceof NoteActivity) {
             ((NoteActivity) getActivity()).setToolbar(toolbar);
         }
+
         return v;
     }
 
