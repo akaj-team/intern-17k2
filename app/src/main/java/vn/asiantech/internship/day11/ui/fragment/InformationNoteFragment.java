@@ -35,10 +35,11 @@ public class InformationNoteFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTime = getArguments() != null ? (String) getArguments().get("Time") : "Error";
-        mTitle = getArguments() != null ? (String) getArguments().get("Title") : "Error";
-        mDescription = getArguments() != null ? (String) getArguments().get("Description") : "Error";
-        mUriImage = getArguments() != null ? (String) getArguments().get("UriImage") : "Error";
+        String error = "Error";
+        mTime = getArguments() != null ? (String) getArguments().get("Time") : error;
+        mTitle = getArguments() != null ? (String) getArguments().get("Title") : error;
+        mDescription = getArguments() != null ? (String) getArguments().get("Description") : error;
+        mUriImage = getArguments() != null ? (String) getArguments().get("UriImage") : error;
     }
 
     @Nullable

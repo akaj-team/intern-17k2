@@ -73,12 +73,13 @@ public class InformationEditFragment extends Fragment {
                     Toast.makeText(getContext(), "input description", Toast.LENGTH_LONG).show();
                 } else {
                     NoteModify noteModify = new NoteModify(getContext());
-                    Date date = new Date();
-                    SimpleDateFormat ft = new SimpleDateFormat("E yyyy.MM.dd hh:mm:ss ", Locale.getDefault());
+                    String day = formatTime("EEE");
+                    String date = formatTime("yyyy/MM/dd");
+                    String time = formatTime("hh:mm:ss");
                     if (mSaveUriImage == null) {
-                        note = new Note(0, mEdtTitle.getText().toString(), mEdtDescription.getText().toString(), "", ft.format(date));
+                        note = new Note(0, mEdtTitle.getText().toString(), mEdtDescription.getText().toString(), "", day, date, time);
                     } else {
-                        note = new Note(0, mEdtTitle.getText().toString(), mEdtDescription.getText().toString(), mSaveUriImage.toString(), ft.format(date));
+                        note = new Note(0, mEdtTitle.getText().toString(), mEdtDescription.getText().toString(), mSaveUriImage.toString(), day, date, time);
                     }
                     noteModify.insert(note);
                     if (getActivity() instanceof NoteActivity) {
@@ -149,7 +150,7 @@ public class InformationEditFragment extends Fragment {
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss ", Locale.getDefault());
         String name = simpleDateFormat.format(date).trim();
-        return name.replace(":", "").replace(" ", "").replace(".", "");
+        return name.replace(":", "").replace(" ", "").replace("/", "");
     }
 
     private Bitmap designImage(Uri uri) {
@@ -180,5 +181,10 @@ public class InformationEditFragment extends Fragment {
             }
         }
         return null;
+    }
+
+    private String formatTime(String format) {
+        SimpleDateFormat ft = new SimpleDateFormat(format, Locale.getDefault());
+        return ft.format(new Date());
     }
 }

@@ -2,7 +2,6 @@ package vn.asiantech.internship.day11.adapter;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,9 +39,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.mTvTitle.setText(mNotes.get(position).getTitle());
         holder.mTvDescription.setText(mNotes.get(position).getDescription());
         holder.mImgNote.setImageURI(Uri.parse(mNotes.get(position).getImageNote()));
-        holder.mTvDay.setText(convertToDay(mNotes.get(position).getTime()));
-        holder.mTvDate.setText(convertToDate(mNotes.get(position).getTime()));
-        holder.mTvTime.setText(convertToTime(mNotes.get(position).getTime()));
+        holder.mTvDay.setText(mNotes.get(position).getDay());
+        holder.mTvDate.setText(mNotes.get(position).getDate());
+        holder.mTvTime.setText(mNotes.get(position).getTime());
     }
 
     @Override
@@ -74,7 +73,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                 public void onClick(View v) {
                     InformationNoteFragment informationNoteFragment = new InformationNoteFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("Time", convertToDay(mNotes.get(getAdapterPosition()).getTime()) + " " + convertToDate(mNotes.get(getAdapterPosition()).getTime() + " " + convertToTime(mNotes.get(getAdapterPosition()).getTime())));
+                    bundle.putString("Time", mNotes.get(getAdapterPosition()).getDay() + " " + mNotes.get(getAdapterPosition()).getDate() + " " + mNotes.get(getAdapterPosition()).getTime());
                     bundle.putString("Title", mNotes.get(getAdapterPosition()).getTitle());
                     bundle.putString("Description", mNotes.get(getAdapterPosition()).getDescription());
                     bundle.putString("UriImage", mNotes.get(getAdapterPosition()).getImageNote());
@@ -83,20 +82,5 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                 }
             });
         }
-    }
-
-    @NonNull
-    private String convertToDay(String s) {
-        return s.substring(0, 4);
-    }
-
-    @NonNull
-    private String convertToDate(String s) {
-        return s.substring(4, 15);
-    }
-
-    @NonNull
-    private String convertToTime(String s) {
-        return s.substring(15, s.length());
     }
 }

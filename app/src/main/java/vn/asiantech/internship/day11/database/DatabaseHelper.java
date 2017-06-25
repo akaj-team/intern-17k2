@@ -14,6 +14,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_TITLE = "title";
     public static final String KEY_DESCRIPTION = "descriptiom";
     public static final String KEY_IMAGE = "image";
+    public static final String KEY_DAY = "day";
+    public static final String KEY_DATE = "date";
     public static final String KEY_TIME = "time";
     static final String DATABASE_TABLE = "note";
 
@@ -31,6 +33,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + KEY_TITLE + " TEXT,"
                 + KEY_DESCRIPTION + " TEXT,"
                 + KEY_IMAGE + " TEXT,"
+                + KEY_DAY + " TEXT,"
+                + KEY_DATE + " TEXT,"
                 + KEY_TIME + " TEXT)";
         db.execSQL(create_table_note);
     }

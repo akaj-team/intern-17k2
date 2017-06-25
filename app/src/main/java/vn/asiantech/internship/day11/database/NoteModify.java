@@ -25,6 +25,8 @@ public class NoteModify {
         values.put(DatabaseHelper.KEY_TITLE, note.getTitle());
         values.put(DatabaseHelper.KEY_DESCRIPTION, note.getDescription());
         values.put(DatabaseHelper.KEY_IMAGE, note.getImageNote());
+        values.put(DatabaseHelper.KEY_DAY, note.getDay());
+        values.put(DatabaseHelper.KEY_DATE, note.getDate());
         values.put(DatabaseHelper.KEY_TIME, note.getTime());
         db.insert(DatabaseHelper.DATABASE_TABLE, null, values);
         // Dong ket noi

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class NoteFragment extends Fragment {
         NoteModify noteModify = new NoteModify(getContext());
         Cursor cursor = noteModify.getNoteList();
         while (!cursor.isAfterLast()) {
-            Note note = new Note(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.KEY_ID)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_TITLE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_DESCRIPTION)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_IMAGE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_TIME)));
+            Note note = new Note(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.KEY_ID)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_TITLE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_DESCRIPTION)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_IMAGE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_DAY)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_DATE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_TIME)));
             mNotes.add(note);
             cursor.moveToNext();
         }

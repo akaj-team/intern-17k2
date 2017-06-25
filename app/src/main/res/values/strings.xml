@@ -37,7 +37,6 @@
     <string name="textview.title_edit.text">Title</string>
     <string name="textview.description_edit.text">Description</string>
     <string name="textview.edit_information.text">Edit Information</string>
-    <string name="textview.note_title.text">Note</string>
     <string name="textview.information_title.text">Information</string>
     <string name="textview.information.text">InformationNote</string>
     <string-array name="items">

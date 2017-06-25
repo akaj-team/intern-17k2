@@ -9,17 +9,21 @@ public class Note {
     private String title;
     private String description;
     private String imageNote;
+    private String day;
+    private String date;
     private String time;
 
-    public Note() {
-    }
-
-    public Note(int id, String title, String description, String imageNote, String time) {
+    public Note(int id, String title, String description, String imageNote, String day, String date, String time) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.imageNote = imageNote;
+        this.day = day;
+        this.date = date;
         this.time = time;
+    }
+
+    public Note() {
     }
 
     public int getId() {
@@ -52,6 +56,22 @@ public class Note {
 
     public void setImageNote(String imageNote) {
         this.imageNote = imageNote;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTime() {
