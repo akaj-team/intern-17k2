@@ -7,8 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import vn.asiantech.internship.R;
 
@@ -16,14 +14,13 @@ import vn.asiantech.internship.R;
  * QuestionActivity Created by Thanh Thien
  */
 public class QuestionActivity extends AppCompatActivity {
+    private static final String FRAGMENT_SECOND = "FRAGMENT_SECOND";
     private QuestionMainFragment mQuestionMainFragment;
-    private LinearLayout mLlSecond;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-        mLlSecond = (LinearLayout) findViewById(R.id.llSecond);
         replaceFragmentAddContent();
     }
 
@@ -44,12 +41,14 @@ public class QuestionActivity extends AppCompatActivity {
     public void replaceFragment(Fragment fragment, boolean isFirst) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (isFirst) {
+            Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(FRAGMENT_SECOND);
+            if (fragmentByTag != null) {
+                fragmentTransaction.remove(fragmentByTag);
+            }
             fragmentTransaction.replace(R.id.llFirst, fragment);
-            mLlSecond.setVisibility(View.GONE);
         } else {
-            fragmentTransaction.replace(R.id.llSecond, fragment);
             fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top);
-            mLlSecond.setVisibility(View.VISIBLE);
+            fragmentTransaction.replace(R.id.llSecond, fragment, FRAGMENT_SECOND);
         }
         fragmentTransaction.commit();
     }

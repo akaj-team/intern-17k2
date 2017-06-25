@@ -100,11 +100,4 @@ public class QuestionShowFragment extends Fragment {
     private void sendToMain(String s, int mCurrentPosition) {
         ((QuestionActivity) getActivity()).sendToMain(s, mCurrentPosition);
     }
-
-    /**
-     * OnCheckAnswerListener
-     */
-    public interface OnCheckAnswerListener {
-        void onClickAnswer(int question, String answer);
-    }
 }

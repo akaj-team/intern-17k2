@@ -48,7 +48,7 @@ public class QuestionDialogFragment extends DialogFragment {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setStyle(DialogFragment.STYLE_NO_FRAME, android.R.style.Theme);
 
-        TextView tvResult = (TextView) rootView.findViewById(R.id.tvContent);
+        TextView tvResult = (TextView) rootView.findViewById(R.id.tvResult);
         Button btnCancel = (Button) rootView.findViewById(R.id.btnCancel);
         Button btnOk = (Button) rootView.findViewById(R.id.btnOk);
 

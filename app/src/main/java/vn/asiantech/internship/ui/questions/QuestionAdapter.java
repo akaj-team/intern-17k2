@@ -28,5 +28,4 @@ public class QuestionAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return mQuestions.size();
     }
-
 }

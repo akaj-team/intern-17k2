@@ -28,7 +28,7 @@ import vn.asiantech.internship.models.Question;
  * QuestionMainFragment of Question
  * Created by Thanh Thiem
  */
-public class QuestionMainFragment extends Fragment implements View.OnClickListener, QuestionShowFragment.OnCheckAnswerListener {
+public class QuestionMainFragment extends Fragment implements View.OnClickListener{
 
     private TextView mTvBack;
     private TextView mTvHead;
@@ -202,8 +202,6 @@ public class QuestionMainFragment extends Fragment implements View.OnClickListen
             if (isCorrect(i)) {
                 rightCorrect++;
                 booleans[i] = true;
-            } else {
-                booleans[i] = false;
             }
         }
         if (getActivity() instanceof QuestionActivity) {
@@ -256,7 +254,6 @@ public class QuestionMainFragment extends Fragment implements View.OnClickListen
         return questions;
     }
 
-    @Override
     public void onClickAnswer(int question, String answer) {
         for (int i = 0; i < mAnswerChoice.length; i++) {
             if (question == Integer.parseInt(mAnswerChoice[i][0])) {
@@ -282,5 +279,4 @@ public class QuestionMainFragment extends Fragment implements View.OnClickListen
         }
         return json;
     }
-
 }

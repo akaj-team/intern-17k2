@@ -33,9 +33,10 @@ public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAd
 
     @Override
     public void onBindViewHolder(ResultViewHolder resultViewHolder, int position) {
-        if (position == mBooleans.length - 1) {
-            String s = resultViewHolder.itemView.getResources().getString(R.string.correct) + " : " + mNumRight + "/10";
-            resultViewHolder.mTvNumQuestion.setText(s);
+
+        if (position == 10) {
+            String string = resultViewHolder.itemView.getResources().getString(R.string.correct) + " : " + mNumRight + "/10";
+            resultViewHolder.mTvNumQuestion.setText(string);
             resultViewHolder.mTvNumQuestion.setTypeface(null, Typeface.BOLD);
             resultViewHolder.mImgCheck.setVisibility(View.GONE);
             return;
@@ -54,7 +55,7 @@ public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAd
 
     @Override
     public int getItemCount() {
-        return mBooleans.length;
+        return mBooleans.length + 1;
     }
 
     /**

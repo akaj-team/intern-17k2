@@ -67,5 +67,4 @@ public class QuestionResultFragment extends Fragment {
         }
         return v;
     }
-
 }
