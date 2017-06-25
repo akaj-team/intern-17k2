@@ -1,7 +1,9 @@
 package vn.asiantech.internship.ui.questions;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -26,7 +28,7 @@ import vn.asiantech.internship.models.Question;
  * QuestionMainFragment of Question
  * Created by Thanh Thiem
  */
-public class QuestionMainFragment extends Fragment implements QuestionAdapter.OnQuestionAdapterListener, View.OnClickListener, QuestionShowFragment.OnCheckAnswerListener {
+public class QuestionMainFragment extends Fragment implements View.OnClickListener, QuestionShowFragment.OnCheckAnswerListener {
 
     private TextView mTvBack;
     private TextView mTvHead;
@@ -34,9 +36,9 @@ public class QuestionMainFragment extends Fragment implements QuestionAdapter.On
     private ViewPager mViewPager;
 
     private List<Question> mQuestions;
+    private List<Question> mQuestionChoice;
     private List<Integer> mHasAdd;
-    private int mCurrentQuestion;
-    private String[][] mAnswerChoice = new String[10][2];
+    private String[][] mAnswerChoice = new String[0][2];
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,12 +49,27 @@ public class QuestionMainFragment extends Fragment implements QuestionAdapter.On
 
         mHasAdd = new ArrayList<>();
         mQuestions = getJson();
-
-        QuestionAdapter questionAdapter = new QuestionAdapter(getActivity().getSupportFragmentManager(), getQuestionResult(new ArrayList<Question>(), 0), this);
+        mQuestionChoice = getQuestionResult(new ArrayList<Question>(), 0);
+        QuestionAdapter questionAdapter = new QuestionAdapter(getActivity().getSupportFragmentManager(), mQuestionChoice);
         mViewPager.setAdapter(questionAdapter);
 
         mTvNext.setOnClickListener(this);
         mTvBack.setOnClickListener(this);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setHeader(position + 1);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
         return v;
     }
 
@@ -62,10 +79,9 @@ public class QuestionMainFragment extends Fragment implements QuestionAdapter.On
         mTvBack = (TextView) v.findViewById(R.id.tvBack);
         mTvNext = (TextView) v.findViewById(R.id.tvNext);
         mTvHead = (TextView) v.findViewById(R.id.tvHead);
-        mCurrentQuestion = 1;
-        setHeader();
+        setHeader(1);
         if (getActivity() instanceof QuestionActivity) {
-            ((QuestionActivity) getActivity()).setSupportActionBar(toolbar);
+            ((QuestionActivity) getActivity()).setToolbar(toolbar);
         }
     }
 
@@ -112,7 +128,7 @@ public class QuestionMainFragment extends Fragment implements QuestionAdapter.On
     private int getPosAnswer(List<Integer> answers) {
         int i = new Random().nextInt(4);
         String s = answers.toString();
-        if (s.indexOf(i) != -1) {
+        if (s.contains(i + "")) {
             return getPosAnswer(answers);
         }
         return i;
@@ -129,19 +145,107 @@ public class QuestionMainFragment extends Fragment implements QuestionAdapter.On
         return i;
     }
 
+    public void setHeader(int position) {
+        String head = getResources().getString(R.string.question) + " " + position;
+        mTvHead.setText(head);
+        if (position == 1) {
+            mTvBack.setText(null);
+            mTvNext.setText(R.string.next);
+        } else if (position == 10) {
+            mTvBack.setText(R.string.prev);
+            mTvNext.setText(R.string.result);
+        } else {
+            mTvBack.setText(R.string.prev);
+            mTvNext.setText(R.string.next);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvBack:
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+                break;
+            case R.id.tvNext:
+                if (mTvNext.getText().toString().equalsIgnoreCase(getResources().getString(R.string.result))) {
+                    showResult();
+                } else {
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+                }
+                break;
+        }
+    }
+
+    private void showDialogFragment(int i) {
+        // Create and show the dialog.
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        DialogFragment dialogFragment = QuestionDialogFragment.newInstance(i);
+        dialogFragment.show(ft, "dialog");
+    }
+
+    private void replaceData(int i, String answer) {
+        mAnswerChoice[i][1] = answer;
+    }
+
+    private void showResult() {
+        if (mAnswerChoice.length < 10) {
+            showDialogFragment(mAnswerChoice.length);
+        } else {
+            showResultFragment();
+        }
+    }
+
+    public void showResultFragment() {
+        boolean[] booleans = new boolean[10];
+        int rightCorrect = 0;
+        for (int i = 0; i < 10; i++) {
+            if (isCorrect(i)) {
+                rightCorrect++;
+                booleans[i] = true;
+            } else {
+                booleans[i] = false;
+            }
+        }
+        if (getActivity() instanceof QuestionActivity) {
+            ((QuestionActivity) getActivity()).replaceFragment(QuestionResultFragment.newInstance(booleans, rightCorrect), false);
+        }
+    }
+
+    private boolean isCorrect(int i) {
+        for (String[] aMAnswerChoice : mAnswerChoice) {
+            if (Integer.parseInt(aMAnswerChoice[0]) == i && aMAnswerChoice[1].equalsIgnoreCase(mQuestionChoice.get(i).getAnswerCorrect())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String[][] addOneIntToArray(int question, String answer) {
+
+        String[][] newArray = new String[mAnswerChoice.length + 1][2];
+        for (int index = 0; index < mAnswerChoice.length; index++) {
+            newArray[index][0] = mAnswerChoice[index][0];
+            newArray[index][1] = mAnswerChoice[index][1];
+        }
+
+        newArray[newArray.length - 1][0] = question + "";
+        newArray[newArray.length - 1][1] = answer;
+        return newArray;
+    }
+
     private List<Question> getJson() {
         List<Question> questions = new ArrayList<>();
         try {
             String json = loadJSONFromAsset();
             JSONArray jsonArray = new JSONArray(json);
             for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jb = (JSONObject) jsonArray.get(i);
-                String questionString = jb.getString("question");
-                String answerA = jb.getString("answer_a");
-                String answerB = jb.getString("answer_b");
-                String answerC = jb.getString("answer_c");
-                String answerD = jb.getString("answer_d");
-                String answerCorrect = jb.getString("answer_right");
+                JSONObject object = (JSONObject) jsonArray.get(i);
+                String questionString = object.getString("question");
+                String answerA = object.getString("answer_a");
+                String answerB = object.getString("answer_b");
+                String answerC = object.getString("answer_c");
+                String answerD = object.getString("answer_d");
+                String answerCorrect = object.getString("answer_right");
                 Question question = new Question(questionString, answerA, answerB, answerC, answerD, answerCorrect);
                 questions.add(question);
             }
@@ -150,6 +254,17 @@ public class QuestionMainFragment extends Fragment implements QuestionAdapter.On
             e.printStackTrace();
         }
         return questions;
+    }
+
+    @Override
+    public void onClickAnswer(int question, String answer) {
+        for (int i = 0; i < mAnswerChoice.length; i++) {
+            if (question == Integer.parseInt(mAnswerChoice[i][0])) {
+                replaceData(i, answer);
+                return;
+            }
+        }
+        mAnswerChoice = addOneIntToArray(question, answer);
     }
 
     public String loadJSONFromAsset() {
@@ -168,60 +283,4 @@ public class QuestionMainFragment extends Fragment implements QuestionAdapter.On
         return json;
     }
 
-    @Override
-    public void setHeader() {
-        mCurrentQuestion = mViewPager.getCurrentItem() + 1;
-        String head = getResources().getString(R.string.question) + " " + mCurrentQuestion;
-        mTvHead.setText(head);
-        if (mCurrentQuestion == 1) {
-            mTvBack.setText(null);
-            mTvNext.setText(R.string.next);
-        } else if (mCurrentQuestion == 10) {
-            mTvBack.setText(R.string.prev);
-            mTvNext.setText(R.string.result);
-        } else {
-            mTvBack.setText(R.string.prev);
-            mTvNext.setText(R.string.next);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tvBack:
-                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
-                setHeader();
-                break;
-            case R.id.tvNext:
-                if (mTvNext.getText().toString().equalsIgnoreCase(getResources().getString(R.string.result))) {
-                    showDialog();
-                } else {
-                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
-                }
-                setHeader();
-                break;
-        }
-    }
-
-    private void showDialog() {
-
-    }
-
-    @Override
-    public void onClickAnswer(int question, String answer) {
-        mAnswerChoice = addOneIntToArray(question, answer);
-    }
-
-    public String[][] addOneIntToArray(int question, String answer) {
-
-        String[][] newArray = new String[mAnswerChoice.length + 1][2];
-        for (int index = 0; index < mAnswerChoice.length; index++) {
-            newArray[index][0] = mAnswerChoice[index][0];
-            newArray[index][1] = mAnswerChoice[index][1];
-        }
-
-        newArray[newArray.length - 1][0] = question + "";
-        newArray[newArray.length - 1][1] = answer;
-        return newArray;
-    }
 }

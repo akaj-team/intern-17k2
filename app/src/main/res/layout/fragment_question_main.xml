@@ -13,20 +13,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tvBack"
                 style="@style/TextViewStyleNormalQuestion"
                 android:layout_width="0dp"
-                android:id="@+id/tvBack"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="center_horizontal"
                 tools:text="Prev" />
 
             <TextView
-                style="@style/TextHeadStyle"
                 android:id="@+id/tvHead"
+                style="@style/TextHeadStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -34,11 +35,12 @@
                 tools:text="@string/app_name" />
 
             <TextView
+                android:id="@+id/tvNext"
                 style="@style/TextViewStyleNormalQuestion"
                 android:layout_width="0dp"
-                android:id="@+id/tvNext"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="center_horizontal"
                 tools:text="Next" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
