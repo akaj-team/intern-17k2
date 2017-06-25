@@ -5,6 +5,13 @@
     android:layout_height="wrap_content"
     android:background="@color/toolbar.note.background">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textview.information_title.text"
+        android:textColor="@color/colorEditInformation"
+        android:textSize="@dimen/textview.editInformation.textSize" />
+
     <ImageView
         android:id="@+id/imgAdd"
         android:layout_width="wrap_content"

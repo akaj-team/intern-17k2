@@ -20,35 +20,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/linearlayout.title.layout_marginTop">
 
-        <EditText
-            android:id="@+id/edtTitle"
-            android:labelFor="@+id/tvTitleNote"
-            android:layout_width="@dimen/edittext.title.layout_width"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/edittext.title.layout_marginLeft"
-            android:inputType="textPersonName" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:labelFor="@+id/tvDescriptionNote"
             android:layout_marginStart="@dimen/edittext.title.layout_marginLeft"
             android:text="@string/textview.title_edit.text"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/edittext.title.textSize" />
+
+        <EditText
+            android:id="@+id/edtTitle"
+            android:layout_width="@dimen/edittext.title.layout_width"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/edittext.title.layout_marginLeft"
+            android:inputType="textPersonName"
+            android:labelFor="@+id/edtTitle" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/linearlayout.description.layout_marginTop">
-
-        <EditText
-            android:id="@+id/edtDescription"
-            android:layout_width="@dimen/edittext.title.layout_width"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/edittext.title.layout_marginLeft"
-            android:inputType="textPersonName" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,5 +50,14 @@
             android:text="@string/textview.description_edit.text"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/edittext.title.textSize" />
+
+        <EditText
+            android:id="@+id/edtDescription"
+            android:layout_width="@dimen/edittext.title.layout_width"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/edittext.description.layout_marginLeft"
+            android:inputType="textPersonName"
+            android:labelFor="@+id/edtDescription" />
+
     </LinearLayout>
 </LinearLayout>

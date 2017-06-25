@@ -1,5 +1,6 @@
 package vn.asiantech.internship.day11.ui.fragment;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,10 +28,21 @@ import vn.asiantech.internship.day11.ui.activity.NoteActivity;
  */
 public class NoteFragment extends Fragment {
     private List<Note> mNotes = new ArrayList<>();
+    private NoteActivity mNoteActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mNoteActivity = (NoteActivity) context;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        for (int i = 0; i < mNotes.size(); i++) {
+            mNotes.remove(i);
+            i--;
+        }
         View v = inflater.inflate(R.layout.fragment_note, container, false);
         RecyclerView recyclerViewNote = (RecyclerView) v.findViewById(R.id.recyclerViewNote);
         ImageView imgAdd = (ImageView) v.findViewById(R.id.imgAdd);
@@ -43,8 +55,7 @@ public class NoteFragment extends Fragment {
             }
         });
         getData();
-
-        NoteAdapter noteAdapter = new NoteAdapter(mNotes);
+        NoteAdapter noteAdapter = new NoteAdapter(mNotes, mNoteActivity);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerViewNote.setLayoutManager(linearLayoutManager);
         recyclerViewNote.setAdapter(noteAdapter);

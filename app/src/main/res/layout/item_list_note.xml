@@ -68,7 +68,7 @@
                 tools:text="Title" />
 
             <TextView
-                android:id="@+id/tvDescriptionNote"
+                android:id="@+id/tvDescriptionItemNote"
                 android:layout_width="@dimen/textview.description_note.layout_width"
                 android:layout_height="@dimen/textview.description_note.layout_height"
                 android:textColor="@color/colorItem"

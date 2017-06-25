@@ -7,8 +7,8 @@
     <color name="btn.friends">#FF0033</color>
     <color name="colorItemPressed">#666666</color>
     <color name="colorBorder">#CCCCCC</color>
-    <color name="toolbar.edit_information.background">#CCCCCC</color>
-    <color name="toolbar.note.background">#CCCCCC</color>
+    <color name="toolbar.edit_information.background">#002E3E</color>
+    <color name="toolbar.note.background">#002E3E</color>
     <color name="colorItem">#86868B</color>
     <color name="textview.function">#FFFFFF</color>
     <color name="toolbar">#ECEBED</color>
@@ -16,4 +16,7 @@
     <color name="solid.custom_linearlayout_image_header">#EEEEEE</color>
     <color name="avatar_bolder">#FFFFCC</color>
     <color name="ll.time.background">#99CCCC</color>
+    <color name="colorEditInformation">#F5F5F5</color>
+    <color name="colorTime">#880000</color>
+    <color name="textview.title_infor_note">#003300</color>
 </resources>

@@ -26,9 +26,11 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     public void changeFragment(Fragment fragment) {
+        String tagFragment = fragment.getClass().getName();
         FragmentManager manager = getSupportFragmentManager();
         mTransaction = manager.beginTransaction();
         mTransaction.replace(R.id.flNote, fragment);
+        mTransaction.addToBackStack(tagFragment);
         mTransaction.commit();
     }
 }

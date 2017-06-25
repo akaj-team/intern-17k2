@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_information_note" />
+
+    <TextView
+        android:id="@+id/tvTitleInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/textview.title_infor.layout_mảginStart"
+        android:layout_marginTop="@dimen/textview.time_infor_note.layout_marginTop"
+        android:textColor="@color/textview.title_infor_note"
+        android:textSize="@dimen/textview.title_information.textSize"
+        tools:text="title information" />
+
+
+    <TextView
+        android:id="@+id/tvTimeInformationNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/textview.title_infor.layout_mảginStart"
+        android:layout_marginTop="@dimen/textview.time_infor_note.layout_marginTop"
+        android:textColor="@color/colorTime"
+        android:textSize="@dimen/textview.time_information_note.textSize"
+        tools:text="time" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/textview.border.layout_height"
+        android:background="@color/colorItem" />
+
+    <TextView
+        android:id="@+id/tvDescriptionInforNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/imageview.imge_infor_note.layout_marginTop"
+        android:textSize="@dimen/textview.description_information_note.textSize"
+        tools:text="Description" />
+
+    <ImageView
+        android:id="@+id/imgInformationNote"
+        android:layout_width="@dimen/imageview.imge_infor_note.layout_width"
+        android:layout_height="@dimen/imageview.imge_infor_note.layout_height"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/imageview.imge_infor_note.layout_marginTop"
+        android:contentDescription="@null" />
+</LinearLayout>

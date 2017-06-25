@@ -1,6 +1,7 @@
 package vn.asiantech.internship.day11.adapter;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day11.model.Note;
+import vn.asiantech.internship.day11.ui.activity.NoteActivity;
+import vn.asiantech.internship.day11.ui.fragment.InformationNoteFragment;
 
 /**
  * Copyright © 2017 AsianTech inc.
@@ -20,9 +23,11 @@ import vn.asiantech.internship.day11.model.Note;
  */
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
     private List<Note> mNotes;
+    private NoteActivity mNoteActivity;
 
-    public NoteAdapter(List<Note> notes) {
+    public NoteAdapter(List<Note> notes, NoteActivity noteActivity) {
         mNotes = notes;
+        mNoteActivity = noteActivity;
     }
 
     @Override
@@ -59,11 +64,24 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         NoteViewHolder(View itemView) {
             super(itemView);
             mTvTitle = (TextView) itemView.findViewById(R.id.tvTitleNote);
-            mTvDescription = (TextView) itemView.findViewById(R.id.tvDescriptionNote);
+            mTvDescription = (TextView) itemView.findViewById(R.id.tvDescriptionItemNote);
             mImgNote = (ImageView) itemView.findViewById(R.id.imgItemNote);
             mTvDay = (TextView) itemView.findViewById(R.id.tvDay);
             mTvDate = (TextView) itemView.findViewById(R.id.tvDate);
             mTvTime = (TextView) itemView.findViewById(R.id.tvTime);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    InformationNoteFragment informationNoteFragment = new InformationNoteFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Time", convertToDay(mNotes.get(getAdapterPosition()).getTime()) + " " + convertToDate(mNotes.get(getAdapterPosition()).getTime() + " " + convertToTime(mNotes.get(getAdapterPosition()).getTime())));
+                    bundle.putString("Title", mNotes.get(getAdapterPosition()).getTitle());
+                    bundle.putString("Description", mNotes.get(getAdapterPosition()).getDescription());
+                    bundle.putString("UriImage", mNotes.get(getAdapterPosition()).getImageNote());
+                    informationNoteFragment.setArguments(bundle);
+                    mNoteActivity.changeFragment(informationNoteFragment);
+                }
+            });
         }
     }
 
