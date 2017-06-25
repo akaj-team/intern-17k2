@@ -36,13 +36,15 @@ public class NoteFragment extends Fragment {
         mNoteActivity = (NoteActivity) context;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mNotes=getData();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        for (int i = 0; i < mNotes.size(); i++) {
-            mNotes.remove(i);
-            i--;
-        }
         View v = inflater.inflate(R.layout.fragment_note, container, false);
         RecyclerView recyclerViewNote = (RecyclerView) v.findViewById(R.id.recyclerViewNote);
         ImageView imgAdd = (ImageView) v.findViewById(R.id.imgAdd);
@@ -63,13 +65,15 @@ public class NoteFragment extends Fragment {
         return v;
     }
 
-    private void getData() {
+    private List<Note> getData() {
+         List<Note> notes = new ArrayList<>();
         NoteModify noteModify = new NoteModify(getContext());
         Cursor cursor = noteModify.getNoteList();
         while (!cursor.isAfterLast()) {
             Note note = new Note(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.KEY_ID)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_TITLE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_DESCRIPTION)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_IMAGE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_DAY)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_DATE)), cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_TIME)));
-            mNotes.add(note);
+            notes.add(note);
             cursor.moveToNext();
         }
+        return notes;
     }
 }

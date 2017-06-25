@@ -21,6 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "db_note";
+    private static final String TYPE_TEXT = "TEXT";
 
     DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,12 +31,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String create_table_note = "CREATE TABLE " + DATABASE_TABLE + " ("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + KEY_TITLE + " TEXT,"
-                + KEY_DESCRIPTION + " TEXT,"
-                + KEY_IMAGE + " TEXT,"
-                + KEY_DAY + " TEXT,"
-                + KEY_DATE + " TEXT,"
-                + KEY_TIME + " TEXT)";
+                + KEY_TITLE + " " + TYPE_TEXT + ","
+                + KEY_DESCRIPTION + " " + TYPE_TEXT + ","
+                + KEY_IMAGE + " " + TYPE_TEXT + ","
+                + KEY_DAY + " " + TYPE_TEXT + ","
+                + KEY_DATE + " " + TYPE_TEXT + ","
+                + KEY_TIME + " " + TYPE_TEXT + ")";
         db.execSQL(create_table_note);
     }
 
