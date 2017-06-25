@@ -38,12 +38,15 @@
         <item>Open Library</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="result">Result</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="question">Question</string>
     <string name="next">Next</string>
     <string name="prev">Prev</string>
+    <string name="text.you_have_answered">You have answered </string>
+    <string name="textview.text.do_you_want_to_continue">Do you want to continue ?</string>
+    <string name="notication">Notication</string>
+    <string name="correct">Correct</string>
+    <string name="button.text.ex15">Ex 15</string>
 </resources>

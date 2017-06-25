@@ -1,6 +1,5 @@
 package vn.asiantech.internship.ui.questions;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,15 +18,21 @@ import vn.asiantech.internship.models.Question;
 public class QuestionShowFragment extends Fragment {
 
     private static final String KEY_QUESTION = "KEY_QUESTION";
+    private static final String KEY_POS = "KEY_POS";
+
+    private RadioButton mRbA;
+    private RadioButton mRbB;
+    private RadioButton mRbC;
+    private RadioButton mRbD;
+
     private Question mQuestion;
+    private int mCurrentPosition;
 
-    public QuestionShowFragment() {
-    }
-
-    public static QuestionShowFragment newInstance(Question questions) {
+    public static QuestionShowFragment newInstance(Question questions, int position) {
         QuestionShowFragment fragment = new QuestionShowFragment();
         Bundle args = new Bundle();
-        args.putSerializable(KEY_QUESTION, questions);
+        args.putParcelable(KEY_QUESTION, questions);
+        args.putSerializable(KEY_POS, position);
         fragment.setArguments(args);
         return fragment;
     }
@@ -35,7 +40,8 @@ public class QuestionShowFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mQuestion = (Question) getArguments().getSerializable(KEY_QUESTION);
+        mQuestion = getArguments().getParcelable(KEY_QUESTION);
+        mCurrentPosition = getArguments().getInt(KEY_POS);
     }
 
     @Override
@@ -45,32 +51,53 @@ public class QuestionShowFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_question_show, container, false);
         TextView tvQuestion = (TextView) v.findViewById(R.id.tvQuestion);
 
-        RadioButton rbA = (RadioButton) v.findViewById(R.id.rbA);
-        RadioButton rbB = (RadioButton) v.findViewById(R.id.rbB);
-        RadioButton rbC = (RadioButton) v.findViewById(R.id.rbC);
-        RadioButton rbD = (RadioButton) v.findViewById(R.id.rbD);
+        mRbA = (RadioButton) v.findViewById(R.id.rbA);
+        mRbB = (RadioButton) v.findViewById(R.id.rbB);
+        mRbC = (RadioButton) v.findViewById(R.id.rbC);
+        mRbD = (RadioButton) v.findViewById(R.id.rbD);
 
         tvQuestion.setText(mQuestion.getQuestion());
-        rbA.setText(mQuestion.getAnswerA());
-        rbB.setText(mQuestion.getAnswerB());
-        rbC.setText(mQuestion.getAnswerC());
-        rbD.setText(mQuestion.getAnswerB());
+        mRbA.setText(mQuestion.getAnswerA());
+        mRbB.setText(mQuestion.getAnswerB());
+        mRbC.setText(mQuestion.getAnswerC());
+        mRbD.setText(mQuestion.getAnswerD());
 
-        rbA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mRbA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-
+                if (isChecked) {
+                    sendToMain(mRbA.getText().toString(), mCurrentPosition);
+                }
+            }
+        });
+        mRbB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    sendToMain(mRbB.getText().toString(), mCurrentPosition);
+                }
+            }
+        });
+        mRbC.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    sendToMain(mRbC.getText().toString(), mCurrentPosition);
+                }
+            }
+        });
+        mRbD.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    sendToMain(mRbD.getText().toString(), mCurrentPosition);
                 }
             }
         });
         return v;
     }
 
-    /**
-     * OnCheckAnswerListener
-     */
-    public interface OnCheckAnswerListener {
-        void onClickAnswer(int question, String answer);
+    private void sendToMain(String s, int mCurrentPosition) {
+        ((QuestionActivity) getActivity()).sendToMain(s, mCurrentPosition);
     }
 }

@@ -13,29 +13,19 @@ import vn.asiantech.internship.models.Question;
  */
 public class QuestionAdapter extends FragmentStatePagerAdapter {
     private List<Question> mQuestions;
-    private OnQuestionAdapterListener mOnQuestionAdapterListener;
 
-    QuestionAdapter(FragmentManager fm, List<Question> questions, OnQuestionAdapterListener onQuestionAdapterListener) {
+    QuestionAdapter(FragmentManager fm, List<Question> questions) {
         super(fm);
         mQuestions = questions;
-        mOnQuestionAdapterListener = onQuestionAdapterListener;
     }
 
     @Override
     public Fragment getItem(int position) {
-        mOnQuestionAdapterListener.setHeader();
-        return QuestionShowFragment.newInstance(mQuestions.get(position));
+        return QuestionShowFragment.newInstance(mQuestions.get(position), position);
     }
 
     @Override
     public int getCount() {
         return mQuestions.size();
-    }
-
-    /**
-     * {@link OnQuestionAdapterListener}
-     */
-    public interface OnQuestionAdapterListener {
-        void setHeader();
     }
 }

@@ -46,11 +46,11 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnEx08"
+            android:id="@+id/btnEx15"
             style="@style/ButtonNormalStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/button.text.ex08" />
+            android:text="@string/button.text.ex15" />
 
     </LinearLayout>
 </ScrollView>

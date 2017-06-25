@@ -30,7 +30,7 @@ public class ListFriendAdapter extends RecyclerView.Adapter<ListFriendAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(ListFriendAdapter.MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
         //   MyViewHolder mViewHolder =  myViewHolder;
         myViewHolder.mTvFriendName.setText(mFriends.get(i).getNameFriend());
         myViewHolder.mIsFriend = mFriends.get(i).isFriend();

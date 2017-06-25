@@ -1,19 +1,21 @@
 package vn.asiantech.internship.ui.questions;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import vn.asiantech.internship.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QuestResultFragment extends Fragment {
+public class QuestionResultFragment extends Fragment {
 
     private static final String KEY_BOOL = "KEY_BOOL";
     private static final String KEY_INT = "KEY_INT";
@@ -21,8 +23,8 @@ public class QuestResultFragment extends Fragment {
     private boolean[] mBooleans;
     private int mRightCorrect;
 
-    public static QuestResultFragment newInstance(boolean[] booleans, int rightCorrect) {
-        QuestResultFragment fragment = new QuestResultFragment();
+    public static QuestionResultFragment newInstance(boolean[] booleans, int rightCorrect) {
+        QuestionResultFragment fragment = new QuestionResultFragment();
         Bundle args = new Bundle();
         args.putBooleanArray(KEY_BOOL, booleans);
         args.putInt(KEY_INT, rightCorrect);
@@ -39,15 +41,30 @@ public class QuestResultFragment extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_question_result, container, false);
-        TextView tv = (TextView) v.findViewById(R.id.tv);
-        tv.setText(mRightCorrect +"  sss");
+
+        ImageView imgTryAgain = (ImageView) v.findViewById(R.id.imgTryAgain);
+        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+        Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(new QuestionResultAdapter(mBooleans, mRightCorrect));
+
+        imgTryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() instanceof QuestionActivity) {
+                    ((QuestionActivity) getActivity()).replaceFragmentAddContent();
+                }
+            }
+        });
+        if (getActivity() instanceof QuestionActivity) {
+            ((QuestionActivity) getActivity()).setToolbar(toolbar);
+        }
         return v;
     }
-
 }
