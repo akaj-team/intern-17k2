@@ -39,7 +39,7 @@ public class NoteFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNotes=getData();
+        mNotes = getData();
     }
 
     @Nullable
@@ -66,7 +66,7 @@ public class NoteFragment extends Fragment {
     }
 
     private List<Note> getData() {
-         List<Note> notes = new ArrayList<>();
+        List<Note> notes = new ArrayList<>();
         NoteModify noteModify = new NoteModify(getContext());
         Cursor cursor = noteModify.getNoteList();
         while (!cursor.isAfterLast()) {
