@@ -17,10 +17,12 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
         replaceFragment(new QuizFragment());
     }
-    public void replaceFragment(Fragment fragment){
+
+    public void replaceFragment(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.flQuiz, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

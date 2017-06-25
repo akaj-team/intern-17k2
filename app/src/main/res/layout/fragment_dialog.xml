@@ -2,33 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackgroundNotify"
     android:gravity="center"
-    android:padding="10dp"
-    android:orientation="vertical">
-    <TextView
-        android:id="@+id/title"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RESULT"
-        android:textSize="20dp" />
+        android:contentDescription="@null"
+        android:src="@mipmap/ic_result" />
+
     <TextView
         android:id="@+id/tvNotifyDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
+
         <Button
             android:id="@+id/btnOKDialog"
+            style="@android:style/ButtonBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ok" />
+            android:background="@color/button.ok.background"
+            android:text="@string/button.text.dialog_ok" />
+
         <Button
             android:id="@+id/btnCancelDialog"
+            style="@android:style/ButtonBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel" />
+            android:layout_marginStart="@dimen/button.dialog_cancel.layout_marginStart"
+            android:background="@color/button.ok.background"
+            android:text="@string/button.text.dialog_cancel" />
 
     </LinearLayout>
 </LinearLayout>

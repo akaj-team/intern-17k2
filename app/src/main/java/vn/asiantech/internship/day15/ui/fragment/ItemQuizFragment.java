@@ -13,7 +13,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.day15.model.Answer;
 import vn.asiantech.internship.day15.model.Question;
 
 /**
@@ -21,19 +20,18 @@ import vn.asiantech.internship.day15.model.Question;
  * Created by rimoka on 23/06/2017.
  */
 public class ItemQuizFragment extends Fragment {
+    public static final String TYPE_QUESTION = "question";
     private Question mQuestion;
-    private Answer mAnswer;
     private RadioButton mRbAnswerA;
     private RadioButton mRbAnswerB;
     private RadioButton mRbAnswerC;
     private RadioButton mRbAnswerD;
 
-    public static ItemQuizFragment init(Question question, Answer answer) {
+    public static ItemQuizFragment init(Question question) {
         ItemQuizFragment truitonFrag = new ItemQuizFragment();
         // Supply val input as an argument.
         Bundle args = new Bundle();
-        args.putSerializable("Question", question);
-        args.putSerializable("Answer", answer);
+        args.putParcelable(TYPE_QUESTION, question);
         truitonFrag.setArguments(args);
         return truitonFrag;
     }
@@ -42,8 +40,7 @@ public class ItemQuizFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            mQuestion = (Question) getArguments().getSerializable("Question");
-            mAnswer = (Answer) getArguments().getSerializable("Answer");
+            mQuestion = getArguments().getParcelable(TYPE_QUESTION);
         } catch (NullPointerException e) {
             Log.d("Exception", "NullPointerexception");
         }
@@ -70,13 +67,13 @@ public class ItemQuizFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 int checkedRadioId = group.getCheckedRadioButtonId();
                 if (checkedRadioId == R.id.rbAnswerA) {
-                    mAnswer.setAnswer(mRbAnswerA.getText().toString());
+                    mQuestion.setAnswered(mRbAnswerA.getText().toString());
                 } else if (checkedRadioId == R.id.rbAnswerB) {
-                    mAnswer.setAnswer(mRbAnswerB.getText().toString());
+                    mQuestion.setAnswered(mRbAnswerB.getText().toString());
                 } else if (checkedRadioId == R.id.rbAnswerC) {
-                    mAnswer.setAnswer(mRbAnswerC.getText().toString());
+                    mQuestion.setAnswered(mRbAnswerC.getText().toString());
                 } else if (checkedRadioId == R.id.rbAnswerD) {
-                    mAnswer.setAnswer(mRbAnswerD.getText().toString());
+                    mQuestion.setAnswered(mRbAnswerD.getText().toString());
                 }
             }
         });

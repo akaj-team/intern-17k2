@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/ll.item_list_result.layout_height">
+    android:layout_height="@dimen/ll.item_list_result.layout_height"
+    android:background="@color/colorBackgroundResult">
 
     <TextView
         android:id="@+id/tvQuestionItem"
@@ -14,10 +15,21 @@
         tools:text="Question" />
 
     <ImageView
-        android:id="@+id/imgResult"
+        android:id="@+id/imgFalse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/imageview.result.layout_marginStart"
+        android:contentDescription="@null"
         android:padding="@dimen/imageview.result.padding"
         android:src="@mipmap/ic_cancel" />
-</LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgTrue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/imageview.result.layout_marginStart"
+        android:contentDescription="@null"
+        android:padding="@dimen/imageview.result.padding"
+        android:src="@mipmap/ic_ok"
+        android:visibility="invisible" />
+</RelativeLayout>

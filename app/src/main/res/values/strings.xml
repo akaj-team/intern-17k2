@@ -41,4 +41,7 @@
         <item name="Gallery">Gallery</item>
         <item name="Camera">Camera</item>
     </string-array>
+    <string name="textview.quiz.text">Question 1</string>
+    <string name="button.text.dialog_ok">Ok</string>
+    <string name="button.text.dialog_cancel">Cancel</string>
 </resources>

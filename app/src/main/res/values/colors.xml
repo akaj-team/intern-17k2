@@ -14,6 +14,11 @@
     <color name="solid.custom_linearlayout_image_header">#EEEEEE</color>
     <color name="avatar_bolder">#FFFFCC</color>
     <color name="colorBorderQuestion">#888888</color>
-    <color name="textview.Question">#000000</color>
-    <color name="textview.result">#990000</color>
+    <color name="textview.Question">#FFFFCC</color>
+    <color name="textview.result">#FFFFFF</color>
+    <color name="colorBackgroundResult">#EAF6B9</color>
+    <color name="colorResult">#FFFFCC</color>
+    <color name="colorBackgroundLabelResult">#220000</color>
+    <color name="button.ok.background">#F2B93F</color>
+    <color name="colorBackgroundNotify">#F4F6CB</color>
 </resources>
