@@ -56,7 +56,7 @@
                     android:layout_height="@dimen/feed.viewpager_height" />
 
                 <ImageButton
-                    android:id="@+id/btnLeftSlide"
+                    android:id="@+id/imgBtnLeftSlide"
                     android:layout_width="@dimen/feed.item.viewpager.button_size"
                     android:layout_height="@dimen/feed.item.viewpager.button_size"
                     android:layout_gravity="center_vertical|start"
@@ -65,7 +65,7 @@
                     android:visibility="gone" />
 
                 <ImageButton
-                    android:id="@+id/btnRightSlide"
+                    android:id="@+id/imgBtnRightSlide"
                     android:layout_width="@dimen/feed.item.viewpager.button_size"
                     android:layout_height="@dimen/feed.item.viewpager.button_size"
                     android:layout_gravity="center_vertical|end"

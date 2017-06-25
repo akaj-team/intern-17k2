@@ -60,8 +60,8 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             mTvName = (TextView) itemView.findViewById(R.id.tvFeed);
             mTvComment = (TextView) itemView.findViewById(R.id.tvComment);
             mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
-            mBtnLeftSlide = (ImageButton) itemView.findViewById(R.id.btnLeftSlide);
-            mBtnRightSlide = (ImageButton) itemView.findViewById(R.id.btnRightSlide);
+            mBtnLeftSlide = (ImageButton) itemView.findViewById(R.id.imgBtnLeftSlide);
+            mBtnRightSlide = (ImageButton) itemView.findViewById(R.id.imgBtnRightSlide);
             mViewPager.setPageMargin(5);
             mViewPager.setPageMarginDrawable(R.color.colorBlack);
             mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
