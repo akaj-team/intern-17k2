@@ -3,7 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="splash_item_margin">10dp</dimen>
-    <!-- Bai5 -->
     <dimen name="item.textView_margin">10dp</dimen>
     <dimen name="item.button_padding">5dp</dimen>
     <dimen name="item.button_margin">10dp</dimen>
