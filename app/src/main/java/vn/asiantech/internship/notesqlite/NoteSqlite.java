@@ -77,4 +77,16 @@ class NoteSqlite {
         c.close();
         return users;
     }
+
+    public int delete(int id) {
+        return mDatabase.delete(TABLE_NOTE, COLUMN_ID + "='" + id + "'", null);
+    }
+
+    public boolean update(String title, String content, int id) {
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_TITLE, title);
+        cv.put(COLUMN_CONTENT, content);
+        long kq = mDatabase.update(TABLE_NOTE, cv, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
+        return kq != 0;
+    }
 }

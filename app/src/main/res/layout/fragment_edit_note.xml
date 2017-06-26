@@ -5,10 +5,10 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <include layout="@layout/note_input_toolbar" />
+    <include layout="@layout/note_edit_toolbar" />
 
     <ImageView
-        android:id="@+id/imgNoteAdd"
+        android:id="@+id/imgNoteEdit"
         android:layout_width="@dimen/note.imageView.with_height"
         android:layout_height="@dimen/note.imageView.with_height"
         android:layout_marginTop="@dimen/note.imageView.margin_top"
@@ -32,17 +32,18 @@
             android:textSize="@dimen/textView.name.size" />
 
         <EditText
-            android:id="@+id/edtTitleAdd"
+            android:id="@+id/edtTitleEdit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="8"
             android:background="@android:color/transparent"
+            android:enabled="false"
             android:hint="@string/title.hint"
             android:inputType="text" />
     </LinearLayout>
 
     <EditText
-        android:id="@+id/edtContentAdd"
+        android:id="@+id/edtContentEdit"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -50,7 +51,14 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
+        android:enabled="false"
         android:hint="@string/editText.hint"
         android:inputType="textMultiLine"
         android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textView.name.size" />
 </LinearLayout>

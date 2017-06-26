@@ -50,17 +50,21 @@ public class AddNoteFragment extends Fragment {
     private NoteSqlite mDatabase;
     private Uri mUriImage;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mDatabase = new NoteSqlite(getActivity());
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_note, container, false);
-        mImgNote = (ImageView) view.findViewById(R.id.imgNote);
-        mEdtTitle = (EditText) view.findViewById(R.id.edtTitle);
-        mEdtContent = (EditText) view.findViewById(R.id.edtContent);
+        mImgNote = (ImageView) view.findViewById(R.id.imgNoteAdd);
+        mEdtTitle = (EditText) view.findViewById(R.id.edtTitleAdd);
+        mEdtContent = (EditText) view.findViewById(R.id.edtContentAdd);
         ImageView imgChooseImage = (ImageView) view.findViewById(R.id.imgAddImage);
-        ImageView imgAdd = (ImageView) view.findViewById(R.id.btnAdd);
-
-        mDatabase = new NoteSqlite(getActivity());
+        ImageView imgAdd = (ImageView) view.findViewById(R.id.imgAdd);
         imgChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

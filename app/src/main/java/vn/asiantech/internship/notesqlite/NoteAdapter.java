@@ -22,9 +22,11 @@ import vn.asiantech.internship.R;
  */
 class NoteAdapter extends RecyclerView.Adapter {
     private List<Note> mNotes = new ArrayList<>();
+    private OnItemClickListener mClickListener;
 
-    NoteAdapter(List<Note> notes) {
+    NoteAdapter(List<Note> notes, OnItemClickListener itemClickListener) {
         this.mNotes = notes;
+        this.mClickListener = itemClickListener;
     }
 
     @Override
@@ -37,6 +39,7 @@ class NoteAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         NoteViewHolder noteViewHolder = (NoteViewHolder) holder;
+        noteViewHolder.bind(mNotes.get(position), mClickListener);
         noteViewHolder.mTvDayOfWeek.setText(mNotes.get(position).getDayOfWeek());
         noteViewHolder.mTvDay.setText(mNotes.get(position).getDay());
         noteViewHolder.mTvMonth.setText(mNotes.get(position).getMonth());
@@ -71,7 +74,20 @@ class NoteAdapter extends RecyclerView.Adapter {
             mTvHour = (TextView) itemView.findViewById(R.id.tvHour);
             mTvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             mTvContent = (TextView) itemView.findViewById(R.id.tvContent);
-            mImage = (ImageView) itemView.findViewById(R.id.imgNote);
+            mImage = (ImageView) itemView.findViewById(R.id.imgNoteAdd);
         }
+
+        private void bind(final Note note, final OnItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(note);
+                }
+            });
+        }
+    }
+
+    interface OnItemClickListener {
+        void onItemClick(Note note);
     }
 }

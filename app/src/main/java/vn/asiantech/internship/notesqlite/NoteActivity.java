@@ -14,7 +14,7 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-20
  */
-public class NoteActivity extends AppCompatActivity {
+public class NoteActivity extends AppCompatActivity implements NoteFragment.OnDataPass {
     private FragmentManager mFragmentManager;
 
     @Override
@@ -40,9 +40,22 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onDataPass(Note note) {
+        EditNoteFragment editNoteFragment = new EditNoteFragment();
+        FragmentTransaction noteFragmentTransaction = mFragmentManager.beginTransaction();
+        noteFragmentTransaction.replace(R.id.flContainer, editNoteFragment);
+        noteFragmentTransaction.commit();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("Note", note);
+        editNoteFragment.setArguments(bundle);
+    }
+
+    @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-        android.os.Process.killProcess(android.os.Process.myPid());
+        if (getFragmentManager().findFragmentById(R.id.flContainer) instanceof NoteFragment) {
+            finish();
+        } else {
+            replaceNoteFragment();
+        }
     }
 }
