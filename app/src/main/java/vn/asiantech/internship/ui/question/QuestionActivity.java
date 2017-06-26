@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.models.Question;
+import vn.asiantech.internship.models.Test;
 import vn.asiantech.internship.models.Result;
 
 /**
@@ -55,9 +55,9 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initAdapter() {
-        List<Question> questions = getQuestion();
-        Collections.shuffle(questions);
-        QuestionAdapter questionAdapter = new QuestionAdapter(getSupportFragmentManager(), questions);
+        List<Test> tests = getQuestion();
+        Collections.shuffle(tests);
+        QuestionAdapter questionAdapter = new QuestionAdapter(getSupportFragmentManager(), tests);
         mViewPagerQuestion.setAdapter(questionAdapter);
         mViewPagerQuestion.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -69,7 +69,6 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
             public void onPageSelected(int position) {
                 updateToolbarQuestion(position);
                 mPosition = position;
-                Log.d("xxx", "OnSendData: " + mPosition);
             }
 
             @Override
@@ -94,8 +93,8 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
                 getResources().getString(R.string.question_tvnext_text));
     }
 
-    private List<Question> getQuestion() {
-        List<Question> questions = new ArrayList<>();
+    private List<Test> getQuestion() {
+        List<Test> tests = new ArrayList<>();
         try {
             JSONObject obj = new JSONObject(loadJsonFromAssets());
             JSONArray jsonArray = obj.getJSONArray("question");
@@ -107,12 +106,12 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
                 String answerC = questionObj.getString("answer_c");
                 String answerD = questionObj.getString("answer_d");
                 String correctAnswer = questionObj.getString("answer_right");
-                questions.add(new Question(question, answerA, answerB, answerC, answerD, correctAnswer));
+                tests.add(new Test(question, answerA, answerB, answerC, answerD, correctAnswer));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
-        return questions;
+        return tests;
     }
 
     private String loadJsonFromAssets() {
@@ -125,7 +124,7 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
             is.close();
             json = new String(buffer, "UTF-8");
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
             return null;
         }
         return json;
@@ -149,7 +148,7 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void OnSendData(Result result) {
+    public void onSendData(Result result) {
         if (mResults.contains(result)) {
             mResults.remove(result);
         } else {

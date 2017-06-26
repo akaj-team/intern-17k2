@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import vn.asiantech.internship.models.Question;
+import vn.asiantech.internship.models.Test;
 
 /**
  * Adapter of ViewPager
@@ -14,17 +14,17 @@ import vn.asiantech.internship.models.Question;
  * Created by Hai on 6/24/2017.
  */
 class QuestionAdapter extends FragmentStatePagerAdapter {
-    private List<Question> mQuestions;
+    private List<Test> mTests;
 
-    QuestionAdapter(FragmentManager fm, List<Question> questions) {
+    QuestionAdapter(FragmentManager fm, List<Test> tests) {
         super(fm);
-        mQuestions = questions;
+        mTests = tests;
     }
 
     @Override
     public Fragment getItem(int position) {
         QuestionFragment questionFragment = new QuestionFragment();
-        questionFragment.setQuestion(mQuestions.get(position));
+        questionFragment.setQuestion(mTests.get(position));
         questionFragment.setPosition(position);
         return questionFragment;
     }

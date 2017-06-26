@@ -19,7 +19,7 @@ import vn.asiantech.internship.models.Result;
  * Created by Hai on 6/25/2017.
  */
 
-class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ItemViewHolder> {
+class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultViewHolder> {
     private List<Result> mResults = new ArrayList<>();
 
     ResultAdapter(List<Result> results) {
@@ -27,16 +27,16 @@ class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ItemViewHolder> {
     }
 
     @Override
-    public ItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ResultViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_question_result, viewGroup, false);
-        return new ItemViewHolder(view);
+        return new ResultViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder itemViewHolder, int position) {
-        itemViewHolder.mTvQuestionId.setText(itemViewHolder.itemView.getContext().getResources().getString(R.string.question_text, mResults.get(position).getQuestionId() + 1));
+    public void onBindViewHolder(ResultViewHolder resultViewHolder, int position) {
+        resultViewHolder.mTvQuestionId.setText(resultViewHolder.itemView.getContext().getResources().getString(R.string.question_text, mResults.get(position).getQuestionId() + 1));
         boolean isCorrect = mResults.get(position).isCorrect();
-        itemViewHolder.mImgResult.setImageResource(isCorrect ? R.drawable.ic_check_circle_red_400_24dp : R.drawable.ic_not_interested_red_400_24dp);
+        resultViewHolder.mImgResult.setImageResource(isCorrect ? R.drawable.ic_check_circle_red_400_24dp : R.drawable.ic_not_interested_red_400_24dp);
     }
 
     @Override
@@ -44,11 +44,14 @@ class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ItemViewHolder> {
         return mResults.size();
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * item result
+     */
+    class ResultViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvQuestionId;
         private ImageView mImgResult;
 
-        ItemViewHolder(View itemView) {
+        ResultViewHolder(View itemView) {
             super(itemView);
             mTvQuestionId = (TextView) itemView.findViewById(R.id.tvQuestionId);
             mImgResult = (ImageView) itemView.findViewById(R.id.imgQuestionResult);

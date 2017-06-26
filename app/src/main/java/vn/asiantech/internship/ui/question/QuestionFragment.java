@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.models.Question;
+import vn.asiantech.internship.models.Test;
 import vn.asiantech.internship.models.Result;
 
 /**
@@ -30,7 +30,7 @@ public class QuestionFragment extends Fragment implements RadioGroup.OnCheckedCh
     private RadioButton mRbAnswerC;
     private RadioButton mRbAnswerD;
 
-    private Question mQuestion;
+    private Test mTest;
     private int mPosition = 0;
     private OnListener mOnListener;
     private Result mResult = new Result();
@@ -52,7 +52,7 @@ public class QuestionFragment extends Fragment implements RadioGroup.OnCheckedCh
         mRbAnswerD = (RadioButton) view.findViewById(R.id.rbD);
         List<String> answers = randomAnswer();
         Collections.shuffle(answers);
-        tvQuestion.setText(mQuestion.getQuestion());
+        tvQuestion.setText(mTest.getQuestion());
         mRbAnswerA.setText(answers.get(0));
         mRbAnswerB.setText(answers.get(1));
         mRbAnswerC.setText(answers.get(2));
@@ -71,16 +71,16 @@ public class QuestionFragment extends Fragment implements RadioGroup.OnCheckedCh
         }
     }
 
-    public void setQuestion(Question question) {
-        mQuestion = question;
+    public void setQuestion(Test test) {
+        mTest = test;
     }
 
     private List<String> randomAnswer() {
         List<String> answers = new ArrayList<>();
-        answers.add(mQuestion.getAnswerA());
-        answers.add(mQuestion.getAnswerB());
-        answers.add(mQuestion.getAnswerC());
-        answers.add(mQuestion.getAnswerD());
+        answers.add(mTest.getAnswerA());
+        answers.add(mTest.getAnswerB());
+        answers.add(mTest.getAnswerC());
+        answers.add(mTest.getAnswerD());
         Collections.shuffle(answers);
         return answers;
     }
@@ -109,17 +109,20 @@ public class QuestionFragment extends Fragment implements RadioGroup.OnCheckedCh
 
     private void checkAnswer(String answer) {
         mResult.setQuestionId(mPosition);
-        if (answer.equals(mQuestion.getCorrectAnswer())) {
+        if (answer.equals(mTest.getCorrectAnswer())) {
             mResult.setCorrect(true);
         } else {
             mResult.setCorrect(false);
         }
         if (mOnListener != null) {
-            mOnListener.OnSendData(mResult);
+            mOnListener.onSendData(mResult);
         }
     }
 
+    /**
+     * interface send data to question activity
+     */
     interface OnListener {
-        void OnSendData(Result result);
+        void onSendData(Result result);
     }
 }

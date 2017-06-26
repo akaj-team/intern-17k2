@@ -4,7 +4,7 @@ package vn.asiantech.internship.models;
  * Created by Hai on 6/24/2017.
  */
 
-public class Question {
+public class Test {
     private String question;
     private String answerA;
     private String answerB;
@@ -12,10 +12,10 @@ public class Question {
     private String answerD;
     private String correctAnswer;
 
-    public Question() {
+    public Test() {
     }
 
-    public Question(String question, String answerA, String answerB, String answerC, String answerD, String correctAnswer) {
+    public Test(String question, String answerA, String answerB, String answerC, String answerD, String correctAnswer) {
         this.question = question;
         this.answerA = answerA;
         this.answerB = answerB;
