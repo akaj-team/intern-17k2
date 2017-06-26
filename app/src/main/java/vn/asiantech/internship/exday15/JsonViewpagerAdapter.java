@@ -12,7 +12,7 @@ import java.util.List;
 class JsonViewpagerAdapter extends FragmentPagerAdapter {
     private List<ItemQuestion> mItemQuestions;
 
-    public JsonViewpagerAdapter(FragmentManager fm, List<ItemQuestion> itemQuestions) {
+    JsonViewpagerAdapter(FragmentManager fm, List<ItemQuestion> itemQuestions) {
         super(fm);
         mItemQuestions = itemQuestions;
     }

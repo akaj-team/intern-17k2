@@ -17,33 +17,28 @@ import vn.asiantech.internship.R;
  * Created by datbu on 23-06-2017.
  */
 public class JsonFragment extends Fragment {
-    private RadioButton mRbAnsA;
-    private RadioButton mRbAnsB;
-    private RadioButton mRbAnsC;
-    private RadioButton mRbAnsD;
+    public static final String TYPE_QUESTION = "question";
+    public static final String TYPE_POSITION = "position";
     private RadioGroup mRgAnswer;
-    private TextView mTvQuestion;
-
-    private ItemQuestion mItemQuesion;
+    private ItemQuestion mItemQuestion;
     private int mPosition;
     private OnListener mOnListener;
 
     public static JsonFragment newInstance(ItemQuestion itemQuestion, int position) {
         JsonFragment jsonFragment = new JsonFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("itemQuestion", itemQuestion);
-        bundle.putInt("position", position);
+        bundle.putParcelable(TYPE_QUESTION, itemQuestion);
+        bundle.putInt(TYPE_POSITION, position);
         jsonFragment.setArguments(bundle);
         return jsonFragment;
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mItemQuesion = getArguments().getParcelable("itemQuestion");
-            mPosition = getArguments().getInt("position");
+            mItemQuestion = getArguments().getParcelable(TYPE_QUESTION);
+            mPosition = getArguments().getInt(TYPE_POSITION);
         }
     }
 
@@ -51,18 +46,18 @@ public class JsonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_json, container, false);
-        mRbAnsA = (RadioButton) view.findViewById(R.id.rbAnswerA);
-        mRbAnsB = (RadioButton) view.findViewById(R.id.rbAnswerB);
-        mRbAnsC = (RadioButton) view.findViewById(R.id.rbAnswerC);
-        mRbAnsD = (RadioButton) view.findViewById(R.id.rbAnswerD);
+        RadioButton rbAnsA = (RadioButton) view.findViewById(R.id.rbAnswerA);
+        RadioButton rbAnsB = (RadioButton) view.findViewById(R.id.rbAnswerB);
+        RadioButton rbAnsC = (RadioButton) view.findViewById(R.id.rbAnswerC);
+        RadioButton rbAnsD = (RadioButton) view.findViewById(R.id.rbAnswerD);
         mRgAnswer = (RadioGroup) view.findViewById(R.id.rgAnswer);
-        mTvQuestion = (TextView) view.findViewById(R.id.tvQuestion);
+        TextView tvQuestion = (TextView) view.findViewById(R.id.tvQuestion);
 
-        mTvQuestion.setText(mItemQuesion.getQuestion());
-        mRbAnsA.setText(mItemQuesion.getAnswerA());
-        mRbAnsB.setText(mItemQuesion.getAnswerB());
-        mRbAnsC.setText(mItemQuesion.getAnswerC());
-        mRbAnsD.setText(mItemQuesion.getAnswerD());
+        tvQuestion.setText(mItemQuestion.getQuestion());
+        rbAnsA.setText(mItemQuestion.getAnswers().get(0));
+        rbAnsB.setText(mItemQuestion.getAnswers().get(1));
+        rbAnsC.setText(mItemQuestion.getAnswers().get(2));
+        rbAnsD.setText(mItemQuestion.getAnswers().get(3));
         mRgAnswer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
@@ -77,7 +72,7 @@ public class JsonFragment extends Fragment {
         mOnListener = onListener;
     }
 
-    public interface OnListener {
+    interface OnListener {
         void onChoose(int question, int answer);
     }
 }

@@ -29,7 +29,9 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="8" />
+                android:layout_gravity="center"
+                android:layout_weight="8"
+                android:gravity="center" />
 
             <Button
                 android:id="@+id/btnNext"
