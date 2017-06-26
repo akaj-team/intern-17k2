@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Internship</string>
+
+    <!--Activity-->
+    <string name="text_view.test_activity.previous">Previous</string>
+    <string name="text_view.test_activity.next">Next</string>
+    <string name="text_view.test_activity.result">Result</string>
+    <string name="text_view_test_activity.file_name">Question %d</string>
+
+    <!--Dialog-->
+    <string name="button.dialog.submit">Submit</string>
+    <string name="button.dialog.cancel">Cancel</string>
+    <string name="title.dialog.confirm_submit">Do you want to submit?</string>
+    <string name="message.dialog.message_submit">You completed %1$d/%2$d</string>
+
+    <!--Result-->
+    <string name="text_view.result.question_number">Question %d</string>
+    <string name="text_view.result.point">Your point:  %1$d/%2$d</string>
+    <string name="title.dialog.title">Test again</string>
+    <string name="dialog.result.retest">Do you want to test again?</string>
+    <string name="dialog.button.ok">Okay</string>
 </resources>
