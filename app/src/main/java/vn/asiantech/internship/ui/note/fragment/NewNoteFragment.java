@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Note;
@@ -40,6 +41,10 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
     private static final int REQUEST_CODE_GALLERY = 1000;
 
     private ImageView mImgAddImage;
+    private ImageView mImgSaveNote;
+    private ImageView mImgAttach;
+    private ImageView mImgEditNote;
+    private ImageView mImgDeleteNote;
     private EditText mEdtTitle;
     private EditText mEdtInputContent;
 
@@ -50,14 +55,18 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_new_note, container, false);
-        mImgAddImage = (ImageView) view.findViewById(R.id.imgAddImage);
-        ImageView imgSaveNote = (ImageView) view.findViewById(R.id.imgSaveNote);
-        ImageView imgAttach = (ImageView) view.findViewById(R.id.imgAttachImage);
-        mEdtTitle = (EditText) view.findViewById(R.id.edtNoteTitle);
-        mEdtInputContent = (EditText) view.findViewById(R.id.edtInputContent);
-
-        imgSaveNote.setOnClickListener(this);
-        imgAttach.setOnClickListener(this);
+        initView(view);
+        if (getBundle() == NoteFragment.KEY_EDIT_NOTE) {
+            mImgEditNote.setVisibility(View.VISIBLE);
+            mImgDeleteNote.setVisibility(View.VISIBLE);
+            mImgAttach.setVisibility(View.GONE);
+            mImgSaveNote.setVisibility(View.GONE);
+        } else {
+            mImgEditNote.setVisibility(View.GONE);
+            mImgDeleteNote.setVisibility(View.GONE);
+            mImgAttach.setVisibility(View.VISIBLE);
+            mImgSaveNote.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 
@@ -71,6 +80,11 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
                 intentGallery();
                 break;
         }
+    }
+
+    private int getBundle() {
+        Bundle bundle = getArguments();
+        return bundle.getInt(NoteFragment.KEY_BUNDLE);
     }
 
     private void intentGallery() {
@@ -112,22 +126,22 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
         if (!title.isEmpty()) {
             DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
             Date now = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", java.util.Locale.getDefault());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
             String dayOfWeek = dateFormat.format(now);
-            String dateTime = new SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().getTime());
-            String time = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
+            String dateTime = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+            String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Calendar.getInstance().getTime());
+
             Note note;
+            String id = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault()).format(Calendar.getInstance().getTime());
             if (mUri != null) {
                 try {
                     copyImageToSDCard(getBitmapFromUri(mUri), PATH, mFileName);
                 } catch (IOException e) {
                     e.getMessage();
                 }
-                Log.d("xxxx", PATH.concat(mFileName));
-                note = new Note(dayOfWeek, dateTime, time, title, content, PATH.concat(mFileName));
+                note = new Note(Integer.parseInt(id), dayOfWeek, dateTime, time, title, content, PATH.concat(mFileName));
             } else {
-                Log.d("xxxx", "Null");
-                note = new Note(dayOfWeek, dateTime, time, title, content, null);
+                note = new Note(Integer.parseInt(id), dayOfWeek, dateTime, time, title, content, null);
             }
             databaseHelper.insertNote(note);
             NoteFragment fragment = new NoteFragment();
@@ -141,6 +155,20 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
             getFragmentManager().popBackStack();
             getActivity().onBackPressed();
         }
+    }
+
+    private void initView(View view) {
+        mImgAddImage = (ImageView) view.findViewById(R.id.imgAddImage);
+        mImgSaveNote = (ImageView) view.findViewById(R.id.imgSaveNote);
+        mImgAttach = (ImageView) view.findViewById(R.id.imgAttachImage);
+        mImgEditNote = (ImageView) view.findViewById(R.id.imgEditNote);
+        mImgDeleteNote = (ImageView) view.findViewById(R.id.imgDeleteNote);
+        mEdtTitle = (EditText) view.findViewById(R.id.edtNoteTitle);
+        mEdtInputContent = (EditText) view.findViewById(R.id.edtInputContent);
+        mImgSaveNote.setOnClickListener(this);
+        mImgAttach.setOnClickListener(this);
+        mImgEditNote.setOnClickListener(this);
+        mImgDeleteNote.setOnClickListener(this);
     }
 
     @Override

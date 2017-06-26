@@ -49,6 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(COLUMN_NOTE_ID, note.getId());
         values.put(COLUMN_NOTE_DAY_OF_WEEK, note.getDayOfWeek());
         values.put(COLUMN_NOTE_DAY_OF_MONTH, note.getDayOfMonth());
         values.put(COLUMN_NOTE_TIME, note.getTime());
@@ -59,17 +60,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-//    public int updateNote(Note note) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(COLUMN_NOTE_DAY_OF_WEEK, note.getDayOfWeek());
-//        values.put(COLUMN_NOTE_DAY_OF_MONTH, note.getDayOfMonth());
-//        values.put(COLUMN_NOTE_TIME, note.getTime());
-//        values.put(COLUMN_NOTE_TITLE, note.getTitle());
-//        values.put(COLUMN_NOTE_CONTENT, note.getContent());
-//        values.put(COLUMN_NOTE_IMAGE_URI, note.getImage());
-//        return db.update(TABLE_NOTE, values, COLUMN_NOTE_TITLE + "=?", new String[]{String.valueOf(note.getTitle())});
-//    }
+    public int updateNote(Note note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NOTE_DAY_OF_WEEK, note.getDayOfWeek());
+        values.put(COLUMN_NOTE_DAY_OF_MONTH, note.getDayOfMonth());
+        values.put(COLUMN_NOTE_TIME, note.getTime());
+        values.put(COLUMN_NOTE_TITLE, note.getTitle());
+        values.put(COLUMN_NOTE_CONTENT, note.getContent());
+        values.put(COLUMN_NOTE_IMAGE_URI, note.getImage());
+        return db.update(TABLE_NOTE, values, COLUMN_NOTE_ID + "=?", new String[]{String.valueOf(note.getId())});
+    }
 
     public List<Note> getAllNote() {
         List<Note> notes = new ArrayList<>();

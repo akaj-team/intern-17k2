@@ -9,6 +9,7 @@ import android.os.Parcelable;
  * Created by Hai on 6/19/2017.
  */
 public class Note implements Parcelable {
+    private int id;
     private String dayOfWeek;
     private String dayOfMonth;
     private String time;
@@ -19,7 +20,8 @@ public class Note implements Parcelable {
     public Note() {
     }
 
-    public Note(String dayOfWeek, String dayOfMonth, String time, String title, String content, String image) {
+    public Note(int id, String dayOfWeek, String dayOfMonth, String time, String title, String content, String image) {
+        this.id = id;
         this.dayOfWeek = dayOfWeek;
         this.dayOfMonth = dayOfMonth;
         this.time = time;
@@ -29,6 +31,7 @@ public class Note implements Parcelable {
     }
 
     protected Note(Parcel in) {
+        id = in.readInt();
         dayOfWeek = in.readString();
         dayOfMonth = in.readString();
         time = in.readString();
@@ -48,6 +51,14 @@ public class Note implements Parcelable {
             return new Note[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getDayOfWeek() {
         return dayOfWeek;
@@ -104,6 +115,7 @@ public class Note implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(dayOfWeek);
         dest.writeString(dayOfMonth);
         dest.writeString(time);

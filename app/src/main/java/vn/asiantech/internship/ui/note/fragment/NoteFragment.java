@@ -23,6 +23,12 @@ import vn.asiantech.internship.databases.DatabaseHelper;
  * Created by Hai on 6/19/2017.
  */
 public class NoteFragment extends Fragment {
+    public static final String KEY_BUNDLE = "bundle";
+    public static final int KEY_NEW_NOTE = 1;
+    public static final int KEY_EDIT_NOTE = 2;
+
+    ImageView mImgNewNote;
+    RecyclerView mRecyclerViewNote;
     private NoteAdapter mNoteAdapter;
     private List<Note> mNotes;
 
@@ -30,25 +36,12 @@ public class NoteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note, container, false);
-        ImageView imgNewNote = (ImageView) view.findViewById(R.id.imgNewNote);
-        RecyclerView recyclerViewNote = (RecyclerView) view.findViewById(R.id.recyclerViewNote);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerViewNote.setLayoutManager(linearLayoutManager);
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        mNotes = databaseHelper.getAllNote();
-        mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnListener() {
-            @Override
-            public void onItemClick(int position) {
-                replaceFragment(new NewNoteFragment());
-            }
-        });
-        getBundle();
-        recyclerViewNote.setAdapter(mNoteAdapter);
-        imgNewNote.setOnClickListener(new View.OnClickListener() {
+        initView(view);
+        initAdapter();
+        mImgNewNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new NewNoteFragment());
+                replaceFragment(new NewNoteFragment(), KEY_NEW_NOTE);
             }
         });
         return view;
@@ -63,10 +56,33 @@ public class NoteFragment extends Fragment {
         }
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment, int key) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_BUNDLE, key);
+        fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fmContent, fragment, null)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private void initView(View view) {
+        mImgNewNote = (ImageView) view.findViewById(R.id.imgNewNote);
+        mRecyclerViewNote = (RecyclerView) view.findViewById(R.id.recyclerViewNote);
+    }
+
+    private void initAdapter() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerViewNote.setLayoutManager(linearLayoutManager);
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        mNotes = databaseHelper.getAllNote();
+        mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnListener() {
+            @Override
+            public void onItemClick(int position) {
+                replaceFragment(new NewNoteFragment(), KEY_EDIT_NOTE);
+            }
+        });
+        getBundle();
+        mRecyclerViewNote.setAdapter(mNoteAdapter);
     }
 }
