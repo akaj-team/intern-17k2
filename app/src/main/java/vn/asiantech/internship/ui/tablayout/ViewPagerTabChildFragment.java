@@ -17,17 +17,22 @@ import vn.asiantech.internship.R;
 public class ViewPagerTabChildFragment extends Fragment {
 
     private static final String ARG_PARAM = "my_param";
+    private static final String ARG_PARAM2 = "my_param2";
+
+    private ImageView mImgView;
 
     private String mUrlImg;
+    private int mPosition;
 
     /**
      * @param urlImg is a url of image loading
      * @return TabChild Fragment
      */
-    public static ViewPagerTabChildFragment newInstance(String urlImg) {
+    public static ViewPagerTabChildFragment newInstance(String urlImg, int position) {
         ViewPagerTabChildFragment fragment = new ViewPagerTabChildFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM, urlImg);
+        args.putInt(ARG_PARAM2, position);
         fragment.setArguments(args);
         return fragment;
     }
@@ -37,6 +42,15 @@ public class ViewPagerTabChildFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mUrlImg = getArguments().getString(ARG_PARAM);
+            mPosition = getArguments().getInt(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && getContext() != null) {
+            Picasso.with(getContext()).load(mUrlImg).placeholder(R.drawable.vector_refresh).into(mImgView);
         }
     }
 
@@ -45,8 +59,11 @@ public class ViewPagerTabChildFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tab_child, container, false);
-        ImageView imgView = (ImageView) v.findViewById(R.id.imgView);
-        Picasso.with(getActivity()).load(mUrlImg).placeholder(R.drawable.ic_avatar).into(imgView);
+        mImgView = (ImageView) v.findViewById(R.id.imgView);
+
+        if (mPosition == 0) {
+            Picasso.with(getContext()).load(mUrlImg).placeholder(R.drawable.vector_refresh).into(mImgView);
+        }
         return v;
     }
 }

@@ -38,7 +38,17 @@
         <item>Open Library</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="Sliders">
+        <item>Cube Pager Transformer</item>
+        <item>Zoom Out Page Transformer</item>
+        <item>Depth Page Transformer</item>
+        <item>DrawFromBackTransformer</item>
+    </string-array>
+
+    <string-array name="TabStyle">
+        <item>U must set in java code =))</item>
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button.text.ex16">Ex 16</string>
 </resources>

@@ -18,7 +18,7 @@ class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ViewPagerTabChildFragment.newInstance(mUrls[position]);
+        return ViewPagerTabChildFragment.newInstance(mUrls[position], position);
     }
 
     @Override
@@ -26,8 +26,4 @@ class ViewPagerAdapter extends FragmentStatePagerAdapter {
         return mUrls.length;
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return "Page " + position;
-    }
 }
