@@ -114,7 +114,7 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private String loadJsonFromAssets() {
-        String json = null;
+        String json;
         try {
             InputStream is = getAssets().open(JSON_FILE_NAME);
             int size = is.available();
@@ -123,7 +123,7 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
             is.close();
             json = new String(buffer, "UTF-8");
         } catch (IOException e) {
-            e.getMessage();
+            return null;
         }
         return json;
     }
