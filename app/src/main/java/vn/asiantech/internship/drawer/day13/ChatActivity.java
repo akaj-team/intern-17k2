@@ -1,11 +1,13 @@
 package vn.asiantech.internship.drawer.day13;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -42,6 +44,8 @@ public class ChatActivity extends AppCompatActivity {
                 mMessages.add(mEdtMessage.getText().toString());
                 mAdapter.notifyItemChanged(mMessages.size() - 1);
                 mEdtMessage.setText("");
+                InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         });
     }
