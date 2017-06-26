@@ -1,8 +1,6 @@
 package vn.asiantech.internship.drawer.day15.ui;
 
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,7 +35,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     private QuestionPagerAdapter mPagerAdapter;
     private List<Question> mQuestions;
-    private List<Result> mResults;
+    private ArrayList<Result> mResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +84,9 @@ public class QuestionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (END_OF_NEXT_BUTTON.equals(mBtnNext.getText().toString())) {
                     mViewPagerQuestion.setVisibility(View.GONE);
-                    showResult();
                     mBtnNext.setText(EXIT_BUTTON);
                     mBtnPrev.setText(RESET_BUTTON);
+//                    showDialog();
                 } else if (EXIT_BUTTON.equals(mBtnNext.getText().toString())) {
                     finish();
                 } else {
@@ -100,7 +98,11 @@ public class QuestionActivity extends AppCompatActivity {
         });
     }
 
-    private void showResult() {
+    public static final String A = "aaa";
+
+
+
+    /*private void showResult() {
         mTvQuestionTitle.setText(R.string.result_item_title);
         mFrameLayout = (FrameLayout) findViewById(R.id.frContainerQuestion);
         mFrameLayout.setVisibility(View.VISIBLE);
@@ -111,7 +113,7 @@ public class QuestionActivity extends AppCompatActivity {
         resultFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.frContainerQuestion, resultFragment);
         fragmentTransaction.commit();
-    }
+    }*/
 
     private void updateButton(int position) {
         if (position == 0) {
