@@ -10,28 +10,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.models.Message;
 
 /**
  * adapter of recyclerview Chat
  * <p>
  * Created by Hai on 6/22/2017.
  */
-class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ItemMessageViewHolder> {
-    private List<String> mMessages = new ArrayList<>();
+class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private List<Message> mMessages = new ArrayList<>();
 
-    ChatAdapter(List<String> messages) {
+    ChatAdapter(List<Message> messages) {
         mMessages = messages;
     }
 
     @Override
-    public ItemMessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, parent, false);
-        return new ItemMessageViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        if (viewType == 1) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, parent, false);
+            return new MessageViewHolder(view);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_two, parent, false);
+            return new MessageTwoViewHolder(view);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(ItemMessageViewHolder holder, int position) {
-        holder.mTvMessage.setText(mMessages.get(position));
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        if (viewHolder instanceof MessageViewHolder) {
+            ((MessageViewHolder)viewHolder).mTvMessage.setText(mMessages.get(position).getMessage());
+            return;
+        }
+        ((MessageTwoViewHolder)viewHolder).mTvMessageTwo.setText(mMessages.get(position).getMessage());
     }
 
     @Override
@@ -39,15 +51,32 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ItemMessageViewHolder
         return mMessages.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return mMessages.get(position).getType();
+    }
+
     /**
-     * Item of recyclerview
+     * Item message 1 of recyclerview
      */
-    class ItemMessageViewHolder extends RecyclerView.ViewHolder {
+    private class MessageViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvMessage;
 
-        ItemMessageViewHolder(View itemView) {
+        MessageViewHolder(View itemView) {
             super(itemView);
             mTvMessage = (TextView) itemView.findViewById(R.id.tvMessage);
+        }
+    }
+
+    /**
+     * Item message 2 of recyclerview
+     */
+    private class MessageTwoViewHolder extends RecyclerView.ViewHolder {
+        private TextView mTvMessageTwo;
+
+        MessageTwoViewHolder(View itemView) {
+            super(itemView);
+            mTvMessageTwo = (TextView) itemView.findViewById(R.id.tvMessageTwo);
         }
     }
 }

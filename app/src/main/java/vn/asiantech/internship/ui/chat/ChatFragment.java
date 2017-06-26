@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.models.Message;
 
 /**
  * fragment display and event send message
@@ -24,7 +25,7 @@ import vn.asiantech.internship.R;
 public class ChatFragment extends Fragment implements View.OnClickListener {
     private EditText mEdtInput;
     private ChatAdapter mAdapter;
-    private List<String> mMessages = new ArrayList<>();
+    private List<Message> mMessages = new ArrayList<>();
     RecyclerView mRecyclerView;
 
     @Nullable
@@ -37,6 +38,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
+        createMessage();
         mAdapter = new ChatAdapter(mMessages);
         mRecyclerView.setAdapter(mAdapter);
         btnSend.setOnClickListener(this);
@@ -47,10 +49,16 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         String input = mEdtInput.getText().toString();
         if (!input.isEmpty()) {
-            mMessages.add(input);
+            mMessages.add(new Message(input, 1));
+            mMessages.add(new Message("No message", 2));
             mAdapter.notifyDataSetChanged();
             mRecyclerView.scrollToPosition(mMessages.size() - 1);
             mEdtInput.setText(null);
         }
+    }
+
+    private void createMessage() {
+        mMessages.add(new Message("Hello", 2));
+        mMessages.add(new Message("Alo alo", 2));
     }
 }
