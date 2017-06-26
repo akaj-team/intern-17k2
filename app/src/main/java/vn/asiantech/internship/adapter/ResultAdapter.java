@@ -43,6 +43,9 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultView
         return 10;
     }
 
+    /**
+     * ResultViewHolder is ViewHolder for an item
+     */
     class ResultViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvQuestion;
         private ImageView mImgResult;

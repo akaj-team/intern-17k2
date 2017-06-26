@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +93,8 @@ public class MainTestFragment extends android.support.v4.app.Fragment implements
         Vector vector = new Vector();
         Random random = new Random();
         int value;
-        for (int i = 0; i < 10; ) {
+        int i = 0;
+        while (i < 10) {
             value = random.nextInt(allQuestions.size());
             if (!vector.contains(value)) {
                 vector.add(value);
@@ -131,7 +133,7 @@ public class MainTestFragment extends android.support.v4.app.Fragment implements
                 questions.add(new Question(question, answerA, answerB, answerC, answerD, answerRight));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d("tag11", "ERROR");
         }
         return questions;
     }

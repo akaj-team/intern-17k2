@@ -45,7 +45,7 @@ public class QuestionItemFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
-                mListener.isChecked(mPosition, radioButton.getText().toString());
+                mListener.onCheck(mPosition, radioButton.getText().toString());
             }
         });
         return view;
@@ -70,7 +70,8 @@ public class QuestionItemFragment extends Fragment {
         Random random = new Random();
         Vector vector = new Vector();
         int position;
-        for (int i = 0; i < 4; ) {
+        int i = 0;
+        while (i < 4) {
             position = random.nextInt(4);
             if (!vector.contains(position)) {
                 i++;
@@ -92,7 +93,10 @@ public class QuestionItemFragment extends Fragment {
         mRbAnswerD = (RadioButton) view.findViewById(R.id.rbAnswerD);
     }
 
+    /**
+     * check question answered ?
+     */
     public interface OnCheckListener {
-        void isChecked(int position, String userAnswer);
+        void onCheck(int position, String userAnswer);
     }
 }
