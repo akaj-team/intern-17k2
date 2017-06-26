@@ -27,9 +27,9 @@ public class NoteActivity extends AppCompatActivity {
     public void changeFragment(Fragment fragment) {
         String tagFragment = fragment.getClass().getName();
         FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction mTransaction = manager.beginTransaction();
-        mTransaction.replace(R.id.flNote, fragment, tagFragment);
-        mTransaction.commit();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.flNote, fragment, tagFragment);
+        transaction.commit();
     }
 
     @Override
