@@ -24,10 +24,13 @@ class FeedPagerAdapter extends PagerAdapter {
 
     private String[] mImageItems;
     private Context mContext;
+    private ImageLoader mImageLoader;
+    private DisplayImageOptions mDefaultOptions;
 
     FeedPagerAdapter(Context context, String[] imageItems) {
         mContext = context;
         mImageItems = imageItems;
+        configImage();
     }
 
     @Override
@@ -45,20 +48,22 @@ class FeedPagerAdapter extends PagerAdapter {
         return imageLayout;
     }
 
-    private void loadImage(String link, ImageView imageView) {
-        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+    private void configImage() {
+        mDefaultOptions = new DisplayImageOptions.Builder()
                 .cacheOnDisc(true).cacheInMemory(true)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .displayer(new FadeInBitmapDisplayer(300)).build();
-
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 mContext.getApplicationContext())
-                .defaultDisplayImageOptions(defaultOptions)
+                .defaultDisplayImageOptions(mDefaultOptions)
                 .memoryCache(new WeakMemoryCache())
                 .discCacheSize(100 * 1024 * 1024).build();
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(config);
-        imageLoader.displayImage(link, imageView, defaultOptions);
+    }
+
+    private void loadImage(String link, ImageView imageView) {
+        mImageLoader.displayImage(link, imageView, mDefaultOptions);
     }
 
     @Override

@@ -57,7 +57,6 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         private ViewPager mViewPager;
         private ImageButton mBtnLeftSlide;
         private ImageButton mBtnRightSlide;
-        private int mCurrentPage;
 
         ViewHolder(View itemView) {
             super(itemView);
