@@ -19,8 +19,10 @@ import vn.asiantech.internship.models.Note;
 
 /**
  * NoteShowListFragment Created by Thanh Thien
+ * Show All Note
  */
-public class NoteShowListFragment extends Fragment {
+public class NoteShowListFragment extends Fragment implements NoteAdapter.OnNoteListener {
+
     private NoteFragment mNoteFragment;
 
     @Override
@@ -28,26 +30,31 @@ public class NoteShowListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_note_show_list, container, false);
+
         ImageView imgAdd = (ImageView) v.findViewById(R.id.imgAdd);
-
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        mNoteFragment = new NoteFragment();
-        List<Note> notes = databaseHelper.getAllNotes();
-
         RecyclerView mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        List<Note> notes = databaseHelper.getAllNotes();
+        mNoteFragment = new NoteFragment();
 
-        mRecyclerView.setAdapter(new NoteAdapter(notes));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(new NoteAdapter(notes, this));
+
         if (getActivity() instanceof NoteActivity) {
             ((NoteActivity) getActivity()).setToolbar(toolbar);
         }
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mNoteFragment.replaceFragmentAddContent(getActivity(), new NoteAddNewFragment());
+                mNoteFragment.replaceFragmentAddContent(getActivity(), new NoteAddNewFragment(), false);
             }
         });
         return v;
+    }
+
+    @Override
+    public void onItemClick(Note note) {
+        mNoteFragment.replaceFragmentAddContent(getActivity(), NoteViewFragment.newInstance(note), true);
     }
 }

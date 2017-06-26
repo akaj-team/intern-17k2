@@ -73,10 +73,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 Note note = new Note();
                 note.setId(c.getInt((c.getColumnIndex(KEY_ID))));
-                note.setNoteTile(c.getString((c.getColumnIndex(KEY_TITLE))));
-                note.setNoteDescription((c.getString(c.getColumnIndex(KEY_DESCRIPTION))));
-                note.setNoteDate(c.getString(c.getColumnIndex(KEY_DATE)));
-                note.setNoteImagesThumb(c.getString(c.getColumnIndex(KEY_IMAGE_URI)));
+                note.setTitle(c.getString((c.getColumnIndex(KEY_TITLE))));
+                note.setDescription((c.getString(c.getColumnIndex(KEY_DESCRIPTION))));
+                note.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
+                note.setImagesThumb(c.getString(c.getColumnIndex(KEY_IMAGE_URI)));
 
                 // Adding to Note list
                 notes.add(note);
@@ -105,10 +105,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         Note note = new Note();
         note.setId(c.getInt((c.getColumnIndex(KEY_ID))));
-        note.setNoteTile(c.getString((c.getColumnIndex(KEY_TITLE))));
-        note.setNoteDescription((c.getString(c.getColumnIndex(KEY_DESCRIPTION))));
-        note.setNoteDate(c.getString(c.getColumnIndex(KEY_DATE)));
-        note.setNoteImagesThumb(c.getString(c.getColumnIndex(KEY_IMAGE_URI)));
+        note.setTitle(c.getString((c.getColumnIndex(KEY_TITLE))));
+        note.setDescription((c.getString(c.getColumnIndex(KEY_DESCRIPTION))));
+        note.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
+        note.setImagesThumb(c.getString(c.getColumnIndex(KEY_IMAGE_URI)));
 
         c.close();
         return note;
@@ -123,10 +123,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int updateNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_TITLE, note.getNoteTile());
-        values.put(KEY_DESCRIPTION, note.getNoteDescription());
-        values.put(KEY_DATE, note.getNoteDate());
-        values.put(KEY_IMAGE_URI, note.getNoteImagesThumb());
+        values.put(KEY_TITLE, note.getTitle());
+        values.put(KEY_DESCRIPTION, note.getDescription());
+        values.put(KEY_DATE, note.getDate());
+        values.put(KEY_IMAGE_URI, note.getImagesThumb());
 
         // Updating row
         return db.update(TABLE_NOTES, values, KEY_ID + " = ?",
@@ -152,10 +152,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void createNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_TITLE, note.getNoteTile());
-        values.put(KEY_DESCRIPTION, note.getNoteDescription());
-        values.put(KEY_DATE, note.getNoteDate());
-        values.put(KEY_IMAGE_URI, note.getNoteImagesThumb());
+        values.put(KEY_TITLE, note.getTitle());
+        values.put(KEY_DESCRIPTION, note.getDescription());
+        values.put(KEY_DATE, note.getDate());
+        values.put(KEY_IMAGE_URI, note.getImagesThumb());
         db.insert(TABLE_NOTES, null, values);
     }
 }

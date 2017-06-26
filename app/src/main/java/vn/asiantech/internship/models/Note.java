@@ -1,26 +1,49 @@
 package vn.asiantech.internship.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by root on 6/19/17.
  * Note thumb
  */
-public class Note {
+public class Note implements Parcelable {
     private int id;
-    private String noteDate;
-    private String noteTile;
-    private String noteDescription;
-    private String noteImagesThumb;
+    private String date;
+    private String title;
+    private String description;
+    private String imagesThumb;
 
     public Note() {
     }
 
-    public Note(int id, String noteDate, String noteTile, String noteDescription, String noteImagesThumb) {
+    public Note(int id, String date, String title, String description, String imagesThumb) {
         this.id = id;
-        this.noteDate = noteDate;
-        this.noteTile = noteTile;
-        this.noteDescription = noteDescription;
-        this.noteImagesThumb = noteImagesThumb;
+        this.date = date;
+        this.title = title;
+        this.description = description;
+        this.imagesThumb = imagesThumb;
     }
+
+    private Note(Parcel in) {
+        id = in.readInt();
+        date = in.readString();
+        title = in.readString();
+        description = in.readString();
+        imagesThumb = in.readString();
+    }
+
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -30,35 +53,49 @@ public class Note {
         this.id = id;
     }
 
-    public String getNoteDate() {
-        return noteDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setNoteDate(String noteDate) {
-        this.noteDate = noteDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getNoteTile() {
-        return noteTile;
+    public String getTitle() {
+        return title;
     }
 
-    public void setNoteTile(String noteTile) {
-        this.noteTile = noteTile;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getNoteDescription() {
-        return noteDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setNoteDescription(String noteDescription) {
-        this.noteDescription = noteDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getNoteImagesThumb() {
-        return noteImagesThumb;
+    public String getImagesThumb() {
+        return imagesThumb;
     }
 
-    public void setNoteImagesThumb(String noteImagesThumb) {
-        this.noteImagesThumb = noteImagesThumb;
+    public void setImagesThumb(String imagesThumb) {
+        this.imagesThumb = imagesThumb;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(date);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(imagesThumb);
     }
 }

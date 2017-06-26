@@ -107,16 +107,16 @@ public class NoteAddNewFragment extends Fragment implements View.OnClickListener
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMM HH:mm", Locale.US);
         String writeDay = dateFormat.format(date);
-        note.setNoteTile(mEdtTitle.getText().toString());
-        note.setNoteDescription(mEdtDescription.getText().toString());
-        note.setNoteDate(writeDay);
+        note.setTitle(mEdtTitle.getText().toString());
+        note.setDescription(mEdtDescription.getText().toString());
+        note.setDate(writeDay);
         if (mFilePath == null) {
-            note.setNoteImagesThumb("");
+            note.setImagesThumb("");
         } else {
-            note.setNoteImagesThumb(mFilePath);
+            note.setImagesThumb(mFilePath);
         }
         mDatabaseHelper.createNote(note);
-        mNoteFragment.replaceFragmentAddContent(getActivity(), new NoteShowListFragment());
+        mNoteFragment.replaceFragmentAddContent(getActivity(), new NoteShowListFragment(), false);
         Toast.makeText(getContext(), getString(R.string.complete), Toast.LENGTH_SHORT).show();
     }
 

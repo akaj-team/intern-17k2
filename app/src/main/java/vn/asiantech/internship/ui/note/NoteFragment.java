@@ -19,7 +19,9 @@ import vn.asiantech.internship.database.DatabaseHelper;
  * Create by Thanh Thien
  */
 public class NoteFragment extends Fragment {
+
     private RelativeLayout mRlSecond;
+    private RelativeLayout mRlThird;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +36,7 @@ public class NoteFragment extends Fragment {
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragmentAddContent(getActivity(), new NoteAddNewFragment());
+                replaceFragmentAddContent(getActivity(), new NoteAddNewFragment(), false);
                 mRlSecond.setVisibility(View.VISIBLE);
             }
         });
@@ -50,7 +52,7 @@ public class NoteFragment extends Fragment {
 
     private void checkContent(DatabaseHelper databaseHelper) {
         if (databaseHelper.getAllNotes().size() != 0) {
-            replaceFragmentAddContent(getActivity(), new NoteShowListFragment());
+            replaceFragmentAddContent(getActivity(), new NoteShowListFragment(), false);
             mRlSecond.setVisibility(View.VISIBLE);
             return;
         }
@@ -59,13 +61,19 @@ public class NoteFragment extends Fragment {
 
     /**
      * setFragmentAddContent in Note Fragment
+     *
      * @param fragmentActivity Activity Fragment
-     * @param fragment to replace
+     * @param fragment         to replace
      */
-    public void replaceFragmentAddContent(FragmentActivity fragmentActivity, Fragment fragment) {
+    public void replaceFragmentAddContent(FragmentActivity fragmentActivity, Fragment fragment, boolean isThird) {
         FragmentTransaction fragmentTransaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top);
-        fragmentTransaction.replace(R.id.rlSecond, fragment);
+        if (isThird) {
+            fragmentTransaction.add(R.id.rlSecond, fragment);
+            fragmentTransaction.addToBackStack(null);
+        } else {
+            fragmentTransaction.replace(R.id.rlSecond, fragment);
+        }
         fragmentTransaction.commit();
     }
 }
