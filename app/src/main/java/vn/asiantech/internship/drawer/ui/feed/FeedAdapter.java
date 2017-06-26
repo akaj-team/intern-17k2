@@ -97,8 +97,16 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         private void updateSlide(int position) {
             List<Integer> mImageArray = mFeedItems.get(position).getImages();
             if (mImageArray.size() > 1) {
-                mBtnLeftSlide.setVisibility(mViewPager.getCurrentItem() != 0 ? View.VISIBLE : View.GONE);
-                mBtnRightSlide.setVisibility(mViewPager.getCurrentItem() != mImageArray.size() - 1 ? View.VISIBLE : View.GONE);
+                if (mViewPager.getCurrentItem() != 0) {
+                    mBtnLeftSlide.setVisibility(View.VISIBLE);
+                } else {
+                    mBtnLeftSlide.setVisibility(View.GONE);
+                }
+                if (mViewPager.getCurrentItem() != mImageArray.size() - 1) {
+                    mBtnRightSlide.setVisibility(View.VISIBLE);
+                } else {
+                    mBtnRightSlide.setVisibility(View.GONE);
+                }
             } else {
                 mBtnLeftSlide.setVisibility(View.GONE);
                 mBtnRightSlide.setVisibility(View.GONE);
