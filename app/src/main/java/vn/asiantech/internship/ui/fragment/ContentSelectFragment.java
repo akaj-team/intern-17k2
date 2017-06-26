@@ -14,6 +14,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.feeds.FeedsActivity;
 import vn.asiantech.internship.ui.main.Ex05Activity;
 import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.ui.tablayout.ViewPagerActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,6 +48,9 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
             case R.id.btnEx08:
                 openActivity(FeedsActivity.class);
                 break;
+            case R.id.btnEx16:
+                openActivity(ViewPagerActivity.class);
+                break;
         }
 
     }
@@ -66,11 +70,13 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         Button btnEx07_1 = (Button) v.findViewById(R.id.btnEx07_1);
         Button btnEx07_2 = (Button) v.findViewById(R.id.btnEx07_2);
         Button btnEx08 = (Button) v.findViewById(R.id.btnEx08);
+        Button btnEx16 = (Button) v.findViewById(R.id.btnEx16);
 
         btnEx05.setOnClickListener(this);
         btnEx06.setOnClickListener(this);
         btnEx07_1.setOnClickListener(this);
         btnEx07_2.setOnClickListener(this);
         btnEx08.setOnClickListener(this);
+        btnEx16.setOnClickListener(this);
     }
 }
