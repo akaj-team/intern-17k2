@@ -26,18 +26,18 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnSubmit"
+            android:id="@+id/btnCancel"
             style="@style/Button"
-            android:text="@string/button.dialog.submit" />
+            android:text="@string/button.dialog.cancel" />
 
         <Space
             android:layout_width="20dp"
             android:layout_height="0dp" />
 
         <Button
-            android:id="@+id/btnCancel"
+            android:id="@+id/btnSubmit"
             style="@style/Button"
-            android:text="@string/button.dialog.cancel" />
+            android:text="@string/button.dialog.submit" />
 
     </LinearLayout>
 

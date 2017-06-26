@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Question;
@@ -25,7 +24,7 @@ public class SubmitDialog extends DialogFragment {
     public static final String QUESTION_SET = "Question set";
     private ArrayList<Question> mQuestionList;
 
-    public static SubmitDialog getInstance(ArrayList<Question> questions){
+    public static SubmitDialog getInstance(ArrayList<Question> questions) {
         SubmitDialog submitDialog = new SubmitDialog();
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(QUESTION_SET, questions);
@@ -67,10 +66,10 @@ public class SubmitDialog extends DialogFragment {
         return view;
     }
 
-    private int getCountQuestion(){
+    private int getCountQuestion() {
         int count = 0;
-        for (Question question: mQuestionList) {
-            if (question.getAnswerChoose() > -1){
+        for (Question question : mQuestionList) {
+            if (question.getAnswerChoose() > -1) {
                 count++;
             }
         }

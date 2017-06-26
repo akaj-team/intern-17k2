@@ -15,7 +15,7 @@
 
     <!--Result-->
     <string name="text_view.result.question_number">Question %d</string>
-    <string name="text_view.result.point">Your point:  %1$d/%2$d point(s)</string>
+    <string name="text_view.result.point">Your point:  %1$d/%2$d point</string>
     <string name="title.dialog.title">Test again</string>
     <string name="dialog.result.retest">Do you want to test again?</string>
     <string name="dialog.button.ok">Okay</string>

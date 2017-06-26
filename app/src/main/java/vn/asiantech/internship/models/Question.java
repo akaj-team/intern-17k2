@@ -17,18 +17,18 @@ import java.util.Random;
  * Question Model.
  * Created by huypham on 23-Jun-17.
  */
-public class Question implements Serializable, Parcelable {
-    private String question;
+public final class Question implements Serializable, Parcelable {
+    private String quest;
     private List<String> answers;
     private String correctAnswer;
     private int answerChoose = -1;
 
     public String getQuestion() {
-        return question;
+        return quest;
     }
 
     public void setQuestion(String question) {
-        this.question = question;
+        this.quest = question;
     }
 
     public List<String> getAnswers() {
@@ -57,7 +57,7 @@ public class Question implements Serializable, Parcelable {
 
     private Question(JSONObject object) {
         try {
-            this.question = object.getString("question");
+            this.quest = object.getString("question");
             this.correctAnswer = object.getString("answer_right");
             List<String> answerList = new ArrayList<>();
             answerList.add(object.getString("answer_a"));
@@ -78,7 +78,7 @@ public class Question implements Serializable, Parcelable {
     }
 
     private Question(Parcel in) {
-        question = in.readString();
+        quest = in.readString();
         answers = in.createStringArrayList();
         answerChoose = in.readInt();
         correctAnswer = in.readString();
@@ -103,7 +103,7 @@ public class Question implements Serializable, Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(question);
+        dest.writeString(quest);
         dest.writeStringList(answers);
         dest.writeInt(answerChoose);
         dest.writeString(correctAnswer);
