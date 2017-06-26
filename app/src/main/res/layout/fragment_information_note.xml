@@ -17,7 +17,6 @@
         android:textSize="@dimen/textview.title_information.textSize"
         tools:text="title information" />
 
-
     <TextView
         android:id="@+id/tvTimeInformationNote"
         android:layout_width="wrap_content"

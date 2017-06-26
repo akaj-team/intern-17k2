@@ -15,9 +15,7 @@ import vn.asiantech.internship.day11.ui.fragment.NoteFragment;
  * Created by at-hoavo on 19/06/2017.
  */
 public class NoteActivity extends AppCompatActivity {
-    public static final String TYPE_NOTE="Note Fragment";
     private NoteFragment mNoteFragment = new NoteFragment();
-    FragmentTransaction mTransaction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,23 +25,19 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     public void changeFragment(Fragment fragment) {
-        String tagFragment=fragment.getClass().getName();
-        if(fragment instanceof NoteFragment){
-            tagFragment=TYPE_NOTE;
-        }
+        String tagFragment = fragment.getClass().getName();
         FragmentManager manager = getSupportFragmentManager();
-        mTransaction = manager.beginTransaction();
-        mTransaction.replace(R.id.flNote, fragment,tagFragment);
-        mTransaction.addToBackStack(tagFragment);
+        FragmentTransaction mTransaction = manager.beginTransaction();
+        mTransaction.replace(R.id.flNote, fragment, tagFragment);
         mTransaction.commit();
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        if( fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount()-1).equals(fragmentManager.findFragmentByTag(TYPE_NOTE))){
+        if (getSupportFragmentManager().findFragmentById(R.id.flNote) instanceof NoteFragment) {
             finish();
+        } else {
+            changeFragment(new NoteFragment());
         }
     }
 }

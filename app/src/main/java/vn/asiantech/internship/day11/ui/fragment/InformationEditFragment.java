@@ -163,7 +163,9 @@ public class InformationEditFragment extends Fragment {
             try {
                 BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
                 bmpFactoryOptions.inJustDecodeBounds = true;
-                Bitmap bmp;
+                Bitmap bmp = BitmapFactory.decodeStream(
+                        getActivity().getContentResolver().openInputStream(uri),
+                        null, bmpFactoryOptions);
                 int heightRatio = (int) Math.ceil(bmpFactoryOptions.outHeight / (float) dh);
                 int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth / (float) dw);
                 if (heightRatio > 1 && widthRatio > 1) {
