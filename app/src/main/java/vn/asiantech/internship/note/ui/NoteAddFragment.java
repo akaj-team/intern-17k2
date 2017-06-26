@@ -100,14 +100,14 @@ public class NoteAddFragment extends Fragment {
                 String dateTime = getCurrentDatetime();
                 String imageName = convertStringDatetimeToFileName(dateTime) + ".png";
                 if (!TextUtils.isEmpty(mEdtTitle.getText().toString())) {
-                    if(mBmpAttach != null) {
+                    if (mBmpAttach != null) {
                         mNoteDatabase.createData(new Note(
                                 mEdtTitle.getText().toString(),
                                 mEdtContent.getText().toString(),
                                 saveImageToSDCard(mBmpAttach, "at-dinhvo"),
                                 dateTime
                         ));
-                    }else {
+                    } else {
                         mNoteDatabase.createData(new Note(
                                 mEdtTitle.getText().toString(),
                                 mEdtContent.getText().toString(),
@@ -115,7 +115,6 @@ public class NoteAddFragment extends Fragment {
                                 dateTime
                         ));
                     }
-//                    Toast.makeText(getActivity(), "Can't Insert", Toast.LENGTH_SHORT).show();
                     getActivity().onBackPressed();
                 } else {
                     Log.e("NoteAddFragment", "insert error!");
@@ -136,17 +135,6 @@ public class NoteAddFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK && data != null) {
-            /*try {
-                InputStream inputStream = getActivity().getContentResolver().openInputStream(data.getData());
-                BufferedInputStream bufferedInputStream = null;
-                if (inputStream != null) {
-                    bufferedInputStream = new BufferedInputStream(inputStream);
-                }
-                mBmpAttach = BitmapFactory.decodeStream(bufferedInputStream);
-                mImageView.setImageBitmap(mBmpAttach);
-            } catch (FileNotFoundException e) {
-                Log.e("Error", "FileNotFoundException");
-            }*/
             decreaseSizeImage(data.getData());
         }
     }
@@ -167,7 +155,6 @@ public class NoteAddFragment extends Fragment {
         int dw = size.x;
         int dh = size.y;
         try {
-            // Load up the image's dimensions not the image itself
             BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
             bmpFactoryOptions.inJustDecodeBounds = true;
             mBmpAttach = BitmapFactory.decodeStream(
