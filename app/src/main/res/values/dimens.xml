@@ -44,4 +44,6 @@
     <dimen name="textview.resultLabel.textSize">20sp</dimen>
     <dimen name="textview.resultLabel.layout_marginStart">100dp</dimen>
     <dimen name="button.dialog_cancel.layout_marginStart">15dp</dimen>
+    <dimen name="recyclerView.layout_height">400dp</dimen>
+    <dimen name="recyclerViewResult.layout_marginTop">20dp</dimen>
 </resources>

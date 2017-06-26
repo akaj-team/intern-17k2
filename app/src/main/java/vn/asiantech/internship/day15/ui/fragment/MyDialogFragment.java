@@ -62,7 +62,7 @@ public class MyDialogFragment extends DialogFragment {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mQuizActivity.replaceFragment(ResultFragment.init(mResults));
+                mQuizActivity.replaceFragment(ResultFragment.init(mResults), false);
                 dismiss();
             }
         });
@@ -70,7 +70,6 @@ public class MyDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
-                new MyDismissFragment().show(getFragmentManager(), "dismiss dialog");
             }
         });
         return v;
