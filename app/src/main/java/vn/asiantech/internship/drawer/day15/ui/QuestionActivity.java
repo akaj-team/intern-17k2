@@ -98,10 +98,6 @@ public class QuestionActivity extends AppCompatActivity {
         });
     }
 
-    public static final String A = "aaa";
-
-
-
     /*private void showResult() {
         mTvQuestionTitle.setText(R.string.result_item_title);
         mFrameLayout = (FrameLayout) findViewById(R.id.frContainerQuestion);
