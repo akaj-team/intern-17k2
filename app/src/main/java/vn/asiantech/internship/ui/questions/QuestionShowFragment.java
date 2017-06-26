@@ -56,7 +56,7 @@ public class QuestionShowFragment extends Fragment {
         mRbC = (RadioButton) v.findViewById(R.id.rbC);
         mRbD = (RadioButton) v.findViewById(R.id.rbD);
 
-        tvQuestion.setText(mQuestion.getQuestion());
+        tvQuestion.setText(mQuestion.getContent());
         mRbA.setText(mQuestion.getAnswerA());
         mRbB.setText(mQuestion.getAnswerB());
         mRbC.setText(mQuestion.getAnswerC());

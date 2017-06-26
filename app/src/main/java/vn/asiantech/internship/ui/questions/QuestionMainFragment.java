@@ -29,7 +29,7 @@ import vn.asiantech.internship.models.Question;
  * QuestionMainFragment of Question
  * Created by Thanh Thiem
  */
-public class QuestionMainFragment extends Fragment implements View.OnClickListener{
+public class QuestionMainFragment extends Fragment implements View.OnClickListener {
 
     private TextView mTvBack;
     private TextView mTvHead;
@@ -107,7 +107,7 @@ public class QuestionMainFragment extends Fragment implements View.OnClickListen
             answers.add(posC);
             int posD = getPosAnswer(answers);
             String answer_d = getAnswer(i, posD);
-            Question question = new Question(mQuestions.get(i).getQuestion(), answer_a, answer_b, answer_c, answer_d, mQuestions.get(i).getAnswerCorrect());
+            Question question = new Question(mQuestions.get(i).getContent(), answer_a, answer_b, answer_c, answer_d, mQuestions.get(i).getAnswerCorrect());
             currentQuestions.add(question);
             position++;
             return getQuestionResult(currentQuestions, position);

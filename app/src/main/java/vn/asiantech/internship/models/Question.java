@@ -7,15 +7,15 @@ import android.os.Parcelable;
  * Models Question Created by Thanh Thien on 6/23/17.
  */
 public class Question implements Parcelable {
-    private String question;
+    private String content;
     private String answerA;
     private String answerB;
     private String answerC;
     private String answerD;
     private String answerCorrect;
 
-    public Question(String question, String answerA, String answerB, String answerC, String answerD, String answerCorrect) {
-        this.question = question;
+    public Question(String content, String answerA, String answerB, String answerC, String answerD, String answerCorrect) {
+        this.content = content;
         this.answerA = answerA;
         this.answerB = answerB;
         this.answerC = answerC;
@@ -24,7 +24,7 @@ public class Question implements Parcelable {
     }
 
     private Question(Parcel in) {
-        question = in.readString();
+        content = in.readString();
         answerA = in.readString();
         answerB = in.readString();
         answerC = in.readString();
@@ -44,12 +44,12 @@ public class Question implements Parcelable {
         }
     };
 
-    public String getQuestion() {
-        return question;
+    public String getContent() {
+        return content;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getAnswerA() {
@@ -99,7 +99,7 @@ public class Question implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(question);
+        dest.writeString(content);
         dest.writeString(answerA);
         dest.writeString(answerB);
         dest.writeString(answerC);
