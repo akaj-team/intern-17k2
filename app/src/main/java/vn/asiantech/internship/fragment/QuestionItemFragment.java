@@ -18,7 +18,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Question;
 
 /**
- * Created by ducle on 23/06/2017.
+ * fragment for an item
  */
 public class QuestionItemFragment extends Fragment {
     public static final String KEY_QUESTION = "question";
@@ -31,7 +31,7 @@ public class QuestionItemFragment extends Fragment {
     private RadioButton mRbAnswerC;
     private RadioButton mRbAnswerD;
     private int mPosition;
-    public OnCheckListener mListener;
+    private OnCheckListener mListener;
 
     @Nullable
     @Override

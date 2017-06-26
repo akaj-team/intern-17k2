@@ -29,14 +29,14 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         mQuestions = getIntent().getParcelableArrayListExtra(ResultDialogFragment.KEY_QUESTIONS);
         mRecyclerViewResult = (RecyclerView) findViewById(R.id.recyclerViewResult);
-        mTvResult=(TextView) findViewById(R.id.tvResult);
-        int rightQuestionNumber=0;
-        for (int i=0;i<mQuestions.size();i++){
-            if (mQuestions.get(i).isCheckedRight()){
+        mTvResult = (TextView) findViewById(R.id.tvResult);
+        int rightQuestionNumber = 0;
+        for (int i = 0; i < mQuestions.size(); i++) {
+            if (mQuestions.get(i).isCheckedRight()) {
                 rightQuestionNumber++;
             }
         }
-        mTvResult.setText(getString(R.string.result_right,rightQuestionNumber,mQuestions.size()));
+        mTvResult.setText(getString(R.string.result_right, rightQuestionNumber, mQuestions.size()));
         mResultAdapter = new ResultAdapter(mQuestions);
         mRecyclerViewResult.setAdapter(mResultAdapter);
         mRecyclerViewResult.setLayoutManager(new LinearLayoutManager(this));

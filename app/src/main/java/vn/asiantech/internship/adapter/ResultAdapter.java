@@ -13,9 +13,8 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Question;
 
 /**
- * Created by ducle on 26/06/2017.
+ * ResultAdapter is adapter for result list
  */
-
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultViewHolder> {
     private List<Question> mQuestions;
 
