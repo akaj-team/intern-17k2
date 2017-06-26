@@ -72,6 +72,9 @@ public class JsonFragment extends Fragment {
         mOnListener = onListener;
     }
 
+    /**
+     * Created by datbu on 26-06-2017.
+     */
     interface OnListener {
         void onChoose(int question, int answer);
     }

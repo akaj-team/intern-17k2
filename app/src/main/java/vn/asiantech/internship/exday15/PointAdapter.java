@@ -47,6 +47,9 @@ class PointAdapter extends RecyclerView.Adapter<PointAdapter.MyHolder> {
         return mItemQuestions.size();
     }
 
+    /**
+     * Created by datbu on 26-06-2017.
+     */
     class MyHolder extends RecyclerView.ViewHolder {
         private TextView mTvResult;
 
