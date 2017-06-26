@@ -54,4 +54,5 @@
     <string name="textView.content">Your content</string>
     <string name="title.hint">Your title</string>
     <string name="name.node_edit">Note</string>
+    <string name="textView.edit.title">Edit Note</string>
 </resources>

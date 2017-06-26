@@ -26,6 +26,7 @@ public class EditNoteFragment extends Fragment {
     private EditText mEdtTitle;
     private EditText mEdtContent;
     private TextView mTvTime;
+    private TextView mTvTitle;
     private NoteSqlite mDatabase;
     private Note mNote;
 
@@ -37,6 +38,7 @@ public class EditNoteFragment extends Fragment {
         mEdtTitle = (EditText) view.findViewById(R.id.edtTitleEdit);
         mEdtContent = (EditText) view.findViewById(R.id.edtContentEdit);
         mTvTime = (TextView) view.findViewById(R.id.tvTime);
+        mTvTitle = (TextView) view.findViewById(R.id.tvEditTitle);
         ImageView imgEdit = (ImageView) view.findViewById(R.id.imgEditNote);
         ImageView imgDelete = (ImageView) view.findViewById(R.id.imgDeleteNote);
         ImageView imgSave = (ImageView) view.findViewById(R.id.imgSave);
@@ -46,6 +48,7 @@ public class EditNoteFragment extends Fragment {
         imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mTvTitle.setText(R.string.textView_edit_title);
                 mEdtTitle.setEnabled(true);
                 mEdtContent.setEnabled(true);
             }
