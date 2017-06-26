@@ -36,6 +36,17 @@ public class MainAnimalFragment extends android.support.v4.app.Fragment {
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
         mAnimalAdapter = new AnimalAdapter(getFragmentManager(), mAnimalImages);
         mViewPager.setAdapter(mAnimalAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+        setUpTabIcons();
         return view;
+    }
+
+    private void setUpTabIcons() {
+        int[] tabIcons={R.drawable.ic_cat,
+                R.drawable.ic_dog,
+                R.drawable.ic_mouse};
+        mTabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        mTabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        mTabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 }
