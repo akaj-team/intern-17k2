@@ -2,6 +2,7 @@ package vn.asiantech.internship.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,12 +41,14 @@ public class MainTestFragment extends android.support.v4.app.Fragment implements
         View view = inflater.inflate(R.layout.fragment_test_main, container, false);
         mQuestions = new ArrayList<>();
         mQuestions = initData();
+        initViews(view);
+        setViewPager();
+        mTvLeft.setOnClickListener(this);
+        mTvRight.setOnClickListener(this);
+        return view;
+    }
 
-        mViewPagerQuestion = (ViewPager) view.findViewById(R.id.viewPagerQuestion);
-        mTvTitle = (TextView) view.findViewById(R.id.tvTitle);
-        mTvLeft = (TextView) view.findViewById(R.id.tvLeft);
-        mTvRight = (TextView) view.findViewById(R.id.tvRight);
-
+    private void setViewPager() {
         mQuestionAdapter = new QuestionAdapter(getFragmentManager(), mQuestions);
         mViewPagerQuestion.setAdapter(mQuestionAdapter);
         mViewPagerQuestion.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -74,9 +77,13 @@ public class MainTestFragment extends android.support.v4.app.Fragment implements
 
             }
         });
-        mTvLeft.setOnClickListener(this);
-        mTvRight.setOnClickListener(this);
-        return view;
+    }
+
+    private void initViews(View view) {
+        mViewPagerQuestion = (ViewPager) view.findViewById(R.id.viewPagerQuestion);
+        mTvTitle = (TextView) view.findViewById(R.id.tvTitle);
+        mTvLeft = (TextView) view.findViewById(R.id.tvLeft);
+        mTvRight = (TextView) view.findViewById(R.id.tvRight);
     }
 
     private List<Question> initData() {
@@ -140,8 +147,15 @@ public class MainTestFragment extends android.support.v4.app.Fragment implements
                     mViewPagerQuestion.setCurrentItem(mViewPagerQuestion.getCurrentItem() + 1);
                 } else {
 
+                    showConfirmResultDialog();
                 }
                 break;
         }
+    }
+
+    private void showConfirmResultDialog() {
+        FragmentManager fragmentManager = getFragmentManager();
+        ResultDialogFragment resultDialogFragment = ResultDialogFragment.newInstance((ArrayList<Question>) mQuestions);
+        resultDialogFragment.show(fragmentManager, "Dialog confirm show result");
     }
 }

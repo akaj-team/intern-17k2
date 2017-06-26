@@ -23,7 +23,17 @@ public class QuestionAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return QuestionItemFragment.newInstance(mQuestions.get(position));
+        QuestionItemFragment fragment = QuestionItemFragment.newInstance(mQuestions.get(position), position);
+        fragment.setListener(new QuestionItemFragment.OnCheckListener() {
+            @Override
+            public void isChecked(int position, String userAnswer) {
+                if (userAnswer.equals(mQuestions.get(position).getAnswerRight())) {
+                    mQuestions.get(position).setCheckedRight(true);
+                }
+                mQuestions.get(position).setChecked(true);
+            }
+        });
+        return fragment;
     }
 
     @Override

@@ -11,7 +11,6 @@ import vn.asiantech.internship.fragment.MainTestFragment;
 /**
  * Created by ducle on 23/06/2017.
  */
-
 public class TestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

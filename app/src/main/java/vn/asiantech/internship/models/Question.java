@@ -6,7 +6,6 @@ import android.os.Parcelable;
 /**
  * Created by ducle on 23/06/2017.
  */
-
 public class Question implements Parcelable {
     private String question;
     private String answerA;
@@ -14,6 +13,8 @@ public class Question implements Parcelable {
     private String answerC;
     private String answerD;
     private String answerRight;
+    private boolean isChecked;
+    private boolean isCheckedRight;
 
     public Question(String question, String answerA, String answerB, String answerC, String answerD, String answerRight) {
         this.question = question;
@@ -22,6 +23,8 @@ public class Question implements Parcelable {
         this.answerC = answerC;
         this.answerD = answerD;
         this.answerRight = answerRight;
+        isChecked = false;
+        isCheckedRight = false;
     }
 
     protected Question(Parcel in) {
@@ -31,6 +34,8 @@ public class Question implements Parcelable {
         answerC = in.readString();
         answerD = in.readString();
         answerRight = in.readString();
+        isChecked = in.readByte() != 0;
+        isCheckedRight = in.readByte() != 0;
     }
 
     public static final Creator<Question> CREATOR = new Creator<Question>() {
@@ -49,48 +54,40 @@ public class Question implements Parcelable {
         return question;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
     public String getAnswerA() {
         return answerA;
-    }
-
-    public void setAnswerA(String answerA) {
-        this.answerA = answerA;
     }
 
     public String getAnswerB() {
         return answerB;
     }
 
-    public void setAnswerB(String answerB) {
-        this.answerB = answerB;
-    }
-
     public String getAnswerC() {
         return answerC;
-    }
-
-    public void setAnswerC(String answerC) {
-        this.answerC = answerC;
     }
 
     public String getAnswerD() {
         return answerD;
     }
 
-    public void setAnswerD(String answerD) {
-        this.answerD = answerD;
-    }
-
     public String getAnswerRight() {
         return answerRight;
     }
 
-    public void setAnswerRight(String answerRight) {
-        this.answerRight = answerRight;
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+    public boolean isCheckedRight() {
+        return isCheckedRight;
+    }
+
+    public void setCheckedRight(boolean checkedRight) {
+        isCheckedRight = checkedRight;
     }
 
     @Override
@@ -106,5 +103,7 @@ public class Question implements Parcelable {
         dest.writeString(answerC);
         dest.writeString(answerD);
         dest.writeString(answerRight);
+        dest.writeByte((byte) (isChecked ? 1 : 0));
+        dest.writeByte((byte) (isCheckedRight ? 1 : 0));
     }
 }

@@ -19,5 +19,6 @@
         <activity android:name=".activity.FriendActivity" />
         <activity android:name=".MainIntentActivity" />
         <activity android:name=".activity.TestActivity"/>
+        <activity android:name=".activity.ResultActivity"/>
     </application>
 </manifest>
