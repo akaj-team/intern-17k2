@@ -27,7 +27,7 @@ public class AnimalAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return mAnimalImages.size();
     }
 
     @Override
