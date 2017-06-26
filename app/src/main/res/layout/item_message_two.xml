@@ -15,7 +15,7 @@
         android:layout_marginStart="@dimen/chat.tvmessage.margin"
         android:layout_marginTop="@dimen/chat.tvmessage.margin"
         android:background="@drawable/bg_message_two"
-        android:gravity="left"
+        android:gravity="start"
         android:padding="@dimen/chat.tvmessage.padding"
         tools:text="Chatttttt" />
 </RelativeLayout>

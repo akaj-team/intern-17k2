@@ -5,23 +5,23 @@ package vn.asiantech.internship.models;
  */
 
 public class Message {
-    private String message;
+    private String text;
     private int type;
 
     public Message() {
     }
 
-    public Message(String message, int type) {
-        this.message = message;
+    public Message(String text, int type) {
+        this.text = text;
         this.type = type;
     }
 
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public int getType() {

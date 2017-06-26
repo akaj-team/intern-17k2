@@ -34,16 +34,15 @@ class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_two, parent, false);
             return new MessageTwoViewHolder(view);
         }
-
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof MessageViewHolder) {
-            ((MessageViewHolder)viewHolder).mTvMessage.setText(mMessages.get(position).getMessage());
-            return;
+            ((MessageViewHolder) viewHolder).mTvMessage.setText(mMessages.get(position).getText());
+        } else {
+            ((MessageTwoViewHolder) viewHolder).mTvMessageTwo.setText(mMessages.get(position).getText());
         }
-        ((MessageTwoViewHolder)viewHolder).mTvMessageTwo.setText(mMessages.get(position).getMessage());
     }
 
     @Override
