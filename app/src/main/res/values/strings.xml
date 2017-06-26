@@ -19,4 +19,6 @@
     <string name="dialog.button.exit">Exit</string>
     <string name="dialog.button.yes">Yes</string>
     <string name="dialog.title.show">Your point:</string>
+    <string name="button.cancel">Cancel</string>
+    <string name="button.ok">Ok</string>
 </resources>
