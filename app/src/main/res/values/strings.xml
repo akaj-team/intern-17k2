@@ -44,4 +44,5 @@
     <string name="textview.quiz.text">Question 1</string>
     <string name="button.text.dialog_ok">Ok</string>
     <string name="button.text.dialog_cancel">Cancel</string>
+    <string name="dismiss_dialog">Do you want to reset Quiz app?</string>
 </resources>

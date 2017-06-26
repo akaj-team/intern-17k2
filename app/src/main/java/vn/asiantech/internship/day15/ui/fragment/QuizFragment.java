@@ -195,10 +195,8 @@ public class QuizFragment extends Fragment {
                     case 2:
                         answers.add(mQuestions.get(position).getAnswerC());
                         break;
-                    case 3:
-                        answers.add(mQuestions.get(position).getAnswerD());
-                        break;
                     default:
+                        answers.add(mQuestions.get(position).getAnswerD());
                 }
                 v1.add(vt);
             }

@@ -21,4 +21,6 @@
     <color name="colorBackgroundLabelResult">#220000</color>
     <color name="button.ok.background">#F2B93F</color>
     <color name="colorBackgroundNotify">#F4F6CB</color>
+    <color name="colorBackgroundNotifyDismiss">#66CCCC</color>
+    <color name="button.ok_dismiss.background">#009966</color>
 </resources>

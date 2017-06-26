@@ -70,6 +70,7 @@ public class MyDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
+                new MyDismissFragment().show(getFragmentManager(), "dismiss dialog");
             }
         });
         return v;
