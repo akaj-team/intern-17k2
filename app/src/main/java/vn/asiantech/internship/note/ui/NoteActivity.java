@@ -45,7 +45,6 @@ public class NoteActivity extends AppCompatActivity {
         };
         noteFragment.setOnChangeFragment(onChangeFragment);
         transaction.replace(R.id.frContainer, noteFragment);
-        transaction.addToBackStack(null);
         transaction.commit();
         if (ContextCompat.checkSelfPermission(NoteActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

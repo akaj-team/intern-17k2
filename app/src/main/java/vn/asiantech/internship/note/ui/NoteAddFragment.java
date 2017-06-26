@@ -4,6 +4,8 @@ package vn.asiantech.internship.note.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,12 +24,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -99,14 +100,22 @@ public class NoteAddFragment extends Fragment {
                 String dateTime = getCurrentDatetime();
                 String imageName = convertStringDatetimeToFileName(dateTime) + ".png";
                 if (!TextUtils.isEmpty(mEdtTitle.getText().toString())) {
-                    if (mBmpAttach != null) {
+                    if(mBmpAttach != null) {
                         mNoteDatabase.createData(new Note(
                                 mEdtTitle.getText().toString(),
                                 mEdtContent.getText().toString(),
                                 saveImageToSDCard(mBmpAttach, "at-dinhvo"),
                                 dateTime
                         ));
+                    }else {
+                        mNoteDatabase.createData(new Note(
+                                mEdtTitle.getText().toString(),
+                                mEdtContent.getText().toString(),
+                                null,
+                                dateTime
+                        ));
                     }
+//                    Toast.makeText(getActivity(), "Can't Insert", Toast.LENGTH_SHORT).show();
                     getActivity().onBackPressed();
                 } else {
                     Log.e("NoteAddFragment", "insert error!");
@@ -127,7 +136,7 @@ public class NoteAddFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK && data != null) {
-            try {
+            /*try {
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(data.getData());
                 BufferedInputStream bufferedInputStream = null;
                 if (inputStream != null) {
@@ -137,7 +146,8 @@ public class NoteAddFragment extends Fragment {
                 mImageView.setImageBitmap(mBmpAttach);
             } catch (FileNotFoundException e) {
                 Log.e("Error", "FileNotFoundException");
-            }
+            }*/
+            decreaseSizeImage(data.getData());
         }
     }
 
@@ -148,6 +158,40 @@ public class NoteAddFragment extends Fragment {
 
     public static String convertStringDatetimeToFileName(String date) {
         return date.replace(":", "").replace(" ", "").replace("-", "");
+    }
+
+    private void decreaseSizeImage(Uri imageFileUri) {
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int dw = size.x;
+        int dh = size.y;
+        try {
+            // Load up the image's dimensions not the image itself
+            BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+            bmpFactoryOptions.inJustDecodeBounds = true;
+            mBmpAttach = BitmapFactory.decodeStream(
+                    getContext().getContentResolver().openInputStream(imageFileUri),
+                    null, bmpFactoryOptions);
+            int heightRatio = (int) Math
+                    .ceil(bmpFactoryOptions.outHeight / (float) dh);
+            int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth
+                    / (float) dw);
+            if (heightRatio > 1 && widthRatio > 1) {
+                if (heightRatio > widthRatio) {
+                    bmpFactoryOptions.inSampleSize = heightRatio;
+                } else {
+                    bmpFactoryOptions.inSampleSize = widthRatio;
+                }
+            }
+            bmpFactoryOptions.inJustDecodeBounds = false;
+            mBmpAttach = BitmapFactory.decodeStream(getContext().getContentResolver()
+                            .openInputStream(imageFileUri), null,
+                    bmpFactoryOptions);
+            mImageView.setImageBitmap(mBmpAttach);
+        } catch (FileNotFoundException e) {
+            Log.v("ERROR", e.toString());
+        }
     }
 
     public static String saveImageToSDCard(Bitmap image, String folder) {

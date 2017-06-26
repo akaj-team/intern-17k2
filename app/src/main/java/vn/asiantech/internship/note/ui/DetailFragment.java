@@ -63,7 +63,9 @@ public class DetailFragment extends Fragment {
         mTvTitle.setText(note.getTitle());
         mTvContent.setText(note.getContent());
         mTvDate.setText(note.getDatetime());
-        mImageNote.setImageURI(Uri.parse(note.getPath()));
+        if (note.getPath() != null) {
+            mImageNote.setImageURI(Uri.parse(note.getPath()));
+        }
     }
 
     private void initUI(View view) {

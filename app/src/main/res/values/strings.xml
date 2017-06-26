@@ -6,7 +6,6 @@
     <!--Bai5-->
     <string name="friendfragment_button_friend_state">Friend</string>
     <string name="friendfragment_button_friend_add">Add</string>
-
     <string name="drawer_open">Draw open</string>
     <string name="drawer_close">Draw close</string>
     <string name="header.name">at-dinhvo</string>
@@ -41,14 +40,11 @@
     </string-array><!-- TODO: Remove or change this placeholder text -->
     <string name="button_friend">Friend</string>
     <string name="button_note">Note</string>
-
     <string name="menu.item_attachfile">attachfile</string>
     <string name="menu.item_save">save</string>
     <string name="menu.item_add">add</string>
-
     <string name="toolBar_title_screenlist">App Note</string>
     <string name="toolBar_title_screenadd">Add Note</string>
-
     <string name="detail.textview_content">Content:</string>
     <string name="detail.textview_title">Title:</string>
     <string name="detail.imageview_image">Avatar</string>

@@ -39,7 +39,9 @@ class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         holder.mTvNoteTitle.setText(note.getTitle());
         holder.mTvNoteContent.setText(note.getContent());
         holder.mTvDateTime.setText(note.getDatetime());
-        holder.mImgNote.setImageURI(Uri.parse(note.getPath()));
+        if (note.getPath() != null) {
+            holder.mImgNote.setImageURI(Uri.parse(note.getPath()));
+        }
     }
 
     @Override
