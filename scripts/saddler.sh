@@ -13,6 +13,12 @@ fi
 AT_NAME=$(echo $CIRCLE_BRANCH | cut -d "-" -f1,2)
 echo "Current intern is $AT_NAME"
 
+if [ "$(echo $AT_NAME | cut -d "-" -f1)" != "at" ]; then
+AT_NAME=master
+fi
+
+echo "Base branch is $AT_NAME"
+
 echo "********************"
 echo "* exec gradle      *"
 echo "********************"
