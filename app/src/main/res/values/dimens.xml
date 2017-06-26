@@ -39,4 +39,5 @@
     <dimen name="feed.item.viewpager.button_size">48dp</dimen>
     <!--Bai15-->
     <dimen name="result.item.text_size">22sp</dimen>
+    <dimen name="result.item.textPoint_size">35sp</dimen>
 </resources>

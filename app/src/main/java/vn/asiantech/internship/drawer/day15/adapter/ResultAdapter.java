@@ -15,7 +15,6 @@ import vn.asiantech.internship.drawer.day15.models.Result;
 /**
  * Created by at-dinhvo on 26/06/2017.
  */
-
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultViewHolder> {
 
     private List<Result> mResults;

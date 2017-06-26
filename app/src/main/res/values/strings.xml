@@ -40,6 +40,6 @@
     <string name="result.item.image_description">True of False</string>
     <string name="result.activity.title">Question 1</string>
     <string name="result.dialog.button.ok">Ok</string>
-    <string name="result.dialog.button.exit">Exit</string>
-    <string name="result.dialog.message">Test again or exit</string>
+    <string name="result.dialog.button.exit">No</string>
+    <string name="result.dialog.message">Do you want to show result?</string>
 </resources>

@@ -17,7 +17,6 @@ import vn.asiantech.internship.drawer.day15.models.Question;
 /**
  * Created by at-dinhvo on 25/06/2017.
  */
-
 class JSONHandler {
 
     private static final String JSON_FILE = "question.json";

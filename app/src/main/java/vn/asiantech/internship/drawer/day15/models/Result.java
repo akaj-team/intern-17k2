@@ -6,7 +6,6 @@ import android.os.Parcelable;
 /**
  * Created by at-dinhvo on 26/06/2017.
  */
-
 public class Result implements Parcelable {
 
     private String question;

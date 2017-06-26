@@ -1,6 +1,8 @@
 package vn.asiantech.internship.drawer.day15.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -70,9 +72,7 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (RESET_BUTTON.equals(mBtnPrev.getText().toString())) {
-                    mFrameLayout.setVisibility(View.GONE);
-                    mViewPagerQuestion.setVisibility(View.VISIBLE);
-                    mViewPagerQuestion.setCurrentItem(0);
+                    startActivity(new Intent(QuestionActivity.this, QuestionActivity.class));
                 } else {
                     mViewPagerQuestion.setCurrentItem(mViewPagerQuestion.getCurrentItem() - 1, true);
                 }
@@ -86,7 +86,7 @@ public class QuestionActivity extends AppCompatActivity {
                     mViewPagerQuestion.setVisibility(View.GONE);
                     mBtnNext.setText(EXIT_BUTTON);
                     mBtnPrev.setText(RESET_BUTTON);
-//                    showDialog();
+                    showDialog();
                 } else if (EXIT_BUTTON.equals(mBtnNext.getText().toString())) {
                     finish();
                 } else {
@@ -98,18 +98,27 @@ public class QuestionActivity extends AppCompatActivity {
         });
     }
 
-    /*private void showResult() {
-        mTvQuestionTitle.setText(R.string.result_item_title);
-        mFrameLayout = (FrameLayout) findViewById(R.id.frContainerQuestion);
-        mFrameLayout.setVisibility(View.VISIBLE);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        ResultFragment resultFragment = new ResultFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(RESULT_KEY, (ArrayList<? extends Parcelable>) mResults);
-        resultFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.frContainerQuestion, resultFragment);
-        fragmentTransaction.commit();
-    }*/
+    private void showDialog() {
+        android.app.FragmentManager fm = this.getFragmentManager();
+        ResultDialog resultDialog = ResultDialog.newInstance(mResults);
+        ResultDialog.ShowResultListener showResultListener = new ResultDialog.ShowResultListener() {
+            @Override
+            public void onShowResult() {
+                mTvQuestionTitle.setText(R.string.result_item_title);
+                mFrameLayout = (FrameLayout) findViewById(R.id.frContainerQuestion);
+                mFrameLayout.setVisibility(View.VISIBLE);
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                ResultFragment resultFragment = new ResultFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(RESULT_KEY, mResults);
+                resultFragment.setArguments(bundle);
+                fragmentTransaction.add(R.id.frContainerQuestion, resultFragment);
+                fragmentTransaction.commit();
+            }
+        };
+        resultDialog.setShowResultListener(showResultListener);
+        resultDialog.show(fm, null);
+    }
 
     private void updateButton(int position) {
         if (position == 0) {
