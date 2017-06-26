@@ -10,6 +10,9 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+AT_NAME=$(echo $CIRCLE_BRANCH | cut -d "-" -f1,2)
+echo "Current intern is $AT_NAME"
+
 echo "********************"
 echo "* exec gradle      *"
 echo "********************"
@@ -44,7 +47,7 @@ echo "********************"
 echo "* checkstyle       *"
 echo "********************"
 cat app/build/reports/checkstyle/checkstyle.xml \
-    | checkstyle_filter-git diff origin/master \
+    | checkstyle_filter-git diff origin/$AT_NAME \
     | saddler report --require saddler/reporter/github --reporter $REPORTER
 
 echo "********************"
@@ -52,7 +55,7 @@ echo "* findbugs         *"
 echo "********************"
 cat app/build/reports/findbugs/findbugs.xml \
     | findbugs_translate_checkstyle_format translate \
-    | checkstyle_filter-git diff origin/master \
+    | checkstyle_filter-git diff origin/$AT_NAME \
     | saddler report --require saddler/reporter/github --reporter $REPORTER
 
 echo "********************"
@@ -60,7 +63,7 @@ echo "* PMD              *"
 echo "********************"
 cat app/build/reports/pmd/pmd.xml \
     | pmd_translate_checkstyle_format translate \
-    | checkstyle_filter-git diff origin/master \
+    | checkstyle_filter-git diff origin/$AT_NAME \
     | saddler report --require saddler/reporter/github --reporter $REPORTER
 
 echo "********************"
@@ -68,7 +71,7 @@ echo "* PMD-CPD          *"
 echo "********************"
 cat app/build/reports/pmd/cpd.xml \
     | pmd_translate_checkstyle_format translate --cpd-translate \
-    | checkstyle_filter-git diff origin/master \
+    | checkstyle_filter-git diff origin/$AT_NAME \
     | saddler report --require saddler/reporter/github --reporter $REPORTER
 
 echo "********************"
@@ -76,5 +79,5 @@ echo "* android lint     *"
 echo "********************"
 cat app/build/outputs/lint-results.xml \
     | android_lint_translate_checkstyle_format translate \
-    | checkstyle_filter-git diff origin/master \
+    | checkstyle_filter-git diff origin/$AT_NAME \
     | saddler report --require saddler/reporter/github --reporter $REPORTER
