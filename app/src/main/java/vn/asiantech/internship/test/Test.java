@@ -19,6 +19,7 @@ public class Test implements Parcelable {
     private String answerD;
     private String rightAnswer;
     private boolean isTrue;
+    private int state;
 
     public Test(String question, String answerA, String answerB, String answerC, String answerD, String rightAnswer) {
         this.question = question;
@@ -29,7 +30,7 @@ public class Test implements Parcelable {
         this.rightAnswer = rightAnswer;
     }
 
-    private Test(Parcel in) {
+    protected Test(Parcel in) {
         question = in.readString();
         answerA = in.readString();
         answerB = in.readString();
@@ -37,6 +38,7 @@ public class Test implements Parcelable {
         answerD = in.readString();
         rightAnswer = in.readString();
         isTrue = in.readByte() != 0;
+        state = in.readInt();
     }
 
     public static final Creator<Test> CREATOR = new Creator<Test>() {
@@ -107,6 +109,14 @@ public class Test implements Parcelable {
         isTrue = aTrue;
     }
 
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -121,5 +131,6 @@ public class Test implements Parcelable {
         parcel.writeString(answerD);
         parcel.writeString(rightAnswer);
         parcel.writeByte((byte) (isTrue ? 1 : 0));
+        parcel.writeInt(state);
     }
 }

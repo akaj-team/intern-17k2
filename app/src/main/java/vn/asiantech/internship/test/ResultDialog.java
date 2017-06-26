@@ -48,14 +48,14 @@ public class ResultDialog extends DialogFragment {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         final List<Test> tests = getArguments().getParcelableArrayList(TEST_LIST);
-        int rightAnswerNumber = 0;
+        int choosedAnswerNumber = 0;
         for (int i = 0; i < (tests != null ? tests.size() : 0); i++) {
-            if (tests.get(i).isTrue()) {
-                rightAnswerNumber++;
+            if (tests.get(i).getState()==1) {
+                choosedAnswerNumber++;
             }
         }
         TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-        tvTitle.setText(getString(R.string.textView_yourResult) + rightAnswerNumber + getString(R.string.text_cross) + tests.size());
+        tvTitle.setText(getString(R.string.textView_yourResult) + choosedAnswerNumber + getString(R.string.text_cross) + tests.size());
         Button btnOk = (Button) view.findViewById(R.id.btnOk);
         Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
 

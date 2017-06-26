@@ -36,6 +36,7 @@ public class TestActivity extends AppCompatActivity {
     private ViewPager mQuestionViewPager;
     private QuestionViewPagerAdapter mAdapter;
     private List<Test> mTests;
+    private List<Test> mTestsList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,11 +49,11 @@ public class TestActivity extends AppCompatActivity {
         mTests = new ArrayList<>();
         mTests.addAll(getTests());
         Collections.shuffle(mTests);
-        List<Test> testsList = new ArrayList<>();
+        mTestsList = new ArrayList<>();
         for (int i = 0; i < mTests.size() / 2; i++) {
-            testsList.add(mTests.get(i));
+            mTestsList.add(mTests.get(i));
         }
-        mAdapter = new QuestionViewPagerAdapter(getSupportFragmentManager(), testsList);
+        mAdapter = new QuestionViewPagerAdapter(getSupportFragmentManager(), mTestsList);
         mQuestionViewPager.setAdapter(mAdapter);
 
         mQuestionViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -99,7 +100,7 @@ public class TestActivity extends AppCompatActivity {
 
     private void showDialog() {
         android.app.FragmentManager fm = this.getFragmentManager();
-        ResultDialog resultDialog = ResultDialog.newInstance(mTests);
+        ResultDialog resultDialog = ResultDialog.newInstance(mTestsList);
         resultDialog.show(fm, null);
     }
 
