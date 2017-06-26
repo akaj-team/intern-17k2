@@ -6,12 +6,15 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -110,10 +113,9 @@ public class JsonActivity extends AppCompatActivity implements View.OnClickListe
             json = new String(buffer, "UTF-8");
             jsonArray = new JSONArray(json);
         } catch (IOException ex) {
-            ex.printStackTrace();
             return null;
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d("Tag", "loadJSONFromAsset: " + e);
         }
         return jsonArray;
     }
