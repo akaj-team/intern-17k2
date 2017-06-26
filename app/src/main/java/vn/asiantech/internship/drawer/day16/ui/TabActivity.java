@@ -33,13 +33,10 @@ public class TabActivity extends AppCompatActivity {
         mImages.add(R.drawable.img_binhdinh);
     }
 
-    private void addFragment(){
-        mFragments.add();
-    }
-
     private void initUI() {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerTab);
-        ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mImages);
+        ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(mImages);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
