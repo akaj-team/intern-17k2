@@ -28,7 +28,7 @@ public class ExitDialog extends DialogFragment {
     public static ExitDialog newInstance() {
         ExitDialog dialog = new ExitDialog();
         Bundle args = new Bundle();
-        args.putString(DIALOG_TITLE, "Do you want to exit this app?");
+        args.putString(DIALOG_TITLE, "Do you want to restart this app?");
         dialog.setArguments(args);
         return dialog;
     }
@@ -50,16 +50,14 @@ public class ExitDialog extends DialogFragment {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                startActivity(new Intent(getActivity(), TestActivity.class));
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getDialog().dismiss();
+                getActivity().finish();
             }
         });
     }

@@ -21,12 +21,14 @@
         android:background="@color/colorYellow" />
 
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/test.textView.margin_top">
 
         <Button
             android:id="@+id/btnCancel"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/test.button.margin_right_left"
@@ -37,6 +39,7 @@
 
         <Button
             android:id="@+id/btnOk"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/test.button.margin_right_left"

@@ -48,7 +48,11 @@ public class TestActivity extends AppCompatActivity {
         mTests = new ArrayList<>();
         mTests.addAll(getTests());
         Collections.shuffle(mTests);
-        mAdapter = new QuestionViewPagerAdapter(getSupportFragmentManager(), mTests);
+        List<Test> testsList = new ArrayList<>();
+        for (int i = 0; i < mTests.size() / 2; i++) {
+            testsList.add(mTests.get(i));
+        }
+        mAdapter = new QuestionViewPagerAdapter(getSupportFragmentManager(), testsList);
         mQuestionViewPager.setAdapter(mAdapter);
 
         mQuestionViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -122,8 +126,14 @@ public class TestActivity extends AppCompatActivity {
             JSONArray jsonArray = jsonObject.getJSONArray("test");
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jb = (JSONObject) jsonArray.get(i);
-                questions.add(new Test(jb.getString("question"), jb.getString("answer_a"), jb.getString("answer_b"),
-                        jb.getString("answer_c"), jb.getString("answer_d"), jb.getString("answer_right")));
+                List<String> answers = new ArrayList<>();
+                answers.add(jb.getString("answer_a"));
+                answers.add(jb.getString("answer_b"));
+                answers.add(jb.getString("answer_c"));
+                answers.add(jb.getString("answer_d"));
+                Collections.shuffle(answers);
+                questions.add(new Test(jb.getString("question"), answers.get(0), answers.get(1),
+                        answers.get(2), answers.get(3), jb.getString("answer_right")));
             }
         } catch (JSONException e) {
             Log.e(TAG, e.toString());

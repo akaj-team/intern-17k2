@@ -49,7 +49,7 @@ public class ResultDialog extends DialogFragment {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         final List<Test> tests = getArguments().getParcelableArrayList(TEST_LIST);
         int rightAnswerNumber = 0;
-        for (int i = 0; i < tests.size(); i++) {
+        for (int i = 0; i < (tests != null ? tests.size() : 0); i++) {
             if (tests.get(i).isTrue()) {
                 rightAnswerNumber++;
             }
@@ -66,6 +66,7 @@ public class ResultDialog extends DialogFragment {
                 Intent intent = new Intent(getActivity(), ResultActivity.class);
                 intent.putParcelableArrayListExtra(TEST_LIST, (ArrayList<? extends Parcelable>) tests);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 

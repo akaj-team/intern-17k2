@@ -37,7 +37,7 @@ class ResultAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ResultViewHolder resultViewHolder = (ResultViewHolder) holder;
         resultViewHolder.mTvQuestion.setText(mResults.get(position).getQuestion());
-        resultViewHolder.mTvState.setImageResource(mResults.get(position).isTrue() ? R.drawable.ic_check_circle_yellow_800_24dp : R.drawable.ic_highlight_off_yellow_800_24dp);
+        resultViewHolder.mTvState.setImageResource(mResults.get(position).isRight() ? R.drawable.ic_check_circle_yellow_800_24dp : R.drawable.ic_highlight_off_yellow_800_24dp);
     }
 
     @Override

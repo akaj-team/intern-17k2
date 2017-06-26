@@ -9,11 +9,11 @@ package vn.asiantech.internship.test;
  */
 class Result {
     private String question;
-    private boolean isTrue;
+    private boolean isRight;
 
     Result(String question, boolean isTrue) {
         this.question = question;
-        this.isTrue = isTrue;
+        this.isRight = isTrue;
     }
 
     String getQuestion() {
@@ -24,11 +24,11 @@ class Result {
         this.question = question;
     }
 
-    public boolean isTrue() {
-        return isTrue;
+    public boolean isRight() {
+        return isRight;
     }
 
-    public void setTrue(boolean aTrue) {
-        isTrue = aTrue;
+    public void setRight(boolean right) {
+        isRight = right;
     }
 }
