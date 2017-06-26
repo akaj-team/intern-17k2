@@ -14,7 +14,8 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Question;
 
 /**
- * Created by AnhHuy on 26-Jun-17.
+ * Adapter for Result.
+ * Created by huypham on 26-Jun-17.
  */
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
     private Context mContext;
@@ -33,7 +34,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTvQuestionNumber.setText(String.format(mContext.getString(R.string.question_number), position + 1));
+        holder.mTvQuestionNumber.setText(String.format(mContext.getString(R.string.text_view_result_question_number), position + 1));
         if (mQuestionList.get(position).isCorrect()) {
             holder.mImgStatus.setImageResource(R.drawable.ic_check);
         } else {
@@ -46,6 +47,10 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         return mQuestionList.size();
     }
 
+    /**
+     * View Holder for Result Item
+     * Created by huypham on 26-Jun-17.
+     */
     final class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvQuestionNumber;
         private ImageView mImgStatus;

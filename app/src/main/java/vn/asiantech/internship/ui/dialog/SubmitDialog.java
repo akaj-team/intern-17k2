@@ -38,12 +38,12 @@ public class SubmitDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_submit, container, false);
         mQuestionList = getArguments().getParcelableArrayList(QUESTION_SET);
-        getDialog().setTitle(R.string.confirm_submit);
+        getDialog().setTitle(R.string.title_dialog_confirm_submit);
 
         TextView tvMessage = (TextView) view.findViewById(R.id.tvMessage);
         Button btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
         Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
-        tvMessage.setText(getString(R.string.message_submit, getCountQuestion(), mQuestionList.size()));
+        tvMessage.setText(getString(R.string.message_dialog_message_submit, getCountQuestion(), mQuestionList.size()));
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

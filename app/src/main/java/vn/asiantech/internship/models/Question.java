@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * Question Model.
  * Created by huypham on 23-Jun-17.
  */
-
 public class Question implements Serializable, Parcelable {
     private String question;
     private List<String> answers;
@@ -55,7 +55,7 @@ public class Question implements Serializable, Parcelable {
         this.answerChoose = answerChoose;
     }
 
-    public Question(JSONObject object) {
+    private Question(JSONObject object) {
         try {
             this.question = object.getString("question");
             this.correctAnswer = object.getString("answer_right");
@@ -70,7 +70,7 @@ public class Question implements Serializable, Parcelable {
             while (answerList.size() > 0) {
                 int rand = random.nextInt(answerList.size());
                 answers.add(answerList.get(rand));
-                answers.remove(rand);
+                answerList.remove(rand);
             }
         } catch (JSONException e) {
             Log.i("Question", e.getMessage());
@@ -112,8 +112,7 @@ public class Question implements Serializable, Parcelable {
     public boolean isCorrect() {
         if (answerChoose > 4 || answerChoose < 0) {
             return false;
-        }
-        if (correctAnswer.equals(answers.get(answerChoose))) {
+        } else if (correctAnswer.equals(answers.get(answerChoose))) {
             return true;
         }
         return false;

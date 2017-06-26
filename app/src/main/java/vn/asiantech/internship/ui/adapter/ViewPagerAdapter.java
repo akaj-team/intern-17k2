@@ -10,9 +10,9 @@ import vn.asiantech.internship.models.Question;
 import vn.asiantech.internship.ui.view.TestFragment;
 
 /**
- * Created by AnhHuy on 23-Jun-17.
+ * Adapter for View Pager
+ * Created by huypham on 23-Jun-17.
  */
-
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private List<Question> mQuestionList;
 
@@ -35,7 +35,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-//        return mQuestionList.size();
         return 10;
     }
 }

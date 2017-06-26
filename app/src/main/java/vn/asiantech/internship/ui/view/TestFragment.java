@@ -16,9 +16,9 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Question;
 
 /**
- * Created by AnhHuy on 23-Jun-17.
+ * Fragment for Test
+ * Created by huypham on 23-Jun-17.
  */
-
 public class TestFragment extends Fragment {
     private static final String QUESTION = "question";
     private static final String POSITION = "position";
