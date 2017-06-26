@@ -19,15 +19,9 @@ import vn.asiantech.internship.drawer.day15.models.Question;
  */
 
 class JSONHandler {
-    /*
-    * "question": "Sông Thạch Hãn ở tỉnh Quảng Trị đổ ra biển bởi cửa sông nào?",
-      "answer_a": "Cửa Việt",
-      "answer_b": "Cửa Tùng",
-      "answer_c": "Cửa Đại",
-      "answer_d": "Cửa Hội",
-      "answer_right": "Cửa Việt"
-    *
-    * */
+
+    private static final String JSON_FILE = "question.json";
+    private static final String JSON_OBJECT = "listQuestion";
     private static final String QUESTION = "question";
     private static final String ANSWER_A = "answer_a";
     private static final String ANSWER_B = "answer_b";
@@ -45,7 +39,7 @@ class JSONHandler {
         List<Question> questions = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(loadJSONFromAsset(mContext));
-            JSONArray jsonArray = jsonObject.getJSONArray("listQuestion");
+            JSONArray jsonArray = jsonObject.getJSONArray(JSON_OBJECT);
             String[] answers;
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jb = (JSONObject) jsonArray.get(i);
@@ -65,7 +59,7 @@ class JSONHandler {
     private String loadJSONFromAsset(Context context) {
         String json;
         try {
-            InputStream inputStream = context.getAssets().open("question.json");
+            InputStream inputStream = context.getAssets().open(JSON_FILE);
             int size = inputStream.available();
             byte[] buffer = new byte[size];
             inputStream.read(buffer);

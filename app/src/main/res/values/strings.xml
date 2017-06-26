@@ -11,10 +11,6 @@
     <string name="drawer_close">Draw close</string>
     <string name="header.name">at-dinhvo</string>
     <string name="header.email">at-dinhvo@gmail.com</string>
-    <string name="crop.aspectX">aspectX</string>
-    <string name="crop.aspectY">aspectY</string>
-    <string name="crop.outputX">outputX</string>
-    <string name="crop.outputY">outputY</string>
     <string name="dialog.title">Choose Image From:</string>
     <string name="menuleft.title.feed">Feed</string>
     <string name="menuleft.title.activity">Activity</string>
@@ -33,10 +29,14 @@
     <string name="button">Get Content</string>
     <!--Bai8-->
     <!--feedactivity-->
-    <string name="feed.buttonleft_description">Slide left</string>
-    <string name="feed.buttonright_description">Slide right</string>
+    <string name="feed.buttonleft_description">Prev</string>
+    <string name="feed.buttonright_description">Next</string>
     <string-array name="dialog_items">
         <item>Gallery</item>
         <item>Camera</item>
-    </string-array><!-- TODO: Remove or change this placeholder text -->
+    </string-array>
+    <!--Bai15-->
+    <string name="result.item.title">Result</string>
+    <string name="result.item.image_description">True of False</string>
+    <string name="result.activity.title">Question</string>
 </resources>

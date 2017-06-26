@@ -20,10 +20,10 @@
             <Button
                 android:id="@+id/btnPrev"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:text="Prev"
-                android:textAlignment="center"
+                android:background="@android:color/transparent"
+                android:text="@string/feed.buttonleft_description"
                 android:textColor="@color/colorBlack"
                 android:visibility="invisible" />
 
@@ -33,17 +33,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:gravity="center_horizontal"
-                android:text="Question"
-                android:textColor="@color/colorBlack" />
+                android:text="@string/result.activity.title"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/result.fragment.text_size" />
 
             <Button
                 android:id="@+id/btnNext"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.5"
-                android:gravity="end"
-                android:text="Next"
-                android:textAlignment="center"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="@string/feed.buttonright_description"
+                android:background="@android:color/transparent"
                 android:textColor="@color/colorBlack" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
@@ -52,5 +52,12 @@
         android:id="@+id/viewPagerQuestion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="@dimen/header.layout_margin" />
+
+    <FrameLayout
+        android:id="@+id/frContainerQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
 </LinearLayout>
