@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.splash.SplashActivity">
+        <activity android:name=".ui.question.QuestionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,5 +22,6 @@
         </activity>
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.friendlist.FriendActivity" />
+        <activity android:name=".ui.question.ResultActivity" />
     </application>
 </manifest>
