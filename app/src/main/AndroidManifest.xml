@@ -18,10 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.Day6Activity" />
         <activity android:name=".drawer.ui.main.MainActivity" />
         <activity android:name=".drawer.ui.feed.FeedActivity" />
-
+        <activity android:name=".drawer.day16.ui.TabActivity"></activity>
     </application>
 
 </manifest>
