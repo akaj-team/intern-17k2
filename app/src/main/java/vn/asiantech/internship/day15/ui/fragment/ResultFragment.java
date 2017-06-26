@@ -45,7 +45,7 @@ public class ResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_result, container, false);
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerViewResult);
-        Button btnOk= (Button) v.findViewById(R.id.btnOkResult);
+        Button btnOk = (Button) v.findViewById(R.id.btnOkResult);
         ResultAdapter resultAdapter = new ResultAdapter(mResults);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
