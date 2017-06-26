@@ -22,6 +22,8 @@
     <string name="bai7">Bai 7</string>
     <string name="bai15">Bai 15</string>
     <string name="question">Question %d</string>
+    <string name="question1">Question 1</string>
     <string name="previous">previous</string>
     <string name="next">next</string>
+    <string name="result">Result</string>
 </resources>

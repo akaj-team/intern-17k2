@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,21 +26,26 @@ import vn.asiantech.internship.models.Question;
 /**
  * Created by ducle on 23/06/2017.
  */
-
-public class MainTestFragment extends android.support.v4.app.Fragment {
+public class MainTestFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private ViewPager mViewPagerQuestion;
     private QuestionAdapter mQuestionAdapter;
     private List<Question> mQuestions;
+    private TextView mTvTitle;
+    private TextView mTvLeft;
+    private TextView mTvRight;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_test_main, container, false);
         mQuestions = new ArrayList<>();
-        mQuestions = getListQuestion();
-        initData();
+        mQuestions = initData();
 
         mViewPagerQuestion = (ViewPager) view.findViewById(R.id.viewPagerQuestion);
+        mTvTitle = (TextView) view.findViewById(R.id.tvTitle);
+        mTvLeft = (TextView) view.findViewById(R.id.tvLeft);
+        mTvRight = (TextView) view.findViewById(R.id.tvRight);
+
         mQuestionAdapter = new QuestionAdapter(getFragmentManager(), mQuestions);
         mViewPagerQuestion.setAdapter(mQuestionAdapter);
         mViewPagerQuestion.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -50,7 +56,17 @@ public class MainTestFragment extends android.support.v4.app.Fragment {
 
             @Override
             public void onPageSelected(int position) {
-
+                mTvTitle.setText(getString(R.string.question, position + 1));
+                if (position == 0) {
+                    mTvLeft.setVisibility(View.GONE);
+                } else {
+                    mTvLeft.setVisibility(View.VISIBLE);
+                }
+                if (position == 9) {
+                    mTvRight.setText(getString(R.string.result));
+                } else {
+                    mTvRight.setText(getString(R.string.next));
+                }
             }
 
             @Override
@@ -58,6 +74,8 @@ public class MainTestFragment extends android.support.v4.app.Fragment {
 
             }
         });
+        mTvLeft.setOnClickListener(this);
+        mTvRight.setOnClickListener(this);
         return view;
     }
 
@@ -68,14 +86,14 @@ public class MainTestFragment extends android.support.v4.app.Fragment {
         Random random = new Random();
         int value;
         for (int i = 0; i < 10; ) {
-            value = random.nextInt(20);
+            value = random.nextInt(allQuestions.size());
             if (!vector.contains(value)) {
                 vector.add(value);
                 i++;
             }
         }
         for (int j = 0; j < vector.size(); j++) {
-            questions.add(allQuestions.get((Integer) vector.get(j)));
+            questions.add(allQuestions.get((int) vector.get(j)));
         }
         return questions;
     }
@@ -109,5 +127,21 @@ public class MainTestFragment extends android.support.v4.app.Fragment {
             e.printStackTrace();
         }
         return questions;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvLeft:
+                mViewPagerQuestion.setCurrentItem(mViewPagerQuestion.getCurrentItem() - 1);
+                break;
+            case R.id.tvRight:
+                if (mViewPagerQuestion.getCurrentItem() != 9) {
+                    mViewPagerQuestion.setCurrentItem(mViewPagerQuestion.getCurrentItem() + 1);
+                } else {
+
+                }
+                break;
+        }
     }
 }

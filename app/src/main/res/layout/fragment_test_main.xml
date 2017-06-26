@@ -16,11 +16,11 @@
             android:paddingRight="@dimen/activity_horizontal_margin">
 
             <TextView
-                android:id="@+id/tvTiltle"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/question"
+                android:text="@string/question1"
                 android:textColor="@color/textview.title"
                 android:textSize="@dimen/textview.size" />
 
@@ -31,7 +31,8 @@
                 android:layout_alignParentLeft="true"
                 android:text="@string/previous"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textview.size" />
+                android:textSize="@dimen/textview.size"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvRight"
