@@ -91,7 +91,7 @@ public class QuizFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                mTvQuiz.setText(getString(R.string.question,position + 1));
+                mTvQuiz.setText(getString(R.string.question, position + 1));
                 if (position == 0) {
                     mImgPrevious.setVisibility(View.INVISIBLE);
                 } else {
