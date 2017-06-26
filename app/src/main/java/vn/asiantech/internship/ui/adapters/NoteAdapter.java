@@ -45,6 +45,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         return mNoteList.size();
     }
 
+    /**
+     * View Holder for Adapter Item
+     * Created by huypham on 22/06/2017.
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvTime;
         private TextView mTvTitle;
@@ -75,6 +79,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         }
     }
 
+    /**
+     * Interface OnItemClick
+     * Created by huypham on 22/06/2017.
+     */
     public interface OnItemClickListener {
         void onItemClick(Note note);
     }

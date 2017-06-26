@@ -29,8 +29,8 @@ import vn.asiantech.internship.models.Note;
  * Created by huypham on 20/06/2017.
  */
 public class AddNoteFragment extends Fragment {
-    public EditText edtTitle;
-    public EditText edtContent;
+    private EditText mEdtTitle;
+    private EditText mEdtContent;
     private ImageView mImgImageSelected;
     private NoteDatabase mNoteDatabase;
     private boolean isBitmapExists;
@@ -39,8 +39,8 @@ public class AddNoteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_note, container, false);
-        edtTitle = (EditText) view.findViewById(R.id.edtTitle);
-        edtContent = (EditText) view.findViewById(R.id.edtContent);
+        mEdtTitle = (EditText) view.findViewById(R.id.edtTitle);
+        mEdtContent = (EditText) view.findViewById(R.id.edtContent);
         mImgImageSelected = (ImageView) view.findViewById(R.id.imgSelected);
 
         mNoteDatabase = new NoteDatabase(getContext());
@@ -50,21 +50,21 @@ public class AddNoteFragment extends Fragment {
     }
 
     public void addNote() {
-        if (!TextUtils.isEmpty(edtTitle.getText().toString().trim()) || !TextUtils.isEmpty(edtContent.getText().toString().trim())) {
+        if (!TextUtils.isEmpty(mEdtTitle.getText().toString().trim()) || !TextUtils.isEmpty(mEdtContent.getText().toString().trim())) {
             Note note;
             String savePath = null;
             if (isBitmapExists) {
                 savePath = saveImage(((BitmapDrawable) mImgImageSelected.getDrawable()).getBitmap());
             }
             if (savePath != null) {
-                note = new Note(edtTitle.getText().toString().trim(), edtContent.getText().toString().trim(), savePath);
+                note = new Note(mEdtTitle.getText().toString().trim(), mEdtContent.getText().toString().trim(), savePath);
             } else {
-                note = new Note(edtTitle.getText().toString().trim(), edtContent.getText().toString().trim());
+                note = new Note(mEdtTitle.getText().toString().trim(), mEdtContent.getText().toString().trim());
             }
             if (mNoteDatabase.insertNote(note) > 0) {
                 Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-                edtTitle.setText("");
-                edtContent.setText("");
+                mEdtTitle.setText("");
+                mEdtContent.setText("");
             } else {
                 Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
             }
@@ -102,5 +102,13 @@ public class AddNoteFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mNoteDatabase.close();
+    }
+
+    public String getEditTextTitle(){
+        return mEdtTitle.getText().toString().trim();
+    }
+
+    public String getEditTextContent(){
+        return mEdtContent.getText().toString().trim();
     }
 }
