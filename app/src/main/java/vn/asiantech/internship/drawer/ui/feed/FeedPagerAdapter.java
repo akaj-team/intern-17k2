@@ -58,8 +58,8 @@ class FeedPagerAdapter extends PagerAdapter {
                 .defaultDisplayImageOptions(mDefaultOptions)
                 .memoryCache(new WeakMemoryCache())
                 .discCacheSize(100 * 1024 * 1024).build();
-        ImageLoader imageLoader = ImageLoader.getInstance();
-        imageLoader.init(config);
+        mImageLoader = ImageLoader.getInstance();
+        mImageLoader.init(config);
     }
 
     private void loadImage(String link, ImageView imageView) {

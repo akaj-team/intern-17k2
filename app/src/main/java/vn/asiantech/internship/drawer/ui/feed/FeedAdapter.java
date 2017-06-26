@@ -40,6 +40,9 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         holder.mTvComment.setText(mFeedItems.get(position).getComment());
         FeedPagerAdapter pagerAdapter = new FeedPagerAdapter(mContext, mFeedItems.get(position).getImages());
         holder.mViewPager.setAdapter(pagerAdapter);
+        if (mFeedItems.get(position).getImages().length > 1) {
+            holder.mBtnRightSlide.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -67,7 +70,6 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             mBtnRightSlide = (ImageButton) itemView.findViewById(R.id.btnRightSlide);
             mViewPager.setPageMargin(5);
             mViewPager.setPageMarginDrawable(R.color.colorBlack);
-
             mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
