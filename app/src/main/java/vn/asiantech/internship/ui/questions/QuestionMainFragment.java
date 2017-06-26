@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -249,7 +250,7 @@ public class QuestionMainFragment extends Fragment implements View.OnClickListen
             }
 
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d("Error", "getJson: " + e.toString());
         }
         return questions;
     }
@@ -274,7 +275,7 @@ public class QuestionMainFragment extends Fragment implements View.OnClickListen
             is.close();
             json = new String(buffer, "UTF-8");
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Log.d("Error", "getJson: " + ex.toString());
             return null;
         }
         return json;

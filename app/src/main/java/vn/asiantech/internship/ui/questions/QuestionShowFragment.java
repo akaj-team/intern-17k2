@@ -97,7 +97,7 @@ public class QuestionShowFragment extends Fragment {
         return v;
     }
 
-    private void sendToMain(String s, int mCurrentPosition) {
-        ((QuestionActivity) getActivity()).sendToMain(s, mCurrentPosition);
+    private void sendToMain(String s, int position) {
+        ((QuestionActivity) getActivity()).sendToMain(s, position);
     }
 }
