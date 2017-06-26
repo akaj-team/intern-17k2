@@ -141,7 +141,7 @@ public class JsonActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void showDialog() {
-        DialogFragment newFragment = ResultDialog.getNewInstance(mItemQuestion);
+        DialogFragment newFragment = ResultDialog.newInstance(mItemQuestion);
         newFragment.show(getSupportFragmentManager(), "");
     }
 }

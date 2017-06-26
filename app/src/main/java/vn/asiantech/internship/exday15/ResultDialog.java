@@ -17,10 +17,9 @@ import vn.asiantech.internship.R;
  */
 public class ResultDialog extends DialogFragment {
     public static final String QUESTION_SET_KEY = "questions";
-
     private ArrayList<ItemQuestion> itemQuestions;
 
-    public static ResultDialog getNewInstance(ArrayList<ItemQuestion> questions) {
+    public static ResultDialog newInstance(ArrayList<ItemQuestion> questions) {
         ResultDialog confirmDialog = new ResultDialog();
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(QUESTION_SET_KEY, questions);
