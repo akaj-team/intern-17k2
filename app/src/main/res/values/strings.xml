@@ -7,7 +7,7 @@
     <string name="btn_friend">Friend</string>
     <string name="btn_add">Add</string>
     <string name="tv_value">asdsadasdsadsad</string>
-    <string name="title.question">Question %1$d</string>
+    <string name="title.question">Question %d</string>
     <string name="result_message">You have finish %1$d / %2$d question. \nDo you want to submit?</string>
     <string name="result_format">"Your point: %1$d/%2$d"</string>
     <string name="qustion">Question %d</string>
