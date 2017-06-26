@@ -9,11 +9,11 @@ import android.os.Parcelable;
  */
 public class Result implements Parcelable {
     private String question;
-    private boolean result;
+    private boolean resultQuestion;
 
-    public Result(String question, boolean result) {
+    public Result(String question, boolean resultQuestion) {
         this.question = question;
-        this.result = result;
+        this.resultQuestion = resultQuestion;
     }
 
     public Result() {
@@ -21,7 +21,7 @@ public class Result implements Parcelable {
 
     public Result(Parcel in) {
         question = in.readString();
-        result = in.readByte() != 0;
+        resultQuestion = in.readByte() != 0;
     }
 
     public static final Creator<Result> CREATOR = new Creator<Result>() {
@@ -44,12 +44,12 @@ public class Result implements Parcelable {
         this.question = question;
     }
 
-    public boolean isResult() {
-        return result;
+    public boolean isResultQuestion() {
+        return resultQuestion;
     }
 
-    public void setResult(boolean result) {
-        this.result = result;
+    public void setResultQuestion(boolean resultQuestion) {
+        this.resultQuestion = resultQuestion;
     }
 
     @Override
@@ -60,6 +60,6 @@ public class Result implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(question);
-        dest.writeByte((byte) (result ? 1 : 0));
+        dest.writeByte((byte) (resultQuestion ? 1 : 0));
     }
 }

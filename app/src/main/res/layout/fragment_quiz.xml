@@ -25,7 +25,7 @@
             android:layout_toEndOf="@+id/imgPrevious"
             android:layout_toStartOf="@+id/imgNext"
             android:gravity="center"
-            android:text="@string/textview.question.text"
+            android:text="@string/textview.questionQuiz.text"
             android:textColor="@color/colorResult"
             android:textSize="@dimen/textview.quiz.textSize" />
 
@@ -44,7 +44,7 @@
             android:layout_alignParentEnd="true"
             android:padding="@dimen/textview.resulttoolbar.padding"
             android:text="@string/textview.resulttoolbar.text"
-            android:textColor="@color/textview.result"
+            android:textColor="@color/textview.resultQuestion"
             android:textSize="@dimen/textview.resultLabel.textSize"
             android:visibility="gone" />
 

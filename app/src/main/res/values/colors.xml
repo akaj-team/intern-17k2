@@ -15,7 +15,7 @@
     <color name="avatar_bolder">#FFFFCC</color>
     <color name="colorBorderQuestion">#888888</color>
     <color name="textview.Question">#FFFFCC</color>
-    <color name="textview.result">#FFFFFF</color>
+    <color name="textview.resultQuestion">#FFFFFF</color>
     <color name="colorBackgroundResult">#EAF6B9</color>
     <color name="colorResult">#FFFFCC</color>
     <color name="colorBackgroundLabelResult">#220000</color>

@@ -8,7 +8,7 @@ import android.os.Parcelable;
  * Created by rimoka on 23/06/2017.
  */
 public class Question implements Parcelable {
-    private String question;
+    private String questionQuiz;
     private String answerA;
     private String answerB;
     private String answerC;
@@ -16,8 +16,8 @@ public class Question implements Parcelable {
     private String answered;
     private String result;
 
-    public Question(String question, String answerA, String answerB, String answerC, String answerD, String answered, String result) {
-        this.question = question;
+    public Question(String questionQuiz, String answerA, String answerB, String answerC, String answerD, String answered, String result) {
+        this.questionQuiz = questionQuiz;
         this.answerA = answerA;
         this.answerB = answerB;
         this.answerC = answerC;
@@ -31,7 +31,7 @@ public class Question implements Parcelable {
     }
 
     protected Question(Parcel in) {
-        question = in.readString();
+        questionQuiz = in.readString();
         answerA = in.readString();
         answerB = in.readString();
         answerC = in.readString();
@@ -42,7 +42,7 @@ public class Question implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(question);
+        dest.writeString(questionQuiz);
         dest.writeString(answerA);
         dest.writeString(answerB);
         dest.writeString(answerC);
@@ -68,12 +68,12 @@ public class Question implements Parcelable {
         }
     };
 
-    public String getQuestion() {
-        return question;
+    public String getQuestionQuiz() {
+        return questionQuiz;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setQuestionQuiz(String questionQuiz) {
+        this.questionQuiz = questionQuiz;
     }
 
     public String getAnswerA() {

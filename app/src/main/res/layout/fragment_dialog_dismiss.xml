@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundNotifyDismiss"
@@ -25,21 +26,21 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/btnOKDismissDialog"
+            android:id="@+id/btnCancelDismissDialog"
             style="@android:style/ButtonBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/button.ok_dismiss.background"
-            android:text="@string/button.text.dialog_ok" />
+            android:text="@string/button.text.dialog_cancel" />
 
         <Button
-            android:id="@+id/btnCancelDismissDialog"
+            android:id="@+id/btnOKDismissDialog"
             style="@android:style/ButtonBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/button.dialog_cancel.layout_marginStart"
             android:background="@color/button.ok_dismiss.background"
-            android:text="@string/button.text.dialog_cancel" />
+            android:text="@string/button.text.dialog_ok" />
 
     </LinearLayout>
 </LinearLayout>

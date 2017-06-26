@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundLabelResult"
+    style="@style/AppTheme"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/textview.resultLabel.layout_marginStart"
-        android:text="@string/textview.result.text"
+        android:text="@string/textview.resultQuestion.text"
         android:textColor="@color/colorResult"
-        android:textSize="@dimen/textview.result.textSize" />
+        android:textSize="@dimen/textview.resultQuestion.textSize" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewResult"

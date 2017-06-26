@@ -32,7 +32,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultView
     @Override
     public void onBindViewHolder(ResultViewHolder holder, int position) {
         holder.mTvQuestion.setText(mResults.get(position).getQuestion());
-        if (mResults.get(position).isResult()) {
+        if (mResults.get(position).isResultQuestion()) {
             holder.mImgFalse.setVisibility(View.INVISIBLE);
             holder.mImgTrue.setVisibility(View.VISIBLE);
         } else {

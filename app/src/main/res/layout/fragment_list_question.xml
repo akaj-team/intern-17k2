@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/AppTheme"
     android:background="@mipmap/img_bg_quiz"
     android:orientation="vertical">
 
@@ -11,9 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/quiz.layout_marginLeft"
-        android:layout_marginTop="@dimen/textview.question.layout_marginTop"
+        android:layout_marginTop="@dimen/textview.questionQuiz.layout_marginTop"
         android:textColor="@color/textview.Question"
-        android:textSize="@dimen/textview.question.textSize"
+        android:textSize="@dimen/textview.questionQuiz.textSize"
         tools:text="Question" />
 
     <RadioGroup

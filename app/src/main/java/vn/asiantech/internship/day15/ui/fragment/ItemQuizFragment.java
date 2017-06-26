@@ -57,7 +57,7 @@ public class ItemQuizFragment extends Fragment {
         mRbAnswerC = (RadioButton) v.findViewById(R.id.rbAnswerC);
         mRbAnswerD = (RadioButton) v.findViewById(R.id.rbAnswerD);
 
-        tvQuestion.setText(mQuestion.getQuestion());
+        tvQuestion.setText(mQuestion.getQuestionQuiz());
         mRbAnswerA.setText(mQuestion.getAnswerA());
         mRbAnswerB.setText(mQuestion.getAnswerB());
         mRbAnswerC.setText(mQuestion.getAnswerC());

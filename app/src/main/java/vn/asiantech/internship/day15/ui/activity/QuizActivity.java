@@ -9,6 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day15.ui.fragment.QuizFragment;
 
+/**
+ * Copyright © 2017 AsianTech inc.
+ * Created by rimoka on 26/06/2017.
+ */
 public class QuizActivity extends AppCompatActivity {
 
     @Override

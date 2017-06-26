@@ -18,7 +18,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +91,7 @@ public class QuizFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                mTvQuiz.setText("Question " + "" + (position + 1));
+                mTvQuiz.setText(R.string.question + String.valueOf(position + 1));
                 if (position == 0) {
                     mImgPrevious.setVisibility(View.INVISIBLE);
                 } else {
@@ -156,8 +155,7 @@ public class QuizFragment extends Fragment {
 
     // Read content text from json resource
     private String readText(Context context, int resId) throws IOException {
-        InputStream is = context.getResources().openRawResource(resId);
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        BufferedReader br = new BufferedReader(new InputStreamReader(context.getResources().openRawResource(resId)));
         StringBuilder sb = new StringBuilder();
         String s;
         while ((s = br.readLine()) != null) {
@@ -200,7 +198,7 @@ public class QuizFragment extends Fragment {
                 }
                 v1.add(vt);
             }
-            questionRandom.add(new Question(mQuestions.get(position).getQuestion(), answers.get(0), answers.get(1), answers.get(2), answers.get(3), "", mQuestions.get(position).getResult()));
+            questionRandom.add(new Question(mQuestions.get(position).getQuestionQuiz(), answers.get(0), answers.get(1), answers.get(2), answers.get(3), "", mQuestions.get(position).getResult()));
         }
         return questionRandom;
     }
