@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -115,7 +114,7 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private String loadJsonFromAssets() {
-        String json;
+        String json = null;
         try {
             InputStream is = getAssets().open(JSON_FILE_NAME);
             int size = is.available();
@@ -125,7 +124,6 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
             json = new String(buffer, "UTF-8");
         } catch (IOException e) {
             e.getMessage();
-            return null;
         }
         return json;
     }
