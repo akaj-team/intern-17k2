@@ -24,6 +24,7 @@ import vn.asiantech.internship.databases.DatabaseHelper;
  */
 public class NoteFragment extends Fragment {
     public static final String KEY_BUNDLE = "bundle";
+    public static final String KEY_DATA = "data";
     public static final int KEY_NEW_NOTE = 1;
     public static final int KEY_EDIT_NOTE = 2;
 
@@ -65,6 +66,16 @@ public class NoteFragment extends Fragment {
                 .addToBackStack(null)
                 .commit();
     }
+    private void replaceFragment(Fragment fragment, int key, Note note) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_BUNDLE, key);
+        bundle.putParcelable(KEY_DATA, note);
+        fragment.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fmContent, fragment, null)
+                .addToBackStack(null)
+                .commit();
+    }
 
     private void initView(View view) {
         mImgNewNote = (ImageView) view.findViewById(R.id.imgNewNote);
@@ -79,7 +90,7 @@ public class NoteFragment extends Fragment {
         mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnListener() {
             @Override
             public void onItemClick(int position) {
-                replaceFragment(new NewNoteFragment(), KEY_EDIT_NOTE);
+                replaceFragment(new NewNoteFragment(), KEY_EDIT_NOTE, mNotes.get(position));
             }
         });
         getBundle();
