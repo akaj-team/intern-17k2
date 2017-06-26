@@ -1,11 +1,10 @@
 package vn.asiantech.internship.exday15;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 import vn.asiantech.internship.R;
@@ -45,7 +43,7 @@ public class JsonActivity extends AppCompatActivity implements View.OnClickListe
         mBtnNext.setText(R.string.tv_next);
         mBtnPrev.setText(R.string.tv_prev);
         mBtnPrev.setVisibility(View.GONE);
-
+        mTvTitle.setText(getString(R.string.title_question, 1));
         mItemQuestion = getQuestion(loadJSONFromAsset(), 10);
         JsonViewpagerAdapter jsonViewpagerAdapter = new JsonViewpagerAdapter(getSupportFragmentManager(), mItemQuestion);
         mViewPager.setAdapter(jsonViewpagerAdapter);
@@ -85,12 +83,11 @@ public class JsonActivity extends AppCompatActivity implements View.OnClickListe
         mTvTitle = (TextView) findViewById(R.id.tvTitle);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnNext:
-                if (Objects.equals(mBtnNext.getText().toString(), getString(R.string.tv_result))) {
+                if (TextUtils.equals(mBtnNext.getText().toString(), getString(R.string.tv_result))) {
                     showDialog();
                 } else {
                     mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
