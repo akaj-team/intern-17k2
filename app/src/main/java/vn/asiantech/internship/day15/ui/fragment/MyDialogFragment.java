@@ -58,7 +58,7 @@ public class MyDialogFragment extends DialogFragment {
         Button btnOk = (Button) v.findViewById(R.id.btnOKDialog);
         Button btnCancel = (Button) v.findViewById(R.id.btnCancelDialog);
         getDialog().setTitle("RESULT");
-        tvNotify.setText("You answered " + mResult + ", Do you want to go to Result Screen?");
+        tvNotify.setText(getString(R.string.question_order, mResult));
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
