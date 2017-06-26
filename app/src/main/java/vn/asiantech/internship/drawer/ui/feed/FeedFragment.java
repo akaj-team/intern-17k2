@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class FeedFragment extends Fragment {
         try {
             mDatabase = new DatabaseHelper(getContext());
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("IOException", e.toString());
         }
         List<FeedItem> feedItems = new ArrayList<>();
         initFeed(feedItems);

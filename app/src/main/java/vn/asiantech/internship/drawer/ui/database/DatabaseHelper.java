@@ -33,10 +33,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.mContext = context;
         boolean dbexist = checkDatabase();
         if (dbexist) {
-            System.out.println("Database exists");
+            Log.e("Ok", "Database exists");
             openDatabase();
         } else {
-            System.out.println("Database doesn't exist");
+            Log.e("Error", "Database exists");
             createDatabase();
         }
     }
@@ -97,7 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<String[]> links = new ArrayList<>();
         String sql = "SELECT " + COL_LINK + " FROM " + TABLE_IMAGE;
         Cursor cursor = mDatabase.rawQuery(sql, null);
-        String listUrl[];
+        String[] listUrl;
         String url;
         int c = cursor.getColumnIndex(COL_LINK);
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
