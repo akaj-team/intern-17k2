@@ -25,11 +25,16 @@ public class QuestionActivity extends AppCompatActivity {
     public static final String RESULT_KEY = "result_key";
     private static final String END_OF_NEXT_BUTTON = "Result";
     private static final String NEXT_BUTTON = "Next";
+    private static final String EXIT_BUTTON = "Exit";
+    private static final String RESET_BUTTON = "Reset";
+    private static final String TITLE = "Question";
 
     private Button mBtnPrev;
     private Button mBtnNext;
     private TextView mTvQuestionTitle;
     private ViewPager mViewPagerQuestion;
+    private FrameLayout mFrameLayout;
+
     private QuestionPagerAdapter mPagerAdapter;
     private List<Question> mQuestions;
     private List<Result> mResults;
@@ -53,8 +58,7 @@ public class QuestionActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                // TODO: 25/06/2017
-                // set title for this question
+                mTvQuestionTitle.setText(TITLE + " " + (position + 1));
                 updateButton(position);
             }
 
@@ -67,25 +71,27 @@ public class QuestionActivity extends AppCompatActivity {
         mBtnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mViewPagerQuestion.setCurrentItem(mViewPagerQuestion.getCurrentItem() - 1, true);
+                if (RESET_BUTTON.equals(mBtnPrev.getText().toString())) {
+                    mFrameLayout.setVisibility(View.GONE);
+                    mViewPagerQuestion.setVisibility(View.VISIBLE);
+                    mViewPagerQuestion.setCurrentItem(0);
+                } else {
+                    mViewPagerQuestion.setCurrentItem(mViewPagerQuestion.getCurrentItem() - 1, true);
+                }
             }
         });
 
         mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (END_OF_NEXT_BUTTON.equals(mBtnNext.getText().toString())){
+                if (END_OF_NEXT_BUTTON.equals(mBtnNext.getText().toString())) {
                     mViewPagerQuestion.setVisibility(View.GONE);
-                    FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frContainerQuestion);
-                    frameLayout.setVisibility(View.VISIBLE);
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    ResultFragment resultFragment = new ResultFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList(RESULT_KEY, (ArrayList<? extends Parcelable>) mResults);
-                    resultFragment.setArguments(bundle);
-                    fragmentTransaction.replace(R.id.frContainerQuestion, resultFragment);
-                    fragmentTransaction.commit();
-                }else {
+                    showResult();
+                    mBtnNext.setText(EXIT_BUTTON);
+                    mBtnPrev.setText(RESET_BUTTON);
+                } else if (EXIT_BUTTON.equals(mBtnNext.getText().toString())) {
+                    finish();
+                } else {
                     Question currentQuestion = mQuestions.get(mViewPagerQuestion.getCurrentItem());
                     mResults.add(new Result(currentQuestion.getQuestion(), currentQuestion.isCorrect()));
                     mViewPagerQuestion.setCurrentItem(mViewPagerQuestion.getCurrentItem() + 1, true);
@@ -94,9 +100,22 @@ public class QuestionActivity extends AppCompatActivity {
         });
     }
 
+    private void showResult() {
+        mTvQuestionTitle.setText(R.string.result_item_title);
+        mFrameLayout = (FrameLayout) findViewById(R.id.frContainerQuestion);
+        mFrameLayout.setVisibility(View.VISIBLE);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        ResultFragment resultFragment = new ResultFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(RESULT_KEY, (ArrayList<? extends Parcelable>) mResults);
+        resultFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.frContainerQuestion, resultFragment);
+        fragmentTransaction.commit();
+    }
+
     private void updateButton(int position) {
         if (position == 0) {
-            mBtnPrev.setVisibility(View.INVISIBLE);
+            mBtnPrev.setVisibility(View.GONE);
         } else {
             mBtnPrev.setVisibility(View.VISIBLE);
         }
@@ -109,7 +128,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void createQuestion() {
         mQuestions = new JSONHandler(getApplicationContext()).getQuestions();
-        Collections.shuffle(mQuestions); // xao tron danh sach
+        Collections.shuffle(mQuestions);
         mPagerAdapter = new QuestionPagerAdapter(getSupportFragmentManager(), mQuestions);
         mViewPagerQuestion.setAdapter(mPagerAdapter);
     }

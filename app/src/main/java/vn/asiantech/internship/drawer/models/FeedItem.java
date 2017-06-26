@@ -11,11 +11,6 @@ public class FeedItem {
     private List<Integer> images;
     private String comment;
 
-    public FeedItem(String name, String comment) {
-        this.name = name;
-        this.comment = comment;
-    }
-
     public FeedItem(String name, List<Integer> images, String comment) {
         this.name = name;
         this.images = images;

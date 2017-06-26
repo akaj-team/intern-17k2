@@ -35,7 +35,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultView
     public void onBindViewHolder(ResultViewHolder holder, int position) {
         Result result = mResults.get(position);
         holder.mTvResult.setText(result.getQuestion());
-        if (result.isCorrect()){
+        if (result.isCorrect()) {
             holder.mImgResult.setImageResource(R.drawable.ic_check_circle_black_36dp);
         }
     }
@@ -58,7 +58,6 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultView
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    Toast.makeText(itemView.getContext(), mResults.get(getAdapterPosition()).get)
                 }
             });
         }

@@ -6,15 +6,6 @@
     android:padding="@dimen/item.layout_padding"
     tools:context="vn.asiantech.internship.drawer.day15.ui.ResultFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/result.item.title"
-        android:textAlignment="center"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/result.fragment.text_size"
-        android:textStyle="bold" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewResult"
         android:layout_width="match_parent"

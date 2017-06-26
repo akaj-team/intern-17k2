@@ -38,5 +38,5 @@
     <!--Bai15-->
     <string name="result.item.title">Result</string>
     <string name="result.item.image_description">True of False</string>
-    <string name="result.activity.title">Question</string>
+    <string name="result.activity.title">Question 1</string>
 </resources>

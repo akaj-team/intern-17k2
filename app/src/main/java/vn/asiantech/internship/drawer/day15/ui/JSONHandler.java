@@ -31,11 +31,11 @@ class JSONHandler {
 
     private Context mContext;
 
-    JSONHandler(Context context){
+    JSONHandler(Context context) {
         mContext = context;
     }
 
-    public List<Question> getQuestions() {
+    List<Question> getQuestions() {
         List<Question> questions = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(loadJSONFromAsset(mContext));

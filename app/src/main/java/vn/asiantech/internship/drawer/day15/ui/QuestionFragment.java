@@ -39,6 +39,10 @@ public class QuestionFragment extends Fragment {
         return layout;
     }
 
+    public void setQuestion(Question question) {
+        mQuestion = question;
+    }
+
     private void initUI(View view) {
         RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.rgAnswer);
         mRbAnswerA = (RadioButton) view.findViewById(R.id.rbAnswerA);
@@ -83,9 +87,5 @@ public class QuestionFragment extends Fragment {
         } else {
             mQuestion.setCorrect(false);
         }
-    }
-
-    public void setQuestion(Question question) {
-        mQuestion = question;
     }
 }

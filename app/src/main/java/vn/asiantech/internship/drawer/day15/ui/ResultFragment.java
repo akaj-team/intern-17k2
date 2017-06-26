@@ -44,7 +44,7 @@ public class ResultFragment extends Fragment {
         addListResult();
     }
 
-    private void addListResult(){
+    private void addListResult() {
         results = getArguments().getParcelableArrayList(QuestionActivity.RESULT_KEY);
         ResultAdapter resultAdapter = new ResultAdapter(results);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
