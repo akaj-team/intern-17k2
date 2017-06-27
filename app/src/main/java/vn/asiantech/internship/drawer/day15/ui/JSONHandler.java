@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import vn.asiantech.internship.drawer.day15.models.Question;
 
@@ -40,7 +41,8 @@ class JSONHandler {
             JSONObject jsonObject = new JSONObject(loadJSONFromAsset(mContext));
             JSONArray jsonArray = jsonObject.getJSONArray(JSON_OBJECT);
             String[] answers;
-            for (int i = 0; i < jsonArray.length(); i++) {
+            int length = new Random().nextInt(11) + 9;
+            for (int i = length; i > length - 10; i--) {
                 JSONObject jb = (JSONObject) jsonArray.get(i);
                 answers = new String[4];
                 answers[0] = jb.getString(ANSWER_A);

@@ -17,23 +17,12 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.drawer.day15.models.Result;
 
 /**
- * Created by at-dinhvo on 26/06/2017.
+ * Created by at-dinhvo on 27/06/2017.
  */
-public class ResultDialog extends DialogFragment {
+
+public class FinishDialog extends DialogFragment{
 
     public static final String DATA_KEY = "data";
-    private ShowResultListener mShowResultListener;
-
-    /**
-     * Callback show result
-     */
-    interface ShowResultListener {
-        void onShowResult();
-    }
-
-    public void setShowResultListener(ShowResultListener showResultListener) {
-        mShowResultListener = showResultListener;
-    }
 
     public static ResultDialog newInstance(List<Result> results) {
         ResultDialog dialog = new ResultDialog();

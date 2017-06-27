@@ -98,6 +98,12 @@ public class QuestionActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
     private void showDialog() {
         android.app.FragmentManager fm = this.getFragmentManager();
         ResultDialog resultDialog = ResultDialog.newInstance(mResults);
