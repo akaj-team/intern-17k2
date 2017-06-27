@@ -27,7 +27,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table " + TABLE_NOTE + "(" + COLUMN_NOTE_ID + " Integer primary key, "
+        String sql = "create table " + TABLE_NOTE + "(" + COLUMN_NOTE_ID + " Integer primary key autoincrement, "
                 + COLUMN_NOTE_DAY_OF_WEEK + " text, " + COLUMN_NOTE_DAY_OF_MONTH + " text, "
                 + COLUMN_NOTE_TIME + " text, " + COLUMN_NOTE_TITLE + " text, "
                 + COLUMN_NOTE_CONTENT + " text, " + COLUMN_NOTE_IMAGE_URI + " text)";

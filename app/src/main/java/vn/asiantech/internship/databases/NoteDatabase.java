@@ -31,7 +31,6 @@ public class NoteDatabase {
 
     public void insertNote(Note note) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_NOTE_ID, note.getId());
         values.put(DatabaseHelper.COLUMN_NOTE_DAY_OF_WEEK, note.getDayOfWeek());
         values.put(DatabaseHelper.COLUMN_NOTE_DAY_OF_MONTH, note.getDayOfMonth());
         values.put(DatabaseHelper.COLUMN_NOTE_TIME, note.getTime());
@@ -60,7 +59,7 @@ public class NoteDatabase {
 
     public List<Note> getAllNote() {
         List<Note> notes = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + DatabaseHelper.TABLE_NOTE;
+        String selectQuery = "SELECT * FROM " + DatabaseHelper.TABLE_NOTE;
         Cursor cursor = mSQLiteDatabase.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
