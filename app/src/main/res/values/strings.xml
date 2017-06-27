@@ -21,4 +21,9 @@
     <string name="bai6">Bai 6</string>
     <string name="bai7">Bai 7</string>
     <string name="bai16">Bai 16</string>
+    <string name="search">search</string>
+    <string name="discover">discover</string>
+    <string name="hoian_feed">hoian feed</string>
+    <string name="voucher">voucher</string>
+    <string name="user_profile">user profile</string>
 </resources>
