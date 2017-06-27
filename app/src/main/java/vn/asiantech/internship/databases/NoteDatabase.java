@@ -17,7 +17,7 @@ import vn.asiantech.internship.models.Note;
  */
 public class NoteDatabase {
     private Context mContext;
-    private SQLiteDatabase mSqliteDatabase;
+    private SQLiteDatabase mSQLiteDatabase;
 
     public NoteDatabase(Context context) {
         mContext = context;
@@ -25,7 +25,7 @@ public class NoteDatabase {
 
     public NoteDatabase open() {
         DatabaseHelper databaseHelper = new DatabaseHelper(mContext);
-        mSqliteDatabase = databaseHelper.getWritableDatabase();
+        mSQLiteDatabase = databaseHelper.getWritableDatabase();
         return this;
     }
 
@@ -38,8 +38,8 @@ public class NoteDatabase {
         values.put(DatabaseHelper.COLUMN_NOTE_TITLE, note.getTitle());
         values.put(DatabaseHelper.COLUMN_NOTE_CONTENT, note.getContent());
         values.put(DatabaseHelper.COLUMN_NOTE_IMAGE_URI, note.getImage());
-        mSqliteDatabase.insert(DatabaseHelper.TABLE_NOTE, null, values);
-        mSqliteDatabase.close();
+        mSQLiteDatabase.insert(DatabaseHelper.TABLE_NOTE, null, values);
+        mSQLiteDatabase.close();
     }
 
     public int updateNote(Note note) {
@@ -50,18 +50,18 @@ public class NoteDatabase {
         values.put(DatabaseHelper.COLUMN_NOTE_TITLE, note.getTitle());
         values.put(DatabaseHelper.COLUMN_NOTE_CONTENT, note.getContent());
         values.put(DatabaseHelper.COLUMN_NOTE_IMAGE_URI, note.getImage());
-        return mSqliteDatabase.update(DatabaseHelper.TABLE_NOTE, values, DatabaseHelper.COLUMN_NOTE_ID + " = " + note.getId(), null);
+        return mSQLiteDatabase.update(DatabaseHelper.TABLE_NOTE, values, DatabaseHelper.COLUMN_NOTE_ID + " = " + note.getId(), null);
     }
 
     public void deleteNote(Note note) {
-        mSqliteDatabase.delete(DatabaseHelper.TABLE_NOTE, DatabaseHelper.COLUMN_NOTE_ID + " = " + note.getId(), null);
-        mSqliteDatabase.close();
+        mSQLiteDatabase.delete(DatabaseHelper.TABLE_NOTE, DatabaseHelper.COLUMN_NOTE_ID + " = " + note.getId(), null);
+        mSQLiteDatabase.close();
     }
 
     public List<Note> getAllNote() {
         List<Note> notes = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + DatabaseHelper.TABLE_NOTE;
-        Cursor cursor = mSqliteDatabase.rawQuery(selectQuery, null);
+        Cursor cursor = mSQLiteDatabase.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 Note note = new Note();

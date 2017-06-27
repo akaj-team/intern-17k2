@@ -146,7 +146,7 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
             String dateTime = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
             String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Calendar.getInstance().getTime());
             Note note;
-            String id = new SimpleDateFormat("MMss", Locale.getDefault()).format(Calendar.getInstance().getTime());
+            String id = new SimpleDateFormat("ddss", Locale.getDefault()).format(Calendar.getInstance().getTime());
             if (mUri != null) {
                 copyImageToSDCard(decreaseSizeImage(getContext(), getActivity(), mUri), PATH, mFileName);
                 note = new Note(Integer.parseInt(id), dayOfWeek, dateTime, time, title, content, PATH.concat(mFileName));
