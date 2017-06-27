@@ -19,7 +19,7 @@
             android:src="@drawable/ic_menu" />
 
         <TextView
-            android:id="@+id/tvToolbarTitle"
+            android:id="@+id/tvEdtToolbarTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

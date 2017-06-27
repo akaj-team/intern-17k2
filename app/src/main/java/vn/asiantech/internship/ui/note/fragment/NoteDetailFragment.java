@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.databases.NoteDatabase;
@@ -20,10 +21,10 @@ import vn.asiantech.internship.models.Note;
  * <p>
  * Created by Hai on 6/26/2017.
  */
-
 public class NoteDetailFragment extends Fragment implements View.OnClickListener {
     private EditText mEdtEditTitle;
     private EditText mEdtEditContent;
+    private TextView mTvToolbarTitle;
     private ImageView mImgNote;
     private ImageView mImgSave;
 
@@ -49,6 +50,7 @@ public class NoteDetailFragment extends Fragment implements View.OnClickListener
         mEdtEditTitle = (EditText) view.findViewById(R.id.edtEditNoteTitle);
         mEdtEditContent = (EditText) view.findViewById(R.id.edtEditInputContent);
         mImgNote = (ImageView) view.findViewById(R.id.imgNote);
+        mTvToolbarTitle = (TextView) view.findViewById(R.id.tvEdtToolbarTitle);
         ImageView mImgAttach = (ImageView) view.findViewById(R.id.imgAttachImage);
         ImageView imgEdit = (ImageView) view.findViewById(R.id.imgEditNote);
         ImageView imgDelete = (ImageView) view.findViewById(R.id.imgDeleteNote);
@@ -59,6 +61,7 @@ public class NoteDetailFragment extends Fragment implements View.OnClickListener
     }
 
     private void setToolbar() {
+        mTvToolbarTitle.setText(getString(R.string.note_detail));
         mImgSave.setVisibility(View.GONE);
     }
 

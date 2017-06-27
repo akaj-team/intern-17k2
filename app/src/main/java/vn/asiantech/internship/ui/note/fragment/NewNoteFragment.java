@@ -120,7 +120,6 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-
             File file = new File(path, fileName);
             if (!file.exists()) {
                 file.createNewFile();
