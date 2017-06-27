@@ -30,6 +30,7 @@ public class ViewPagerFragment extends Fragment {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    private FloatingActionButton mFabSettings;
     private StyleTab mUtils;
     private ViewPager.PageTransformer mPageTransformer;
 
@@ -57,7 +58,7 @@ public class ViewPagerFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tab_layout, container, false);
 
-        FloatingActionButton fabSettings = (FloatingActionButton) v.findViewById(R.id.fabSettings);
+        mFabSettings = (FloatingActionButton) v.findViewById(R.id.fabSettings);
         mViewPager = (ViewPager) v.findViewById(R.id.viewPager);
         mTabLayout = (TabLayout) v.findViewById(tabLayout);
 
@@ -71,7 +72,27 @@ public class ViewPagerFragment extends Fragment {
         mTabLayout.setupWithViewPager(mViewPager);
         setTitle();
 
-        fabSettings.setOnClickListener(new View.OnClickListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (getActivity() instanceof ViewPagerActivity) {
+                    if (position == 1) {
+                        ((ViewPagerActivity) getActivity()).setFloatActionButton(View.GONE);
+                    } else {
+                        ((ViewPagerActivity) getActivity()).setFloatActionButton(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+        mFabSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogChoice();
@@ -182,4 +203,9 @@ public class ViewPagerFragment extends Fragment {
 
         dialog.show();
     }
+
+    public void setFloatActionButton(int visible) {
+        mFabSettings.setVisibility(visible);
+    }
+
 }

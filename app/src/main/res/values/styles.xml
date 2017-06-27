@@ -50,4 +50,8 @@
         <item name="android:textSize">@dimen/friendsTextSize</item>
         <item name="android:textColor">@color/friendsColorWhite</item>
     </style>
+
+    <style name="LayoutStyleNormal">
+        <item name="android:background">@color/colorBackground</item>
+    </style>
 </resources>

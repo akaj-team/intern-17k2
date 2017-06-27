@@ -8,21 +8,18 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  * Created by Thanh Thien on 6/26/2017.
  * Asian Tech
  */
-class ViewPagerAdapter extends FragmentStatePagerAdapter {
+class ViewPagerSecondAdapter extends FragmentStatePagerAdapter {
 
     private String[] mUrls;
 
-    ViewPagerAdapter(FragmentManager fm, String[] urls) {
+    ViewPagerSecondAdapter(FragmentManager fm, String[] urls) {
         super(fm);
         mUrls = urls;
     }
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 1) {
-            return new ViewPagerSecondFragment();
-        }
-        return ViewPagerTabChildFragment.newInstance(mUrls[position], position);
+        return ViewPagerTabChildSecondFragment.newInstance(mUrls[position], position);
     }
 
     @Override
