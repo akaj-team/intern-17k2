@@ -104,11 +104,11 @@ public class AddNoteFragment extends Fragment {
         mNoteDatabase.close();
     }
 
-    public String getEditTextTitle(){
+    public String getEditTextTitle() {
         return mEdtTitle.getText().toString().trim();
     }
 
-    public String getEditTextContent(){
+    public String getEditTextContent() {
         return mEdtContent.getText().toString().trim();
     }
 }

@@ -51,7 +51,7 @@ public class NoteActivity extends AppCompatActivity implements NoteAdapter.OnIte
 
         initViews();
         initToolbar();
-        replaceFragment(mHomeFragment, true);
+        replaceFragment(mHomeFragment);
     }
 
     private void initViews() {
@@ -59,12 +59,16 @@ public class NoteActivity extends AppCompatActivity implements NoteAdapter.OnIte
         mTvToolbarTitle = (TextView) findViewById(R.id.tvToolbarTitle);
     }
 
-    private void replaceFragment(Fragment fragment, boolean addToBackStack) {
+    private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.flContainer, fragment);
-        if (addToBackStack){
-            transaction.addToBackStack(fragment.getClass().getSimpleName());
-        }
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void replace(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.flContainer, fragment);
         transaction.commit();
     }
 
@@ -91,7 +95,7 @@ public class NoteActivity extends AppCompatActivity implements NoteAdapter.OnIte
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuAdd:
-                replaceFragment(mAddNoteFragment, true);
+                replace(mAddNoteFragment);
                 mTvToolbarTitle.setText(R.string.textview_toolbar_add);
                 showMenu(0);
                 break;
@@ -106,9 +110,9 @@ public class NoteActivity extends AppCompatActivity implements NoteAdapter.OnIte
                 if (TextUtils.isEmpty(mAddNoteFragment.getEditTextContent()) || TextUtils.isEmpty(mAddNoteFragment.getEditTextTitle())) {
                     Toast.makeText(this, "Input Content and Title please", Toast.LENGTH_SHORT).show();
                 } else {
-                    onBackPressed();
                     mTvToolbarTitle.setText(R.string.textview_toolbar_home);
                     mAddNoteFragment.addNote();
+                    replace(mHomeFragment);
                     showMenu(1);
                 }
                 break;
@@ -117,6 +121,7 @@ public class NoteActivity extends AppCompatActivity implements NoteAdapter.OnIte
                 mTvToolbarTitle.setText(R.string.textview_toolbar_home);
                 mDetailNoteFragment = (DetailNoteFragment) getCurrentFragment();
                 mDatabase.deleteItem(mDetailNoteFragment.getIdNote());
+                replace(mHomeFragment);
                 showMenu(1);
                 break;
 
@@ -125,6 +130,7 @@ public class NoteActivity extends AppCompatActivity implements NoteAdapter.OnIte
                 if (mDetailNoteFragment.editNote() > -1) {
                     mDetailNoteFragment.editNote();
                     mTvToolbarTitle.setText(R.string.textview_toolbar_home);
+                    replace(mHomeFragment);
                     showMenu(1);
                 } else {
                     Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
@@ -194,7 +200,7 @@ public class NoteActivity extends AppCompatActivity implements NoteAdapter.OnIte
         Bundle bundle = new Bundle();
         bundle.putSerializable(NOTE_KEY, note);
         mDetailNoteFragment.setArguments(bundle);
-        onBackPressed();
+        replace(mDetailNoteFragment);
         showMenu(2);
         mTvToolbarTitle.setText(R.string.textview_toolbar_edit);
     }
@@ -242,4 +248,11 @@ public class NoteActivity extends AppCompatActivity implements NoteAdapter.OnIte
         mDatabase.close();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mTvToolbarTitle.setText(R.string.textview_toolbar_home);
+        replace(mHomeFragment);
+        showMenu(1);
+    }
 }
