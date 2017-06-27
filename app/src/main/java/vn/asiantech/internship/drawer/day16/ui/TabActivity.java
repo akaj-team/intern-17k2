@@ -43,6 +43,7 @@ public class TabActivity extends AppCompatActivity {
         addImages();
         ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(mImages);
         viewPager.setAdapter(imagePagerAdapter);
+        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
     private void setupTabIcons(TabLayout tabLayout) {

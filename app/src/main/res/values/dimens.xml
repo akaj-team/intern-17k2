@@ -39,4 +39,6 @@
     <dimen name="feed.item.viewpager.button_size">48dp</dimen>
     <!--Bai16-->
     <dimen name="tab.custom.textSize">15sp</dimen>
+    <dimen name="tab.height">60dp</dimen>
+    <dimen name="tab.viewpager.height">500dp</dimen>
 </resources>
