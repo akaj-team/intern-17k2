@@ -32,19 +32,19 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/btnOk"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
-            android:text="@string/result.dialog.button.ok" />
-
-        <Button
             android:id="@+id/btnExit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
             android:text="@string/result.dialog.button.exit" />
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_weight="1"
+            android:text="@string/result.dialog.button.ok" />
     </LinearLayout>
 </LinearLayout>

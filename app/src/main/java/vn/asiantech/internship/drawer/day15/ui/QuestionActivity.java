@@ -100,8 +100,11 @@ public class QuestionActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
+        if (EXIT_BUTTON.equals(mBtnNext.getText().toString())) {
+            android.app.FragmentManager fragmentManager = this.getFragmentManager();
+            FinishDialog finishDialog = FinishDialog.newInstance();
+            finishDialog.show(fragmentManager, null);
+        }
     }
 
     private void showDialog() {
