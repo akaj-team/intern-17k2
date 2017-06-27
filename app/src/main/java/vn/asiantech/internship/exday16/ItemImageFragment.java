@@ -3,6 +3,7 @@ package vn.asiantech.internship.exday16;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,12 +45,12 @@ public class ItemImageFragment extends Fragment {
         for (int i = 0; i < mImages.size(); i++) {
             Glide.with(this).load(mImages.get(i)).into(mImageView);
         }
+        Log.d("tag", "onCreateView: " + mImages);
         return view;
     }
 
     public static ViewPagerFragment newInstance(int position) {
         Bundle args = new Bundle();
-        args.putStringArrayList("image", mImages);
         args.putInt("position", position);
         ViewPagerFragment fragment = new ViewPagerFragment();
         fragment.setArguments(args);
