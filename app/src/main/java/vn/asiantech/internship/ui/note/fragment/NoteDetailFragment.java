@@ -1,22 +1,15 @@
 package vn.asiantech.internship.ui.note.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-
-import java.io.FileNotFoundException;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.databases.NoteDatabase;
@@ -36,7 +29,6 @@ public class NoteDetailFragment extends Fragment implements View.OnClickListener
 
     private NewNoteFragment mNewNoteFragment;
     private Uri mUri;
-    private Bitmap mBmpAttach;
     private String mFileName;
     private Note mNote;
 
@@ -79,39 +71,6 @@ public class NoteDetailFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    private void decreaseSizeImage(Uri imageFileUri) {
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int dw = size.x;
-        int dh = size.y;
-        try {
-            BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
-            bmpFactoryOptions.inJustDecodeBounds = true;
-            mBmpAttach = BitmapFactory.decodeStream(
-                    getContext().getContentResolver().openInputStream(imageFileUri),
-                    null, bmpFactoryOptions);
-            int heightRatio = (int) Math
-                    .ceil(bmpFactoryOptions.outHeight / (float) dh);
-            int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth
-                    / (float) dw);
-            if (heightRatio > 1 && widthRatio > 1) {
-                if (heightRatio > widthRatio) {
-                    bmpFactoryOptions.inSampleSize = heightRatio;
-                } else {
-                    bmpFactoryOptions.inSampleSize = widthRatio;
-                }
-            }
-            bmpFactoryOptions.inJustDecodeBounds = false;
-            mBmpAttach = BitmapFactory.decodeStream(getContext().getContentResolver()
-                            .openInputStream(imageFileUri), null,
-                    bmpFactoryOptions);
-            mImgNote.setImageBitmap(mBmpAttach);
-        } catch (FileNotFoundException e) {
-            Log.v("ERROR", e.toString());
-        }
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -135,7 +94,7 @@ public class NoteDetailFragment extends Fragment implements View.OnClickListener
             mNote.setTitle(title);
             mNote.setContent(content);
             if (mUri != null) {
-                mNewNoteFragment.copyImageToSDCard(mBmpAttach, NewNoteFragment.PATH, mFileName);
+                mNewNoteFragment.copyImageToSDCard(mNewNoteFragment.decreaseSizeImage(getContext(), getActivity(), mUri), NewNoteFragment.PATH, mFileName);
                 mNote.setImage(NewNoteFragment.PATH.concat(mFileName));
             } else {
                 mNote.setImage(null);
@@ -165,10 +124,9 @@ public class NoteDetailFragment extends Fragment implements View.OnClickListener
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && requestCode == NewNoteFragment.REQUEST_CODE_GALLERY) {
             mUri = data.getData();
-            decreaseSizeImage(mUri);
             mFileName = mUri.toString().substring(mUri.toString().lastIndexOf("/"));
             mImgNote.setVisibility(View.VISIBLE);
-            mImgNote.setImageBitmap(mBmpAttach);
+            mImgNote.setImageBitmap(mNewNoteFragment.decreaseSizeImage(getContext(), getActivity(), mUri));
         }
     }
 }

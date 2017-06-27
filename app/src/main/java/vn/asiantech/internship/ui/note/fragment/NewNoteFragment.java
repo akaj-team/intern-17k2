@@ -1,5 +1,7 @@
 package vn.asiantech.internship.ui.note.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.support.v4.app.Fragment;
@@ -49,7 +51,6 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
     private EditText mEdtTitle;
     private EditText mEdtInputContent;
 
-    private Bitmap mBmpAttach;
     private Uri mUri;
     private String mFileName;
 
@@ -81,8 +82,9 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
         startActivityForResult(intent, REQUEST_CODE_GALLERY);
     }
 
-    private void decreaseSizeImage(Uri imageFileUri) {
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
+    public Bitmap decreaseSizeImage(Context context, Activity activity, Uri imageFileUri) {
+        Bitmap bitmap;
+        Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int dw = size.x;
@@ -90,9 +92,6 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
         try {
             BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
             bmpFactoryOptions.inJustDecodeBounds = true;
-            mBmpAttach = BitmapFactory.decodeStream(
-                    getContext().getContentResolver().openInputStream(imageFileUri),
-                    null, bmpFactoryOptions);
             int heightRatio = (int) Math
                     .ceil(bmpFactoryOptions.outHeight / (float) dh);
             int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth
@@ -105,12 +104,13 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
                 }
             }
             bmpFactoryOptions.inJustDecodeBounds = false;
-            mBmpAttach = BitmapFactory.decodeStream(getContext().getContentResolver()
+            bitmap = BitmapFactory.decodeStream(context.getContentResolver()
                             .openInputStream(imageFileUri), null,
                     bmpFactoryOptions);
-            mImgAddImage.setImageBitmap(mBmpAttach);
+            return bitmap;
         } catch (FileNotFoundException e) {
             Log.v("ERROR", e.toString());
+            return null;
         }
     }
 
@@ -148,7 +148,7 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
             Note note;
             String id = new SimpleDateFormat("MMss", Locale.getDefault()).format(Calendar.getInstance().getTime());
             if (mUri != null) {
-                copyImageToSDCard(mBmpAttach, PATH, mFileName);
+                copyImageToSDCard(decreaseSizeImage(getContext(), getActivity(), mUri), PATH, mFileName);
                 note = new Note(Integer.parseInt(id), dayOfWeek, dateTime, time, title, content, PATH.concat(mFileName));
             } else {
                 note = new Note(Integer.parseInt(id), dayOfWeek, dateTime, time, title, content, null);
@@ -191,10 +191,10 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && requestCode == REQUEST_CODE_GALLERY) {
             mUri = data.getData();
-            decreaseSizeImage(mUri);
             Log.d("xxxx", mUri + "");
             mFileName = mUri.toString().substring(mUri.toString().lastIndexOf("/"));
             mImgAddImage.setVisibility(View.VISIBLE);
+            mImgAddImage.setImageBitmap(decreaseSizeImage(getContext(), getActivity(), mUri));
         }
     }
 }
