@@ -13,9 +13,9 @@ import android.widget.ImageView;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.databases.NoteDatabase;
 import vn.asiantech.internship.models.Note;
 import vn.asiantech.internship.ui.note.adapter.NoteAdapter;
-import vn.asiantech.internship.databases.DatabaseHelper;
 
 /**
  * fragment show list note
@@ -23,10 +23,7 @@ import vn.asiantech.internship.databases.DatabaseHelper;
  * Created by Hai on 6/19/2017.
  */
 public class NoteFragment extends Fragment {
-    public static final String KEY_BUNDLE = "bundle";
     public static final String KEY_DATA = "data";
-    public static final int KEY_NEW_NOTE = 1;
-    public static final int KEY_EDIT_NOTE = 2;
 
     ImageView mImgNewNote;
     RecyclerView mRecyclerViewNote;
@@ -42,7 +39,7 @@ public class NoteFragment extends Fragment {
         mImgNewNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new NewNoteFragment(), KEY_NEW_NOTE);
+                replaceFragment(new NewNoteFragment());
             }
         });
         return view;
@@ -57,18 +54,17 @@ public class NoteFragment extends Fragment {
         }
     }
 
-    private void replaceFragment(Fragment fragment, int key) {
+    private void replaceFragment(Fragment fragment) {
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY_BUNDLE, key);
         fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fmContent, fragment, null)
                 .addToBackStack(null)
                 .commit();
     }
-    private void replaceFragment(Fragment fragment, int key, Note note) {
+
+    private void replaceFragment(Fragment fragment, Note note) {
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY_BUNDLE, key);
         bundle.putParcelable(KEY_DATA, note);
         fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
@@ -85,12 +81,13 @@ public class NoteFragment extends Fragment {
     private void initAdapter() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerViewNote.setLayoutManager(linearLayoutManager);
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        mNotes = databaseHelper.getAllNote();
+        NoteDatabase noteDatabase = new NoteDatabase(getContext());
+        noteDatabase.open();
+        mNotes = noteDatabase.getAllNote();
         mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnListener() {
             @Override
             public void onItemClick(int position) {
-                replaceFragment(new NewNoteFragment(), KEY_EDIT_NOTE, mNotes.get(position));
+                replaceFragment(new NoteDetailFragment(), mNotes.get(position));
             }
         });
         getBundle();

@@ -1,15 +1,17 @@
 package vn.asiantech.internship.ui.note.fragment;
 
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -27,8 +30,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.databases.NoteDatabase;
 import vn.asiantech.internship.models.Note;
-import vn.asiantech.internship.databases.DatabaseHelper;
 
 /**
  * class add note
@@ -38,12 +41,15 @@ import vn.asiantech.internship.databases.DatabaseHelper;
 public class NewNoteFragment extends Fragment implements OnClickListener {
     public static final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + "notes";
     public static final String KEY_SEND_NOTE = "send_note";
-    private static final int REQUEST_CODE_GALLERY = 1000;
+    public static final int REQUEST_CODE_GALLERY = 1000;
 
     private ImageView mImgAddImage;
+    private ImageView mImgEdit;
+    private ImageView mImgDelete;
     private EditText mEdtTitle;
     private EditText mEdtInputContent;
 
+    private Bitmap mBmpAttach;
     private Uri mUri;
     private String mFileName;
 
@@ -52,6 +58,7 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_new_note, container, false);
         initView(view);
+        setToolbar();
         return view;
     }
 
@@ -74,7 +81,40 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
         startActivityForResult(intent, REQUEST_CODE_GALLERY);
     }
 
-    private boolean copyImageToSDCard(Bitmap image, String path, String fileName) {
+    private void decreaseSizeImage(Uri imageFileUri) {
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int dw = size.x;
+        int dh = size.y;
+        try {
+            BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+            bmpFactoryOptions.inJustDecodeBounds = true;
+            mBmpAttach = BitmapFactory.decodeStream(
+                    getContext().getContentResolver().openInputStream(imageFileUri),
+                    null, bmpFactoryOptions);
+            int heightRatio = (int) Math
+                    .ceil(bmpFactoryOptions.outHeight / (float) dh);
+            int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth
+                    / (float) dw);
+            if (heightRatio > 1 && widthRatio > 1) {
+                if (heightRatio > widthRatio) {
+                    bmpFactoryOptions.inSampleSize = heightRatio;
+                } else {
+                    bmpFactoryOptions.inSampleSize = widthRatio;
+                }
+            }
+            bmpFactoryOptions.inJustDecodeBounds = false;
+            mBmpAttach = BitmapFactory.decodeStream(getContext().getContentResolver()
+                            .openInputStream(imageFileUri), null,
+                    bmpFactoryOptions);
+            mImgAddImage.setImageBitmap(mBmpAttach);
+        } catch (FileNotFoundException e) {
+            Log.v("ERROR", e.toString());
+        }
+    }
+
+    public boolean copyImageToSDCard(Bitmap image, String path, String fileName) {
         try {
             File dir = new File(path);
             if (!dir.exists()) {
@@ -96,34 +136,26 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
         }
     }
 
-    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
-        return MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-    }
-
     private void saveNote() {
         String title = mEdtTitle.getText().toString();
         String content = mEdtInputContent.getText().toString();
         if (!title.isEmpty()) {
-            DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
             Date now = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
             String dayOfWeek = dateFormat.format(now);
             String dateTime = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
             String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Calendar.getInstance().getTime());
-
             Note note;
-            String id = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault()).format(Calendar.getInstance().getTime());
+            String id = new SimpleDateFormat("MMss", Locale.getDefault()).format(Calendar.getInstance().getTime());
             if (mUri != null) {
-                try {
-                    copyImageToSDCard(getBitmapFromUri(mUri), PATH, mFileName);
-                } catch (IOException e) {
-                    e.getMessage();
-                }
+                copyImageToSDCard(mBmpAttach, PATH, mFileName);
                 note = new Note(Integer.parseInt(id), dayOfWeek, dateTime, time, title, content, PATH.concat(mFileName));
             } else {
                 note = new Note(Integer.parseInt(id), dayOfWeek, dateTime, time, title, content, null);
             }
-            databaseHelper.insertNote(note);
+            NoteDatabase noteDatabase = new NoteDatabase(getContext());
+            noteDatabase.open();
+            noteDatabase.insertNote(note);
             NoteFragment fragment = new NoteFragment();
             Bundle bundle = new Bundle();
             bundle.putParcelable(KEY_SEND_NOTE, note);
@@ -139,12 +171,19 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
 
     private void initView(View view) {
         mImgAddImage = (ImageView) view.findViewById(R.id.imgAddImage);
-        ImageView imgSaveNote = (ImageView) view.findViewById(R.id.imgSaveNote);
+        ImageView imgSave = (ImageView) view.findViewById(R.id.imgSaveNote);
         ImageView imgAttach = (ImageView) view.findViewById(R.id.imgAttachImage);
+        mImgEdit = (ImageView) view.findViewById(R.id.imgEditNote);
+        mImgDelete = (ImageView) view.findViewById(R.id.imgDeleteNote);
         mEdtTitle = (EditText) view.findViewById(R.id.edtNoteTitle);
         mEdtInputContent = (EditText) view.findViewById(R.id.edtInputContent);
-        imgSaveNote.setOnClickListener(this);
+        imgSave.setOnClickListener(this);
         imgAttach.setOnClickListener(this);
+    }
+
+    private void setToolbar() {
+        mImgEdit.setVisibility(View.GONE);
+        mImgDelete.setVisibility(View.GONE);
     }
 
     @Override
@@ -152,10 +191,10 @@ public class NewNoteFragment extends Fragment implements OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && requestCode == REQUEST_CODE_GALLERY) {
             mUri = data.getData();
+            decreaseSizeImage(mUri);
             Log.d("xxxx", mUri + "");
             mFileName = mUri.toString().substring(mUri.toString().lastIndexOf("/"));
             mImgAddImage.setVisibility(View.VISIBLE);
-            mImgAddImage.setImageURI(mUri);
         }
     }
 }

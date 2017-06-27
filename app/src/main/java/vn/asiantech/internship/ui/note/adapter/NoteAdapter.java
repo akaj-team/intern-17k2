@@ -65,7 +65,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ItemNoteViewHo
         ItemNoteViewHolder(View itemView) {
             super(itemView);
             mTvDayOfWeek = (TextView) itemView.findViewById(R.id.tvDayOfWeek);
-            mTvDayOfMonth = (TextView) itemView.findViewById(R.id.tvDatOfMonth);
+            mTvDayOfMonth = (TextView) itemView.findViewById(R.id.tvDayOfMonth);
             mTvTime = (TextView) itemView.findViewById(R.id.tvTime);
             mTvTitle = (TextView) itemView.findViewById(R.id.tvNoteTitle);
             mTvContent = (TextView) itemView.findViewById(R.id.tvContent);

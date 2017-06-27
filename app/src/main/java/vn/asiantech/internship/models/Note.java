@@ -20,6 +20,15 @@ public class Note implements Parcelable {
     public Note() {
     }
 
+    public Note(String dayOfWeek, String dayOfMonth, String time, String title, String content, String image) {
+        this.dayOfWeek = dayOfWeek;
+        this.dayOfMonth = dayOfMonth;
+        this.time = time;
+        this.title = title;
+        this.content = content;
+        this.image = image;
+    }
+
     public Note(int id, String dayOfWeek, String dayOfMonth, String time, String title, String content, String image) {
         this.id = id;
         this.dayOfWeek = dayOfWeek;
