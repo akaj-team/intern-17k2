@@ -29,4 +29,5 @@
     <dimen name="feed.linearLayout.padding">10dp</dimen>
     <dimen name="feed.textView.size">20sp</dimen>
     <dimen name="feed.cardView.margin_left_right">5dp</dimen>
+    <dimen name="tab.title.size">8sp</dimen>
 </resources>

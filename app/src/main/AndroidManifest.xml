@@ -20,5 +20,8 @@
         <activity android:name="recyclerview.FriendActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name="demo.RecyclerViewActivity" />
+        <activity android:name=".feed.FeedActivity" />
+        <activity android:name=".SendActivity" />
+        <activity android:name=".ui.splash.SplashActivity" />
     </application>
 </manifest>

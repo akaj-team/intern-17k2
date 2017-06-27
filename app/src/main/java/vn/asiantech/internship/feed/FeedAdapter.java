@@ -99,7 +99,7 @@ class FeedAdapter extends RecyclerView.Adapter {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            View imageLayout = mInflater.inflate(R.layout.item_images, container, false);
+            View imageLayout = mInflater.inflate(R.layout.item_image, container, false);
             final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgItem);
             imageView.setImageResource(mImages.get(position));
             container.addView(imageLayout, 0);
