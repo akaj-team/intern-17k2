@@ -24,7 +24,7 @@ class SmallAdapter extends PagerAdapter {
 
 
     SmallAdapter(Context context, List<Integer> images) {
-        this.mImages = images;
+        mImages = images;
         mInflater = LayoutInflater.from(context);
     }
 
