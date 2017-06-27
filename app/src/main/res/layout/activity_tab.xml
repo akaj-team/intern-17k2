@@ -8,21 +8,24 @@
     tools:context="vn.asiantech.internship.drawer.day16.ui.TabActivity">
 
     <android.support.v7.widget.Toolbar
-        android:background="@color/colorTab"
         android:id="@+id/toolBarTab"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tab.height" />
+        android:layout_height="@dimen/tab.height"
+        android:background="@color/colorTab" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab.height"
+        android:background="@color/colorSelect"
         app:tabGravity="fill"
         app:tabMode="fixed" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPagerTab"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/feed.viewpager_height" />
+        android:layout_height="@dimen/tab.viewpager.height"
+        android:paddingLeft="@dimen/tab.viewpager.padding"
+        android:paddingRight="@dimen/tab.viewpager.padding" />
 
 </LinearLayout>

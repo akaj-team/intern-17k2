@@ -145,12 +145,12 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_GALLERY:
                 if (data != null && resultCode == RESULT_OK) {
-                    functionCropImage(data.getData());
+                    cropImage(data.getData());
                 }
                 break;
             case REQUEST_CAMERA:
                 if (data != null & resultCode == RESULT_OK) {
-                    functionCropImage(data.getData());
+                    cropImage(data.getData());
                 }
                 break;
             default:
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         return builder.create();
     }
 
-    private void functionCropImage(Uri picUri) {
+    private void cropImage(Uri picUri) {
         Intent cropIntent = new Intent("com.android.camera.action.CROP");
         cropIntent.setDataAndType(picUri, "image/*");
         cropIntent.putExtra("crop", "true");

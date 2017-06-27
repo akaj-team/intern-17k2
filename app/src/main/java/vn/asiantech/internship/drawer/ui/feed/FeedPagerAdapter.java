@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import vn.asiantech.internship.R;
 /**
  * Created by at-dinhvo on 15/06/2017.
  */
-
 class FeedPagerAdapter extends PagerAdapter {
 
     private List<Integer> mImageItems;
@@ -50,6 +48,6 @@ class FeedPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((LinearLayout) object);
+        container.removeView((ImageView) object);
     }
 }

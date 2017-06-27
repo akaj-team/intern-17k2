@@ -31,7 +31,7 @@
     <!--Bai8-->
     <dimen name="item.icon_size">50dp</dimen>
     <dimen name="feed.layout_padding">5dp</dimen>
-    <dimen name="feed.viewpager_height">300dp</dimen>
+    <dimen name="feed.viewpager.height">300dp</dimen>
     <dimen name="feed.layout_corner">20dp</dimen>
     <dimen name="feed.item_marginbottom">5dp</dimen>
     <dimen name="feed.item_padding">15dp</dimen>
@@ -40,5 +40,6 @@
     <!--Bai16-->
     <dimen name="tab.custom.textSize">15sp</dimen>
     <dimen name="tab.height">60dp</dimen>
-    <dimen name="tab.viewpager.height">500dp</dimen>
+    <dimen name="tab.viewpager.height">400dp</dimen>
+    <dimen name="tab.viewpager.padding">10dp</dimen>
 </resources>
