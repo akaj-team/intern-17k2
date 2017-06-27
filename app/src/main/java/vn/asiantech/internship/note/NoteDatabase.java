@@ -46,21 +46,17 @@ public class NoteDatabase {
         values.put(TIME, itemNote.getTime());
         return mSQLiteDatabase.insert(TABLE_CONTACTS, null, values);
     }
-    //        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-//            ItemNote note = new ItemNote();
-//            note.setTitle(cursor.getString(cursor.getColumnIndex(TITLE)));
-//            note.setNote(cursor.getString(cursor.getColumnIndex(NOTE)));
-//            note.setTime(cursor.getString(cursor.getColumnIndex(TIME)));
-//            note.setImage(cursor.getString(cursor.getColumnIndex(IMAGE)));
-//            notes.add(note);
-//        }
+
     public List<ItemNote> getList() {
         List<ItemNote> notes = new ArrayList<>();
         Cursor cursor = mSQLiteDatabase.rawQuery("SELECT * FROM " + TABLE_CONTACTS, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            notes.add(new ItemNote(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
-            cursor.moveToNext();
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            ItemNote note = new ItemNote();
+            note.setTime(cursor.getString(cursor.getColumnIndex(TIME)));
+            note.setTitle(cursor.getString(cursor.getColumnIndex(TITLE)));
+            note.setNote(cursor.getString(cursor.getColumnIndex(NOTE)));
+            note.setImage(cursor.getString(cursor.getColumnIndex(IMAGE)));
+            notes.add(note);
         }
         cursor.close();
         return notes;

@@ -1,8 +1,7 @@
 package vn.asiantech.internship.note;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -21,12 +21,10 @@ import vn.asiantech.internship.R;
 class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapter.MyHolder> {
     private Context mContext;
     private List<ItemNote> mNoteList;
-    private Bitmap mImage;
+    private OnClickItemNoteListener mOnItemClickListener;
 
-    RecyclerViewNoteAdapter(Context context, List<ItemNote> noteList) {
-        mContext = context;
+    RecyclerViewNoteAdapter(List<ItemNote> noteList) {
         mNoteList = noteList;
-
     }
 
     @Override
@@ -42,9 +40,10 @@ class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapt
         holder.mTvNote.setText(itemNote.getNote());
         holder.mTvTime.setText(itemNote.getTime());
         if (itemNote.getImage() != null) {
-            holder.mImgNote.setVisibility(View.VISIBLE);
-            holder.mImgNote.setImageURI(Uri.parse(mNoteList.get(position).getImage()));
-
+            File file = new File(itemNote.getImage());
+            if (file.exists()) {
+                holder.mImgNote.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+            }
         }
     }
 
@@ -65,10 +64,21 @@ class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapt
             mTvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             mTvNote = (TextView) itemView.findViewById(R.id.tvNote);
             mImgNote = (ImageView) itemView.findViewById(R.id.imgNote);
+
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+            mOnItemClickListener.onItemClick(getAdapterPosition());
         }
+    }
+
+    /**
+     * Copyright © 2016 AsianTech inc.
+     * Created by DatBui on 19/06/2017.
+     */
+    public interface OnClickItemNoteListener {
+        void onItemClick(int positon);
     }
 }

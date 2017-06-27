@@ -4,8 +4,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,10 +23,10 @@ import vn.asiantech.internship.R;
  * Created by datbu on 25-06-2017.
  */
 
-public class DetailNoteFragment extends Fragment implements View.OnClickListener{
+public class DetailNoteFragment extends Fragment implements View.OnClickListener {
     private EditText mEdtTitle;
     private EditText mEdtNote;
-    private ImageView mImgSave;
+    private ImageView mImgDelete;
     private ImageView mImgEdit;
     private ImageView mImgPhoto;
     private NoteFragment mNoteFragment;
@@ -36,6 +34,7 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
     private List<ItemNote> mItemNotes = new ArrayList<>();
     private NoteDatabase mNoteDatabase;
     private ItemNote mNote;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +44,6 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
-
         initView(view);
         try {
             mNoteDatabase.open();
@@ -58,26 +56,22 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
         int position = bundle.getInt("position");
         mNote = mItemNotes.get(position);
         setData();
-//        mImgDelete.setOnClickListener(this);
+        mImgDelete.setOnClickListener(this);
         return view;
-
-
     }
+
     @Override
     public void onClick(View v) {
         try {
             mNoteDatabase.open();
             mNoteDatabase.delete(mNote);
             mNoteDatabase.close();
-            replaceFragment(mNoteFragment, false);
+            ((OnReplaceFragmentListener) getActivity()).onReplaceFragmentMain();
         } catch (IOException e) {
             Log.d("tag1", "ERROR");
         }
     }
-    /**
-     * +     * set data to show in ui
-     * +
-     */
+
     private void setData() {
         if (mNote.getImage() != null) {
             File file = new File(mNote.getImage());
@@ -90,14 +84,8 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
         mTvTime.setText(mNote.getTime());
     }
 
-    /**
-     * +     * relation value and ui
-     * +     *
-     * +     * @param view is view need show
-     * +
-     */
     private void initView(View view) {
-        mImgSave = (ImageView) view.findViewById(R.id.imgSave);
+        mImgDelete = (ImageView) view.findViewById(R.id.imgDelete);
         mImgEdit = (ImageView) view.findViewById(R.id.imgEdit);
         mImgPhoto = (ImageView) view.findViewById(R.id.imgPhoto);
         mEdtNote = (EditText) view.findViewById(R.id.edtNote);
@@ -105,14 +93,13 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
         mTvTime = (TextView) view.findViewById(R.id.tvTime);
     }
 
-
-    public void replaceFragment(Fragment fragment, boolean backStack) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentNote, fragment);
-        if (backStack) {
-            fragmentTransaction.addToBackStack(fragment.getTag());
-        }
-        fragmentTransaction.commit();
-    }
+//    public void replaceFragment(Fragment fragment, boolean backStack) {
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.fragmentNote, fragment);
+//        if (backStack) {
+//            fragmentTransaction.addToBackStack(fragment.getTag());
+//        }
+//        fragmentTransaction.commit();
+//    }
 }

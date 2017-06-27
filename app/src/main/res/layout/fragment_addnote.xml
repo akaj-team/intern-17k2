@@ -28,10 +28,10 @@
                 android:textSize="20sp" />
 
             <ImageView
-                android:id="@+id/imgEdit"
+                android:id="@+id/imgPick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_mode_edit_black_24dp"
+                android:background="@drawable/ic_account_box_black_24dp"
                 android:contentDescription="@string/app_name" />
 
             <ImageView

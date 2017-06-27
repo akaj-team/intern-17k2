@@ -35,12 +35,12 @@
                 android:contentDescription="@string/app_name" />
 
             <ImageView
-                android:id="@+id/imgSave"
+                android:id="@+id/imgDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/ic_description_black_24dp"
+                android:background="@drawable/ic_delete_black_24dp"
                 android:contentDescription="@string/app_name" />
         </LinearLayout>
 
@@ -74,10 +74,11 @@
             android:background="@drawable/edt_custom"
             android:hint="@string/edt.note"
             android:inputType="textMultiLine|text|textCapWords|textAutoCorrect" />
+
         <TextView
             android:id="@+id/tvTime"
-            android:textSize="@dimen/textsize.default"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize.default" />
     </LinearLayout>
 </RelativeLayout>

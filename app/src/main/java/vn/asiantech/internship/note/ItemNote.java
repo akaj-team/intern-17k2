@@ -16,7 +16,7 @@ class ItemNote {
         this.image = image;
     }
 
-    public ItemNote(String title, String note, String time, String image) {
+    public ItemNote(String time,String title, String note,  String image) {
         this.title = title;
         this.note = note;
         this.time = time;
