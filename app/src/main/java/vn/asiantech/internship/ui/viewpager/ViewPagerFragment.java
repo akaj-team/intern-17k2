@@ -1,8 +1,7 @@
 package vn.asiantech.internship.ui.viewpager;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,45 +11,32 @@ import android.widget.ImageView;
 import vn.asiantech.internship.R;
 
 public class ViewPagerFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private View mView;
     private int mImageResource;
-
-    // TODO: Rename and change types and number of parameters
-    public static ViewPagerFragment newInstance(String param1, String param2) {
-        ViewPagerFragment fragment = new ViewPagerFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_view_pager, container, false);
-        ImageView imgView = (ImageView) view.findViewById(R.id.imgView);
-        imgView.setImageResource();
-        container.addView(view);
-        return view;
+        mView = inflater.inflate(R.layout.fragment_view_pager, container, false);
+        return mView;
     }
 
-    private setImageResource() {
+    public void setImageResource(int imageResource) {
+        mImageResource = imageResource;
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && mView != null) {
+            ImageView imageView = (ImageView) mView.findViewById(R.id.imgView);
+            imageView.setImageResource(mImageResource);
+        }
     }
 }
