@@ -42,12 +42,12 @@ public class DetailNoteFragment extends Fragment {
         initView(view);
         mItemNote = (ItemNote) getArguments().getSerializable(NoteActivity.KEY_NOTE);
 
-        if ((mItemNote != null ? mItemNote.getImage() : null) != null) {
+        if ((mItemNote.getImage() != null)) {
             mImgPhoto.setVisibility(View.VISIBLE);
             mImgPhoto.setImageURI(Uri.parse(mItemNote.getImage()));
         }
 
-        mEdtTitle.setText(mItemNote != null ? mItemNote.getTitle() : null);
+        mEdtTitle.setText(mItemNote.getTitle());
         mEdtNote.setText(mItemNote.getNote());
         mTvTime.setText(mItemNote.getTime());
         return view;
