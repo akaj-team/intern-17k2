@@ -10,20 +10,17 @@ import java.util.List;
 /**
  * Created by datbu on 26-06-2017.
  */
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerBdapter extends FragmentStatePagerAdapter {
     private List<String> mImages;
 
-    public ViewPagerAdapter(FragmentManager fm, List<String> images) {
+    public ViewPagerBdapter(FragmentManager fm, List<String> images) {
         super(fm);
         mImages = images;
     }
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 1) {
-            return new PageBFragment();
-        }
-        return ItemImageFragment.newInstance(mImages, position);
+        return ItemImageBFragment.newInstance(mImages, position);
     }
 
     @Override

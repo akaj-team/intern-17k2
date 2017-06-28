@@ -17,9 +17,12 @@ import vn.asiantech.internship.R;
 /**
  * Created by datbu on 26-06-2017.
  */
-
 public class ItemImageFragment extends Fragment {
     private ImageView mImageView;
+    private Boolean mIsStarted = false;
+    private Boolean mIsVisible = false;
+    private View mView;
+    private String mImage;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,11 +32,13 @@ public class ItemImageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.item_viewpager, container, false);
-        String image = getArguments().getString("image");
-        mImageView = (ImageView) view.findViewById(R.id.imgView);
-        Glide.with(getActivity()).load(image).into(mImageView);
-        return view;
+        mView = inflater.inflate(R.layout.item_viewpager, container, false);
+        mImage = getArguments().getString("image");
+        mImageView = (ImageView) mView.findViewById(R.id.imgView);
+        if (!mIsStarted && getUserVisibleHint()) {
+            viewDidAppear();
+        }
+        return mView;
     }
 
     public static ItemImageFragment newInstance(List<String> mImages, int position) {
@@ -43,5 +48,42 @@ public class ItemImageFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-}
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mIsStarted = true;
+        if (mIsVisible && mIsStarted) {
+            viewDidAppear();
+        }
+    }
+
+    @Override
+    public boolean getUserVisibleHint() {
+        return mIsVisible;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        mIsVisible = isVisibleToUser;
+        if (isVisibleToUser) {
+            viewDidAppear();
+        }
+    }
+
+    public void viewDidAppear() {
+        if (mView != null) {
+            Glide.with(getActivity()).load(mImage).into(mImageView);
+            mIsStarted = true;
+        } else {
+            mIsStarted = false;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mIsStarted = false;
+    }
+}

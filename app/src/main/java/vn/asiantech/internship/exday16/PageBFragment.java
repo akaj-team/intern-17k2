@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -21,14 +23,14 @@ import vn.asiantech.internship.R;
 /**
  * Created by datbu on 26-06-2017.
  */
-public class ViewPagerFragment extends Fragment {
+public class PageBFragment extends Fragment {
     private static String image1 = "http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg";
     private static String image2 = "http://vignette2.wikia.nocookie.net/runescape2/images/3/36/Lord_Amlodd_concept_art.jpg/revision/latest?cb=20140811105559";
     private static String image3 = "https://dviw3bl0enbyw.cloudfront.net/uploads/forum_attachment/file/139844/Male_voodoo_armor_concept_art.jpg";
     private static String image4 = "https://cdna.artstation.com/p/assets/images/images/002/854/562/large/jonas-lopez-moreno-jonaslopezmoreno-saitan-web.jpg?1466498557";
     private static String image5 = "http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg";
     private static List<String> mImages;
-    private ViewPagerAdapter mViewPagerAdapter;
+    private ViewPagerBdapter mViewPagerAdapter;
     private ViewPager mViewPager;
     private static int currentPage = 0;
 
@@ -40,7 +42,7 @@ public class ViewPagerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
+        View view = inflater.inflate(R.layout.fragment_page_b, container, false);
         mImages = new ArrayList<>();
         mImages.add(image1);
         mImages.add(image2);
@@ -50,20 +52,18 @@ public class ViewPagerFragment extends Fragment {
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) view.findViewById(R.id.container);
-        mViewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), mImages);
-        Log.e("hhh", "onCreateView: " + mImages.size());
+        mViewPagerAdapter = new ViewPagerBdapter(getChildFragmentManager(), mImages);
         mViewPager.setAdapter(mViewPagerAdapter);
-        mViewPager.setCurrentItem(2);
+        mViewPager.setCurrentItem(0);
         mViewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(mViewPager);
-        Log.d("tag", "aaaa: " + mViewPager.getCurrentItem());
-//        tabLayout.getId();
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
-//        init();
+        Run();
+        changeDurationScroll();
         return view;
     }
 
-    private void init() {
+    private void Run() {
         // Auto start of viewpager
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
@@ -81,5 +81,17 @@ public class ViewPagerFragment extends Fragment {
                 handler.post(Update);
             }
         }, 5000, 5000);
+    }
+
+    private void changeDurationScroll() {
+        try {
+            Field mScroller;
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            CustomDuration customDuration = new CustomDuration(mViewPager.getContext(), new AccelerateInterpolator());
+            mScroller.set(mViewPager, customDuration);
+        } catch (Exception e) {
+            Log.i("changeDurationScroll: ", e.getMessage());
+        }
     }
 }

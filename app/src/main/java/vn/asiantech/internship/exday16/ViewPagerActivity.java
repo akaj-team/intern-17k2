@@ -10,14 +10,14 @@ import vn.asiantech.internship.R;
 /**
  * Created by datbu on 26-06-2017.
  */
-public class ViewPagerActivity extends AppCompatActivity{
+public class ViewPagerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpager);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        ViewPagerFragment viewPagerFragment = new ViewPagerFragment();
-        transaction.replace(R.id.fragmentViewPager, viewPagerFragment).commit();
+        PageAFragment pageAFragment = new PageAFragment();
+        transaction.replace(R.id.fragmentViewPager, pageAFragment).commit();
     }
 }
