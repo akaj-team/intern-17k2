@@ -1,5 +1,5 @@
 <resources>
-   <string name="imageview.description">this is image user</string>
+    <string name="imageview.description">this is image user</string>
     <string name="button.text.add">+ ADD</string>
     <string name="button.text.friends">Friends</string>
     <string-array name="list_user">
@@ -37,5 +37,12 @@
     <string-array name="items">
         <item name="Gallery">Gallery</item>
         <item name="Camera">Camera</item>
+    </string-array>
+    <string-array name="tabtitles">
+        <item name="bike">bike</item>
+        <item name="dog">dog</item>
+        <item name="food">food</item>
+        <item name="music">music</item>
+        <item name="lead">lead</item>
     </string-array>
 </resources>
