@@ -29,7 +29,9 @@ public class FootballStarAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 1) return new SpainStarFragment();
+        if (position == 1) {
+            return new SpainStarFragment();
+        }
         return FootballStarFragment.getNewInstance(mIds[position]);
     }
 

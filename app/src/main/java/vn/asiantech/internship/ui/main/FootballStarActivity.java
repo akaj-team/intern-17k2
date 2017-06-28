@@ -87,7 +87,9 @@ public class FootballStarActivity extends AppCompatActivity {
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.tablayout_custom, null, false);
             MyCustomTab myCustomTab = (MyCustomTab) view.findViewById(R.id.myView);
-            if (i == 0) myCustomTab.setSelected(true);
+            if (i == 0) {
+                myCustomTab.setSelected(true);
+            }
             CircleImageView icon = (CircleImageView) view.findViewById(R.id.imgTabIcon);
             icon.setImageResource(mTabIcons[i]);
             TextView tabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
