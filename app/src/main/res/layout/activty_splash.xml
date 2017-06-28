@@ -25,13 +25,13 @@
             android:id="@+id/btnBai7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/bai7"/>
+            android:text="@string/bai7" />
+
         <Button
             android:id="@+id/btnBai9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/bai9"/>
-            android:text="@string/bai7" />
+            android:text="@string/bai9" />
 
         <Button
             android:id="@+id/btnBai13"
