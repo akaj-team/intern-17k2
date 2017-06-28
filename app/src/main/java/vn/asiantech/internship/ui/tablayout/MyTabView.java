@@ -108,6 +108,7 @@ public class MyTabView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        performClick();
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             // Move action having some problem when using inside an other Viewpager =))
             mIsTouch = true;
@@ -135,7 +136,12 @@ public class MyTabView extends View {
             mOnGridViewListener.onItemClick(mTabSelected);
             invalidate();
         }
-        this.performClick();
+        return true;
+    }
+
+    @Override
+    public boolean performClick() {
+        super.performClick();
         return true;
     }
 
