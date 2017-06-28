@@ -86,6 +86,7 @@ public class ViewPagerSecondFragment extends Fragment {
         mViewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                v.performClick();
                 if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     mMyTabView.setOnTouch(true);
                     mIsSliding = false;
