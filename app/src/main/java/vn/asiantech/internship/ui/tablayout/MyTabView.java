@@ -19,8 +19,8 @@ import vn.asiantech.internship.R;
  */
 public class MyTabView extends View {
 
-    private Paint[] mPaint;
-    private int[] mDrawable = {
+    private Paint[] mPaints;
+    private int[] mDrawables = {
             R.drawable.vector_love,
             R.drawable.vector_star,
             R.drawable.vector_important,
@@ -28,7 +28,7 @@ public class MyTabView extends View {
             R.drawable.vector_settings_black
     };
 
-    private int[] mDrawableSelected = {
+    private int[] mSelectedDrawables = {
             R.drawable.vector_love_selected,
             R.drawable.vector_star_selected,
             R.drawable.vector_important_selected,
@@ -36,10 +36,10 @@ public class MyTabView extends View {
             R.drawable.vector_settings_black_selected
     };
 
-    int mLengthOfOne;
     private float mTabSelected;
-    private float mOldCLicked, mNewClicked;
-    private boolean isTouch;
+    private float mOldCLicked;
+    private float mNewClicked;
+    private boolean mIsTouch;
 
     private OnGridViewListener mOnGridViewListener;
 
@@ -62,7 +62,7 @@ public class MyTabView extends View {
         drawIcon(canvas, mTabSelected);
 
         drawStyle(canvas, mTabSelected);
-        if (isTouch) {
+        if (mIsTouch) {
             drawTouchStyle(canvas, mTabSelected);
         }
     }
@@ -71,15 +71,15 @@ public class MyTabView extends View {
         Bitmap bitmap;
         for (int i = 0; i < 5; i++) {
             if (i != position) {
-                bitmap = BitmapFactory.decodeResource(getResources(), mDrawable[i]);
+                bitmap = BitmapFactory.decodeResource(getResources(), mDrawables[i]);
             } else {
-                bitmap = BitmapFactory.decodeResource(getResources(), mDrawableSelected[i]);
+                bitmap = BitmapFactory.decodeResource(getResources(), mSelectedDrawables[i]);
             }
-            mLengthOfOne = 2 * (getWidth() / 2) / 5;
+            int mLengthOfOne = 2 * (getWidth() / 2) / 5;
             float left = mLengthOfOne * (i + 1) - mLengthOfOne / 2 - bitmap.getWidth() / 2;
             float top = (getHeight() - bitmap.getHeight()) / 2.0f;
             RectF dst = new RectF(left, top, left + bitmap.getWidth(), top + bitmap.getHeight());
-            canvas.drawBitmap(bitmap, null, dst, mPaint[0]);
+            canvas.drawBitmap(bitmap, null, dst, mPaints[0]);
         }
     }
 
@@ -89,10 +89,10 @@ public class MyTabView extends View {
         int lengthOfOne = 2 * centerViewX / 5;
         int positionY = 25;
 
-        canvas.drawLine(0, positionY, lengthOfOne * position - lengthOfOne, positionY, mPaint[0]);
-        canvas.drawLine(lengthOfOne * position, positionY, getWidth(), positionY, mPaint[0]);
-        canvas.drawArc(new RectF(lengthOfOne * position - lengthOfOne, 8, lengthOfOne * position, getHeight() / 3), 180, 178, false, mPaint[4]);
-        canvas.drawArc(new RectF(lengthOfOne * position - lengthOfOne, 8, lengthOfOne * position, getHeight() / 3), 180, 178, false, mPaint[2]);
+        canvas.drawLine(0, positionY, lengthOfOne * position - lengthOfOne, positionY, mPaints[0]);
+        canvas.drawLine(lengthOfOne * position, positionY, getWidth(), positionY, mPaints[0]);
+        canvas.drawArc(new RectF(lengthOfOne * position - lengthOfOne, 8, lengthOfOne * position, getHeight() / 3), 180, 178, false, mPaints[4]);
+        canvas.drawArc(new RectF(lengthOfOne * position - lengthOfOne, 8, lengthOfOne * position, getHeight() / 3), 180, 178, false, mPaints[2]);
     }
 
     private void drawTouchStyle(Canvas canvas, float position) {
@@ -101,16 +101,16 @@ public class MyTabView extends View {
         int lengthOfOne = 2 * centerViewX / 5;
         int positionY = 22;
 
-        canvas.drawLine(0, positionY, lengthOfOne * position - lengthOfOne, positionY, mPaint[1]);
-        canvas.drawLine(lengthOfOne * position, positionY, getWidth(), positionY, mPaint[1]);
-        canvas.drawArc(new RectF(lengthOfOne * position - lengthOfOne, 5, lengthOfOne * position, getHeight() / 3), 180, 178, false, mPaint[3]);
+        canvas.drawLine(0, positionY, lengthOfOne * position - lengthOfOne, positionY, mPaints[1]);
+        canvas.drawLine(lengthOfOne * position, positionY, getWidth(), positionY, mPaints[1]);
+        canvas.drawArc(new RectF(lengthOfOne * position - lengthOfOne, 5, lengthOfOne * position, getHeight() / 3), 180, 178, false, mPaints[3]);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             // Move action having some problem when using inside an other Viewpager =))
-            isTouch = true;
+            mIsTouch = true;
             mNewClicked = event.getX();
             if (mNewClicked > mOldCLicked) {
                 mTabSelected += 0.1f;
@@ -119,9 +119,8 @@ public class MyTabView extends View {
             }
             mOldCLicked = mNewClicked;
             invalidate();
-            return true;
         } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            isTouch = true;
+            mIsTouch = true;
             mNewClicked = event.getX();
             if (mNewClicked > mOldCLicked) {
                 mTabSelected += 0.2f;
@@ -130,16 +129,14 @@ public class MyTabView extends View {
             }
             mOldCLicked = mNewClicked;
             invalidate();
-            return true;
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            isTouch = false;
+            mIsTouch = false;
             mTabSelected = getPositionClicked(mNewClicked);
-            mOnGridViewListener.onClickItem(mTabSelected);
+            mOnGridViewListener.onItemClick(mTabSelected);
             invalidate();
-            return true;
-        } else {
-            return true;
         }
+        this.performClick();
+        return true;
     }
 
     public Float getPositionClicked(float newClicked) {
@@ -159,7 +156,7 @@ public class MyTabView extends View {
     }
 
     private void init() {
-        mPaint = new Paint[5];
+        mPaints = new Paint[5];
         mTabSelected = 2;
 
         int[] colors = {0xffBFBDC4, 0xffFC0095, 0xffBFBDC4, 0xffFC0095, 0xfff4f4f4};
@@ -171,7 +168,7 @@ public class MyTabView extends View {
             paint.setColor(colors[i]);
             paint.setStrokeWidth(strokeWidth[(i == 3) ? 1 : 0]);
             paint.setStyle(paintStyle[(i == 4) ? 1 : 0]);
-            mPaint[i] = paint;
+            mPaints[i] = paint;
         }
     }
 
@@ -181,7 +178,7 @@ public class MyTabView extends View {
     }
 
     public void setOnTouch(boolean b) {
-        isTouch = b;
+        mIsTouch = b;
     }
 
     public void onClickItem(OnGridViewListener onGridViewListener) {
@@ -192,6 +189,6 @@ public class MyTabView extends View {
      * OnGridViewListener
      */
     interface OnGridViewListener {
-        void onClickItem(float position);
+        void onItemClick(float position);
     }
 }

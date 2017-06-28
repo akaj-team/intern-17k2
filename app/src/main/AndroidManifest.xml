@@ -22,8 +22,7 @@
         </activity>
         <activity android:name=".ui.feeds.FeedsActivity" />
         <activity android:name=".ui.main.Ex05Activity" />
-        <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.main.Ex072Activity" />
         <activity android:name=".ui.tablayout.ViewPagerActivity" />
     </application>
 </manifest>

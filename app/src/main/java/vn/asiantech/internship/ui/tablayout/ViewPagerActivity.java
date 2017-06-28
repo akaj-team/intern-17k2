@@ -23,7 +23,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private void replaceFragmentContent() {
         mFragment = new ViewPagerFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.lnContent, mFragment);
+        fragmentTransaction.replace(R.id.flContainer, mFragment);
         fragmentTransaction.commit();
     }
 

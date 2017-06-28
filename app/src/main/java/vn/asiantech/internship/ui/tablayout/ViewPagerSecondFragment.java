@@ -31,8 +31,8 @@ public class ViewPagerSecondFragment extends Fragment {
     private Handler mHandler;
     private Thread mThread;
     private boolean mIsSliding;
-    private boolean isHaveTabSelected;
-    private float mTabSelected = 0;
+    private boolean mIsHaveTabSelected;
+    private float mTabSelected;
     private float mLocationOld;
 
     private String[] mUrls = {
@@ -57,11 +57,11 @@ public class ViewPagerSecondFragment extends Fragment {
         mViewPagerSecondAdapter = new ViewPagerSecondAdapter(getChildFragmentManager(), mUrls);
 
         mLocationOld = mViewPager.getWidth() / 2;
-        //slowSlider();
-      //  autoSlider();
+        slowSlider();
+        autoSlider();
         mMyTabView.onClickItem(new MyTabView.OnGridViewListener() {
             @Override
-            public void onClickItem(float position) {
+            public void onItemClick(float position) {
                 mViewPager.setCurrentItem((int) position);
                 mTabSelected = position;
             }
@@ -98,7 +98,7 @@ public class ViewPagerSecondFragment extends Fragment {
                         mMyTabView.setTabSelected(mTabSelected);
                     }
                     mLocationOld = event.getX();
-                    return false;
+                    return true;
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     mIsSliding = true;
@@ -106,7 +106,7 @@ public class ViewPagerSecondFragment extends Fragment {
                     mLocationOld = mViewPager.getWidth() / 2;
                     mTabSelected = getInt(mTabSelected);
                     mMyTabView.setTabSelected(mTabSelected);
-                    return false;
+                    return true;
                 }
                 return false;
             }
@@ -157,11 +157,11 @@ public class ViewPagerSecondFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && !isHaveTabSelected) {
+        if (isVisibleToUser && !mIsHaveTabSelected) {
             mViewPager.setAdapter(mViewPagerSecondAdapter);
             mViewPager.setCurrentItem(2); // Default item in the first time open
             mViewPager.setPageTransformer(false, new TabletTransformer());
-            isHaveTabSelected = true;
+            mIsHaveTabSelected = true;
         }
     }
 }

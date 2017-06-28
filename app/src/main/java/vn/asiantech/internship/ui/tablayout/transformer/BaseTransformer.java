@@ -4,7 +4,7 @@ import android.support.v4.view.ViewPager.PageTransformer;
 import android.view.View;
 
 /**
- * BaseTransformer created by Thanh Thien
+ * BaseTransformer created by GitHub
  */
 abstract class BaseTransformer implements PageTransformer {
 

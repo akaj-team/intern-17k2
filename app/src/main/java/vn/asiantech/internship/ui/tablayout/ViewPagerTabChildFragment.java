@@ -40,10 +40,8 @@ public class ViewPagerTabChildFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mUrlImg = getArguments().getString(ARG_PARAM);
-            mPosition = getArguments().getInt(ARG_PARAM2);
-        }
+        mUrlImg = getArguments().getString(ARG_PARAM);
+        mPosition = getArguments().getInt(ARG_PARAM2);
     }
 
     @Override

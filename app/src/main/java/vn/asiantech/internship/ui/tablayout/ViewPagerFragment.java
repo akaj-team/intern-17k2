@@ -43,13 +43,13 @@ public class ViewPagerFragment extends Fragment {
             "https://s-media-cache-ak0.pinimg.com/736x/92/7b/da/927bda71d6d87be6c3b58f9b4162ef6d.jpg"
     };
 
-    private int[] mDrawable = {
+    private int[] mDrawables = {
             R.drawable.bg_love,
             R.drawable.bg_important,
             R.drawable.bg_star
     };
 
-    private int[] mDrawableLine = {
+    private int[] mDrawableLines = {
             R.drawable.bg_love_custom,
             R.drawable.bg_important_custom,
             R.drawable.bg_star_custom
@@ -144,7 +144,7 @@ public class ViewPagerFragment extends Fragment {
         TextView tab = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.item_tab_layout_custom, null);
         String s = "Tab " + position;
         tab.setText(s);
-        tab.setCompoundDrawablesWithIntrinsicBounds(0, mDrawable[position], 0, 0);
+        tab.setCompoundDrawablesWithIntrinsicBounds(0, mDrawables[position], 0, 0);
         TabLayout.Tab tabSave = mTabLayout.getTabAt(position);
         if (tabSave != null) {
             tabSave.setCustomView(tab);
@@ -154,14 +154,14 @@ public class ViewPagerFragment extends Fragment {
     private void setTabOnlyIcon(int position) {
         TabLayout.Tab tabSave = mTabLayout.getTabAt(position);
         if (tabSave != null) {
-            tabSave.setIcon(mDrawable[position]);
+            tabSave.setIcon(mDrawables[position]);
         }
     }
 
     private void setMyTabCustom(int position) {
         View tab = LayoutInflater.from(getActivity()).inflate(R.layout.item_tab_layout_custom_second, null);
-        ((ImageView) tab.findViewById(R.id.imgIcon)).setImageResource(mDrawable[position]);
-        (tab.findViewById(R.id.view)).setBackgroundResource(mDrawableLine[position]);
+        ((ImageView) tab.findViewById(R.id.imgIcon)).setImageResource(mDrawables[position]);
+        (tab.findViewById(R.id.view)).setBackgroundResource(mDrawableLines[position]);
         mTabLayout.setSelectedTabIndicatorHeight(0);
         TabLayout.Tab tabSave = mTabLayout.getTabAt(position);
         if (tabSave != null) {

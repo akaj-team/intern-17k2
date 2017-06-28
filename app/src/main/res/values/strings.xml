@@ -20,10 +20,7 @@
     <string name="tip.show.text.do_you_want_to_exit">do you want to exit ?</string>
     <string name="text.friend">friend</string>
     <string name="text.friends">Friends</string>
-    <string name="textview.text.descriptions">Descriptions</string>
     <string name="button.text.send">send</string>
-    <string name="button.text.friends">Friends</string>
-    <string name="string_text">Steven George \"Stevie\" Gerrard, MBE (born 30 May 1980) is an English professional football coach and former footballer who serves as an academy coach at Liverpool. He spent the majority of his playing career as a central midfielder for Liverpool and the England national team, with most of that time spent as club captain. In 2009, Zinedine Zidane and Pele said that they considered Gerrard to be the best footballer in the world.</string>
     <string name="button.text.feed">FEEDS</string>
     <string-array name="listdrawer">
         <item>Feed</item>
@@ -50,6 +47,5 @@
         <item>U must set in java code =))</item>
     </string-array>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button.text.ex16">Ex 16</string>
 </resources>

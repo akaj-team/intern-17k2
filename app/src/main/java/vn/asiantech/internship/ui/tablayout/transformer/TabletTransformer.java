@@ -11,7 +11,7 @@ public class TabletTransformer extends BaseTransformer {
 
     private static final Matrix OFFSET_MATRIX = new Matrix();
     private static final Camera OFFSET_CAMERA = new Camera();
-    private static final float[] OFFSET_TEMP_FLOAT = new float[2];
+    private static final float[] OFFSET_TEMP_FLOATS = new float[2];
 
     @Override
     protected void onTransform(View view, float position) {
@@ -32,9 +32,9 @@ public class TabletTransformer extends BaseTransformer {
 
         OFFSET_MATRIX.preTranslate(-width * 0.5f, -height * 0.5f);
         OFFSET_MATRIX.postTranslate(width * 0.5f, height * 0.5f);
-        OFFSET_TEMP_FLOAT[0] = width;
-        OFFSET_TEMP_FLOAT[1] = height;
-        OFFSET_MATRIX.mapPoints(OFFSET_TEMP_FLOAT);
-        return (width - OFFSET_TEMP_FLOAT[0]) * (degrees > 0.0f ? 1.0f : -1.0f);
+        OFFSET_TEMP_FLOATS[0] = width;
+        OFFSET_TEMP_FLOATS[1] = height;
+        OFFSET_MATRIX.mapPoints(OFFSET_TEMP_FLOATS);
+        return (width - OFFSET_TEMP_FLOATS[0]) * (degrees > 0.0f ? 1.0f : -1.0f);
     }
 }

@@ -24,7 +24,7 @@ public class ViewPagerTabChildSecondFragment extends Fragment {
 
     private String mUrl;
     private int mPosition;
-    private boolean isLoadData;
+    private boolean mIsLoadData;
     private boolean mVisible;
 
     public static ViewPagerTabChildSecondFragment newInstance(String url, int position) {
@@ -39,10 +39,8 @@ public class ViewPagerTabChildSecondFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mUrl = getArguments().getString(ARG_PARAM1);
-            mPosition = getArguments().getInt(ARG_PARAM2);
-        }
+        mUrl = getArguments().getString(ARG_PARAM1);
+        mPosition = getArguments().getInt(ARG_PARAM2);
     }
 
     @Override
@@ -53,10 +51,7 @@ public class ViewPagerTabChildSecondFragment extends Fragment {
         mImgView = (ImageView) mView.findViewById(R.id.imgView);
 
         // Default load in the open first time
-        if (mPosition == 2) {
-            Picasso.with(getContext()).load(mUrl).placeholder(R.drawable.vector_refresh).into(mImgView);
-        }
-        if (!isLoadData && getUserVisibleHint()) {
+        if (mPosition == 2 || (!mIsLoadData && getUserVisibleHint())) {
             Picasso.with(getContext()).load(mUrl).placeholder(R.drawable.vector_refresh).into(mImgView);
         }
         return mView;
@@ -71,8 +66,8 @@ public class ViewPagerTabChildSecondFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         mVisible = isVisibleToUser;
         if (isVisibleToUser && getContext() != null) {
-            if (!isLoadData && mView != null) {
-                isLoadData = true;
+            if (!mIsLoadData && mView != null) {
+                mIsLoadData = true;
                 Picasso.with(getContext()).load(mUrl).placeholder(R.drawable.vector_refresh).into(mImgView);
             }
         }
