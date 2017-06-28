@@ -32,6 +32,15 @@
         android:text="@string/button.fragment.text" />
 
     <Button
+        android:id="@+id/btnDay13Ex1"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="@dimen/splash.button.width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/splash.button.margin.top"
+        android:background="@color/splash.button.color"
+        android:text="@string/button.day13.ex.text" />
+
+    <Button
         android:id="@+id/btnDay11Ex2"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="@dimen/splash.button.width"

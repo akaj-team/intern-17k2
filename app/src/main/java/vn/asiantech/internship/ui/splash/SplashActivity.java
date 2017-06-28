@@ -9,6 +9,7 @@ import android.widget.Button;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.feed.FeedActivity;
 import vn.asiantech.internship.ui.fragments.SendDataActivity;
+import vn.asiantech.internship.ui.chat.ChatActivity;
 import vn.asiantech.internship.ui.friendlist.FriendActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 
@@ -16,7 +17,6 @@ import vn.asiantech.internship.ui.main.MainActivity;
  *
  * Created by Hai on 6/15/2017.
  */
-
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -35,6 +35,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         btnDay6Ex1.setOnClickListener(this);
         btnDay11Ex1.setOnClickListener(this);
         btnFragment.setOnClickListener(this);
+        Button btnDay13Chat = (Button) findViewById(R.id.btnDay13Ex1);
+        btnDay5Ex1.setOnClickListener(this);
+        btnDay6Ex1.setOnClickListener(this);
+        btnDay13Chat.setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +59,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btnFragment:
                 Intent intentFragment = new Intent(SplashActivity.this, SendDataActivity.class);
                 startActivity(intentFragment);
+            case R.id.btnDay13Ex1:
+                Intent intentChat = new Intent(SplashActivity.this, ChatActivity.class);
+                startActivity(intentChat);
         }
     }
 }

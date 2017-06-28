@@ -25,5 +25,6 @@
         <activity android:name=".ui.friendlist.FriendActivity" />
         <activity android:name=".ui.feed.FeedActivity" />
         <activity android:name=".ui.fragments.SendDataActivity" />
+        <activity android:name=".ui.chat.ChatActivity" />
     </application>
 </manifest>

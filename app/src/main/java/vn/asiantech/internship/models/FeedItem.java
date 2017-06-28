@@ -5,7 +5,6 @@ package vn.asiantech.internship.models;
  *
  * Created by Hai on 6/15/2017.
  */
-
 public class FeedItem {
     private String name;
     private String[] imageArray;

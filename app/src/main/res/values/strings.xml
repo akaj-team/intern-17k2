@@ -23,8 +23,10 @@
     <string name="button.day6.ex1.text">Day6 Ex1</string>
     <string name="button.fragment.text">Fragment</string>
     <string name="button.day11.ex2.text">Day11 Ex2</string>
+    <string name="button.day13.ex.text">Day13 Ex</string>
     <string name="dialog.item.gallery">Gallery</string>
     <string name="dialog.item.Camera">Camera</string>
     <string name="friend">FRIEND</string>
     <string name="add">ADD</string>
+    <string name="chat.button.send">SEND</string>
 </resources>
