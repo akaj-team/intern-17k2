@@ -3,6 +3,5 @@
     android:id="@+id/imgCurve"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_tab"
     android:gravity="center"
     android:textSize="@dimen/tab.title.size" />
