@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tvTabItem"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:textColor="@color/colorRed"
-    android:textSize="@dimen/tab.custom.textSize" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgTab"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:contentDescription="@string/feed.buttonleft_description" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tvTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="tab item" />
+</LinearLayout>

@@ -2,75 +2,106 @@ package vn.asiantech.internship.drawer.day16.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.drawer.day16.adapter.PageAdapter;
 
+import static vn.asiantech.internship.R.id.tabLayout;
+
 public class TabActivity extends AppCompatActivity {
 
     private static final String FIELD_NAME = "mScroller";
-    private static final String TAB_ITEM[] = {"Image0", "Image1", "Image2"};
 
     private TabLayout mTabLayout;
     private ViewPager mViewpager;
-
-    private List<Integer> mImages;
+    private Handler mHandler = new Handler();
+    private int mNumPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
         initUI();
-    }
-
-    private void addImages() {
-        mImages = new ArrayList<>();
-        mImages.add(R.drawable.img_caurong);
-        mImages.add(R.drawable.img_sunwheel);
-        mImages.add(R.drawable.img_danang);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mViewpager.setCurrentItem((mViewpager.getCurrentItem() == mNumPage) ?
+                        0 : mViewpager.getCurrentItem() + 1);
+                mHandler.postDelayed(this, 5000);
+            }
+        }, 1000);
     }
 
     private void initUI() {
-        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewpager = (ViewPager) findViewById(R.id.viewPagerTab);
-        setupViewPager(mViewpager);
+        mTabLayout = (TabLayout) findViewById(tabLayout);
+        setupViewpager(mViewpager);
         mTabLayout.setupWithViewPager(mViewpager);
-        setupTabIcons(mTabLayout, 0, R.drawable.ic_games_black_24dp);
-        setupTabIcons(mTabLayout, 1, R.drawable.ic_polymer_black_24dp);
-        setupTabIcons(mTabLayout, 2, R.drawable.ic_thumb_up_black_24dp);
+        setupTabLayout("Search", 0, R.drawable.ic_search_blue_grey_800_24dp);
+        setupTabLayout("Place", 1, R.drawable.ic_place_blue_grey_800_24dp);
+        setupTabLayout("Profile", 2, R.drawable.ic_person_pin_blue_grey_800_24dp);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-//        addImages();
-        /*ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(mImages);
-        viewPager.setAdapter(imagePagerAdapter);*/
-        final FirstFragment firstFragment = new FirstFragment();
-        final SecondFragment secondFragment = new SecondFragment();
-        final ThirdFragment thirdFragment = new ThirdFragment();
-//        firstFragment.setUserVisibleHint(false);
-//        secondFragment.setUserVisibleHint(false);
-//        thirdFragment.setUserVisibleHint(false);
+    private void setupTabLayout(String name, int index, int image) {
+        View tabItem = LayoutInflater.from(this).inflate(R.layout.custom_tab_item, null);
+        TextView tvItem = (TextView) tabItem.findViewById(R.id.tvTab);
+        tvItem.setText(name);
+        tvItem.setCompoundDrawablesWithIntrinsicBounds(0, image, 0, 0);
+        TabLayout.Tab tab = mTabLayout.getTabAt(index);
+        if (tab != null) {
+            tab.setCustomView(tabItem);
+        }
+        createAnimateTab(mTabLayout);
+    }
+
+    private void createAnimateTab(TabLayout tabLayout) {
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int i = 0; i < tabsCount; i++) {
+            int delay = (i * 150) + 750;
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(i);
+            vgTab.setScaleX(0f);
+            vgTab.setScaleY(0f);
+            vgTab.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .setStartDelay(delay)
+                    .setInterpolator(new FastOutSlowInInterpolator())
+                    .setDuration(750)
+                    .start();
+        }
+    }
+
+    private void setupViewpager(ViewPager viewPager) {
         PageAdapter adapter = new PageAdapter(getSupportFragmentManager());
-        adapter.addFragment(firstFragment, "a");
-        adapter.addFragment(secondFragment, "b");
-        adapter.addFragment(thirdFragment, "c");
+        FirstFragment firstFragment = new FirstFragment();
+        SecondFragment secondFragment = new SecondFragment();
+        ThirdFragment thirdFragment = new ThirdFragment();
+        secondFragment.setUserVisibleHint(true);
+        thirdFragment.setUserVisibleHint(true);
+        adapter.addFragment(firstFragment);
+        adapter.addFragment(secondFragment);
+        adapter.addFragment(thirdFragment);
+        mNumPage = adapter.getCount() - 1;
         viewPager.setAdapter(adapter);
         viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
-//        changeDurationViewpager(viewPager);
-        /*viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        changeDurationViewpager(viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -79,28 +110,20 @@ public class TabActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 switch (position) {
-                    case 0:
-                        firstFragment.setUserVisibleHint(true);
-                        secondFragment.setUserVisibleHint(false);
-                        thirdFragment.setUserVisibleHint(false);
-                        break;
                     case 1:
-                        firstFragment.setUserVisibleHint(false);
-                        secondFragment.setUserVisibleHint(true);
-                        thirdFragment.setUserVisibleHint(false);
+
                         break;
-                    default:
-                        firstFragment.setUserVisibleHint(false);
-                        secondFragment.setUserVisibleHint(false);
-                        thirdFragment.setUserVisibleHint(true);
+                    case 2:
+
                 }
+                Log.e("AAA", "onPageSelected: " + position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
             }
-        });*/
+        });
     }
 
     private void changeDurationViewpager(ViewPager viewPager) {
@@ -118,13 +141,6 @@ public class TabActivity extends AppCompatActivity {
         } catch (IllegalAccessException e) {
             Log.e("IllegalAccessEx", e.toString());
         }
-    }
-
-    private void setupTabIcons(TabLayout tabLayout, int index, int image) {
-        TextView tabView = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_item, null);
-//        tabView.setText(TAB_ITEM[index]);
-        tabView.setCompoundDrawablesWithIntrinsicBounds(0, image, 0, 0);
-        tabLayout.getTabAt(index).setCustomView(tabView);
     }
 
     /**

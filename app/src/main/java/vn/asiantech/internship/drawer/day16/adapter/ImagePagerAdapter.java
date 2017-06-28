@@ -29,8 +29,8 @@ public class ImagePagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         LayoutInflater inflater = LayoutInflater.from(container.getContext());
-        View imageLayout = inflater.inflate(R.layout.item_list_image, container, false);
-        ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgFeed);
+        View imageLayout = inflater.inflate(R.layout.item_viewpager_image, container, false);
+        ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgTabItem);
         imageView.setImageResource(mImages.get(position));
         container.addView(imageLayout);
         return imageLayout;
@@ -50,6 +50,4 @@ public class ImagePagerAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((ImageView) object);
     }
-
-
 }

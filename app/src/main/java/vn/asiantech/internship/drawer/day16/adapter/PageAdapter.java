@@ -11,7 +11,6 @@ import java.util.ArrayList;
  */
 public class PageAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<String> mTitles = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 
     public PageAdapter(FragmentManager fm) {
@@ -25,16 +24,10 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return POSITION_NONE;
+        return mFragments.size();
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mTitles.get(position);
-    }
-
-    public void addFragment(Fragment fragment, String title) {
+    public void addFragment(Fragment fragment) {
         mFragments.add(fragment);
-        mTitles.add(title);
     }
 }

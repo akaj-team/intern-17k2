@@ -15,8 +15,7 @@ import vn.asiantech.internship.R;
  */
 public class ThirdFragment extends Fragment {
 
-    //    private boolean isViewShown = false;
-    private View mLayout;
+    private boolean isVisible;
 
     public ThirdFragment() {
         // Required empty public constructor
@@ -26,21 +25,16 @@ public class ThirdFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mLayout = inflater.inflate(R.layout.fragment_first, container, false);
-        /*if (isViewShown) {
-            ImageView imageView = (ImageView) mLayout.findViewById(R.id.imgTab);
-            imageView.setImageResource(R.drawable.img_danang);
-        }*/
-        return mLayout;
+        ImageView imageView = null;
+        if (isVisible) {
+            imageView = (ImageView) inflater.inflate(R.layout.fragment_first, container, false);
+            imageView.setImageResource(R.drawable.img_sunwheel);
+        }
+        return imageView;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mLayout != null) {
-//            isViewShown = getUserVisibleHint();
-            ImageView imageView = (ImageView) mLayout.findViewById(R.id.imgTab);
-            imageView.setImageResource(R.drawable.img_danang);
-        }
+        isVisible = isVisibleToUser;
     }
 }

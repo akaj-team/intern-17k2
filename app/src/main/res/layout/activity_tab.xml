@@ -13,6 +13,14 @@
         android:layout_height="@dimen/tab.height"
         android:background="@color/colorTab" />
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerTab"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/tab.viewpager.padding"
+        android:paddingRight="@dimen/tab.viewpager.padding" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
@@ -20,12 +28,4 @@
         android:background="@color/colorSelect"
         app:tabGravity="fill"
         app:tabMode="fixed" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPagerTab"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tab.viewpager.height"
-        android:paddingLeft="@dimen/tab.viewpager.padding"
-        android:paddingRight="@dimen/tab.viewpager.padding" />
-
 </LinearLayout>

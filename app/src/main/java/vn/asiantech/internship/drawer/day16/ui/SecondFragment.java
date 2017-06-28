@@ -3,20 +3,23 @@ package vn.asiantech.internship.drawer.day16.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.drawer.day16.adapter.ImagePagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SecondFragment extends Fragment {
 
-    //    private boolean isViewShown = false;
-    private View mLayout;
+    private boolean isVisible;
 
     public SecondFragment() {
         // Required empty public constructor
@@ -25,22 +28,20 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mLayout = inflater.inflate(R.layout.fragment_first, container, false);
-        /*if (isViewShown) {
-            ImageView imageView = (ImageView) mLayout.findViewById(R.id.imgTab);
-            imageView.setImageResource(R.drawable.img_sunwheel);
-        }*/
-        return mLayout;
+        ViewPager viewPager = null;
+        if (isVisible) {
+            viewPager = (ViewPager) inflater.inflate(R.layout.fragment_second, container, false);
+            List<Integer> images = new ArrayList<>();
+            images.add(R.drawable.img_binhdinh);
+            images.add(R.drawable.img_sunwheel);
+            ImagePagerAdapter adapter = new ImagePagerAdapter(images);
+            viewPager.setAdapter(adapter);
+        }
+        return viewPager;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mLayout != null) {
-//            isViewShown = getUserVisibleHint();
-            ImageView imageView = (ImageView) mLayout.findViewById(R.id.imgTab);
-            imageView.setImageResource(R.drawable.img_sunwheel);
-        }
+        isVisible = isVisibleToUser;
     }
 }
