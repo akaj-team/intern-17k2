@@ -5,5 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="btn.addon">#FF4081</color>
     <color name="btn.addoff">#6b6767</color>
+    <color name="white">#ffffff</color>
+    <color name="item.default">#88878C</color>
+    <color name="item.choose">#C1C0C6</color>
     <color name="custom_tab">#e60707</color>
 </resources>
