@@ -28,14 +28,17 @@ import vn.asiantech.internship.adapters.FootballStarAdapter;
  * @since 06/26/2017
  */
 public class FootballStarActivity extends AppCompatActivity {
+
+    private static final int[] mTabIcons = {R.drawable.ic_messi, R.drawable.ic_spain, R.drawable.ic_ronaldo, R.drawable.ic_reus, R.drawable.ic_kaka};
+
     private ViewPager mViewPagerFootballStar;
     private TabLayout mTabLayout;
+
     private FootballStarAdapter mAdapter;
     private Handler mHandler;
     private int mCurrentItem = 0;
     private boolean inSliding = true;
     private Thread mThreadSlide;
-    private int[] mTabIcons = {R.drawable.ic_messi, R.drawable.ic_spain, R.drawable.ic_ronaldo, R.drawable.ic_reus, R.drawable.ic_kaka};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
