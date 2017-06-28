@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,10 @@ import vn.asiantech.internship.adapter.DogAdapter;
  */
 
 public class Tab2AnimalFragment extends Fragment {
+    private static final String TAG=Tab2AnimalFragment.class.getSimpleName();
     private static final String DOG_IMAGES = "dog";
-    private boolean hasLoadedOnce = false;
+    private boolean mIsLoaded;
+    private boolean mIsShowed;
     private List<String> mDogImages;
     private ViewPager mViewPagerTab2;
     private DogAdapter mDogAdapter;
@@ -33,7 +36,9 @@ public class Tab2AnimalFragment extends Fragment {
         mDogImages = getArguments().getStringArrayList(DOG_IMAGES);
         mViewPagerTab2 = (ViewPager) view.findViewById(R.id.viewPagerTab2);
         mDogAdapter = new DogAdapter(mDogImages);
-        loadData();
+        if (mIsShowed && !mIsLoaded) {
+            loadData();
+        }
         return view;
     }
 
@@ -48,10 +53,11 @@ public class Tab2AnimalFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        mIsShowed = isVisibleToUser;
         if (this.isVisible()) {
-            if (!isVisibleToUser && !hasLoadedOnce) {
+            if (mIsShowed && !mIsLoaded) {
                 loadData();
-                hasLoadedOnce = true;
+                mIsLoaded = true;
             }
         }
     }
@@ -59,5 +65,13 @@ public class Tab2AnimalFragment extends Fragment {
     private void loadData() {
         mViewPagerTab2.setAdapter(mDogAdapter);
         mViewPagerTab2.setPageTransformer(true, new DepthPageTransformer());
+        Log.i(TAG,"load item 2");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mIsLoaded = false;
+        Log.i(TAG,"destroy item 2");
     }
 }

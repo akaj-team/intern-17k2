@@ -75,11 +75,12 @@ public class MainAnimalFragment extends android.support.v4.app.Fragment {
                 R.drawable.ic_mouse,
                 R.drawable.ic_penguin,
                 R.drawable.ic_gorilla};
-        mTabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        mTabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        mTabLayout.getTabAt(2).setIcon(tabIcons[2]);
-        mTabLayout.getTabAt(3).setIcon(tabIcons[3]);
-        mTabLayout.getTabAt(4).setIcon(tabIcons[4]);
+        for (int i = 0; i < tabIcons.length; i++) {
+            TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            if (tab != null) {
+                tab.setIcon(tabIcons[i]);
+            }
+        }
     }
 
     private void runThread() {
