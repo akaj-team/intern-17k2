@@ -4,14 +4,14 @@
     android:layout_height="wrap_content"
     android:background="@android:color/transparent">
 
-    <vn.asiantech.internship.tablayout.CustomTab
+    <vn.asiantech.internship.tablayout.CustomTabLayout
         android:id="@+id/viewCustomTab"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/customTab.height"
         android:background="@android:color/transparent" />
 
     <TextView
-        android:id="@+id/tvTilteTab"
+        android:id="@+id/tvTitleTab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/viewCustomTab"

@@ -1,6 +1,5 @@
 package vn.asiantech.internship.tablayout;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,11 +18,19 @@ import vn.asiantech.internship.R;
  * @since 2017-6-27
  */
 public class ImageFragment extends Fragment {
-    private int mImage;
+    private static final String KEY_BUNDLE = "image";
     private boolean mIsLoadData = false;
     private View mView;
     private boolean mIsShow;
     private ImageView mImgScenery;
+
+    public static ImageFragment newInstance(int image) {
+        Bundle args = new Bundle();
+        args.putInt(KEY_BUNDLE, image);
+        ImageFragment fragment = new ImageFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -36,10 +43,6 @@ public class ImageFragment extends Fragment {
         return mView;
     }
 
-    public void setData(int i) {
-        mImage = i;
-    }
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         mIsShow = isVisibleToUser;
@@ -48,16 +51,19 @@ public class ImageFragment extends Fragment {
         }
     }
 
-    private void loadData() {
-        if (mView != null) {
-            mImgScenery.setBackgroundResource(mImage);
-            mIsLoadData = true;
-        }
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mIsLoadData = false;
+    }
+
+    private void loadData() {
+        if (getArguments() != null) {
+            int image = getArguments().getInt(KEY_BUNDLE);
+            if (mView != null) {
+                mImgScenery.setBackgroundResource(image);
+                mIsLoadData = true;
+            }
+        }
     }
 }

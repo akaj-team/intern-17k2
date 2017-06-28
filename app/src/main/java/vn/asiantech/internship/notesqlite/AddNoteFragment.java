@@ -153,7 +153,7 @@ public class AddNoteFragment extends Fragment {
         }
     }
 
-    public Bitmap decreaseImageSize(Uri imageFileUri) {
+    private Bitmap decreaseImageSize(Uri imageFileUri) {
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

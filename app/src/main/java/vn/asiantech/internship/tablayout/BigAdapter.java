@@ -24,11 +24,9 @@ class BigAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 2) {
-            return new CenterFragment();
+            return CenterFragment.newInstance();
         } else {
-            ImageFragment imageFragment = new ImageFragment();
-            imageFragment.setData(mImages.get(position));
-            return imageFragment;
+            return ImageFragment.newInstance(mImages.get(position));
         }
     }
 

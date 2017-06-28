@@ -64,13 +64,13 @@ public class NoteFragment extends Fragment implements View.OnKeyListener {
         return view;
     }
 
-    public void passData(Note note) {
+    private void passData(Note note) {
         mDataPasser.onDataPass(note);
     }
 
     @Override
     public boolean onKey(View view, int i, KeyEvent keyEvent) {
-        if( i == KeyEvent.KEYCODE_BACK ) {
+        if (i == KeyEvent.KEYCODE_BACK) {
 //           getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 //            android.os.Process.killProcess(android.os.Process.myPid());
             return true;

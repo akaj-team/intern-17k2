@@ -22,7 +22,6 @@ class SmallAdapter extends PagerAdapter {
     private final List<Integer> mImages;
     private final LayoutInflater mInflater;
 
-
     SmallAdapter(Context context, List<Integer> images) {
         mImages = images;
         mInflater = LayoutInflater.from(context);
@@ -45,8 +44,8 @@ class SmallAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View imageLayout = mInflater.inflate(R.layout.item_image, container, false);
-        final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgItem);
+        View imageLayout = mInflater.inflate(R.layout.item_small_viewpager, container, false);
+        final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgOfSmallViewPager);
         imageView.setImageResource(mImages.get(position));
         container.addView(imageLayout, 0);
         return imageLayout;

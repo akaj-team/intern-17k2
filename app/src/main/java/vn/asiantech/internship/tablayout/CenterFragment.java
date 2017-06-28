@@ -37,6 +37,10 @@ public class CenterFragment extends Fragment {
     private Timer mTimer;
     private ViewPager mSmallViewPager;
 
+    public static CenterFragment newInstance() {
+        return new CenterFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
