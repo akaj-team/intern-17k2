@@ -58,12 +58,12 @@ public class PageBFragment extends Fragment {
         mViewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(mViewPager);
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
-        Run();
+        run();
         changeDurationScroll();
         return view;
     }
 
-    private void Run() {
+    private void run() {
         // Auto start of viewpager
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {

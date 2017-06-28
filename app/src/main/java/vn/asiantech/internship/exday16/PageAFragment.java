@@ -21,11 +21,6 @@ import static vn.asiantech.internship.R.id.tabLayout;
  * Created by datbu on 26-06-2017.
  */
 public class PageAFragment extends Fragment {
-    private static String image1 = "http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg";
-    private static String image2 = "http://vignette2.wikia.nocookie.net/runescape2/images/3/36/Lord_Amlodd_concept_art.jpg/revision/latest?cb=20140811105559";
-    private static String image3 = "https://dviw3bl0enbyw.cloudfront.net/uploads/forum_attachment/file/139844/Male_voodoo_armor_concept_art.jpg";
-    private static String image4 = "https://cdna.artstation.com/p/assets/images/images/002/854/562/large/jonas-lopez-moreno-jonaslopezmoreno-saitan-web.jpg?1466498557";
-    private static String image5 = "http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg";
     private static List<String> mImages;
     private ViewPagerAdapter mViewPagerAdapter;
     private ViewPager mViewPager;
@@ -42,10 +37,15 @@ public class PageAFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_page_a, container, false);
         mImages = new ArrayList<>();
+        String image1 = "http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg";
         mImages.add(image1);
+        String image2 = "http://vignette2.wikia.nocookie.net/runescape2/images/3/36/Lord_Amlodd_concept_art.jpg/revision/latest?cb=20140811105559";
         mImages.add(image2);
+        String image3 = "https://dviw3bl0enbyw.cloudfront.net/uploads/forum_attachment/file/139844/Male_voodoo_armor_concept_art.jpg";
         mImages.add(image3);
+        String image4 = "https://cdna.artstation.com/p/assets/images/images/002/854/562/large/jonas-lopez-moreno-jonaslopezmoreno-saitan-web.jpg?1466498557";
         mImages.add(image4);
+        String image5 = "http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg";
         mImages.add(image5);
 
         mTabLayout = (TabLayout) view.findViewById(tabLayout);
@@ -53,7 +53,6 @@ public class PageAFragment extends Fragment {
         mViewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), mImages);
         mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.setCurrentItem(1);
-        mViewPager.setOffscreenPageLimit(1);
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         return view;
