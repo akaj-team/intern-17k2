@@ -49,6 +49,13 @@
     <string name="button.send">Send1</string>
     <string name="button.name">Send</string>
     <string name="editText.hint">Input</string>
+    <string name="name.node_add">Input Note</string>
+    <string name="name.note">Note</string>
+    <string name="textView.title">Title:</string>
+    <string name="textView.content">Your content</string>
+    <string name="title.hint">Your title</string>
+    <string name="name.node_edit">Note</string>
+    <string name="textView.edit.title">Edit Note</string>
     <string name="test.textView.back">Prev</string>
     <string name="test.textView.next">Next</string>
     <string name="test.textView.question">Question 1</string>

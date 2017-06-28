@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/note_input_toolbar" />
+
+    <ImageView
+        android:id="@+id/imgNoteAdd"
+        android:layout_width="@dimen/note.imageView.with_height"
+        android:layout_height="@dimen/note.imageView.with_height"
+        android:layout_marginTop="@dimen/note.imageView.margin_top"
+        android:contentDescription="@string/image.description"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linerLayout.height"
+        android:layout_marginLeft="@dimen/linearLayout.margin_left_right_top"
+        android:layout_marginRight="@dimen/linearLayout.margin_left_right_top"
+        android:layout_marginTop="@dimen/linearLayout.margin_left_right_top"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/textView.title"
+            android:textSize="@dimen/textView.name.size" />
+
+        <EditText
+            android:id="@+id/edtTitleAdd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:background="@android:color/transparent"
+            android:hint="@string/title.hint"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edtContentAdd"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/editText.hint"
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical" />
+</LinearLayout>

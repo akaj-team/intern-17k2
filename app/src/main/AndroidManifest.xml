@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="vn.asiantech.internship">
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".notesqlite.NoteActivity">
 
         <activity android:name=".test.TestActivity">
             <intent-filter>
@@ -21,6 +22,9 @@
         <activity android:name="recyclerview.FriendActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name="demo.RecyclerViewActivity" />
+        <activity android:name=".ui.splash.SplashActivity" />
+        <activity android:name=".feed.FeedActivity" />
+        <activity android:name=".SendActivity" />
         <activity android:name=".test.ResultActivity" />
         <activity android:name=".feed.FeedActivity" />
         <activity android:name=".SendActivity" />
