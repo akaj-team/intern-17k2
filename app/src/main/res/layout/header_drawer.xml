@@ -4,7 +4,6 @@
     android:id="@+id/lnHeader"
     android:layout_width="match_parent"
     android:layout_height="@dimen/header.layout_weight"
-    android:background="@color/colorDark"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="@dimen/header.layout_padding">
@@ -17,8 +16,6 @@
         app:civ_border_color="@color/colorPrimary"
         app:civ_border_overlay="true"
         app:civ_border_width="@dimen/header.image_border_weight" />
-    app:civ_border_overlay="true"
-    app:civ_border_width="@dimen/header.image_border_weight" />
 
     <LinearLayout
         android:layout_width="0dp"
