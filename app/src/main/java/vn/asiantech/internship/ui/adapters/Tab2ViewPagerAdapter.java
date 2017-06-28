@@ -14,8 +14,8 @@ import vn.asiantech.internship.R;
  * Created by AnhHuy on 27-Jun-17.
  */
 public class Tab2ViewPagerAdapter extends PagerAdapter {
-    private Context mContext;
-    private int[] mResource;
+    private final Context mContext;
+    private final int[] mResource;
 
     public Tab2ViewPagerAdapter(Context context, int[] resource) {
         mContext = context;

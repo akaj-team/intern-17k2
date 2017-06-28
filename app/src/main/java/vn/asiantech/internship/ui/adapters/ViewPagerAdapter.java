@@ -15,7 +15,7 @@ import vn.asiantech.internship.ui.tablayout.TabThirdFragment;
  * Created by AnhHuy on 26-Jun-17.
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
-    private int mNumberPage;
+    private final int mNumberPage;
 
     public ViewPagerAdapter(FragmentManager fm, int number) {
         super(fm);

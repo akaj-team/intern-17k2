@@ -9,7 +9,7 @@ import android.widget.Scroller;
  * Created by AnhHuy on 27-Jun-17.
  */
 public class SpeedScroll extends Scroller {
-    private int mDuration = 5000;
+    private final int mDuration = 5000;
 
     public SpeedScroll(Context context) {
         super(context);

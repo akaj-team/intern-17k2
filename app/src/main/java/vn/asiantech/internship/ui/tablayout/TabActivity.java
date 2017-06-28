@@ -19,10 +19,10 @@ import vn.asiantech.internship.ui.adapters.ViewPagerAdapter;
 public class TabActivity extends AppCompatActivity {
     private ViewPager mViewPagerTab;
     private TabLayout mTabLayoutTab;
-    private ViewPagerAdapter mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 5);
+    private final ViewPagerAdapter mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 5);
 
-    private String[] mTextTab = {"Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"};
-    private int[] mIconTab = {R.drawable.selector_bubble, R.drawable.selector_cloud_queue,
+    private final String[] mTextTab = {"Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"};
+    private final int[] mIconTab = {R.drawable.selector_bubble, R.drawable.selector_cloud_queue,
             R.drawable.selector_nfc, R.drawable.selector_shopping, R.drawable.seletor_filter_vintage};
 
     @Override
@@ -48,11 +48,14 @@ public class TabActivity extends AppCompatActivity {
 
     private void customTabLayout() {
         for (int i = 0; i < mPagerAdapter.getCount(); i++) {
-            TextView tvTabText = (TextView) LayoutInflater.from(this).inflate(R.layout.text_view_tab, null, false);
+            TextView tvTabText = (TextView) LayoutInflater.from(this).inflate(R.layout.text_view_tab, null);
             tvTabText.setText(mTextTab[i]);
             tvTabText.setTextColor(ContextCompat.getColorStateList(this, R.color.selector_text_view));
             tvTabText.setCompoundDrawablesWithIntrinsicBounds(0, mIconTab[i], 0, 0);
-            mTabLayoutTab.getTabAt(i).setCustomView(tvTabText);
+            TabLayout.Tab tab = mTabLayoutTab.getTabAt(i);
+            if (tab != null){
+                tab.setCustomView(tvTabText);
+            }
         }
     }
 }

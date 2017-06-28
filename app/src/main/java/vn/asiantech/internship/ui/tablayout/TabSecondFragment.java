@@ -26,7 +26,7 @@ import vn.asiantech.internship.ui.adapters.Tab2ViewPagerAdapter;
  */
 public class TabSecondFragment extends Fragment {
     private ViewPager mViewPagerTab2;
-    private int[] mImage = {R.drawable.img_tab5, R.drawable.img_tab1, R.drawable.img_tab4,
+    private final int[] mImage = {R.drawable.img_tab5, R.drawable.img_tab1, R.drawable.img_tab4,
             R.drawable.img_tab2, R.drawable.img_tab3};
 
     private int mCurrentPage = 0;
@@ -50,8 +50,8 @@ public class TabSecondFragment extends Fragment {
     }
 
     private void autoScroll() {
-        final long DELAY_MS = 50;
-        final long PERIOD_MS = 5000;
+        final long delay = 50;
+        final long period = 5000;
         final Tab2ViewPagerAdapter adapter = new Tab2ViewPagerAdapter(getContext(), mImage);
         mTimer = new Timer();
         final Handler handler = new Handler();
@@ -70,7 +70,7 @@ public class TabSecondFragment extends Fragment {
             public void run() {
                 handler.post(runnable);
             }
-        }, DELAY_MS, PERIOD_MS);
+        }, delay, period);
     }
 
     private void changeDurationScroll() {
