@@ -18,7 +18,11 @@ import vn.asiantech.internship.R;
 public class FootballStarFragment extends Fragment {
 
     private static final String KEY_ID = "keyId";
+    private View mView;
+    private ImageView mImgSpainStar;
     private int mId;
+    private boolean dataLoaded = false;
+    private boolean isVisible = false;
 
     public static FootballStarFragment getNewInstance(int imageId) {
         FootballStarFragment footballStarFragment = new FootballStarFragment();
@@ -37,10 +41,39 @@ public class FootballStarFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_football_star, container, false);
-        ImageView imgChampion = (ImageView) view.findViewById(R.id.imgChampion);
-        imgChampion.setImageResource(mId);
-        return view;
+        mView = inflater.inflate(R.layout.fragment_football_star, container, false);
+        mImgSpainStar = (ImageView) mView.findViewById(R.id.imgChampion);
+        if (!dataLoaded && getUserVisibleHint()) {
+            loadData();
+        }
+        return mView;
     }
 
+    @Override
+    public boolean getUserVisibleHint() {
+        return isVisible;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        isVisible = isVisibleToUser;
+        if (isVisibleToUser) {
+            loadData();
+        }
+    }
+
+    private void loadData() {
+        if (mView != null) {
+            mImgSpainStar.setImageResource(mId);
+            dataLoaded = true;
+        } else {
+            dataLoaded = false;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        dataLoaded = false;
+    }
 }

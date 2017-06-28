@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ultils;
+package vn.asiantech.internship.ultil;
 
 import android.content.Context;
 import android.view.animation.Interpolator;
