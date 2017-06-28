@@ -1,42 +1,38 @@
 package vn.asiantech.internship.note;
 
+import java.io.Serializable;
+
 /**
  * Created by datbu on 19-06-2017.
  */
-class ItemNote {
+class ItemNote implements Serializable {
     private String title;
     private String note;
     private String time;
     private String image;
     private int id;
 
-    ItemNote(String title, String note, String image) {
-        this.title = title;
-        this.note = note;
-        this.image = image;
-    }
-
-    public ItemNote(String time,String title, String note,  String image) {
+    ItemNote(String time, String title, String note, String image) {
         this.title = title;
         this.note = note;
         this.time = time;
         this.image = image;
     }
 
-    public ItemNote() {
-
+    ItemNote() {
     }
 
-    public ItemNote(String title, String note) {
-        this.title = title;
+    ItemNote(String time, String title, String note) {
         this.note = note;
+        this.time = time;
+        this.title = title;
     }
 
     String getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    void setTime(String time) {
         this.time = time;
     }
 
@@ -60,7 +56,7 @@ class ItemNote {
         return image;
     }
 
-    public void setImage(String image) {
+    void setImage(String image) {
         this.image = image;
     }
 

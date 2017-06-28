@@ -1,7 +1,6 @@
 package vn.asiantech.internship.note;
 
-import android.content.Context;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -19,12 +17,12 @@ import vn.asiantech.internship.R;
  * Created by DatBui on 19/06/2017.
  */
 class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapter.MyHolder> {
-    private Context mContext;
     private List<ItemNote> mNoteList;
     private OnClickItemNoteListener mOnItemClickListener;
 
-    RecyclerViewNoteAdapter(List<ItemNote> noteList) {
+    RecyclerViewNoteAdapter(List<ItemNote> noteList, OnClickItemNoteListener listener) {
         mNoteList = noteList;
+        mOnItemClickListener = listener;
     }
 
     @Override
@@ -39,11 +37,12 @@ class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapt
         holder.mTvTitle.setText(itemNote.getTitle());
         holder.mTvNote.setText(itemNote.getNote());
         holder.mTvTime.setText(itemNote.getTime());
-        if (itemNote.getImage() != null) {
-            File file = new File(itemNote.getImage());
-            if (file.exists()) {
-                holder.mImgNote.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
-            }
+        if (mNoteList.get(position).getImage() != null) {
+            holder.mImgNote.setVisibility(View.VISIBLE);
+            holder.mImgNote.setImageURI(Uri.parse(mNoteList.get(position).getImage()));
+        } else {
+            holder.mImgNote.setVisibility(View.VISIBLE);
+            holder.mImgNote.setImageResource(R.mipmap.ic_launcher);
         }
     }
 
@@ -52,6 +51,10 @@ class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapt
         return mNoteList.size();
     }
 
+    /**
+     * Copyright © 2016 AsianTech inc.
+     * Created by DatBui on 19/06/2017.
+     */
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvTime;
         private TextView mTvTitle;
@@ -70,7 +73,9 @@ class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapt
 
         @Override
         public void onClick(View v) {
-            mOnItemClickListener.onItemClick(getAdapterPosition());
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.onItemClick(mNoteList.get(getAdapterPosition()));
+            }
         }
     }
 
@@ -78,7 +83,9 @@ class RecyclerViewNoteAdapter extends RecyclerView.Adapter<RecyclerViewNoteAdapt
      * Copyright © 2016 AsianTech inc.
      * Created by DatBui on 19/06/2017.
      */
-    public interface OnClickItemNoteListener {
-        void onItemClick(int positon);
+    interface OnClickItemNoteListener {
+        void onItemClick(ItemNote itemNote);
     }
 }
+
+

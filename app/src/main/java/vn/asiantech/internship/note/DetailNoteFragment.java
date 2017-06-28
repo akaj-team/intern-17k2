@@ -1,39 +1,34 @@
 package vn.asiantech.internship.note;
 
-import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Toast;
 
 import vn.asiantech.internship.R;
+
+import static vn.asiantech.internship.note.AddNoteFragment.saveImage;
 
 /**
  * Created by datbu on 25-06-2017.
  */
-
-public class DetailNoteFragment extends Fragment implements View.OnClickListener {
+public class DetailNoteFragment extends Fragment {
     private EditText mEdtTitle;
     private EditText mEdtNote;
-    private ImageView mImgDelete;
-    private ImageView mImgEdit;
     private ImageView mImgPhoto;
-    private NoteFragment mNoteFragment;
     private TextView mTvTime;
-    private List<ItemNote> mItemNotes = new ArrayList<>();
-    private NoteDatabase mNoteDatabase;
-    private ItemNote mNote;
+    private boolean mIsBitmap = false;
+    private ItemNote mItemNote;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,61 +40,68 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         initView(view);
-        try {
-            mNoteDatabase.open();
-            mItemNotes = mNoteDatabase.getList();
-            mNoteDatabase.close();
-        } catch (IOException e) {
-            Log.d("tag", "ERROR");
+        mItemNote = (ItemNote) getArguments().getSerializable(NoteActivity.KEY_NOTE);
+
+        if ((mItemNote != null ? mItemNote.getImage() : null) != null) {
+            mImgPhoto.setVisibility(View.VISIBLE);
+            mImgPhoto.setImageURI(Uri.parse(mItemNote.getImage()));
         }
-        Bundle bundle = getArguments();
-        int position = bundle.getInt("position");
-        mNote = mItemNotes.get(position);
-        setData();
-        mImgDelete.setOnClickListener(this);
+
+        mEdtTitle.setText(mItemNote != null ? mItemNote.getTitle() : null);
+        mEdtNote.setText(mItemNote.getNote());
+        mTvTime.setText(mItemNote.getTime());
         return view;
     }
 
-    @Override
-    public void onClick(View v) {
-        try {
-            mNoteDatabase.open();
-            mNoteDatabase.delete(mNote);
-            mNoteDatabase.close();
-            ((OnReplaceFragmentListener) getActivity()).onReplaceFragmentMain();
-        } catch (IOException e) {
-            Log.d("tag1", "ERROR");
-        }
-    }
-
-    private void setData() {
-        if (mNote.getImage() != null) {
-            File file = new File(mNote.getImage());
-            if (file.exists()) {
-                mImgPhoto.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
-            }
-        }
-        mEdtTitle.setText(mNote.getTitle());
-        mEdtNote.setText(mNote.getNote());
-        mTvTime.setText(mNote.getTime());
+    public void prepareEditNote() {
+        mEdtTitle.setEnabled(true);
+        mEdtNote.setEnabled(true);
     }
 
     private void initView(View view) {
-        mImgDelete = (ImageView) view.findViewById(R.id.imgDelete);
-        mImgEdit = (ImageView) view.findViewById(R.id.imgEdit);
         mImgPhoto = (ImageView) view.findViewById(R.id.imgPhoto);
         mEdtNote = (EditText) view.findViewById(R.id.edtNote);
         mEdtTitle = (EditText) view.findViewById(R.id.edtTitle);
         mTvTime = (TextView) view.findViewById(R.id.tvTime);
     }
 
-//    public void replaceFragment(Fragment fragment, boolean backStack) {
-//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.fragmentNote, fragment);
-//        if (backStack) {
-//            fragmentTransaction.addToBackStack(fragment.getTag());
-//        }
-//        fragmentTransaction.commit();
-//    }
+    public long editNote() {
+        mEdtNote.setFocusable(true);
+        mEdtTitle.setFocusable(true);
+        if (TextUtils.isEmpty(mEdtNote.getText()) || TextUtils.isEmpty(mEdtTitle.getText())) {
+            Toast.makeText(getContext(), "Please input text !", Toast.LENGTH_SHORT).show();
+            return -1;
+        } else {
+            String time = AddNoteFragment.getDate();
+            mItemNote.setTime(time);
+            mItemNote.setTitle(mEdtTitle.getText().toString());
+            mItemNote.setNote(mEdtNote.getText().toString());
+            String savePath = null;
+            if (mIsBitmap) {
+                savePath = saveImage(((BitmapDrawable) mImgPhoto.getDrawable()).getBitmap());
+            }
+            if (savePath != null) {
+                mItemNote.setImage(savePath);
+            }
+            NoteDatabase noteDatabase = new NoteDatabase(getContext());
+            noteDatabase.open();
+            long result = noteDatabase.editNote(mItemNote);
+            noteDatabase.close();
+            return result;
+        }
+    }
+
+    public void addImage(Bitmap bitmap) {
+        if (bitmap != null) {
+            mImgPhoto.setVisibility(View.VISIBLE);
+            mImgPhoto.setImageBitmap(bitmap);
+            mIsBitmap = true;
+        } else {
+            mImgPhoto.setVisibility(View.GONE);
+        }
+    }
+
+    public int getNoteId() {
+        return mItemNote.getId();
+    }
 }

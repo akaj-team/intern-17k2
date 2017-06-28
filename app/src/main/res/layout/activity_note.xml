@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".note.NoteActivity">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_note" />
+
     <FrameLayout
-        android:id="@+id/fragmentNote"
+        android:id="@+id/flNote"
         android:name="vn.asiantech.internship.note.NoteFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/include">
 
     </FrameLayout>
-</LinearLayout>
+</RelativeLayout>

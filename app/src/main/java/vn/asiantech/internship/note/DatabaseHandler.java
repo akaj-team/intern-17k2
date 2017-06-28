@@ -4,11 +4,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Created by datbu on 20-06-2017.
+ */
 class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "sqlite";
-    private static final String TABLE_CONTACTS = "tablenote";
-    private static final String ID = "id";
+    private static final String DATABASE_NAME = "sql_lite";
+    private static final String TABLE_CONTACTS = "table_note";
+    private static final String ID = "_id";
     private static final String TITLE = "title";
     private static final String NOTE = "note";
     private static final String TIME = "time";
@@ -22,8 +25,11 @@ class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
-                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TITLE + " TEXT," + NOTE + " TEXT,"
-                + TIME + " TEXT," + IMAGE + " TEXT" + ")";
+                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + TITLE + " TEXT,"
+                + NOTE + " TEXT,"
+                + TIME + " TEXT,"
+                + IMAGE + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
