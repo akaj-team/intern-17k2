@@ -13,4 +13,5 @@
     <color name="stroke.custom_linearlayout_image_header">#CCCCCC</color>
     <color name="solid.custom_linearlayout_image_header">#EEEEEE</color>
     <color name="avatar_bolder">#FFFFCC</color>
+    <color name="cardview.textview.background.border">#CCCCCC</color>
 </resources>
