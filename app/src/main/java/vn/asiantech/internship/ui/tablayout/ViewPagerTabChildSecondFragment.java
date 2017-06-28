@@ -20,10 +20,12 @@ public class ViewPagerTabChildSecondFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private ImageView mImgView;
+    private View mView;
 
     private String mUrl;
     private int mPosition;
-
+    private boolean isLoadData;
+    private boolean mVisible;
 
     public static ViewPagerTabChildSecondFragment newInstance(String url, int position) {
         ViewPagerTabChildSecondFragment fragment = new ViewPagerTabChildSecondFragment();
@@ -47,21 +49,38 @@ public class ViewPagerTabChildSecondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_view_pager_tab_child_second, container, false);
-        mImgView = (ImageView) v.findViewById(R.id.imgView);
+        mView = inflater.inflate(R.layout.fragment_view_pager_tab_child_second, container, false);
+        mImgView = (ImageView) mView.findViewById(R.id.imgView);
 
         // Default load in the open first time
         if (mPosition == 2) {
             Picasso.with(getContext()).load(mUrl).placeholder(R.drawable.vector_refresh).into(mImgView);
         }
-        return v;
+        if (!isLoadData && getUserVisibleHint()) {
+            Picasso.with(getContext()).load(mUrl).placeholder(R.drawable.vector_refresh).into(mImgView);
+        }
+        return mView;
+    }
+
+    @Override
+    public boolean getUserVisibleHint() {
+        return mVisible;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
+        mVisible = isVisibleToUser;
         if (isVisibleToUser && getContext() != null) {
-            Picasso.with(getContext()).load(mUrl).placeholder(R.drawable.vector_refresh).into(mImgView);
+            if (!isLoadData && mView != null) {
+                isLoadData = true;
+                Picasso.with(getContext()).load(mUrl).placeholder(R.drawable.vector_refresh).into(mImgView);
+            }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        mVisible = false;
+        super.onDestroyView();
     }
 }

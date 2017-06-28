@@ -1,6 +1,5 @@
 package vn.asiantech.internship.ui.fragment;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -52,7 +51,6 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
                 openActivity(ViewPagerActivity.class);
                 break;
         }
-
     }
 
     private void showToast(String s) {
@@ -62,6 +60,7 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
     private void openActivity(Class<?> className) {
         Intent intent = new Intent(getContext(), className);
         getContext().startActivity(intent);
+        getActivity().finish();
     }
 
     private void init(View v) {

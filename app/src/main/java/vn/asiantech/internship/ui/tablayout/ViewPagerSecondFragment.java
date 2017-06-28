@@ -26,7 +26,6 @@ public class ViewPagerSecondFragment extends Fragment {
 
     private ViewPager mViewPager;
     private MyTabView mMyTabView;
-
     private ViewPagerSecondAdapter mViewPagerSecondAdapter;
 
     private Handler mHandler;
@@ -35,6 +34,7 @@ public class ViewPagerSecondFragment extends Fragment {
     private boolean isHaveTabSelected;
     private float mTabSelected = 0;
     private float mLocationOld;
+
     private String[] mUrls = {
             "https://s-media-cache-ak0.pinimg.com/736x/bc/82/d6/bc82d6709eaa6921d32f25b2567cdc6d.jpg",
             "https://mfiles.alphacoders.com/579/579712.jpg",
@@ -57,8 +57,8 @@ public class ViewPagerSecondFragment extends Fragment {
         mViewPagerSecondAdapter = new ViewPagerSecondAdapter(getChildFragmentManager(), mUrls);
 
         mLocationOld = mViewPager.getWidth() / 2;
-        slowSlider();
-        autoSlider();
+        //slowSlider();
+      //  autoSlider();
         mMyTabView.onClickItem(new MyTabView.OnGridViewListener() {
             @Override
             public void onClickItem(float position) {
@@ -102,12 +102,9 @@ public class ViewPagerSecondFragment extends Fragment {
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     mIsSliding = true;
-                    autoSlider();
                     mMyTabView.setOnTouch(false);
                     mLocationOld = mViewPager.getWidth() / 2;
-                    DecimalFormat df = new DecimalFormat("0");
-                    String str = df.format(mTabSelected);
-                    mTabSelected = Integer.valueOf(str);
+                    mTabSelected = getInt(mTabSelected);
                     mMyTabView.setTabSelected(mTabSelected);
                     return false;
                 }
@@ -115,6 +112,12 @@ public class ViewPagerSecondFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    private Integer getInt(Float f) {
+        DecimalFormat df = new DecimalFormat("0");
+        String str = df.format(f);
+        return Integer.valueOf(str);
     }
 
     private void slowSlider() {

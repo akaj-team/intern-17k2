@@ -188,6 +188,9 @@ public class MyTabView extends View {
         mOnGridViewListener = onGridViewListener;
     }
 
+    /**
+     * OnGridViewListener
+     */
     interface OnGridViewListener {
         void onClickItem(float position);
     }
