@@ -24,13 +24,13 @@ class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
+        String create_contacts_table = "CREATE TABLE " + TABLE_CONTACTS + "("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + TITLE + " TEXT,"
                 + NOTE + " TEXT,"
                 + TIME + " TEXT,"
                 + IMAGE + " TEXT" + ")";
-        db.execSQL(CREATE_CONTACTS_TABLE);
+        db.execSQL(create_contacts_table);
     }
 
     // Upgrading database
