@@ -13,9 +13,10 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapters.SpainStarAdapter;
 
 /**
- * Created by PC on 6/27/2017.
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/26/2017
  */
-
 public class SpainStarFragment extends Fragment {
 
     private View mView;
@@ -25,18 +26,11 @@ public class SpainStarFragment extends Fragment {
     private boolean dataLoaded = false;
     private boolean isVisible;
 
-    public static SpainStarFragment getNewInstance() {
-        SpainStarFragment spainStarFragment = new SpainStarFragment();
-        return spainStarFragment;
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_spain_star, container, false);
         mViewPagerSpainStar = (ViewPager) mView.findViewById(R.id.viewPagerSpainStar);
-        Log.i("tag11", "OnCreateView");
-        Log.i("tag112", dataLoaded + "---" + getUserVisibleHint());
         if (!dataLoaded && getUserVisibleHint()) {
             loadData();
         }
@@ -58,7 +52,6 @@ public class SpainStarFragment extends Fragment {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        Log.i("tag11", "xxx" + isVisibleToUser);
         isVisible = isVisibleToUser;
         if (isVisibleToUser) {
             loadData();
@@ -71,7 +64,6 @@ public class SpainStarFragment extends Fragment {
     }
 
     private void loadData() {
-        Log.i("tag1123", "loadData");
         if (mView != null) {
             if (mAdapter == null) {
                 mAdapter = new SpainStarAdapter(spainStarPhotos);

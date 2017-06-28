@@ -9,12 +9,14 @@ import vn.asiantech.internship.ui.fragments.FootballStarFragment;
 import vn.asiantech.internship.ui.fragments.SpainStarFragment;
 
 /**
- * Created by PC on 6/26/2017.
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/27/2017
  */
-
 public class FootballStarAdapter extends FragmentStatePagerAdapter {
 
     private int[] mIds = {R.drawable.bg_messi, 0, R.drawable.bg_ronaldo, R.drawable.bg_reus, R.drawable.bg_kaka};
+    private String[] mPageTitles = {"Messi", "Spain", "Ronaldo", "Reus", "Kaka"};
 
     public FootballStarAdapter(FragmentManager fm) {
         super(fm);
@@ -27,7 +29,12 @@ public class FootballStarAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 1) return SpainStarFragment.getNewInstance();
+        if (position == 1) return new SpainStarFragment();
         return FootballStarFragment.getNewInstance(mIds[position]);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mPageTitles[position];
     }
 }

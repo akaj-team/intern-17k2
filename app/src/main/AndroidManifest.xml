@@ -24,5 +24,4 @@
         <activity android:name=".ui.main.PassDataActivity" />
         <activity android:name=".ui.main.FootballStarActivity" />
     </application>
-
 </manifest>

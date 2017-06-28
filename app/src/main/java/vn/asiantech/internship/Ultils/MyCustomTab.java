@@ -4,44 +4,62 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 /**
- * Created by PC on 6/27/2017.
+ * This class to draw top part Tab of TabLayout
+ *
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/27/2017
  */
-
 public class MyCustomTab extends View {
 
-    private Paint mPaint;
     private int mWidth;
     private int mHeight;
+    private boolean selected = false;
+    private Paint mPaint;
 
     public MyCustomTab(Context context) {
         super(context);
-        Log.i("tag11", "con1");
+        mPaint = new Paint();
     }
 
     public MyCustomTab(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        Log.i("tag11", "con2");
+        mPaint = new Paint();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.i("tag11", "onDraw");
         mWidth = getWidth();
-        mHeight = getHeight();
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setStyle(Paint.Style.STROKE);
+        mHeight = mWidth / 3;
+        mPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(5);
         mPaint.setColor(Color.RED);
-        Point o = new Point(mWidth / 2, mHeight * 3);
-        Log.i("tag11", getWidth() + "---" + getHeight());
-        canvas.drawCircle(getWidth() / 2, getWidth()/2 + 10, getWidth()/2, mPaint);
+        if (selected) {
+            mPaint.setColor(Color.WHITE);
+            canvas.drawCircle(getWidth() / 2, getWidth() / 2 + 10, getWidth() / 2, mPaint);
+            mPaint.setColor(Color.RED);
+            mPaint.setStyle(Paint.Style.STROKE);
+            canvas.drawCircle(getWidth() / 2, getWidth() / 2 + 10, getWidth() / 2, mPaint);
+            canvas.drawLine(0, getHeight(), mWidth / 2 - getDxEmpty(), getHeight(), mPaint);
+            canvas.drawLine(mWidth / 2 + getDxEmpty(), getHeight(), mWidth, getHeight(), mPaint);
+        } else {
+            canvas.drawLine(0, getHeight(), mWidth, getHeight(), mPaint);
+        }
+    }
+
+    private float getDxEmpty() {
+        return (float) Math.sqrt(1.0 * mWidth * mWidth / 4 - (1.0 * mWidth / 2 + 10 - 1.0 * mHeight) * (1.0 * mWidth / 2 + 10 - 1.0 * mHeight));
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        invalidate();
     }
 }

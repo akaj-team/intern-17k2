@@ -5,9 +5,10 @@ import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 /**
- * Created by PC on 6/26/2017.
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/26/2017
  */
-
 public class ChangeDurationTimeViewPager extends Scroller {
     private int mDuration = 5000;
 

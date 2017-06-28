@@ -17,4 +17,12 @@
     <dimen name="drawer_width">200dp</dimen>
     <dimen name="text_size_small">10sp</dimen>
     <dimen name="tab_height">76dp</dimen>
+
+    <dimen name="tab_canvas_height">20dp</dimen>
+    <dimen name="tab_canvas_boder">2dp</dimen>
+    <dimen name="tab_canvas_margin">6dp</dimen>
+    <dimen name="tab_text_size">14sp</dimen>
+    <dimen name="tab_text_view_padding">3dp</dimen>
+    <dimen name="tab_icon_size">30dp</dimen>
+
 </resources>

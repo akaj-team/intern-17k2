@@ -9,9 +9,10 @@ import android.widget.ImageView;
 import vn.asiantech.internship.R;
 
 /**
- * Created by PC on 6/27/2017.
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 06/26/2017
  */
-
 public class SpainStarAdapter extends PagerAdapter {
     private int[] stars;
 
@@ -39,7 +40,6 @@ public class SpainStarAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        
     }
 
     @Override
