@@ -18,10 +18,13 @@ import android.view.View;
  */
 public class CustomTab extends View {
     private Paint mPaint;
+    private Paint mPaint2;
+    private boolean mIsSelected;
 
     public CustomTab(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initPaint();
+        initPaint2();
     }
 
     public CustomTab(Context cxt) {
@@ -30,24 +33,36 @@ public class CustomTab extends View {
 
     private void initPaint() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setStrokeWidth(3);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(Color.GRAY);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(Color.WHITE);
+    }
+
+    private void initPaint2() {
+        mPaint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint2.setStrokeWidth(4);
+        mPaint2.setStyle(Paint.Style.STROKE);
+        mPaint2.setColor(Color.DKGRAY);
     }
 
     public void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.WHITE);
-        drawCurve(canvas, 0, getWidth() / 5);
-        drawCurve(canvas, getWidth() / 5, getWidth() / 5 * 2);
-        drawCurve(canvas, getWidth() / 5 * 2, getWidth() / 5 * 3);
-        drawCurve(canvas, getWidth() / 5 * 3, getWidth() / 5 * 4);
-        drawCurve(canvas, getWidth() / 5 * 4, getWidth() / 5 * 5);
+        if (mIsSelected) {
+            RectF rectF = new RectF(0, 0, getWidth(), getHeight() * 2);
+            RectF rectF2 = new RectF(1, 1, getWidth()-1, getHeight() * 2);
+            canvas.drawArc(rectF, 0, -180, false, mPaint);
+            canvas.drawArc(rectF2, 0, -180, false, mPaint2);
+        } else {
+            canvas.drawLine(0, getHeight()-2, getWidth(), getHeight()-2, mPaint2);
+        }
     }
 
-    private void drawCurve(Canvas canvas, int x1, int x2) {
-        RectF rectF = new RectF(x1, 0, x2, getHeight() / 2);
-        canvas.drawArc(rectF, 0, -180, false, mPaint);
-        canvas.drawLine(0, getHeight() / 4, x1, getHeight() / 4, mPaint);
-        canvas.drawLine(x2, getHeight() / 4, getWidth(), getHeight() / 4, mPaint);
+    @Override
+    public boolean isSelected() {
+        return mIsSelected;
+    }
+
+    @Override
+    public void setSelected(boolean selected) {
+        mIsSelected = selected;
+        invalidate();
     }
 }

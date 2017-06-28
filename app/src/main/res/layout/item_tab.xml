@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/imgCurve"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:textSize="@dimen/tab.title.size" />
+    android:background="@android:color/transparent">
+
+    <vn.asiantech.internship.tablayout.CustomTab
+        android:id="@+id/viewCustomTab"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/customTab.height"
+        android:background="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/tvTilteTab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/viewCustomTab"
+        android:background="@color/colorWhite"
+        android:gravity="center"
+        android:textSize="@dimen/tab.title.size" />
+</RelativeLayout>

@@ -30,4 +30,6 @@
     <dimen name="feed.textView.size">20sp</dimen>
     <dimen name="feed.cardView.margin_left_right">5dp</dimen>
     <dimen name="tab.title.size">8sp</dimen>
+    <dimen name="customTab.height">15dp</dimen>
+    <dimen name="tabLayout.height">80dp</dimen>
 </resources>
