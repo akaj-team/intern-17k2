@@ -18,18 +18,18 @@ import vn.asiantech.internship.R;
  * Created by ducle on 26/06/2017.
  */
 public class ItemAnimalFragment extends android.support.v4.app.Fragment {
+    private boolean hasLoadedOnce = true;
     public static final String KEY_IMAGE = "image";
     private ImageView mImgAnimal;
+    private String mImageUrl;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_item_animal, container, false);
-        String url_image = getArguments().getString(KEY_IMAGE);
+        mImageUrl = getArguments().getString(KEY_IMAGE);
         mImgAnimal = (ImageView) view.findViewById(R.id.imgAnimal);
-        ImageLoader imageLoader = ImageLoader.getInstance();
-        imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
-        imageLoader.displayImage(url_image, mImgAnimal);
+        loadData();
         return view;
     }
 
@@ -39,5 +39,22 @@ public class ItemAnimalFragment extends android.support.v4.app.Fragment {
         bundle.putString(KEY_IMAGE, animalImages.get(position));
         itemAnimalFragment.setArguments(bundle);
         return itemAnimalFragment;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (this.isVisible()) {
+            if (!isVisibleToUser && !hasLoadedOnce) {
+                loadData();
+                hasLoadedOnce = true;
+            }
+        }
+    }
+
+    public void loadData() {
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
+        imageLoader.displayImage(mImageUrl, mImgAnimal);
     }
 }
