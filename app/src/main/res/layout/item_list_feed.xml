@@ -29,10 +29,30 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPagerFeed"
         android:layout_width="@dimen/cardview.viewpager.layout_width.feed"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/cardview.viewpager.layout_height.feed"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/cardview.viewpager.layout_marginBottom.feed"
         android:layout_marginTop="@dimen/cardview.viewpager.layout_marginTop.feed" />
+
+    <ImageView
+        android:id="@+id/imgArrowLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/imageview.arrowleft.layout_marginLeft"
+        android:layout_marginTop="@dimen/imageview.arrowleft.layout_marginTop"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_arrow_left"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/imgArrowRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/imageview.arrowright.layout_marginLeft"
+        android:layout_marginTop="@dimen/imageview.arrowleft.layout_marginTop"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_arrow_right"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/tvDescription"

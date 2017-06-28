@@ -34,11 +34,15 @@
     <dimen name="cardview.ll.layout_height.feed">50dp</dimen>
     <dimen name="cardview.imageview.layout_height.user">40dp</dimen>
     <dimen name="cardview.textview.marginleft.user">5dp</dimen>
-    <dimen name="cardview.viewpager.layout_marginTop.feed">40dp</dimen>
+    <dimen name="cardview.viewpager.layout_marginTop.feed">60dp</dimen>
     <dimen name="cardview.viewpager.layout_marginBottom.feed">20dp</dimen>
     <dimen name="cardview.viewpager.layout_width.feed">300dp</dimen>
     <dimen name="cardview.textview.marginleft.description">20dp</dimen>
     <dimen name="cardview.textview.marginTop.description">270dp</dimen>
     <dimen name="imageview.avatar.layout_height">80dp</dimen>
     <dimen name="imageview.avatar.layout_width">80dp</dimen>
+    <dimen name="cardview.viewpager.layout_height.feed">200dp</dimen>
+    <dimen name="imageview.arrowleft.layout_marginTop">150dp</dimen>
+    <dimen name="imageview.arrowleft.layout_marginLeft">80dp</dimen>
+    <dimen name="imageview.arrowright.layout_marginLeft">260dp</dimen>
 </resources>

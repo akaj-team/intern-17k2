@@ -8,23 +8,46 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
+import java.util.List;
+
 import vn.asiantech.internship.R;
 
 /**
- * Created by rimoka on 15/06/2017.
+ * Copyright © 2017 AsianTech inc.
+ * Created by at-hoavo on 15/06/2017.
  */
 public class CustomFeedPagerAdapter extends PagerAdapter {
-    private int[] mImages;
+    private List<String> mLinks;
     private Context mContext;
+    private ImageLoader mImageLoader;
 
-    public CustomFeedPagerAdapter(int[] images, Context context) {
+    CustomFeedPagerAdapter(List<String> links, Context context) {
         mContext = context;
-        mImages = images;
+        mLinks = links;
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisc(true).cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300)).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                mContext)
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new WeakMemoryCache())
+                .discCacheSize(100 * 1024 * 1024).build();
+        mImageLoader = ImageLoader.getInstance();
+        mImageLoader.init(config);
     }
 
     @Override
     public int getCount() {
-        return mImages.length;
+        return mLinks.size();
     }
 
     @Override
@@ -36,7 +59,7 @@ public class CustomFeedPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_list_pager, container, false);
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imgFeed);
-        imageView.setImageResource(mImages[position]);
+        mImageLoader.displayImage(mLinks.get(position), imageView);
         container.addView(itemView);
         return itemView;
     }

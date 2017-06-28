@@ -17,7 +17,8 @@ import vn.asiantech.internship.day9.adapter.FeedRecyclerViewAdapter;
 import vn.asiantech.internship.day9.model.User;
 
 /**
- * Created by rimoka on 15/06/2017.
+ * Copyright © 2017 AsianTech inc.
+ * Created by at-hoavo on 15/06/2017.
  */
 public class FeedFragment extends Fragment {
     private List<User> mUsers = new ArrayList<>();
@@ -37,8 +38,8 @@ public class FeedFragment extends Fragment {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
             recyclerViewFeed.setLayoutManager(linearLayoutManager);
             recyclerViewFeed.setAdapter(feedAdapter);
+            feedAdapter.notifyDataSetChanged();
         }
-
         return v;
     }
 }
