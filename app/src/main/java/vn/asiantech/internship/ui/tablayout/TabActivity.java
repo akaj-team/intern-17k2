@@ -1,0 +1,59 @@
+package vn.asiantech.internship.ui.tablayout;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.widget.TextView;
+
+import vn.asiantech.internship.R;
+import vn.asiantech.internship.ui.adapters.ViewPagerAdapter;
+
+/**
+ * Activity for tab layout.
+ * Created by AnhHuy on 26-Jun-17.
+ */
+public class TabActivity extends AppCompatActivity {
+    private ViewPager mViewPagerTab;
+    private TabLayout mTabLayoutTab;
+    private ViewPagerAdapter mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 5);
+
+    private String[] mTextTab = {"Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"};
+    private int[] mIconTab = {R.drawable.selector_bubble, R.drawable.selector_cloud_queue,
+            R.drawable.selector_nfc, R.drawable.selector_shopping, R.drawable.seletor_filter_vintage};
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tab);
+
+        initView();
+        initViewPager();
+        customTabLayout();
+    }
+
+    private void initView() {
+        mViewPagerTab = (ViewPager) findViewById(R.id.viewPagerTab);
+        mTabLayoutTab = (TabLayout) findViewById(R.id.tabLayout);
+    }
+
+    private void initViewPager() {
+        mViewPagerTab.setAdapter(mPagerAdapter);
+        mTabLayoutTab.setupWithViewPager(mViewPagerTab);
+        mTabLayoutTab.setTabMode(TabLayout.MODE_SCROLLABLE);
+    }
+
+    private void customTabLayout() {
+        for (int i = 0; i < mPagerAdapter.getCount(); i++) {
+            TextView tvTabText = (TextView) LayoutInflater.from(this).inflate(R.layout.text_view_tab, null, false);
+            tvTabText.setText(mTextTab[i]);
+            tvTabText.setTextColor(ContextCompat.getColorStateList(this, R.color.selector_text_view));
+            tvTabText.setCompoundDrawablesWithIntrinsicBounds(0, mIconTab[i], 0, 0);
+            mTabLayoutTab.getTabAt(i).setCustomView(tvTabText);
+        }
+    }
+}
+
