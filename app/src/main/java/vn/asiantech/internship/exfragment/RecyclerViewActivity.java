@@ -1,8 +1,10 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.exfragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+
+import vn.asiantech.internship.R;
 
 /**
  * Copyright © 2016 AsianTech inc.
