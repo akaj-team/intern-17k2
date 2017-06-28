@@ -47,11 +47,11 @@ public class CustomTab extends View {
     public void onDraw(Canvas canvas) {
         if (mIsSelected) {
             RectF rectF = new RectF(0, 0, getWidth(), getHeight() * 2);
-            RectF rectF2 = new RectF(1, 1, getWidth()-1, getHeight() * 2);
+            RectF rectF2 = new RectF(1, 1, getWidth() - 1, getHeight() * 2);
             canvas.drawArc(rectF, 0, -180, false, mPaint);
             canvas.drawArc(rectF2, 0, -180, false, mPaint2);
         } else {
-            canvas.drawLine(0, getHeight()-2, getWidth(), getHeight()-2, mPaint2);
+            canvas.drawLine(0, getHeight() - 2, getWidth(), getHeight() - 2, mPaint2);
         }
     }
 
