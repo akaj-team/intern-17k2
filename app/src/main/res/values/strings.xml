@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Internship</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="textview.toolbar.name">Internship</string>
+
+    <string name="textview.header.name">Huy Pham</string>
+    <string name="textview.header.email">huy@gmail.com</string>
+    <string name="dialog.choose">Option</string>
+    <array name="list">
+        <item>Camera</item>
+        <item>Gallery</item>
+    </array>
+
+    <string name="textview.main.feed">Feed</string>
+    <string name="textview.main.activity">Activity</string>
+    <string name="textview.main.profile">Profile</string>
+    <string name="textview.main.friends">Friends</string>
+    <string name="textview.main.map">Map</string>
+    <string name="textview.main.chat">Chat</string>
+    <string name="textview.main.settings">Settings</string>
+
+    <string name="textview.splash.button2">Exercise 6</string>
 </resources>
