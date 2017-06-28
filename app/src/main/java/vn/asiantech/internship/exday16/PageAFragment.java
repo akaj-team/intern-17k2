@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,20 +57,20 @@ public class PageAFragment extends Fragment {
         return view;
     }
 
-    public void customTab() {
-        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.tablayout, null, false);
-            CustomTab customTab = (CustomTab) view.findViewById(R.id.myView);
-            if (i == 0) {
-                customTab.setSelected(true);
-            }
-            TextView tabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
-            tabTitle.setText(mTextTab[i]);
-            TabLayout.Tab tab = mTabLayout.getTabAt(i);
-            final int position = i;
-            if (tab != null) {
-                tab.setCustomView(view);
-            }
-        }
-    }
+//    public void customTab() {
+//        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+//            View view = LayoutInflater.from(getContext()).inflate(R.layout.tablayout, null, false);
+//            CustomTab customTab = (CustomTab) view.findViewById(R.id.myView);
+//            if (i == 0) {
+//                customTab.setSelected(true);
+//            }
+//            TextView tabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
+//            tabTitle.setText(mTextTab[i]);
+//            TabLayout.Tab tab = mTabLayout.getTabAt(i);
+//            final int position = i;
+//            if (tab != null) {
+//                tab.setCustomView(view);
+//            }
+//        }
+//    }
 }
