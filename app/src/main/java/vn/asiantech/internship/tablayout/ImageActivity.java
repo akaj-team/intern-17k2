@@ -31,7 +31,6 @@ public class ImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image);
         ViewPager viewPagerImage = (ViewPager) findViewById(R.id.BigViewPager);
         final TabLayout tlImage = (TabLayout) findViewById(R.id.tlImage);
-
         FragmentManager manager = getSupportFragmentManager();
         final BigAdapter adapter = new BigAdapter(manager, mImages);
         viewPagerImage.setAdapter(adapter);
@@ -42,7 +41,10 @@ public class ImageActivity extends AppCompatActivity {
             TextView tvTab = (TextView) LayoutInflater.from(this).inflate(R.layout.item_tab, null);
             tvTab.setText(adapter.getPageTitle(i));
             tvTab.setCompoundDrawablesWithIntrinsicBounds(0, mIcons.get(i), 0, 0);
-            tlImage.getTabAt(i).setCustomView(tvTab);
+            TabLayout.Tab tab = tlImage.getTabAt(i);
+            if (tab != null) {
+                tab.setCustomView(tvTab);
+            }
         }
     }
 }

@@ -47,9 +47,9 @@ public class CenterFragment extends Fragment {
 
         final Handler handler = new Handler();
         mTimer = new Timer();
-        final Runnable update = new Runnable() {
+        final Runnable Update = new Runnable() {
             public void run() {
-                if (mCurrentPage == 5) {
+                if (mCurrentPage == 3) {
                     mCurrentPage = 0;
                     mTimer.cancel();
                 }
@@ -60,14 +60,14 @@ public class CenterFragment extends Fragment {
 
             @Override
             public void run() {
-                handler.post(update);
+                handler.post(Update);
             }
         }, 50, 5000);
 
         Interpolator interpolator = new AccelerateInterpolator();
         try {
             Field mScroller;
-            mScroller = ViewPager.class.getDeclaredField("Scroller");
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
             mScroller.setAccessible(true);
             FixedSpeedScroller scroller = new FixedSpeedScroller(mSmallViewPager.getContext(), interpolator);
             mScroller.set(mSmallViewPager, scroller);
@@ -80,7 +80,7 @@ public class CenterFragment extends Fragment {
     /**
      * Used to set time move for viewpager
      */
-    private final class FixedSpeedScroller extends Scroller {
+    private class FixedSpeedScroller extends Scroller {
         private final int mDuration = 5000;
 
         private FixedSpeedScroller(Context context, Interpolator interpolator) {
