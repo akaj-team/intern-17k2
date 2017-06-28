@@ -8,14 +8,4 @@
         android:id="@+id/tvTabItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimaryDark" />
-
-    <vn.asiantech.internship.day16.view.TitleTabLayoutCustom
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>

@@ -13,7 +13,7 @@ import vn.asiantech.internship.day16.ui.fragment.TabFragment;
  * Created by at-hoavo on 26/06/2017.
  */
 public class ViewPagerOutAdapter extends FragmentStatePagerAdapter {
-    private static final int SIZE = 5;
+    public static final int SIZE = 5;
     private int[] mImages = {
             R.mipmap.img_mikasa,
             R.mipmap.img_mik,
