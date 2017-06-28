@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <vn.asiantech.internship.ui.tablayout.GridView
+    <vn.asiantech.internship.ui.tablayout.MyTabView
         android:id="@+id/gridView"
         android:layout_width="0dp"
         android:layout_height="60dp"

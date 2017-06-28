@@ -49,7 +49,9 @@ public class ViewPagerTabChildSecondFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_view_pager_tab_child_second, container, false);
         mImgView = (ImageView) v.findViewById(R.id.imgView);
-        if (mPosition == 0) {
+
+        // Default load in the open first time
+        if (mPosition == 2) {
             Picasso.with(getContext()).load(mUrl).placeholder(R.drawable.vector_refresh).into(mImgView);
         }
         return v;

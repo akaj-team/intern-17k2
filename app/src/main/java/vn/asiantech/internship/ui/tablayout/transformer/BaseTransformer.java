@@ -3,13 +3,16 @@ package vn.asiantech.internship.ui.tablayout.transformer;
 import android.support.v4.view.ViewPager.PageTransformer;
 import android.view.View;
 
+/**
+ * BaseTransformer created by Thanh Thien
+ */
 abstract class BaseTransformer implements PageTransformer {
 
     /**
      * Called each {@link #transformPage(android.view.View, float)}.
      *
-     * @param view
-     * @param position
+     * @param view is a Fragment
+     * @param position is a position of an other thing that i don't know
      */
     protected abstract void onTransform(View view, float position);
 
@@ -17,33 +20,13 @@ abstract class BaseTransformer implements PageTransformer {
     public void transformPage(View view, float position) {
         onPreTransform(view, position);
         onTransform(view, position);
-        onPostTransform(view, position);
-    }
-
-    /**
-     * If the position offset of a fragment is less than negative one or greater than one, returning true will set the
-     * visibility of the fragment to {@link android.view.View#GONE}. Returning false will force the fragment to {@link android.view.View#VISIBLE}.
-     *
-     * @return
-     */
-    private boolean hideOffscreenPages() {
-        return true;
-    }
-
-    /**
-     * Indicates if the default animations of the view pager should be used.
-     *
-     * @return
-     */
-    private boolean isPagingEnabled() {
-        return false;
     }
 
     /**
      * Called each {@link #transformPage(android.view.View, float)} before {{@link #onTransform(android.view.View, float)} is called.
      *
-     * @param view
-     * @param position
+     * @param view is a view
+     * @param position is a position
      */
     private void onPreTransform(View view, float position) {
         final float width = view.getWidth();
@@ -56,21 +39,8 @@ abstract class BaseTransformer implements PageTransformer {
         view.setPivotX(0);
         view.setPivotY(0);
         view.setTranslationY(0);
-        view.setTranslationX(isPagingEnabled() ? 0f : -width * position);
+        view.setTranslationX(-width * position);
 
-        if (hideOffscreenPages()) {
-            view.setAlpha(position <= -1f || position >= 1f ? 0f : 1f);
-        } else {
-            view.setAlpha(1f);
-        }
-    }
-
-    /**
-     * Called each {@link #transformPage(android.view.View, float)} call after {@link #onTransform(android.view.View, float)} is finished.
-     *
-     * @param view
-     * @param position
-     */
-    private void onPostTransform(View view, float position) {
+        view.setAlpha(position <= -1f || position >= 1f ? 0f : 1f);
     }
 }

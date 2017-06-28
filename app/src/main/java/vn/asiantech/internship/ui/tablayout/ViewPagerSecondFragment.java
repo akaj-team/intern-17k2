@@ -1,13 +1,22 @@
 package vn.asiantech.internship.ui.tablayout;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Interpolator;
+
+import java.lang.reflect.Field;
+import java.text.DecimalFormat;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.ui.tablayout.transformer.ChangeDurationTimeViewPager;
 import vn.asiantech.internship.ui.tablayout.transformer.TabletTransformer;
 
 /**
@@ -16,10 +25,16 @@ import vn.asiantech.internship.ui.tablayout.transformer.TabletTransformer;
 public class ViewPagerSecondFragment extends Fragment {
 
     private ViewPager mViewPager;
-    private GridView mGridView;
+    private MyTabView mMyTabView;
 
     private ViewPagerSecondAdapter mViewPagerSecondAdapter;
-    private int mTabSelected = 0;
+
+    private Handler mHandler;
+    private Thread mThread;
+    private boolean mIsSliding;
+    private boolean isHaveTabSelected;
+    private float mTabSelected = 0;
+    private float mLocationOld;
     private String[] mUrls = {
             "https://s-media-cache-ak0.pinimg.com/736x/bc/82/d6/bc82d6709eaa6921d32f25b2567cdc6d.jpg",
             "https://mfiles.alphacoders.com/579/579712.jpg",
@@ -33,20 +48,117 @@ public class ViewPagerSecondFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_view_pager_second, container, false);
-        mGridView = (GridView) v.findViewById(R.id.gridView);
 
-        mViewPagerSecondAdapter = new ViewPagerSecondAdapter(getChildFragmentManager(), mUrls);
+        mIsSliding = true;
+        mHandler = new Handler();
+
+        mMyTabView = (MyTabView) v.findViewById(R.id.gridView);
         mViewPager = (ViewPager) v.findViewById(R.id.viewPager);
+        mViewPagerSecondAdapter = new ViewPagerSecondAdapter(getChildFragmentManager(), mUrls);
+
+        mLocationOld = mViewPager.getWidth() / 2;
+        slowSlider();
+        autoSlider();
+        mMyTabView.onClickItem(new MyTabView.OnGridViewListener() {
+            @Override
+            public void onClickItem(float position) {
+                mViewPager.setCurrentItem((int) position);
+                mTabSelected = position;
+            }
+        });
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mMyTabView.setTabSelected(position);
+                mTabSelected = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+
+        mViewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    mMyTabView.setOnTouch(true);
+                    mIsSliding = false;
+                    mHandler.removeCallbacks(mThread);
+                    if (event.getX() > mLocationOld) {
+                        mTabSelected -= 0.01f;
+                        mMyTabView.setTabSelected(mTabSelected);
+                    } else {
+                        mTabSelected += 0.01f;
+                        mMyTabView.setTabSelected(mTabSelected);
+                    }
+                    mLocationOld = event.getX();
+                    return false;
+                }
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    mIsSliding = true;
+                    autoSlider();
+                    mMyTabView.setOnTouch(false);
+                    mLocationOld = mViewPager.getWidth() / 2;
+                    DecimalFormat df = new DecimalFormat("0");
+                    String str = df.format(mTabSelected);
+                    mTabSelected = Integer.valueOf(str);
+                    mMyTabView.setTabSelected(mTabSelected);
+                    return false;
+                }
+                return false;
+            }
+        });
         return v;
+    }
+
+    private void slowSlider() {
+        try {
+            Field mScroller;
+            ViewPager.class.getDeclaredField("mScroller");
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            Interpolator interpolator = new AccelerateInterpolator();
+            ChangeDurationTimeViewPager scroller = new ChangeDurationTimeViewPager(getContext(), interpolator);
+            scroller.setDuration(5000);
+            mScroller.set(mViewPager, scroller);
+        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
+            Log.i("tag11", e.getMessage());
+        }
+    }
+
+    private void autoSlider() {
+        mThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (mTabSelected == 5) {
+                    mTabSelected = 0;
+                    mViewPager.setCurrentItem((int) mTabSelected);
+                    mIsSliding = false;
+                    return;
+                }
+                if (mIsSliding) {
+                    mViewPager.setCurrentItem((int) mTabSelected++);
+                    mHandler.postDelayed(this, 5500);
+                }
+            }
+        });
+        mHandler.postDelayed(mThread, 1000);
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mTabSelected == 0) {
+        if (isVisibleToUser && !isHaveTabSelected) {
             mViewPager.setAdapter(mViewPagerSecondAdapter);
+            mViewPager.setCurrentItem(2); // Default item in the first time open
             mViewPager.setPageTransformer(false, new TabletTransformer());
-            mTabSelected = 1;
+            isHaveTabSelected = true;
         }
     }
 }

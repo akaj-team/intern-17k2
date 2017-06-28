@@ -2,11 +2,13 @@ package vn.asiantech.internship.ui.tablayout;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,6 +35,7 @@ public class ViewPagerFragment extends Fragment {
     private FloatingActionButton mFabSettings;
     private StyleTab mUtils;
     private ViewPager.PageTransformer mPageTransformer;
+    private CoordinatorLayout mClParent;
 
     private String[] mUrls = {
             "http://www.desktop-background.com/download/480x800/2015/12/08/1054402_download-wallpapers-gerrard-456t-dikirim-oleh-namik9-bola-net_1680x1050_h.jpg",
@@ -61,6 +64,7 @@ public class ViewPagerFragment extends Fragment {
         mFabSettings = (FloatingActionButton) v.findViewById(R.id.fabSettings);
         mViewPager = (ViewPager) v.findViewById(R.id.viewPager);
         mTabLayout = (TabLayout) v.findViewById(tabLayout);
+        mClParent = (CoordinatorLayout) v.findViewById(R.id.clParent);
 
         // Chang style tabs here
         setStyleTabs(StyleTab.MY_TAB_CUSTOM);
@@ -81,6 +85,13 @@ public class ViewPagerFragment extends Fragment {
             public void onPageSelected(int position) {
                 if (getActivity() instanceof ViewPagerActivity) {
                     if (position == 1) {
+                        mClParent.setOnTouchListener(new View.OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                // It crazy i cant disable swiping , but it look so fun =))
+                                return true;
+                            }
+                        });
                         ((ViewPagerActivity) getActivity()).setFloatActionButton(View.GONE);
                     } else {
                         ((ViewPagerActivity) getActivity()).setFloatActionButton(View.VISIBLE);
@@ -134,11 +145,17 @@ public class ViewPagerFragment extends Fragment {
         String s = "Tab " + position;
         tab.setText(s);
         tab.setCompoundDrawablesWithIntrinsicBounds(0, mDrawable[position], 0, 0);
-        mTabLayout.getTabAt(position).setCustomView(tab);
+        TabLayout.Tab tabSave = mTabLayout.getTabAt(position);
+        if (tabSave != null) {
+            tabSave.setCustomView(tab);
+        }
     }
 
     private void setTabOnlyIcon(int position) {
-        mTabLayout.getTabAt(position).setIcon(mDrawable[position]);
+        TabLayout.Tab tabSave = mTabLayout.getTabAt(position);
+        if (tabSave != null) {
+            tabSave.setIcon(mDrawable[position]);
+        }
     }
 
     private void setMyTabCustom(int position) {
@@ -146,7 +163,10 @@ public class ViewPagerFragment extends Fragment {
         ((ImageView) tab.findViewById(R.id.imgIcon)).setImageResource(mDrawable[position]);
         (tab.findViewById(R.id.view)).setBackgroundResource(mDrawableLine[position]);
         mTabLayout.setSelectedTabIndicatorHeight(0);
-        mTabLayout.getTabAt(position).setCustomView(tab);
+        TabLayout.Tab tabSave = mTabLayout.getTabAt(position);
+        if (tabSave != null) {
+            tabSave.setCustomView(tab);
+        }
     }
 
     private void setStyleTabs(StyleTab utils) {
@@ -167,7 +187,6 @@ public class ViewPagerFragment extends Fragment {
     }
 
     private void showDialogChoice() {
-
         Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog_choice_tab_style);
         dialog.setTitle(R.string.dialog_text_choice_select);
@@ -200,12 +219,10 @@ public class ViewPagerFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
         dialog.show();
     }
 
     public void setFloatActionButton(int visible) {
         mFabSettings.setVisibility(visible);
     }
-
 }
