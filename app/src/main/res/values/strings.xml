@@ -13,6 +13,9 @@
         <item>Nguyễn Văn E</item>
         <item>Nguyễn Văn F</item>
         <item>Nguyễn Văn G</item>
+        <item>Nguyễn Văn H</item>
+        <item>Nguyễn Văn I</item>
+        <item>Nguyễn Văn J</item>
     </string-array>
 
     <string-array name="descriptions">
@@ -23,6 +26,9 @@
         <item>15 tuổi,Quảng Nam</item>
         <item>20 tuổi,Đà Nẵng</item>
         <item>50 tuổi,Quảng Nam</item>
+        <item>40 tuổi,Đà Nẵng</item>
+        <item>24 tuổi,Quảng Nam</item>
+        <item>24 tuổi,Quảng Nam</item>
     </string-array>
 
     <string name="feed">Feed</string>
@@ -43,4 +49,11 @@
     <string name="button.send">Send1</string>
     <string name="button.name">Send</string>
     <string name="editText.hint">Input</string>
+    <string name="name.node_add">Input Note</string>
+    <string name="name.note">Note</string>
+    <string name="textView.title">Title:</string>
+    <string name="textView.content">Your content</string>
+    <string name="title.hint">Your title</string>
+    <string name="name.node_edit">Note</string>
+    <string name="textView.edit.title">Edit Note</string>
 </resources>
