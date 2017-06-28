@@ -21,7 +21,7 @@ import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
  * Adapter for Navigation
- * Created by anhhuy on 14/06/2017.
+ * Created by huypham on 14/06/2017.
  */
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 0;
@@ -68,8 +68,8 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         if (holder instanceof DrawerHeaderViewHolder) {
             DrawerHeaderViewHolder drawerHeader = (DrawerHeaderViewHolder) holder;
-            drawerHeader.mTvName.setText(R.string.textview_header_name);
-            drawerHeader.mTvEmail.setText(R.string.textview_header_email);
+            drawerHeader.mTvName.setText(R.string.text_view_header_name);
+            drawerHeader.mTvEmail.setText(R.string.text_view_header_email);
             if (mBitmap != null) {
                 drawerHeader.mCivAvatar.setImageBitmap(mBitmap);
             }

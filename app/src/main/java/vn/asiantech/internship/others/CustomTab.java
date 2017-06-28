@@ -18,8 +18,8 @@ import vn.asiantech.internship.R;
 public class CustomTab extends View {
     private int mWidth;
     private int mHeight;
-    private boolean mChoose;
-    private Paint mPaint;
+    private boolean mIsChoose;
+    private final Paint mPaint;
 
     public CustomTab(Context context) {
         super(context);
@@ -40,7 +40,7 @@ public class CustomTab extends View {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(2);
         mPaint.setColor(Color.BLUE);
-        if (mChoose) {
+        if (mIsChoose) {
             mPaint.setColor(ContextCompat.getColor(getContext(), R.color.colorTransparent));
             mPaint.setColor(Color.BLUE);
             mPaint.setStyle(Paint.Style.STROKE);
@@ -56,8 +56,8 @@ public class CustomTab extends View {
         return (float) Math.sqrt(mWidth * mWidth / 4 - (mWidth / 2 + 20 - mHeight) * (mWidth / 2 + 20 - mHeight));
     }
 
-    public void setSelected(boolean selected) {
-        this.mChoose = selected;
+    public void setSelected(boolean isSelected) {
+        this.mIsChoose = isSelected;
         invalidate();
     }
 }

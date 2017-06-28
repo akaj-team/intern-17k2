@@ -1,7 +1,8 @@
 package vn.asiantech.internship.models;
 
 /**
- * Created by anhhuy on 13/06/2017.
+ * Drawer
+ * Created by huypham on 13/06/2017.
  */
 public class Drawer {
     private String drawerName;

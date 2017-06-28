@@ -25,10 +25,10 @@ import vn.asiantech.internship.ui.adapters.Tab2ViewPagerAdapter;
  * Created by AnhHuy on 27-Jun-17.
  */
 public class TabSecondFragment extends Fragment {
-    private ViewPager mViewPagerTab2;
     private final int[] mImage = {R.drawable.img_tab5, R.drawable.img_tab1, R.drawable.img_tab4,
             R.drawable.img_tab2, R.drawable.img_tab3};
 
+    private ViewPager mViewPagerTab2;
     private int mCurrentPage = 0;
     private Timer mTimer;
 
