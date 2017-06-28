@@ -17,9 +17,9 @@ import java.lang.reflect.Field;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.Ultils.ChangeDurationTimeViewPager;
-import vn.asiantech.internship.Ultils.DepthPageTransformer;
-import vn.asiantech.internship.Ultils.MyCustomTab;
+import vn.asiantech.internship.ultils.ChangeDurationTimeViewPager;
+import vn.asiantech.internship.ultils.DepthPageTransformer;
+import vn.asiantech.internship.ultils.MyCustomTab;
 import vn.asiantech.internship.adapters.FootballStarAdapter;
 
 /**
@@ -29,7 +29,7 @@ import vn.asiantech.internship.adapters.FootballStarAdapter;
  */
 public class FootballStarActivity extends AppCompatActivity {
 
-    private static final int[] mTabIcons = {R.drawable.ic_messi, R.drawable.ic_spain, R.drawable.ic_ronaldo, R.drawable.ic_reus, R.drawable.ic_kaka};
+    private int[] mTabIcons = {R.drawable.ic_messi, R.drawable.ic_spain, R.drawable.ic_ronaldo, R.drawable.ic_reus, R.drawable.ic_kaka};
 
     private ViewPager mViewPagerFootballStar;
     private TabLayout mTabLayout;
