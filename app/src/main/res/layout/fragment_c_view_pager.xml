@@ -2,12 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.asiantech.internship.ui.viewpager.ViewPagerFragment">
+    tools:context="vn.asiantech.internship.ui.viewpager.CFragment">
 
-    <ImageView
-        android:id="@+id/imgView"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpagerC"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@null" />
-
+        android:layout_height="match_parent" />
 </FrameLayout>

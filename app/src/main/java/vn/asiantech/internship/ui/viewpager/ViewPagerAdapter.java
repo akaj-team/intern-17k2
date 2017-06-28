@@ -3,32 +3,31 @@ package vn.asiantech.internship.ui.viewpager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.ViewGroup;
+
+import java.util.List;
 
 /**
  *
  * Created by Hai on 6/27/2017.
  */
 class ViewPagerAdapter extends FragmentStatePagerAdapter {
-    private int[] mImageResources;
+    private List<Fragment> mFragments;
     private String[] mTitles;
 
-    ViewPagerAdapter(FragmentManager fm, int[] imageResources, String[] titles) {
+    ViewPagerAdapter(FragmentManager fm, List<Fragment> fragments, String[] titles) {
         super(fm);
-        mImageResources = imageResources;
+        mFragments = fragments;
         mTitles = titles;
     }
 
     @Override
     public Fragment getItem(int position) {
-        ViewPagerFragment fragment = new ViewPagerFragment();
-        fragment.setImageResource(mImageResources[position]);
-        return fragment;
+        return mFragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return mImageResources.length;
+        return mFragments.size();
     }
 
     @Override
