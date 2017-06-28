@@ -13,8 +13,8 @@ import vn.asiantech.internship.models.Message;
 
 /**
  * Created by ducle on 22/06/2017.
+ * ChatAdapter for RecyclerView a conversation
  */
-
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Message> mMessages;
 
@@ -56,10 +56,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /**
      * Chat1ViewHolder to show type chat 1
      */
-    class Chat1ViewHolder extends RecyclerView.ViewHolder {
+    private class Chat1ViewHolder extends RecyclerView.ViewHolder {
         TextView mTvChat1;
 
-        public Chat1ViewHolder(View itemView) {
+        Chat1ViewHolder(View itemView) {
             super(itemView);
             mTvChat1 = (TextView) itemView.findViewById(R.id.tvChat1);
         }
@@ -68,10 +68,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /**
      * Chat1ViewHolder to show type chat 1
      */
-    class Chat2ViewHolder extends RecyclerView.ViewHolder {
+    private class Chat2ViewHolder extends RecyclerView.ViewHolder {
         TextView mTvChat2;
 
-        public Chat2ViewHolder(View itemView) {
+        Chat2ViewHolder(View itemView) {
             super(itemView);
             mTvChat2 = (TextView) itemView.findViewById(R.id.tvChat2);
         }

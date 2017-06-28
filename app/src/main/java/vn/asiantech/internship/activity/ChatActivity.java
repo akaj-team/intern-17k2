@@ -12,16 +12,15 @@ import vn.asiantech.internship.fragment.ChatFragment;
 
 /**
  * Created by ducle on 22/06/2017.
+ * ChatActivity contain a ChatFragment
  */
-
 public class ChatActivity extends AppCompatActivity {
-    private ChatFragment mChatFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        mChatFragment = new ChatFragment();
+        ChatFragment mChatFragment = new ChatFragment();
         switchFragment(mChatFragment, false, R.id.flContain);
     }
 

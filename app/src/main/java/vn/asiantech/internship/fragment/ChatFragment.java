@@ -20,6 +20,7 @@ import vn.asiantech.internship.models.Message;
 
 /**
  * Created by ducle on 22/06/2017.
+ * ChatFragment is fragment contain RecyclerView
  */
 public class ChatFragment extends Fragment implements View.OnClickListener {
     private RecyclerView mRecyclerViewChat;
