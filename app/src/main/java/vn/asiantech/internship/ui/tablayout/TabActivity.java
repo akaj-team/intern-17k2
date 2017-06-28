@@ -7,9 +7,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TextView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.others.CustomTab;
 import vn.asiantech.internship.ui.adapters.ViewPagerAdapter;
 
 /**
@@ -48,14 +51,26 @@ public class TabActivity extends AppCompatActivity {
 
     private void customTabLayout() {
         for (int i = 0; i < mPagerAdapter.getCount(); i++) {
-            TextView tvTabText = (TextView) LayoutInflater.from(this).inflate(R.layout.text_view_tab, null);
+            View view = LayoutInflater.from(this).inflate(R.layout.text_view_tab, null);
+            CustomTab customTab = (CustomTab) view.findViewById(R.id.customTab);
+            if (i == 0) {
+                customTab.setSelected(true);
+            }
+            TextView tvTabText = (TextView) view.findViewById(R.id.tvTabLayout);
             tvTabText.setText(mTextTab[i]);
             tvTabText.setTextColor(ContextCompat.getColorStateList(this, R.color.selector_text_view));
             tvTabText.setCompoundDrawablesWithIntrinsicBounds(0, mIconTab[i], 0, 0);
             TabLayout.Tab tab = mTabLayoutTab.getTabAt(i);
-            if (tab != null){
-                tab.setCustomView(tvTabText);
+            if (tab != null) {
+                tab.setCustomView(view);
             }
+            final int position = i;
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mViewPagerTab.setCurrentItem(position);
+                }
+            });
         }
     }
 }
