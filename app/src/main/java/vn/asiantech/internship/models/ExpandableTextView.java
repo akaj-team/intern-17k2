@@ -11,10 +11,9 @@ import vn.asiantech.internship.R;
  * <p>
  * Created by Hai on 6/16/2017.
  */
-
 public class ExpandableTextView extends android.support.v7.widget.AppCompatTextView implements View.OnClickListener {
     private static final int MAX_LINES = 3;
-    private int currentMaxLines = Integer.MAX_VALUE;
+    private int mCurrentMaxLines = Integer.MAX_VALUE;
 
     public ExpandableTextView(Context context) {
         super(context);
@@ -46,12 +45,12 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
 
     @Override
     public void setMaxLines(int maxLines) {
-        currentMaxLines = maxLines;
+        mCurrentMaxLines = maxLines;
         super.setMaxLines(maxLines);
     }
 
     public int getTextViewMaxLines() {
-        return currentMaxLines;
+        return mCurrentMaxLines;
     }
 
     @Override

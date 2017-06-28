@@ -9,6 +9,7 @@ import android.widget.Button;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.feed.FeedActivity;
 import vn.asiantech.internship.ui.fragments.SendDataActivity;
+import vn.asiantech.internship.ui.chat.ChatActivity;
 import vn.asiantech.internship.ui.friendlist.FriendActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 
@@ -31,10 +32,14 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         Button btnDay6Ex1 = (Button) findViewById(R.id.btnDay6Ex1);
         Button btnDay11Ex1 = (Button) findViewById(R.id.btnDay11Ex2);
         Button btnFragment = (Button) findViewById(R.id.btnFragment);
+        Button btnDay13Chat = (Button) findViewById(R.id.btnDay13Ex1);
         btnDay5Ex1.setOnClickListener(this);
         btnDay6Ex1.setOnClickListener(this);
         btnDay11Ex1.setOnClickListener(this);
         btnFragment.setOnClickListener(this);
+        btnDay5Ex1.setOnClickListener(this);
+        btnDay6Ex1.setOnClickListener(this);
+        btnDay13Chat.setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +60,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btnFragment:
                 Intent intentFragment = new Intent(SplashActivity.this, SendDataActivity.class);
                 startActivity(intentFragment);
+                break;
+            case R.id.btnDay13Ex1:
+                Intent intentChat = new Intent(SplashActivity.this, ChatActivity.class);
+                startActivity(intentChat);
+                break;
         }
     }
 }
