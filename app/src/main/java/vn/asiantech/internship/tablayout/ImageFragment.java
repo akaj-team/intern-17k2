@@ -19,7 +19,7 @@ import vn.asiantech.internship.R;
  */
 public class ImageFragment extends Fragment {
     private static final String BUNDLE_KEY = "image";
-    private boolean mIsLoadData = false;
+    private boolean mIsLoadData;
     private View mView;
     private boolean mIsShow;
     private ImageView mImgScenery;

@@ -32,7 +32,7 @@ import static android.content.ContentValues.TAG;
  * @since 2017-6-27
  */
 public class CenterFragment extends Fragment {
-    private final List<Integer> mImages = Arrays.asList(R.drawable.ic_six, R.drawable.ic_seven, R.drawable.ic_eight);
+    private final List<Integer> mImages = Arrays.asList(R.drawable.img_six, R.drawable.img_seven, R.drawable.img_eight);
     private int mCurrentPage;
     private Timer mTimer;
     private ViewPager mSmallViewPager;
@@ -46,18 +46,20 @@ public class CenterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_center, container, false);
         mSmallViewPager = (ViewPager) view.findViewById(R.id.smallViewPager);
-        SmallAdapter adapter = new SmallAdapter(getActivity(), mImages);
+        final SmallAdapter adapter = new SmallAdapter(getActivity(), mImages);
         mSmallViewPager.setAdapter(adapter);
 
         final Handler handler = new Handler();
         mTimer = new Timer();
         final Runnable update = new Runnable() {
             public void run() {
-                if (mCurrentPage == 3) {
+                if (mCurrentPage == adapter.getCount()) {
                     mCurrentPage = 0;
+                    mSmallViewPager.setCurrentItem(mCurrentPage, true);
                     mTimer.cancel();
+                } else {
+                    mSmallViewPager.setCurrentItem(mCurrentPage++, true);
                 }
-                mSmallViewPager.setCurrentItem(mCurrentPage++, true);
             }
         };
         mTimer.schedule(new TimerTask() {
@@ -70,11 +72,11 @@ public class CenterFragment extends Fragment {
 
         Interpolator interpolator = new AccelerateInterpolator();
         try {
-            Field mScroller;
-            mScroller = ViewPager.class.getDeclaredField("mScroller");
-            mScroller.setAccessible(true);
+            Field field;
+            field = ViewPager.class.getDeclaredField("mScroller");
+            field.setAccessible(true);
             FixedSpeedScroller scroller = new FixedSpeedScroller(mSmallViewPager.getContext(), interpolator);
-            mScroller.set(mSmallViewPager, scroller);
+            field.set(mSmallViewPager, scroller);
         } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException e) {
             Log.e(TAG, e.toString());
         }

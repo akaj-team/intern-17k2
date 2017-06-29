@@ -26,7 +26,7 @@ import vn.asiantech.internship.R;
  * @since 2017-6-27
  */
 public class ImageActivity extends AppCompatActivity {
-    private final List<Integer> mImages = Arrays.asList(R.drawable.ic_one, R.drawable.ic_two, R.drawable.ic_three, R.drawable.ic_four, R.drawable.ic_five);
+    private final List<Integer> mImages = Arrays.asList(R.drawable.img_one, R.drawable.img_two, R.drawable.img_three, R.drawable.img_four, R.drawable.img_five);
     private final List<Integer> mIcons = Arrays.asList(R.drawable.ic_search_amber_900_36dp, R.drawable.ic_do_not_disturb_on_amber_900_36dp, R.drawable.ic_home_amber_900_36dp, R.drawable.ic_free_breakfast_amber_900_36dp, R.drawable.ic_person_pin_amber_900_36dp);
     private final List<CustomTabLayout> mViewTabs = new ArrayList<>();
     private final List<TextView> mTvTitles = new ArrayList<>();
