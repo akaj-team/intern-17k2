@@ -1,18 +1,14 @@
 package vn.asiantech.internship.adapter;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
 
 import java.util.List;
 
-import vn.asiantech.internship.R;
-
 /**
+ * Pager Adapter of Activity
+ * <p>
  * Created by Hai on 6/27/2017.
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {

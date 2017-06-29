@@ -10,37 +10,41 @@ import android.util.Log;
 import android.view.View;
 
 /**
+ * custom tablayout
+ * <p>
  * Created by Hai on 6/28/2017.
  */
-
-public class MyView extends View {
+public class CustomView extends View {
     private boolean mIsSelected;
+    private Paint mPaint = new Paint();
 
-    public MyView(Context context) {
+    public CustomView(Context context) {
         super(context);
+
     }
 
-    public MyView(Context context, @Nullable AttributeSet attrs) {
+    public CustomView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MyView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.WHITE);
-        paint.setStrokeWidth(5);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(Color.GRAY);
+        mPaint.setStrokeWidth(5);
         if (mIsSelected) {
             float x = getWidth() / 2;
-            canvas.drawCircle(x, x, x, paint);
+            canvas.drawCircle(x, getHeight(), getHeight(), mPaint);
+            canvas.drawLine(0, getHeight(), getWidth() / 2 - getHeight(), getHeight(), mPaint);
+            canvas.drawLine(getWidth() / 2 + getHeight(), getHeight(), getWidth(), getHeight(), mPaint);
         } else {
             Log.d("xxx", "onDraw: ");
-            canvas.drawLine(0, getHeight(), 0, getWidth(), paint);
+            canvas.drawLine(0, getHeight(), getWidth(), getHeight(), mPaint);
         }
     }
 

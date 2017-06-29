@@ -9,12 +9,14 @@ import android.widget.ImageView;
 import vn.asiantech.internship.R;
 
 /**
+ * Adapter of FourthFrament
+ * <p>
  * Created by Hai on 6/28/2017.
  */
-public class CPagerAdapter extends PagerAdapter {
+public class FourAdapter extends PagerAdapter {
     private int[] mImageResources;
 
-    public CPagerAdapter(int[] imageResources) {
+    public FourAdapter(int[] imageResources) {
         mImageResources = imageResources;
     }
 
