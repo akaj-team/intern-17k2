@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.splash.SplashActivity"/>
+        <activity android:name=".ui.splash.SplashActivity" />
+
+        <activity android:name=".ui.feed.FeedActivity" />
 
         <activity android:name=".ui.tablayout.TabActivity">
             <intent-filter>
@@ -23,7 +26,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.main.MainActivity"/>
+        <activity android:name=".ui.main.MainActivity" />
+
     </application>
 
 </manifest>

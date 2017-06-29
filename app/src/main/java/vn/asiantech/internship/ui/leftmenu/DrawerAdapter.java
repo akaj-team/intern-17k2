@@ -96,7 +96,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private class DrawerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTvColor;
 
-        public DrawerViewHolder(View itemView) {
+        DrawerViewHolder(View itemView) {
             super(itemView);
             mTvColor = (TextView) itemView.findViewById(R.id.tvColor);
             itemView.setOnClickListener(this);
@@ -122,7 +122,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private TextView mTvEmail;
         private CircleImageView mCivAvatar;
 
-        public DrawerHeaderViewHolder(View itemView) {
+        DrawerHeaderViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvEmail = (TextView) itemView.findViewById(R.id.tvEmail);
