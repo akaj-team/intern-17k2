@@ -33,7 +33,7 @@ import static android.content.ContentValues.TAG;
  */
 public class CenterFragment extends Fragment {
     private final List<Integer> mImages = Arrays.asList(R.drawable.ic_six, R.drawable.ic_seven, R.drawable.ic_eight);
-    private int mCurrentPage = 0;
+    private int mCurrentPage;
     private Timer mTimer;
     private ViewPager mSmallViewPager;
 

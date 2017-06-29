@@ -18,7 +18,7 @@ import vn.asiantech.internship.R;
  * @since 2017-6-27
  */
 public class ImageFragment extends Fragment {
-    private static final String KEY_BUNDLE = "image";
+    private static final String BUNDLE_KEY = "image";
     private boolean mIsLoadData = false;
     private View mView;
     private boolean mIsShow;
@@ -26,7 +26,7 @@ public class ImageFragment extends Fragment {
 
     public static ImageFragment newInstance(int image) {
         Bundle args = new Bundle();
-        args.putInt(KEY_BUNDLE, image);
+        args.putInt(BUNDLE_KEY, image);
         ImageFragment fragment = new ImageFragment();
         fragment.setArguments(args);
         return fragment;
@@ -59,7 +59,7 @@ public class ImageFragment extends Fragment {
 
     private void loadData() {
         if (getArguments() != null) {
-            int image = getArguments().getInt(KEY_BUNDLE);
+            int image = getArguments().getInt(BUNDLE_KEY);
             if (mView != null) {
                 mImgScenery.setBackgroundResource(image);
                 mIsLoadData = true;

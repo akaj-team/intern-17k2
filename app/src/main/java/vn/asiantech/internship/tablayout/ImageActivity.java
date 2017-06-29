@@ -1,5 +1,6 @@
 package vn.asiantech.internship.tablayout;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -50,6 +51,9 @@ public class ImageActivity extends AppCompatActivity {
             mViewTabs.add(customTab);
             tvTitleTab.setText(adapter.getPageTitle(i));
             tvTitleTab.setCompoundDrawablesWithIntrinsicBounds(0, mIcons.get(i), 0, 0);
+            if (i == 0) {
+                tvTitleTab.setTextColor(Color.RED);
+            }
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             if (tab != null) {
                 tab.setCustomView(rlTab);
