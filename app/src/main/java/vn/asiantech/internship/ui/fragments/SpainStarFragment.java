@@ -29,9 +29,13 @@ public class SpainStarFragment extends Fragment {
     private SpainStarAdapter mAdapter;
     private int[] mSpainStars = {R.drawable.bg_torres, R.drawable.bg_ramos, R.drawable.bg_iniesta};
     private Handler mHandler;
-    private int mCurrentItem = 0;
+    private int mCurrentItem;
     private boolean mInSliding = true;
     private Thread mThreadSlide;
+
+    public static SpainStarFragment getNewInstance() {
+        return new SpainStarFragment();
+    }
 
     @Nullable
     @Override

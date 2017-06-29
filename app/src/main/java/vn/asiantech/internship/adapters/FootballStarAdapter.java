@@ -15,7 +15,7 @@ import vn.asiantech.internship.ui.fragments.SpainStarFragment;
  */
 public class FootballStarAdapter extends FragmentStatePagerAdapter {
 
-    private int[] mIds = {R.drawable.bg_messi, 0, R.drawable.bg_ronaldo, R.drawable.bg_reus, R.drawable.bg_kaka};
+    private int[] mImages = {R.drawable.bg_messi, 0, R.drawable.bg_ronaldo, R.drawable.bg_reus, R.drawable.bg_kaka};
     private String[] mPageTitles = {"Messi", "Spain", "Ronaldo", "Reus", "Kaka"};
 
     public FootballStarAdapter(FragmentManager fm) {
@@ -30,9 +30,9 @@ public class FootballStarAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 1) {
-            return new SpainStarFragment();
+            return SpainStarFragment.getNewInstance();
         }
-        return FootballStarFragment.getNewInstance(mIds[position]);
+        return FootballStarFragment.getNewInstance(mImages[position]);
     }
 
     @Override

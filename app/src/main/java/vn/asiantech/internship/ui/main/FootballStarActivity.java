@@ -17,8 +17,6 @@ import vn.asiantech.internship.adapters.FootballStarAdapter;
 import vn.asiantech.internship.myultils.DepthPageTransformer;
 import vn.asiantech.internship.myultils.MyCustomTab;
 
-import static vn.asiantech.internship.R.id.tvTabTitle;
-
 /**
  * @author at-cuongcao
  * @version 1.0
@@ -75,7 +73,7 @@ public class FootballStarActivity extends AppCompatActivity {
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.tablayout_custom, new LinearLayout(this), false);
             MyCustomTab myCustomTab = (MyCustomTab) view.findViewById(R.id.myView);
-            TextView tabTitle = (TextView) view.findViewById(tvTabTitle);
+            TextView tabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
             tabTitle.setText(mAdapter.getPageTitle(i));
             if (i == 0) {
                 myCustomTab.setSelected(true);
