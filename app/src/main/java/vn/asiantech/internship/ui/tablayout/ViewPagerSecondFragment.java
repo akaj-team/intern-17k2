@@ -87,10 +87,10 @@ public class ViewPagerSecondFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 mViewPager.performClick();
+                mIsSliding = false;
+                mHandler.removeCallbacks(mThread);
                 if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     mMyTabView.setOnTouch(true);
-                    mIsSliding = false;
-                    mHandler.removeCallbacks(mThread);
                     if (event.getX() > mLocationOld) {
                         mTabSelected -= 0.01f;
                         mMyTabView.setTabSelected(mTabSelected);
@@ -103,6 +103,7 @@ public class ViewPagerSecondFragment extends Fragment {
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     mIsSliding = true;
+                    mHandler.postDelayed(mThread, 1000);
                     mMyTabView.setOnTouch(false);
                     mLocationOld = mViewPager.getWidth() / 2;
                     mTabSelected = getInt(mTabSelected);
@@ -142,9 +143,6 @@ public class ViewPagerSecondFragment extends Fragment {
             public void run() {
                 if (mTabSelected == 5) {
                     mTabSelected = 0;
-                    mViewPager.setCurrentItem((int) mTabSelected);
-                    mIsSliding = false;
-                    return;
                 }
                 if (mIsSliding) {
                     mViewPager.setCurrentItem((int) mTabSelected++);

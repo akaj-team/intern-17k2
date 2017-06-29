@@ -54,4 +54,10 @@
     <style name="LayoutStyleNormal">
         <item name="android:background">@color/colorBackground</item>
     </style>
+
+    <style name="TextViewStyleNormalQuestion">
+        <item name="android:textColor">@color/colorMenuArrow</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>
