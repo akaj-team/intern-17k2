@@ -10,10 +10,10 @@ import java.util.List;
  * Copyright © 2016 AsianTech inc.
  * Created by datbu on 28-06-2017.
  */
-class ViewPagerBdapter extends FragmentStatePagerAdapter {
+class ViewPagerBAdapter extends FragmentStatePagerAdapter {
     private List<String> mImages;
 
-    ViewPagerBdapter(FragmentManager fm, List<String> images) {
+    ViewPagerBAdapter(FragmentManager fm, List<String> images) {
         super(fm);
         mImages = images;
     }

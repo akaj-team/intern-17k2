@@ -19,6 +19,6 @@ public class ViewPagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_viewpager);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         PageAFragment pageAFragment = new PageAFragment();
-        transaction.replace(R.id.fragmentViewPager, pageAFragment).commit();
+        transaction.replace(R.id.flViewPager, pageAFragment).commit();
     }
 }

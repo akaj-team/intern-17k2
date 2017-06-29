@@ -20,8 +20,8 @@ import vn.asiantech.internship.R;
  */
 public class ItemImageFragment extends Fragment {
     private ImageView mImageView;
-    private Boolean mIsStarted = false;
-    private Boolean mIsVisible = false;
+    private boolean mIsStarted ;
+    private boolean mIsVisible ;
     private View mView;
     private String mImage;
 
@@ -42,9 +42,9 @@ public class ItemImageFragment extends Fragment {
         return mView;
     }
 
-    public static ItemImageFragment newInstance(List<String> mImages, int position) {
+    public static ItemImageFragment newInstance(List<String> images, int position) {
         Bundle args = new Bundle();
-        args.putString("image", mImages.get(position));
+        args.putString("image", images.get(position));
         ItemImageFragment fragment = new ItemImageFragment();
         fragment.setArguments(args);
         return fragment;

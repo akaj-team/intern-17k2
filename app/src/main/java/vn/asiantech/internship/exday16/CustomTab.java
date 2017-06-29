@@ -23,12 +23,15 @@ public class CustomTab extends View {
 
     public CustomTab(Context context) {
         super(context);
-        mPaint = new Paint();
     }
 
     public CustomTab(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mPaint = new Paint();
+    }
+
+    public void initColor() {
+        mPaint.setColor(Color.BLUE);
     }
 
     @Override
@@ -39,10 +42,10 @@ public class CustomTab extends View {
         mPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(2);
-        mPaint.setColor(Color.BLUE);
+        initColor();
         if (mChoose) {
             mPaint.setColor(ContextCompat.getColor(getContext(), R.color.custom_tab));
-            mPaint.setColor(Color.BLUE);
+            initColor();
             mPaint.setStyle(Paint.Style.STROKE);
             canvas.drawCircle(getWidth() / 2, getWidth() / 2 + 10, getWidth() / 2, mPaint);
             canvas.drawLine(0, getHeight(), mWidth / 2 - getEmptySpace(), getHeight(), mPaint);

@@ -17,8 +17,6 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 
-import static vn.asiantech.internship.R.id.tabLayout;
-
 /**
  * Copyright © 2016 AsianTech inc.
  * Created by datbu on 28-06-2017.
@@ -26,8 +24,8 @@ import static vn.asiantech.internship.R.id.tabLayout;
 public class PageAFragment extends Fragment {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-    private static String[] mTextTab = {"Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"};
-    private static int[] mTabIconsSelected = {
+    private static String[] mTextTabs = {"Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"};
+    private static int[] mTabIconsSelecteds = {
             R.drawable.bg_tab_a,
             R.drawable.bg_tab_b,
             R.drawable.bg_tab_c,
@@ -51,8 +49,8 @@ public class PageAFragment extends Fragment {
         images.add("https://cdna.artstation.com/p/assets/images/images/002/854/562/large/jonas-lopez-moreno-jonaslopezmoreno-saitan-web.jpg?1466498557");
         images.add("http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg");
 
-        mTabLayout = (TabLayout) view.findViewById(tabLayout);
-        mViewPager = (ViewPager) view.findViewById(R.id.container);
+        mTabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), images);
         mViewPager.setAdapter(viewPagerAdapter);
         mViewPager.setCurrentItem(1);
@@ -70,9 +68,9 @@ public class PageAFragment extends Fragment {
                 customTab.setSelected(true);
             }
             TextView tvTabText = (TextView) a.findViewById(R.id.tvTabTitle);
-            tvTabText.setText(mTextTab[i]);
+            tvTabText.setText(mTextTabs[i]);
             tvTabText.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.bg_tab_textview));
-            tvTabText.setCompoundDrawablesWithIntrinsicBounds(0, mTabIconsSelected[i], 0, 0);
+            tvTabText.setCompoundDrawablesWithIntrinsicBounds(0, mTabIconsSelecteds[i], 0, 0);
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
             if (tab != null) {
                 tab.setCustomView(a);

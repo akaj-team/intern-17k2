@@ -24,9 +24,9 @@ import vn.asiantech.internship.R;
  * Created by datbu on 28-06-2017.
  */
 public class PageBFragment extends Fragment {
-    private ViewPagerBdapter mViewPagerAdapter;
+    private ViewPagerBAdapter mViewPagerAdapter;
     private ViewPager mViewPager;
-    private static int currentPage = 0;
+    private int mCurrentPage;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,13 +42,11 @@ public class PageBFragment extends Fragment {
         images.add("http://vignette2.wikia.nocookie.net/runescape2/images/3/36/Lord_Amlodd_concept_art.jpg/revision/latest?cb=20140811105559");
         images.add("https://dviw3bl0enbyw.cloudfront.net/uploads/forum_attachment/file/139844/Male_voodoo_armor_concept_art.jpg");
         images.add("https://cdna.artstation.com/p/assets/images/images/002/854/562/large/jonas-lopez-moreno-jonaslopezmoreno-saitan-web.jpg?1466498557");
-        images.add("http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg");
+        images.add("https://dviw3bl0enbyw.cloudfront.net/uploads/forum_attachment/file/139844/Male_voodoo_armor_concept_art.jpg");
 
-        mViewPager = (ViewPager) view.findViewById(R.id.container);
-        mViewPagerAdapter = new ViewPagerBdapter(getChildFragmentManager(), images);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        mViewPagerAdapter = new ViewPagerBAdapter(getChildFragmentManager(), images);
         mViewPager.setAdapter(mViewPagerAdapter);
-        mViewPager.setCurrentItem(0);
-        mViewPager.setOffscreenPageLimit(1);
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         run();
         changeDurationScroll();
@@ -60,10 +58,14 @@ public class PageBFragment extends Fragment {
         final Handler handler = new Handler();
         final Runnable update = new Runnable() {
             public void run() {
-                if (currentPage == mViewPagerAdapter.getCount()) {
-                    currentPage = 0;
+                if (mCurrentPage == mViewPagerAdapter.getCount()) {
+                    mCurrentPage = -1;
+                } else {
+                    mViewPager.setCurrentItem(mCurrentPage++, true);
+                    //TODO only one loop
+//                    Log.d("aaa", "run: "+mCurrentPage);
                 }
-                mViewPager.setCurrentItem(currentPage++, true);
+                Log.d("tag", "run: " + mCurrentPage);
             }
         };
         Timer swipeTimer = new Timer();
@@ -77,13 +79,17 @@ public class PageBFragment extends Fragment {
 
     private void changeDurationScroll() {
         try {
-            Field mScroller;
-            mScroller = ViewPager.class.getDeclaredField("mScroller");
-            mScroller.setAccessible(true);
+            Field scroller;
+            scroller = ViewPager.class.getDeclaredField("scroller");
+            scroller.setAccessible(true);
             CustomDuration customDuration = new CustomDuration(mViewPager.getContext(), new AccelerateInterpolator());
-            mScroller.set(mViewPager, customDuration);
+            scroller.set(mViewPager, customDuration);
         } catch (Exception e) {
             Log.i("changeDurationScroll: ", e.getMessage());
         }
+    }
+
+    public static PageBFragment newInstance() {
+        return new PageBFragment();
     }
 }
