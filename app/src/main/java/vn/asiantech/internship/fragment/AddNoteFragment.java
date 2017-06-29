@@ -40,7 +40,7 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class AddNoteFragment extends Fragment implements View.OnClickListener {
-    private static final int REQUESTCODE_GALLERY = 1;
+    private static final int REQUEST_CODE_GALLERY = 1;
     private ImageView mImageViewNote;
     private EditText mEdtTitle;
     private EditText mEdtContent;
@@ -74,7 +74,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
             case R.id.imgPicPhoto:
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto, REQUESTCODE_GALLERY);
+                startActivityForResult(pickPhoto, REQUEST_CODE_GALLERY);
                 break;
             case R.id.imgSave:
                 Note note = new Note();
@@ -108,7 +108,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == REQUESTCODE_GALLERY) {
+            if (requestCode == REQUEST_CODE_GALLERY) {
                 try {
                     mBitmapImage = getImageNote(data.getData());
                     mImageViewNote.setImageBitmap(mBitmapImage);
@@ -138,7 +138,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
      * @return
      */
     public String getName(String date) {
-        return date.replace("\n", "").replace(" ", "");
+        return date.replace("\n", "").replace(" ", "").replace(":", "");
     }
 
     /**
@@ -158,7 +158,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                 dir.mkdirs();
             }
 
-            OutputStream fOut = null;
+            OutputStream fOut;
             File file = new File(fullPath, name);
             if (!file.exists()) {
                 file.createNewFile();
@@ -194,9 +194,9 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
             bmpFactoryOptions.inJustDecodeBounds = true;
             //bmp = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
             int heightRatio = (int) Math
-                    .ceil(bmpFactoryOptions.outHeight / (float) dh);
+                    .ceil(bmpFactoryOptions.outHeight / (float) dh / 10);
             int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth
-                    / (float) dw);
+                    / (float) dw / 10);
             if (heightRatio > 1 && widthRatio > 1) {
                 if (heightRatio > widthRatio) {
                     bmpFactoryOptions.inSampleSize = heightRatio;

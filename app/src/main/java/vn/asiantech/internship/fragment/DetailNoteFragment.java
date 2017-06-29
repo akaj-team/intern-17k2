@@ -37,7 +37,7 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_detail_note, container, false);
-        initeViews(view);
+        initViews(view);
         mNoteDataBase = new NoteDataBase(getActivity());
         try {
             mNoteDataBase.open();
@@ -74,7 +74,7 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
      *
      * @param view is view need show
      */
-    private void initeViews(View view) {
+    private void initViews(View view) {
         mImgDelete = (ImageView) view.findViewById(R.id.imgDelete);
         mImgNote = (ImageView) view.findViewById(R.id.imgNote);
         mTvTitleNote = (TextView) view.findViewById(R.id.tvTitleNote);
