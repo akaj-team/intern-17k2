@@ -58,8 +58,8 @@ public class TitleTabLayoutCustom extends View {
 
     private void initPaint2() {
         mPaint2 = new Paint();
-        mPaint2.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-        mPaint2.setStrokeWidth(5);
+        mPaint2.setColor(ContextCompat.getColor(getContext(), R.color.stroke));
+        mPaint2.setStrokeWidth(2);
         mPaint2.setStyle(Paint.Style.STROKE);
         mPaint2.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
