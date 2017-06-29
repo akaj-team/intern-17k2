@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="button.friends">#FFFFFF</color>
     <color name="btn.friends">#FF0033</color>
+    <color name="fragment.background">#CCCCCC</color>
     <color name="colorItemPressed">#666666</color>
     <color name="colorBorder">#CCCCCC</color>
     <color name="toolbar.edit_information.background">#002E3E</color>
@@ -19,4 +20,5 @@
     <color name="colorEditInformation">#F5F5F5</color>
     <color name="colorTime">#880000</color>
     <color name="textview.title_infor_note">#003300</color>
+    <color name="cardview.textview.background.border">#CCCCCC</color>
 </resources>

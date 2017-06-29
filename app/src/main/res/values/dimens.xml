@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="textview.textSize.result">30sp</dimen>
+    <dimen name="fragment.layout_width">150dp</dimen>
+    <dimen name="fragment.layout_height.first">80dp</dimen>
+    <dimen name="fragment.layout_marginLeft">90dp</dimen>
+    <dimen name="fragment.layout_marginTop">30dp</dimen>
+    <dimen name="fragment.layout_marginBottom">20dp</dimen>
+    <dimen name="button.layout_marginLeft.ok">120dp</dimen>
+    <dimen name="fragment.layout_height.second">150dp</dimen>
     <dimen name="recyclerView.layout_width">150dp</dimen>
     <dimen name="textview.content.textSize">50sp</dimen>
     <dimen name="imageview.image.layout_height">150dp</dimen>
@@ -18,7 +26,9 @@
     <item name="image.aspectx" type="dimen">1</item>
     <item name="image.aspecty" type="dimen">1</item>
     <item name="drawable.pixel" type="dimen">20</item>
-    <item name="linearlayout.information.layout_weight" type="dimen" format="float">2.5</item>
+    <item name="linearlayout.information.layout_weight" format="float" type="dimen">2.5</item>
+    <dimen name="textview.textsize.user">20sp</dimen>
+    <dimen name="cardview.layout_height.item_feed">300dp</dimen>
     <dimen name="relativelayout.layout_height">80dp</dimen>
     <dimen name="imageview.layout_marginStart">5dp</dimen>
     <dimen name="textview.name.layout_marginStart">75dp</dimen>
@@ -27,6 +37,17 @@
     <dimen name="button.friends.layout_height">40dp</dimen>
     <dimen name="button.friends.layout_margin_Start">210dp</dimen>
     <dimen name="button.friends.layout_marginTop">5dp</dimen>
+    <dimen name="textview.textSize.description_information_feed">15sp</dimen>
+    <dimen name="imageview.padding.feed">10dp</dimen>
+    <dimen name="cardview.textview.laayout_height.border">1dp</dimen>
+    <dimen name="cardview.ll.layout_height.feed">50dp</dimen>
+    <dimen name="cardview.imageview.layout_height.user">40dp</dimen>
+    <dimen name="cardview.textview.marginleft.user">5dp</dimen>
+    <dimen name="cardview.viewpager.layout_marginTop.feed">60dp</dimen>
+    <dimen name="cardview.viewpager.layout_marginBottom.feed">20dp</dimen>
+    <dimen name="cardview.viewpager.layout_width.feed">300dp</dimen>
+    <dimen name="cardview.textview.marginleft.description">20dp</dimen>
+    <dimen name="cardview.textview.marginTop.description">270dp</dimen>
     <dimen name="imageview.avatar.layout_height">80dp</dimen>
     <dimen name="imageview.avatar.layout_width">80dp</dimen>
     <dimen name="imageview.photo.layout_marginLeft">70dp</dimen>
@@ -68,4 +89,8 @@
     <dimen name="textview.information.layout_marginStart">50dp</dimen>
     <item name="linearlayout.time.layout_weight" type="dimen">2</item>
     <item name="linearlayout.imageNote.layout_weight" type="dimen">2</item>
+    <dimen name="cardview.viewpager.layout_height.feed">200dp</dimen>
+    <dimen name="imageview.arrowleft.layout_marginTop">150dp</dimen>
+    <dimen name="imageview.arrowleft.layout_marginLeft">80dp</dimen>
+    <dimen name="imageview.arrowright.layout_marginLeft">260dp</dimen>
 </resources>
