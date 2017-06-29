@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="button.friends">#FFFFFF</color>
     <color name="btn.friends">#FF0033</color>
+    <color name="fragment.background">#CCCCCC</color>
     <color name="colorItemPressed">#666666</color>
     <color name="colorBorder">#CCCCCC</color>
     <color name="colorItem">#86868B</color>
@@ -13,6 +14,7 @@
     <color name="stroke.custom_linearlayout_image_header">#CCCCCC</color>
     <color name="solid.custom_linearlayout_image_header">#EEEEEE</color>
     <color name="avatar_bolder">#FFFFCC</color>
+    <color name="cardview.textview.background.border">#CCCCCC</color>
     <color name="imageview.custom.tablayout_title">#efe7e7</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="textview.tab.title">#002200</color>
