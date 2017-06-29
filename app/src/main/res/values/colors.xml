@@ -16,7 +16,6 @@
     <color name="avatar_bolder">#FFFFCC</color>
     <color name="cardview.textview.background.border">#CCCCCC</color>
     <color name="imageview.custom.tablayout_title">#efe7e7</color>
-    <color name="transparent">@android:color/transparent</color>
     <color name="textview.tab.title">#002200</color>
     <color name="stroke">#745151</color>
 </resources>

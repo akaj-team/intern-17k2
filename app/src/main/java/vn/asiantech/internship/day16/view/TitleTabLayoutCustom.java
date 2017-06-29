@@ -44,7 +44,7 @@ public class TitleTabLayoutCustom extends View {
             RectF rect = new RectF(mPosition * getWidth() / ViewPagerOutAdapter.SIZE, -getHeight() / 2, (mPosition + 1) * getWidth() / ViewPagerOutAdapter.SIZE, getHeight() / 2);
             canvas.drawArc(rect, 0, 180, false, mPaint2);
             canvas.drawLine(0, 0, mPosition * getWidth() / ViewPagerOutAdapter.SIZE, 0, mPaint2);
-            drawLine2(mPosition, canvas);
+            drawLine2(canvas);
         }
     }
 
@@ -64,7 +64,7 @@ public class TitleTabLayoutCustom extends View {
         mPaint2.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
-    public void drawLine2(int mPosition, Canvas canvas) {
+    public void drawLine2(Canvas canvas) {
         canvas.drawLine((mPosition + 1) * getWidth() / ViewPagerOutAdapter.SIZE, 0, getWidth(), 0, mPaint2);
     }
 
