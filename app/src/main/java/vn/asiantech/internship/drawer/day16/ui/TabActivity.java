@@ -18,6 +18,9 @@ import vn.asiantech.internship.drawer.day16.adapter.PageAdapter;
 
 import static vn.asiantech.internship.R.id.tabLayout;
 
+/**
+ * TabActivity
+ */
 public class TabActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;

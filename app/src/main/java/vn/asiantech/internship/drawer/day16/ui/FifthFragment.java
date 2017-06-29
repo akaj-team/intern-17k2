@@ -12,7 +12,6 @@ import vn.asiantech.internship.R;
 /**
  * Created by at-dinhvo on 29/06/2017.
  */
-
 public class FifthFragment extends Fragment {
 
     private View mView;
