@@ -3,6 +3,7 @@
     package="vn.asiantech.internship">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -17,6 +18,7 @@
 
         <!--d5-->
         <activity android:name=".exday15.JsonActivity"/>
+        <activity android:name=".feed.ActivityFeed"/>
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,5 +30,4 @@
         <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".exfragment.RecyclerViewActivity" />
     </application>
-
 </manifest>
