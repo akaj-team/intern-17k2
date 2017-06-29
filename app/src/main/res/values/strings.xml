@@ -20,7 +20,10 @@
     <string name="bai5">Bai 5</string>
     <string name="bai6">Bai 6</string>
     <string name="bai7">Bai 7</string>
+    <string name="bai9">Bai 9</string>
     <string name="bai11">Bai 11</string>
+    <string name="bai13">Bai 13</string>
+    <string name="textview.text.desription">This is desription</string>
     <string name="edittext.hint.title">Title</string>
     <string name="editetext.hint.content">Content</string>
 </resources>

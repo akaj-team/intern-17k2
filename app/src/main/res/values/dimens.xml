@@ -14,6 +14,12 @@
     <dimen name="line.height">1dp</dimen>
     <dimen name="textview.size.title">20sp</dimen>
     <dimen name="imageview.size.user">50dp</dimen>
+    <dimen name="cardview.padding">10dp</dimen>
+    <dimen name="textview.margin_left.username">10dp</dimen>
+    <dimen name="viewpager.height">200dp</dimen>
+    <dimen name="imageview.padding.send">5dp</dimen>
+    <dimen name="textview.padding">10dp</dimen>
+    <dimen name="linearlayout.marging.left_right">50dp</dimen>
     <dimen name="textview.title.size">24sp</dimen>
     <dimen name="imageview.add.size">30dp</dimen>
     <dimen name="image.height">300dp</dimen>
