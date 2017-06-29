@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.viewpager;
+package vn.asiantech.internship.adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -11,10 +11,10 @@ import vn.asiantech.internship.R;
 /**
  * Created by Hai on 6/28/2017.
  */
-class CPagerAdapter extends PagerAdapter {
+public class CPagerAdapter extends PagerAdapter {
     private int[] mImageResources;
 
-    CPagerAdapter(int[] imageResources) {
+    public CPagerAdapter(int[] imageResources) {
         mImageResources = imageResources;
     }
 

@@ -1,9 +1,6 @@
 package vn.asiantech.internship.ui.viewpager;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -11,9 +8,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
@@ -27,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.adapter.ViewPagerAdapter;
 
 /**
  * Created by Hai on 6/27/2017.
@@ -37,6 +35,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private ViewPagerAdapter mAdapter;
     private ViewPager mViewPager;
+    private MyView mView;
 
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"Page 1", "Page 2", "Page 3"};
@@ -63,6 +62,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_viewpager);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
+        mView = new MyView(this);
         createFragmentList();
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragments, mTitles);
         mViewPager.setAdapter(mAdapter);
@@ -71,15 +71,17 @@ public class ViewPagerActivity extends AppCompatActivity {
         mHandler.postDelayed(mRunnable, 2000);
         setScroll(mViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
-        customTabLayout();
+        setupLayout();
+        //customTabLayout();
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                mView.setSelected(true);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                mView.setSelected(false);
             }
 
             @Override
@@ -113,6 +115,20 @@ public class ViewPagerActivity extends AppCompatActivity {
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
             if (tab != null) {
                 tab.setCustomView(tvTitle);
+            }
+        }
+    }
+
+    private void setupLayout() {
+        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+            View view = LayoutInflater.from(this).inflate(R.layout.item_tab, null, false);
+//            View myView = (MyView) view.findViewById(R.id.view);
+            TextView tvTabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
+            tvTabTitle.setText(mAdapter.getPageTitle(i));
+            tvTabTitle.setGravity(Gravity.CENTER);
+            TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            if (tab != null) {
+                tab.setCustomView(view);
             }
         }
     }
@@ -153,28 +169,5 @@ public class ViewPagerActivity extends AppCompatActivity {
         }
     }
 
-    private class MyView extends View{
-        private Paint mPaint;
 
-        public MyView(Context context) {
-            super(context);
-            mPaint = new Paint();
-            mPaint.setColor(Color.BLACK);
-            mPaint.setStrokeWidth(30);
-        }
-
-        public MyView(Context context, @Nullable AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        public MyView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-            super(context, attrs, defStyleAttr);
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            super.onDraw(canvas);
-            canvas.drawCircle(100, 100, 100, mPaint);
-        }
-    }
 }

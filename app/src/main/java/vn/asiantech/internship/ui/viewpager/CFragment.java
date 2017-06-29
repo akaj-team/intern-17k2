@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.adapter.CPagerAdapter;
 
 public class CFragment extends Fragment {
     private int[] mImageResources = {R.drawable.img_4, R.drawable.img_5, R.drawable.img_6};
