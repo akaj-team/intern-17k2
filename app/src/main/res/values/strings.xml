@@ -5,6 +5,7 @@
     <string name="cancel">Cancel</string>
     <string name="friend">Friend</string>
     <string name="add">Add</string>
+    <string name="yasuo">Yasuo là một người đàn ông đầy quyết tâm, một kiếm khách nhanh nhẹn biết cách vận dụng gió để trảm sát kẻ thù.</string>
     <string name="pass_data">Pass Data</string>
     <string name="get_text">Get Text</string>
     <string name="user_name">Cao Van Cuong</string>
@@ -22,6 +23,15 @@
         <item>Gallery</item>
         <item>Camera</item>
     </string-array>
+    <string name="note_hint_title">Title</string>
+    <string name="note_hint_content">Content</string>
+    <string name="title_add">Add New Note</string>
+    <string name="title_note">Your Notes</string>
+    <string name="title_detail">Note Details</string>
+    <string name="title_edit">Edit Note</string>
+    <string name="success">Successful.</string>
+    <string name="fail">Fail :(.</string>
+    <string name="validate">Bạn phải nhập đầy đủ thông tin.</string>
     <string name="result_format">"Your point: %1$d/%2$d"</string>
     <string name="your_result">Your Result</string>
     <string name="title_format">Question %d</string>
