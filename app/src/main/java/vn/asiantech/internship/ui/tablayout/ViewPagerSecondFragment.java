@@ -143,6 +143,9 @@ public class ViewPagerSecondFragment extends Fragment {
             public void run() {
                 if (mTabSelected == 5) {
                     mTabSelected = 0;
+                    mIsSliding = false;
+                    mViewPager.setCurrentItem((int) mTabSelected++);
+                    mHandler.removeCallbacks(mThread);
                 }
                 if (mIsSliding) {
                     mViewPager.setCurrentItem((int) mTabSelected++);
