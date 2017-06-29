@@ -66,6 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:stateListAnimator="@null"
                 android:text="@string/button.text.ex11_1" />
 
             <Button
@@ -74,7 +75,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:stateListAnimator="@null"
                 android:text="@string/button.text.ex11_2" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnEx15"
+            style="@style/ButtonNormalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stateListAnimator="@null"
+            android:text="@string/button.text.ex15" />
     </LinearLayout>
 </ScrollView>

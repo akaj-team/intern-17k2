@@ -1,6 +1,5 @@
 package vn.asiantech.internship.ui.fragment;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +11,7 @@ import android.widget.Button;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.main.Ex05Activity;
 import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.ui.questions.QuestionActivity;
 import vn.asiantech.internship.ui.note.NoteActivity;
 
 /**
@@ -51,6 +51,8 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
                 break;
             case R.id.btnEx11_2:
                 openActivity(NoteActivity.class);
+            case R.id.btnEx15:
+                openActivity(QuestionActivity.class);
                 break;
         }
 
@@ -70,6 +72,7 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         Button btnEx08 = (Button) v.findViewById(R.id.btnEx08);
         Button btnEx11 = (Button) v.findViewById(R.id.btnEx11);
         Button btnEx11_2 = (Button) v.findViewById(R.id.btnEx11_2);
+        Button btnEx15 = (Button) v.findViewById(R.id.btnEx15);
 
         btnEx05.setOnClickListener(this);
         btnEx06.setOnClickListener(this);
@@ -78,5 +81,6 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         btnEx08.setOnClickListener(this);
         btnEx11.setOnClickListener(this);
         btnEx11_2.setOnClickListener(this);
+        btnEx15.setOnClickListener(this);
     }
 }

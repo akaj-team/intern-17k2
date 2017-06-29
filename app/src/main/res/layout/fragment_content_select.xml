@@ -23,28 +23,6 @@
             android:layout_height="wrap_content"
             android:text="@string/button.text.ex06" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnEx07.1"
-                style="@style/ButtonNormalStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/button.text.ex07_1" />
-
-            <Button
-                android:id="@+id/btnEx07.2"
-                style="@style/ButtonNormalStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/button.text.ex07_2" />
-        </LinearLayout>
-
         <Button
             android:id="@+id/btnEx08"
             style="@style/ButtonNormalStyle"
@@ -74,5 +52,11 @@
                 android:text="@string/button.text.ex11_2" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnEx15"
+            style="@style/ButtonNormalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button.text.ex15" />
     </LinearLayout>
 </ScrollView>
