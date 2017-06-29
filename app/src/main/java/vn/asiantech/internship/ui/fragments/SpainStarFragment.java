@@ -79,11 +79,11 @@ public class SpainStarFragment extends Fragment {
 
     private void changeDuration() {
         try {
-            Field scroller = ViewPager.class.getDeclaredField("mScroller");
-            scroller.setAccessible(true);
+            Field field = ViewPager.class.getDeclaredField("mScroller");
+            field.setAccessible(true);
             Interpolator interpolator = new AccelerateInterpolator();
             ChangeDurationTimeViewPager changeDurationTimeViewPager = new ChangeDurationTimeViewPager(getContext(), interpolator);
-            scroller.set(mViewPagerSpainStar, changeDurationTimeViewPager);
+            field.set(mViewPagerSpainStar, changeDurationTimeViewPager);
         } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
             Log.i("tag11", e.getMessage());
         }
