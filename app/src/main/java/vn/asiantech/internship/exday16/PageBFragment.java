@@ -63,7 +63,6 @@ public class PageBFragment extends Fragment {
                 } else {
                     mViewPager.setCurrentItem(mCurrentPage++, true);
                     //TODO only one loop
-//                    Log.d("aaa", "run: "+mCurrentPage);
                 }
                 Log.d("tag", "run: " + mCurrentPage);
             }

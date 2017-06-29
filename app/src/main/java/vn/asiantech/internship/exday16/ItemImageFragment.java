@@ -20,8 +20,8 @@ import vn.asiantech.internship.R;
  */
 public class ItemImageFragment extends Fragment {
     private ImageView mImageView;
-    private boolean mIsStarted ;
-    private boolean mIsVisible ;
+    private boolean mIsStarted;
+    private boolean mIsVisible;
     private View mView;
     private String mImage;
 
