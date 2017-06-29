@@ -22,4 +22,13 @@
         <item>Garelly</item>
         <item>Camera</item>
     </string-array>
+    <string name="note_hint_title">Title</string>
+    <string name="note_hint_content">Content</string>
+    <string name="title_add">Add New Note</string>
+    <string name="title_note">Your Notes</string>
+    <string name="title_detail">Note Details</string>
+    <string name="title_edit">Edit Note</string>
+    <string name="success">Successful.</string>
+    <string name="fail">Fail :(.</string>
+    <string name="validate">Bạn phải nhập đầy đủ thông tin.</string>
 </resources>
