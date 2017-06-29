@@ -15,7 +15,7 @@ import android.view.animation.Interpolator;
 import java.lang.reflect.Field;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.Ultils.ChangeDurationTimeViewPager;
+import vn.asiantech.internship.myultils.ChangeDurationTimeViewPager;
 import vn.asiantech.internship.adapters.SpainStarAdapter;
 
 

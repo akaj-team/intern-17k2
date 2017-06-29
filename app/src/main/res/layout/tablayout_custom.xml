@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <vn.asiantech.internship.Ultils.MyCustomTab
+    <vn.asiantech.internship.myultils.MyCustomTab
         android:id="@+id/myView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_canvas_height"
@@ -29,5 +29,6 @@
         android:layout_gravity="center_horizontal"
         android:background="@android:color/white"
         android:padding="@dimen/tab_text_view_padding"
+        android:textColor="@android:color/darker_gray"
         android:textSize="@dimen/tab_text_size" />
 </LinearLayout>

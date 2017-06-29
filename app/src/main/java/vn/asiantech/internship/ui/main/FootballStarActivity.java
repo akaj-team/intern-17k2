@@ -1,5 +1,6 @@
 package vn.asiantech.internship.ui.main;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -11,9 +12,9 @@ import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.Ultils.DepthPageTransformer;
-import vn.asiantech.internship.Ultils.MyCustomTab;
 import vn.asiantech.internship.adapters.FootballStarAdapter;
+import vn.asiantech.internship.myultils.DepthPageTransformer;
+import vn.asiantech.internship.myultils.MyCustomTab;
 
 /**
  * @author at-cuongcao
@@ -39,19 +40,39 @@ public class FootballStarActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(viewPagerFootballStar);
         viewPagerFootballStar.setPageTransformer(true, new DepthPageTransformer());
         customTab();
+
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                TextView tvTabTitle = (TextView) tab.getCustomView().findViewById(R.id.tvTabTitle);
+                tvTabTitle.setTextColor(Color.RED);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                TextView tvTabTitle = (TextView) tab.getCustomView().findViewById(R.id.tvTabTitle);
+                tvTabTitle.setTextColor(Color.GRAY);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void customTab() {
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.tablayout_custom, null, false);
             MyCustomTab myCustomTab = (MyCustomTab) view.findViewById(R.id.myView);
+            TextView tabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
+            tabTitle.setText(mAdapter.getPageTitle(i));
             if (i == 0) {
                 myCustomTab.setSelected(true);
+                tabTitle.setTextColor(Color.RED);
             }
             CircleImageView icon = (CircleImageView) view.findViewById(R.id.imgTabIcon);
             icon.setImageResource(mTabIcons[i]);
-            TextView tabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
-            tabTitle.setText(mAdapter.getPageTitle(i));
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
             if (tab != null) {
                 tab.setCustomView(view);
