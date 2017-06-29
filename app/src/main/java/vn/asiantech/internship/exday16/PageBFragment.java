@@ -58,8 +58,13 @@ public class PageBFragment extends Fragment {
         final Handler handler = new Handler();
         final Runnable update = new Runnable() {
             public void run() {
+                boolean isLoop = false;
                 if (mCurrentPage == mViewPagerAdapter.getCount()) {
                     mCurrentPage = -1;
+                    isLoop = !isLoop;
+                    if (isLoop == true && mCurrentPage == -1) {
+                        mViewPager.setCurrentItem(mCurrentPage, true);
+                    }
                 } else {
                     mViewPager.setCurrentItem(mCurrentPage++, true);
                     //TODO only one loop
@@ -67,19 +72,26 @@ public class PageBFragment extends Fragment {
                 Log.d("tag", "run: " + mCurrentPage);
             }
         };
-        Timer swipeTimer = new Timer();
+        final Timer swipeTimer = new Timer();
+
         swipeTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                handler.post(update);
+                if (mCurrentPage != -1) {
+                    handler.post(update);
+                } else {
+                    swipeTimer.cancel();
+                }
             }
         }, 1000, 5000);
+
+        Log.d("tag", "finish: " + mCurrentPage);
     }
 
     private void changeDurationScroll() {
         try {
             Field scroller;
-            scroller = ViewPager.class.getDeclaredField("scroller");
+            scroller = ViewPager.class.getDeclaredField("mScroller");
             scroller.setAccessible(true);
             CustomDuration customDuration = new CustomDuration(mViewPager.getContext(), new AccelerateInterpolator());
             scroller.set(mViewPager, customDuration);
