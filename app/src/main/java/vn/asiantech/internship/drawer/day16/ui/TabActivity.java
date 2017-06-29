@@ -39,11 +39,11 @@ public class TabActivity extends AppCompatActivity {
         setupViewpager(viewPager);
         mTabLayout.setupWithViewPager(viewPager);
         mCustomTabs = new ArrayList<>();
-        setupTabLayout("Search", 0, R.drawable.ic_loyalty_white_24dp);
-        setupTabLayout("Place", 1, R.drawable.ic_motorcycle_white_24dp);
-        setupTabLayout("Profile", 2, R.drawable.ic_rowing_white_24dp);
-        setupTabLayout("Game", 3, R.drawable.ic_settings_input_antenna_white_24dp);
-        setupTabLayout("Setting", 4, R.drawable.ic_open_with_white_24dp);
+        setupTabLayout("Loyalty", 0, R.drawable.bg_tab_item_one);
+        setupTabLayout("Motor", 1, R.drawable.bg_tab_item_two);
+        setupTabLayout("Open", 2, R.drawable.bg_tab_item_three);
+        setupTabLayout("Rowing", 3, R.drawable.bg_tab_item_four);
+        setupTabLayout("Setting", 4, R.drawable.bg_tab_item_five);
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
