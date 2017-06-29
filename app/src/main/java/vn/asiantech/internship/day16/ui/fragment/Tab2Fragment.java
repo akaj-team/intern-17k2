@@ -19,6 +19,7 @@ import java.util.TimerTask;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day16.adapter.ViewPagerInAdapter;
+import vn.asiantech.internship.day16.view.FadeTransformer;
 
 /**
  * Copyright © 2017 AsianTech inc.
@@ -40,26 +41,26 @@ public class Tab2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tab2, container, false);
         mViewPager = (ViewPager) v.findViewById(R.id.viewPagerIn);
+        mViewPager.setPageTransformer(false, new FadeTransformer());
         mViewPagerInAdapter = new ViewPagerInAdapter(mImages, getContext());
         Interpolator interpolator = new AccelerateInterpolator();
         try {
             Field field;
-            field = ViewPager.class.getDeclaredField("field");
+            field = ViewPager.class.getDeclaredField("mScroller");
             field.setAccessible(true);
             FixedSpeedScroller scroller = new FixedSpeedScroller(mViewPager.getContext(), interpolator);
             field.set(mViewPager, scroller);
         } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException ignored) {
         }
-
         final Handler handler = new Handler();
         final Timer mTimer = new Timer();
         final Runnable Update = new Runnable() {
             public void run() {
-                if (mCurrentPage == mImages.length - 1) {
+                if (mCurrentPage == mImages.length) {
                     mCurrentPage = 0;
-                    mTimer.cancel();
+                } else {
+                    mViewPager.setCurrentItem(mCurrentPage++, true);
                 }
-                mViewPager.setCurrentItem(mCurrentPage++, true);
             }
         };
         mTimer.schedule(new TimerTask() {
@@ -69,6 +70,7 @@ public class Tab2Fragment extends Fragment {
                 handler.post(Update);
             }
         }, 50, 5000);
+
         mViewPagerInAdapter.notifyDataSetChanged();
         return v;
     }
@@ -89,6 +91,9 @@ public class Tab2Fragment extends Fragment {
         }
     }
 
+    /**
+     * Create FixedSpeedScroller
+     */
     private class FixedSpeedScroller extends Scroller {
         private int mDuration = 5000;
 
@@ -98,11 +103,6 @@ public class Tab2Fragment extends Fragment {
 
         @Override
         public void startScroll(int startX, int startY, int dx, int dy, int duration) {
-            super.startScroll(startX, startY, dx, dy, mDuration);
-        }
-
-        @Override
-        public void startScroll(int startX, int startY, int dx, int dy) {
             super.startScroll(startX, startY, dx, dy, mDuration);
         }
     }

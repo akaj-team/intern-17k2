@@ -13,5 +13,7 @@
     <color name="stroke.custom_linearlayout_image_header">#CCCCCC</color>
     <color name="solid.custom_linearlayout_image_header">#EEEEEE</color>
     <color name="avatar_bolder">#FFFFCC</color>
-    <color name="imageview.custom.tablayout_title">#CCCCCC</color>
+    <color name="imageview.custom.tablayout_title">#efe7e7</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="textview.tab.title">#002200</color>
 </resources>

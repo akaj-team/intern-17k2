@@ -17,7 +17,7 @@ import vn.asiantech.internship.R;
 public class TabFragment extends Fragment {
     private static final String ID_IMAGE = "image";
     private int mIdImage;
-    ImageView mImgText;
+    private ImageView mImgText;
 
     public static TabFragment init(int image) {
         TabFragment tabFragment = new TabFragment();
