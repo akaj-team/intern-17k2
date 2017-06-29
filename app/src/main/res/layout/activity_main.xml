@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-
     <RelativeLayout
         android:id="@+id/rlParent"
         android:layout_width="match_parent"

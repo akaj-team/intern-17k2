@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.models.Friend;
-import vn.asiantech.internship.models.ListFriendAdapter;
+import vn.asiantech.internship.adapter.ListFriendAdapter;
 import vn.asiantech.internship.R;
 
 /**
