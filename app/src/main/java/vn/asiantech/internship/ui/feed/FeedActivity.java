@@ -1,4 +1,4 @@
-package vn.asiantech.internship.feed;
+package vn.asiantech.internship.ui.feed;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

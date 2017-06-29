@@ -27,15 +27,36 @@
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/view.padding"
                 android:layout_gravity="center"
+                android:padding="@dimen/view.padding"
                 tools:text="HaiNgo" />
         </LinearLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPagerImage"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/viewpager.height" />
+            android:layout_height="wrap_content">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPagerImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/viewpager.height" />
+
+            <ImageView
+                android:id="@+id/imgArrowLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_keyboard_arrow_left_black_48dp" />
+
+            <ImageView
+                android:id="@+id/imgArrowRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_keyboard_arrow_right_black_48dp" />
+        </FrameLayout>
 
         <vn.asiantech.internship.models.ExpandableTextView
             android:id="@+id/tvStatus"
