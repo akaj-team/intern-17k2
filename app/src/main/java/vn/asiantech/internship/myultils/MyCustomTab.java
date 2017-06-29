@@ -23,8 +23,7 @@ public class MyCustomTab extends View {
     private Paint mPaint;
 
     public MyCustomTab(Context context) {
-        super(context);
-        mPaint = new Paint();
+        this(context, null);
     }
 
     public MyCustomTab(Context context, @Nullable AttributeSet attrs) {
