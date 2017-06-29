@@ -16,11 +16,5 @@
     <color name="colorRed">#d40636</color>
     <!--Bai16-->
     <color name="colorTab">#f46933</color>
-    <color name="colorTab.indicator">#5031d9</color>
-    <color name="tab.green">#3ae43f</color>
-    <color name="tab.yellow">#dbe12a</color>
-    <color name="tab.red">#da2c1c</color>
-    <color name="tab.orange">#e77111</color>
-    <color name="tab.pink">#d926df</color>
-    <color name="tab.blue">#1f23df</color>
+    <color name="colorTab.indicator">#252526</color>
 </resources>
