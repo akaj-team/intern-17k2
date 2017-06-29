@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -15,6 +16,8 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapters.FootballStarAdapter;
 import vn.asiantech.internship.myultils.DepthPageTransformer;
 import vn.asiantech.internship.myultils.MyCustomTab;
+
+import static vn.asiantech.internship.R.id.tvTabTitle;
 
 /**
  * @author at-cuongcao
@@ -44,14 +47,21 @@ public class FootballStarActivity extends AppCompatActivity {
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                TextView tvTabTitle = (TextView) tab.getCustomView().findViewById(R.id.tvTabTitle);
-                tvTabTitle.setTextColor(Color.RED);
+                View view = tab.getCustomView();
+                if (view != null) {
+                    TextView tvTabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
+                    tvTabTitle.setTextColor(Color.RED);
+                }
+
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                TextView tvTabTitle = (TextView) tab.getCustomView().findViewById(R.id.tvTabTitle);
-                tvTabTitle.setTextColor(Color.GRAY);
+                View view = tab.getCustomView();
+                if (view != null) {
+                    TextView tvTabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
+                    tvTabTitle.setTextColor(Color.GRAY);
+                }
             }
 
             @Override
@@ -63,9 +73,9 @@ public class FootballStarActivity extends AppCompatActivity {
 
     private void customTab() {
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
-            View view = LayoutInflater.from(this).inflate(R.layout.tablayout_custom, null, false);
+            View view = LayoutInflater.from(this).inflate(R.layout.tablayout_custom, new LinearLayout(this), false);
             MyCustomTab myCustomTab = (MyCustomTab) view.findViewById(R.id.myView);
-            TextView tabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
+            TextView tabTitle = (TextView) view.findViewById(tvTabTitle);
             tabTitle.setText(mAdapter.getPageTitle(i));
             if (i == 0) {
                 myCustomTab.setSelected(true);
