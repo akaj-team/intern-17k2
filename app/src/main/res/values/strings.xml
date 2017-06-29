@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Internship</string>
-
+    <string name="app_name">MyProject</string>
     <string name="get_text">Get Text</string>
     <string name="pass_data">Pass Data</string>
 
