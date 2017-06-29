@@ -22,6 +22,7 @@
         <activity android:name=".activity.FriendActivity" />
         <activity android:name=".MainIntentActivity" />
         <activity android:name=".ui.feed.FeedActivity" />
+        <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.TestActivity"/>
         <activity android:name=".activity.ResultActivity"/>
     </application>

@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import vn.asiantech.internship.MainIntentActivity;
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.activity.ChatActivity;
 import vn.asiantech.internship.activity.FriendActivity;
 import vn.asiantech.internship.ui.feed.FeedActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
@@ -22,6 +23,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private Button mBtnBai6;
     private Button mBtnBai7;
     private Button mBtnBai9;
+    private Button mBtnBai13;
     private Button mBtnBai15;
 
     @Override
@@ -37,6 +39,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai6.setOnClickListener(this);
         mBtnBai7.setOnClickListener(this);
         mBtnBai9.setOnClickListener(this);
+        mBtnBai13.setOnClickListener(this);
         mBtnBai15.setOnClickListener(this);
     }
 
@@ -45,6 +48,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai6 = (Button) findViewById(R.id.btnBai6);
         mBtnBai7 = (Button) findViewById(R.id.btnBai7);
         mBtnBai9 = (Button) findViewById(R.id.btnBai9);
+        mBtnBai13 = (Button) findViewById(R.id.btnBai13);
         mBtnBai15 = (Button) findViewById(R.id.btnBai15);
     }
 
@@ -62,6 +66,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btnBai9:
                 startActivity(new Intent(this, FeedActivity.class));
+                break;
+            case R.id.btnBai13:
+                startActivity(new Intent(this, ChatActivity.class));
                 break;
             case R.id.btnBai15:
                 startActivity(new Intent(this, TestActivity.class));
