@@ -13,8 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.splash.SplashActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,8 +23,7 @@
         <activity android:name=".ui.feeds.FeedsActivity" />
         <activity android:name=".ui.main.Ex05Activity" />
         <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.questions.QuestionActivity"/>
         <activity android:name=".ui.ninepatch.ChatActivity" />
     </application>
-
 </manifest>

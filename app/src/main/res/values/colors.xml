@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#ECEBED</color>
     <color name="colorPrimaryDark">#BFBDC4</color>
+    <color name="colorBackground">#f4f4f4</color>
     <color name="colorAccent">#FF4081</color>
     <color name="friendsColorBorder">#C1BFC5</color>
     <color name="friendsColorPrimary">#F3F3F3</color>

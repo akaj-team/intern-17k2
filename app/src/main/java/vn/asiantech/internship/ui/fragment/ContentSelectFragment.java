@@ -13,6 +13,7 @@ import android.widget.Toast;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.main.Ex05Activity;
 import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.ui.questions.QuestionActivity;
 import vn.asiantech.internship.ui.ninepatch.ChatActivity;
 
 /**
@@ -55,9 +56,10 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
                 break;
             case R.id.btnEx13:
                 openActivity(ChatActivity.class);
+            case R.id.btnEx15:
+                openActivity(QuestionActivity.class);
                 break;
         }
-
     }
 
     private void showToast(String s) {
@@ -79,6 +81,7 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         Button btnEx11 = (Button) v.findViewById(R.id.btnEx11);
         Button btnEx11_2 = (Button) v.findViewById(R.id.btnEx11_2);
         Button btnEx13 = (Button) v.findViewById(R.id.btnEx13);
+        Button btnEx15 = (Button) v.findViewById(R.id.btnEx15);
 
         btnEx05.setOnClickListener(this);
         btnEx06.setOnClickListener(this);
@@ -88,5 +91,6 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         btnEx11.setOnClickListener(this);
         btnEx11_2.setOnClickListener(this);
         btnEx13.setOnClickListener(this);
+        btnEx15.setOnClickListener(this);
     }
 }

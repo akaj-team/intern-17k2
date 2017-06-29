@@ -37,6 +37,18 @@
         <item>Open Camera</item>
         <item>Open Library</item>
     </string-array>
+    <string name="result">Result</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="question">Question</string>
+    <string name="next">Next</string>
+    <string name="prev">Prev</string>
+    <string name="text.you_have_answered">You have answered </string>
+    <string name="textview.text.do_you_want_to_continue">Do you want to continue ?</string>
+    <string name="notication">Notication</string>
+    <string name="correct">Correct</string>
+    <string name="button.text.ex15">Ex 15</string>
+    <string name="button.text.feed">FEEDS</string>
     <string name="edittext.hint.type">Type....</string>
     <string name="button.text.ex11_1">Ex 11.1</string>
     <string name="button.text.ex11_2">ex11.2</string>
