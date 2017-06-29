@@ -48,13 +48,13 @@ public class TabActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mCustomTabs.get(tab.getPosition()).setSelected(true);
-                mCustomTabs.get(tab.getPosition()).setBackgroundColor(getResources().getColor(R.color.colorTab));
+                mCustomTabs.get(tab.getPosition()).setBackgroundResource(R.color.colorTab);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 mCustomTabs.get(tab.getPosition()).setSelected(false);
-                mCustomTabs.get(tab.getPosition()).setBackgroundColor(getResources().getColor(R.color.colorWhite));
+                mCustomTabs.get(tab.getPosition()).setBackgroundResource(R.color.colorWhite);
             }
 
             @Override
@@ -110,7 +110,7 @@ public class TabActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 mCustomTabs.get(position).setSelected(true);
-                mCustomTabs.get(position).setBackgroundColor(getResources().getColor(R.color.colorTab));
+                mCustomTabs.get(position).setBackgroundResource(R.color.colorTab);
             }
 
             @Override
