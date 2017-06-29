@@ -1,12 +1,12 @@
 package vn.asiantech.internship.drawer.ui.feed;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
 import vn.asiantech.internship.R;
 
 /**
- * FeedActivity
+ * FeedActivity javadoc
  */
 public class FeedActivity extends AppCompatActivity {
 
