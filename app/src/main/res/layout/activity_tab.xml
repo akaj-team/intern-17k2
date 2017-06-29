@@ -11,7 +11,7 @@
         android:id="@+id/toolBarTab"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab.height"
-        android:background="@color/colorTab" />
+        android:background="@color/colorDark" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPagerTab"
@@ -25,7 +25,9 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab.height"
-        android:background="@color/colorSelect"
         app:tabGravity="fill"
-        app:tabMode="fixed" />
+        app:tabIndicatorColor="@color/colorTab.indicator"
+        app:tabMode="fixed"
+        app:tabPaddingEnd="0dp"
+        app:tabPaddingStart="0dp" />
 </LinearLayout>

@@ -1,6 +1,5 @@
 package vn.asiantech.internship.drawer.day16.ui;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,15 +10,15 @@ import android.widget.ImageView;
 import vn.asiantech.internship.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by at-dinhvo on 29/06/2017.
  */
-public class ThirdFragment extends Fragment {
+public class FourthFragment extends Fragment {
 
     private View mView;
 
     private boolean isVisible;
 
-    public ThirdFragment() {
+    public FourthFragment() {
         // Required empty public constructor
     }
 
@@ -46,7 +45,7 @@ public class ThirdFragment extends Fragment {
     private void loadData() {
         if (mView != null) {
             ImageView imageView = (ImageView) mView.findViewById(R.id.imgFragment);
-            imageView.setImageResource(R.drawable.img_sunwheel);
+            imageView.setImageResource(R.drawable.img_binhdinh);
             isVisible = true;
         }
     }

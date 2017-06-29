@@ -15,8 +15,6 @@ import vn.asiantech.internship.R;
  */
 public class FirstFragment extends Fragment {
 
-    private boolean isVisible = false;
-
     public FirstFragment() {
         // Required empty public constructor
     }
@@ -25,17 +23,9 @@ public class FirstFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ImageView imageView = null;
-        if(isVisible) {
-            imageView = (ImageView) inflater.inflate(R.layout.fragment_first, container, false);
-            imageView.setImageResource(R.drawable.img_caurong);
-        }
-        return imageView;
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        isVisible = isVisibleToUser;
+        View view = inflater.inflate(R.layout.fragment_first, container, false);
+        ImageView imageView = (ImageView) view.findViewById(R.id.imgFragment);
+        imageView.setImageResource(R.drawable.img_caurong);
+        return view;
     }
 }
