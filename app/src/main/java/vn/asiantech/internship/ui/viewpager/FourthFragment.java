@@ -18,7 +18,7 @@ import com.eftimoff.viewpagertransformers.CubeOutTransformer;
 import java.lang.reflect.Field;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.adapter.FourAdapter;
+import vn.asiantech.internship.adapter.FourthAdapter;
 
 /**
  *
@@ -26,6 +26,9 @@ import vn.asiantech.internship.adapter.FourAdapter;
  */
 public class FourthFragment extends Fragment {
     private static final String NAME = "mScroller";
+
+    private ViewPager mViewPager;
+    private FourthAdapter mAdapter;
     private int[] mImageResources = {R.drawable.img_4, R.drawable.img_5, R.drawable.img_6};
     private Handler mHandler;
     private Runnable mRunnable;
@@ -40,13 +43,12 @@ public class FourthFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_fourth, container, false);
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpagerC);
-        final FourAdapter adapter = new FourAdapter(mImageResources);
-        viewPager.setAdapter(adapter);
-        viewPager.setPageTransformer(true, new CubeOutTransformer());
-        setScroll(viewPager);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager = (ViewPager) inflater.inflate(R.layout.fragment_fourth, container, false);
+        mAdapter = new FourthAdapter(mImageResources);
+        mViewPager.setAdapter(mAdapter);
+        mViewPager.setPageTransformer(true, new CubeOutTransformer());
+        setScroll(mViewPager);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
 
@@ -54,7 +56,7 @@ public class FourthFragment extends Fragment {
 
             @Override
             public void onPageSelected(int i) {
-                Log.d("xxx", "onPageSelected: ");
+
             }
 
             @Override
@@ -66,17 +68,17 @@ public class FourthFragment extends Fragment {
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                if (adapter.getCount() == mPage) {
+                if (mAdapter.getCount() == mPage) {
                     mPage = 0;
                 } else {
                     mPage++;
                 }
-                viewPager.setCurrentItem(mPage);
+                mViewPager.setCurrentItem(mPage);
                 mHandler.postDelayed(mRunnable, 3000);
             }
         };
         mHandler.postDelayed(mRunnable, 3000);
-        return view;
+        return mViewPager;
     }
 
     private void setScroll(ViewPager viewPager) {

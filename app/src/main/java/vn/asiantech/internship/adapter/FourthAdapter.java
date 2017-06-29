@@ -13,10 +13,10 @@ import vn.asiantech.internship.R;
  * <p>
  * Created by Hai on 6/28/2017.
  */
-public class FourAdapter extends PagerAdapter {
+public class FourthAdapter extends PagerAdapter {
     private int[] mImageResources;
 
-    public FourAdapter(int[] imageResources) {
+    public FourthAdapter(int[] imageResources) {
         mImageResources = imageResources;
     }
 
@@ -28,7 +28,7 @@ public class FourAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_viewpager_c, container, false);
-        ImageView imageView = (ImageView) view.findViewById(R.id.imgViewC);
+        ImageView imageView = (ImageView) view.findViewById(R.id.imgThird);
         imageView.setImageResource(mImageResources[position]);
         container.addView(view);
         return view;

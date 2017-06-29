@@ -31,7 +31,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"Page 1", "Page 2", "Page 3", "Page 4"};
-    private int[] mIconTitle = {R.drawable.custom_one, R.drawable.custom_two, R.drawable.custom_third, R.drawable.custom_fourth};
+    private int[] mIconTitles = {R.drawable.custom_one, R.drawable.custom_two, R.drawable.custom_third, R.drawable.custom_fourth};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class ViewPagerActivity extends AppCompatActivity {
             View view = LayoutInflater.from(this).inflate(R.layout.item_tab, null);
             TextView tvTabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
             tvTabTitle.setText(mAdapter.getPageTitle(i));
-            tvTabTitle.setCompoundDrawablesWithIntrinsicBounds(0, mIconTitle[i], 0, 0);
+            tvTabTitle.setCompoundDrawablesWithIntrinsicBounds(0, mIconTitles[i], 0, 0);
             tvTabTitle.setGravity(Gravity.CENTER);
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
             if (tab != null) {
