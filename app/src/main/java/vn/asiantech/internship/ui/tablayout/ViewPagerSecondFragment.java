@@ -124,14 +124,14 @@ public class ViewPagerSecondFragment extends Fragment {
 
     private void slowSlider() {
         try {
-            Field mScroller;
+            Field field;
             ViewPager.class.getDeclaredField("mScroller");
-            mScroller = ViewPager.class.getDeclaredField("mScroller");
-            mScroller.setAccessible(true);
+            field = ViewPager.class.getDeclaredField("mScroller");
+            field.setAccessible(true);
             Interpolator interpolator = new AccelerateInterpolator();
             ChangeDurationTimeViewPager scroller = new ChangeDurationTimeViewPager(getContext(), interpolator);
             scroller.setDuration(5000);
-            mScroller.set(mViewPager, scroller);
+            field.set(mViewPager, scroller);
         } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
             Log.i("tag11", e.getMessage());
         }
