@@ -58,16 +58,13 @@ public class PageBFragment extends Fragment {
         final Handler handler = new Handler();
         final Runnable update = new Runnable() {
             public void run() {
-                boolean isLoop = false;
                 if (mCurrentPage == mViewPagerAdapter.getCount()) {
                     mCurrentPage = -1;
-                    isLoop = !isLoop;
-                    if (isLoop == true && mCurrentPage == -1) {
-                        mViewPager.setCurrentItem(mCurrentPage, true);
-                    }
+                }
+                if (mCurrentPage == -1) {
+                    mViewPager.setCurrentItem(mCurrentPage, true);
                 } else {
                     mViewPager.setCurrentItem(mCurrentPage++, true);
-                    //TODO only one loop
                 }
                 Log.d("tag", "run: " + mCurrentPage);
             }
@@ -84,8 +81,6 @@ public class PageBFragment extends Fragment {
                 }
             }
         }, 1000, 5000);
-
-        Log.d("tag", "finish: " + mCurrentPage);
     }
 
     private void changeDurationScroll() {
