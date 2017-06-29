@@ -6,6 +6,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.Scroller;
 
 /**
+ * Copyright © 2016 AsianTech inc.
  * Created by datbu on 28-06-2017.
  */
 class CustomDuration extends Scroller {

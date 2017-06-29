@@ -3,7 +3,6 @@ package vn.asiantech.internship.exday16;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -21,10 +20,10 @@ import java.util.TimerTask;
 import vn.asiantech.internship.R;
 
 /**
- * Created by datbu on 26-06-2017.
+ * Copyright © 2016 AsianTech inc.
+ * Created by datbu on 28-06-2017.
  */
 public class PageBFragment extends Fragment {
-    private static List<String> mImages;
     private ViewPagerBdapter mViewPagerAdapter;
     private ViewPager mViewPager;
     private static int currentPage = 0;
@@ -38,25 +37,18 @@ public class PageBFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_page_b, container, false);
-        mImages = new ArrayList<>();
-        String image1 = "http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg";
-        mImages.add(image1);
-        String image2 = "http://vignette2.wikia.nocookie.net/runescape2/images/3/36/Lord_Amlodd_concept_art.jpg/revision/latest?cb=20140811105559";
-        mImages.add(image2);
-        String image3 = "https://dviw3bl0enbyw.cloudfront.net/uploads/forum_attachment/file/139844/Male_voodoo_armor_concept_art.jpg";
-        mImages.add(image3);
-        String image4 = "https://cdna.artstation.com/p/assets/images/images/002/854/562/large/jonas-lopez-moreno-jonaslopezmoreno-saitan-web.jpg?1466498557";
-        mImages.add(image4);
-        String image5 = "http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg";
-        mImages.add(image5);
+        List<String> images = new ArrayList<>();
+        images.add("http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg");
+        images.add("http://vignette2.wikia.nocookie.net/runescape2/images/3/36/Lord_Amlodd_concept_art.jpg/revision/latest?cb=20140811105559");
+        images.add("https://dviw3bl0enbyw.cloudfront.net/uploads/forum_attachment/file/139844/Male_voodoo_armor_concept_art.jpg");
+        images.add("https://cdna.artstation.com/p/assets/images/images/002/854/562/large/jonas-lopez-moreno-jonaslopezmoreno-saitan-web.jpg?1466498557");
+        images.add("http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg");
 
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) view.findViewById(R.id.container);
-        mViewPagerAdapter = new ViewPagerBdapter(getChildFragmentManager(), mImages);
+        mViewPagerAdapter = new ViewPagerBdapter(getChildFragmentManager(), images);
         mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.setCurrentItem(0);
         mViewPager.setOffscreenPageLimit(1);
-        tabLayout.setupWithViewPager(mViewPager);
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         run();
         changeDurationScroll();
@@ -68,7 +60,7 @@ public class PageBFragment extends Fragment {
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
-                if (currentPage == mImages.size()) {
+                if (currentPage == mViewPagerAdapter.getCount()) {
                     currentPage = 0;
                 }
                 mViewPager.setCurrentItem(currentPage++, true);
@@ -80,7 +72,7 @@ public class PageBFragment extends Fragment {
             public void run() {
                 handler.post(Update);
             }
-        }, 5000, 5000);
+        }, 1000, 5000);
     }
 
     private void changeDurationScroll() {

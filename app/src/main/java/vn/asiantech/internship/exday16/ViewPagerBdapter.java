@@ -6,14 +6,14 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-
 /**
- * Created by datbu on 26-06-2017.
+ * Copyright © 2016 AsianTech inc.
+ * Created by datbu on 28-06-2017.
  */
-public class ViewPagerBdapter extends FragmentStatePagerAdapter {
+class ViewPagerBdapter extends FragmentStatePagerAdapter {
     private List<String> mImages;
 
-    public ViewPagerBdapter(FragmentManager fm, List<String> images) {
+    ViewPagerBdapter(FragmentManager fm, List<String> images) {
         super(fm);
         mImages = images;
     }

@@ -12,6 +12,7 @@ import android.view.View;
 import vn.asiantech.internship.R;
 
 /**
+ * Copyright © 2016 AsianTech inc.
  * Created by datbu on 28-06-2017.
  */
 public class CustomTab extends View {

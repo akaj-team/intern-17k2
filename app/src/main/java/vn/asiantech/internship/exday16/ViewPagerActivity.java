@@ -8,7 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import vn.asiantech.internship.R;
 
 /**
- * Created by datbu on 26-06-2017.
+ * Copyright © 2016 AsianTech inc.
+ * Created by datbu on 28-06-2017.
  */
 public class ViewPagerActivity extends AppCompatActivity {
 

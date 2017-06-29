@@ -15,7 +15,8 @@ import java.util.List;
 import vn.asiantech.internship.R;
 
 /**
- * Created by datbu on 26-06-2017.
+ * Copyright © 2016 AsianTech inc.
+ * Created by datbu on 28-06-2017.
  */
 public class ItemImageFragment extends Fragment {
     private ImageView mImageView;
@@ -53,7 +54,7 @@ public class ItemImageFragment extends Fragment {
     public void onStart() {
         super.onStart();
         mIsStarted = true;
-        if (mIsVisible && mIsStarted) {
+        if (mIsVisible) {
             viewDidAppear();
         }
     }
