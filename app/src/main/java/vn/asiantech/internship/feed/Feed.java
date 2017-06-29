@@ -13,9 +13,9 @@ import java.util.List;
 class Feed {
     private String name;
     private String description;
-    private List<Integer> images;
+    private List<Image> images;
 
-    Feed(String name, String description, List<Integer> images) {
+    Feed(String name, String description, List<Image> images) {
         this.name = name;
         this.description = description;
         this.images = images;
@@ -37,11 +37,11 @@ class Feed {
         this.description = description;
     }
 
-    public List<Integer> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(List<Integer> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 }
