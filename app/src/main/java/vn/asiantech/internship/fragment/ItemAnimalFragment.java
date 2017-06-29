@@ -19,8 +19,8 @@ import vn.asiantech.internship.R;
  * Created by ducle on 26/06/2017.
  */
 public class ItemAnimalFragment extends android.support.v4.app.Fragment {
-    public static final String KEY_IMAGE = "image";
-    private static final String TAG=ItemAnimalFragment.class.getSimpleName();
+    public static final String KEY_IMAGE = "animal_image";
+    private static final String TAG = ItemAnimalFragment.class.getSimpleName();
     private boolean mIsLoaded;
     private boolean mIsShowed;
     private ImageView mImgAnimal;
@@ -29,7 +29,7 @@ public class ItemAnimalFragment extends android.support.v4.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_item_animal, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_animal, container, false);
         mImageUrl = getArguments().getString(KEY_IMAGE);
         mImgAnimal = (ImageView) view.findViewById(R.id.imgAnimal);
         if (mIsShowed && !mIsLoaded) {

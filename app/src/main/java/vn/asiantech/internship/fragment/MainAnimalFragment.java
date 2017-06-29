@@ -3,9 +3,11 @@ package vn.asiantech.internship.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,6 @@ import java.util.List;
 import vn.asiantech.internship.PageTransformer.DepthPageTransformer;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapter.AnimalAdapter;
-import vn.asiantech.internship.ui.CustomViewPager;
 
 /**
  * Created by ducle on 26/06/2017.
@@ -22,7 +23,7 @@ public class MainAnimalFragment extends android.support.v4.app.Fragment {
     private List<String> mAnimalImages;
     private List<String> mDogImages;
     private TabLayout mTabLayout;
-    private CustomViewPager mViewPager;
+    private ViewPager mViewPager;
     private AnimalAdapter mAnimalAdapter;
     private int type = 0;
 
@@ -41,11 +42,9 @@ public class MainAnimalFragment extends android.support.v4.app.Fragment {
         mDogImages.add("https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/Common-dog-behaviors-explained.jpg?itok=FSzwbBoi");
         mDogImages.add("https://www.rover.com/blog/wp-content/uploads/2015/05/dog-candy-junk-food-599x340.jpg");
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
-        mViewPager = (CustomViewPager) view.findViewById(R.id.viewPager);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
         mAnimalAdapter = new AnimalAdapter(getFragmentManager(), mAnimalImages, mDogImages);
         mViewPager.setAdapter(mAnimalAdapter);
-        mViewPager.setScrollDurationFactor(30);
-        //mViewPager.setPageTransformer(true,new ZoomOutPagerTransformer());
         mViewPager.setPageTransformer(true, new DepthPageTransformer());
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -75,10 +74,19 @@ public class MainAnimalFragment extends android.support.v4.app.Fragment {
                 R.drawable.ic_mouse,
                 R.drawable.ic_penguin,
                 R.drawable.ic_gorilla};
+        String[] tabStrings={getString(R.string.cat),
+                getString(R.string.dog),
+                getString(R.string.mouse),
+                getString(R.string.penguin),
+                getString(R.string.gorilla)};
         for (int i = 0; i < tabIcons.length; i++) {
+            View viewTab=LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab,null);
+            TextView tvTab=(TextView) viewTab.findViewById(R.id.tvTab);
+            tvTab.setText(tabStrings[i]);
+            tvTab.setCompoundDrawablesWithIntrinsicBounds(0,tabIcons[i],0,0);
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
             if (tab != null) {
-                tab.setIcon(tabIcons[i]);
+                tab.setCustomView(tvTab);
             }
         }
     }

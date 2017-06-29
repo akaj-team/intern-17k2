@@ -14,4 +14,5 @@
     <dimen name="line.height">1dp</dimen>
     <dimen name="textview.size.title">20sp</dimen>
     <dimen name="imageview.size.user">50dp</dimen>
+    <dimen name="tablayout.height">70dp</dimen>
 </resources>

@@ -26,4 +26,9 @@
     <string name="hoian_feed">hoian feed</string>
     <string name="voucher">voucher</string>
     <string name="user_profile">user profile</string>
+    <string name="cat">Cat</string>
+    <string name="dog">Dog</string>
+    <string name="mouse">Mouse</string>
+    <string name="penguin">Penguin</string>
+    <string name="gorilla">Gorilla</string>
 </resources>
