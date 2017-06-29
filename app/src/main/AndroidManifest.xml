@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".day9.ui.FeedActivity">
+        <activity android:name=".day7.ex2.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,5 +18,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

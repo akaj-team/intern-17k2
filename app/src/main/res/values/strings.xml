@@ -20,6 +20,9 @@
         <item name="Jock_description">18t</item>
         <item name="Lin_description">19t</item>
     </string-array>
+    <string name="edittext.text.input">Input here</string>
+    <string name="button.text.go">Go</string>
+    <string name="button.text.ok">OK</string>
     <string name="app_name">Internship</string>
     <string name="drawer_open">Open Drawer</string>
     <string name="drawer_close">Close Drawer</string>
