@@ -106,6 +106,9 @@ public class FourthFragment extends Fragment {
 
     }
 
+    /**
+     * Class set duration
+     */
     private class SpeedScroller extends Scroller {
 
         private int mDuration = 2000;
