@@ -17,7 +17,6 @@
 
         <!--d5-->
         <activity android:name=".exday15.JsonActivity"/>
-        <activity android:name=".RecyclerViewActivity"/>
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
