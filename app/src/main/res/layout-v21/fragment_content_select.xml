@@ -31,7 +31,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnEx07.1"
+                android:id="@+id/btnEx07"
                 style="@style/ButtonNormalStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

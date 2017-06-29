@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.ui.feeds.FeedsActivity;
 import vn.asiantech.internship.ui.main.Ex05Activity;
+import vn.asiantech.internship.ui.main.Ex072Activity;
 import vn.asiantech.internship.ui.main.MainActivity;
 import vn.asiantech.internship.ui.questions.QuestionActivity;
 import vn.asiantech.internship.ui.note.NoteActivity;
@@ -37,20 +39,21 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
             case R.id.btnEx06:
                 openActivity(MainActivity.class);
                 break;
-            case R.id.btnEx07_1:
+            case R.id.btnEx07:
                 openActivity(MainActivity.class);
                 break;
             case R.id.btnEx07_2:
-                //TODO watiing to add Ex
+                openActivity(Ex072Activity.class);
                 break;
             case R.id.btnEx08:
                 //TODO watiing to add Ex
                 break;
             case R.id.btnEx11:
-                //TODO watiing to add Ex
+                openActivity(FeedsActivity.class);
                 break;
             case R.id.btnEx11_2:
                 openActivity(NoteActivity.class);
+                break;
             case R.id.btnEx15:
                 openActivity(QuestionActivity.class);
                 break;
@@ -61,13 +64,12 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
     private void openActivity(Class<?> className) {
         Intent intent = new Intent(getContext(), className);
         getContext().startActivity(intent);
-        getActivity().finish();
     }
 
     private void init(View v) {
         Button btnEx05 = (Button) v.findViewById(R.id.btnEx05);
         Button btnEx06 = (Button) v.findViewById(R.id.btnEx06);
-        Button btnEx07_1 = (Button) v.findViewById(R.id.btnEx07_1);
+        Button btnEx07_1 = (Button) v.findViewById(R.id.btnEx07);
         Button btnEx07_2 = (Button) v.findViewById(R.id.btnEx07_2);
         Button btnEx08 = (Button) v.findViewById(R.id.btnEx08);
         Button btnEx11 = (Button) v.findViewById(R.id.btnEx11);
