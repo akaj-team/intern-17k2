@@ -63,7 +63,6 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
     private void openActivity(Class<?> className) {
         Intent intent = new Intent(getContext(), className);
         getContext().startActivity(intent);
-        getActivity().finish();
     }
 
     private void init(View v) {

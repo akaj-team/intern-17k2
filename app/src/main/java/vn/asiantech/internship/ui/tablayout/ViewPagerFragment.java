@@ -24,8 +24,6 @@ import vn.asiantech.internship.ui.tablayout.transformer.DepthPageTransformer;
 import vn.asiantech.internship.ui.tablayout.transformer.DrawFromBackTransformer;
 import vn.asiantech.internship.ui.tablayout.transformer.ZoomOutPageTransformer;
 
-import static vn.asiantech.internship.R.id.tabLayout;
-
 /**
  * ViewPagerFragment
  */
@@ -33,8 +31,8 @@ public class ViewPagerFragment extends Fragment {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-    private FloatingActionButton mFabSettings;
-    private StyleTab mUtils;
+    private FloatingActionButton mFabSetting;
+    private StyleTab mStyleTab;
     private ViewPager.PageTransformer mPageTransformer;
     private CoordinatorLayout mClParent;
 
@@ -44,16 +42,10 @@ public class ViewPagerFragment extends Fragment {
             "https://s-media-cache-ak0.pinimg.com/736x/92/7b/da/927bda71d6d87be6c3b58f9b4162ef6d.jpg"
     };
 
-    private int[] mDrawables = {
-            R.drawable.bg_love,
-            R.drawable.bg_important,
-            R.drawable.bg_star
-    };
-
-    private int[] mDrawableLines = {
-            R.drawable.bg_love_custom,
-            R.drawable.bg_important_custom,
-            R.drawable.bg_star_custom
+    private int[][] mDrawables = {
+            {R.drawable.bg_love, R.drawable.bg_love_custom},
+            {R.drawable.bg_important, R.drawable.bg_important_custom},
+            {R.drawable.bg_star, R.drawable.bg_star_custom}
     };
 
     @Override
@@ -62,13 +54,13 @@ public class ViewPagerFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tab_layout, container, false);
 
-        mFabSettings = (FloatingActionButton) v.findViewById(R.id.fabSettings);
+        mFabSetting = (FloatingActionButton) v.findViewById(R.id.fabSetting);
         mViewPager = (ViewPager) v.findViewById(R.id.viewPager);
-        mTabLayout = (TabLayout) v.findViewById(tabLayout);
+        mTabLayout = (TabLayout) v.findViewById(R.id.tabLayout);
         mClParent = (CoordinatorLayout) v.findViewById(R.id.clParent);
 
         // Chang style tabs here
-        setStyleTabs(StyleTab.MY_TAB_CUSTOM);
+        setStyleTab(StyleTab.MY_TAB_CUSTOM);
 
         // Change slider mode here
         setSlideMode(SliderMode.CUBE_PAGE_TRANSFORMER);
@@ -104,7 +96,8 @@ public class ViewPagerFragment extends Fragment {
             public void onPageScrollStateChanged(int state) {
             }
         });
-        mFabSettings.setOnClickListener(new View.OnClickListener() {
+
+        mFabSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogChoice();
@@ -116,22 +109,27 @@ public class ViewPagerFragment extends Fragment {
 
     private void setTitle() {
         int m = mUrls.length;
-        if (mUtils == StyleTab.TEXT_ONLY) {
-            for (int i = 0; i < m; i++) {
-                setTabOnlyText(i);
-            }
-        } else if (mUtils == StyleTab.TEXT_AND_ICON) {
-            for (int i = 0; i < m; i++) {
-                setTabTextAndIcon(i);
-            }
-        } else if (mUtils == StyleTab.ICON_ONLY) {
-            for (int i = 0; i < m; i++) {
-                setTabOnlyIcon(i);
-            }
-        } else if (mUtils == StyleTab.MY_TAB_CUSTOM) {
-            for (int i = 0; i < m; i++) {
-                setMyTabCustom(i);
-            }
+        switch (mStyleTab) {
+            case TEXT_ONLY:
+                for (int i = 0; i < m; i++) {
+                    setTabOnlyText(i);
+                }
+                break;
+            case TEXT_AND_ICON:
+                for (int i = 0; i < m; i++) {
+                    setTabTextAndIcon(i);
+                }
+                break;
+            case ICON_ONLY:
+                for (int i = 0; i < m; i++) {
+                    setTabOnlyIcon(i);
+                }
+                break;
+            default:
+                for (int i = 0; i < m; i++) {
+                    setMyTabCustom(i);
+                }
+                break;
         }
     }
 
@@ -145,7 +143,7 @@ public class ViewPagerFragment extends Fragment {
         TextView tab = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.item_tab_layout_custom, new LinearLayout(getContext(), null));
         String s = "Tab " + position;
         tab.setText(s);
-        tab.setCompoundDrawablesWithIntrinsicBounds(0, mDrawables[position], 0, 0);
+        tab.setCompoundDrawablesWithIntrinsicBounds(0, mDrawables[position][0], 0, 0);
         TabLayout.Tab tabSave = mTabLayout.getTabAt(position);
         if (tabSave != null) {
             tabSave.setCustomView(tab);
@@ -155,14 +153,14 @@ public class ViewPagerFragment extends Fragment {
     private void setTabOnlyIcon(int position) {
         TabLayout.Tab tabSave = mTabLayout.getTabAt(position);
         if (tabSave != null) {
-            tabSave.setIcon(mDrawables[position]);
+            tabSave.setIcon(mDrawables[position][0]);
         }
     }
 
     private void setMyTabCustom(int position) {
         View tab = LayoutInflater.from(getActivity()).inflate(R.layout.item_tab_layout_custom_second, new LinearLayout(getContext(), null));
-        ((ImageView) tab.findViewById(R.id.imgIcon)).setImageResource(mDrawables[position]);
-        (tab.findViewById(R.id.view)).setBackgroundResource(mDrawableLines[position]);
+        ((ImageView) tab.findViewById(R.id.imgIcon)).setImageResource(mDrawables[position][0]);
+        (tab.findViewById(R.id.view)).setBackgroundResource(mDrawables[position][1]);
         mTabLayout.setSelectedTabIndicatorHeight(0);
         TabLayout.Tab tabSave = mTabLayout.getTabAt(position);
         if (tabSave != null) {
@@ -170,18 +168,18 @@ public class ViewPagerFragment extends Fragment {
         }
     }
 
-    private void setStyleTabs(StyleTab utils) {
-        mUtils = utils;
+    private void setStyleTab(StyleTab styleTab) {
+        mStyleTab = styleTab;
     }
 
-    private void setSlideMode(SliderMode slideStyle) {
-        if (slideStyle == SliderMode.CUBE_PAGE_TRANSFORMER) {
+    private void setSlideMode(SliderMode sliderMode) {
+        if (sliderMode == SliderMode.CUBE_PAGE_TRANSFORMER) {
             mPageTransformer = new CubePageTransformer();
-        } else if (slideStyle == SliderMode.ZOOM_OUT_PAGE_TRANSFORMER) {
+        } else if (sliderMode == SliderMode.ZOOM_OUT_PAGE_TRANSFORMER) {
             mPageTransformer = new ZoomOutPageTransformer();
-        } else if (slideStyle == SliderMode.DEPTH_PAGE_TRANSFORMER) {
+        } else if (sliderMode == SliderMode.DEPTH_PAGE_TRANSFORMER) {
             mPageTransformer = new DepthPageTransformer();
-        } else if (slideStyle == SliderMode.DRAW_FROM_BACK_TRANSFORMER) {
+        } else if (sliderMode == SliderMode.DRAW_FROM_BACK_TRANSFORMER) {
             mPageTransformer = new DrawFromBackTransformer();
         }
         mViewPager.setPageTransformer(true, mPageTransformer);
@@ -224,6 +222,6 @@ public class ViewPagerFragment extends Fragment {
     }
 
     public void setFloatActionButton(int visible) {
-        mFabSettings.setVisibility(visible);
+        mFabSetting.setVisibility(visible);
     }
 }

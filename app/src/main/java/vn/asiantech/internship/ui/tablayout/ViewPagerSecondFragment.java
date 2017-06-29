@@ -43,6 +43,13 @@ public class ViewPagerSecondFragment extends Fragment {
             "http://p1.i.ntere.st/9133e51d84e89162372fc45429844911_480.jpg"
     };
 
+    /**
+     * @return ViewPagerSecondFragment
+     */
+    public static ViewPagerSecondFragment newInstance() {
+        return new ViewPagerSecondFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

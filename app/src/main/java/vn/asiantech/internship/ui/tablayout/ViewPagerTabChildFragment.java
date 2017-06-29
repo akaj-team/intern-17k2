@@ -17,22 +17,22 @@ import vn.asiantech.internship.R;
 public class ViewPagerTabChildFragment extends Fragment {
 
     private static final String ARG_PARAM = "my_param";
-    private static final String ARG_PARAM2 = "my_param2";
 
     private ImageView mImgView;
 
     private String mUrlImg;
-    private int mPosition;
+    private boolean mIsLoadData;
+    private boolean mVisible;
+    private View mView;
 
     /**
      * @param urlImg is a url of image loading
      * @return TabChild Fragment
      */
-    public static ViewPagerTabChildFragment newInstance(String urlImg, int position) {
+    public static ViewPagerTabChildFragment newInstance(String urlImg) {
         ViewPagerTabChildFragment fragment = new ViewPagerTabChildFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM, urlImg);
-        args.putInt(ARG_PARAM2, position);
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,27 +41,36 @@ public class ViewPagerTabChildFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUrlImg = getArguments().getString(ARG_PARAM);
-        mPosition = getArguments().getInt(ARG_PARAM2);
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
+        mVisible = isVisibleToUser;
         if (isVisibleToUser && getContext() != null) {
-            Picasso.with(getContext()).load(mUrlImg).placeholder(R.drawable.vector_refresh).into(mImgView);
+            if (!mIsLoadData && mView != null) {
+                mIsLoadData = true;
+                Picasso.with(getContext()).load(mUrlImg).placeholder(R.drawable.vector_refresh).into(mImgView);
+            }
         }
+    }
+
+    @Override
+    public boolean getUserVisibleHint() {
+        return mVisible;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_tab_child, container, false);
-        mImgView = (ImageView) v.findViewById(R.id.imgView);
+        mView = inflater.inflate(R.layout.fragment_tab_child, container, false);
+        mImgView = (ImageView) mView.findViewById(R.id.imgView);
 
-        if (mPosition == 0) {
+        // Default load in the open first time
+        if (!mIsLoadData && getUserVisibleHint()) {
             Picasso.with(getContext()).load(mUrlImg).placeholder(R.drawable.vector_refresh).into(mImgView);
         }
-        return v;
+
+        return mView;
     }
 }

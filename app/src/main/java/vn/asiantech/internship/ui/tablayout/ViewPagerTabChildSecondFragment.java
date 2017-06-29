@@ -17,21 +17,23 @@ import vn.asiantech.internship.R;
 public class ViewPagerTabChildSecondFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     private ImageView mImgView;
     private View mView;
 
     private String mUrl;
-    private int mPosition;
     private boolean mIsLoadData;
     private boolean mVisible;
 
-    public static ViewPagerTabChildSecondFragment newInstance(String url, int position) {
+    /**
+     * ViewPagerTabChildSecondFragment will be called in adapter when user scroll to position tab
+     * @param url is a url of image sever will load
+     * @return ViewPagerTabChildSecondFragment to showing
+     */
+    public static ViewPagerTabChildSecondFragment newInstance(String url) {
         ViewPagerTabChildSecondFragment fragment = new ViewPagerTabChildSecondFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, url);
-        args.putInt(ARG_PARAM2, position);
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,7 +42,6 @@ public class ViewPagerTabChildSecondFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUrl = getArguments().getString(ARG_PARAM1);
-        mPosition = getArguments().getInt(ARG_PARAM2);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class ViewPagerTabChildSecondFragment extends Fragment {
         mImgView = (ImageView) mView.findViewById(R.id.imgView);
 
         // Default load in the open first time
-        if (mPosition == 2 || (!mIsLoadData && getUserVisibleHint())) {
+        if (!mIsLoadData && getUserVisibleHint()) {
             Picasso.with(getContext()).load(mUrl).placeholder(R.drawable.vector_refresh).into(mImgView);
         }
         return mView;

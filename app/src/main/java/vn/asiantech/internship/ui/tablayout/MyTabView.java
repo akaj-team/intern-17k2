@@ -14,26 +14,18 @@ import android.view.View;
 import vn.asiantech.internship.R;
 
 /**
- * Created by luiss on 6/16/2017.
+ * Created by Thanh Thien 6/16/2017.
  * GridView Clock
  */
 public class MyTabView extends View {
 
     private Paint[] mPaints;
-    private int[] mDrawables = {
-            R.drawable.vector_love,
-            R.drawable.vector_star,
-            R.drawable.vector_important,
-            R.drawable.vector_security,
-            R.drawable.vector_settings_black
-    };
-
-    private int[] mSelectedDrawables = {
-            R.drawable.vector_love_selected,
-            R.drawable.vector_star_selected,
-            R.drawable.vector_important_selected,
-            R.drawable.vector_security_selected,
-            R.drawable.vector_settings_black_selected
+    private int[][] mDrawables = {
+            {R.drawable.ic_favorite, R.drawable.ic_favorite_selected},
+            {R.drawable.ic_star_black, R.drawable.ic_star_selected},
+            {R.drawable.ic_import_black, R.drawable.ic_import_selected},
+            {R.drawable.ic_security_black, R.drawable.ic_security_selected},
+            {R.drawable.ic_setting, R.drawable.ic_setting_selected}
     };
 
     private float mTabSelected;
@@ -44,7 +36,7 @@ public class MyTabView extends View {
     private OnGridViewListener mOnGridViewListener;
 
     public MyTabView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public MyTabView(Context context, @Nullable AttributeSet attrs) {
@@ -71,15 +63,15 @@ public class MyTabView extends View {
         Bitmap bitmap;
         for (int i = 0; i < 5; i++) {
             if (i != position) {
-                bitmap = BitmapFactory.decodeResource(getResources(), mDrawables[i]);
+                bitmap = BitmapFactory.decodeResource(getResources(), mDrawables[i][0]);
             } else {
-                bitmap = BitmapFactory.decodeResource(getResources(), mSelectedDrawables[i]);
+                bitmap = BitmapFactory.decodeResource(getResources(), mDrawables[i][1]);
             }
-            int mLengthOfOne = 2 * (getWidth() / 2) / 5;
-            float left = mLengthOfOne * (i + 1) - mLengthOfOne / 2 - bitmap.getWidth() / 2;
+            int lengthOfOne = 2 * (getWidth() / 2) / 5;
+            float left = lengthOfOne * (i + 1) - lengthOfOne / 2 - bitmap.getWidth() / 2;
             float top = (getHeight() - bitmap.getHeight()) / 2.0f;
-            RectF dst = new RectF(left, top, left + bitmap.getWidth(), top + bitmap.getHeight());
-            canvas.drawBitmap(bitmap, null, dst, mPaints[0]);
+            RectF rectF = new RectF(left, top, left + bitmap.getWidth(), top + bitmap.getHeight());
+            canvas.drawBitmap(bitmap, null, rectF, mPaints[0]);
         }
     }
 
@@ -110,7 +102,8 @@ public class MyTabView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            // Move action having some problem when using inside an other Viewpager =))
+            // Move action having some problem when using inside an other Viewpager, it look funny so i keep it
+            // Remove outside parent and it will be perfect
             mIsTouch = true;
             mNewClicked = event.getX();
             if (mNewClicked > mOldCLicked) {
@@ -145,6 +138,14 @@ public class MyTabView extends View {
         return true;
     }
 
+    /**
+     * IT will check and return position (position of tab)
+     * this param is float but it'll return to Integer. Because position of tab only int
+     * It is a method control of TabView when user click of scroll
+     *
+     * @param newClicked is a position (x,y) in this View.
+     * @return Float but it like an Integer
+     */
     public Float getPositionClicked(float newClicked) {
         int maxWidth = getWidth();
         int lengthOfOne = maxWidth / 5;
@@ -166,18 +167,24 @@ public class MyTabView extends View {
         mTabSelected = 2;
 
         int[] colors = {0xffBFBDC4, 0xffFC0095, 0xffBFBDC4, 0xffFC0095, 0xfff4f4f4};
-        int[] strokeWidth = {3, 5};
-        Paint.Style[] paintStyle = {Paint.Style.STROKE, Paint.Style.FILL};
+        int[] strokeWidths = {3, 5};
+        Paint.Style[] paintStyles = {Paint.Style.STROKE, Paint.Style.FILL};
 
         for (int i = 0; i < 5; i++) {
             Paint paint = new Paint();
             paint.setColor(colors[i]);
-            paint.setStrokeWidth(strokeWidth[(i == 3) ? 1 : 0]);
-            paint.setStyle(paintStyle[(i == 4) ? 1 : 0]);
+            paint.setStrokeWidth(strokeWidths[(i == 3) ? 1 : 0]);
+            paint.setStyle(paintStyles[(i == 4) ? 1 : 0]);
             mPaints[i] = paint;
         }
     }
 
+    /**
+     * The param is float because it'll set these circle run real time when
+     * user scroll tabView
+     *
+     * @param position is a position return from scroll activity
+     */
     public void setTabSelected(float position) {
         mTabSelected = position;
         invalidate();

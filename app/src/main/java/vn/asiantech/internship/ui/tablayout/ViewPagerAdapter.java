@@ -20,9 +20,9 @@ class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 1) {
-            return new ViewPagerSecondFragment();
+            return ViewPagerSecondFragment.newInstance();
         }
-        return ViewPagerTabChildFragment.newInstance(mUrls[position], position);
+        return ViewPagerTabChildFragment.newInstance(mUrls[position]);
     }
 
     @Override

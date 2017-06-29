@@ -40,7 +40,6 @@ abstract class BaseTransformer implements PageTransformer {
         view.setPivotY(0);
         view.setTranslationY(0);
         view.setTranslationX(-width * position);
-
         view.setAlpha(position <= -1f || position >= 1f ? 0f : 1f);
     }
 }
