@@ -18,7 +18,6 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.myultils.ChangeDurationTimeViewPager;
 import vn.asiantech.internship.adapters.SpainStarAdapter;
 
-
 /**
  * @author at-cuongcao
  * @version 1.0
