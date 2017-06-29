@@ -18,8 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".friend.Day5MainActivity" />
         <activity android:name=".friend.ListFriendActivity" />
         <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".feed.FeedActivity" />
+        <activity android:name=".ui.main.NoteActivity" />
         <activity android:name=".ui.main.PassDataActivity" />
         <activity android:name=".ui.main.ChatActivity" />
     </application>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_margin_default">
+
+    <ImageView
+        android:id="@+id/imgNotePicture"
+        android:layout_width="@dimen/note_image_size"
+        android:layout_height="@dimen/note_image_size"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@null"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/edtNoteTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_margin_default"
+        android:background="@android:color/white"
+        android:enabled="false"
+        android:inputType="text"
+        android:padding="@dimen/padding_margin_default"
+        android:textSize="@dimen/text_size_default" />
+
+    <EditText
+        android:id="@+id/edtNoteContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_margin_default"
+        android:background="@android:color/white"
+        android:enabled="false"
+        android:inputType="textMultiLine"
+        android:padding="@dimen/padding_margin_default"
+        android:textSize="@dimen/text_size_default" />
+
+    <TextView
+        android:id="@+id/tvNoteTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_margin_default"
+        android:padding="@dimen/padding_margin_default"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="@dimen/text_size_default" />
+
+</LinearLayout>
