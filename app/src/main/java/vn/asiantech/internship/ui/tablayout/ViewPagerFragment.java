@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -135,13 +136,13 @@ public class ViewPagerFragment extends Fragment {
     }
 
     private void setTabOnlyText(int position) {
-        TextView tab = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.item_tab_layout_custom, null);
+        TextView tab = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.item_tab_layout_custom, new LinearLayout(getContext(), null));
         String s = "Tab " + position;
         tab.setText(s);
     }
 
     private void setTabTextAndIcon(int position) {
-        TextView tab = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.item_tab_layout_custom, null);
+        TextView tab = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.item_tab_layout_custom, new LinearLayout(getContext(), null));
         String s = "Tab " + position;
         tab.setText(s);
         tab.setCompoundDrawablesWithIntrinsicBounds(0, mDrawables[position], 0, 0);
@@ -159,7 +160,7 @@ public class ViewPagerFragment extends Fragment {
     }
 
     private void setMyTabCustom(int position) {
-        View tab = LayoutInflater.from(getActivity()).inflate(R.layout.item_tab_layout_custom_second, null);
+        View tab = LayoutInflater.from(getActivity()).inflate(R.layout.item_tab_layout_custom_second, new LinearLayout(getContext(), null));
         ((ImageView) tab.findViewById(R.id.imgIcon)).setImageResource(mDrawables[position]);
         (tab.findViewById(R.id.view)).setBackgroundResource(mDrawableLines[position]);
         mTabLayout.setSelectedTabIndicatorHeight(0);
