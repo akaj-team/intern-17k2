@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <vn.asiantech.internship.ultil.MyCustomTab
+    <vn.asiantech.internship.Ultils.MyCustomTab
         android:id="@+id/myView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_canvas_height"

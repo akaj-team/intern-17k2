@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.ultil.DepthPageTransformer;
-import vn.asiantech.internship.ultil.MyCustomTab;
+import vn.asiantech.internship.Ultils.DepthPageTransformer;
+import vn.asiantech.internship.Ultils.MyCustomTab;
 import vn.asiantech.internship.adapters.FootballStarAdapter;
 
 /**
@@ -24,10 +24,8 @@ public class FootballStarActivity extends AppCompatActivity {
 
     private int[] mTabIcons = {R.drawable.ic_messi, R.drawable.ic_spain, R.drawable.ic_ronaldo, R.drawable.ic_reus, R.drawable.ic_kaka};
 
-    private ViewPager mViewPagerFootballStar;
     private TabLayout mTabLayout;
     private FootballStarAdapter mAdapter;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,11 +33,11 @@ public class FootballStarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_football_star);
 
         mAdapter = new FootballStarAdapter(getSupportFragmentManager());
-        mViewPagerFootballStar = (ViewPager) findViewById(R.id.recyclerViewFootballStar);
+        ViewPager viewPagerFootballStar = (ViewPager) findViewById(R.id.recyclerViewFootballStar);
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        mViewPagerFootballStar.setAdapter(mAdapter);
-        mTabLayout.setupWithViewPager(mViewPagerFootballStar);
-        mViewPagerFootballStar.setPageTransformer(true, new DepthPageTransformer());
+        viewPagerFootballStar.setAdapter(mAdapter);
+        mTabLayout.setupWithViewPager(viewPagerFootballStar);
+        viewPagerFootballStar.setPageTransformer(true, new DepthPageTransformer());
         customTab();
     }
 
@@ -55,12 +53,9 @@ public class FootballStarActivity extends AppCompatActivity {
             TextView tabTitle = (TextView) view.findViewById(R.id.tvTabTitle);
             tabTitle.setText(mAdapter.getPageTitle(i));
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
-            final int position = i;
             if (tab != null) {
                 tab.setCustomView(view);
             }
         }
     }
-
 }
-

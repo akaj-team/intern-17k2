@@ -15,7 +15,7 @@ import android.view.animation.Interpolator;
 import java.lang.reflect.Field;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.ultil.ChangeDurationTimeViewPager;
+import vn.asiantech.internship.Ultils.ChangeDurationTimeViewPager;
 import vn.asiantech.internship.adapters.SpainStarAdapter;
 
 
@@ -26,22 +26,22 @@ import vn.asiantech.internship.adapters.SpainStarAdapter;
  */
 public class SpainStarFragment extends Fragment {
 
-    private View mView;
     private ViewPager mViewPagerSpainStar;
     private SpainStarAdapter mAdapter;
-    private int[] spainStars = {R.drawable.bg_torres, R.drawable.bg_ramos, R.drawable.bg_iniesta};
+    private int[] mSpainStars = {R.drawable.bg_torres, R.drawable.bg_ramos, R.drawable.bg_iniesta};
     private Handler mHandler;
     private int mCurrentItem = 0;
-    private boolean inSliding = true;
+    private boolean mInSliding = true;
     private Thread mThreadSlide;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_spain_star, container, false);
-        mViewPagerSpainStar = (ViewPager) mView.findViewById(R.id.viewPagerSpainStar);
-        mAdapter = new SpainStarAdapter(spainStars);
+        View view = inflater.inflate(R.layout.fragment_spain_star, container, false);
+        mViewPagerSpainStar = (ViewPager) view.findViewById(R.id.viewPagerSpainStar);
+        mAdapter = new SpainStarAdapter(mSpainStars);
         mViewPagerSpainStar.setAdapter(mAdapter);
+
         changeDuration();
         autoSlide();
 
@@ -61,7 +61,7 @@ public class SpainStarFragment extends Fragment {
 
             }
         });
-        return mView;
+        return view;
     }
 
     @Override
@@ -76,14 +76,11 @@ public class SpainStarFragment extends Fragment {
 
     private void changeDuration() {
         try {
-            Field mScroller;
-            ViewPager.class.getDeclaredField("mScroller");
-            mScroller = ViewPager.class.getDeclaredField("mScroller");
-            mScroller.setAccessible(true);
+            Field scroller = ViewPager.class.getDeclaredField("mScroller");
+            scroller.setAccessible(true);
             Interpolator interpolator = new AccelerateInterpolator();
-            ChangeDurationTimeViewPager scroller = new ChangeDurationTimeViewPager(getContext(), interpolator);
-            scroller.setDuration(5000);
-            mScroller.set(mViewPagerSpainStar, scroller);
+            ChangeDurationTimeViewPager changeDurationTimeViewPager = new ChangeDurationTimeViewPager(getContext(), interpolator);
+            scroller.set(mViewPagerSpainStar, changeDurationTimeViewPager);
         } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
             Log.i("tag11", e.getMessage());
         }
@@ -98,10 +95,10 @@ public class SpainStarFragment extends Fragment {
                     if (mCurrentItem == mAdapter.getCount()) {
                         mCurrentItem = 0;
                         mViewPagerSpainStar.setCurrentItem(mCurrentItem);
-                        inSliding = false;
+                        mInSliding = false;
                         return;
                     }
-                    if (inSliding) {
+                    if (mInSliding) {
                         mViewPagerSpainStar.setCurrentItem(mCurrentItem++);
                         mHandler.postDelayed(this, 5000);
                     }

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ultil;
+package vn.asiantech.internship.Ultils;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

@@ -14,15 +14,15 @@ import vn.asiantech.internship.R;
  * @since 06/26/2017
  */
 public class SpainStarAdapter extends PagerAdapter {
-    private int[] stars;
+    private int[] mStars;
 
     public SpainStarAdapter(int[] stars) {
-        this.stars = stars;
+        this.mStars = stars;
     }
 
     @Override
     public int getCount() {
-        return stars.length;
+        return mStars.length;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SpainStarAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imgStar = (ImageView) LayoutInflater.from(container.getContext()).inflate(R.layout.item_spain_star, container, false);
-        imgStar.setImageResource(stars[position]);
+        imgStar.setImageResource(mStars[position]);
         container.addView(imgStar);
         return imgStar;
     }

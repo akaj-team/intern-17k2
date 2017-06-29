@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ultil;
+package vn.asiantech.internship.Ultils;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -19,7 +19,7 @@ public class MyCustomTab extends View {
 
     private int mWidth;
     private int mHeight;
-    private boolean selected = false;
+    private boolean mSelected;
     private Paint mPaint;
 
     public MyCustomTab(Context context) {
@@ -41,7 +41,7 @@ public class MyCustomTab extends View {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(5);
         mPaint.setColor(Color.RED);
-        if (selected) {
+        if (mSelected) {
             mPaint.setColor(Color.WHITE);
             canvas.drawCircle(getWidth() / 2, getWidth() / 2 + 10, getWidth() / 2, mPaint);
             mPaint.setColor(Color.RED);
@@ -59,7 +59,7 @@ public class MyCustomTab extends View {
     }
 
     public void setSelected(boolean selected) {
-        this.selected = selected;
+        this.mSelected = selected;
         invalidate();
     }
 }

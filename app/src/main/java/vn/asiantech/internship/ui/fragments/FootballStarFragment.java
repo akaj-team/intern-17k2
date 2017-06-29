@@ -18,11 +18,10 @@ import vn.asiantech.internship.R;
 public class FootballStarFragment extends Fragment {
 
     private static final String KEY_ID = "keyId";
-    private View mView;
     private ImageView mImgSpainStar;
     private int mId;
-    private boolean dataLoaded = false;
-    private boolean isVisible = false;
+    private boolean mDataLoaded;
+    private boolean mIsVisible;
 
     public static FootballStarFragment getNewInstance(int imageId) {
         FootballStarFragment footballStarFragment = new FootballStarFragment();
@@ -41,39 +40,38 @@ public class FootballStarFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_football_star, container, false);
-        mImgSpainStar = (ImageView) mView.findViewById(R.id.imgChampion);
-        if (!dataLoaded && getUserVisibleHint()) {
+        mImgSpainStar = (ImageView) inflater.inflate(R.layout.fragment_football_star, container, false);
+        if (!mDataLoaded && getUserVisibleHint()) {
             loadData();
         }
-        return mView;
+        return mImgSpainStar;
     }
 
     @Override
     public boolean getUserVisibleHint() {
-        return isVisible;
+        return mIsVisible;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        isVisible = isVisibleToUser;
+        mIsVisible = isVisibleToUser;
         if (isVisibleToUser) {
             loadData();
         }
     }
 
     private void loadData() {
-        if (mView != null) {
+        if (mImgSpainStar != null) {
             mImgSpainStar.setImageResource(mId);
-            dataLoaded = true;
+            mDataLoaded = true;
         } else {
-            dataLoaded = false;
+            mDataLoaded = false;
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        dataLoaded = false;
+        mDataLoaded = false;
     }
 }
