@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import vn.asiantech.internship.exday16.ViewPagerActivity;
 import vn.asiantech.internship.exfragment.RecyclerViewActivity;
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.feed.FeedActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
@@ -24,9 +26,15 @@ public class SplashActivity extends Activity implements View.OnClickListener {
 
         Button btnDrawer = (Button) findViewById(R.id.btnDrawer);
         Button btnFragment = (Button) findViewById(R.id.btnFragment);
+        Button btnFeed = (Button) findViewById(R.id.btnEXday9);
+        Button btnExday7 = (Button) findViewById(R.id.btnExDay7);
+        Button btnExday16 = (Button) findViewById(R.id.btnEXday16);
 
         btnDrawer.setOnClickListener(this);
         btnFragment.setOnClickListener(this);
+        btnFeed.setOnClickListener(this);
+        btnExday7.setOnClickListener(this);
+        btnExday16.setOnClickListener(this);
     }
 
     @Override
@@ -39,6 +47,18 @@ public class SplashActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btnFragment:
                 mIntent = new Intent(SplashActivity.this, RecyclerViewActivity.class);
+                startActivity(mIntent);
+                break;
+            case R.id.btnEXday9:
+                mIntent = new Intent(SplashActivity.this, FeedActivity.class);
+                startActivity(mIntent);
+                break;
+            case R.id.btnExDay7:
+                mIntent = new Intent(SplashActivity.this, vn.asiantech.internship.exday7.MainActivity.class);
+                startActivity(mIntent);
+                break;
+            case R.id.btnEXday16:
+                mIntent = new Intent(SplashActivity.this, ViewPagerActivity.class);
                 startActivity(mIntent);
                 break;
         }

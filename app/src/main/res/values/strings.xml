@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Internship</string>
-
+    <string name="app_name">MyProject</string>
     <string name="get_text">Get Text</string>
     <string name="pass_data">Pass Data</string>
 
@@ -23,6 +22,9 @@
     <string name="item.setting">Settings</string>
     <string name="fragment_layout">Fragment Layout</string>
     <string name="drawer_layout">Drawer Layout</string>
+    <string name="ex_day_7">Ex day 7</string>
+    <string name="ex_day_9">Ex day 9</string>
+    <string name="ex_day_16">Ex day 16</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>

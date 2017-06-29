@@ -58,7 +58,7 @@ public class PageBFragment extends Fragment {
     private void run() {
         // Auto start of viewpager
         final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
+        final Runnable update = new Runnable() {
             public void run() {
                 if (currentPage == mViewPagerAdapter.getCount()) {
                     currentPage = 0;
@@ -70,7 +70,7 @@ public class PageBFragment extends Fragment {
         swipeTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                handler.post(Update);
+                handler.post(update);
             }
         }, 1000, 5000);
     }

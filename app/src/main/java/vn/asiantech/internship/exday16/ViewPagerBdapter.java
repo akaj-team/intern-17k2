@@ -20,7 +20,7 @@ class ViewPagerBdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ItemImageBFragment.newInstance(mImages, position);
+        return ItemImageFragment.newInstance(mImages, position);
     }
 
     @Override

@@ -26,8 +26,8 @@ import static vn.asiantech.internship.R.id.tabLayout;
 public class PageAFragment extends Fragment {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-    private final String[] mTextTab = {"Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"};
-    private static final int[] mTabIconsSelected = {
+    private static String[] mTextTab = {"Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"};
+    private static int[] mTabIconsSelected = {
             R.drawable.bg_tab_a,
             R.drawable.bg_tab_b,
             R.drawable.bg_tab_c,
