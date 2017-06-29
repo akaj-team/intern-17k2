@@ -21,6 +21,7 @@ import vn.asiantech.internship.adapter.ViewPagerAdapter;
 
 /**
  * Activity contain viewpager and tab layout
+ * <p>
  * Created by Hai on 6/27/2017.
  */
 public class ViewPagerActivity extends AppCompatActivity {

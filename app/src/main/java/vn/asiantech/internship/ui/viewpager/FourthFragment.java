@@ -20,6 +20,10 @@ import java.lang.reflect.Field;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapter.FourAdapter;
 
+/**
+ *
+ * Created by Hai on 6/28/2017.
+ */
 public class FourthFragment extends Fragment {
     private static final String NAME = "mScroller";
     private int[] mImageResources = {R.drawable.img_4, R.drawable.img_5, R.drawable.img_6};

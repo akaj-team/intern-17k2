@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 /**
- * custom tablayout
+ * Custom tablayout
  * <p>
  * Created by Hai on 6/28/2017.
  */
