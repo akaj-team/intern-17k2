@@ -33,7 +33,7 @@ public class MyView extends View {
         super.onDraw(canvas);
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.GRAY);
+        paint.setColor(Color.WHITE);
         paint.setStrokeWidth(5);
         if (mIsSelected) {
             float x = getWidth() / 2;
