@@ -21,14 +21,14 @@ public class CustomTabLayout extends View {
     private Paint mStrokePaint;
     private boolean mIsSelected;
 
+    public CustomTabLayout(Context cxt) {
+        this(cxt, null);
+    }
+
     public CustomTabLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initFillPaint();
         initStrokePaint();
-    }
-
-    public CustomTabLayout(Context cxt) {
-        super(cxt);
     }
 
     private void initFillPaint() {
