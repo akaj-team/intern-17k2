@@ -56,6 +56,9 @@
     <string name="title.hint">Your title</string>
     <string name="name.node_edit">Note</string>
     <string name="textView.edit.title">Edit Note</string>
+    <string name="chat.toolbar.title">MY FRIEND</string>
+    <string name="chat.button.back">Back</string>
+    <string name="edittext.input.hint">Enter sms</string>
     <string name="test.textView.back">Prev</string>
     <string name="test.textView.next">Next</string>
     <string name="test.textView.question">Question 1</string>
