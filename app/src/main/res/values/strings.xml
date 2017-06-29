@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Internship</string>
+    <string name="app_name_recyclerView">TestRecyleView</string>
     <string name="image.description.recyclerView">person</string>
     <string name="recycleView.textView.name">Name:</string>
-    <string name="recycleView.textView.description">Desciption:</string>
+    <string name="recycleView.textView.description">Description:</string>
 
     <string-array name="names">
         <item>Nguyễn Văn A</item>
@@ -55,4 +56,7 @@
     <string name="title.hint">Your title</string>
     <string name="name.node_edit">Note</string>
     <string name="textView.edit.title">Edit Note</string>
+    <string name="chat.toolbar.title">MY FRIEND</string>
+    <string name="chat.button.back">Back</string>
+    <string name="edittext.input.hint">Enter sms</string>
 </resources>

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -23,6 +22,7 @@ import vn.asiantech.internship.R;
  * @since 2017-6-9
  */
 public class FeedFragment extends Fragment {
+    private final List<Image> mImages = new ArrayList<>();
 
     @Nullable
     @Override
@@ -30,11 +30,17 @@ public class FeedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.feedRecyclerView);
         List<Feed> feeds = new ArrayList<>();
-        List<Integer> images = Arrays.asList(R.mipmap.ic_one, R.mipmap.ic_two, R.mipmap.ic_three, R.mipmap.ic_four, R.mipmap.ic_five, R.mipmap.ic_six, R.mipmap.ic_seven, R.mipmap.ic_eight, R.mipmap.ic_nine, R.mipmap.ic_ten);
-        String[] names = getResources().getStringArray(R.array.names);
-        String[] descriptions = getResources().getStringArray(R.array.descriptions);
-        for (int i = 0; i < names.length; i++) {
-            feeds.add(new Feed(names[i], descriptions[i], images));
+        FeedSqlite data = new FeedSqlite(getActivity());
+        data.openDatabase();
+        mImages.addAll(data.getList());
+        data.close();
+        for (int i = 0; i < mImages.size(); i++) {
+            List<Image> links = new ArrayList<>();
+            String link = mImages.get(i).getLink();
+            for (String sub : link.split(",", 0)) {
+                links.add(new Image(sub.trim()));
+            }
+            feeds.add(new Feed(mImages.get(i).getTitle(), mImages.get(i).getDescription(), links));
         }
         FeedAdapter adapter = new FeedAdapter(getActivity(), feeds);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
