@@ -18,9 +18,8 @@
 
         <!--d5-->
         <activity android:name=".feed.ActivityFeed"/>
+        <activity android:name=".exday13.ChatActivity"/>
         <activity android:name=".ui.splash.SplashActivity">
-        </activity>
-        <activity android:name=".exday13.ChatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
