@@ -10,8 +10,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.List;
-
 import vn.asiantech.internship.R;
 
 /**
@@ -42,9 +40,9 @@ public class ItemImageFragment extends Fragment {
         return mView;
     }
 
-    public static ItemImageFragment newInstance(List<String> images, int position) {
+    public static ItemImageFragment newInstance(String image) {
         Bundle args = new Bundle();
-        args.putString("image", images.get(position));
+        args.putString("image", image);
         ItemImageFragment fragment = new ItemImageFragment();
         fragment.setArguments(args);
         return fragment;

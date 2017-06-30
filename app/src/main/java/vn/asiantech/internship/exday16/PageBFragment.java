@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,6 +25,7 @@ public class PageBFragment extends Fragment {
     private ViewPagerBAdapter mViewPagerAdapter;
     private ViewPager mViewPager;
     private int mCurrentPage;
+    private String mImage;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,15 +36,8 @@ public class PageBFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_page_b, container, false);
-        List<String> images = new ArrayList<>();
-        images.add("http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg");
-        images.add("http://vignette2.wikia.nocookie.net/runescape2/images/3/36/Lord_Amlodd_concept_art.jpg/revision/latest?cb=20140811105559");
-        images.add("https://dviw3bl0enbyw.cloudfront.net/uploads/forum_attachment/file/139844/Male_voodoo_armor_concept_art.jpg");
-        images.add("https://cdna.artstation.com/p/assets/images/images/002/854/562/large/jonas-lopez-moreno-jonaslopezmoreno-saitan-web.jpg?1466498557");
-        images.add("https://dviw3bl0enbyw.cloudfront.net/uploads/forum_attachment/file/139844/Male_voodoo_armor_concept_art.jpg");
-
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        mViewPagerAdapter = new ViewPagerBAdapter(getChildFragmentManager(), images);
+        mViewPagerAdapter = new ViewPagerBAdapter(getChildFragmentManager(), mImage);
         mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         run();
@@ -70,7 +62,6 @@ public class PageBFragment extends Fragment {
             }
         };
         final Timer swipeTimer = new Timer();
-
         swipeTimer.schedule(new TimerTask() {
             @Override
             public void run() {

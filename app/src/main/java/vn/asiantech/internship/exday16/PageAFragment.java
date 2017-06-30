@@ -12,9 +12,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import vn.asiantech.internship.R;
 
 /**
@@ -24,6 +21,7 @@ import vn.asiantech.internship.R;
 public class PageAFragment extends Fragment {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    private String mImage;
     private static String[] mTextTabs = {"Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"};
     private static int[] mTabIconsSelecteds = {
             R.drawable.bg_tab_a,
@@ -42,16 +40,9 @@ public class PageAFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_page_a, container, false);
-        List<String> images = new ArrayList<>();
-        images.add("http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg");
-        images.add("http://vignette2.wikia.nocookie.net/runescape2/images/3/36/Lord_Amlodd_concept_art.jpg/revision/latest?cb=20140811105559");
-        images.add("https://dviw3bl0enbyw.cloudfront.net/uploads/forum_attachment/file/139844/Male_voodoo_armor_concept_art.jpg");
-        images.add("https://cdna.artstation.com/p/assets/images/images/002/854/562/large/jonas-lopez-moreno-jonaslopezmoreno-saitan-web.jpg?1466498557");
-        images.add("http://cdn.runescape.com/assets/img/external/news/2015/03/dark_lord_outfit.jpg");
-
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), images);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), mImage);
         mViewPager.setAdapter(viewPagerAdapter);
         mViewPager.setCurrentItem(1);
         mTabLayout.setupWithViewPager(mViewPager);
