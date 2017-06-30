@@ -10,7 +10,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.day16.adapter.ViewPagerOutAdapter;
 
 /**
  * Copyright © 2017 AsianTech inc.
@@ -19,11 +18,10 @@ import vn.asiantech.internship.day16.adapter.ViewPagerOutAdapter;
 public class TitleTabLayoutCustom extends View {
     private Paint mPaint1;
     private Paint mPaint2;
-    private int mPosition = 0;
-    private boolean mIsCheck = true;
+    private boolean mIsCheck;
 
     public TitleTabLayoutCustom(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TitleTabLayoutCustom(Context context, @Nullable AttributeSet attrs) {
@@ -39,12 +37,12 @@ public class TitleTabLayoutCustom extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         if (mIsCheck) {
-            RectF rectf = new RectF(mPosition * getWidth() / ViewPagerOutAdapter.SIZE, -getHeight() / 2, (mPosition + 1) * getWidth() / ViewPagerOutAdapter.SIZE, getHeight() / 2);
+            RectF rectf = new RectF(0, -getHeight() * 2 / 3, getWidth(), getHeight() / 2);
             canvas.drawArc(rectf, 0, 180, false, mPaint1);
-            RectF rect = new RectF(mPosition * getWidth() / ViewPagerOutAdapter.SIZE, -getHeight() / 2, (mPosition + 1) * getWidth() / ViewPagerOutAdapter.SIZE, getHeight() / 2);
+            RectF rect = new RectF(0, -getHeight() * 2 / 3, getWidth(), getHeight() / 2);
             canvas.drawArc(rect, 0, 180, false, mPaint2);
-            canvas.drawLine(0, 0, mPosition * getWidth() / ViewPagerOutAdapter.SIZE, 0, mPaint2);
-            drawLine2(canvas);
+        } else {
+            canvas.drawLine(0, 0, getWidth(), 0, mPaint2);
         }
     }
 
@@ -64,22 +62,14 @@ public class TitleTabLayoutCustom extends View {
         mPaint2.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
-    public void drawLine2(Canvas canvas) {
-        canvas.drawLine((mPosition + 1) * getWidth() / ViewPagerOutAdapter.SIZE, 0, getWidth(), 0, mPaint2);
-    }
-
     @Override
     public void setSelected(boolean selected) {
         mIsCheck = selected;
+        invalidate();
     }
 
     @Override
     public boolean isSelected() {
         return mIsCheck;
-    }
-
-    public void setVT(int vt) {
-        mPosition = vt;
-        invalidate();
     }
 }

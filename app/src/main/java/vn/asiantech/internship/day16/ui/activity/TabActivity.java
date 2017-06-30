@@ -24,7 +24,6 @@ public class TabActivity extends AppCompatActivity {
     ViewPagerOutAdapter mViewPagerOutAdapter;
     ViewPager mViewPager;
     TabLayout mTabLayout;
-    TitleTabLayoutCustom mTitleTabLayoutCustom;
     private List<TextView> mTextViews = new ArrayList<>();
     private int[] mImages = {
             R.mipmap.ic_bicycle,
@@ -41,8 +40,31 @@ public class TabActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab);
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.viewPagerOut);
-        mTitleTabLayoutCustom = (TitleTabLayoutCustom) findViewById(R.id.tvCustomTablayout);
         mTitles = getApplicationContext().getResources().getStringArray(R.array.tabtitles);
+        initTablayout();
+        customTablayout();
+    }
+
+    private void customTablayout() {
+        for (int i = 0; i < mViewPagerOutAdapter.getCount(); i++) {
+            View v = LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+            TitleTabLayoutCustom titleTabLayoutCustom = (TitleTabLayoutCustom) v.findViewById(R.id.tvCustomTablayout);
+            TextView tvTab = (TextView) v.findViewById(R.id.tvTabItem);
+            tvTab.setText(mTitles[i]);
+            if (i == 0) {
+                titleTabLayoutCustom.setSelected(true);
+                tvTab.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.imageview_custom_tablayout_title));
+            }
+            mTextViews.add(tvTab);
+            tvTab.setCompoundDrawablesWithIntrinsicBounds(0, mImages[i], 0, 0);
+            TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            if (tab != null) {
+                tab.setCustomView(v);
+            }
+        }
+    }
+
+    private void initTablayout() {
         mViewPagerOutAdapter = new ViewPagerOutAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mViewPagerOutAdapter);
         mViewPagerOutAdapter.notifyDataSetChanged();
@@ -50,8 +72,6 @@ public class TabActivity extends AppCompatActivity {
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mTitleTabLayoutCustom.setVT(tab.getPosition());
-                mTitleTabLayoutCustom.setVisibility(View.VISIBLE);
                 mTextViews.get(tab.getPosition()).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.imageview_custom_tablayout_title));
             }
 
@@ -65,23 +85,5 @@ public class TabActivity extends AppCompatActivity {
 
             }
         });
-        customTablayout();
-    }
-
-    public void customTablayout() {
-        for (int i = 0; i < mViewPagerOutAdapter.getCount(); i++) {
-            View v = LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
-            TextView tvTab = (TextView) v.findViewById(R.id.tvTabItem);
-            tvTab.setText(mTitles[i]);
-            if (i == 0) {
-                tvTab.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.imageview_custom_tablayout_title));
-            }
-            mTextViews.add(tvTab);
-            tvTab.setCompoundDrawablesWithIntrinsicBounds(0, mImages[i], 0, 0);
-            TabLayout.Tab tab = mTabLayout.getTabAt(i);
-            if (tab != null) {
-                tab.setCustomView(v);
-            }
-        }
     }
 }

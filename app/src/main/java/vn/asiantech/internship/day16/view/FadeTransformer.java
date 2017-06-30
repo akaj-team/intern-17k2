@@ -14,11 +14,7 @@ public class FadeTransformer implements ViewPager.PageTransformer {
     public void transformPage(View page, float position) {
         int pageWidth = page.getWidth();
 
-        if (position < -1) { // [-Infinity,-1)
-            // This page is way off-screen to the left.
-            page.setAlpha(0);
-
-        } else if (position <= 0) { // [-1,0]
+        if (position <= 0) { // [-1,0]
             // Use the default slide transition when moving to the left page
             page.setAlpha(1);
             page.setTranslationX(0);

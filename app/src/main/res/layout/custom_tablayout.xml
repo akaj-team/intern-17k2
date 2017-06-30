@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tvTabItem"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:textColor="@color/textview.tab.title" />
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTabItem"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorItem"
+        android:gravity="center"
+        android:textColor="@color/textview.tab.title" />
+
+    <vn.asiantech.internship.day16.view.TitleTabLayoutCustom
+        android:id="@+id/tvCustomTablayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tablayout.custom_title.layout_height" />
+</LinearLayout>

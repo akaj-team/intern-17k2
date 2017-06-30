@@ -28,6 +28,12 @@ import vn.asiantech.internship.day16.view.FadeTransformer;
  */
 public class Tab2Fragment extends Fragment {
     private static final String TAG = Tab2Fragment.class.getSimpleName();
+    private static final int TIME = 5000;
+
+    public static Tab2Fragment init() {
+        return new Tab2Fragment();
+    }
+
     private ViewPager mViewPager;
     ViewPagerInAdapter mViewPagerInAdapter;
     private int[] mImages = {
@@ -36,7 +42,7 @@ public class Tab2Fragment extends Fragment {
             R.mipmap.img_pug_2
     };
 
-    private int mCurrentPage = 0;
+    private int mCurrentPage;
 
     @Nullable
     @Override
@@ -72,16 +78,10 @@ public class Tab2Fragment extends Fragment {
             public void run() {
                 handler.post(update);
             }
-        }, 50, 5000);
+        }, 50, TIME);
 
         mViewPagerInAdapter.notifyDataSetChanged();
         return v;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
     }
 
     @Override
@@ -93,19 +93,19 @@ public class Tab2Fragment extends Fragment {
             }
         }
     }
-}
 
-/**
- * Create FixedSpeedScroller
- */
-class FixedSpeedScroller extends Scroller {
+    /**
+     * Create FixedSpeedScroller
+     */
+    private final class FixedSpeedScroller extends Scroller {
 
-    FixedSpeedScroller(Context context, Interpolator interpolator) {
-        super(context, interpolator);
-    }
+        FixedSpeedScroller(Context context, Interpolator interpolator) {
+            super(context, interpolator);
+        }
 
-    @Override
-    public void startScroll(int startX, int startY, int dx, int dy, int duration) {
-        super.startScroll(startX, startY, dx, dy, 5000);
+        @Override
+        public void startScroll(int startX, int startY, int dx, int dy, int duration) {
+            super.startScroll(startX, startY, dx, dy, TIME);
+        }
     }
 }

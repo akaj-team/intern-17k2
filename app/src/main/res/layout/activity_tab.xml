@@ -10,18 +10,13 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tablayout.custom.layout_height"
-        android:background="@color/colorItem"
-        app:tabIndicatorHeight="0dp" />
-
-    <vn.asiantech.internship.day16.view.TitleTabLayoutCustom
-        android:id="@+id/tvCustomTablayout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tablayout.custom_title.layout_height"
-        android:layout_below="@+id/tabLayout" />
+        app:tabIndicatorHeight="0dp"
+        app:tabPaddingEnd="0dp"
+        app:tabPaddingStart="0dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPagerOut"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="200dp" />
 
