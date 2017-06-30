@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical"
+    android:padding="@dimen/test.ll.padding">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/test.textView.margin_top"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/dialog.textView.size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/test.textView.margin_top"
+        android:background="@color/colorYellow" />
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/test.textView.margin_top">
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/test.button.margin_right_left"
+            android:layout_marginRight="@dimen/test.button.margin_right_left"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_dialog"
+            android:text="@string/dialog.cancle" />
+
+        <Button
+            android:id="@+id/btnOk"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/test.button.margin_right_left"
+            android:layout_marginStart="@dimen/test.button.margin_right_left"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_dialog"
+            android:text="@string/dialog.OK" />
+    </LinearLayout>
+</LinearLayout>
