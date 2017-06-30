@@ -1,7 +1,16 @@
 <resources>
     <string name="app_name">Internship</string>
+    <string name="user.name">User_100001</string>
+    <string name="user.status">Napoleon dominated European and global affairs for more than a decade while leading
+        France against a series of coalitions in the Napoleonic Wars. He won most of these wars and the vast majority
+        of his battles, building a large empire that ruled over continental Europe before its final collapse in 1815
+    </string>
+    <string name="user.status.1">Hoping to extend the Continental System and choke off British trade with the European
+        mainland, Napoleon invaded Iberia and declared his brother Joseph the King of Spain in 1808. The Spanish and the
+        Portuguese revolted with British support. The Peninsular War lasted six years, featured extensive guerrilla warfare,
+        and ended in victory for the Allies
+    </string>
     <string name="button.text">Send</string>
-    <string name="user.name">user_1001</string>
     <string name="dialog.select.picture.message">Select picture</string>
     <string name="drawer.item.feed">Feed</string>
     <string name="drawer.item.activity">Activity</string>
@@ -12,6 +21,9 @@
     <string name="drawer.item.setting">Setting</string>
     <string name="button.day5.ex1.text">Day5 Ex1</string>
     <string name="button.day6.ex1.text">Day6 Ex1</string>
+    <string name="button.fragment.text">Fragment</string>
+    <string name="button.day11.ex2.text">Day11 Ex2</string>
+    <string name="button.day13.ex.text">Day13 Ex</string>
     <string name="dialog.item.gallery">Gallery</string>
     <string name="dialog.item.Camera">Camera</string>
     <string name="friend">FRIEND</string>
@@ -20,4 +32,5 @@
     <string name="note.detail">Note detail</string>
     <string name="newnote.hint.title">Title</string>
     <string name="newnote.hint.content">Content</string>
+    <string name="chat.button.send">SEND</string>
 </resources>
