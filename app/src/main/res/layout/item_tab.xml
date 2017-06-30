@@ -7,7 +7,7 @@
     <vn.asiantech.internship.ui.viewpager.CustomView
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/itemtab.height" />
+        android:layout_height="15dp" />
 
     <TextView
         android:id="@+id/tvTabTitle"

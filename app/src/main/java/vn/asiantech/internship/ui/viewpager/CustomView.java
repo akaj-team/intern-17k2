@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -17,10 +18,10 @@ import android.view.View;
 public class CustomView extends View {
     private boolean mIsSelected;
     private Paint mPaint = new Paint();
+    private RectF mRectF = new RectF();
 
     public CustomView(Context context) {
         super(context);
-
     }
 
     public CustomView(Context context, @Nullable AttributeSet attrs) {
@@ -38,10 +39,11 @@ public class CustomView extends View {
         mPaint.setColor(Color.GRAY);
         mPaint.setStrokeWidth(5);
         if (mIsSelected) {
-            float x = getWidth() / 2;
-            canvas.drawCircle(x, getHeight(), getHeight(), mPaint);
-            canvas.drawLine(0, getHeight(), getWidth() / 2 - getHeight(), getHeight(), mPaint);
-            canvas.drawLine(getWidth() / 2 + getHeight(), getHeight(), getWidth(), getHeight(), mPaint);
+            mRectF.left = getLeft();
+            mRectF.top = getTop();
+            mRectF.right = getRight();
+            mRectF.bottom = getBottom() * 2;
+            canvas.drawArc(mRectF, 180, 180, false, mPaint);
         } else {
             Log.d("xxx", "onDraw: ");
             canvas.drawLine(0, getHeight(), getWidth(), getHeight(), mPaint);
