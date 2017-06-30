@@ -35,4 +35,5 @@
     <dimen name="tablayout.height">90dp</dimen>
     <dimen name="pager.height">500dp</dimen>
     <dimen name="imgviewpager.height">100dp</dimen>
+    <dimen name="customview.height">15dp</dimen>
 </resources>
