@@ -18,8 +18,8 @@ import vn.asiantech.internship.ui.CustomViewPager;
 
 /**
  * Created by ducle on 27/06/2017.
+ * Tab2AnimalFragment is fragment contain item dog
  */
-
 public class Tab2AnimalFragment extends Fragment {
     private static final String TAG = Tab2AnimalFragment.class.getSimpleName();
     private static final String DOG_IMAGES = "dog";
@@ -36,13 +36,20 @@ public class Tab2AnimalFragment extends Fragment {
         mDogImages = getArguments().getStringArrayList(DOG_IMAGES);
         mViewPagerTab2 = (CustomViewPager) view.findViewById(R.id.viewPagerTab2);
         mViewPagerTab2.setScrollDurationFactor(30);
+        mViewPagerTab2.setCurrentItem(0);
         mDogAdapter = new DogAdapter(getFragmentManager(), mDogImages);
         if (mIsShowed && !mIsLoaded) {
             loadData();
+            runThread();
         }
         return view;
     }
 
+    /**
+     * update new instance of fragment
+     * @param dogImages is url list of dog
+     * @return a fragment
+     */
     public static Tab2AnimalFragment newInstance(List<String> dogImages) {
         Tab2AnimalFragment tab2AnimalFragment = new Tab2AnimalFragment();
         Bundle bundle = new Bundle();
@@ -74,5 +81,29 @@ public class Tab2AnimalFragment extends Fragment {
         super.onDestroyView();
         mIsLoaded = false;
         Log.i(TAG, "destroy item 2");
+    }
+
+    private void runThread() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (mViewPagerTab2.getCurrentItem() != mDogImages.size()) {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            mViewPagerTab2.setCurrentItem(mViewPagerTab2.getCurrentItem() + 1);
+                                                        }
+                                                    }
+                        );
+                    }
+                }
+            }
+        }).start();
     }
 }

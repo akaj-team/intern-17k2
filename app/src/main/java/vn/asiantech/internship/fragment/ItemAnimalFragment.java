@@ -17,6 +17,7 @@ import vn.asiantech.internship.R;
 
 /**
  * Created by ducle on 26/06/2017.
+ * ItemAnimalFragment is fragment contain an item of main viewpager
  */
 public class ItemAnimalFragment extends android.support.v4.app.Fragment {
     public static final String KEY_IMAGE = "animal_image";
@@ -38,6 +39,13 @@ public class ItemAnimalFragment extends android.support.v4.app.Fragment {
         return view;
     }
 
+    /**
+     * update status of fragment
+     *
+     * @param animalImages is url list about animal
+     * @param position     is position of item
+     * @return a item fragment
+     */
     public static ItemAnimalFragment newInstance(List<String> animalImages, int position) {
         ItemAnimalFragment itemAnimalFragment = new ItemAnimalFragment();
         Bundle bundle = new Bundle();
@@ -46,6 +54,9 @@ public class ItemAnimalFragment extends android.support.v4.app.Fragment {
         return itemAnimalFragment;
     }
 
+    /**
+     * set image for ImageView in an item
+     */
     public void loadData() {
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));

@@ -11,6 +11,7 @@ import vn.asiantech.internship.fragment.Tab2AnimalFragment;
 
 /**
  * Created by ducle on 26/06/2017.
+ * AnimalAdapter is adapter for main viewpager
  */
 public class AnimalAdapter extends FragmentStatePagerAdapter {
     private List<String> mAnimalImages;
@@ -24,7 +25,7 @@ public class AnimalAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = null;
+        Fragment fragment;
         if (position == 1) {
             fragment = Tab2AnimalFragment.newInstance(mDogImages);
         } else {
@@ -36,10 +37,5 @@ public class AnimalAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return mAnimalImages.size();
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return null;
     }
 }

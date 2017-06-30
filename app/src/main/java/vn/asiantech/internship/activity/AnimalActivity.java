@@ -11,8 +11,8 @@ import vn.asiantech.internship.fragment.MainAnimalFragment;
 
 /**
  * Created by ducle on 26/06/2017.
+ * AnimalActivity is main activity og app
  */
-
 public class AnimalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

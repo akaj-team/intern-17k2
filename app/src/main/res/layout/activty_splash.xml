@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bai13" />
-            android:text="@string/bai7" />
+        android:text="@string/bai7" />
 
         <Button
             android:id="@+id/btnBai16"
