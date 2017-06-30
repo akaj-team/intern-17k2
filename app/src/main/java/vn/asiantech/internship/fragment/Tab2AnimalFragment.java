@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.asiantech.internship.pageTransformer.DepthPageTransformer;
+import vn.asiantech.internship.pagetransformer.DepthPageTransformer;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapter.DogAdapter;
 import vn.asiantech.internship.ui.CustomViewPager;
