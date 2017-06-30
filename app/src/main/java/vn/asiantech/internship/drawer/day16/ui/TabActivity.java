@@ -28,7 +28,7 @@ public class TabActivity extends AppCompatActivity {
 
     private List<CustomView> mCustomTabs;
     private List<TextView> mTvTitleTab;
-    private String mTitle[] = {"Loyalty", "Motor", "Open", "Rowing", "Setting"};
+    private String[] mTitle = {"Loyalty", "Motor", "Open", "Rowing", "Setting"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
