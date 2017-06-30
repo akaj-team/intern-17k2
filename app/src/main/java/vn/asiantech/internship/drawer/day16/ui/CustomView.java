@@ -2,7 +2,9 @@ package vn.asiantech.internship.drawer.day16.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -34,7 +36,7 @@ public class CustomView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(3);
-        mPaint.setColor(getResources().getColor(R.color.colorBlack));
+        mPaint.setColor(Color.BLACK);
     }
 
     public void onDraw(final Canvas canvas) {
@@ -46,14 +48,15 @@ public class CustomView extends View {
     }
 
     private void drawTab(Canvas canvas) {
-        mPaint.setStrokeWidth(7);
-        canvas.drawLine(0, 0, getWidth(), 0, mPaint);
-        canvas.drawLine(0, getHeight(), 0, 0, mPaint);
-        canvas.drawLine(getWidth(), 0, getWidth(), getHeight(), mPaint);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(getResources().getColor(R.color.colorTab));
+        RectF rectF = new RectF(-10, getHeight() / 2, getWidth() + 10, 2 * getHeight());
+        canvas.drawArc(rectF, 180, 180, false, mPaint);
     }
 
     private void drawLine(Canvas canvas) {
-        mPaint.setStrokeWidth(7);
+        mPaint.setStrokeWidth(10);
+        mPaint.setColor(getResources().getColor(R.color.colorTab));
         canvas.drawLine(0, getHeight(), getWidth(), getHeight(), mPaint);
     }
 

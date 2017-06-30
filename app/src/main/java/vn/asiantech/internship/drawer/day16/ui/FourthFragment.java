@@ -14,7 +14,7 @@ import vn.asiantech.internship.R;
  */
 public class FourthFragment extends Fragment {
 
-    private View mView;
+    private View mLayout;
 
     private boolean isVisible;
 
@@ -25,26 +25,25 @@ public class FourthFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_first, container, false);
+        mLayout = inflater.inflate(R.layout.fragment_first, container, false);
         if (isVisible && getUserVisibleHint()) {
-            loadData();
+            showUI();
         }
-        return mView;
+        return mLayout;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            loadData();
+            showUI();
         }
         isVisible = isVisibleToUser;
     }
 
-    private void loadData() {
-        if (mView != null) {
-            ImageView imageView = (ImageView) mView.findViewById(R.id.imgFragment);
+    private void showUI() {
+        if (mLayout != null) {
+            ImageView imageView = (ImageView) mLayout.findViewById(R.id.imgFragment);
             imageView.setImageResource(R.drawable.img_binhdinh);
             isVisible = true;
         }

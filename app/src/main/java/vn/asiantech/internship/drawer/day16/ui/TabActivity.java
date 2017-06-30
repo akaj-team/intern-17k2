@@ -1,5 +1,6 @@
 package vn.asiantech.internship.drawer.day16.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -24,7 +25,10 @@ import static vn.asiantech.internship.R.id.tabLayout;
 public class TabActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
+
     private List<CustomView> mCustomTabs;
+    private List<TextView> mTvTitleTab;
+    private String mTitle[] = {"Loyalty", "Motor", "Open", "Rowing", "Setting"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +43,23 @@ public class TabActivity extends AppCompatActivity {
         setupViewpager(viewPager);
         mTabLayout.setupWithViewPager(viewPager);
         mCustomTabs = new ArrayList<>();
-        setupTabLayout("Loyalty", 0, R.drawable.bg_tab_item_one);
-        setupTabLayout("Motor", 1, R.drawable.bg_tab_item_two);
-        setupTabLayout("Open", 2, R.drawable.bg_tab_item_three);
-        setupTabLayout("Rowing", 3, R.drawable.bg_tab_item_four);
-        setupTabLayout("Setting", 4, R.drawable.bg_tab_item_five);
+        mTvTitleTab = new ArrayList<>();
+        setupTabLayout(0, R.drawable.bg_tab_item_one);
+        setupTabLayout(1, R.drawable.bg_tab_item_two);
+        setupTabLayout(2, R.drawable.bg_tab_item_three);
+        setupTabLayout(3, R.drawable.bg_tab_item_four);
+        setupTabLayout(4, R.drawable.bg_tab_item_five);
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mCustomTabs.get(tab.getPosition()).setSelected(true);
-                mCustomTabs.get(tab.getPosition()).setBackgroundResource(R.color.colorTab);
+                mTvTitleTab.get(tab.getPosition()).setTextColor(Color.BLUE);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 mCustomTabs.get(tab.getPosition()).setSelected(false);
-                mCustomTabs.get(tab.getPosition()).setBackgroundResource(R.color.colorWhite);
+                mTvTitleTab.get(tab.getPosition()).setTextColor(Color.WHITE);
             }
 
             @Override
@@ -64,12 +69,13 @@ public class TabActivity extends AppCompatActivity {
         });
     }
 
-    private void setupTabLayout(String name, int index, int image) {
+    private void setupTabLayout(int index, int image) {
         View tabItem = LayoutInflater.from(this).inflate(R.layout.custom_tab_item, null);
         TextView tvItem = (TextView) tabItem.findViewById(R.id.tvTab);
         CustomView customTabItem = (CustomView) tabItem.findViewById(R.id.customView);
         mCustomTabs.add(customTabItem);
-        tvItem.setText(name);
+        mTvTitleTab.add(tvItem);
+        tvItem.setText(mTitle[index]);
         tvItem.setCompoundDrawablesWithIntrinsicBounds(0, image, 0, 0);
         TabLayout.Tab tab = mTabLayout.getTabAt(index);
         if (tab != null) {
@@ -110,7 +116,7 @@ public class TabActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 mCustomTabs.get(position).setSelected(true);
-                mCustomTabs.get(position).setBackgroundResource(R.color.colorTab);
+                mTvTitleTab.get(position).setTextColor(Color.BLUE);
             }
 
             @Override

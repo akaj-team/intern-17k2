@@ -1,10 +1,8 @@
 package vn.asiantech.internship.drawer.day16.ui;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -44,27 +42,21 @@ public class SecondFragment extends Fragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_second, container, false);
         if (isVisible && getUserVisibleHint()) {
-            loadData();
+            loadImage();
         }
         return mView;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            loadData();
+            loadImage();
         }
         isVisible = isVisibleToUser;
     }
 
-    private void loadData() {
+    private void loadImage() {
         if (mView != null) {
             final ViewPager viewPager = (ViewPager) mView.findViewById(R.id.viewPagerTabItem);
             List<Integer> images = new ArrayList<>();
@@ -77,16 +69,20 @@ public class SecondFragment extends Fragment {
             viewPager.setAdapter(adapter);
             viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
             changeDurationViewpager(viewPager);
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    viewPager.setCurrentItem((viewPager.getCurrentItem() == mNumPage) ?
-                            0 : viewPager.getCurrentItem() + 1);
-                    mHandler.postDelayed(this, 7000);
-                }
-            }, 3000);
+            autoSlidePage(viewPager);
             isVisible = true;
         }
+    }
+
+    private void autoSlidePage(final ViewPager viewPager) {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                viewPager.setCurrentItem((viewPager.getCurrentItem() == mNumPage) ?
+                        0 : viewPager.getCurrentItem() + 1);
+                mHandler.postDelayed(this, 7000);
+            }
+        }, 3000);
     }
 
     private void changeDurationViewpager(ViewPager viewPager) {

@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorTab"
         android:gravity="center"
+        android:padding="@dimen/item.layout_padding"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/item.textview_text_size"
         tools:text="tab item" />
