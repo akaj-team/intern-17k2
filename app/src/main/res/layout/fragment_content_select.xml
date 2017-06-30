@@ -29,7 +29,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnEx07.1"
+                android:id="@+id/btnEx07"
                 style="@style/ButtonNormalStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -46,11 +46,39 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btnEx08"
+            style="@style/ButtonNormalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button.text.ex08" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnEx11"
+                style="@style/ButtonNormalStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/button.text.ex11_1" />
+
+            <Button
+                android:id="@+id/btnEx11.2"
+                style="@style/ButtonNormalStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/button.text.ex11_2" />
+        </LinearLayout>
+
+        <Button
             android:id="@+id/btnEx15"
             style="@style/ButtonNormalStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/button.text.ex15" />
-
     </LinearLayout>
 </ScrollView>

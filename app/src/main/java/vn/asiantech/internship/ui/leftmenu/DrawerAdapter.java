@@ -18,7 +18,7 @@ import vn.asiantech.internship.R;
  * Created by Thanh Thien on 6/12/17
  * Using for Drawer
  */
-public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_ITEM = 1;
     private static final int TYPE_HEADER = 0;
@@ -32,7 +32,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     DrawerAdapter(Context context, String[] items, OnItemsListener onItemsListener) {
         mItems = items;
         mOnItemsListener = onItemsListener;
-
         //Get current wallpaper
         WallpaperManager mWallpaperManager = WallpaperManager.getInstance(context);
         mWallpaperDrawable = mWallpaperManager.getDrawable();
@@ -62,9 +61,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ItemViewHolder myItemViewHolder = (ItemViewHolder) viewHolder;
             myItemViewHolder.mTvName.setText(mItems[position - 1]);
             if (position == mPositionSelected) {
-                myItemViewHolder.itemView.setBackgroundColor(myItemViewHolder.itemView.getContext().getResources().getColor(R.color.colorItemChoise));
+                myItemViewHolder.itemView.setBackgroundResource(R.color.colorItemChoise);
             } else {
-                myItemViewHolder.itemView.setBackgroundColor(myItemViewHolder.itemView.getContext().getResources().getColor(R.color.colorItem));
+                myItemViewHolder.itemView.setBackgroundResource(R.color.colorItem);
             }
         } else if (viewHolder instanceof ItemHeaderViewHolder) {
             ItemHeaderViewHolder myHeaderViewHolder = (ItemHeaderViewHolder) viewHolder;
@@ -84,7 +83,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * ItemView for content list
      */
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    private class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvName;
 
@@ -105,7 +104,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * View for header
      */
-    public class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
+    private class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvAuthorName;
         private CircleImageView mCivAvatar;
@@ -146,7 +145,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     /**
      * Interface for fragment
      */
-    public interface OnItemsListener {
+    interface OnItemsListener {
         void showDialogChoice();
 
         void onItemCLick(int position);
