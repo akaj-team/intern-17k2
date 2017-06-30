@@ -48,7 +48,7 @@ public class MyTabView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        mOldCLicked = getWidth() / 2; //
+        mOldCLicked = getWidth() / 2; // Default tab selected is center so default click is center too
 
         // Draw Icon and selected icon
         drawIcon(canvas, mTabSelected);
