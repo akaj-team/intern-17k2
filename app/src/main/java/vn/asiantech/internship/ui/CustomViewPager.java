@@ -44,6 +44,9 @@ public class CustomViewPager extends ViewPager {
         mScrollerCustomDuration.setScrollDurationFactor(scrollFactor);
     }
 
+    /**
+     * to set duration when swipe
+     */
     private class ScrollerCustomDuration extends Scroller {
 
         private double mScrollFactor = 1;

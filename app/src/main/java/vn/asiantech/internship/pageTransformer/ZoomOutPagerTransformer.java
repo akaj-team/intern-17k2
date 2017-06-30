@@ -1,4 +1,4 @@
-package vn.asiantech.internship.PageTransformer;
+package vn.asiantech.internship.pageTransformer;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
