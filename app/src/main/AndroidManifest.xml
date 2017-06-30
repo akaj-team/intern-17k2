@@ -18,7 +18,7 @@
 
         <!--d5-->
         <activity android:name=".feed.ActivityFeed"/>
-        <activity android:name=".RecyclerViewActivity"/>
+        <activity android:name=".exday13.ChatActivity"/>
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,4 +29,5 @@
         <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".exfragment.RecyclerViewActivity" />
     </application>
+
 </manifest>
