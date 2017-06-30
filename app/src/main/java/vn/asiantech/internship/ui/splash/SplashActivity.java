@@ -15,6 +15,7 @@ import vn.asiantech.internship.ui.main.FootballStarActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 import vn.asiantech.internship.ui.main.NoteActivity;
 import vn.asiantech.internship.ui.main.PassDataActivity;
+import vn.asiantech.internship.ui.main.TestActivity;
 
 /**
  * Created by PC on 6/15/2017.
@@ -31,6 +32,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         Button btnDay9 = (Button) findViewById(R.id.btnDay9);
         Button btnDay11 = (Button) findViewById(R.id.btnDay11);
         Button btnDay13 = (Button) findViewById(R.id.btnDay13);
+        Button btnDay15 = (Button) findViewById(R.id.btnDay15);
         Button btnDay16 = (Button) findViewById(R.id.btnDay16);
 
         btnDay5.setOnClickListener(this);
@@ -39,6 +41,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         btnDay9.setOnClickListener(this);
         btnDay11.setOnClickListener(this);
         btnDay13.setOnClickListener(this);
+        btnDay15.setOnClickListener(this);
         btnDay16.setOnClickListener(this);
     }
 
@@ -68,6 +71,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btnDay13:
                 Intent intent13 = new Intent(SplashActivity.this, ChatActivity.class);
                 startActivity(intent13);
+                break;
+            case R.id.btnDay15:
+                Intent intent15 = new Intent(SplashActivity.this, TestActivity.class);
+                startActivity(intent15);
                 break;
             case R.id.btnDay16:
                 Intent intent16 = new Intent(SplashActivity.this, FootballStarActivity.class);
