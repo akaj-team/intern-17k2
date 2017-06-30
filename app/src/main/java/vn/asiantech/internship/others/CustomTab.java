@@ -13,7 +13,7 @@ import vn.asiantech.internship.R;
 
 /**
  * Canvas
- * Created by AnhHuy on 28-Jun-17.
+ * Created by huypham on 28-Jun-17.
  */
 public class CustomTab extends View {
     private int mWidth;
@@ -22,8 +22,7 @@ public class CustomTab extends View {
     private final Paint mPaint;
 
     public CustomTab(Context context) {
-        super(context);
-        mPaint = new Paint();
+        this(context, null);
     }
 
     public CustomTab(Context context, @Nullable AttributeSet attrs) {

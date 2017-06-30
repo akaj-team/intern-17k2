@@ -21,11 +21,11 @@ import vn.asiantech.internship.ui.adapters.ViewPagerAdapter;
  */
 public class TabActivity extends AppCompatActivity {
     private final ViewPagerAdapter mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 5);
-    private final String[] mTextTab = {"Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"};
-    private final int[] mIconTab = {R.drawable.selector_bubble, R.drawable.selector_cloud_queue,
+    private final String[] mTextTabs = {"Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"};
+    private final int[] mIconTabs = {R.drawable.selector_bubble, R.drawable.selector_cloud_queue,
             R.drawable.selector_nfc, R.drawable.selector_shopping, R.drawable.seletor_filter_vintage};
 
-    private ViewPager mViewPagerTab;
+    private ViewPager mViewPager;
     private TabLayout mTabLayoutTab;
 
     @Override
@@ -39,13 +39,13 @@ public class TabActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mViewPagerTab = (ViewPager) findViewById(R.id.viewPagerTab);
+        mViewPager = (ViewPager) findViewById(R.id.viewPagerTab);
         mTabLayoutTab = (TabLayout) findViewById(R.id.tabLayout);
     }
 
     private void initViewPager() {
-        mViewPagerTab.setAdapter(mPagerAdapter);
-        mTabLayoutTab.setupWithViewPager(mViewPagerTab);
+        mViewPager.setAdapter(mPagerAdapter);
+        mTabLayoutTab.setupWithViewPager(mViewPager);
     }
 
     private void customTabLayout() {
@@ -56,9 +56,9 @@ public class TabActivity extends AppCompatActivity {
                 customTab.setSelected(true);
             }
             TextView tvTabText = (TextView) view.findViewById(R.id.tvTabLayout);
-            tvTabText.setText(mTextTab[i]);
+            tvTabText.setText(mTextTabs[i]);
             tvTabText.setTextColor(ContextCompat.getColorStateList(this, R.color.selector_text_view));
-            tvTabText.setCompoundDrawablesWithIntrinsicBounds(0, mIconTab[i], 0, 0);
+            tvTabText.setCompoundDrawablesWithIntrinsicBounds(0, mIconTabs[i], 0, 0);
             TabLayout.Tab tab = mTabLayoutTab.getTabAt(i);
             if (tab != null) {
                 tab.setCustomView(view);
@@ -67,10 +67,9 @@ public class TabActivity extends AppCompatActivity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mViewPagerTab.setCurrentItem(position);
+                    mViewPager.setCurrentItem(position);
                 }
             });
         }
     }
 }
-

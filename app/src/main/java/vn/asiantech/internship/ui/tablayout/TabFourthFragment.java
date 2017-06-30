@@ -18,7 +18,7 @@ public class TabFourthFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ImageView imgTab4 = (ImageView) inflater.inflate(R.layout.fragment_tab_single, container, false);
+        ImageView imgTab4 = (ImageView) inflater.inflate(R.layout.item_list_image, container, false);
         imgTab4.setImageResource(R.drawable.img_tab4);
         return imgTab4;
     }

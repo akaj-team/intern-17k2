@@ -15,25 +15,25 @@ import vn.asiantech.internship.R;
  */
 public class Tab2ViewPagerAdapter extends PagerAdapter {
     private final Context mContext;
-    private final int[] mResource;
+    private final int[] mResources;
 
-    public Tab2ViewPagerAdapter(Context context, int[] resource) {
+    public Tab2ViewPagerAdapter(Context context, int[] resources) {
         mContext = context;
-        mResource = resource;
+        mResources = resources;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_view_pager_tab2, container, false);
-        ImageView imgImageTab2 = (ImageView) view.findViewById(R.id.imgTab2);
-        imgImageTab2.setImageResource(mResource[position]);
+        ImageView imgTab2 = (ImageView) view.findViewById(R.id.imgTab2);
+        imgTab2.setImageResource(mResources[position]);
         container.addView(view);
         return view;
     }
 
     @Override
     public int getCount() {
-        return mResource.length;
+        return mResources.length;
     }
 
     @Override
