@@ -24,7 +24,7 @@ public class FootballStarAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return mImages.length;
     }
 
     @Override

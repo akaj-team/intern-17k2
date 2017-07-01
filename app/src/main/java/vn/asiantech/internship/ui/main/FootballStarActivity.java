@@ -35,7 +35,7 @@ public class FootballStarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_football_star);
 
         mAdapter = new FootballStarAdapter(getSupportFragmentManager());
-        ViewPager viewPagerFootballStar = (ViewPager) findViewById(R.id.recyclerViewFootballStar);
+        ViewPager viewPagerFootballStar = (ViewPager) findViewById(R.id.viewPagerFootballStar);
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPagerFootballStar.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(viewPagerFootballStar);
