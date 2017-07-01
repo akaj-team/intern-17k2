@@ -64,7 +64,6 @@ public class ViewPagerActivity extends AppCompatActivity {
         });
     }
 
-
     private void setupLayout() {
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.item_tab, null);

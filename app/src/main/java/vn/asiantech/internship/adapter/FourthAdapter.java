@@ -27,8 +27,8 @@ public class FourthAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_viewpager_c, container, false);
-        ImageView imageView = (ImageView) view.findViewById(R.id.imgThird);
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_viewpager_fourth, container, false);
+        ImageView imageView = (ImageView) view.findViewById(R.id.imgFourth);
         imageView.setImageResource(mImageResources[position]);
         container.addView(view);
         return view;
