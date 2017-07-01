@@ -41,6 +41,7 @@ public class TabActivity extends AppCompatActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.viewPagerOut);
         mTitles = getApplicationContext().getResources().getStringArray(R.array.tabtitles);
+        initViewPager();
         initTablayout();
         customTablayout();
     }
@@ -65,9 +66,6 @@ public class TabActivity extends AppCompatActivity {
     }
 
     private void initTablayout() {
-        mViewPagerOutAdapter = new ViewPagerOutAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mViewPagerOutAdapter);
-        mViewPagerOutAdapter.notifyDataSetChanged();
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -86,5 +84,11 @@ public class TabActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void initViewPager() {
+        mViewPagerOutAdapter = new ViewPagerOutAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mViewPagerOutAdapter);
+        mViewPagerOutAdapter.notifyDataSetChanged();
     }
 }

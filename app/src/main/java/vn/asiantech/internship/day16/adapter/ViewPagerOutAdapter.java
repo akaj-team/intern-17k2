@@ -40,5 +40,4 @@ public class ViewPagerOutAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return SIZE;
     }
-
 }

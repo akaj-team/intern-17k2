@@ -35,7 +35,7 @@ public class Tab2Fragment extends Fragment {
     }
 
     private ViewPager mViewPager;
-    ViewPagerInAdapter mViewPagerInAdapter;
+    private ViewPagerInAdapter mViewPagerInAdapter;
     private int[] mImages = {
             R.mipmap.img_pug,
             R.mipmap.img_pug_1,
