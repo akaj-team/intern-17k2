@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".exfragment.RecyclerViewActivity">
+    tools:context=".feed.ActivityFeed">
 
     <fragment
-        android:id="@+id/fragmentFriend"
-        android:name="vn.asiantech.internship.exfragment.FriendFragment"
+        android:id="@+id/fragmentFeed"
+        android:name="vn.asiantech.internship.feed.FeedFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
