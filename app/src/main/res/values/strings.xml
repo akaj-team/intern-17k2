@@ -40,6 +40,7 @@
     <string name="ex_day_9">Ex day 9</string>
     <string name="ex_day_16">Ex day 16</string>
     <string name="ex_day_13">EX Day 13</string>
+    <string name="ex_day_11">Ex Day 11</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>

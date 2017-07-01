@@ -35,10 +35,18 @@
         android:text="@string/ex_day_9" />
 
     <Button
-        android:id="@+id/btnExday13"
+        android:id="@+id/btnExday11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnExday9"
+        android:layout_centerHorizontal="true"
+        android:text="@string/ex_day_11" />
+
+    <Button
+        android:id="@+id/btnExday13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnExday11"
         android:layout_centerHorizontal="true"
         android:text="@string/ex_day_13" />
 </RelativeLayout>

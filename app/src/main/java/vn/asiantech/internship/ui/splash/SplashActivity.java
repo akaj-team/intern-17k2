@@ -10,6 +10,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.exday13.ChatActivity;
 import vn.asiantech.internship.exfragment.RecyclerViewActivity;
 import vn.asiantech.internship.feed.ActivityFeed;
+import vn.asiantech.internship.note.NoteActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
@@ -28,12 +29,14 @@ public class SplashActivity extends Activity implements View.OnClickListener {
         Button btnFragment = (Button) findViewById(R.id.btnFragment);
         Button btnFeed = (Button) findViewById(R.id.btnExday9);
         Button btnExday7 = (Button) findViewById(R.id.btnExDay7);
+        Button btnExday11 = (Button) findViewById(R.id.btnExday11);
         Button btnExday13 = (Button) findViewById(R.id.btnExday13);
 
         btnDrawer.setOnClickListener(this);
         btnFragment.setOnClickListener(this);
         btnFeed.setOnClickListener(this);
         btnExday7.setOnClickListener(this);
+        btnExday11.setOnClickListener(this);
         btnExday13.setOnClickListener(this);
     }
 
@@ -54,6 +57,10 @@ public class SplashActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btnExDay7:
                 mIntent = new Intent(SplashActivity.this, vn.asiantech.internship.exday7.MainActivity.class);
+                startActivity(mIntent);
+                break;
+            case R.id.btnExday11:
+                mIntent = new Intent(SplashActivity.this, NoteActivity.class);
                 startActivity(mIntent);
                 break;
             case R.id.btnExday13:
