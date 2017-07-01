@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".day13.ui.NinePathActivity">
+        <activity android:name=".day19.activity.MusicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,4 +20,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

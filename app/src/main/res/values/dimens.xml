@@ -97,6 +97,8 @@
     <dimen name="relativeLayout.chat.layout_marginnTop">10dp</dimen>
     <dimen name="textview.chat1.layout_mmarginStart">8dp</dimen>
     <dimen name="ll.chat.layout_height">50dp</dimen>
+    <dimen name="textview.title_music.textSize">20sp</dimen>
+    <dimen name="padding">10dp</dimen>
     <item name="recyclerView.chat.layout_weight" type="dimen">9</item>
     <item name="edittext.chat.layout_weight" type="dimen" format="float">0.8</item>
     <item name="button.chat.layout_weight" type="dimen" format="float">0.2</item>
