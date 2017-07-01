@@ -17,6 +17,7 @@
 
         <activity android:name=".exday7.MainActivity" />
         <!--d5-->
+        <activity android:name=".exday13.ChatActivity"/>
         <activity android:name=".exfragment.RecyclerViewActivity" />
         <activity android:name=".exday16.ViewPagerActivity"/>
         <activity android:name=".feed.FeedActivity"/>

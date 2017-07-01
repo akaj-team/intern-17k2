@@ -6,6 +6,14 @@
     <string name="btn_friend">Friend</string>
     <string name="btn_add">Add</string>
     <string name="tv_value">asdsadasdsadsad</string>
+    <string name="chat.hello">Hello</string>
+    <string name="chat.meet">Nice to meet you</string>
+    <string name="chat.goodbye">GoodBye</string>
+    <string name="chat.kaka">Ka ka</string>
+    <string name="chat.say">Say something</string>
+    <string name="chat.d">DDDDDDDD</string>
+    <string name="chat.c">CCCCCCCCC</string>
+    <string name="chat.a">AAAAAAAAAA</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -25,6 +33,7 @@
     <string name="ex_day_7">Ex day 7</string>
     <string name="ex_day_9">Ex day 9</string>
     <string name="ex_day_16">Ex day 16</string>
+    <string name="ex_day_13">EX Day 13</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>

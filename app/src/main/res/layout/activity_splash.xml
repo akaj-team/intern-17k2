@@ -27,7 +27,7 @@
         android:text="@string/ex_day_7" />
 
     <Button
-        android:id="@+id/btnEXday9"
+        android:id="@+id/btnExday9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnExDay7"
@@ -35,10 +35,18 @@
         android:text="@string/ex_day_9" />
 
     <Button
-        android:id="@+id/btnEXday16"
+        android:id="@+id/btnExday13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnEXday9"
+        android:layout_below="@+id/btnExday9"
+        android:layout_centerHorizontal="true"
+        android:text="@string/ex_day_13" />
+
+    <Button
+        android:id="@+id/btnExday16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnExday13"
         android:layout_centerHorizontal="true"
         android:text="@string/ex_day_16" />
 
