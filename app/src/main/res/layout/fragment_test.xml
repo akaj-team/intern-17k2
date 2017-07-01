@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/test.ll.padding">
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/test.button.margin_right_left"
+        android:layout_marginStart="@dimen/test.button.margin_right_left"
+        android:drawableLeft="@drawable/ic_question"
+        android:drawableStart="@drawable/ic_question"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/textView.question.size" />
+
+    <RadioGroup
+        android:id="@+id/rgChoose"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/test.radioGroup.margin_top">
+
+        <RadioButton
+            android:id="@+id/rbAnswerA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/rbAnswerB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/rbAnswerC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/rbAnswerD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+</LinearLayout>
