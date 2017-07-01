@@ -26,6 +26,7 @@
     <item name="image.aspectx" type="dimen">1</item>
     <item name="image.aspecty" type="dimen">1</item>
     <item name="drawable.pixel" type="dimen">20</item>
+    <item name="linearlayout.information.layout_weight" format="float" type="dimen">2.5</item>
     <dimen name="textview.textsize.user">20sp</dimen>
     <dimen name="cardview.layout_height.item_feed">300dp</dimen>
     <dimen name="relativelayout.layout_height">80dp</dimen>
@@ -49,10 +50,56 @@
     <dimen name="cardview.textview.marginTop.description">270dp</dimen>
     <dimen name="imageview.avatar.layout_height">80dp</dimen>
     <dimen name="imageview.avatar.layout_width">80dp</dimen>
+    <dimen name="imageview.photo.layout_marginLeft">70dp</dimen>
+    <dimen name="imageview.save.layout_marginLeft">10dp</dimen>
+    <dimen name="imageview.Edit_information.layout_marginTop">50dp</dimen>
+    <dimen name="imageview.Edit_information.layout_marginLeft">5dp</dimen>
+    <dimen name="edittext.title.layout_width">100dp</dimen>
+    <dimen name="edittext.title.layout_marginLeft">75dp</dimen>
+    <dimen name="edittext.title.textSize">20sp</dimen>
+    <dimen name="linearlayout.description.layout_marginTop">10dp</dimen>
+    <dimen name="linearlayout.title.layout_marginTop">40dp</dimen>
+    <dimen name="imageview.add.layout_marginLeft">150dp</dimen>
+    <dimen name="linearlayout.item_note.layout_height">100dp</dimen>
+    <dimen name="textview.title_note.layout_width">140dp</dimen>
+    <dimen name="textview.title_note.layout_height">40dp</dimen>
+    <dimen name="textview.title_note.textSize">20sp</dimen>
+    <dimen name="textview.description_note.layout_width">150dp</dimen>
+    <dimen name="textview.description_note.layout_height">40dp</dimen>
+    <dimen name="textview.description_note.textSize">15sp</dimen>
+    <dimen name="imagview.item_note.layout_height">70dp</dimen>
+    <dimen name="imagview.item_note.layout_marginTop">15dp</dimen>
+    <dimen name="ll.title.layout_marginLeft">20dp</dimen>
+    <dimen name="textview.time.layout_marginLeft">10dp</dimen>
+    <dimen name="textview.time.layout_marginTop">10dp</dimen>
+    <dimen name="textview.time.textSize">15sp</dimen>
+    <dimen name="ll.time.layout_marginTop">8dp</dimen>
+    <dimen name="imagview.edit_information.layout_width">300dp</dimen>
+    <dimen name="imagview.edit_information.layout_height">200dp</dimen>
+    <dimen name="textview.editInformation.textSize">20sp</dimen>
+    <dimen name="edittext.description.layout_marginLeft">13dp</dimen>
+    <dimen name="textview.title_information.textSize">30sp</dimen>
+    <dimen name="textview.time_information_note.textSize">15sp</dimen>
+    <dimen name="textview.time_infor_note.layout_marginTop">5dp</dimen>
+    <dimen name="imageview.imge_infor_note.layout_width">300dp</dimen>
+    <dimen name="imageview.imge_infor_note.layout_height">200dp</dimen>
+    <dimen name="imageview.imge_infor_note.layout_marginTop">20dp</dimen>
+    <dimen name="textview.title_infor.layout_mảginStart">10dp</dimen>
+    <dimen name="textview.description_information_note.textSize">20sp</dimen>
+    <dimen name="textview.information.layout_marginStart">50dp</dimen>
+    <item name="linearlayout.time.layout_weight" type="dimen">2</item>
+    <item name="linearlayout.imageNote.layout_weight" type="dimen">2</item>
     <dimen name="cardview.viewpager.layout_height.feed">200dp</dimen>
     <dimen name="imageview.arrowleft.layout_marginTop">150dp</dimen>
     <dimen name="imageview.arrowleft.layout_marginLeft">80dp</dimen>
     <dimen name="imageview.arrowright.layout_marginLeft">260dp</dimen>
+    <dimen name="textview.chat.layout_width">191dp</dimen>
+    <dimen name="relativeLayout.chat.layout_marginnTop">10dp</dimen>
+    <dimen name="textview.chat1.layout_mmarginStart">8dp</dimen>
+    <dimen name="ll.chat.layout_height">50dp</dimen>
+    <item name="recyclerView.chat.layout_weight" type="dimen">9</item>
+    <item name="edittext.chat.layout_weight" type="dimen" format="float">0.8</item>
+    <item name="button.chat.layout_weight" type="dimen" format="float">0.2</item>
     <dimen name="quiz.layout_marginLeft">40dp</dimen>
     <dimen name="textview.questionQuiz.textSize">20sp</dimen>
     <dimen name="radiobutton.answer.textSize">15sp</dimen>
