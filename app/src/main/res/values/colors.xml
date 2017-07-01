@@ -21,6 +21,7 @@
     <color name="colorTime">#880000</color>
     <color name="textview.title_infor_note">#003300</color>
     <color name="cardview.textview.background.border">#CCCCCC</color>
+    <color name="colorchat">#CCFFFF</color>
     <color name="imageview.custom.tablayout_title">#efe7e7</color>
     <color name="textview.tab.title">#002200</color>
     <color name="stroke">#745151</color>
