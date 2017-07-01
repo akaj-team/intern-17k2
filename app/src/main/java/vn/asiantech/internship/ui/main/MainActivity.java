@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         mLlContent = (LinearLayout) findViewById(R.id.llContent);
         mTvTitle = (TextView) findViewById(R.id.tvTitle);
         mImgToggle = (ImageView) findViewById(R.id.imgToggle);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbarNewNote);
     }
 
     private void initToolbar() {
