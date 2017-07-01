@@ -1,14 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.InputFragment">
+    android:orientation="vertical"
+    android:padding="@dimen/item.layout_padding">
 
-    <EditText
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/textView_input"
+        android:textColor="@color/colorBlack" />
+
+    <EditText xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/edtInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint"
+        android:layout_marginTop="@dimen/activity.content_margin"
         android:inputType="text"
+        android:padding="@dimen/item.textView_padding"
         android:textColor="@color/colorWhite" />
 </LinearLayout>

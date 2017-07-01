@@ -1,11 +1,11 @@
-package vn.asiantech.internship.ui;
+package vn.asiantech.internship.day7.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.ui.ActionFragment.OnSendDataListener;
+import vn.asiantech.internship.day7.ui.ActionFragment.OnSendDataListener;
 
 /**
  * CommunicateActivity

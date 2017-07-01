@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lnHeader"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/header.layout_weight"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/header.layout_padding">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="@dimen/header.image_size"
+        android:layout_height="@dimen/header.image_size"
+        android:src="@drawable/ic_troll"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_overlay="true"
+        app:civ_border_width="@dimen/header.image_border_weight" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="@dimen/header.layout_padding">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/header.name"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/header.name_text_size" />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/header.email_margin"
+            android:text="@string/header.email"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+</LinearLayout>

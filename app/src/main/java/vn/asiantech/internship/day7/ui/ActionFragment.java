@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui;
+package vn.asiantech.internship.day7.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
