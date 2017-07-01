@@ -20,6 +20,12 @@
         </activity>
         <activity android:name=".drawer.ui.main.MainActivity" />
         <activity android:name=".drawer.ui.feed.FeedActivity" />
+        <activity android:name=".drawer.day20.ui.MusicActivity" />
+
+        <service
+            android:name=".drawer.day20.service.MusicService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>
