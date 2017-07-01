@@ -10,12 +10,6 @@
     <dimen name="image.margin">10dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="recyclerView.linearlayout_margin_top_bottom">1dp</dimen>
-    <dimen name="recyclerView.linearlayout_margin_left_right">2dp</dimen>
-    <dimen name="recyclerView.linearlayout_padding">10dp</dimen>
-    <dimen name="recyclerView.linearlayout_height">60dp</dimen>
-    <dimen name="recyclerView.textview_margin_left">5dp</dimen>
-    <dimen name="recyclerView.linear_height">60dp</dimen>
     <dimen name="splash.linearLayout.margin_left_right">10dp</dimen>
     <dimen name="recyclerView.linearLayout_margin_top_bottom">1dp</dimen>
     <dimen name="recyclerView.linearLayout_margin_left_right">2dp</dimen>
@@ -46,13 +40,9 @@
     <dimen name="linearLayout.margin_left_right_top">5dp</dimen>
     <dimen name="linerLayout.height">40dp</dimen>
     <dimen name="textView.size.small.title_content">20sp</dimen>
-    <dimen name="music.image.margin_right">40dp</dimen>
-    <dimen name="music.image.margin_right_left">10dp</dimen>
     <dimen name="test.viewPager.margin_top">10dp</dimen>
     <dimen name="test.textView.size">20sp</dimen>
     <dimen name="textView.question.size">20sp</dimen>
-    <dimen name="textview.answers.size">15sp</dimen>
-    <dimen name="textView.result.size">30sp</dimen>
     <dimen name="dialog.textView.size">20sp</dimen>
     <dimen name="button.corner">3dp</dimen>
     <dimen name="dialog.corner">5dp</dimen>

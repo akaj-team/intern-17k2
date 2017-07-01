@@ -35,7 +35,6 @@ public class TestActivity extends AppCompatActivity {
     private TextView mTvQuestionTitle;
     private ViewPager mQuestionViewPager;
     private QuestionViewPagerAdapter mAdapter;
-    private List<Test> mTests;
     private List<Test> mTestsList;
 
     @Override
@@ -46,12 +45,12 @@ public class TestActivity extends AppCompatActivity {
         mTvPrev = (TextView) findViewById(R.id.tvPrev);
         mTvNext = (TextView) findViewById(R.id.tvNext);
         mQuestionViewPager = (ViewPager) findViewById(R.id.testViewPager);
-        mTests = new ArrayList<>();
-        mTests.addAll(getTests());
-        Collections.shuffle(mTests);
+        List<Test> tests = new ArrayList<>();
+        tests.addAll(getTests());
+        Collections.shuffle(tests);
         mTestsList = new ArrayList<>();
-        for (int i = 0; i < mTests.size() / 2; i++) {
-            mTestsList.add(mTests.get(i));
+        for (int i = 0; i < tests.size() / 2; i++) {
+            mTestsList.add(tests.get(i));
         }
         mAdapter = new QuestionViewPagerAdapter(getSupportFragmentManager(), mTestsList);
         mQuestionViewPager.setAdapter(mAdapter);
