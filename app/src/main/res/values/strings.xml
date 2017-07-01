@@ -3,9 +3,6 @@
     <!--Splash-->
     <string name="bai8">Bai8</string>
     <string name="bai16">Bai16</string>
-    <!--Bai5-->
-    <string name="friendFragment_button_friend_state">Friend</string>
-    <string name="friendFragment_button_friend_add">Add</string>
     <!--Bai8-->
     <string name="drawer_open">Draw open</string>
     <string name="drawer_close">Draw close</string>
