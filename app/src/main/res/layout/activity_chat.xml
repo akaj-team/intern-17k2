@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="vn.asiantech.internship.day13.ui.NinePathActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewChat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@dimen/recyclerView.chat.layout_weight" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ll.chat.layout_height">
+
+        <EditText
+            android:id="@+id/edtChat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="@dimen/edittext.chat.layout_weight"
+            android:background="@color/colorchat"
+            android:inputType="text"
+            android:labelFor="@id/edtChat" />
+
+        <Button
+            android:id="@+id/btnSend"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="@dimen/button.chat.layout_weight"
+            android:background="@drawable/img_send" />
+    </LinearLayout>
+</LinearLayout>
