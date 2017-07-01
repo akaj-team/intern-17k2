@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mRecyclerViewDrawer = (RecyclerView) findViewById(R.id.recyclerViewDrawer);
         mLlContent = (LinearLayout) findViewById(R.id.llContent);
-        mTvTitle = (TextView) findViewById(R.id.tvTitle);
+        mTvTitle = (TextView) findViewById(R.id.tvSongTitle);
         mImgToggle = (ImageView) findViewById(R.id.imgToggle);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
     }

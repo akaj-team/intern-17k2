@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.splash.SplashActivity">
+        <activity android:name=".ui.music.MusicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,5 +26,7 @@
         <activity android:name=".ui.feed.FeedActivity" />
         <activity android:name=".ui.fragments.SendDataActivity" />
         <activity android:name=".ui.chat.ChatActivity" />
+
+        <service android:name=".services.MusicService" />
     </application>
 </manifest>
