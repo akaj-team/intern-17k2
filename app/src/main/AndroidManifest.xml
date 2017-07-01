@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".drawer.ui.main.MainActivity" />
         <activity android:name=".drawer.ui.feed.FeedActivity" />
-        <activity android:name=".drawer.day15.ui.QuestionActivity" />
+        <activity android:name=".day15.ui.QuestionActivity" />
+        <activity android:name=".day16.ui.TabActivity" />
     </application>
 
 </manifest>

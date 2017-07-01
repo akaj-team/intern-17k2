@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:background="@android:color/transparent"
-                android:text="@string/feed.buttonleft_description"
+                android:text="@string/feed.buttonLeft_description"
                 android:textColor="@color/colorBlack"
                 android:visibility="invisible" />
 
@@ -43,7 +43,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:background="@android:color/transparent"
-                android:text="@string/feed.buttonright_description"
+                android:text="@string/feed.buttonRight_description"
                 android:textColor="@color/colorBlack" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>

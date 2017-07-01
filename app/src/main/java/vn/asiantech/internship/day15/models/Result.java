@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day15.models;
+package vn.asiantech.internship.day15.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

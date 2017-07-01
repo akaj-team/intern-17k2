@@ -16,4 +16,6 @@
     <!--Bai15-->
     <color name="colorDialog">#7fafd9</color>
     <color name="colorRed">#d40636</color>
+    <!--Bai16-->
+    <color name="colorTab">#5c74af</color>
 </resources>

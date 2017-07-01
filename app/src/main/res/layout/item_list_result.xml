@@ -25,8 +25,8 @@
             android:id="@+id/imgResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/item.imageview_margin"
-            android:layout_marginStart="@dimen/item.imageview_margin"
+            android:layout_marginLeft="@dimen/item.imageView_margin"
+            android:layout_marginStart="@dimen/item.imageView_margin"
             android:contentDescription="@string/result.item.image_description"
             android:src="@drawable/ic_highlight_off_black_36dp" />
     </LinearLayout>

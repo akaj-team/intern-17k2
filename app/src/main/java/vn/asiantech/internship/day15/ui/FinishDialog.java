@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day15.ui;
+package vn.asiantech.internship.day15.ui;
 
 import android.app.DialogFragment;
 import android.os.Bundle;

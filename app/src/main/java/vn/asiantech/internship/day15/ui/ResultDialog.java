@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day15.ui;
+package vn.asiantech.internship.day15.ui;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.day15.models.Result;
+import vn.asiantech.internship.day15.models.Result;
 
 /**
  * Created by at-dinhvo on 26/06/2017.
@@ -56,6 +56,7 @@ public class ResultDialog extends DialogFragment {
         Button btnExit = (Button) view.findViewById(R.id.btnExit);
         TextView tvPoint = (TextView) view.findViewById(R.id.tvPoint);
         int point = 0;
+        assert results != null;
         int size = results.size();
         for (int i = 0; i < size; i++) {
             if (results.get(i).isCorrect()) {

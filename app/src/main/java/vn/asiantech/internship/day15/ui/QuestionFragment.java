@@ -1,5 +1,4 @@
-package vn.asiantech.internship.drawer.day15.ui;
-
+package vn.asiantech.internship.day15.ui;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -12,7 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.day15.models.Question;
+import vn.asiantech.internship.day15.models.Question;
 
 /**
  * A simple {@link Fragment} subclass.

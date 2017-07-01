@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.ui.feed;
+package vn.asiantech.internship.day16.adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -11,27 +11,27 @@ import java.util.List;
 import vn.asiantech.internship.R;
 
 /**
- * Created by at-dinhvo on 15/06/2017.
+ * Created by at-dinhvo on 26/06/2017.
  */
-class FeedPagerAdapter extends PagerAdapter {
+public class ImagePagerAdapter extends PagerAdapter {
 
-    private List<Integer> mImageItems;
-
-    FeedPagerAdapter(List<Integer> imageItems) {
-        mImageItems = imageItems;
-    }
+    private List<Integer> mImages;
 
     @Override
     public int getCount() {
-        return mImageItems.size();
+        return mImages.size();
+    }
+
+    public ImagePagerAdapter(List<Integer> images) {
+        mImages = images;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         LayoutInflater inflater = LayoutInflater.from(container.getContext());
-        View imageLayout = inflater.inflate(R.layout.item_list_image, container, false);
-        ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgFeed);
-        imageView.setImageResource(mImageItems.get(position));
+        View imageLayout = inflater.inflate(R.layout.item_viewpager_image, container, false);
+        ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgTabItem);
+        imageView.setImageResource(mImages.get(position));
         container.addView(imageLayout);
         return imageLayout;
     }

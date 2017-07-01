@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day15.adapter;
+package vn.asiantech.internship.day15.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import vn.asiantech.internship.drawer.day15.models.Question;
-import vn.asiantech.internship.drawer.day15.ui.QuestionFragment;
+import vn.asiantech.internship.day15.models.Question;
+import vn.asiantech.internship.day15.ui.QuestionFragment;
 
 /**
  * Created by at-dinhvo on 25/06/2017.

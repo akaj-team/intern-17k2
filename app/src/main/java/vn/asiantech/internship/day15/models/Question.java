@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day15.models;
+package vn.asiantech.internship.day15.models;
 
 /**
  * Created by at-dinhvo on 25/06/2017.

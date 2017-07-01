@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day15.adapter;
+package vn.asiantech.internship.day15.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.day15.models.Result;
+import vn.asiantech.internship.day15.models.Result;
 
 /**
  * Created by at-dinhvo on 26/06/2017.

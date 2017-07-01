@@ -1,5 +1,4 @@
-package vn.asiantech.internship.drawer.day15.ui;
-
+package vn.asiantech.internship.day15.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,8 +12,8 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.day15.adapter.ResultAdapter;
-import vn.asiantech.internship.drawer.day15.models.Result;
+import vn.asiantech.internship.day15.adapter.ResultAdapter;
+import vn.asiantech.internship.day15.models.Result;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,8 +21,6 @@ import vn.asiantech.internship.drawer.day15.models.Result;
 public class ResultFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-
-    private List<Result> results;
 
     public ResultFragment() {
         // Required empty public constructor
@@ -45,7 +42,7 @@ public class ResultFragment extends Fragment {
     }
 
     private void addListResult() {
-        results = getArguments().getParcelableArrayList(QuestionActivity.RESULT_KEY);
+        List<Result> results = getArguments().getParcelableArrayList(QuestionActivity.RESULT_KEY);
         ResultAdapter resultAdapter = new ResultAdapter(results);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day15.ui;
+package vn.asiantech.internship.day15.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,9 @@ import java.util.Collections;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.day15.adapter.QuestionPagerAdapter;
-import vn.asiantech.internship.drawer.day15.models.Question;
-import vn.asiantech.internship.drawer.day15.models.Result;
+import vn.asiantech.internship.day15.adapter.QuestionPagerAdapter;
+import vn.asiantech.internship.day15.models.Question;
+import vn.asiantech.internship.day15.models.Result;
 
 public class QuestionActivity extends AppCompatActivity {
 

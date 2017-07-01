@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day15.ui;
+package vn.asiantech.internship.day15.ui;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import vn.asiantech.internship.drawer.day15.models.Question;
+import vn.asiantech.internship.day15.models.Question;
 
 /**
  * Created by at-dinhvo on 25/06/2017.

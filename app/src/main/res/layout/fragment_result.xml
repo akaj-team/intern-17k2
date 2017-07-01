@@ -10,5 +10,5 @@
         android:id="@+id/recyclerViewResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/item.imageview_margin" />
+        android:layout_marginTop="@dimen/item.imageView_margin" />
 </LinearLayout>
