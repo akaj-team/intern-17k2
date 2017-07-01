@@ -46,4 +46,6 @@
     <dimen name="linearLayout.margin_left_right_top">5dp</dimen>
     <dimen name="linerLayout.height">40dp</dimen>
     <dimen name="textView.size.small.title_content">20sp</dimen>
+    <dimen name="music.image.margin_right">40dp</dimen>
+    <dimen name="music.image.margin_right_left">10dp</dimen>
 </resources>

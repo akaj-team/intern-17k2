@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ninepath.ChatActivity">
+        <activity android:name=".music.MusicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,5 +22,9 @@
         <activity android:name=".SendActivity" />
         <activity android:name=".ui.splash.SplashActivity" />
         <activity android:name=".feed.FeedActivity" />
+
+        <service
+            android:name=".music.MusicService"
+            android:enabled="true" />
     </application>
 </manifest>

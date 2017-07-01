@@ -59,4 +59,6 @@
     <string name="chat.toolbar.title">MY FRIEND</string>
     <string name="chat.button.back">Back</string>
     <string name="edittext.input.hint">Enter sms</string>
+    <string name="music.time">00:00</string>
+    <string name="music.textView.margin_left_right">5dp</string>
 </resources>
