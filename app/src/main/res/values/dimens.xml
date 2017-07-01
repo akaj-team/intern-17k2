@@ -4,23 +4,21 @@
     <dimen name="activity_vertical_padding">5dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="splash_item_margin">10dp</dimen>
-    <!-- Bai5 -->
-    <dimen name="item.textview_padding">5dp</dimen>
-    <dimen name="item.textview_margin">5dp</dimen>
+    <dimen name="item.textView_padding">5dp</dimen>
+    <dimen name="item.textView_margin">5dp</dimen>
     <dimen name="item.layout_margin">5dp</dimen>
     <dimen name="item.layout_height">80dp</dimen>
-    <dimen name="item.textview_text_size">18sp</dimen>
-    <dimen name="item.cardview_padding">5dp</dimen>
-    <dimen name="item.imageview_padding">5dp</dimen>
-    <dimen name="item.imageview_margin">10dp</dimen>
+    <dimen name="item.cardView_padding">5dp</dimen>
+    <dimen name="item.imageView_padding">5dp</dimen>
+    <dimen name="item.imageView_margin">10dp</dimen>
     <dimen name="item.button_padding">5dp</dimen>
     <dimen name="item.button_margin">10dp</dimen>
     <dimen name="item.image_size">64dp</dimen>
     <dimen name="toolbar.width">60dp</dimen>
     <dimen name="toolbar.title_margin">20dp</dimen>
-    <dimen name="detail.textview_margin">10dp</dimen>
+    <dimen name="detail.textView_margin">10dp</dimen>
     <dimen name="detail.layout_padding">5dp</dimen>
-    <dimen name="detail.textview.time_margin">20dp</dimen>
+    <dimen name="detail.textView.time_margin">20dp</dimen>
     <dimen name="detail.image_size">250dp</dimen>
     <!--Margin, padding of screen-->
     <dimen name="header.name_text_size">18sp</dimen>
@@ -31,20 +29,25 @@
     <dimen name="header.layout_weight">200dp</dimen>
     <dimen name="header.image_border_weight">3dp</dimen>
     <dimen name="item.layout_padding">5dp</dimen>
-    <dimen name="item.layout_minheight">60dp</dimen>
+    <dimen name="item.layout_minHeight">60dp</dimen>
     <dimen name="item.text_size">17dp</dimen>
     <dimen name="activity.toolbar_height">60dp</dimen>
     <dimen name="activity.toolbar_margin">20dp</dimen>
     <dimen name="activity.content_margin">20dp</dimen>
-    <dimen name="activity.leftmenu_width">240dp</dimen>
+    <dimen name="activity.leftMenu_width">240dp</dimen>
     <dimen name="activity2.layout_padding">10dp</dimen>
     <!--Bai8-->
     <dimen name="item.icon_size">50dp</dimen>
     <dimen name="feed.layout_padding">5dp</dimen>
-    <dimen name="feed.viewpager_height">300dp</dimen>
+    <dimen name="feed.viewpager.height">300dp</dimen>
     <dimen name="feed.layout_corner">20dp</dimen>
-    <dimen name="feed.item_marginbottom">5dp</dimen>
+    <dimen name="feed.item_marginBottom">5dp</dimen>
     <dimen name="feed.item_padding">15dp</dimen>
-    <dimen name="feed.item.viewpager_marginbottom">3dp</dimen>
+    <dimen name="feed.item.viewpager_marginBottom">3dp</dimen>
     <dimen name="feed.item.viewpager.button_size">48dp</dimen>
+    <!--Bai16-->
+    <dimen name="tab.custom.textSize">15sp</dimen>
+    <dimen name="tab.height">90dp</dimen>
+    <dimen name="tab.viewpager.height">400dp</dimen>
+    <dimen name="tab.viewpager.padding">10dp</dimen>
 </resources>

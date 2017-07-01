@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.day16.ui.TabActivity;
 import vn.asiantech.internship.drawer.ui.main.MainActivity;
 import vn.asiantech.internship.friend.FriendActivity;
 import vn.asiantech.internship.note.ui.NoteActivity;
@@ -23,6 +24,12 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            }
+        });
+        findViewById(R.id.btnBai16).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SplashActivity.this, TabActivity.class));
             }
         });
         findViewById(R.id.btnFriend).setOnClickListener(new View.OnClickListener() {

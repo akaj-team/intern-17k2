@@ -76,10 +76,10 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
                     Friend noteObject = mNotes.get(getAdapterPosition());
                     if (!noteObject.isFriend()) {
                         mBtnAddFriend.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_friend_check_button, 0, 0, 0);
-                        mBtnAddFriend.setText(R.string.friendfragment_button_friend_state);
+                        mBtnAddFriend.setText(R.string.friendFragment_button_friend_state);
                         noteObject.setFriend(true);
                     } else {
-                        mBtnAddFriend.setText(R.string.friendfragment_button_friend_add);
+                        mBtnAddFriend.setText(R.string.friendFragment_button_friend_add);
                         mBtnAddFriend.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_friend_add_button, 0, 0, 0);
                         noteObject.setFriend(false);
                     }

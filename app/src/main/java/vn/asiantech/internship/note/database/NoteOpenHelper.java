@@ -9,12 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 class NoteOpenHelper extends SQLiteOpenHelper {
 
-    public static final String TABLE_NAME = "TABLE_NOTE";
-    public static final String COL_ID = "id";
-    public static final String COL_TITLE = "title";
-    public static final String COL_CONTENT = "content";
-    public static final String COL_PATH = "path";
-    public static final String COL_DATETIME = "datetime";
+    static final String TABLE_NAME = "TABLE_NOTE";
+    static final String COL_ID = "id";
+    static final String COL_TITLE = "title";
+    static final String COL_CONTENT = "content";
+    static final String COL_PATH = "path";
+    static final String COL_DATETIME = "datetime";
     private static final String DATABASE_NAME = "DATABASE_NOTE";
     private static final int VERSION = 1;
     private static NoteOpenHelper mNoteOpenHelper;

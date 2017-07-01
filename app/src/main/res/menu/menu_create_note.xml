@@ -5,7 +5,7 @@
     <item
         android:id="@+id/mnAttachFile"
         android:icon="@drawable/ic_attach_file_black_36dp"
-        android:title="@string/menu.item_attachfile"
+        android:title="@string/menu.item_attachFile"
         app:showAsAction="always" />
 
     <item

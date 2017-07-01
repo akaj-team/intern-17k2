@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".day16.ui.TabActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBarTab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab.height"
+        android:background="@color/colorDark" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerTab"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/tab.viewpager.padding"
+        android:paddingRight="@dimen/tab.viewpager.padding" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab.height"
+        app:tabGravity="fill"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabPaddingEnd="0dp"
+        app:tabPaddingStart="0dp" />
+</LinearLayout>

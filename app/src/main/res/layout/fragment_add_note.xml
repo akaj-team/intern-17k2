@@ -15,9 +15,9 @@
         android:id="@+id/imgAddNote"
         android:layout_width="match_parent"
         android:layout_height="@dimen/detail.image_size"
-        android:layout_margin="@dimen/detail.textview_margin"
+        android:layout_margin="@dimen/detail.textView_margin"
         android:background="@color/colorGrayLight"
-        android:contentDescription="@string/detail.imageview_image" />
+        android:contentDescription="@string/detail.imageView_image" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,10 +28,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/detail.textview_margin"
-            android:layout_marginStart="@dimen/detail.textview_margin"
+            android:layout_marginLeft="@dimen/detail.textView_margin"
+            android:layout_marginStart="@dimen/detail.textView_margin"
             android:gravity="center_vertical"
-            android:text="@string/detail.textview_title"
+            android:text="@string/detail.textView_title"
             android:textColor="@color/colorBlack"
             android:textStyle="bold" />
 
@@ -40,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="@string/detail.textview_title"
+            android:hint="@string/detail.textView_title"
             android:inputType="text"
             android:paddingLeft="@dimen/detail.layout_padding"
             android:paddingRight="@dimen/detail.layout_padding" />
@@ -49,10 +49,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/detail.textview_margin"
-        android:layout_marginStart="@dimen/detail.textview_margin"
+        android:layout_marginLeft="@dimen/detail.textView_margin"
+        android:layout_marginStart="@dimen/detail.textView_margin"
         android:gravity="center_vertical"
-        android:text="@string/detail.textview_content"
+        android:text="@string/detail.textView_content"
         android:textColor="@color/colorBlack"
         android:textStyle="bold" />
 
@@ -60,8 +60,8 @@
         android:id="@+id/edtNoteContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/detail.textview_margin"
-        android:layout_marginStart="@dimen/detail.textview_margin"
-        android:hint="@string/detail.textview_content"
+        android:layout_marginLeft="@dimen/detail.textView_margin"
+        android:layout_marginStart="@dimen/detail.textView_margin"
+        android:hint="@string/detail.textView_content"
         android:inputType="text" />
 </LinearLayout>

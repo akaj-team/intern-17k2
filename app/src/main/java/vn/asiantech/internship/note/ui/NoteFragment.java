@@ -67,7 +67,7 @@ public class NoteFragment extends Fragment {
 
     private void initUI() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-        mToolbar.setTitle(R.string.toolBar_title_screenlist);
+        mToolbar.setTitle(R.string.toolBar_title_screenList);
         List<Note> mNotes = mNoteDatabase.getAllData();
         Log.e("Data_Size", "Size: " + mNotes.size());
         NoteAdapter mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnClickItemNote() {

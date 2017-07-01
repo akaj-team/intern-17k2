@@ -1,6 +1,5 @@
 package vn.asiantech.internship.note.ui;
 
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -69,7 +68,7 @@ public class NoteAddFragment extends Fragment {
         mImageView = (ImageView) view.findViewById(R.id.imgAddNote);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolBarAddNote);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.toolBar_title_screenadd);
+        toolbar.setTitle(R.string.toolBar_title_screenAdd);
         setHasOptionsMenu(true);
     }
 
@@ -188,7 +187,7 @@ public class NoteAddFragment extends Fragment {
             if (!folders.exists()) {
                 folders.mkdirs();
             }
-            OutputStream fOut = null;
+            OutputStream fOut;
             File file = File.createTempFile("img", ".png", folders);
             fOut = new FileOutputStream(file);
             image.compress(Bitmap.CompressFormat.PNG, 100, fOut);
