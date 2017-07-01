@@ -30,10 +30,6 @@ public class TitleTabLayoutCustom extends View {
         initPaint2();
     }
 
-    public TitleTabLayoutCustom(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         if (mIsCheck) {

@@ -42,11 +42,6 @@ public class TabFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setMenuVisibility(isVisibleToUser);
         if (isVisibleToUser) {

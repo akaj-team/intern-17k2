@@ -80,6 +80,7 @@ public class TabActivity extends AppCompatActivity {
                 mTextViews.get(tab.getPosition()).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.textview_tab_title));
             }
 
+            // No-op
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
