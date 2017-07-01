@@ -13,4 +13,7 @@
     <color name="colorLight">#f4f9fc</color>
     <color name="colorToolbar">#bcc5ca</color>
     <color name="colorBgRecyclerView">#515151</color>
+    <color name="colorRed">#d40636</color>
+    <!--Bai16-->
+    <color name="colorTab">#5c74af</color>
 </resources>

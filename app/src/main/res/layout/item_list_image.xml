@@ -1,11 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/imgFeed"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:id="@+id/imgFeed"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/feed.viewpager_height"
-        android:contentDescription="@string/bai8" />
-</LinearLayout>
+    android:layout_height="@dimen/tab.viewpager.height"
+    android:layout_gravity="center"
+    android:contentDescription="@string/bai8"
+    android:src="@drawable/img_caurong" />

@@ -55,11 +55,11 @@ public class FeedFragment extends Fragment {
 
     private List<FeedItem> initFeed(List<FeedItem> feedItems) {
         List<Integer> images = initImages();
-        feedItems.add(new FeedItem("At-Dinhvo-01", images, "No comment 01"));
-        feedItems.add(new FeedItem("At-Dinhvo-02", images, "No comment 02"));
-        feedItems.add(new FeedItem("At-Dinhvo-03", images, "No comment 03"));
-        feedItems.add(new FeedItem("At-Dinhvo-04", images, "No comment 04"));
-        feedItems.add(new FeedItem("At-Dinhvo-05", images, "No comment 05"));
+        feedItems.add(new FeedItem("At-DinhVo-01", images, "No comment 01"));
+        feedItems.add(new FeedItem("At-DinhVo-02", images, "No comment 02"));
+        feedItems.add(new FeedItem("At-DinhVo-03", images, "No comment 03"));
+        feedItems.add(new FeedItem("At-DinhVo-04", images, "No comment 04"));
+        feedItems.add(new FeedItem("At-DinhVo-05", images, "No comment 05"));
         return feedItems;
     }
 }

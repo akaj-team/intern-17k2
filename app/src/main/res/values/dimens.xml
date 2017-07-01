@@ -20,7 +20,7 @@
     <dimen name="activity.toolbar_height">60dp</dimen>
     <dimen name="activity.toolbar_margin">20dp</dimen>
     <dimen name="activity.content_margin">20dp</dimen>
-    <dimen name="activity.leftmenu_width">240dp</dimen>
+    <dimen name="activity.leftMenu_width">240dp</dimen>
     <dimen name="activity2.layout_padding">10dp</dimen>
     <!--Bai8-->
     <dimen name="item.icon_size">50dp</dimen>
@@ -30,4 +30,9 @@
     <dimen name="feed.item_padding">15dp</dimen>
     <dimen name="feed.item.viewpager_marginBottom">3dp</dimen>
     <dimen name="feed.item.viewpager.button_size">48dp</dimen>
+    <!--Bai16-->
+    <dimen name="tab.custom.textSize">15sp</dimen>
+    <dimen name="tab.height">90dp</dimen>
+    <dimen name="tab.viewpager.height">400dp</dimen>
+    <dimen name="tab.viewpager.padding">10dp</dimen>
 </resources>
