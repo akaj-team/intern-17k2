@@ -5,7 +5,7 @@
     <!--Bai5-->
     <string name="friendFragment_button_friend_state">Friend</string>
     <string name="friendFragment_button_friend_add">Add</string>
-
+    <!--Bai8-->
     <string name="drawer_open">Draw open</string>
     <string name="drawer_close">Draw close</string>
     <string name="header.name">at-dinhvo</string>
@@ -30,8 +30,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button">Get Content</string>
-    <!--Bai8-->
-    <!--feedactivity-->
+    <!--feedActivity-->
     <string name="feed.buttonLeft_description">Slide left</string>
     <string name="feed.buttonRight_description">Slide right</string>
     <string-array name="dialog_items">
