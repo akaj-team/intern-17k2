@@ -34,7 +34,6 @@ public class FourthAdapter extends PagerAdapter {
         return view;
     }
 
-
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view.equals(object);

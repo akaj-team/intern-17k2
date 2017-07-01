@@ -31,7 +31,7 @@ public class FourthFragment extends Fragment {
     private int[] mImageResources = {R.drawable.img_4, R.drawable.img_5, R.drawable.img_6};
     private Handler mHandler;
     private Runnable mRunnable;
-    private int mPage = 0;
+    private int mPage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

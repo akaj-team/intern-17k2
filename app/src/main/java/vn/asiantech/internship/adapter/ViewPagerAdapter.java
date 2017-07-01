@@ -21,7 +21,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         mTitles = titles;
     }
 
-
     @Override
     public Fragment getItem(int position) {
         return mFragments.get(position);
