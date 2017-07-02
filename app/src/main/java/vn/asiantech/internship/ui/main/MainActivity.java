@@ -92,13 +92,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void initDataDrawer() {
         mDrawerList = new ArrayList<>();
-        mDrawerList.add(new Drawer(getResources().getString(R.string.text_view_main_feed)));
-        mDrawerList.add(new Drawer(getResources().getString(R.string.text_view_main_activity)));
-        mDrawerList.add(new Drawer(getResources().getString(R.string.text_view_main_profile)));
-        mDrawerList.add(new Drawer(getResources().getString(R.string.text_view_main_friends)));
-        mDrawerList.add(new Drawer(getResources().getString(R.string.text_view_main_map)));
-        mDrawerList.add(new Drawer(getResources().getString(R.string.text_view_main_chat)));
-        mDrawerList.add(new Drawer(getResources().getString(R.string.text_view_main_settings)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_feed)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_activity)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_profile)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_friends)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_map)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_chat)));
+        mDrawerList.add(new Drawer(getResources().getString(R.string.textview_main_settings)));
     }
 
     private void setDrawerAdapter() {
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_red_500_24dp);
         }
-        mTvToolbar.setText(R.string.text_view_toolbar_name);
+        mTvToolbar.setText(R.string.textview_toolbar_name);
     }
 
     private void cropImage(Uri uri) {
