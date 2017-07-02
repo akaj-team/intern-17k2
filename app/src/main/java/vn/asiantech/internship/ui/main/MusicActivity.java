@@ -64,7 +64,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 }
                 if (Action.SONG_CHANGE.getValue().equals(action)) {
                     int position = intent.getIntExtra(KEY_POSITION, 0);
-                    mTvTitle.setText(mSongs.get(position).getName() + " - " + mSongs.get(position).getSinger());
+                    mTvTitle.setText(getString(R.string.song_title, mSongs.get(position).getName(), mSongs.get(position).getSinger()));
                     return;
                 }
                 if (Action.STOP.getValue().equals(action)) {
@@ -150,7 +150,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             replaceFragment(PlayFragment.getNewInstance(), true);
             mSongPosition = getIntent().getIntExtra("position", -1);
             if (mSongPosition > -1) {
-                mTvTitle.setText(mSongs.get(mSongPosition).getName());
+                mTvTitle.setText(getString(R.string.song_title, mSongs.get(mSongPosition).getName(), mSongs.get(mSongPosition).getSinger()));
             } else {
                 mTvTitle.setText("");
             }
@@ -188,7 +188,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         }
         mImgOpenPlayFragment.setVisibility(View.GONE);
         mImgCloseFragment.setVisibility(View.VISIBLE);
-        mTvTitle.setText(mSongs.get(mSongPosition).getName() + " - " + mSongs.get(mSongPosition).getSinger());
+        mTvTitle.setText(getString(R.string.song_title, mSongs.get(mSongPosition).getName(), mSongs.get(mSongPosition).getSinger()));
         mTvTitle.setSelected(true);
     }
 
