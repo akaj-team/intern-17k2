@@ -41,4 +41,13 @@
         <item name="Gallery">Gallery</item>
         <item name="Camera">Camera</item>
     </string-array>
+    <string-array name="song_urls">
+        <item name="lactroi">http://mp3.zing.vn/html5/song/LmcHyknNBalVCzJyybGLm</item>
+    </string-array>
+    <string-array name="song_names">
+        <item name="lactroi">Lac troi</item>
+    </string-array>
+    <string-array name="song_artists">
+        <item name="lactroi">Son Tung</item>
+    </string-array>
 </resources>

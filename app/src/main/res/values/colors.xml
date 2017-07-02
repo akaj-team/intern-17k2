@@ -23,4 +23,5 @@
     <color name="cardview.textview.background.border">#CCCCCC</color>
     <color name="colorchat">#CCFFFF</color>
     <color name="textview.title_music.textcolor">#3d0404</color>
+    <color name="textview.item_song.textColor">#990000</color>
 </resources>
