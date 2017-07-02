@@ -24,6 +24,8 @@
 
     <string name="textview.splash.button2">Exercise 6</string>
 
+    <string name="edittext.fragment.hint">Send Message</string>
+
     <!--Activity-->
     <string name="text_view.test_activity.previous">Previous</string>
     <string name="text_view.test_activity.next">Next</string>
