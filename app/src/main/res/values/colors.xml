@@ -7,6 +7,7 @@
     <color name="item.background">#87888C</color>
     <color name="item.clicked">#b0afb4</color>
     <color name="cardview.background">#F5F5F5</color>
+    <color name="textview.title">#f50505</color>
     <color name="black">#000</color>
     <color name="red">#ea0404</color>
 </resources>
