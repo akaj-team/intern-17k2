@@ -32,6 +32,10 @@ public class TabSecondFragment extends Fragment {
     private int mCurrentPage;
     private Timer mTimer;
 
+    public static TabSecondFragment newInstance() {
+        return new TabSecondFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

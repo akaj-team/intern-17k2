@@ -15,6 +15,11 @@ import vn.asiantech.internship.R;
  * Created by AnhHuy on 27-Jun-17.
  */
 public class TabFourthFragment extends Fragment {
+
+    public static TabFourthFragment newInstance() {
+        return new TabFourthFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

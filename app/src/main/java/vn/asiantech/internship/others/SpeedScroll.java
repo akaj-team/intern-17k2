@@ -11,16 +11,8 @@ import android.widget.Scroller;
 public class SpeedScroll extends Scroller {
     private final int mDuration = 5000;
 
-    public SpeedScroll(Context context) {
-        super(context);
-    }
-
     public SpeedScroll(Context context, Interpolator interpolator) {
         super(context, interpolator);
-    }
-
-    public SpeedScroll(Context context, Interpolator interpolator, boolean flywheel) {
-        super(context, interpolator, flywheel);
     }
 
     @Override

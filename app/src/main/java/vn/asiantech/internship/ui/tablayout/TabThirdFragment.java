@@ -19,6 +19,10 @@ public class TabThirdFragment extends Fragment {
     private boolean mIsLoad;
     private boolean mIsVisible;
 
+    public static TabThirdFragment newInstance() {
+        return new TabThirdFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

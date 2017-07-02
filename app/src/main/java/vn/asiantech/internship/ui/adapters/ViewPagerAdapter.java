@@ -26,15 +26,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new TabFirstFragment();
+                return TabFirstFragment.newInstance();
             case 1:
-                return new TabSecondFragment();
+                return TabSecondFragment.newInstance();
             case 2:
-                return new TabThirdFragment();
+                return TabThirdFragment.newInstance();
             case 3:
-                return new TabFourthFragment();
+                return TabFourthFragment.newInstance();
             case 4:
-                return new TabFifthFragment();
+                return TabFifthFragment.newInstance();
             default:
                 return null;
         }

@@ -15,6 +15,11 @@ import vn.asiantech.internship.R;
  * Created by AnhHuy on 26-Jun-17.
  */
 public class TabFirstFragment extends Fragment {
+
+    public static TabFirstFragment newInstance() {
+        return new TabFirstFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
