@@ -1,0 +1,279 @@
+package vn.asiantech.internship.services;
+
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.CountDownTimer;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+import android.widget.RemoteViews;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import vn.asiantech.internship.R;
+import vn.asiantech.internship.models.Action;
+import vn.asiantech.internship.models.Song;
+import vn.asiantech.internship.ui.fragments.PlayFragment;
+import vn.asiantech.internship.ui.main.MusicActivity;
+
+/**
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 07/02/2017
+ */
+public class MusicService extends Service {
+
+    private List<Song> mSongs;
+    private MediaPlayer mMediaPlayer;
+    private CountDownTimer mCountDownTimer;
+    private int mSongPosition;
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                String action = intent.getAction();
+                if (Action.PAUSE.getValue().equals(action)) {
+                    if (mMediaPlayer.isPlaying()) {
+                        mMediaPlayer.pause();
+                    }
+                    return;
+                }
+                if (Action.RESUME.getValue().equals(action)) {
+                    if (mMediaPlayer != null) {
+                        mMediaPlayer.start();
+                        mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration() - mMediaPlayer.getCurrentPosition(), 1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                if (mSongPosition > -1) {
+                                    Intent intent1 = new Intent(Action.SEEK.getValue());
+                                    intent1.putExtra(PlayFragment.KEY_DURATION, mMediaPlayer.getDuration());
+                                    intent1.putExtra(PlayFragment.KEY_CURRENT, mMediaPlayer.getCurrentPosition());
+                                    intent1.putExtra(PlayFragment.KEY_PLAYING, mMediaPlayer.isPlaying());
+                                    sendBroadcast(intent1);
+                                    showForegroundNotification(mSongs.get(mSongPosition).getName());
+                                }
+                            }
+
+                            @Override
+                            public void onFinish() {
+
+                            }
+                        };
+                        mCountDownTimer.start();
+                    }
+                    return;
+                }
+                if (Action.NEXT_SONG.getValue().equals(action)) {
+                    skipAndNextSong();
+                    startSong();
+                    return;
+                }
+                if (Action.PREVIOUS_SONG.getValue().equals(action)) {
+                    skipPreviousSong();
+                    startSong();
+                    return;
+                }
+                if (Action.SEEK_TO.getValue().equals(action)) {
+                    if (mMediaPlayer != null) {
+                        mMediaPlayer.seekTo(intent.getIntExtra(PlayFragment.KEY_SEEK, mMediaPlayer.getCurrentPosition()));
+                    }
+                }
+            }
+        }
+    };
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mSongs = new ArrayList<>();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Action.PAUSE.getValue());
+        intentFilter.addAction(Action.RESUME.getValue());
+        intentFilter.addAction(Action.NEXT_SONG.getValue());
+        intentFilter.addAction(Action.PREVIOUS_SONG.getValue());
+        intentFilter.addAction(Action.SEEK_TO.getValue());
+        registerReceiver(mReceiver, intentFilter);
+    }
+
+    @Override
+    public int onStartCommand(final Intent intent, int flags, int startId) {
+        if (intent != null) {
+            List<Song> list = intent.getParcelableArrayListExtra(MusicActivity.KEY_SONGS);
+            if (list != null) {
+                mSongs = list;
+            }
+            mSongPosition = intent.getIntExtra(MusicActivity.KEY_POSITION, -1);
+            if (mSongPosition > -1) {
+                startSong();
+            }
+        }
+        return START_NOT_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        mCountDownTimer.cancel();
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
+        if (mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
+        }
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    private void showForegroundNotification(String songName) {
+
+        // Create intent that will bring our app to the front, as if it was tapped in the app
+        // launcher
+        Intent showTaskIntent = new Intent(getApplicationContext(), MusicActivity.class);
+        showTaskIntent.putExtra("position", mSongPosition);
+        showTaskIntent.putExtra("status", "running");
+        showTaskIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(
+                this,
+                1000,
+                showTaskIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        RemoteViews view = new RemoteViews(getPackageName(), R.layout.notification_main);
+        view.setTextViewText(R.id.tvSongName, songName);
+        if (mMediaPlayer.isPlaying()) {
+            view.setImageViewResource(R.id.imgPlay, R.drawable.ic_pause_circle_outline_red_a700_36dp);
+        } else {
+            view.setImageViewResource(R.id.imgPlay, R.drawable.ic_play_circle_outline_red_a700_36dp);
+        }
+
+        Intent intentPreviousSong = new Intent(Action.PREVIOUS_SONG.getValue());
+        PendingIntent previousSong = PendingIntent.getBroadcast(this, 0, intentPreviousSong, 0);
+        view.setOnClickPendingIntent(R.id.imgPrevious, previousSong);
+
+        Intent intentPlay = new Intent();
+        if (mMediaPlayer.isPlaying()) {
+            intentPlay.setAction(Action.PAUSE.getValue());
+        } else {
+            intentPlay.setAction(Action.RESUME.getValue());
+        }
+        PendingIntent play = PendingIntent.getBroadcast(this, 0, intentPlay, 0);
+        view.setOnClickPendingIntent(R.id.imgPlay, play);
+
+        Intent intentNextSong = new Intent(Action.NEXT_SONG.getValue());
+        PendingIntent nextSong = PendingIntent.getBroadcast(this, 0, intentNextSong, 0);
+        view.setOnClickPendingIntent(R.id.imgNext, nextSong);
+
+        Intent intentTurnOff = new Intent(Action.STOP.getValue());
+        PendingIntent turnOff = PendingIntent.getBroadcast(this, 0, intentTurnOff, 0);
+        view.setOnClickPendingIntent(R.id.imgTurnOff, turnOff);
+
+        Notification notification = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            notification = new Notification.Builder(getApplicationContext())
+                    .setContent(view)
+                    .setSmallIcon(R.drawable.ic_music_note_red_700_24dp)
+                    .setWhen(System.currentTimeMillis())
+                    .setAutoCancel(false)
+                    .setOngoing(true)
+                    .setContentIntent(contentIntent)
+                    .build();
+        }
+        startForeground(100, notification);
+    }
+
+    private void nextSong() {
+        SharedPreferences preferences = getSharedPreferences(MusicActivity.PREFERENCES_NAME, MusicActivity.MODE_PRIVATE);
+        int replayType = preferences.getInt(MusicActivity.KEY_REPLAY, 0);
+        boolean isShuffle = preferences.getBoolean(MusicActivity.KEY_SHUFFLE, false);
+        if (mSongPosition == mSongs.size() - 1 && replayType == MusicActivity.NOT_REPLAY) {
+            mSongPosition = -1;
+            Intent stopService = new Intent(Action.STOP_SERVICE.getValue());
+            sendBroadcast(stopService);
+            return;
+        }
+        if (replayType == MusicActivity.REPLAY_ONE) {
+            return;
+        }
+        if (isShuffle) {
+            Random random = new Random();
+            mSongPosition = random.nextInt(mSongs.size());
+        } else {
+            mSongPosition = (mSongPosition + 1) % mSongs.size();
+        }
+    }
+
+    private void startSong() {
+        if (mSongPosition < 0) {
+            stopForeground(true);
+            mCountDownTimer.cancel();
+            return;
+        }
+        if (mMediaPlayer != null) {
+            if (mMediaPlayer.isPlaying()) {
+                mMediaPlayer.stop();
+                mMediaPlayer.release();
+            }
+        }
+        mMediaPlayer = MediaPlayer.create(MusicService.this.getApplicationContext(), Uri.parse(mSongs.get(mSongPosition).getSongUrl()));
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        Intent songChange = new Intent(Action.SONG_CHANGE.getValue());
+        songChange.putExtra(MusicActivity.KEY_POSITION, mSongPosition);
+        sendBroadcast(songChange);
+        mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration() - mMediaPlayer.getCurrentPosition(), 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (mSongPosition > -1) {
+                    Intent intent1 = new Intent(Action.SEEK.getValue());
+                    intent1.putExtra(PlayFragment.KEY_DURATION, mMediaPlayer.getDuration());
+                    intent1.putExtra(PlayFragment.KEY_CURRENT, mMediaPlayer.getCurrentPosition());
+                    intent1.putExtra(PlayFragment.KEY_PLAYING, mMediaPlayer.isPlaying());
+                    sendBroadcast(intent1);
+                    showForegroundNotification(mSongs.get(mSongPosition).getName());
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
+        mMediaPlayer.start();
+        mCountDownTimer.start();
+        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                nextSong();
+                startSong();
+            }
+        });
+        showForegroundNotification(mSongs.get(mSongPosition).getName());
+    }
+
+    private void skipAndNextSong() {
+        SharedPreferences preferences = getSharedPreferences(MusicActivity.PREFERENCES_NAME, MusicActivity.MODE_PRIVATE);
+        boolean isShuffle = preferences.getBoolean(MusicActivity.KEY_SHUFFLE, false);
+        if (isShuffle) {
+            Random random = new Random();
+            mSongPosition = random.nextInt(mSongs.size());
+        } else {
+            mSongPosition = (mSongPosition + 1) % mSongs.size();
+        }
+    }
+
+    private void skipPreviousSong() {
+        mSongPosition = (mSongPosition - 1) % mSongs.size();
+    }
+}
