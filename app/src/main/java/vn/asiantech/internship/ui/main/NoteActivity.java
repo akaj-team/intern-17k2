@@ -79,6 +79,7 @@ public class NoteActivity extends AppCompatActivity implements OnReplaceFragment
     public void onBackPressed() {
         Fragment fragment = getFragmentManager().findFragmentById(R.id.flContain);
         if (!(fragment instanceof MainNoteFragment)) {
+            mMainNoteFragment.updateData();
             switchFragment(mMainNoteFragment, false, R.id.flContain);
         }
     }

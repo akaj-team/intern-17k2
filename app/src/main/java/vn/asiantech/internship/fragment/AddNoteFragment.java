@@ -29,7 +29,6 @@ import java.util.Locale;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.databases.NoteDataBase;
-import vn.asiantech.internship.interfaces.OnReplaceFragmentListener;
 import vn.asiantech.internship.models.Note;
 import vn.asiantech.internship.ui.main.NoteActivity;
 
@@ -99,7 +98,8 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
                 } catch (IOException e) {
                     Log.d("tag", "ERROR1");
                 }
-                ((OnReplaceFragmentListener) v.getContext()).onReplaceFragmentMain();
+                getActivity().onBackPressed();
+                //((OnReplaceFragmentListener) getActivity()).onReplaceFragmentMain();
                 break;
         }
     }
@@ -206,8 +206,7 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
             }
             bmpFactoryOptions.inJustDecodeBounds = false;
             bmp = BitmapFactory.decodeStream(getActivity().getContentResolver()
-                            .openInputStream(imageFileUri), null,
-                    bmpFactoryOptions);
+                    .openInputStream(imageFileUri), null, bmpFactoryOptions);
             return bmp;
         } catch (FileNotFoundException e) {
             Log.v("ERROR4", e.toString());
