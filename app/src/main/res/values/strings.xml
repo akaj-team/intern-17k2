@@ -24,6 +24,8 @@
 
     <string name="textview.splash.button2">Exercise 6</string>
 
+    <string name="edittext.fragment.hint">Send Message</string>
+
     <!--Hint-->
     <string name="edittext.add.title">Title</string>
     <string name="edittext.add.content">Content</string>

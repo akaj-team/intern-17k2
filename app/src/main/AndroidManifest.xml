@@ -18,6 +18,8 @@
 
         <activity android:name=".ui.feed.FeedActivity" />
 
+        <activity android:name=".ui.ChatActivity" />
+
         <activity android:name=".ui.note.NoteActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
