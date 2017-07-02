@@ -21,23 +21,11 @@ public class FeedItem {
         return images;
     }
 
-    public void setImages(List<Integer> images) {
-        this.images = images;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getComment() {
         return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 }
