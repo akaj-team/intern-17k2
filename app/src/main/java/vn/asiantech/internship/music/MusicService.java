@@ -8,7 +8,6 @@ import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,90 +22,129 @@ import java.util.Random;
  * @since 2017-7-1
  */
 public class MusicService extends Service {
-    private NotificationBroadCast mNotificationBroadCast = new NotificationBroadCast();
     private MediaPlayer mMediaPlayer;
     private List<Song> mSongs = new ArrayList<>();
     private CountDownTimer mCountDownTimer;
     private int mCurrentSongIndex = 0;
     private boolean mIsShuffle;
     private boolean mIsAutoNext;
+    private NotificationBroadCast mNotificationBroadCast = new NotificationBroadCast();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        IntentFilter screenStateFilter = new IntentFilter();
-        screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
-        registerReceiver(mNotificationBroadCast, screenStateFilter);
-        switch (intent.getAction()) {
-            case "play":
-                mSongs = intent.getParcelableArrayListExtra("songs");
-                checkState();
-                if (mMediaPlayer == null) {
-                    playSong(mCurrentSongIndex);
-                } else {
+        if (intent.getAction() != null) {
+            switch (intent.getAction()) {
+                case "play":
+                    IntentFilter screenStateFilter = new IntentFilter();
+                    screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
+                    registerReceiver(mNotificationBroadCast, screenStateFilter);
+                    mSongs = intent.getParcelableArrayListExtra("songs");
+                    if (mMediaPlayer == null) {
+                        playSong(mCurrentSongIndex);
+                        final Intent timeIntent = new Intent("start");
+                        sendBroadcast(timeIntent);
+                    } else {
+                        if (mMediaPlayer.isPlaying()) {
+                            mMediaPlayer.pause();
+                            final Intent timeIntent = new Intent("pause");
+                            timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
+                            sendBroadcast(timeIntent);
+                            mCountDownTimer.cancel();
+                        } else {
+                            mMediaPlayer.start();
+                            mCountDownTimer.start();
+                            final Intent playNextIntent = new Intent("playnext");
+                            playNextIntent.putExtra("next", mMediaPlayer.getCurrentPosition() + "");
+                            sendBroadcast(playNextIntent);
+                        }
+                    }
+                    break;
+                case "seekto":
+                    int time = intent.getIntExtra("chooseTime", 0);
+                    mMediaPlayer.seekTo(time);
+                    mMediaPlayer.start();
+                    break;
+                case "next":
+                    final Intent playNextIntent = new Intent("next");
+                    sendBroadcast(playNextIntent);
                     if (mMediaPlayer.isPlaying()) {
                         mMediaPlayer.pause();
-                        final Intent timeIntent = new Intent("pause");
-                        timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
-                        sendBroadcast(timeIntent);
-                        mCountDownTimer.cancel();
-                    } else {
-                        mMediaPlayer.start();
-                        mCountDownTimer.start();
-                        final Intent playNextIntent = new Intent("playnext");
-                        playNextIntent.putExtra("next", mMediaPlayer.getCurrentPosition() + "");
-                        sendBroadcast(playNextIntent);
                     }
-                }
-                break;
-            case "seekto":
-                int time = intent.getIntExtra("chooseTime", 0);
-                mMediaPlayer.seekTo(time);
-                mMediaPlayer.start();
-                break;
-            case "next":
-                if (mMediaPlayer.isPlaying()) {
-                    mMediaPlayer.pause();
-                }
-                if (mCurrentSongIndex < (mSongs.size() - 1)) {
-                    playSong(mCurrentSongIndex + 1);
-                    mCurrentSongIndex = mCurrentSongIndex + 1;
-                } else {
-                    playSong(0);
-                    mCurrentSongIndex = 0;
-                }
-                break;
-            case "previous":
-                if (mMediaPlayer.isPlaying()) {
-                    mMediaPlayer.pause();
-                }
-                if (mCurrentSongIndex > 0) {
-                    playSong(mCurrentSongIndex - 1);
-                    mCurrentSongIndex = mCurrentSongIndex - 1;
-                } else {
-                    playSong(mSongs.size() - 1);
-                    mCurrentSongIndex = mSongs.size() - 1;
-                }
-                break;
-            case "shuffle":
-                if (mIsShuffle) {
-                    mIsShuffle = false;
-                    Toast.makeText(getApplicationContext(), "Tắt phát nhạc random", Toast.LENGTH_SHORT).show();
-                } else {
-                    mIsShuffle = true;
-                    Toast.makeText(getApplicationContext(), "Bật phát nhạc random", Toast.LENGTH_SHORT).show();
-                    mIsAutoNext = false;
-                }
-                break;
-            case "autoNext":
-                if (mIsAutoNext) {
-                    mIsAutoNext = false;
-                    Toast.makeText(getApplicationContext(), "Tắt lặp lại", Toast.LENGTH_SHORT).show();
-                } else {
-                    mIsAutoNext = true;
-                    Toast.makeText(getApplicationContext(), "Bật lặp lại", Toast.LENGTH_SHORT).show();
-                    mIsShuffle = false;
-                }
-                break;
+                    if (mIsShuffle) {
+                        Random rand = new Random();
+                        mCurrentSongIndex = rand.nextInt((mSongs.size() - 1) + 1);
+                        playSong(mCurrentSongIndex);
+                    } else {
+                        if (mCurrentSongIndex < (mSongs.size() - 1)) {
+                            playSong(mCurrentSongIndex + 1);
+                            mCurrentSongIndex = mCurrentSongIndex + 1;
+                        } else {
+                            playSong(0);
+                            mCurrentSongIndex = 0;
+                        }
+                    }
+
+                    break;
+                case "previous":
+                    final Intent playpreviousIntent = new Intent("previous");
+                    sendBroadcast(playpreviousIntent);
+                    if (mMediaPlayer.isPlaying()) {
+                        mMediaPlayer.pause();
+                    }
+                    if (mIsShuffle) {
+                        Random rand = new Random();
+                        mCurrentSongIndex = rand.nextInt((mSongs.size() - 1) + 1);
+                        playSong(mCurrentSongIndex);
+                    } else {
+                        if (mCurrentSongIndex > 0) {
+                            playSong(mCurrentSongIndex - 1);
+                            mCurrentSongIndex = mCurrentSongIndex - 1;
+                        } else {
+                            playSong(mSongs.size() - 1);
+                            mCurrentSongIndex = mSongs.size() - 1;
+                        }
+                    }
+                    break;
+                case "shuffle":
+                    if (mIsShuffle) {
+                        mIsShuffle = false;
+                        final Intent timeIntent = new Intent("!isShuffle");
+                        sendBroadcast(timeIntent);
+                    } else {
+                        mIsShuffle = true;
+                        final Intent timeIntent = new Intent("isShuffle");
+                        sendBroadcast(timeIntent);
+                    }
+                    break;
+                case "autoNext":
+                    if (mIsAutoNext) {
+                        mIsAutoNext = false;
+                        final Intent timeIntent = new Intent("!isAutoNext");
+                        sendBroadcast(timeIntent);
+                    } else {
+                        mIsAutoNext = true;
+                        final Intent timeIntent = new Intent("isAutoNext");
+                        sendBroadcast(timeIntent);
+                    }
+                    break;
+                case "nextMusic":
+                    if (mIsAutoNext) {
+                        playSong(mCurrentSongIndex);
+                    } else if (mIsShuffle) {
+                        Random rand = new Random();
+                        mCurrentSongIndex = rand.nextInt((mSongs.size() - 1) + 1);
+                        playSong(mCurrentSongIndex);
+                    } else {
+                        if (mCurrentSongIndex < (mSongs.size() - 1)) {
+                            playSong(mCurrentSongIndex + 1);
+                            mCurrentSongIndex = mCurrentSongIndex + 1;
+                        } else if (mCurrentSongIndex == (mSongs.size())) {
+                            playSong(0);
+                            mCurrentSongIndex = 0;
+                        }
+                    }
+                    break;
+            }
         }
         return START_STICKY;
     }
@@ -120,7 +158,6 @@ public class MusicService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mNotificationBroadCast);
     }
 
     private void playSong(int position) {
@@ -146,29 +183,10 @@ public class MusicService extends Service {
                 timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
                 sendBroadcast(timeIntent);
             }
-
             @Override
             public void onFinish() {
             }
         };
         mCountDownTimer.start();
-    }
-
-    private void checkState() {
-        if (mIsAutoNext) {
-            playSong(mCurrentSongIndex);
-        } else if (mIsShuffle) {
-            Random rand = new Random();
-            mCurrentSongIndex = rand.nextInt((mSongs.size() - 1) + 1);
-            playSong(mCurrentSongIndex);
-        } else {
-            if (mCurrentSongIndex < (mSongs.size() - 1)) {
-                playSong(mCurrentSongIndex);
-                mCurrentSongIndex = mCurrentSongIndex + 1;
-            } else if (mCurrentSongIndex == (mSongs.size())) {
-                playSong(0);
-                mCurrentSongIndex = 0;
-            }
-        }
     }
 }

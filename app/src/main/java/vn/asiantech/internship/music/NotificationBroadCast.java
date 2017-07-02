@@ -6,8 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.IntentFilter;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
@@ -21,25 +20,41 @@ import vn.asiantech.internship.R;
  * @since 2017-7-1
  */
 public class NotificationBroadCast extends BroadcastReceiver {
+    private int mLength;
+    private int mPosition;
+    private MusicTime mTime = new MusicTime();
+    private RemoteViews mNotificationView;
+    private BroadcastReceiver mSeekBroadcastReceiver;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-            RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
-            contentView.setTextViewText(R.id.tvMusicTitleNotification, "Ten bai hat");
-            contentView.setTextViewText(R.id.tvSingerNotification, "Ca si");
-            Intent notificationIntent = new Intent(context, MusicActivity.class);
-            notificationIntent.setAction("show");
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-            Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_add_box_white_24dp);
-            Notification notification = new NotificationCompat.Builder(context)
-                    .setContent(contentView)
-                    .setSmallIcon(R.drawable.ic_add_box_white_24dp)
-                    .setLargeIcon(Bitmap.createScaledBitmap(bm, 128, 128, false))
-                    .setContentIntent(pendingIntent)
-                    .setOngoing(true).build();
-            NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            mNotificationManager.notify(1, notification);
+            mSeekBroadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    Intent notificationIntent = new Intent(context, MusicActivity.class);
+                    notificationIntent.setAction("intent");
+                    notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+                    mLength = Integer.parseInt(intent.getStringExtra("time"));
+                    mPosition = Integer.parseInt(intent.getStringExtra("second"));
+                    mNotificationView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
+                    mNotificationView.setTextViewText(R.id.tvTitleMusicNotification, "hehe");
+                    mNotificationView.setTextViewText(R.id.tvSingerNotification, "hehe");
+                    mNotificationView.setTextViewText(R.id.tvCurrentTimeNotification, mTime.milliSecondsToTimer(mPosition));
+                    mNotificationView.setTextViewText(R.id.tvTotalTimeNotification, mTime.milliSecondsToTimer(mLength));
+                    mNotificationView.setProgressBar(R.id.progressBar, mLength, mPosition, false);
+                    Notification notification = new NotificationCompat.Builder(context)
+                            .setContent(mNotificationView)
+                            .setSmallIcon(R.drawable.ic_music_note_white_48dp)
+                            .setContentIntent(pendingIntent)
+                            .setOngoing(true).build();
+                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    mNotificationManager.notify(1, notification);
+                }
+            };
         }
+        IntentFilter filter = new IntentFilter("seek");
+        context.registerReceiver(mSeekBroadcastReceiver, filter);
     }
 }
