@@ -51,25 +51,7 @@ public class MusicService extends Service {
                 if (Action.RESUME.getValue().equals(action)) {
                     if (mMediaPlayer != null) {
                         mMediaPlayer.start();
-                        mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration() - mMediaPlayer.getCurrentPosition(), 1000) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-                                if (mSongPosition > -1) {
-                                    Intent intent1 = new Intent(Action.SEEK.getValue());
-                                    intent1.putExtra(PlayFragment.KEY_DURATION, mMediaPlayer.getDuration());
-                                    intent1.putExtra(PlayFragment.KEY_CURRENT, mMediaPlayer.getCurrentPosition());
-                                    intent1.putExtra(PlayFragment.KEY_PLAYING, mMediaPlayer.isPlaying());
-                                    sendBroadcast(intent1);
-                                    showForegroundNotification(mSongs.get(mSongPosition).getName());
-                                }
-                            }
-
-                            @Override
-                            public void onFinish() {
-
-                            }
-                        };
-                        mCountDownTimer.start();
+                        starCountDownTimer();
                     }
                     return;
                 }
@@ -123,11 +105,11 @@ public class MusicService extends Service {
     @Override
     public void onDestroy() {
         mCountDownTimer.cancel();
-        super.onDestroy();
         unregisterReceiver(mReceiver);
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.stop();
         }
+        super.onDestroy();
     }
 
     @Nullable
@@ -232,26 +214,8 @@ public class MusicService extends Service {
         Intent songChange = new Intent(Action.SONG_CHANGE.getValue());
         songChange.putExtra(MusicActivity.KEY_POSITION, mSongPosition);
         sendBroadcast(songChange);
-        mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration() - mMediaPlayer.getCurrentPosition(), 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                if (mSongPosition > -1) {
-                    Intent intent1 = new Intent(Action.SEEK.getValue());
-                    intent1.putExtra(PlayFragment.KEY_DURATION, mMediaPlayer.getDuration());
-                    intent1.putExtra(PlayFragment.KEY_CURRENT, mMediaPlayer.getCurrentPosition());
-                    intent1.putExtra(PlayFragment.KEY_PLAYING, mMediaPlayer.isPlaying());
-                    sendBroadcast(intent1);
-                    showForegroundNotification(mSongs.get(mSongPosition).getName());
-                }
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        };
+        starCountDownTimer();
         mMediaPlayer.start();
-        mCountDownTimer.start();
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -271,6 +235,28 @@ public class MusicService extends Service {
         } else {
             mSongPosition = (mSongPosition + 1) % mSongs.size();
         }
+    }
+
+    private void starCountDownTimer() {
+        mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration() - mMediaPlayer.getCurrentPosition(), 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (mSongPosition > -1) {
+                    Intent intent1 = new Intent(Action.SEEK.getValue());
+                    intent1.putExtra(PlayFragment.KEY_DURATION, mMediaPlayer.getDuration());
+                    intent1.putExtra(PlayFragment.KEY_CURRENT, mMediaPlayer.getCurrentPosition());
+                    intent1.putExtra(PlayFragment.KEY_PLAYING, mMediaPlayer.isPlaying());
+                    sendBroadcast(intent1);
+                    showForegroundNotification(mSongs.get(mSongPosition).getName());
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
+        mCountDownTimer.start();
     }
 
     private void skipPreviousSong() {
