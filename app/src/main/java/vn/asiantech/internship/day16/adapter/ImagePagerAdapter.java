@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day16.adapter;
+package vn.asiantech.internship.day16.adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;

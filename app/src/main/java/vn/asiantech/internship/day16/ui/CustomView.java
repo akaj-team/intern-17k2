@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day16.ui;
+package vn.asiantech.internship.day16.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;

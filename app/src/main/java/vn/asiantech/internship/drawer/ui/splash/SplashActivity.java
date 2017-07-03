@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.day16.ui.TabActivity;
+import vn.asiantech.internship.day16.ui.TabActivity;
+import vn.asiantech.internship.day21.ui.JSONActivity;
 import vn.asiantech.internship.drawer.ui.main.MainActivity;
 
 /**
@@ -28,6 +29,13 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SplashActivity.this, TabActivity.class));
+            }
+        });
+
+        findViewById(R.id.btnBai21).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SplashActivity.this, JSONActivity.class));
             }
         });
     }

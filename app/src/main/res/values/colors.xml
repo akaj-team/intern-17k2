@@ -16,4 +16,8 @@
     <color name="colorRed">#d40636</color>
     <!--Bai16-->
     <color name="colorTab">#5c74af</color>
+    <!--Bai21-->
+    <color name="colorName">#1b3a86</color>
+    <color name="colorEmail">#c95126</color>
+    <color name="colorPhone">#5fedda</color>
 </resources>

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day16.ui;
+package vn.asiantech.internship.day16.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.day16.adapter.PageAdapter;
+import vn.asiantech.internship.day16.adapter.PageAdapter;
 
 import static vn.asiantech.internship.R.id.tabLayout;
 
