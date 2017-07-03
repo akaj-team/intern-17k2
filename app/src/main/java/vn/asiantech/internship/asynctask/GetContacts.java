@@ -50,6 +50,7 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
                 }
             } catch (JSONException e) {
                 e.getMessage();
+                return null;
             }
         }
         return contacts;

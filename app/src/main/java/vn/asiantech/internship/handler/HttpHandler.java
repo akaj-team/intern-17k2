@@ -43,6 +43,7 @@ public class HttpHandler {
             }
         } catch (IOException e) {
             e.getMessage();
+            return null;
         } finally {
             try {
                 is.close();
