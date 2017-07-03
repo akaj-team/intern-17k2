@@ -185,8 +185,9 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int dw = size.x;
-        int dh = size.y;
+        int dw = size.x / 2;
+        int dh = size.y / 2;
+        Log.i("wh", dw + "   " + dh);
         Bitmap bmp;
         try {
             // Load up the image's dimensions not the image itself
@@ -207,7 +208,10 @@ public class AddNoteFragment extends Fragment implements View.OnClickListener {
             bmpFactoryOptions.inJustDecodeBounds = false;
             bmp = BitmapFactory.decodeStream(getActivity().getContentResolver()
                     .openInputStream(imageFileUri), null, bmpFactoryOptions);
-            return bmp;
+            int width = bmp.getWidth();
+            int height = bmp.getHeight();
+            Log.i("wh 3", width + "   " + height);
+            return Bitmap.createScaledBitmap(bmp, width / 3, height / 3, true);
         } catch (FileNotFoundException e) {
             Log.v("ERROR4", e.toString());
             return null;

@@ -23,6 +23,15 @@
     <string name="bai9">Bai 9</string>
     <string name="bai11">Bai 11</string>
     <string name="bai13">Bai 13</string>
+    <string name="bai15">Bai 15</string>
+    <string name="question">Question %d</string>
+    <string name="question1">Question 1</string>
+    <string name="previous">previous</string>
+    <string name="next">next</string>
+    <string name="result">Result</string>
+    <string name="result_right">Result %1$d / %2$d</string>
+    <string name="dialogfragment.message">You completed %d / 10 questions</string>
+    <string name="dialogfragment.title">Do you want to show result?</string>
     <string name="textview.text.desription">This is desription</string>
     <string name="edittext.hint.title">Title</string>
     <string name="editetext.hint.content">Content</string>
