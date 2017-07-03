@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.asiantech.internship.pagetransformer.DepthPageTransformer;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapter.DogAdapter;
+import vn.asiantech.internship.pagetransformer.DepthPageTransformer;
 import vn.asiantech.internship.ui.CustomViewPager;
 
 /**
@@ -47,6 +47,7 @@ public class Tab2AnimalFragment extends Fragment {
 
     /**
      * update new instance of fragment
+     *
      * @param dogImages is url list of dog
      * @return a fragment
      */
@@ -91,7 +92,7 @@ public class Tab2AnimalFragment extends Fragment {
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e(TAG, "ERROR");
                     }
                     if (getActivity() != null) {
                         getActivity().runOnUiThread(new Runnable() {
