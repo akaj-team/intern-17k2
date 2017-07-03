@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Internship</string>
-
+    <string name="app_name">MyProject</string>
     <string name="get_text">Get Text</string>
     <string name="pass_data">Pass Data</string>
 
@@ -21,11 +20,21 @@
     <string name="dialog.title.show">Your point:</string>
     <string name="button.cancel">Cancel</string>
     <string name="button.ok">OK</string>
+    <string name="chat.hello">Hello</string>
+    <string name="chat.meet">Nice to meet you</string>
+    <string name="chat.goodbye">GoodBye</string>
+    <string name="chat.kaka">Ka ka</string>
+    <string name="chat.say">Say something</string>
+    <string name="chat.d">DDDDDDDD</string>
+    <string name="chat.c">CCCCCCCCC</string>
+    <string name="chat.a">AAAAAAAAAA</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
     <string name="Alert_choose">Choose action</string>
+    <string name="button.cancel">Cancel</string>
     <string name="iten.feed">Feed</string>
     <string name="item.activity">Activity</string>
     <string name="item.profile">Profile</string>
