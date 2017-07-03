@@ -1,23 +1,18 @@
 package vn.asiantech.internship.ui.jsonparsing;
 
 import android.app.ProgressDialog;
-import android.os.AsyncTask;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.view.View;
 
 import java.util.ArrayList;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.helpers.HttpHandler;
+import vn.asiantech.internship.helpers.GetContactAsync;
 import vn.asiantech.internship.models.Contact;
 import vn.asiantech.internship.ui.adapters.JsonParsingAdapter;
 
@@ -26,9 +21,9 @@ import vn.asiantech.internship.ui.adapters.JsonParsingAdapter;
  * Created by AnhHuy on 03-Jul-17.
  */
 public class JsonParsingActivity extends AppCompatActivity {
-    private ProgressDialog mProgressDialog;
     private RecyclerView mRecyclerViewJson;
-    private ArrayList<Contact> mContacts = new ArrayList<>();
+    private ArrayList<Contact> mContacts;
+    private GetContactAsync mGetContactAsync;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,78 +31,38 @@ public class JsonParsingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_json_parsing);
         mRecyclerViewJson = (RecyclerView) findViewById(R.id.recyclerViewParsing);
 
-        new GetContact().execute();
+        initRecyclerView();
     }
 
-    private class GetContact extends AsyncTask<String, Void, ArrayList<Contact>> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mProgressDialog = new ProgressDialog(JsonParsingActivity.this);
-            mProgressDialog.setMessage("Wait....");
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-        }
-
-        @Override
-        protected ArrayList<Contact> doInBackground(String... params) {
-            HttpHandler httpHandler = new HttpHandler();
-            String url = "http://api.androidhive.info/contacts/";
-            String jsonString = httpHandler.makeServiceCall(url);
-            if (jsonString != null) {
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonString);
-                    JSONArray jsonArray = jsonObject.getJSONArray("contacts");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject object = jsonArray.getJSONObject(i);
-
-                        String id = object.getString("id");
-                        String name = object.getString("name");
-                        String email = object.getString("email");
-
-                        JSONObject phone = object.getJSONObject("phone");
-                        String mobile = phone.getString("mobile");
-
-                        mContacts.add(new Contact(id, name, email, mobile));
-                    }
-                } catch (final JSONException e) {
-                    Log.e("Json parsing error: ", e.getMessage());
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    });
-
-                }
-            } else {
-                Log.e("Main", "Couldn't get json from server.");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
-                                Toast.LENGTH_LONG)
-                                .show();
-                    }
-                });
+    private void initRecyclerView() {
+        mRecyclerViewJson.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewJson.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                int position = parent.getChildLayoutPosition(view);
+                outRect.set(20, position == 0 ? 15 : 20, 20, 20);
             }
-            return null;
-        }
+        });
 
-        @Override
-        protected void onPostExecute(ArrayList<Contact> contacts) {
-            super.onPostExecute(contacts);
-            if (mProgressDialog.isShowing()) {
-                mProgressDialog.dismiss();
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.progress_dialog));
+        progressDialog.setCancelable(false);
+        mGetContactAsync = new GetContactAsync(progressDialog, new GetContactAsync.CallBackListener() {
+            @Override
+            public void callBack(ArrayList<Contact> contacts) {
+                mContacts = contacts;
+                JsonParsingAdapter adapter = new JsonParsingAdapter(mContacts);
+                mRecyclerViewJson.setAdapter(adapter);
             }
-            mRecyclerViewJson.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            JsonParsingAdapter mAdapter = new JsonParsingAdapter(mContacts);
-            mRecyclerViewJson.setAdapter(mAdapter);
+        });
+        mGetContactAsync.execute();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mGetContactAsync != null && !mGetContactAsync.isCancelled()) {
+            mGetContactAsync.cancel(true);
         }
     }
 }

@@ -16,13 +16,13 @@ import java.net.URL;
  * Http Handler.
  * Created by huypham on 03-Jul-17.
  */
-public class HttpHandler {
+class HttpHandler {
     private static final String TAG = "HttpHandler";
 
-    public HttpHandler() {
+    HttpHandler() {
     }
 
-    public String makeServiceCall(String requestUrl) {
+    String makeServiceCall(String requestUrl) {
         String response = null;
         try {
             URL url = new URL(requestUrl);
@@ -52,12 +52,12 @@ public class HttpHandler {
                 builder.append(line).append('\n');
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "convertStreamToString: " + e.getMessage());
         } finally {
             try {
                 inputStream.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "convertStreamToString: " + e.getMessage());
             }
         }
         return builder.toString();

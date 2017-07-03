@@ -38,6 +38,10 @@ public class JsonParsingAdapter extends RecyclerView.Adapter<JsonParsingAdapter.
         return mContacts.size();
     }
 
+    /**
+     * View Holder for Json Parsing Item.
+     * Created by huypham on 03-Jul-17.
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mName;
         private TextView mEmail;
