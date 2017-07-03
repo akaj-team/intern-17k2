@@ -13,23 +13,21 @@ import vn.asiantech.internship.day21.another.GetContact;
  * Created by at-hoavo on 03/07/2017.
  */
 public class ContactActivity extends AppCompatActivity {
-    private ProgressDialog mProgressDialog;
     private RecyclerView mRecyclerView;
+    private ProgressDialog mProgressDialog;
+    private GetContact mGetContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewContact);
-        new GetContact(this).execute();
-    }
-
-    public ProgressDialog getProgressDialog() {
-        return mProgressDialog;
-    }
-
-    public void setProgressDialog(ProgressDialog progressDialog) {
-        mProgressDialog = progressDialog;
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage("Please wait ...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+        mGetContact = new GetContact(this);
+        mGetContact.execute();
     }
 
     public RecyclerView getRecyclerView() {
@@ -38,6 +36,20 @@ public class ContactActivity extends AppCompatActivity {
 
     public void setRecyclerView(RecyclerView recyclerView) {
         mRecyclerView = recyclerView;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mGetContact != null && !mGetContact.isCancelled()) {
+            mGetContact.cancel(true);
+        }
+    }
+
+    public void dismiss() {
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 }
 

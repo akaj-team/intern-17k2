@@ -6,7 +6,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ll.contact.layout_marginStart">
 
         <TextView
             android:id="@+id/tvNameContact"
@@ -26,15 +27,18 @@
         android:id="@+id/tvAddressContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ll.contact.layout_marginStart"
         android:textColor="@color/colorTime" />
 
     <TextView
         android:id="@+id/tvPhoneContact"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ll.contact.layout_marginStart" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="30dp"
         android:background="@color/colorTime" />
 </LinearLayout>

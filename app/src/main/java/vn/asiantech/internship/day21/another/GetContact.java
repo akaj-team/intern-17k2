@@ -1,6 +1,5 @@
 package vn.asiantech.internship.day21.another;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +27,6 @@ import static android.content.ContentValues.TAG;
 public class GetContact extends AsyncTask<Void, Void, List<Contact>> {
     private ContactActivity mContactActivity;
     private List<Contact> mContacts = new ArrayList<>();
-    private static final String sUrl = "http://api.androidhive.info/contacts/";
 
     public GetContact(ContactActivity contactActivity) {
         mContactActivity = contactActivity;
@@ -39,7 +37,8 @@ public class GetContact extends AsyncTask<Void, Void, List<Contact>> {
         HttpHandler sh = new HttpHandler();
 
         // Making a request to url and getting response
-        String jsonStr = sh.makeServiceCall(sUrl);
+        String url = "http://api.androidhive.info/contacts/";
+        String jsonStr = sh.makeServiceCall(url);
 
         Log.e(TAG, "Response from url: " + jsonStr);
 
@@ -50,7 +49,7 @@ public class GetContact extends AsyncTask<Void, Void, List<Contact>> {
                 // Getting JSON Array node
                 JSONArray contacts = jsonObj.getJSONArray("contacts");
 
-                // looping through All Contacts
+                // Looping through All Contacts
                 for (int i = 0; i < contacts.length(); i++) {
                     JSONObject c = contacts.getJSONObject(i);
 
@@ -63,8 +62,6 @@ public class GetContact extends AsyncTask<Void, Void, List<Contact>> {
                     // Phone node is JSON Object
                     JSONObject phone = c.getJSONObject("phone");
                     String mobile = phone.getString("mobile");
-                    String home = phone.getString("home");
-                    String office = phone.getString("office");
 
                     //  Adding to Contact
                     Contact contact = new Contact(id, name, email, address, gender, mobile);
@@ -98,26 +95,13 @@ public class GetContact extends AsyncTask<Void, Void, List<Contact>> {
             });
 
         }
-
         return mContacts;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        ProgressDialog progressDialog = new ProgressDialog(mContactActivity);
-        progressDialog.setMessage("Please wait ...");
-        progressDialog.setCancelable(false);
-        mContactActivity.setProgressDialog(progressDialog);
-        mContactActivity.getProgressDialog().show();
     }
 
     @Override
     protected void onPostExecute(List<Contact> contacts) {
         super.onPostExecute(contacts);
-        // Dismiss the progress dialog
-        if (mContactActivity.getProgressDialog().isShowing())
-            mContactActivity.getProgressDialog().dismiss();
+        mContactActivity.dismiss();
         ContactAdapter contactAdapter = new ContactAdapter(contacts);
         RecyclerView recyclerView = mContactActivity.getRecyclerView();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContactActivity);

@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -19,10 +20,7 @@ import java.net.URL;
 public class HttpHandler {
     private static final String TAG = HttpHandler.class.getSimpleName();
 
-    public HttpHandler() {
-    }
-
-    public String makeServiceCall(String reqUrl) {
+    String makeServiceCall(String reqUrl) {
         String response = null;
         try {
             URL url = new URL(reqUrl);
@@ -44,7 +42,12 @@ public class HttpHandler {
     }
 
     private String convertStreamToString(InputStream is) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Log.d(TAG, "UnsupportedEncodingException ");
+        }
         StringBuilder sb = new StringBuilder();
 
         String line;
@@ -53,12 +56,12 @@ public class HttpHandler {
                 sb.append(line).append('\n');
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d(TAG, "IOException when convert Stream to String: ");
         } finally {
             try {
                 is.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.d(TAG, "IOException when convert Stream to String: ");
             }
         }
         return sb.toString();

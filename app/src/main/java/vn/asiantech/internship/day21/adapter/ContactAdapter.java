@@ -36,7 +36,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         holder.mTvPhone.setText(mContacts.get(position).getPhone());
         if (mContacts.get(position).getGender().equals("male")) {
             holder.mImgGender.setImageResource(R.mipmap.ic_male);
-        } else if (mContacts.get(position).getGender().equals("female")) {
+        } else {
             holder.mImgGender.setImageResource(R.mipmap.ic_female);
         }
     }
