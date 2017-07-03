@@ -17,8 +17,8 @@
         <activity android:name=".exday7.MainActivity" />
 
         <!--d5-->
-        <activity android:name=".feed.ActivityFeed"/>
-        <activity android:name=".exday13.ChatActivity"/>
+        <activity android:name=".feed.ActivityFeed" />
+        <activity android:name=".exday13.ChatActivity" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,8 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.MainActivity"/>
+        <activity android:name=".exday19.MusicActivity" />
+        <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".exfragment.RecyclerViewActivity" />
+        <service
+            android:name=".exday19.NotificationServiceMusic"
+            android:enabled="true" />
     </application>
-
 </manifest>

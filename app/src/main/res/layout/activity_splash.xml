@@ -18,4 +18,11 @@
         android:layout_centerHorizontal="true"
         android:text="@string/drawer_layout" />
 
+    <Button
+        android:id="@+id/btnExday19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnDrawer"
+        android:layout_centerHorizontal="true"
+        android:text="@string/drawer_layout" />
 </RelativeLayout>
