@@ -11,12 +11,12 @@ public class Song implements Parcelable {
     private int id;
     private String title;
     private String artist;
-    private String time;
+    private long time;
 
     public Song() {
     }
 
-    public Song(int id, String title, String artist, String time) {
+    public Song(int id, String title, String artist, long time) {
         this.id = id;
         this.title = title;
         this.artist = artist;
@@ -27,7 +27,7 @@ public class Song implements Parcelable {
         id = in.readInt();
         title = in.readString();
         artist = in.readString();
-        time = in.readString();
+        time = in.readLong();
     }
 
     public static final Creator<Song> CREATOR = new Creator<Song>() {
@@ -66,11 +66,11 @@ public class Song implements Parcelable {
         this.artist = artist;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
@@ -84,6 +84,6 @@ public class Song implements Parcelable {
         dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(artist);
-        dest.writeString(time);
+        dest.writeLong(time);
     }
 }

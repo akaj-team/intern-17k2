@@ -20,7 +20,6 @@ import vn.asiantech.internship.models.Song;
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder> {
     private List<Song> mSongs = new ArrayList<>();
     private OnListener mOnListener;
-    private int mPosition = 0;
 
     public SongAdapter(List<Song> mSongs, OnListener onListener) {
         this.mSongs = mSongs;
@@ -35,13 +34,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder
 
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
-        holder.tvTitle.setText(mSongs.get(position).getTitle());
-        holder.tvArtist.setText(mSongs.get(position).getArtist());
+        holder.mTvTitle.setText(mSongs.get(position).getTitle());
+        holder.mTvArtist.setText(mSongs.get(position).getArtist());
+        holder.mTvTime.setText(mSongs.get(position).getTime() + "");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mOnListener.onItemClick(position);
-                mPosition = position;
                 Log.d("xxx", "onClick: ");
             }
         });
@@ -53,13 +52,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvTitle;
-        private TextView tvArtist;
+        private TextView mTvTitle;
+        private TextView mTvArtist;
+        private TextView mTvTime;
 
         ItemViewHolder(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tvSongTitle);
-            tvArtist = (TextView) itemView.findViewById(R.id.tvArtist);
+            mTvTitle = (TextView) itemView.findViewById(R.id.tvSongTitle);
+            mTvArtist = (TextView) itemView.findViewById(R.id.tvArtist);
+            mTvTime = (TextView) itemView.findViewById(R.id.tvTime);
         }
     }
 
