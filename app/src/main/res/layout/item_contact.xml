@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlContainer"
+    style="@style/styleLayoutJsonNormal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgGender"
+        style="@style/styleLayoutThumbJson"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/textview.text.description"
+        android:padding="4dp"
+        android:src="@drawable/ic_avatar" />
+
+    <LinearLayout
+        android:id="@+id/lnParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/paddingSomeText"
+        android:layout_marginStart="@dimen/paddingSomeText"
+        android:layout_toEndOf="@id/imgGender"
+        android:layout_toRightOf="@id/imgGender"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/textview.text.description"
+                android:src="@drawable/vector_person" />
+
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/TextViewStyleJson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/paddingSomeThings"
+                android:text="@string/textview.text.user_name"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/textview.text.description"
+                android:src="@drawable/vector_email" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                style="@style/TextViewStyleJson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/paddingSomeThings"
+                android:text="@string/textview.text.description" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/textview.text.description"
+                android:src="@drawable/vector_phone" />
+
+            <TextView
+                android:id="@+id/tvPhone"
+                style="@style/TextViewStyleJson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/paddingSomeThings"
+                android:text="@string/textview.text.description" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/lnParent"
+        android:background="@color/colorLine" />
+</RelativeLayout>
