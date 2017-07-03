@@ -77,8 +77,9 @@ public class JSONAsyncTask extends AsyncTask<Void, Void, ArrayList<Contact>> {
     @Override
     protected void onPostExecute(ArrayList<Contact> contacts) {
         super.onPostExecute(contacts);
-        if (mProgressDialog.isShowing())
+        if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
+        }
         JsonAdapter jsonAdapter = new JsonAdapter(mContacts);
         mRecyclerView.setAdapter(jsonAdapter);
     }
