@@ -1,13 +1,13 @@
 package vn.asiantech.internship.ui.anotation;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
@@ -18,25 +18,23 @@ import vn.asiantech.internship.models.Contact;
  * A simple ContactFragment subclass.
  * Created by Thanh Thien
  */
+@EFragment(R.layout.fragment_contact_anontation)
 public class ContactFragment extends Fragment implements MyAsyncTask.OnGetContactListener {
     private static final String url = "http://api.androidhive.info/contacts/";
 
     private ProgressDialog mProgressDialog;
-    private RecyclerView mRecyclerView;
     private MyAsyncTask mMyAsyncTask;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_contact_anontation, container, false);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+    @ViewById(R.id.recyclerView)
+    RecyclerView mRecyclerView;
+
+    @AfterViews
+    void afterViews(){
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mMyAsyncTask = new MyAsyncTask();
         mMyAsyncTask.setOnGetContactListener(this);
         mMyAsyncTask.execute(url);
-        return v;
     }
 
     @Override

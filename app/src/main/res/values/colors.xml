@@ -16,4 +16,8 @@
     <color name="colorItemChoise">#5c5c5c</color>
     <color name="colorMenuArrow">#FC0095</color>
     <color name="colorLine">#9C9AA1</color>
+    <color name="colorFemale">#F8BBD0</color>
+    <color name="colorMale">#E1BEE7</color>
+    <color name="colorMaleC">#BA68C8</color>
+    <color name="colorFemaleC">#F06292</color>
 </resources>

@@ -1,7 +1,8 @@
 package vn.asiantech.internship.ui.anotation;
 
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
+import org.androidannotations.annotations.EActivity;
 
 import vn.asiantech.internship.R;
 
@@ -9,11 +10,6 @@ import vn.asiantech.internship.R;
  * JsonActivity
  * Created by Thanh Thien
  */
+@EActivity(R.layout.activity_contact_anotation)
 public class ContactActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_anotation);
-    }
 }
