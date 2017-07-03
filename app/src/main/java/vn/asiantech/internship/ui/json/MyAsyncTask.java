@@ -36,33 +36,37 @@ class MyAsyncTask extends AsyncTask<String, Void, List<Contact>> {
         // Making a request to url and getting response
         String jsonStr = sh.makeServiceCall(arg0[0]);
 
-        Log.e(TAG, "Response from url: " + jsonStr);
-
         if (jsonStr != null) {
             try {
                 JSONObject jsonObj = new JSONObject(jsonStr);
 
                 // Getting JSON Array node
-                JSONArray contacts = jsonObj.getJSONArray("contacts");
+                JSONArray contacts;
+                if (jsonObj.getJSONArray("contacts") != null) {
+                    contacts = jsonObj.getJSONArray("contacts");
 
-                // looping through All Contacts
-                for (int i = 0; i < contacts.length(); i++) {
-                    JSONObject c = contacts.getJSONObject(i);
+                    // looping through All Contacts
+                    for (int i = 0; i < contacts.length(); i++) {
+                        JSONObject c = contacts.getJSONObject(i);
 
-                    String name = c.getString("name");
-                    String email = c.getString("email");
-                    String address = c.getString("address");
-                    String gender = c.getString("gender");
+                        if (c.getString("name") != null && c.getString("email") != null && c.getString("address") != null
+                                && c.getString("gender") != null && c.getJSONObject("phone") != null) {
+                            String name = c.getString("name");
+                            String email = c.getString("email");
+                            String address = c.getString("address");
+                            String gender = c.getString("gender");
 
-                    // Phone node is JSON Object
-                    JSONObject phoneObject = c.getJSONObject("phone");
-                    String mobile = phoneObject.getString("mobile");
-                    String home = phoneObject.getString("home");
-                    String office = phoneObject.getString("office");
+                            // Phone node is JSON Object
+                            JSONObject phoneObject = c.getJSONObject("phone");
+                            String mobile = phoneObject.getString("mobile");
+                            String home = phoneObject.getString("home");
+                            String office = phoneObject.getString("office");
 
-                    Phone phone = new Phone(home, mobile, office);
-                    Contact contact = new Contact(name, email, address, gender, phone);
-                    thisContacts.add(contact);
+                            Phone phone = new Phone(home, mobile, office);
+                            Contact contact = new Contact(name, email, address, gender, phone);
+                            thisContacts.add(contact);
+                        }
+                    }
                 }
             } catch (final JSONException e) {
                 Log.e(TAG, "Json parsing error: " + e.getMessage());
