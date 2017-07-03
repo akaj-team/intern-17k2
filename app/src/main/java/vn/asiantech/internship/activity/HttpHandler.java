@@ -29,6 +29,7 @@ public class HttpHandler {
             conn.setRequestMethod("GET");
             InputStream in = new BufferedInputStream(conn.getInputStream());
             response = convertStreamToString(in);
+            Log.d("tag111", "makeServiceCall: "+response);
         } catch (MalformedURLException e) {
             Log.e(TAG, "MalformedURLException: " + e.getMessage());
         } catch (IOException e) {
