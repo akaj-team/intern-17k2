@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.anitation;
+package vn.asiantech.internship.ui.anotation;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,7 +27,7 @@ class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHolder> {
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_contact, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_contact_anontation, viewGroup, false);
         return new MyViewHolder(v);
     }
 

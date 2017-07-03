@@ -1,5 +1,4 @@
-package vn.asiantech.internship.ui.anitation;
-
+package vn.asiantech.internship.ui.anotation;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -30,7 +29,7 @@ public class ContactFragment extends Fragment implements MyAsyncTask.OnGetContac
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_contact, container, false);
+        View v = inflater.inflate(R.layout.fragment_contact_anontation, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

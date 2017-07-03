@@ -1,4 +1,4 @@
-package vn.asiantech.internship.ui.anitation;
+package vn.asiantech.internship.ui.anotation;
 
 import android.util.Log;
 
