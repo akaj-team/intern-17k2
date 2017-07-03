@@ -1,6 +1,7 @@
 package vn.asiantech.internship.contact;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,10 +11,10 @@ import java.util.ArrayList;
 
 /**
  * Author AsianTech Inc.
- * Created by at-hangtran on 03/07/2017.
+ * Created by sony on 03/07/2017.
  */
-
 class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
+    private static final String TAG = GetContacts.class.getSimpleName();
     private OnAsyncResponseListener mListener = null;
 
     @Override
@@ -35,11 +36,11 @@ class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
                 JSONObject jsonObj = new JSONObject(jsonString);
                 JSONArray contactArray = jsonObj.getJSONArray("contacts");
                 for (int i = 0; i < contactArray.length(); i++) {
-                    JSONObject c = contactArray.getJSONObject(i);
-                    contacts.add(new Contact(c.getString("name"), c.getString("email"), c.getJSONObject("phone").getString("mobile")));
+                    JSONObject jsonObject = contactArray.getJSONObject(i);
+                    contacts.add(new Contact(jsonObject.getString("name"), jsonObject.getString("email"), jsonObject.getJSONObject("phone").getString("mobile")));
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e(TAG, "IOException: " + e.toString());
             }
         }
         return contacts;

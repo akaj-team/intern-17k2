@@ -39,22 +39,22 @@ class HttpHandler {
 
     private String convertStreamToString(InputStream inputStream) {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
         String line;
         try {
             while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line).append('\n');
+                sb.append(line).append('\n');
             }
         } catch (IOException e) {
-            Log.e(TAG, "IOException: " + e.toString());
+            e.printStackTrace();
         } finally {
             try {
                 inputStream.close();
             } catch (IOException e) {
-                Log.e(TAG, "IOException: " + e.toString());
+                e.printStackTrace();
             }
         }
-        return inputStream.toString();
+        return sb.toString();
     }
 }
