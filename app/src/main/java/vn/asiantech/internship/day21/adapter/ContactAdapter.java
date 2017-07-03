@@ -34,9 +34,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         holder.mTvName.setText(mContacts.get(position).getName());
         holder.mTvAddress.setText(mContacts.get(position).getAddress());
         holder.mTvPhone.setText(mContacts.get(position).getPhone());
-        if (mContacts.get(position).getGender().equals("Male")) {
+        if (mContacts.get(position).getGender().equals("male")) {
             holder.mImgGender.setImageResource(R.mipmap.ic_male);
-        } else if (mContacts.get(position).getGender().equals("Female")) {
+        } else if (mContacts.get(position).getGender().equals("female")) {
             holder.mImgGender.setImageResource(R.mipmap.ic_female);
         }
     }
@@ -46,6 +46,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         return mContacts.size();
     }
 
+    /**
+     * Create Contact View Holder
+     */
     class ContactViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private TextView mTvPhone;
