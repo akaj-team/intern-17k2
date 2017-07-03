@@ -1,9 +1,6 @@
 package vn.asiantech.internship.day21.handlerjson;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -15,7 +12,6 @@ import java.util.ArrayList;
 
 import vn.asiantech.internship.day21.models.Contact;
 import vn.asiantech.internship.day21.models.Phone;
-import vn.asiantech.internship.day21.ui.JsonAdapter;
 
 /**
  * Created by at-dinhvo on 03/07/2017.
@@ -24,24 +20,26 @@ public class JSONAsyncTask extends AsyncTask<Void, Void, ArrayList<Contact>> {
 
     private static final String URL = "http://api.androidhive.info/contacts/";
 
-    private RecyclerView mRecyclerView;
-    private ProgressDialog mProgressDialog;
-
-    private Context mContext;
     private ArrayList<Contact> mContacts;
+    private OnUpdateUiListener mOnUpdateUiListener;
 
-    public JSONAsyncTask(Context context, RecyclerView recyclerView) {
-        mContext = context;
-        mRecyclerView = recyclerView;
+    /**
+     * Interface update UI
+     */
+    public interface OnUpdateUiListener {
+        void onShowDialog();
+
+        void onUpdateRecyclerView(ArrayList<Contact> contacts);
+    }
+
+    public JSONAsyncTask(OnUpdateUiListener onUpdateUiListener) {
+        mOnUpdateUiListener = onUpdateUiListener;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mProgressDialog = new ProgressDialog(mContext);
-        mProgressDialog.setMessage("Please wait...");
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.show();
+        mOnUpdateUiListener.onShowDialog();
     }
 
     @Override
@@ -54,22 +52,31 @@ public class JSONAsyncTask extends AsyncTask<Void, Void, ArrayList<Contact>> {
         if (!TextUtils.isEmpty(jsonString)) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                JSONArray jsonArray = jsonObject.getJSONArray("contacts");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject c = jsonArray.getJSONObject(i);
-                    JSONObject jsonPhone = c.getJSONObject("phone");
-                    phone = new Phone(jsonPhone.getString("mobile"),
-                            jsonPhone.getString("home"), jsonPhone.getString("office"));
-                    contact = new Contact(c.getString("id"), c.getString("name"),
-                            c.getString("email"), c.getString("gender"),
-                            c.getString("address"), phone);
-                    mContacts.add(contact);
+                if (jsonObject.has("contacts")) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("contacts");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        if (object.has("name") && object.has("email") && object.has("gender")
+                                && object.has("address") && object.has("id") && object.has("phone")) {
+                            JSONObject jsonPhone = object.getJSONObject("phone");
+                            if (jsonPhone.has("mobile") && jsonPhone.has("home") && jsonPhone.has("office")) {
+                                phone = new Phone(jsonPhone.getString("mobile"),
+                                        jsonPhone.getString("home"), jsonPhone.getString("office"));
+                                contact = new Contact(object.getString("id"), object.getString("name"),
+                                        object.getString("email"), object.getString("gender"),
+                                        object.getString("address"), phone);
+                                mContacts.add(contact);
+                            }else {
+                                return mContacts;
+                            }
+                        }
+                    }
+                } else {
+                    Log.e("JSON isn't exist", "" + jsonObject.has("contacts"));
                 }
             } catch (JSONException e) {
                 Log.e("JSONException", "JSONException: " + e.getMessage());
             }
-        } else {
-            Log.e("at-dinhvo", "doInBackground: ");
         }
         return mContacts;
     }
@@ -77,10 +84,6 @@ public class JSONAsyncTask extends AsyncTask<Void, Void, ArrayList<Contact>> {
     @Override
     protected void onPostExecute(ArrayList<Contact> contacts) {
         super.onPostExecute(contacts);
-        if (mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-        JsonAdapter jsonAdapter = new JsonAdapter(mContacts);
-        mRecyclerView.setAdapter(jsonAdapter);
+        mOnUpdateUiListener.onUpdateRecyclerView(mContacts);
     }
 }
