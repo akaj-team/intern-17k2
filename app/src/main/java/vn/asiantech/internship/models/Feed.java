@@ -10,9 +10,6 @@ public class Feed {
     private String[] idImgThumbs;
     private String description;
 
-    public Feed() {
-    }
-
     public Feed(int id, String name, String[] idImgThumbs, String description) {
         this.id = id;
         this.name = name;

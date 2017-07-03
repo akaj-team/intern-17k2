@@ -23,7 +23,7 @@ import vn.asiantech.internship.models.Feed;
  * Created by root on 6/15/17.
  * Feed Adapter
  */
-public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder> {
+class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder> {
 
     private List<Feed> mFeeds;
 

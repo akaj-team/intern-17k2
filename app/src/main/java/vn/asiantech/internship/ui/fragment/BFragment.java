@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import vn.asiantech.internship.MainActivity;
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.ui.main.Ex072Activity;
 
 /**
  * Fragment B created by Thien 13/06
@@ -33,8 +33,8 @@ public class BFragment extends Fragment {
         btnSend2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).setText();
+                if (getActivity() instanceof Ex072Activity) {
+                    ((Ex072Activity) getActivity()).setText();
                 }
             }
         });

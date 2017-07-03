@@ -99,7 +99,6 @@ public class FeedDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
     }
 
     @Override
