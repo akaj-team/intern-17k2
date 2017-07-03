@@ -1,6 +1,5 @@
 package vn.asiantech.internship.background;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -19,20 +18,18 @@ import vn.asiantech.internship.models.Contact;
  */
 public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Contact>> {
 
-    private ProgressDialog mProgressDialog;
     private ArrayList<Contact> mContacts;
     private CallBackListener mListener;
 
-    public GetContactsAsyncTask(ProgressDialog progressDialog, CallBackListener listener) {
+    public GetContactsAsyncTask(CallBackListener listener) {
         this.mContacts = new ArrayList<>();
-        this.mProgressDialog = progressDialog;
         this.mListener = listener;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mProgressDialog.show();
+        mListener.onTaskPreExecute();
     }
 
     @Override
@@ -54,7 +51,6 @@ public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Cont
     @Override
     protected void onPostExecute(ArrayList<Contact> contacts) {
         super.onPostExecute(contacts);
-        mProgressDialog.dismiss();
         mListener.onComplete(mContacts);
     }
 
@@ -62,6 +58,8 @@ public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Cont
      * This interface used to handle when this task complete
      */
     public interface CallBackListener {
+        void onTaskPreExecute();
+
         void onComplete(ArrayList<Contact> contacts);
     }
 }

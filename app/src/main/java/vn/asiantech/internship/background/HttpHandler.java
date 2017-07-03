@@ -43,8 +43,8 @@ public class HttpHandler {
         return response;
     }
 
-    private String convertStreamToString(InputStream is) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+    private String convertStreamToString(InputStream inputStream) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder sb = new StringBuilder();
 
         String line;
@@ -56,7 +56,7 @@ public class HttpHandler {
             Log.i(TAG, e.getMessage());
         } finally {
             try {
-                is.close();
+                inputStream.close();
             } catch (IOException e) {
                 Log.i(TAG, e.getMessage());
             }

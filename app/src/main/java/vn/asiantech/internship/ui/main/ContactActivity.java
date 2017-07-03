@@ -24,9 +24,12 @@ import vn.asiantech.internship.models.Contact;
 public class ContactActivity extends AppCompatActivity {
 
     private static final String URL = "http://api.androidhive.info/contacts/";
+    private ProgressDialog mProgressDialog;
     private RecyclerView mRecyclerViewContacts;
     private ContactAdapter mAdapter;
     private List<Contact> mContacts;
+    private GetContactsAsyncTask mGetContactsAsyncTask;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,17 +41,31 @@ public class ContactActivity extends AppCompatActivity {
         mRecyclerViewContacts = (RecyclerView) findViewById(R.id.recyclerViewContact);
         mRecyclerViewContacts.setLayoutManager(new LinearLayoutManager(this));
 
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.loading));
-        progressDialog.setCancelable(false);
-        GetContactsAsyncTask getContactsAsyncTask = new GetContactsAsyncTask(progressDialog, new GetContactsAsyncTask.CallBackListener() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage(getString(R.string.loading));
+        mProgressDialog.setCancelable(false);
+        mGetContactsAsyncTask = new GetContactsAsyncTask(new GetContactsAsyncTask.CallBackListener() {
+            @Override
+            public void onTaskPreExecute() {
+                mProgressDialog.show();
+            }
+
             @Override
             public void onComplete(ArrayList<Contact> contacts) {
                 mContacts = contacts;
                 mAdapter = new ContactAdapter(mContacts);
                 mRecyclerViewContacts.setAdapter(mAdapter);
+                mProgressDialog.dismiss();
             }
         });
-        getContactsAsyncTask.execute(URL);
+        mGetContactsAsyncTask.execute(URL);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mGetContactsAsyncTask != null) {
+            mGetContactsAsyncTask.cancel(true);
+        }
     }
 }
