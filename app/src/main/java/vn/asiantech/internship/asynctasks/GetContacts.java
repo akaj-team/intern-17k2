@@ -21,9 +21,10 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
     private static final String TAG = GetContacts.class.getSimpleName();
     private ArrayList<Contact> mContacts;
     private Context mContext;
+
     public GetContacts(Context context) {
         mContacts = new ArrayList<>();
-        mContext=context;
+        mContext = context;
     }
 
     @Override
@@ -34,7 +35,6 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
 
     @Override
     protected ArrayList<Contact> doInBackground(String... params) {
-        ArrayList<Contact> contacts = new ArrayList<>();
         HttpHandler httpHandler = new HttpHandler();
         String json = httpHandler.makeServiceCall(params[0]);
         if (json != null) {
@@ -48,20 +48,19 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
                     JSONObject jsonNumber = jsonContact.getJSONObject("phone");
                     String number = jsonNumber.getString("mobile");
                     Contact contact = new Contact(name, email, number);
-                    contacts.add(contact);
+                    mContacts.add(contact);
                 }
             } catch (JSONException e) {
                 Log.d(TAG, "JSONException: " + e.getMessage());
             }
         }
         Log.d("tag111", "doInBackground: ");
-        mContacts = contacts;
-        return contacts;
+        return mContacts;
     }
 
     @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
+    protected void onPostExecute(ArrayList<Contact> contacts) {
+        super.onPostExecute(contacts);
         ((OnUpdateListener) mContext).onCloseProgressDialog();
         Log.d("tag111", "onProgressUpdate: ");
         ((OnUpdateListener) mContext).onUpdateData(mContacts);

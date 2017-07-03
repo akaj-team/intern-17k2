@@ -23,6 +23,8 @@
         <activity android:name=".MainIntentActivity" />
         <activity android:name=".ui.feed.FeedActivity" />
         <activity android:name=".activity.ChatActivity" />
-        <activity android:name=".activity.ContactActivity"/>
+        <activity android:name=".activity.TestActivity" />
+        <activity android:name=".activity.ResultActivity" />
+        <activity android:name=".activity.ContactActivity" />
     </application>
 </manifest>

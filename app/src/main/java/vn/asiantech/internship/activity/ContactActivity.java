@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapter.ContactAdapter;
+import vn.asiantech.internship.apis.ContactApi;
 import vn.asiantech.internship.asynctasks.GetContacts;
 import vn.asiantech.internship.models.Contact;
 
@@ -20,11 +21,11 @@ import vn.asiantech.internship.models.Contact;
  * ContactActivity contain a RecyclerView to show list contact
  */
 public class ContactActivity extends AppCompatActivity implements GetContacts.OnUpdateListener {
-    private static final String TAG="tag111";
+    private static final String TAG = "tag111";
     private RecyclerView mRecyclerViewContact;
     private ContactAdapter mContactAdapter;
     private ProgressDialog mProgressDialog;
-    private static String url = "http://api.androidhive.info/contacts/";
+    private static String url = ContactApi.url;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,9 +48,9 @@ public class ContactActivity extends AppCompatActivity implements GetContacts.On
     public void onCloseProgressDialog() {
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
-            Log.d(TAG, "onCloseProgressDialog: "+1);
+            Log.d(TAG, "onCloseProgressDialog: " + 1);
         }
-        Log.d(TAG, "onCloseProgressDialog: "+2);
+        Log.d(TAG, "onCloseProgressDialog: " + 2);
     }
 
     @Override
