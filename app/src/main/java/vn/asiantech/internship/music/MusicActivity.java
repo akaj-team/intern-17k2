@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -37,24 +36,27 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private TextView mTvCurrentTime;
     private TextView mTvTotalTime;
     private SeekBar mSeekBar;
-    private List<Song> mSongs = new ArrayList<>();
-    private Song mSong;
-    private MusicTime mTime = new MusicTime();
+    private final List<Song> mSongs = new ArrayList<>();
+    private final MusicTime mTime = new MusicTime();
     private int mLength;
     private int mPosition;
-    private BroadcastReceiver mStartBroadcastReceiver = new BroadcastReceiver() {
+    private final MainFragment mMainFragment = new MainFragment();
+    private final Bundle mBundle = new Bundle();
+    private int mCurrentSongPosition;
+
+    private final BroadcastReceiver mStartBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             mImgBtnPlay.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
         }
     };
-    private BroadcastReceiver mSeekBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mSeekBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             processTime(intent);
         }
     };
-    private BroadcastReceiver mPauseBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mPauseBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             mImgBtnPlay.setImageResource(R.drawable.ic_play_circle_filled_white_48dp);
@@ -62,7 +64,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             upDateTime();
         }
     };
-    private BroadcastReceiver mPlayNextBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mPlayNextBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             mImgBtnPlay.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
@@ -70,40 +72,46 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             upDateTime();
         }
     };
-    private BroadcastReceiver mNextBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mNextBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             mImgBtnPlay.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
         }
     };
-    private BroadcastReceiver mPreviousBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mPreviousBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             mImgBtnPlay.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
         }
     };
-    private BroadcastReceiver mIsShuffleBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mIsShuffleBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             mImgBtnShuffle.setImageResource(R.drawable.ic_shuffle_red_400_24dp);
         }
     };
-    private BroadcastReceiver mNotIsShuffleBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mNotIsShuffleBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             mImgBtnShuffle.setImageResource(R.drawable.ic_shuffle_white_24dp);
         }
     };
-    private BroadcastReceiver mIsAutoNextBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mIsAutoNextBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             mImgBtnAuto.setImageResource(R.drawable.ic_autorenew_red_400_24dp);
         }
     };
-    private BroadcastReceiver mNotIsAutoNextBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mNotIsAutoNextBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             mImgBtnAuto.setImageResource(R.drawable.ic_autorenew_white_24dp);
+        }
+    };
+    private final BroadcastReceiver mUpdateSongNameBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mCurrentSongPosition = intent.getIntExtra("songPosition", 0);
         }
     };
 
@@ -111,12 +119,9 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
+        initSongs();
         initView();
         registerBroadcastReceiver();
-
-        MusicManager musicManager = new MusicManager(this);
-        mSongs.addAll(musicManager.getSong());
-
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -140,7 +145,16 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void initView(){
+    private void initSongs() {
+        mSongs.add(new Song("Ghen", "Min", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNXDXGNQETLDJTDGLG", R.drawable.img_ghen));
+        mSongs.add(new Song("Shape Of You", "Ed Sheeran", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJGJLNDTLDJTDGLG", R.drawable.img_shape));
+        mSongs.add(new Song("Mask Off", "Future", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJAQXNNTLDJTDGLG", R.drawable.img_future));
+        mSongs.add(new Song("Stay", "Zedd, Alessia Cara", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJQJLQDTLDJTDGLG", R.drawable.img_stay));
+        mSongs.add(new Song("Believer", "Imagine Dragons", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJDQQLVTLDJTDGLG", R.drawable.img_bliever));
+        mSongs.add(new Song("Issues", "Julia Michaels", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJLDXGDTLDJTDGLG", R.drawable.img_issue));
+    }
+
+    private void initView() {
         mImgBtnPlay = (ImageButton) findViewById(R.id.imgBtnPlay);
         ImageButton imgBtnNext = (ImageButton) findViewById(R.id.imgBtnNext);
         ImageButton imgBtnPrev = (ImageButton) findViewById(R.id.imgBtnPrev);
@@ -160,7 +174,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mImgBtnAuto.setOnClickListener(this);
     }
 
-    private void registerBroadcastReceiver(){
+    private void registerBroadcastReceiver() {
         IntentFilter mStartFilter = new IntentFilter("start");
         registerReceiver(mStartBroadcastReceiver, mStartFilter);
         IntentFilter seekFilter = new IntentFilter("seek");
@@ -181,6 +195,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         registerReceiver(mNextBroadcastReceiver, nextFilter);
         IntentFilter previousFilter = new IntentFilter("previous");
         registerReceiver(mPreviousBroadcastReceiver, previousFilter);
+        IntentFilter updateSongNameFilter = new IntentFilter("updateSongName");
+        registerReceiver(mUpdateSongNameBroadcastReceiver, updateSongNameFilter);
     }
 
     @Override
@@ -213,11 +229,18 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 startService(autoIntent);
                 break;
         }
+        mBundle.putString("songName", mSongs.get(mCurrentSongPosition).getName());
+        mMainFragment.setArguments(mBundle);
     }
 
     @Override
     public void onGetSong(Song song, int position) {
-        mSong = song;
+        mBundle.putString("songName", song.getName());
+        mMainFragment.setArguments(mBundle);
+        Intent playIntent = new Intent(MusicActivity.this, MusicService.class);
+        playIntent.putExtra("currentSong", position);
+        playIntent.setAction("chooseSong");
+        startService(playIntent);
     }
 
     private void processTime(Intent intent) {
@@ -228,14 +251,18 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void upDateTime() {
-        mTvTotalTime.setText("" + mTime.milliSecondsToTimer(mLength));
-        mTvCurrentTime.setText("" + mTime.milliSecondsToTimer(mPosition));
+        mTvTotalTime.setText(mTime.milliSecondsToTimer(mLength));
+        mTvCurrentTime.setText(mTime.milliSecondsToTimer(mPosition));
         mSeekBar.setProgress(mPosition);
         if (mTvTotalTime.getText().toString().equals(mTvCurrentTime.getText().toString())) {
-            Log.d("hehehe", "upDateTime: ");
             Intent playIntent = new Intent(MusicActivity.this, MusicService.class);
             playIntent.setAction("nextMusic");
             startService(playIntent);
         }
     }
+
+    public List<Song> getSongs() {
+        return mSongs;
+    }
+
 }

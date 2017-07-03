@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,8 +19,8 @@ import vn.asiantech.internship.R;
  * @since 2017-7-1
  */
 class MusicRecyclerViewAdapter extends RecyclerView.Adapter {
-    private List<Song> mSongs;
-    private OnItemClickListener mClickListener;
+    private final List<Song> mSongs;
+    private final OnItemClickListener mClickListener;
 
     MusicRecyclerViewAdapter(List<Song> songs, OnItemClickListener clickListener) {
         this.mClickListener = clickListener;
@@ -38,6 +39,8 @@ class MusicRecyclerViewAdapter extends RecyclerView.Adapter {
         MusicViewHolder musicViewHolder = (MusicViewHolder) holder;
         musicViewHolder.bind(mSongs.get(position), position, mClickListener);
         musicViewHolder.mTvName.setText(mSongs.get(position).getName());
+        musicViewHolder.mTvSinger.setText(mSongs.get(position).getSinger());
+        musicViewHolder.mImgSong.setImageResource(mSongs.get(position).getImage());
     }
 
     @Override
@@ -46,11 +49,15 @@ class MusicRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     private class MusicViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTvName;
+        private final TextView mTvName;
+        private final TextView mTvSinger;
+        private final ImageView mImgSong;
 
         MusicViewHolder(final View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvMusicTitle);
+            mTvSinger = (TextView) itemView.findViewById(R.id.tvSinger);
+            mImgSong = (ImageView) itemView.findViewById(R.id.imgMusicIcon);
         }
 
         private void bind(final Song song, final int position, final OnItemClickListener listener) {

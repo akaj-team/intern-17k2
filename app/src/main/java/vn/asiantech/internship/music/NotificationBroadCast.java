@@ -22,9 +22,10 @@ import vn.asiantech.internship.R;
 public class NotificationBroadCast extends BroadcastReceiver {
     private int mLength;
     private int mPosition;
-    private MusicTime mTime = new MusicTime();
+    private final MusicTime mTime = new MusicTime();
     private RemoteViews mNotificationView;
     private BroadcastReceiver mSeekBroadcastReceiver;
+    private Song mSong;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -38,9 +39,11 @@ public class NotificationBroadCast extends BroadcastReceiver {
                     PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
                     mLength = Integer.parseInt(intent.getStringExtra("time"));
                     mPosition = Integer.parseInt(intent.getStringExtra("second"));
+                    mSong = intent.getExtras().getParcelable("song");
                     mNotificationView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
-                    mNotificationView.setTextViewText(R.id.tvTitleMusicNotification, "hehe");
-                    mNotificationView.setTextViewText(R.id.tvSingerNotification, "hehe");
+                    mNotificationView.setTextViewText(R.id.tvTitleMusicNotification,mSong.getName());
+                    mNotificationView.setTextViewText(R.id.tvSingerNotification, mSong.getSinger());
+                    mNotificationView.setImageViewResource(R.id.imgNotification, mSong.getImage());
                     mNotificationView.setTextViewText(R.id.tvCurrentTimeNotification, mTime.milliSecondsToTimer(mPosition));
                     mNotificationView.setTextViewText(R.id.tvTotalTimeNotification, mTime.milliSecondsToTimer(mLength));
                     mNotificationView.setProgressBar(R.id.progressBar, mLength, mPosition, false);
@@ -49,8 +52,8 @@ public class NotificationBroadCast extends BroadcastReceiver {
                             .setSmallIcon(R.drawable.ic_music_note_white_48dp)
                             .setContentIntent(pendingIntent)
                             .setOngoing(true).build();
-                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    mNotificationManager.notify(1, notification);
+                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.notify(1, notification);
                 }
             };
         }

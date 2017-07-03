@@ -23,7 +23,7 @@ import vn.asiantech.internship.R;
  * @since 2017-7-1
  */
 public class SongFragment extends Fragment {
-    private List<Song> mSongs = new ArrayList<>();
+    private final List<Song> mSongs = new ArrayList<>();
     private OnGetSongListener mListener;
 
     @Override
@@ -43,8 +43,7 @@ public class SongFragment extends Fragment {
         RecyclerView musicRecyclerView = (RecyclerView) view.findViewById(R.id.musicRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         musicRecyclerView.setLayoutManager(linearLayoutManager);
-        MusicManager musicManager = new MusicManager(getActivity());
-        mSongs.addAll(musicManager.getSong());
+        mSongs.addAll(((MusicActivity)getActivity()).getSongs());
         MusicRecyclerViewAdapter adapter = new MusicRecyclerViewAdapter(mSongs, new MusicRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Song song, int position) {
@@ -56,7 +55,7 @@ public class SongFragment extends Fragment {
         return view;
     }
 
-    public void getSong(Song song, int position) {
+    private void getSong(Song song, int position) {
         mListener.onGetSong(song, position);
     }
 

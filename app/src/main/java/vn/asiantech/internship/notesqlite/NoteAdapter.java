@@ -22,7 +22,7 @@ import vn.asiantech.internship.R;
  */
 class NoteAdapter extends RecyclerView.Adapter {
     private List<Note> mNotes = new ArrayList<>();
-    private OnItemClickListener mClickListener;
+    private final OnItemClickListener mClickListener;
 
     NoteAdapter(List<Note> notes, OnItemClickListener itemClickListener) {
         this.mNotes = notes;

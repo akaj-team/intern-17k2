@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -28,7 +29,7 @@ public class MusicService extends Service {
     private int mCurrentSongIndex = 0;
     private boolean mIsShuffle;
     private boolean mIsAutoNext;
-    private NotificationBroadCast mNotificationBroadCast = new NotificationBroadCast();
+    private final NotificationBroadCast mNotificationBroadCast = new NotificationBroadCast();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -144,6 +145,13 @@ public class MusicService extends Service {
                         }
                     }
                     break;
+                case "chooseSong":
+                    if (mMediaPlayer.isPlaying()) {
+                        mMediaPlayer.pause();
+                    }
+                    mCurrentSongIndex = intent.getIntExtra("currentSong", 0);
+                    playSong(mCurrentSongIndex);
+                    break;
             }
         }
         return START_STICKY;
@@ -155,12 +163,10 @@ public class MusicService extends Service {
         return null;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
     private void playSong(int position) {
+        final Intent updateSongNameIntent = new Intent("updateSongName");
+        updateSongNameIntent.putExtra("songPosition",mCurrentSongIndex);
+        sendBroadcast(updateSongNameIntent);
         try {
             mMediaPlayer = new MediaPlayer();
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -181,6 +187,9 @@ public class MusicService extends Service {
             public void onTick(long l) {
                 timeIntent.putExtra("time", mMediaPlayer.getDuration() + "");
                 timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("song", mSongs.get(mCurrentSongIndex));
+                timeIntent.putExtras(bundle);
                 sendBroadcast(timeIntent);
             }
             @Override

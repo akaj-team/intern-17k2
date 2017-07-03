@@ -29,7 +29,7 @@ public class Song implements Parcelable {
         this.url = url;
     }
 
-    protected Song(Parcel in) {
+    private Song(Parcel in) {
         name = in.readString();
         singer = in.readString();
         url = in.readString();

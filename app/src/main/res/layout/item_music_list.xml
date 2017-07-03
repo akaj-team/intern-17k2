@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/music.image.margin_right_left"
+    android:layout_marginRight="@dimen/music.image.margin_right_left"
     android:background="@drawable/bg_item_music_recyclerview"
-    android:orientation="vertical"
-    android:padding="@dimen/music.linearLayout.padding">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,8 +13,8 @@
 
         <ImageView
             android:id="@+id/imgMusicIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/music.imageView.with"
+            android:layout_height="@dimen/music.imageView.with"
             android:contentDescription="@string/image.description" />
 
         <LinearLayout

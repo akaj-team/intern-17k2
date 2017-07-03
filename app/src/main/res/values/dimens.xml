@@ -49,4 +49,7 @@
     <dimen name="music.image.margin_right">40dp</dimen>
     <dimen name="music.image.margin_right_left">10dp</dimen>
     <dimen name="music.linearLayout.padding">10dp</dimen>
+    <dimen name="music.textView.Size">20sp</dimen>
+    <dimen name="music.imageView.margin_top">100dp</dimen>
+    <dimen name="music.imageView.with">50dp</dimen>
 </resources>

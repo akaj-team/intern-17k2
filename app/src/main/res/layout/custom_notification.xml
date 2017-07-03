@@ -4,12 +4,11 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/ivNotification"
+        android:id="@+id/imgNotification"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:contentDescription="@string/image.description"
-        android:src="@drawable/ic_music_note_white_48dp" />
+        android:contentDescription="@string/image.description" />
 
     <LinearLayout
         android:layout_width="0dp"

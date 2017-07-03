@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import vn.asiantech.internship.R;
 
@@ -20,7 +21,6 @@ import vn.asiantech.internship.R;
  * @since 2017-7-1
  */
 public class MainFragment extends Fragment {
-
     public static MainFragment newInstance() {
         return new MainFragment();
     }
@@ -32,6 +32,10 @@ public class MainFragment extends Fragment {
         ImageView imgMain = (ImageView) view.findViewById(R.id.imgMain);
         Animation animFade = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
         imgMain.startAnimation(animFade);
+        TextView tvNameSong = (TextView) view.findViewById(R.id.tvNameSong);
+        if (getArguments() != null) {
+            tvNameSong.setText(getArguments().getString("songName"));
+        }
         return view;
     }
 }
