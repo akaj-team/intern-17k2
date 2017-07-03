@@ -47,4 +47,7 @@
     <string name="correct">Correct</string>
     <string name="button.text.ex15">Ex 15</string>
     <string name="button.text.feed">FEEDS</string>
+    <string name="button.text.ex19">Ex 19</string>
+    <string name="error_message_you_must_play_first">You must play first</string>
+    <string name="start">00:00</string>
 </resources>
