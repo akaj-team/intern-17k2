@@ -41,7 +41,7 @@ public class NotificationBroadCast extends BroadcastReceiver {
                     mPosition = Integer.parseInt(intent.getStringExtra("second"));
                     mSong = intent.getExtras().getParcelable("song");
                     mNotificationView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
-                    mNotificationView.setTextViewText(R.id.tvTitleMusicNotification,mSong.getName());
+                    mNotificationView.setTextViewText(R.id.tvTitleMusicNotification, mSong.getName());
                     mNotificationView.setTextViewText(R.id.tvSingerNotification, mSong.getSinger());
                     mNotificationView.setImageViewResource(R.id.imgNotification, mSong.getImage());
                     mNotificationView.setTextViewText(R.id.tvCurrentTimeNotification, mTime.milliSecondsToTimer(mPosition));

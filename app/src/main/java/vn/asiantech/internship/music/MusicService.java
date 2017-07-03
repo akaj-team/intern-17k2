@@ -165,7 +165,7 @@ public class MusicService extends Service {
 
     private void playSong(int position) {
         final Intent updateSongNameIntent = new Intent("updateSongName");
-        updateSongNameIntent.putExtra("songPosition",mCurrentSongIndex);
+        updateSongNameIntent.putExtra("songPosition", mCurrentSongIndex);
         sendBroadcast(updateSongNameIntent);
         try {
             mMediaPlayer = new MediaPlayer();
@@ -192,6 +192,7 @@ public class MusicService extends Service {
                 timeIntent.putExtras(bundle);
                 sendBroadcast(timeIntent);
             }
+
             @Override
             public void onFinish() {
             }

@@ -43,7 +43,7 @@ public class SongFragment extends Fragment {
         RecyclerView musicRecyclerView = (RecyclerView) view.findViewById(R.id.musicRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         musicRecyclerView.setLayoutManager(linearLayoutManager);
-        mSongs.addAll(((MusicActivity)getActivity()).getSongs());
+        mSongs.addAll(((MusicActivity) getActivity()).getSongs());
         MusicRecyclerViewAdapter adapter = new MusicRecyclerViewAdapter(mSongs, new MusicRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Song song, int position) {
