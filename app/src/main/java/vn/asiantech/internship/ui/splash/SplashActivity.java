@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import vn.asiantech.internship.exday21.JsonActivity;
 import vn.asiantech.internship.exfragment.RecyclerViewActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.main.MainActivity;
@@ -24,9 +25,11 @@ public class SplashActivity extends Activity implements View.OnClickListener {
 
         Button btnDrawer = (Button) findViewById(R.id.btnDrawer);
         Button btnFragment = (Button) findViewById(R.id.btnFragment);
+        Button btnExday21 = (Button) findViewById(R.id.btnExday21);
 
         btnDrawer.setOnClickListener(this);
         btnFragment.setOnClickListener(this);
+        btnExday21.setOnClickListener(this);
     }
 
     @Override
@@ -39,6 +42,10 @@ public class SplashActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btnFragment:
                 mIntent = new Intent(SplashActivity.this, RecyclerViewActivity.class);
+                startActivity(mIntent);
+                break;
+            case R.id.btnExday21:
+                mIntent = new Intent(SplashActivity.this, JsonActivity.class);
                 startActivity(mIntent);
                 break;
         }

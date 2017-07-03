@@ -30,6 +30,9 @@
     <string name="item.setting">Settings</string>
     <string name="fragment_layout">Fragment Layout</string>
     <string name="drawer_layout">Drawer Layout</string>
+    <string name="txt.name">Name:</string>
+    <string name="txt.email">Email:</string>
+    <string name="txt.mobile">Mobile:</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>
