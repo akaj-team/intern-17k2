@@ -40,6 +40,10 @@ class JsonAdapter extends RecyclerView.Adapter<JsonAdapter.MyHolder> {
         return mJsonItems.size();
     }
 
+    /**
+     * Copyright © 2016 AsianTech inc.
+     * Created by datbu on 03-07-2017.
+     */
     class MyHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private TextView mTvEmail;

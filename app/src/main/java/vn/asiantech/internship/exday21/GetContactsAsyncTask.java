@@ -51,7 +51,6 @@ class GetContactsAsyncTask extends AsyncTask<JsonItem, Void, ArrayList<JsonItem>
                     JSONObject phone = c.getJSONObject("phone");
                     String mobile = phone.getString("mobile");
                     mJsonItems.add(new JsonItem(name, email, mobile));
-                    Log.d("taggg", "doInBackground: "+mJsonItems.size());
                 }
             } catch (final JSONException e) {
                 Log.e(TAG, "Json parsing error: " + e.getMessage());
