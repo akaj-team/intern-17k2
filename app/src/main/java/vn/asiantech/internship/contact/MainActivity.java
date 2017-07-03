@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private RecyclerView mRecyclerView;
     private ArrayList<Contact> mContacts = new ArrayList<>();
-    public static String URL = "http://api.androidhive.info/contacts/";
+    public static final String URL = "http://api.androidhive.info/contacts/";
     private GetContacts mGetContacts = new GetContacts(new GetContacts.OnAsyncResponseListener() {
         @Override
         public void onProcessFinish(ArrayList<Contact> contacts) {
@@ -45,5 +45,13 @@ public class MainActivity extends AppCompatActivity {
         mProgressDialog.show();
 
         mGetContacts.execute(URL);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mGetContacts != null && !mGetContacts.isCancelled()) {
+            mGetContacts.cancel(true);
+        }
     }
 }

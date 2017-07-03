@@ -52,6 +52,9 @@ class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
         mListener.onProcessFinish(contacts);
     }
 
+    /*
+    * Used to get contacts from GetContact to MainActivity
+    */
     interface OnAsyncResponseListener {
         void onProcessFinish(ArrayList<Contact> contacts);
     }
