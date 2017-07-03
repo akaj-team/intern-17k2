@@ -26,11 +26,11 @@ public class ItemDogFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_animal, container, false);
-        String mUrlImage = getArguments().getString(KEY_IMAGE);
-        ImageView mImgAnimal = (ImageView) view.findViewById(R.id.imgAnimal);
+        String urlImage = getArguments().getString(KEY_IMAGE);
+        ImageView imgAnimal = (ImageView) view.findViewById(R.id.imgAnimal);
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
-        imageLoader.displayImage(mUrlImage, mImgAnimal);
+        imageLoader.displayImage(urlImage, imgAnimal);
         return view;
     }
 

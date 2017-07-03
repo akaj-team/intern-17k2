@@ -57,7 +57,7 @@ public class ItemAnimalFragment extends android.support.v4.app.Fragment {
     /**
      * set image for ImageView in an item
      */
-    public void loadData() {
+    private void loadData() {
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
         imageLoader.displayImage(mImageUrl, mImgAnimal);

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
@@ -36,7 +37,7 @@ public class CustomViewPager extends ViewPager {
                     (Interpolator) interpolator.get(null));
             scroller.set(this, mScrollerCustomDuration);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("tag111", "ERROR");
         }
     }
 
