@@ -76,5 +76,5 @@ Chôn vùi theo làn mây</string>
     <string name="re_test_title">Retest confirm</string>
     <string name="re_test_message">Do you want to retest?</string>
     <string name="contact">Contact</string>
-    <string name="loading">Data Loading...</string>
+    <string name="loading">Data Loading…</string>
 </resources>

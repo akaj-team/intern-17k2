@@ -2,6 +2,7 @@ package vn.asiantech.internship.background;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +46,7 @@ public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Cont
                 mContacts.add(new Contact(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("email"), jsonArray.getJSONObject(i).getJSONObject("phone").getString("mobile")));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.i("tag11", e.getMessage());
         }
         return null;
     }
