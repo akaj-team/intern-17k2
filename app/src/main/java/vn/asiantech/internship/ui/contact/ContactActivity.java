@@ -22,6 +22,7 @@ public class ContactActivity extends AppCompatActivity {
     private static final String URL = "http://api.androidhive.info/contacts/";
     private RecyclerView mRecyclerViewContact;
     private ProgressDialog mProgressDialog;
+    private GetContacts mGetContacts;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,15 +32,17 @@ public class ContactActivity extends AppCompatActivity {
         mRecyclerViewContact = (RecyclerView) findViewById(R.id.recyclerViewContact);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerViewContact.setLayoutManager(linearLayoutManager);
-        GetContacts getContacts = new GetContacts(new GetContacts.OnListener() {
+        mGetContacts = new GetContacts(new GetContacts.OnListener() {
             @Override
             public void onUpdateRecyclerView(ArrayList<Contact> contacts) {
-                mProgressDialog.dismiss();
+                if (mProgressDialog.isShowing()) {
+                    mProgressDialog.dismiss();
+                }
                 ContactAdapter contactAdapter = new ContactAdapter(contacts);
                 mRecyclerViewContact.setAdapter(contactAdapter);
             }
         });
-        getContacts.execute(URL);
+        mGetContacts.execute(URL);
     }
 
     private void setProgressDialog() {
@@ -47,5 +50,13 @@ public class ContactActivity extends AppCompatActivity {
         mProgressDialog.setMessage(getResources().getString(R.string.dialog_message));
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mGetContacts != null && !mGetContacts.isCancelled()) {
+            mGetContacts.cancel(true);
+        }
     }
 }

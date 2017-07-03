@@ -19,9 +19,10 @@ import vn.asiantech.internship.models.Contact;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
     private List<Contact> mContacts = new ArrayList<>();
 
-    public ContactAdapter(List<Contact> contacts){
+    public ContactAdapter(List<Contact> contacts) {
         mContacts = contacts;
     }
+
     @Override
     public ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contact, parent, false);
@@ -41,10 +42,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         return mContacts.size();
     }
 
+    /**
+     * Item Contact
+     */
     class ContactViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private TextView mTvEmail;
         private TextView mTvPhone;
+
         ContactViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);

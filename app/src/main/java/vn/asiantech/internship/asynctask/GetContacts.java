@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import vn.asiantech.internship.models.Contact;
 import vn.asiantech.internship.models.Phone;
-import vn.asiantech.internship.ui.contact.HttpHandler;
+import vn.asiantech.internship.handler.HttpHandler;
 
 /**
  *
@@ -49,7 +49,7 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
                     contacts.add(contact);
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                e.getMessage();
             }
         }
         return contacts;
