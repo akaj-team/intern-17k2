@@ -30,9 +30,9 @@ public class ViewPagerOutAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 1:
-                return Tab2Fragment.init();
+                return Tab2Fragment.newInstance();
             default:
-                return TabFragment.init(mImages[position]);
+                return TabFragment.newInstance(mImages[position]);
         }
     }
 

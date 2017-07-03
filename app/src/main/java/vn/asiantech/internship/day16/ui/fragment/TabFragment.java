@@ -19,7 +19,7 @@ public class TabFragment extends Fragment {
     private int mIdImage;
     private ImageView mImgText;
 
-    public static TabFragment init(int image) {
+    public static TabFragment newInstance(int image) {
         TabFragment tabFragment = new TabFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ID_IMAGE, image);

@@ -30,7 +30,7 @@ public class Tab2Fragment extends Fragment {
     private static final String TAG = Tab2Fragment.class.getSimpleName();
     private static final int TIME = 5000;
 
-    public static Tab2Fragment init() {
+    public static Tab2Fragment newInstance() {
         return new Tab2Fragment();
     }
 
@@ -62,7 +62,7 @@ public class Tab2Fragment extends Fragment {
             Log.i(TAG, " Exception at Scroller  ");
         }
         final Handler handler = new Handler();
-        final Timer mTimer = new Timer();
+        final Timer timer = new Timer();
         final Runnable update = new Runnable() {
             public void run() {
                 if (mCurrentPage == mImages.length) {
@@ -72,7 +72,7 @@ public class Tab2Fragment extends Fragment {
                 }
             }
         };
-        mTimer.schedule(new TimerTask() {
+        timer.schedule(new TimerTask() {
 
             @Override
             public void run() {
