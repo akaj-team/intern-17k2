@@ -25,10 +25,6 @@ public class Contact {
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getId() {
         return id;
     }
@@ -49,23 +45,7 @@ public class Contact {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public Phone getPhone() {
         return phone;
-    }
-
-    public void setPhone(Phone phone) {
-        this.phone = phone;
     }
 }

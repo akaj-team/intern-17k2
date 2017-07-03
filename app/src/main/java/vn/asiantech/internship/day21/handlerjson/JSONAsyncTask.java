@@ -66,7 +66,7 @@ public class JSONAsyncTask extends AsyncTask<Void, Void, ArrayList<Contact>> {
                                         object.getString("email"), object.getString("gender"),
                                         object.getString("address"), phone);
                                 mContacts.add(contact);
-                            }else {
+                            } else {
                                 return mContacts;
                             }
                         }
