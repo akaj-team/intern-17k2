@@ -18,7 +18,7 @@
 
         <activity android:name=".ui.feed.FeedActivity" />
 
-        <activity android:name=".ui.ChatActivity"/>
+        <activity android:name=".ui.ChatActivity" />
 
         <activity android:name=".ui.jsonparsing.JsonParsingActivity">
             <intent-filter>
