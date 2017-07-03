@@ -19,6 +19,8 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.ui.tablayout.transformer.ChangeDurationTimeViewPager;
 import vn.asiantech.internship.ui.tablayout.transformer.TabletTransformer;
 
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -124,9 +126,16 @@ public class ViewPagerSecondFragment extends Fragment {
     }
 
     private Integer getInt(Float f) {
-        DecimalFormat df = new DecimalFormat("0");
-        String str = df.format(f);
-        return Integer.valueOf(str);
+        String str;
+        int i = 0;
+        try {
+            DecimalFormat df = new DecimalFormat("0");
+            str = df.format(f);
+            i = Integer.valueOf(str);
+        } catch (NumberFormatException e) {
+            Log.d(TAG, "getInt: " + e.toString());
+        }
+        return i;
     }
 
     private void slowSlider() {
