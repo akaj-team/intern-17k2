@@ -1,3 +1,43 @@
 <resources>
+    <string name="imageview.description">this is image user</string>
+    <string name="button.text.add">+ ADD</string>
+    <string name="button.text.friends">Friends</string>
+    <string-array name="list_user">
+        <item name="susan">Susan</item>
+        <item name="rian">Rian</item>
+        <item name="ellie">Ellie</item>
+        <item name="jack">Jack</item>
+        <item name="sin">Sin</item>
+        <item name="Jock">Jock</item>
+        <item name="Lin">Lin</item>
+    </string-array>
+    <string-array name="list_description">
+        <item name="susan_description">24t</item>
+        <item name="rian_description">22t</item>
+        <item name="ellie_description">23t</item>
+        <item name="jack_description">26t</item>
+        <item name="sin_description">27t</item>
+        <item name="Jock_description">18t</item>
+        <item name="Lin_description">19t</item>
+    </string-array>
+    <string name="edittext.text.input">Input here</string>
+    <string name="button.text.go">Go</string>
+    <string name="button.text.ok">OK</string>
     <string name="app_name">Internship</string>
+    <string name="drawer_open">Open Drawer</string>
+    <string name="drawer_close">Close Drawer</string>
+    <string name="textview.text.content">Drawer</string>
+    <string name="dialog.title.please_choose">Please choose one</string>
+    <string name="textview.title.text">AAAAAA</string>
+    <string name="imageview.home.description">this is image</string>
+    <string name="imageview.screen.description">this is screen</string>
+    <string name="textview.title_edit.text">Title</string>
+    <string name="textview.description_edit.text">Description</string>
+    <string name="textview.edit_information.text">Edit Information</string>
+    <string name="textview.information_title.text">Information</string>
+    <string name="textview.information.text">InformationNote</string>
+    <string-array name="items">
+        <item name="Gallery">Gallery</item>
+        <item name="Camera">Camera</item>
+    </string-array>
 </resources>
