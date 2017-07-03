@@ -71,6 +71,8 @@ public class NotificationServiceMusic extends Service {
                 seekToMedia(intent);
             } else if (intent.getAction().equals(Action.PROGRESSBAR.getValue())) {
                 setProgressBar(intent);
+            } else if (intent.getAction().equals(Action.SHOW.getValue())) {
+                showNotification();
             }
         }
         return START_STICKY;
@@ -148,10 +150,12 @@ public class NotificationServiceMusic extends Service {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 mMediaPlayer.start();
+
+                // TODO Clear that below line if you  want to disable show notification
                 if (isFirst) {
                     showNotification();
                 } else {
-                    updateRemoteViewsData();
+                     updateRemoteViewsData();
                 }
             }
         });
@@ -187,6 +191,7 @@ public class NotificationServiceMusic extends Service {
         mCountDownTimer.start();
     }
 
+
     private void updateRemoteViewsData() {
         final Intent timeIntent = new Intent(Action.PLAYOTHER.getValue());
         sendBroadcast(timeIntent);
@@ -206,7 +211,8 @@ public class NotificationServiceMusic extends Service {
         updateData();
     }
 
-    private void showNotification() {
+    // TODO
+    public void showNotification() {
         // Open MainActivity when click remoteViews
         Intent notificationIntent = new Intent(this, MusicActivity.class);
         notificationIntent.setAction(Action.INTENT.getValue());

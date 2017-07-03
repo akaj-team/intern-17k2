@@ -37,6 +37,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private boolean mIsRepeat;
     private int mLength;
     private int mPlay;
+    private MusicBroadcastReceiver mMusicBroadcastReceiver;
     private ArrayList<Music> mSongs = new ArrayList<>();
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -56,6 +57,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mSeekBar = (SeekBar) findViewById(seekBar);
         mTvCurrentTime = (TextView) findViewById(R.id.tvCurrentTime);
         mTvDurationTime = (TextView) findViewById(R.id.tvDurationTime);
+        mMusicBroadcastReceiver = new MusicBroadcastReceiver();
         addData();
         initIntentFilter();
 
@@ -175,12 +177,6 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         Toast.makeText(this, getString(R.string.error_message_you_must_play_first), Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    protected void onDestroy() {
-        unregisterReceiver(mBroadcastReceiver);
-        super.onDestroy();
-    }
-
     private void addData() {
         mSongs.add(new Music("Stay (Acoustic)",
                 "Zedd ft Alessia Cara",
@@ -204,5 +200,21 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 "http://vip.img.cdn.keeng.vn/medias/images/images_thumb/f_medias_6/singer/2014/10/13/b5cd6b2b2e4d5b6fca2695cac29d908ce5d58639_103_103.jpg",
                 "http://hot4.medias.keeng.vn/mp3/sata07/songv3/2017/05/19/dD7cIyqVFkOviCIpVdlE591e666439e1c.mp3"
         ));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter screenStateFilter = new IntentFilter();
+        screenStateFilter.addAction(Intent.ACTION_SCREEN_ON);
+        screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        registerReceiver(mMusicBroadcastReceiver, screenStateFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
+        unregisterReceiver(mMusicBroadcastReceiver);
     }
 }

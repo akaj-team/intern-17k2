@@ -9,7 +9,7 @@ enum Action {
     PREVIOUS("PREVIOUS"), NEXT("NEXT"), TIME("TIME"),
     PROGRESSBAR("PROGRESSBAR"), SHUFFLE("SHUFFLE"),
     REPEAT("REPEAT"), SEEK("SEEK"), PLAYOTHER("PLAY_OTHER"),
-    SEEK_TO("SEEK_TO"), STOP("STOP");
+    SEEK_TO("SEEK_TO"), STOP("STOP"), SHOW("SHOW");
 
     private String mValue;
 
