@@ -91,50 +91,21 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mImgOpenPlayFragment = (ImageView) findViewById(R.id.imgOpenFragmentPlay);
 
         mSongs = new ArrayList<>();
+
         mSongs.add(new Song("Ghen", "Khắc Hưng, ERIK, MIN",
-                "http://s1mp3.r9s70.vcdn.vn/3c8c0971d135386b6124/9159096744558092578?key=3qKdyKHSDErkqKtpseAOZw&expires=1499077756&filename=Ghen-Khac-Hung-ERIK-MIN.mp3",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGXLDETLDJTDGLG",
                 "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("1234", "Chi Dân",
-                "http://s1mp3.r9s70.vcdn.vn/e7563f83e7c70e9957d6/727637092126384063?key=sxJzN3tIlYfNWku1qMv_yg&expires=1498992279&filename=1234-Chi-Dan.mp3",
+        mSongs.add(new Song("Ghen", "Khắc Hưng, ERIK, MIN",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGXLDETLDJTDGLG",
                 "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("Có Em Chờ", "Min, Mr A",
-                "http://s1mp3.r9s70.vcdn.vn/3292444e9b0a72542b1b/6792228024536335773?key=HV6NXMQUxqkDQxH3VHkkjQ&expires=1498992337&filename=Co-Em-Cho-Min-MrA.mp3",
+        mSongs.add(new Song("Ghen", "Khắc Hưng, ERIK, MIN",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGXLDETLDJTDGLG",
                 "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("Có Điều Gì Sao Không Nói Cùng Anh", "Trung Quân",
-                "http://s1mp3.r9s70.vcdn.vn/3151ea8332c7db9982d6/8766360630999056592?key=_ykFI9he1bDD23hET7g5Cg&expires=1499011104&filename=Co-Dieu-Gi-Sao-Khong-Noi-Cung-Anh-Trung-Quan-Idol.mp3",
+        mSongs.add(new Song("Ghen", "Khắc Hưng, ERIK, MIN",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGXLDETLDJTDGLG",
                 "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("Anh Thế Giới Và Em", "Hương Tràm",
-                "http://s1mp3.r9s70.vcdn.vn/8739deea06aeeff0b6bf/1243431489925204133?key=VJsBok9iksvgF1XPnkfjNg&expires=1499018453&filename=Anh-The-Gioi-Va-Em-Huong-Tram.mp3",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("1-Ghen", "Khắc Hưng, ERIK, MIN",
-                "http://s1mp3.r9s70.vcdn.vn/3c8c0971d135386b6124/9159096744558092578?key=3qKdyKHSDErkqKtpseAOZw&expires=1499077756&filename=Ghen-Khac-Hung-ERIK-MIN.mp3",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("1-1234", "Chi Dân",
-                "http://s1mp3.r9s70.vcdn.vn/e7563f83e7c70e9957d6/727637092126384063?key=sxJzN3tIlYfNWku1qMv_yg&expires=1498992279&filename=1234-Chi-Dan.mp3",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("1-Có Em Chờ", "Min, Mr A",
-                "http://s1mp3.r9s70.vcdn.vn/3292444e9b0a72542b1b/6792228024536335773?key=HV6NXMQUxqkDQxH3VHkkjQ&expires=1498992337&filename=Co-Em-Cho-Min-MrA.mp3",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("1-Có Điều Gì Sao Không Nói Cùng Anh", "Trung Quân",
-                "http://s1mp3.r9s70.vcdn.vn/3151ea8332c7db9982d6/8766360630999056592?key=_ykFI9he1bDD23hET7g5Cg&expires=1499011104&filename=Co-Dieu-Gi-Sao-Khong-Noi-Cung-Anh-Trung-Quan-Idol.mp3",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("1-Anh Thế Giới Và Em", "Hương Tràm",
-                "http://s1mp3.r9s70.vcdn.vn/8739deea06aeeff0b6bf/1243431489925204133?key=VJsBok9iksvgF1XPnkfjNg&expires=1499018453&filename=Anh-The-Gioi-Va-Em-Huong-Tram.mp3",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("2-Ghen", "Khắc Hưng, ERIK, MIN",
-                "http://s1mp3.r9s70.vcdn.vn/3c8c0971d135386b6124/9159096744558092578?key=3qKdyKHSDErkqKtpseAOZw&expires=1499077756&filename=Ghen-Khac-Hung-ERIK-MIN.mp3",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("2-1234", "Chi Dân",
-                "http://s1mp3.r9s70.vcdn.vn/e7563f83e7c70e9957d6/727637092126384063?key=sxJzN3tIlYfNWku1qMv_yg&expires=1498992279&filename=1234-Chi-Dan.mp3",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("2-Có Em Chờ", "Min, Mr A",
-                "http://s1mp3.r9s70.vcdn.vn/3292444e9b0a72542b1b/6792228024536335773?key=HV6NXMQUxqkDQxH3VHkkjQ&expires=1498992337&filename=Co-Em-Cho-Min-MrA.mp3",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("2-Có Điều Gì Sao Không Nói Cùng Anh", "Trung Quân",
-                "http://s1mp3.r9s70.vcdn.vn/3151ea8332c7db9982d6/8766360630999056592?key=_ykFI9he1bDD23hET7g5Cg&expires=1499011104&filename=Co-Dieu-Gi-Sao-Khong-Noi-Cung-Anh-Trung-Quan-Idol.mp3",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("2-Anh Thế Giới Và Em", "Hương Tràm",
-                "http://s1mp3.r9s70.vcdn.vn/8739deea06aeeff0b6bf/1243431489925204133?key=VJsBok9iksvgF1XPnkfjNg&expires=1499018453&filename=Anh-The-Gioi-Va-Em-Huong-Tram.mp3",
+        mSongs.add(new Song("Ghen", "Khắc Hưng, ERIK, MIN",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGXLDETLDJTDGLG",
                 "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
 
         MainFragment mainFragment = MainFragment.getNewInstance(mSongs, new SongListAdapter.OnItemClickListener() {
