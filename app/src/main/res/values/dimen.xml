@@ -18,7 +18,7 @@
     <dimen name="textview.title.textsize">30sp</dimen>
     <dimen name="textview.item.margin">10dp</dimen>
     <dimen name="textview.item.textsize">15sp</dimen>
-    <dimen name="view.margin">10dp</dimen>
+    <dimen name="view.margin">20dp</dimen>
     <dimen name="imageview.padding">10dp</dimen>
     <dimen name="imageview.height">80dp</dimen>
     <dimen name="imageview.width">80dp</dimen>
@@ -26,11 +26,14 @@
     <dimen name="textview.toolbar.title.textsize">20sp</dimen>
     <dimen name="splash.button.margin.top">10dp</dimen>
     <dimen name="splash.button.width">100dp</dimen>
+    <!--Chat-->
     <dimen name="chat.tvmessage.margin">10dp</dimen>
     <dimen name="chat.tvmessage.padding">10dp</dimen>
     <dimen name="chat.tvmessage.margin.left">100dp</dimen>
     <dimen name="button.width">70dp</dimen>
     <dimen name="button.height">30dp</dimen>
+    <!--Chat-->
+    <!--Note-->
     <dimen name="note.item_note.padding">10dp</dimen>
     <dimen name="note.imageview.addnote.width">150dp</dimen>
     <dimen name="note.imageview.addnote.height">100dp</dimen>
@@ -38,5 +41,11 @@
     <dimen name="note.imageview.content.height">50dp</dimen>
     <dimen name="itemnote.height">80dp</dimen>
     <dimen name="note.edittext.margin">10dp</dimen>
+    <!--Note-->
+    <!--Contact-->
+    <dimen name="padding">10dp</dimen>
     <dimen name="imgviewpager.height">100dp</dimen>
+    <dimen name="view.height">1dp</dimen>
+    <dimen name="tvname.width">220dp</dimen>
+    <!--Contact-->
 </resources>
