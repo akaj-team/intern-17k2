@@ -211,7 +211,6 @@ public class NotificationServiceMusic extends Service {
         updateData();
     }
 
-    // TODO
     public void showNotification() {
         // Open MainActivity when click remoteViews
         Intent notificationIntent = new Intent(this, MusicActivity.class);
