@@ -47,8 +47,9 @@
         android:layout_below="@+id/llNotification"
         tools:text="0:00:00" />
 
-    <SeekBar
-        android:id="@+id/seekBarNotification"
+    <ProgressBar
+        android:id="@+id/progressBarNotification"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvTimeNowNotification" />
@@ -57,11 +58,10 @@
         android:id="@+id/imgBtnCloseNotification"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_below="@+id/seekBarNotification"
+        android:layout_below="@+id/progressBarNotification"
         android:layout_marginStart="350dp"
         android:background="@android:color/transparent"
-        android:contentDescription="@null"
-        android:src="@mipmap/ic_cancel" />
+        android:contentDescription="@null" />
 
 
 </RelativeLayout>

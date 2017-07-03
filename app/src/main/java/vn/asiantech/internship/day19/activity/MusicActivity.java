@@ -1,6 +1,5 @@
 package vn.asiantech.internship.day19.activity;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -76,13 +75,18 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         ImageButton imgBtnPrevious = (ImageButton) findViewById(R.id.imgBtnPrevious);
         ImageButton imgBtnNext = (ImageButton) findViewById(R.id.imgBtnNext);
         ImageButton imgBtnShuffle = (ImageButton) findViewById(R.id.imgBtnShuffle);
+        ImageButton imgBtnShuffleSelected = (ImageButton) findViewById(R.id.imgBtnShuffleSelected);
         ImageButton imgBtnAutoNext = (ImageButton) findViewById(R.id.imgBtnAutoNext);
+        ImageButton imgBtnAutoNextSelected = (ImageButton) findViewById(R.id.imgBtnAutoNextSelected);
+
         mImgBtnPlay.setOnClickListener(this);
         mImgBtnPause.setOnClickListener(this);
         imgBtnAutoNext.setOnClickListener(this);
         imgBtnNext.setOnClickListener(this);
         imgBtnPrevious.setOnClickListener(this);
+        imgBtnShuffleSelected.setOnClickListener(this);
         imgBtnShuffle.setOnClickListener(this);
+        imgBtnAutoNextSelected.setOnClickListener(this);
 
         String[] songUrls = getApplicationContext().getResources().getStringArray(R.array.song_urls);
         String[] songNames = getApplicationContext().getResources().getStringArray(R.array.song_names);
@@ -131,7 +135,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mMyBroadcast = new MyBroadcast();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(SongService.ACTION_SEND_POSITION);
-        intentFilter.addAction(Intent.ACTION_SCREEN_ON);
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
         registerReceiver(mMyBroadcast, intentFilter);
     }
 
@@ -148,14 +152,14 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
         switch (id) {
             case R.id.imgBtnPlay:
-                sendIntent(SongService.ACTION_PLAY);
                 mImgBtnPlay.setVisibility(View.INVISIBLE);
                 mImgBtnPause.setVisibility(View.VISIBLE);
+                sendIntent(SongService.ACTION_PLAY);
                 break;
             case R.id.imgBtnPause:
-                sendIntent(SongService.ACTION_PAUSE);
                 mImgBtnPlay.setVisibility(View.VISIBLE);
                 mImgBtnPause.setVisibility(View.INVISIBLE);
+                sendIntent(SongService.ACTION_PAUSE);
                 break;
             case R.id.imgBtnNext:
                 if (mCheckShuffle) {
@@ -172,6 +176,9 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             case R.id.imgBtnShuffle:
                 mCheckShuffle = true;
                 break;
+            case R.id.imgBtnShuffleSelected:
+                mCheckShuffle = false;
+                break;
             case R.id.imgBtnPrevious:
                 if (mCheckShuffle) {
                     mCurrentPlay = getRandomPosition();
@@ -184,11 +191,16 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 sendIntent(SongService.ACTION_PREVIOUS);
                 mSongAdapter.setPosition(mCurrentPlay);
                 break;
-            default:
+            case R.id.imgBtnAutoNext:
                 Intent intent = new Intent();
                 intent.setAction(SongService.ACTION_AUTO_NEXT);
                 intent.putExtra(TYPE_AUTO_NEXT, true);
                 startService(intent);
+            default:
+                Intent intent1 = new Intent();
+                intent1.setAction(SongService.ACTION_AUTO_NEXT);
+                intent1.putExtra(TYPE_AUTO_NEXT, false);
+                startService(intent1);
         }
     }
 
@@ -216,11 +228,12 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     private void initNotification() {
         final RemoteViews views = new RemoteViews(getPackageName(), R.layout.notification_music);
-        views.setImageViewResource(R.id.imgSongNotification, mSongs.get(mCurrentPlay).getSongImage());
+        views.setImageViewResource(R.id.imgSongNotification, R.mipmap.ic_photo);
         views.setTextViewText(R.id.tvSongNotification, mSongs.get(mCurrentPlay).getSongName());
         views.setTextViewText(R.id.tvArtistNotification, mSongs.get(mCurrentPlay).getSongArtist());
+        views.setImageViewResource(R.id.imgBtnCloseNotification, R.mipmap.ic_cancel);
+        views.setProgressBar(R.id.progressBarNotification,100,0,false);
 
-        // Progress notification
         final Handler handlerNotification = new Handler();
 
         Runnable update = new Runnable() {
@@ -231,24 +244,24 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                     long total = SongService.sMediaPlayer.getDuration();
                     views.setTextViewText(R.id.tvTimeNowNotification, mUtils.showTime(current));
                     views.setTextViewText(R.id.tvTimeTotalNotification, mUtils.showTime(total));
-                    views.setProgressBar(R.id.seekBarNotification, 100, mUtils.getProgressPercentage(current, total), false);
+                    views.setProgressBar(R.id.progressBarNotification, 100, mUtils.getProgressPercentage(current, total), false);
                 }
                 handlerNotification.post(this);
             }
         };
         handlerNotification.post(update);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContent(views);
-
         Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, MY_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(pendingIntent);
-        NotificationManager notificationService =
-                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notification = builder.build();
-        notificationService.notify(MY_NOTIFICATION_ID, notification);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setSmallIcon(R.mipmap.ic_avatar);
+        builder.setContent(views);
+        builder.setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(MY_NOTIFICATION_ID, builder.build());
     }
 
     private void update() {
@@ -279,7 +292,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             if (s.equals(SongService.ACTION_SEND_POSITION)) {
                 mCurrentPlay = intent.getIntExtra(SongService.TYPE_POSITION, -1);
                 mSongAdapter.setPosition(mCurrentPlay);
-            } else if (s.equals(Intent.ACTION_SCREEN_ON)) {
+            } else if (s.equals(Intent.ACTION_SCREEN_OFF)) {
+                Log.d("kkkkk", "onReceive: ");
                 initNotification();
             }
         }
