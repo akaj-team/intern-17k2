@@ -5,9 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
 
-
 /**
- * FeedActivity
+ * FeedActivity javadoc
  */
 public class FeedActivity extends AppCompatActivity {
 

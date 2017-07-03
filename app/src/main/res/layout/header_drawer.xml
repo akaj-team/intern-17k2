@@ -4,7 +4,6 @@
     android:id="@+id/lnHeader"
     android:layout_width="match_parent"
     android:layout_height="@dimen/header.layout_weight"
-    android:background="@color/colorDark"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="@dimen/header.layout_padding">
