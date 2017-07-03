@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="vn.asiantech.internship">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -17,6 +18,7 @@
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,5 +28,7 @@
         <activity android:name=".ui.main.Ex072Activity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.questions.QuestionActivity" />
+        <activity android:name=".ui.json.ContactActivity" />
     </application>
+
 </manifest>
