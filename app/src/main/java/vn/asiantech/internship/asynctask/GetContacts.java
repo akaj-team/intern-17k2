@@ -1,10 +1,7 @@
 package vn.asiantech.internship.asynctask;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,22 +18,15 @@ import vn.asiantech.internship.ui.contact.HttpHandler;
  * Created by quanghai on 03/07/2017.
  */
 public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
-    private ProgressDialog mProgressDialog;
-    private Context mContext;
     private OnListener mOnListener;
 
-    public GetContacts(Context context, OnListener onListener) {
-        mContext = context;
+    public GetContacts(OnListener onListener) {
         mOnListener = onListener;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mProgressDialog = new ProgressDialog(mContext);
-        mProgressDialog.setMessage("Please wait...");
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.show();
     }
 
     @Override
@@ -68,11 +58,6 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
     @Override
     protected void onPostExecute(ArrayList<Contact> contacts) {
         super.onPostExecute(contacts);
-        if (mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-
-        Log.d("xxx", "onPostExecute: " + contacts.size());
         if (mOnListener != null) {
             mOnListener.onUpdateRecyclerView(contacts);
         }

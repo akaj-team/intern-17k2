@@ -1,5 +1,6 @@
 package vn.asiantech.internship.ui.contact;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,20 +21,31 @@ import vn.asiantech.internship.models.Contact;
 public class ContactActivity extends AppCompatActivity {
     private static final String URL = "http://api.androidhive.info/contacts/";
     private RecyclerView mRecyclerViewContact;
+    private ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+        setProgressDialog();
         mRecyclerViewContact = (RecyclerView) findViewById(R.id.recyclerViewContact);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerViewContact.setLayoutManager(linearLayoutManager);
-        GetContacts getContacts = new GetContacts(this, new GetContacts.OnListener() {
+        GetContacts getContacts = new GetContacts(new GetContacts.OnListener() {
             @Override
             public void onUpdateRecyclerView(ArrayList<Contact> contacts) {
+                mProgressDialog.dismiss();
                 ContactAdapter contactAdapter = new ContactAdapter(contacts);
                 mRecyclerViewContact.setAdapter(contactAdapter);
             }
         });
         getContacts.execute(URL);
+    }
+
+    private void setProgressDialog() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage(getResources().getString(R.string.dialog_message));
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
     }
 }
