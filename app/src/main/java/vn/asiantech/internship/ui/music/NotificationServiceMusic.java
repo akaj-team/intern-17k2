@@ -19,6 +19,7 @@ import com.bumptech.glide.request.target.NotificationTarget;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Music;
@@ -28,10 +29,9 @@ import vn.asiantech.internship.models.Music;
  */
 public class NotificationServiceMusic extends Service {
     private static final String TAG = NotificationServiceMusic.class.getSimpleName();
-    private static final String REQUEST_CODE = "REQUEST_CODE";
-    private static final int NOTIF_ID = 1234;
-    private String mUrl;
-    private int mPosition = 0;
+    private static final int NOTIFICATION_ID = 1234;
+
+    private int mPosition;
     private int mLength;
     private int mCurrentTime;
     private boolean mIsRepeat;
@@ -56,9 +56,17 @@ public class NotificationServiceMusic extends Service {
             if (intent.getAction().equals(Action.PAUSE.getValue())) {
                 pauseMedia();
             } else if (intent.getAction().equals(Action.START.getValue())) {
-                startMedia();
+                startMedia(true);
             } else if (intent.getAction().equals(Action.STOP.getValue())) {
-                stopMedia();
+                stopMediaAndCloseNotification();
+            } else if (intent.getAction().equals(Action.NEXT.getValue())) {
+                goNextMedia();
+            } else if (intent.getAction().equals(Action.PREVIOUS.getValue())) {
+                goPreviousMedia();
+            } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
+                setShuffleMedia();
+            } else if (intent.getAction().equals(Action.REPEAT.getValue())) {
+                setRepeatMedia();
             } else if (intent.getAction().equals(Action.SEEK_TO.getValue())) {
                 seekToMedia(intent);
             } else if (intent.getAction().equals(Action.PROGRESSBAR.getValue())) {
@@ -68,14 +76,46 @@ public class NotificationServiceMusic extends Service {
         return START_STICKY;
     }
 
+    private void setRepeatMedia() {
+        mIsRepeat = !mIsRepeat;
+    }
+
+    private void setShuffleMedia() {
+        mIsShuffle = !mIsShuffle;
+    }
+
+    private void goPreviousMedia() {
+        if (mIsShuffle) {
+            mPosition = new Random().nextInt(mMusics.size());
+        } else {
+            mPosition--;
+        }
+        startMedia(false);
+    }
+
+    private void goNextMedia() {
+        if (mIsShuffle) {
+            mPosition = new Random().nextInt(mMusics.size());
+        } else {
+            mPosition++;
+        }
+        if (mPosition == mMusics.size()) {
+            mPosition = 0;
+        }
+        startMedia(false);
+    }
+
     private void seekToMedia(Intent intent) {
         int time = intent.getIntExtra("chooseTime", 0);
         mMediaPlayer.seekTo(time);
         mMediaPlayer.start();
     }
 
-    private void stopMedia() {
-        mNotificationManager.cancel(NOTIF_ID);
+    private void stopMediaAndCloseNotification() {
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+        }
+        mNotificationManager.cancel(NOTIFICATION_ID);
         stopForeground(true);
         stopSelf();
     }
@@ -94,9 +134,10 @@ public class NotificationServiceMusic extends Service {
         }
     }
 
-    private void startMedia() {
-        mMediaPlayer = new MediaPlayer();
+    private void startMedia(final boolean isFirst) {
         try {
+            stopMedia();
+            mMediaPlayer = new MediaPlayer();
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mMediaPlayer.setDataSource(mMusics.get(mPosition).getUrlMp3());
             mMediaPlayer.prepare();
@@ -107,7 +148,11 @@ public class NotificationServiceMusic extends Service {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 mMediaPlayer.start();
-                showNotification();
+                if (isFirst) {
+                    showNotification();
+                } else {
+                    updateRemoteViewsData();
+                }
             }
         });
         final Intent timeIntent = new Intent(Action.SEEK.getValue());
@@ -115,6 +160,21 @@ public class NotificationServiceMusic extends Service {
         mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration(), 1000) {
             @Override
             public void onTick(long l) {
+                Log.d(TAG, "onTick: " + l);
+                if (mMediaPlayer.getCurrentPosition() >= mMediaPlayer.getDuration() - 1000) {
+                    if (mIsRepeat) {
+                        mPosition++;
+                        startMedia(false);
+                    } else if (mIsShuffle) {
+                        mPosition = new Random().nextInt(mMusics.size());
+                        startMedia(false);
+                    }
+                    timeIntent.putExtra("stop", true);
+                    sendBroadcast(timeIntent);
+                    mCountDownTimer.cancel();
+                    return;
+                }
+                timeIntent.putExtra("stop", false);
                 timeIntent.putExtra("time", mLength + "");
                 timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
                 sendBroadcast(timeIntent);
@@ -122,28 +182,28 @@ public class NotificationServiceMusic extends Service {
 
             @Override
             public void onFinish() {
-                if (mIsRepeat) {
-                    mPosition++;
-                    playOtherSong();
-                }
             }
         };
         mCountDownTimer.start();
     }
 
-    private void playOtherSong() {
-        try {
-            mMediaPlayer.setDataSource(mMusics.get(mPosition).getUrlMp3());
-            mMediaPlayer.prepare();
-        } catch (IOException e) {
-            Log.e(TAG, "startMedia: " + e.toString());
-        }
-        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                mMediaPlayer.start();
-            }
-        });
+    private void updateRemoteViewsData() {
+        final Intent timeIntent = new Intent(Action.PLAYOTHER.getValue());
+        sendBroadcast(timeIntent);
+
+        // Get Music object
+        Music music = mMusics.get(mPosition);
+        String singerName = music.getNameSinger();
+        String songName = music.getNameSong();
+
+        // Reset mRemoteViews
+        mRemoteViews.setTextViewText(R.id.tvSongSingerName, singerName);
+        mRemoteViews.setTextViewText(R.id.tvSongName, songName);
+
+        // Update time and icon, after then update to views
+        setIcon();
+        setDurationTime();
+        updateData();
     }
 
     private void showNotification() {
@@ -163,6 +223,11 @@ public class NotificationServiceMusic extends Service {
         stopIntent.setAction(Action.STOP.getValue());
         PendingIntent stopPIntent = PendingIntent.getService(this, 0, stopIntent, 0);
 
+        // Intent next action
+        Intent nextIntent = new Intent(this, NotificationServiceMusic.class);
+        nextIntent.setAction(Action.NEXT.getValue());
+        PendingIntent nextPIntent = PendingIntent.getService(this, 0, nextIntent, 0);
+
         // Get Music object
         Music music = mMusics.get(mPosition);
         String singerName = music.getNameSinger();
@@ -174,12 +239,12 @@ public class NotificationServiceMusic extends Service {
         mRemoteViews.setTextViewText(R.id.tvSongName, songName);
         mRemoteViews.setOnClickPendingIntent(R.id.lnShowName, pendingIntent);
         mRemoteViews.setOnClickPendingIntent(R.id.imgPause, pausePIntent);
-        mRemoteViews.setOnClickPendingIntent(R.id.imgNext, pausePIntent);
+        mRemoteViews.setOnClickPendingIntent(R.id.imgNext, nextPIntent);
         mRemoteViews.setOnClickPendingIntent(R.id.imgClose, stopPIntent);
 
         // Create builder for mNotification
         mBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_icon)
+                .setSmallIcon(R.drawable.ic_menu_icon)
                 .setTicker(songName)
                 .setOngoing(true)
                 .setCustomBigContentView(mRemoteViews);
@@ -203,13 +268,13 @@ public class NotificationServiceMusic extends Service {
 
     private void setIcon() {
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mNotificationManager.notify(NOTIF_ID, mNotification);
+        mNotificationManager.notify(NOTIFICATION_ID, mNotification);
         NotificationTarget notificationTarget = new NotificationTarget(
                 this,
                 mRemoteViews,
                 R.id.imgAvatar,
                 mNotification,
-                NOTIF_ID);
+                NOTIFICATION_ID);
         Glide
                 .with(getApplicationContext())
                 .load(mMusics.get(mPosition).getUrlAvatar())
@@ -223,12 +288,20 @@ public class NotificationServiceMusic extends Service {
     }
 
     private void updateData() {
-        mNotificationManager.notify(NOTIF_ID, mBuilder.build());
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+    }
+
+    private void stopMedia() {
+        if (mMediaPlayer != null) {
+            mCountDownTimer.cancel();
+            mMediaPlayer.stop();
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
@@ -236,9 +309,10 @@ public class NotificationServiceMusic extends Service {
             try {
                 mMediaPlayer.release();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG, "onDestroy: " + e.toString());
             }
         }
+        super.onDestroy();
     }
 
     @Nullable

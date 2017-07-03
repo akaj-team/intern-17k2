@@ -28,9 +28,13 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     private SeekBar mSeekBar;
     private ImageView mImgPause;
+    private ImageView mImgShuffle;
+    private ImageView mImgRepeat;
     private TextView mTvCurrentTime;
     private TextView mTvDurationTime;
 
+    private boolean mIsShuffle;
+    private boolean mIsRepeat;
     private int mLength;
     private int mPlay;
     private ArrayList<Music> mSongs = new ArrayList<>();
@@ -41,13 +45,14 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         }
     };
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
 
         mImgPause = (ImageView) findViewById(R.id.imgPause);
+        mImgShuffle = (ImageView) findViewById(R.id.imgShuffle);
+        mImgRepeat = (ImageView) findViewById(R.id.imgRepeat);
         mSeekBar = (SeekBar) findViewById(seekBar);
         mTvCurrentTime = (TextView) findViewById(R.id.tvCurrentTime);
         mTvDurationTime = (TextView) findViewById(R.id.tvDurationTime);
@@ -85,6 +90,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void processTime(Intent intent) {
+        int position = Integer.parseInt(intent.getStringExtra("second"));
+        boolean stop = intent.getBooleanExtra("stop", false);
         if (mLength == 0) {
             mLength = Integer.parseInt(intent.getStringExtra("time"));
             mSeekBar.setMax(mLength);
@@ -92,7 +99,18 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             mTvDurationTime.setText(Action.TIME.getTime(mLength));
             return;
         }
-        int position = Integer.parseInt(intent.getStringExtra("second"));
+        if (stop) {
+            if (!mIsRepeat) {
+                mImgPause.setImageResource(R.drawable.vector_play);
+                mPlay = 0;
+            }
+            mLength = 0;
+            mSeekBar.setProgress(0);
+            mTvDurationTime.setText(Action.TIME.getTime(mLength));
+            mTvCurrentTime.setText(Action.TIME.getTime(mLength));
+            return;
+        }
+
         mSeekBar.setProgress(position);
         mTvCurrentTime.setText(Action.TIME.getTime(position));
         Intent progressBarIntent = new Intent(MusicActivity.this, NotificationServiceMusic.class);
@@ -139,10 +157,14 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.imgShuffle:
+                mIsShuffle = !mIsShuffle;
+                mImgShuffle.setSelected(mIsShuffle);
                 intent.setAction(Action.SHUFFLE.getValue());
                 startService(intent);
                 break;
             case R.id.imgRepeat:
+                mIsRepeat = !mIsRepeat;
+                mImgRepeat.setSelected(mIsRepeat);
                 intent.setAction(Action.REPEAT.getValue());
                 startService(intent);
                 break;
