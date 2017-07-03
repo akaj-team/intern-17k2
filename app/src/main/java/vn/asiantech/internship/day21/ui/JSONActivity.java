@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.day21.handlerJSON.JSONAsyncTask;
+import vn.asiantech.internship.day21.handlerjson.JSONAsyncTask;
 
 /**
  * JSONActivity show list contact

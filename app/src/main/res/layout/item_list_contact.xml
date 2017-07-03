@@ -13,31 +13,20 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvContactName"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/feed.layout_padding"
+            android:layout_marginStart="@dimen/feed.layout_padding"
             android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imgGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/bai21"
-                android:src="@drawable/ic_male" />
-
-            <TextView
-                android:id="@+id/tvContactName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/feed.layout_padding"
-                android:layout_marginStart="@dimen/feed.layout_padding"
-                android:textColor="@color/colorName"
-                android:textSize="@dimen/header.name_text_size"
-                android:textStyle="bold"
-                tools:text="This is name" />
-        </LinearLayout>
+            android:drawableLeft="@drawable/ic_male"
+            android:drawablePadding="@dimen/item.layout_padding"
+            android:drawableStart="@drawable/ic_male"
+            android:textColor="@color/colorName"
+            android:textSize="@dimen/header.name_text_size"
+            android:textStyle="bold"
+            tools:text="This is name" />
 
         <LinearLayout
             android:layout_width="0dp"

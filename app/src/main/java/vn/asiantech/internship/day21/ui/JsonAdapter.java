@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public class JsonAdapter extends RecyclerView.Adapter<JsonAdapter.ItemViewHolder
         holder.mTvPhone.append(contact.getPhone().getMobile());
         holder.mTvEmail.append(contact.getEmail());
         if (!contact.getGender().equals("male")) {
-            holder.mImgGender.setImageResource(R.drawable.ic_female);
+            holder.mTvName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_female, 0, 0, 0);
         }
     }
 
@@ -53,14 +52,12 @@ public class JsonAdapter extends RecyclerView.Adapter<JsonAdapter.ItemViewHolder
         private TextView mTvName;
         private TextView mTvEmail;
         private TextView mTvPhone;
-        private ImageView mImgGender;
 
         ItemViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvContactName);
             mTvEmail = (TextView) itemView.findViewById(R.id.tvContactEmail);
             mTvPhone = (TextView) itemView.findViewById(R.id.tvContactPhone);
-            mImgGender = (ImageView) itemView.findViewById(R.id.imgGender);
         }
     }
 }

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.day21.handlerJSON;
+package vn.asiantech.internship.day21.handlerjson;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -66,7 +66,7 @@ public class JSONAsyncTask extends AsyncTask<Void, Void, ArrayList<Contact>> {
                     mContacts.add(contact);
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e("JSONException", "JSONException: " + e.getMessage());
             }
         } else {
             Log.e("at-dinhvo", "doInBackground: ");

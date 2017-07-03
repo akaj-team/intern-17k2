@@ -1,4 +1,4 @@
-package vn.asiantech.internship.day21.handlerJSON;
+package vn.asiantech.internship.day21.handlerjson;
 
 import android.util.Log;
 
@@ -56,7 +56,7 @@ class HttpHandler {
             try {
                 inputStream.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("IOException", "IOException: " + e.getMessage());
             }
         }
         return sb.toString();
