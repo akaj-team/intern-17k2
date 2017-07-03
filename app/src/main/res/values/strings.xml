@@ -12,15 +12,19 @@
     <string name="title">title</string>
     <string name="button.text.ex05">ex 05</string>
     <string name="button.text.ex06">ex 06</string>
-    <string name="button.text.ex07_1">ex 07.1</string>
+    <string name="button.text.ex07_1">ex 07</string>
     <string name="button.text.ex07_2">ex 07.2</string>
     <string name="button.text.ex08">ex 08</string>
+    <string name="button.text.ex11_1">ex 11</string>
+    <string name="button.text.ex11_2">Ex 11.2</string>
+    <string name="button.text.ex15">Ex 15</string>
     <string name="button.text.ex16">Ex 16</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
     <string name="tip.show.text.do_you_want_to_exit">do you want to exit ?</string>
     <string name="text.friend">friend</string>
     <string name="text.friends">Friends</string>
+    <string name="button.text.send">send</string>
     <string name="string_text">Steven George \"Stevie\" Gerrard, MBE (born 30 May 1980) is an English professional football coach and former footballer who serves as an academy coach at Liverpool. He spent the majority of his playing career as a central midfielder for Liverpool and the England national team, with most of that time spent as club captain. In 2009, Zinedine Zidane and Pele said that they considered Gerrard to be the best footballer in the world.</string>
     <string-array name="listdrawer">
         <item>Feed</item>
@@ -45,7 +49,8 @@
     <string name="textview.text.do_you_want_to_continue">Do you want to continue ?</string>
     <string name="notication">Notication</string>
     <string name="correct">Correct</string>
-    <string name="button.text.ex15">Ex 15</string>
+    <string name="complete">Complete !</string>
+    <string name="text.no_content">No content</string>
 
     <string-array name="Sliders">
         <item>Cube Pager Transformer</item>

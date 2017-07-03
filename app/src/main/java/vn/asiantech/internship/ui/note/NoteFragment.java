@@ -2,17 +2,17 @@ package vn.asiantech.internship.ui.note;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.adapter.NoteAdapter;
-import vn.asiantech.internship.models.Note;
+import vn.asiantech.internship.database.DatabaseHelper;
 
 /**
  * A simple Note class.
@@ -20,14 +20,60 @@ import vn.asiantech.internship.models.Note;
  */
 public class NoteFragment extends Fragment {
 
+    private RelativeLayout mRlSecond;
+    private RelativeLayout mRlThird;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_note, container, false);
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
-        List<Note> notes = new ArrayList<>();
-        recyclerView.setAdapter(new NoteAdapter(R.layout.item_note, notes));
+
+        mRlSecond = (RelativeLayout) v.findViewById(R.id.rlSecond);
+        ImageView imgAdd = (ImageView) v.findViewById(R.id.imgAdd);
+        Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
+
+        imgAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragmentAddContent(getActivity(), new NoteAddNewFragment(), false);
+                mRlSecond.setVisibility(View.VISIBLE);
+            }
+        });
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+        checkContent(databaseHelper);
+        if (getActivity() instanceof NoteActivity) {
+            ((NoteActivity) getActivity()).setToolbar(toolbar);
+        }
+
         return v;
+    }
+
+    private void checkContent(DatabaseHelper databaseHelper) {
+        if (databaseHelper.getAllNotes().size() != 0) {
+            replaceFragmentAddContent(getActivity(), new NoteShowListFragment(), false);
+            mRlSecond.setVisibility(View.VISIBLE);
+            return;
+        }
+        mRlSecond.setVisibility(View.GONE);
+    }
+
+    /**
+     * setFragmentAddContent in Note Fragment
+     *
+     * @param fragmentActivity Activity Fragment
+     * @param fragment         to replace
+     */
+    public void replaceFragmentAddContent(FragmentActivity fragmentActivity, Fragment fragment, boolean isThird) {
+        FragmentTransaction fragmentTransaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top);
+        if (isThird) {
+            fragmentTransaction.add(R.id.rlSecond, fragment);
+            fragmentTransaction.addToBackStack(null);
+        } else {
+            fragmentTransaction.replace(R.id.rlSecond, fragment);
+        }
+        fragmentTransaction.commit();
     }
 }

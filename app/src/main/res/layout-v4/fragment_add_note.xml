@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/styleLayoutNormal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +14,7 @@
             android:layout_height="45dp">
 
             <ImageView
-                android:id="@+id/imgMenuOption"
+                android:id="@+id/imgSave"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
@@ -23,32 +24,42 @@
                 android:layout_marginRight="@dimen/marginButtonContent"
                 android:layout_marginStart="@dimen/marginButtonContent"
                 android:contentDescription="@string/textview.text.description"
-                android:src="@drawable/vector_option" />
+                android:src="@drawable/vector_save" />
 
             <ImageView
-                android:id="@+id/imgAdd"
+                android:id="@+id/imgOpenImage"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/marginSomething"
-                android:layout_toLeftOf="@id/imgMenuOption"
-                android:layout_toStartOf="@id/imgMenuOption"
+                android:layout_toLeftOf="@id/imgSave"
+                android:layout_toStartOf="@id/imgSave"
                 android:contentDescription="@string/textview.text.description"
-                android:src="@drawable/vector_add" />
+                android:src="@drawable/vector_image" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/tvNoContent"
-        style="@style/textLarge"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
         android:layout_below="@id/toolbar"
-        android:gravity="center"
-        android:text="@string/text.no_content" />
-
-    <RelativeLayout
-        android:id="@+id/rlSecond"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/textview.text.description"
         android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/edtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgAvatar"
+        android:hint="@string/title"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtTitle"
+        android:hint="@string/textview.text.description"
+        android:inputType="textMultiLine" />
 </RelativeLayout>
