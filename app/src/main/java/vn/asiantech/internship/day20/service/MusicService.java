@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day20.service;
+package vn.asiantech.internship.day20.service;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;

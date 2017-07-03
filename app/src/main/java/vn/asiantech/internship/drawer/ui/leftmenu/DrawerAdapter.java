@@ -113,7 +113,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     * viewholder of header
+     * ViewHolder of header
      */
     private class ItemHeaderViewHolder extends RecyclerView.ViewHolder {
 
@@ -144,7 +144,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     * interface set event change avatar
+     * Interface set event change avatar
      */
     public interface OnItemClickListener {
         void onItemClick(int position);

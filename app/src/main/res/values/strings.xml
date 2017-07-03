@@ -2,6 +2,7 @@
     <string name="app_name">Internship</string>
     <!--Splash-->
     <string name="bai8">Bai8</string>
+    <string name="bai20">Bai20</string>
     <!--Bai5-->
     <string name="friendfragment_button_friend_state">Friend</string>
     <string name="friendfragment_button_friend_add">Add</string>

@@ -1,5 +1,4 @@
-package vn.asiantech.internship.drawer.day20.ui;
-
+package vn.asiantech.internship.day20.ui;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

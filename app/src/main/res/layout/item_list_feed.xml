@@ -51,7 +51,7 @@
                 android:layout_height="@dimen/feed.viewpager_height" />
 
             <ImageButton
-                android:id="@+id/btnLeftSlide"
+                android:id="@+id/imgBtnLeftSlide"
                 android:layout_width="@dimen/feed.item.viewpager.button_size"
                 android:layout_height="@dimen/feed.item.viewpager.button_size"
                 android:layout_gravity="center_vertical|start"
@@ -60,12 +60,13 @@
                 android:visibility="gone" />
 
             <ImageButton
-                android:id="@+id/btnRightSlide"
+                android:id="@+id/imgBtnRightSlide"
                 android:layout_width="@dimen/feed.item.viewpager.button_size"
                 android:layout_height="@dimen/feed.item.viewpager.button_size"
                 android:layout_gravity="center_vertical|end"
                 android:contentDescription="@string/feed.buttonright_description"
-                android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+                android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:visibility="gone" />
         </FrameLayout>
 
         <TextView

@@ -1,10 +1,13 @@
-package vn.asiantech.internship.drawer.day20.ui;
+package vn.asiantech.internship.day20.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import vn.asiantech.internship.R;
 
+/**
+ * MusicActivity contain fragment music
+ */
 public class MusicActivity extends AppCompatActivity {
 
     @Override

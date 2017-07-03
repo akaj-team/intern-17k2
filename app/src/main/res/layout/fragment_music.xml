@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBgRecyclerView"
     android:orientation="vertical"
-    tools:context="vn.asiantech.internship.drawer.day20.ui.MusicFragment">
+    tools:context="vn.asiantech.internship.day20.ui.MusicFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgMusic"

@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.asiantech.internship.drawer.day20.ui.MusicActivity">
+    tools:context="vn.asiantech.internship.day20.ui.MusicActivity">
 
 </android.support.constraint.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.day20.ui.MusicActivity;
 import vn.asiantech.internship.drawer.ui.main.MainActivity;
 
 /**
@@ -21,6 +22,12 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            }
+        });
+        findViewById(R.id.btnBai20).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SplashActivity.this, MusicActivity.class));
             }
         });
     }
