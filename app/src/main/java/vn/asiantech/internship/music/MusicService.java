@@ -29,106 +29,108 @@ public class MusicService extends Service {
     private int mCurrentSongIndex = 0;
     private boolean mIsShuffle;
     private boolean mIsAutoNext;
-    private final NotificationBroadCast mNotificationBroadCast = new NotificationBroadCast();
+    private NotificationBroadCast mNotificationBroadCast = new NotificationBroadCast();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getAction() != null) {
             switch (intent.getAction()) {
-                case "play":
-                    IntentFilter screenStateFilter = new IntentFilter();
-                    screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
+                case "PLAY":
+                    IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
                     registerReceiver(mNotificationBroadCast, screenStateFilter);
                     mSongs = intent.getParcelableArrayListExtra("songs");
                     if (mMediaPlayer == null) {
                         playSong(mCurrentSongIndex);
-                        final Intent timeIntent = new Intent("start");
+                        final Intent timeIntent = new Intent(Action.START.getValue());
                         sendBroadcast(timeIntent);
                     } else {
                         if (mMediaPlayer.isPlaying()) {
                             mMediaPlayer.pause();
-                            final Intent timeIntent = new Intent("pause");
+                            final Intent timeIntent = new Intent(Action.PAUSE.getValue());
                             timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
                             sendBroadcast(timeIntent);
                             mCountDownTimer.cancel();
                         } else {
                             mMediaPlayer.start();
                             mCountDownTimer.start();
-                            final Intent playNextIntent = new Intent("playnext");
+                            final Intent playNextIntent = new Intent(Action.PLAYNEXT.getValue());
                             playNextIntent.putExtra("next", mMediaPlayer.getCurrentPosition() + "");
                             sendBroadcast(playNextIntent);
                         }
                     }
                     break;
-                case "seekto":
+                case "SEEKTO":
                     int time = intent.getIntExtra("chooseTime", 0);
                     mMediaPlayer.seekTo(time);
                     mMediaPlayer.start();
                     break;
-                case "next":
-                    final Intent playNextIntent = new Intent("next");
-                    sendBroadcast(playNextIntent);
-                    if (mMediaPlayer.isPlaying()) {
-                        mMediaPlayer.pause();
-                    }
-                    if (mIsShuffle) {
-                        Random rand = new Random();
-                        mCurrentSongIndex = rand.nextInt((mSongs.size() - 1) + 1);
-                        playSong(mCurrentSongIndex);
-                    } else {
-                        if (mCurrentSongIndex < (mSongs.size() - 1)) {
-                            playSong(mCurrentSongIndex + 1);
-                            mCurrentSongIndex = mCurrentSongIndex + 1;
-                        } else {
-                            playSong(0);
-                            mCurrentSongIndex = 0;
+                case "NEXT":
+                    if (mMediaPlayer != null) {
+                        final Intent playNextIntent = new Intent(Action.NEXT.getValue());
+                        sendBroadcast(playNextIntent);
+                        if (mMediaPlayer.isPlaying()) {
+                            mMediaPlayer.pause();
                         }
-                    }
-
-                    break;
-                case "previous":
-                    final Intent playpreviousIntent = new Intent("previous");
-                    sendBroadcast(playpreviousIntent);
-                    if (mMediaPlayer.isPlaying()) {
-                        mMediaPlayer.pause();
-                    }
-                    if (mIsShuffle) {
-                        Random rand = new Random();
-                        mCurrentSongIndex = rand.nextInt((mSongs.size() - 1) + 1);
-                        playSong(mCurrentSongIndex);
-                    } else {
-                        if (mCurrentSongIndex > 0) {
-                            playSong(mCurrentSongIndex - 1);
-                            mCurrentSongIndex = mCurrentSongIndex - 1;
+                        if (mIsShuffle) {
+                            Random rand = new Random();
+                            mCurrentSongIndex = rand.nextInt((mSongs.size() - 1) + 1);
+                            playSong(mCurrentSongIndex);
                         } else {
-                            playSong(mSongs.size() - 1);
-                            mCurrentSongIndex = mSongs.size() - 1;
+                            if (mCurrentSongIndex < (mSongs.size() - 1)) {
+                                playSong(mCurrentSongIndex + 1);
+                                mCurrentSongIndex = mCurrentSongIndex + 1;
+                            } else {
+                                playSong(0);
+                                mCurrentSongIndex = 0;
+                            }
                         }
                     }
                     break;
-                case "shuffle":
+                case "PREVIOUS":
+                    if (mMediaPlayer != null) {
+                        final Intent playpreviousIntent = new Intent(Action.PREVIOUS.getValue());
+                        sendBroadcast(playpreviousIntent);
+                        if (mMediaPlayer.isPlaying() && mMediaPlayer != null) {
+                            mMediaPlayer.pause();
+                        }
+                        if (mIsShuffle) {
+                            Random rand = new Random();
+                            mCurrentSongIndex = rand.nextInt((mSongs.size() - 1) + 1);
+                            playSong(mCurrentSongIndex);
+                        } else {
+                            if (mCurrentSongIndex > 0) {
+                                playSong(mCurrentSongIndex - 1);
+                                mCurrentSongIndex = mCurrentSongIndex - 1;
+                            } else {
+                                playSong(mSongs.size() - 1);
+                                mCurrentSongIndex = mSongs.size() - 1;
+                            }
+                        }
+                    }
+                    break;
+                case "SHUFFEL":
                     if (mIsShuffle) {
                         mIsShuffle = false;
-                        final Intent timeIntent = new Intent("!isShuffle");
+                        final Intent timeIntent = new Intent(Action.NOTSHUFFEL.getValue());
                         sendBroadcast(timeIntent);
                     } else {
                         mIsShuffle = true;
-                        final Intent timeIntent = new Intent("isShuffle");
+                        final Intent timeIntent = new Intent(Action.SHUFFEL.getValue());
                         sendBroadcast(timeIntent);
                     }
                     break;
-                case "autoNext":
+                case "AUTONEXT":
                     if (mIsAutoNext) {
                         mIsAutoNext = false;
-                        final Intent timeIntent = new Intent("!isAutoNext");
+                        final Intent timeIntent = new Intent(Action.NOTAUTONEXT.getValue());
                         sendBroadcast(timeIntent);
                     } else {
                         mIsAutoNext = true;
-                        final Intent timeIntent = new Intent("isAutoNext");
+                        final Intent timeIntent = new Intent(Action.AUTONEXT.getValue());
                         sendBroadcast(timeIntent);
                     }
                     break;
-                case "nextMusic":
+                case "PLAYNEXT":
                     if (mIsAutoNext) {
                         playSong(mCurrentSongIndex);
                     } else if (mIsShuffle) {
@@ -164,8 +166,8 @@ public class MusicService extends Service {
     }
 
     private void playSong(int position) {
-        final Intent updateSongNameIntent = new Intent("updateSongName");
-        updateSongNameIntent.putExtra("songPosition", mCurrentSongIndex);
+        final Intent updateSongNameIntent = new Intent(Action.UPDATE.getValue());
+        updateSongNameIntent.putExtra("songName", mSongs.get(mCurrentSongIndex).getName());
         sendBroadcast(updateSongNameIntent);
         try {
             mMediaPlayer = new MediaPlayer();
@@ -181,7 +183,7 @@ public class MusicService extends Service {
                 mMediaPlayer.start();
             }
         });
-        final Intent timeIntent = new Intent("seek");
+        final Intent timeIntent = new Intent(Action.SEEK.getValue());
         mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration(), 1000) {
             @Override
             public void onTick(long l) {
