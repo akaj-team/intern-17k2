@@ -26,10 +26,12 @@ import vn.asiantech.internship.models.Contact;
 import vn.asiantech.internship.models.Phone;
 
 /**
+ *
  * Created by quanghai on 04/07/2017.
  */
 @EActivity(R.layout.activity_contact_annotation)
 public class ContactActivity extends AppCompatActivity {
+    private static final String TAG = ContactActivity.class.getSimpleName();
     private static final String URL = "http://api.androidhive.info/contacts/";
     private ProgressDialog mDialog;
 
@@ -72,30 +74,30 @@ public class ContactActivity extends AppCompatActivity {
                                         if (phone.has("mobile")) {
                                             mobile = phone.getString("mobile");
                                         } else {
-                                            Log.e("xxx", "mobile null: ");
+                                            Log.e(TAG, "mobile null: ");
                                             mobile = null;
                                         }
                                         newPhone = new Phone(mobile);
                                     } else {
                                         newPhone = null;
-                                        Log.e("xxx", "phone null");
+                                        Log.e(TAG, "phone null");
                                     }
                                 } else {
                                     email = null;
-                                    Log.e("xxx", "email null");
+                                    Log.e(TAG, "email null");
                                 }
                             } else {
                                 name = null;
-                                Log.e("xxx", "name null");
+                                Log.e(TAG, "name null");
                             }
                             Contact contact = new Contact(name, email, newPhone);
                             contacts.add(contact);
                         } else {
-                            Log.e("xxx", "jsonObject null ");
+                            Log.e(TAG, "jsonObject null ");
                         }
                     }
                 } else {
-                    Log.e("xxx", "Json is not exist");
+                    Log.e(TAG, "Json is not exist");
                 }
             } catch (JSONException e) {
                 Log.e("JSONException", "JSONException: " + e.getMessage());
