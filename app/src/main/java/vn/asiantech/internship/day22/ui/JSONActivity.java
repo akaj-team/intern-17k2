@@ -40,6 +40,7 @@ public class JSONActivity extends AppCompatActivity {
 
     @AfterViews
     void afterView() {
+        showDialog();
         handlerHttpUrl();
     }
 
@@ -51,7 +52,6 @@ public class JSONActivity extends AppCompatActivity {
         Contact contact;
         Phone phone;
         if (!TextUtils.isEmpty(jsonString)) {
-            showDialog();
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 if (jsonObject.has("contacts")) {
