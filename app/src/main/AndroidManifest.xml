@@ -20,10 +20,10 @@
         </activity>
         <activity android:name=".drawer.ui.main.MainActivity" />
         <activity android:name=".drawer.ui.feed.FeedActivity" />
-        <activity android:name=".drawer.day20.ui.MusicActivity" />
+        <activity android:name=".day20.ui.MusicActivity" />
 
         <service
-            android:name=".drawer.day20.service.MusicService"
+            android:name=".day20.service.MusicService"
             android:enabled="true"
             android:exported="false" />
     </application>

@@ -15,11 +15,14 @@ import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.day20.service.MusicService;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MusicFragment extends Fragment {
+
+    public static final String URL = "http://mp3.zing.vn/bai-hat/Tu-Ngay-Em-Den-Da-LAB/ZW80IUAA.html";
 
     public static final String CURRENT_TIME = "current_time";
 
@@ -63,21 +66,30 @@ public class MusicFragment extends Fragment {
         mImgBtnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intentPlay = new Intent();
+                intentPlay.setAction(MusicService.ACTION_PLAY);
+                intentPlay.putExtra("url", URL);
+                getActivity().sendBroadcast(intentPlay);
             }
         });
 
         mImgBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intentNext = new Intent();
+                intentNext.setAction(MusicService.ACTION_PLAY);
+                intentNext.putExtra("url", URL);
+                getActivity().sendBroadcast(intentNext);
             }
         });
 
         mImgBtnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intentPrevious = new Intent();
+                intentPrevious.setAction(MusicService.ACTION_PLAY);
+                intentPrevious.putExtra("url", URL);
+                getActivity().sendBroadcast(intentPrevious);
             }
         });
     }
