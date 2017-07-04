@@ -32,6 +32,7 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
     public static final String ACTION_PREVIOUS = "vn.asiantech.internship.PREVIOUS";
     public static final String ACTION_NEXT = "vn.asiantech.internship.NEXT";
     public static final String ACTION_AUTO_NEXT = "vn.asiantech.internship.AUTO_NEXT";
+    public static final String ACTION_AUTO_NEXT_SELECTED = "vn.asiantech.internship.AUTO_NEXT_SELECTED";
 
     // Intent Broadcast
     public static final String ACTION_SEND_POSITION = "vn.asiantech.internship.SEND_POSITION";
@@ -42,6 +43,7 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
     private int mCurrentPosition;
     private boolean mCheck;
     private boolean mCheckAutoNext;
+    private boolean mCheckShuffle;
 
     // No-op
     @Nullable
@@ -88,9 +90,14 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
                     mCurrentPosition = intent.getIntExtra(MusicActivity.TYPE_INDEX, -1);
                     setSongPlay();
                     break;
-                default:
+                case ACTION_AUTO_NEXT:
+                    Log.d("bbbbbbbb2", "onClick: ");
                     mCheckAutoNext = intent.getBooleanExtra(MusicActivity.TYPE_AUTO_NEXT, false);
-
+                    mCheckShuffle = intent.getBooleanExtra(MusicActivity.TYPE_SHUFFLE, false);
+                    Log.d("bbbbbbbb3", "onClick: " + mCheckShuffle);
+                    break;
+                case ACTION_AUTO_NEXT_SELECTED:
+                    mCheckAutoNext = false;
             }
         }
         return START_STICKY;
@@ -108,16 +115,21 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
 
     @Override
     public void onCompletion(MediaPlayer mp) {
+        Log.d("bbbbbbbb7", "onCompletion: " + mCheckAutoNext);
+        Log.d("bbbbbbbb8", "onClick: " + mCheckShuffle);
         if (mCheckAutoNext) {
-            createSongIfNeed();
-            mCurrentPosition = getRandomPosition();
-        } else {
-            if (mCurrentPosition == mSongs.size() - 1) {
-                mCurrentPosition = 0;
+            if (mCheckShuffle) {
+                mCurrentPosition = getRandomPosition();
+            } else {
+                if (mCurrentPosition == mSongs.size() - 1) {
+                    mCurrentPosition = 0;
+                } else {
+                    mCurrentPosition++;
+                }
             }
+            setSongPlay();
+            sendDataToActivity();
         }
-        setSongPlay();
-        sendDataToActivity();
     }
 
     @Override

@@ -19,7 +19,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewMusic"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="300dp"
         android:layout_below="@+id/tvTitleMusic" />
 
     <LinearLayout
@@ -158,18 +158,19 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="@null"
                 android:padding="15dp"
-                android:src="@mipmap/img_btn_auto_next" />
+                android:src="@mipmap/ic_btn_auto_next" />
 
             <ImageButton
                 android:id="@+id/imgBtnAutoNextSelected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
                 android:visibility="invisible"
+                android:padding="10dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@null"
-                android:padding="5dp"
-                android:src="@mipmap/img_btn_auto_next_selected" />
+                android:src="@mipmap/ic_btn_auto_next_selected" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

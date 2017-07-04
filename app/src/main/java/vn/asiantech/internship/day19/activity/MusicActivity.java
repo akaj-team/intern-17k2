@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Random;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.day19.adapter.ChooseSongListener;
 import vn.asiantech.internship.day19.adapter.SongAdapter;
 import vn.asiantech.internship.day19.model.Song;
 import vn.asiantech.internship.day19.model.Utils;
@@ -35,16 +36,23 @@ import vn.asiantech.internship.day7.ex2.ui.MainActivity;
  * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 01/07/2017.
  */
-public class MusicActivity extends AppCompatActivity implements View.OnClickListener {
+public class MusicActivity extends AppCompatActivity implements View.OnClickListener, ChooseSongListener {
     public static final String TYPE_SONGS = "Songs";
     public static final String TYPE_INDEX = "Position";
     public static final String TYPE_AUTO_NEXT = "Auto Next";
+    //    public static final String TYPE_AUTO_NEXT_SELECTED = "Auto Next Selected";
+    public static final String TYPE_SHUFFLE = "Shuffle";
 
     private static final int MY_NOTIFICATION_ID = 12345;
-    private static final int MY_REQUEST_CODE = 100;
+//    private static final int MY_REQUEST_CODE = 100;
 
     private ImageButton mImgBtnPlay;
     private ImageButton mImgBtnPause;
+    private ImageButton mImgBtnShuffle;
+    private ImageButton mImgBtnShuffleSelected;
+    private ImageButton mImgBtnAutoNext;
+    private ImageButton mImgBtnAutoNextSelected;
+
     private SeekBar mSeekBar;
     private TextView mTvTimeTotal;
     private TextView mTvCurrentTime;
@@ -72,21 +80,21 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
         mImgBtnPlay = (ImageButton) findViewById(R.id.imgBtnPlay);
         mImgBtnPause = (ImageButton) findViewById(R.id.imgBtnPause);
+        mImgBtnShuffle = (ImageButton) findViewById(R.id.imgBtnShuffle);
+        mImgBtnShuffleSelected = (ImageButton) findViewById(R.id.imgBtnShuffleSelected);
+        mImgBtnAutoNext = (ImageButton) findViewById(R.id.imgBtnAutoNext);
+        mImgBtnAutoNextSelected = (ImageButton) findViewById(R.id.imgBtnAutoNextSelected);
         ImageButton imgBtnPrevious = (ImageButton) findViewById(R.id.imgBtnPrevious);
         ImageButton imgBtnNext = (ImageButton) findViewById(R.id.imgBtnNext);
-        ImageButton imgBtnShuffle = (ImageButton) findViewById(R.id.imgBtnShuffle);
-        ImageButton imgBtnShuffleSelected = (ImageButton) findViewById(R.id.imgBtnShuffleSelected);
-        ImageButton imgBtnAutoNext = (ImageButton) findViewById(R.id.imgBtnAutoNext);
-        ImageButton imgBtnAutoNextSelected = (ImageButton) findViewById(R.id.imgBtnAutoNextSelected);
 
         mImgBtnPlay.setOnClickListener(this);
         mImgBtnPause.setOnClickListener(this);
-        imgBtnAutoNext.setOnClickListener(this);
+        mImgBtnShuffleSelected.setOnClickListener(this);
+        mImgBtnShuffle.setOnClickListener(this);
+        mImgBtnAutoNext.setOnClickListener(this);
+        mImgBtnAutoNextSelected.setOnClickListener(this);
         imgBtnNext.setOnClickListener(this);
         imgBtnPrevious.setOnClickListener(this);
-        imgBtnShuffleSelected.setOnClickListener(this);
-        imgBtnShuffle.setOnClickListener(this);
-        imgBtnAutoNextSelected.setOnClickListener(this);
 
         String[] songUrls = getApplicationContext().getResources().getStringArray(R.array.song_urls);
         String[] songNames = getApplicationContext().getResources().getStringArray(R.array.song_names);
@@ -95,7 +103,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         for (int i = 0; i < songUrls.length; i++) {
             mSongs.add(new Song(songNames[i], songArtists[i], 0, songUrls[i], 0));
         }
-        mSongAdapter = new SongAdapter(mSongs, this);
+        mSongAdapter = new SongAdapter(mSongs, this, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(mSongAdapter);
@@ -172,11 +180,16 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 }
                 sendIntent(SongService.ACTION_NEXT);
                 mSongAdapter.setPosition(mCurrentPlay);
+                mSongAdapter.notifyDataSetChanged();
                 break;
             case R.id.imgBtnShuffle:
+                mImgBtnShuffle.setVisibility(View.INVISIBLE);
+                mImgBtnShuffleSelected.setVisibility(View.VISIBLE);
                 mCheckShuffle = true;
                 break;
             case R.id.imgBtnShuffleSelected:
+                mImgBtnShuffle.setVisibility(View.VISIBLE);
+                mImgBtnShuffleSelected.setVisibility(View.INVISIBLE);
                 mCheckShuffle = false;
                 break;
             case R.id.imgBtnPrevious:
@@ -190,17 +203,29 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 }
                 sendIntent(SongService.ACTION_PREVIOUS);
                 mSongAdapter.setPosition(mCurrentPlay);
+                mSongAdapter.notifyDataSetChanged();
                 break;
             case R.id.imgBtnAutoNext:
+                Log.d("bbbbbbbb1", "onClick: ");
+                mImgBtnAutoNext.setVisibility(View.GONE);
+                mImgBtnAutoNextSelected.setVisibility(View.VISIBLE);
                 Intent intent = new Intent();
                 intent.setAction(SongService.ACTION_AUTO_NEXT);
                 intent.putExtra(TYPE_AUTO_NEXT, true);
+                if (mCheckShuffle) {
+                    intent.putExtra(TYPE_SHUFFLE, true);
+                } else {
+                    intent.putExtra(TYPE_SHUFFLE, false);
+                }
                 startService(intent);
-            default:
+                break;
+            case R.id.imgBtnAutoNextSelected:
+                mImgBtnAutoNext.setVisibility(View.VISIBLE);
+                mImgBtnAutoNextSelected.setVisibility(View.INVISIBLE);
                 Intent intent1 = new Intent();
-                intent1.setAction(SongService.ACTION_AUTO_NEXT);
-                intent1.putExtra(TYPE_AUTO_NEXT, false);
+                intent1.setAction(SongService.ACTION_AUTO_NEXT_SELECTED);
                 startService(intent1);
+                break;
         }
     }
 
@@ -218,21 +243,17 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         startService(intent);
     }
 
-    public ImageButton getImgBtnPlay() {
-        return mImgBtnPlay;
-    }
-
     private int getRandomPosition() {
         return new Random().nextInt(mSongs.size());
     }
 
     private void initNotification() {
         final RemoteViews views = new RemoteViews(getPackageName(), R.layout.notification_music);
-        views.setImageViewResource(R.id.imgSongNotification, R.mipmap.ic_photo);
+//        views.setImageViewResource(R.id.imgSongNotification, R.mipmap.ic_photo);
         views.setTextViewText(R.id.tvSongNotification, mSongs.get(mCurrentPlay).getSongName());
         views.setTextViewText(R.id.tvArtistNotification, mSongs.get(mCurrentPlay).getSongArtist());
         views.setImageViewResource(R.id.imgBtnCloseNotification, R.mipmap.ic_cancel);
-        views.setProgressBar(R.id.progressBarNotification,100,0,false);
+        views.setProgressBar(R.id.progressBarNotification, 100, 0, false);
 
         final Handler handlerNotification = new Handler();
 
@@ -283,6 +304,16 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             handler.post(this);
         }
     };
+
+    @Override
+    public void updateSong(int positon) {
+        mImgBtnPlay.setVisibility(View.VISIBLE);
+        mImgBtnPause.setVisibility(View.INVISIBLE);
+        mCurrentPlay = positon;
+        Log.d("aaaaa", "updateSong: " + mCurrentPlay);
+        update();
+    }
+
 
     // Create MyBroadcast
     class MyBroadcast extends BroadcastReceiver {
