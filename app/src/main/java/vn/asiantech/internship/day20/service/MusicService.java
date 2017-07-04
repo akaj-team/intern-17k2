@@ -5,14 +5,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.util.Log;
 
-import java.io.IOException;
+import vn.asiantech.internship.R;
 
 public class MusicService extends Service {
+
+    public static final String TAG = "at-dinhvo";
 
     public static final String ACTION_PLAY = "play";
     public static final String ACTION_PAUSE = "pause";
@@ -25,46 +26,89 @@ public class MusicService extends Service {
     private String mUrl;
     private MediaPlayer mMediaPlayer;
     private int mLength;
+    private boolean isPause = false;
+
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null && intent.getStringExtra("url") != null) {
                 mUrl = intent.getStringExtra("url");
-                Log.e("AAAAA", "onReceive: " + mUrl);
-            }
-            switch (intent.getAction()) {
-                case ACTION_PLAY:
-                    Log.e("AAAAA", "ACTION_PLAY: ");
-                    mMediaPlayer = new MediaPlayer();
-                    try {
-                        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        mMediaPlayer.setDataSource(mUrl);
-                        mMediaPlayer.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mediaPlayer) {
+                switch (intent.getAction()) {
+                    case ACTION_PLAY:
+                        // pause music
+                        if(mMediaPlayer.isPlaying()){
+                            mMediaPlayer.pause();
+                            isPause = true;
+                            mLength = mMediaPlayer.getCurrentPosition();
+                            Log.e(TAG, "pause: " + mLength);
+                        } else if (isPause){ // resume music
+                            mMediaPlayer.seekTo(mLength);
+                            Log.e(TAG, "resume: " + mLength);
+                            mMediaPlayer.start();
+                        }else { // play music
+                            Log.e(TAG, "play: " + mLength);
                             mMediaPlayer.start();
                         }
-                    });
-                    break;
-                case ACTION_PAUSE:
-                    break;
-                case ACTION_NEXT:
-                    break;
-                case ACTION_PREVIOUS:
-                    break;
-                case ACTION_SHUFFLE:
-                    break;
-                case ACTION_AUTONEXT:
-                    break;
-                default:
+                        break;
+                    case ACTION_NEXT:
 
+                        break;
+                    case ACTION_PREVIOUS:
+                        break;
+                    case ACTION_SHUFFLE:
+                        break;
+                    case ACTION_AUTONEXT:
+                        break;
+                    default:
+
+                }
             }
         }
     };
+
+    /*private void showNotification() {
+        Intent notificationIntent = new Intent(this, AudioActivity.class);
+
+        notificationIntent.setAction(Action.INTENT.getValue());
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+                notificationIntent, 0);
+
+        Intent playIntent = new Intent(this, NotificationServiceMusic.class);
+        playIntent.setAction(Action.START.getValue());
+        PendingIntent playPIntent = PendingIntent.getService(this, 0,
+                playIntent, 0);
+        Intent resumeIntent = new Intent(this, NotificationServiceMusic.class);
+        resumeIntent.setAction(Action.RESUME.getValue());
+        PendingIntent resumePIntent = PendingIntent.getService(this, 0,
+                resumeIntent, 0);
+
+        Intent pauseIntent = new Intent(this, NotificationServiceMusic.class);
+        pauseIntent.setAction(Action.PAUSE.getValue());
+        PendingIntent pausePIntent = PendingIntent.getService(this, 0,
+                pauseIntent, 0);
+
+        Bitmap bm = BitmapFactory.decodeResource(getResources(),
+                R.drawable.ic_male);
+
+        Notification notification = new NotificationCompat.Builder(this)
+                .setContentTitle(" Music Player")
+                .setContentText("Song name....")
+                .setSmallIcon(R.drawable.ic_notification)
+                .setLargeIcon(Bitmap.createScaledBitmap(bm, 128, 128, false))
+                .setContentIntent(pendingIntent)
+                .setOngoing(true)
+                .addAction(android.R.drawable.ic_media_previous, "Play",
+                        playPIntent)
+                .addAction(android.R.drawable.ic_media_play, "Resume",
+                        resumePIntent)
+                .addAction(android.R.drawable.ic_media_next, "Pause",
+                        pausePIntent).build();
+        startForeground(111,
+                notification);
+    }*/
 
     public MusicService() {
 
@@ -85,57 +129,8 @@ public class MusicService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e("AAAAA", "onStartCommand: ");
-        /*if (intent != null && intent.getStringExtra("url") != null) {
-            mUrl = intent.getStringExtra("url");
-        }
-        Log.d(TAG, "onStartCommand: " + mUrl);
-        if (intent != null && intent.getAction() != null) {
-            if (intent.getAction().equals(ACTION_PAUSE)) {
-                mMediaPlayer.pause();
-                mLength = mMediaPlayer.getCurrentPosition();
-            } else if (intent.getAction().equals(ACTION_PLAY)) {
-                mMediaPlayer = new MediaPlayer();
-                try {
-                    mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    mMediaPlayer.setDataSource(mUrl);
-                    mMediaPlayer.prepare();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mediaPlayer) {
-//                        showNotification();
-                        mMediaPlayer.start();
-                    }
-                });
-                *//*final Intent timeIntent = new Intent(Action.SEEK.getValue());
-                mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration(), 1000) {
-                    @Override
-                    public void onTick(long l) {
-                        timeIntent.putExtra("time", mMediaPlayer.getDuration() + "");
-                        timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
-                        sendBroadcast(timeIntent);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                    }
-                };
-                mCountDownTimer.start();*//*
-            } else if (intent.getAction().equals(ACTION_RESUME)) {
-                mMediaPlayer.seekTo(mLength);
-                mMediaPlayer.start();
-            } else if (intent.getAction().equals(
-                    ACTION_NEXT)) {
-                stopForeground(true);
-                stopSelf();
-            } else if (intent.getAction().equals(ACTION_PREVIOUS)) {
-                int time = intent.getIntExtra("chooseTime", 0);
-                mMediaPlayer.seekTo(time);
-                mMediaPlayer.start();
-            }
-        }*/
+//        mMediaPlayer = new MediaPlayer();
+        mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.onecallaway);
         return START_STICKY;
     }
 

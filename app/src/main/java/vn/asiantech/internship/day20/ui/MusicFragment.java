@@ -22,7 +22,7 @@ import vn.asiantech.internship.day20.service.MusicService;
  */
 public class MusicFragment extends Fragment {
 
-    public static final String URL = "http://mp3.zing.vn/bai-hat/Tu-Ngay-Em-Den-Da-LAB/ZW80IUAA.html";
+    public static final String URL = "http://data03.chiasenhac.com/downloads/1540/2/1539612-330ce8e7/128/One%20Call%20Away%20-%20Charlie%20Puth%20[MP3%20128kbps].mp3";
 
     public static final String CURRENT_TIME = "current_time";
 
