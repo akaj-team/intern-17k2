@@ -21,7 +21,7 @@ public class MusicActivity  extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
         mUrls=new ArrayList<>();
-        mUrls.add("http://s1mp3.r9s70.vcdn.vn/e7563f83e7c70e9957d6/727637092126384063?key=juRJjrbnnqCVlaagLaqfQQ&expires=1499125423&filename=1234-Chi-Dan.mp3");
+        mUrls.add("http://api.mp3.zing.vn/api/mobile/song/getsonginfo?requestdata={%22id%22:%22IW9AAAEA%22}");
 
     }
 }
