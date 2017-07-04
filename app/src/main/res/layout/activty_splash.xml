@@ -40,10 +40,16 @@
             android:text="@string/bai13" />
 
         <Button
+            android:id="@+id/btnBai15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btnBai15"
-            android:text="@string/bai15"/>
+            android:text="@string/bai15" />
+
+        <Button
+            android:id="@+id/btnBai19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bai19" />
     </LinearLayout>
 
 </ScrollView>
