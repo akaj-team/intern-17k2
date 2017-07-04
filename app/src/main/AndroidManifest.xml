@@ -12,16 +12,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".drawer.ui.splash.SplashActivity">
+        <activity android:name=".day15.drawer.ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".drawer.ui.main.MainActivity" />
-        <activity android:name=".drawer.ui.feed.FeedActivity" />
-        <activity android:name=".drawer.day16.ui.TabActivity" />
+        <activity android:name=".day15.drawer.ui.main.MainActivity" />
+        <activity android:name=".day15.drawer.ui.feed.FeedActivity" />
+        <activity android:name=".day16.ui.TabActivity" />
+        <activity android:name=".day7.ui.CommunicateActivity" />
     </application>
 
 </manifest>

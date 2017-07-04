@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/feed.item.viewpager_marginBottom"
         android:orientation="vertical"
         android:padding="@dimen/item.button_padding">
 
@@ -40,39 +41,35 @@
                 tools:text="Hello world" />
         </LinearLayout>
 
-        <android.support.v7.widget.CardView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/feed.item.viewpager_marginBottom">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/feed.item.viewpager_marginBottom"
+            android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/tab.viewpager.height" />
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/viewPager"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/feed.viewpager_height" />
+            <ImageButton
+                android:id="@+id/imgBtnLeftSlide"
+                android:layout_width="@dimen/feed.item.viewpager.button_size"
+                android:layout_height="@dimen/feed.item.viewpager.button_size"
+                android:layout_gravity="center_vertical|start"
+                android:contentDescription="@string/feed.buttonLeft_description"
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                android:visibility="gone" />
 
-                <ImageButton
-                    android:id="@+id/imgBtnLeftSlide"
-                    android:layout_width="@dimen/feed.item.viewpager.button_size"
-                    android:layout_height="@dimen/feed.item.viewpager.button_size"
-                    android:layout_gravity="center_vertical|start"
-                    android:contentDescription="@string/feed.buttonLeft_description"
-                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                    android:visibility="gone" />
+            <ImageButton
+                android:id="@+id/imgBtnRightSlide"
+                android:layout_width="@dimen/feed.item.viewpager.button_size"
+                android:layout_height="@dimen/feed.item.viewpager.button_size"
+                android:layout_gravity="center_vertical|end"
+                android:contentDescription="@string/feed.buttonRight_description"
+                android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
-                <ImageButton
-                    android:id="@+id/imgBtnRightSlide"
-                    android:layout_width="@dimen/feed.item.viewpager.button_size"
-                    android:layout_height="@dimen/feed.item.viewpager.button_size"
-                    android:layout_gravity="center_vertical|end"
-                    android:contentDescription="@string/feed.buttonRight_description"
-                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
-            </FrameLayout>
-        </android.support.v7.widget.CardView>
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tvComment"
