@@ -48,7 +48,6 @@ class MyAsyncTask extends AsyncTask<String, Void, List<Contact>> {
                     // looping through All Contacts
                     for (int i = 0; i < contacts.length(); i++) {
                         JSONObject c = contacts.getJSONObject(i);
-
                         if (c.getString("name") != null && c.getString("email") != null && c.getString("address") != null
                                 && c.getString("gender") != null && c.getJSONObject("phone") != null) {
                             String name = c.getString("name");
@@ -58,13 +57,14 @@ class MyAsyncTask extends AsyncTask<String, Void, List<Contact>> {
 
                             // Phone node is JSON Object
                             JSONObject phoneObject = c.getJSONObject("phone");
-                            String mobile = phoneObject.getString("mobile");
-                            String home = phoneObject.getString("home");
-                            String office = phoneObject.getString("office");
-
-                            Phone phone = new Phone(home, mobile, office);
-                            Contact contact = new Contact(name, email, address, gender, phone);
-                            thisContacts.add(contact);
+                            if (phoneObject.getString("mobile") != null && phoneObject.getString("home") != null && phoneObject.getString("office") != null) {
+                                String mobile = phoneObject.getString("mobile");
+                                String home = phoneObject.getString("home");
+                                String office = phoneObject.getString("office");
+                                Phone phone = new Phone(home, mobile, office);
+                                Contact contact = new Contact(name, email, address, gender, phone);
+                                thisContacts.add(contact);
+                            }
                         }
                     }
                 }
