@@ -133,18 +133,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onCompletion(MediaPlayer mp) {
         if (mIsAutoNext) {
-            mp.stop();
-            mp.reset();
-            Song song = mSongs.get(mPosition++);
-            int id = song.getId();
-            Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
-            try {
-                mp.setDataSource(this, uri);
-                mp.prepare();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            mp.start();
+            mPosition++;
+            playSong(mPosition);
         }
     }
 }
