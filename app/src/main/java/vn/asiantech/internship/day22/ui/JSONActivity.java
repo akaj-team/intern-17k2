@@ -36,7 +36,7 @@ public class JSONActivity extends AppCompatActivity {
     private ArrayList<Contact> mContacts;
 
     @ViewById(R.id.recyclerViewJSON)
-    RecyclerView recyclerView;
+    RecyclerView mRecyclerView;
 
     @AfterViews
     void afterView() {
@@ -83,13 +83,13 @@ public class JSONActivity extends AppCompatActivity {
 
     @UiThread
     void updateUI() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setHasFixedSize(true);
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
         JsonAdapter adapter = new JsonAdapter(mContacts);
-        recyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @UiThread
