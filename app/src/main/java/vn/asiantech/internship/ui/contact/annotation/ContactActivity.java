@@ -26,7 +26,6 @@ import vn.asiantech.internship.models.Contact;
 import vn.asiantech.internship.models.Phone;
 
 /**
- *
  * Created by quanghai on 04/07/2017.
  */
 @EActivity(R.layout.activity_contact_annotation)
@@ -62,56 +61,56 @@ public class ContactActivity extends AppCompatActivity {
                         String mobile;
                         String email = null;
                         Phone newPhone = null;
-                            if (jsonArray.getJSONObject(i) != null) {
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                if (object.has("name")) {
-                                    name = object.getString("name");
-                                    if (object.has("email")) {
-                                        email = object.getString("email");
-                                        if (object.has("phone")) {
-                                            phone = object.getJSONObject("phone");
-                                            if (phone.has("mobile")) {
-                                                mobile = phone.getString("mobile");
-                                            } else {
-                                                Log.e("xxx", "mobile null: ");
-                                                mobile = null;
-                                            }
-                                            newPhone = new Phone(mobile);
+                        if (jsonArray.getJSONObject(i) != null) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            if (object.has("name")) {
+                                name = object.getString("name");
+                                if (object.has("email")) {
+                                    email = object.getString("email");
+                                    if (object.has("phone")) {
+                                        phone = object.getJSONObject("phone");
+                                        if (phone.has("mobile")) {
+                                            mobile = phone.getString("mobile");
                                         } else {
-                                            newPhone = null;
-                                            Log.e("xxx", "phone null");
+                                            Log.e("xxx", "mobile null: ");
+                                            mobile = null;
                                         }
+                                        newPhone = new Phone(mobile);
                                     } else {
-                                        email = null;
-                                        Log.e("xxx", "email null");
+                                        newPhone = null;
+                                        Log.e("xxx", "phone null");
                                     }
                                 } else {
-                                    name = null;
-                                    Log.e("xxx", "name null");
+                                    email = null;
+                                    Log.e("xxx", "email null");
                                 }
-                                Contact contact = new Contact(name, email, newPhone);
-                                contacts.add(contact);
                             } else {
-                                Log.e("xxx", "jsonObject null ");
+                                name = null;
+                                Log.e("xxx", "name null");
                             }
+                            Contact contact = new Contact(name, email, newPhone);
+                            contacts.add(contact);
+                        } else {
+                            Log.e("xxx", "jsonObject null ");
+                        }
                     }
                 } else {
                     Log.e("xxx", "Json is not exist");
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e("JSONException", "JSONException: " + e.getMessage());
             }
             showContact(contacts);
         }
     }
 
-        @UiThread
-        void showContact (List < Contact > contacts) {
-            if (mDialog.isShowing()) {
-                mDialog.dismiss();
-            }
-            mRecyclerViewContact.setLayoutManager(new LinearLayoutManager(this));
-            ContactAnnotationAdapter adapter = new ContactAnnotationAdapter(contacts);
-            mRecyclerViewContact.setAdapter(adapter);
+    @UiThread
+    void showContact(List<Contact> contacts) {
+        if (mDialog.isShowing()) {
+            mDialog.dismiss();
         }
+        mRecyclerViewContact.setLayoutManager(new LinearLayoutManager(this));
+        ContactAnnotationAdapter adapter = new ContactAnnotationAdapter(contacts);
+        mRecyclerViewContact.setAdapter(adapter);
     }
+}
