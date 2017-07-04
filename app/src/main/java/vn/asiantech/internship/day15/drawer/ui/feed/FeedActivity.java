@@ -1,7 +1,7 @@
-package vn.asiantech.internship.drawer.ui.feed;
+package vn.asiantech.internship.day15.drawer.ui.feed;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
 

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.ui.feed;
+package vn.asiantech.internship.day15.drawer.ui.feed;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -34,11 +34,6 @@ class FeedPagerAdapter extends PagerAdapter {
         imageView.setImageResource(mImageItems.get(position));
         container.addView(imageLayout);
         return imageLayout;
-    }
-
-    @Override
-    public int getItemPosition(Object object) {
-        return super.getItemPosition(object);
     }
 
     @Override

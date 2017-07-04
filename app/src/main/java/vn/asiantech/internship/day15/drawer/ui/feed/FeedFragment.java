@@ -1,5 +1,4 @@
-package vn.asiantech.internship.drawer.ui.feed;
-
+package vn.asiantech.internship.day15.drawer.ui.feed;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.models.FeedItem;
+import vn.asiantech.internship.day15.drawer.models.FeedItem;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +57,7 @@ public class FeedFragment extends Fragment {
         items.add(new FeedItem("Hi i'm Gosu", initImages(), "No comment 1"));
         items.add(new FeedItem("Imp", initImages(), "No comment 2"));
         items.add(new FeedItem("Faker", initImages(), "No comment 3"));
-        items.add(new FeedItem("Madlife", initImages(), "No comment 4"));
+        items.add(new FeedItem("MadLife", initImages(), "No comment 4"));
         items.add(new FeedItem("Sofm", initImages(), "No comment 5"));
         items.add(new FeedItem("Impact", initImages(), "No comment 6"));
     }

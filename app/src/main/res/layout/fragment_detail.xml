@@ -9,20 +9,20 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBarDetailNote"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar.width"
+        android:layout_height="@dimen/activity.toolbar_height"
         android:background="@color/colorToolbar" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/detail.image_size"
-        android:layout_margin="@dimen/detail.textView_margin">
+        android:layout_margin="@dimen/feed.layout_padding">
 
         <ImageView
             android:id="@+id/imgDetailNote"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorGrayLight"
-            android:contentDescription="@string/detail.imageView_image" />
+            android:contentDescription="@string/textView_input" />
 
         <TextView
             android:id="@+id/tvDateTimeAdd"
@@ -43,10 +43,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/detail.textView_margin"
-            android:layout_marginStart="@dimen/detail.textView_margin"
+            android:layout_marginLeft="@dimen/feed.item_padding"
+            android:layout_marginStart="@dimen/feed.item_padding"
             android:gravity="center_vertical"
-            android:text="@string/detail.textView_title"
+            android:text="@string/textView_title"
             android:textColor="@color/colorBlack"
             android:textStyle="bold" />
 
@@ -55,18 +55,18 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingLeft="@dimen/detail.layout_padding"
-            android:paddingRight="@dimen/detail.layout_padding"
+            android:paddingLeft="@dimen/feed.item_padding"
+            android:paddingRight="@dimen/feed.item_padding"
             android:textColor="@color/colorBlack" />
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/detail.textView_margin"
-        android:layout_marginStart="@dimen/detail.textView_margin"
+        android:layout_marginLeft="@dimen/feed.item_padding"
+        android:layout_marginStart="@dimen/feed.item_padding"
         android:gravity="center_vertical"
-        android:text="@string/detail.textView_content"
+        android:text="@string/textView_content"
         android:textColor="@color/colorBlack"
         android:textStyle="bold" />
 
@@ -74,7 +74,7 @@
         android:id="@+id/tvNoteContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/detail.textView_margin"
-        android:layout_marginStart="@dimen/detail.textView_margin"
+        android:layout_marginLeft="@dimen/feed.item_padding"
+        android:layout_marginStart="@dimen/feed.item_padding"
         android:textColor="@color/colorBlack" />
 </LinearLayout>

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.ui.main;
+package vn.asiantech.internship.day15.drawer.ui.main;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.models.DrawerItem;
-import vn.asiantech.internship.drawer.ui.feed.FeedActivity;
-import vn.asiantech.internship.drawer.ui.leftmenu.DrawerAdapter;
+import vn.asiantech.internship.day15.drawer.models.DrawerItem;
+import vn.asiantech.internship.day15.drawer.ui.feed.FeedActivity;
+import vn.asiantech.internship.day15.drawer.ui.leftmenu.DrawerAdapter;
 
 /**
  * Day6Activity

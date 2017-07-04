@@ -20,6 +20,6 @@
         android:gravity="center"
         android:padding="@dimen/item.layout_padding"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/header.name_text_size"
+        android:textSize="@dimen/item.textView_text_size"
         tools:text="tab item" />
 </LinearLayout>

@@ -1,9 +1,9 @@
-package vn.asiantech.internship.drawer.models;
+package vn.asiantech.internship.day15.drawer.models;
 
 import java.util.List;
 
 /**
- * Created by at-dinhvo on 15/06/2017.
+ * Created by at-dinhvo on 01/07/2017.
  */
 public class FeedItem {
 
@@ -23,10 +23,6 @@ public class FeedItem {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getComment() {
