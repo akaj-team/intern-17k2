@@ -1,0 +1,83 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/styleLayoutNormal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="vn.asiantech.internship.ui.note.NoteViewFragment">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <ImageView
+                    android:id="@+id/imgSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="@dimen/marginButtonContent"
+                    android:layout_marginLeft="@dimen/marginButtonContent"
+                    android:layout_marginRight="@dimen/marginButtonContent"
+                    android:layout_marginStart="@dimen/marginButtonContent"
+                    android:contentDescription="@string/textview.text.description"
+                    android:src="@drawable/vector_option" />
+
+                <ImageView
+                    android:id="@+id/imgOpenImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/marginSomething"
+                    android:layout_toLeftOf="@id/imgSave"
+                    android:layout_toStartOf="@id/imgSave"
+                    android:contentDescription="@string/textview.text.description"
+                    android:src="@drawable/vector_edit" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/toolbar"
+            android:padding="@dimen/paddingSomeText"
+            tools:text="Mon 20 Jul 20:50" />
+
+        <TextView
+            android:id="@+id/tvHead"
+            style="@style/TextHeadStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDate"
+            android:layout_centerHorizontal="true"
+            tools:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvHead"
+            android:padding="@dimen/paddingSomeText"
+            tools:text="@string/textview.text.description" />
+
+        <ImageView
+            android:id="@+id/imgThumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDescription"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/paddingSomeText"
+            android:contentDescription="@string/textview.text.description"
+            tools:src="@mipmap/ic_avatar" />
+    </RelativeLayout>
+</ScrollView>
