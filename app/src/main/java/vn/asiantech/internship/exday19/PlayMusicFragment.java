@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
@@ -28,7 +29,7 @@ import vn.asiantech.internship.R;
 /**
  * Created by datbu on 02-07-2017.
  */
-public class PlayMusicFragment extends Fragment{
+public class PlayMusicFragment extends Fragment {
     private MusicItem mMusicItem;
     private CircleImageView mAlbumArt;
     private ImageView mImgPlay;
@@ -41,7 +42,7 @@ public class PlayMusicFragment extends Fragment{
     private double mStartTime;
     private double mStopTime;
     private SeekBar mSeekBar;
-//    private seekUpdater mSeekUpdater;
+    //    private seekUpdater mSeekUpdater;
     private Uri mUri;
     private String mUrl;
     private String mUrlImage;
@@ -56,6 +57,7 @@ public class PlayMusicFragment extends Fragment{
         @Override
         public void onReceive(Context context, Intent intent) {
             processTime(intent);
+            convertTime(intent);
         }
     };
 
@@ -69,6 +71,7 @@ public class PlayMusicFragment extends Fragment{
         initData();
         initIntentFilter();
         initStart();
+//        convertTime();
         return view;
     }
 
@@ -126,6 +129,50 @@ public class PlayMusicFragment extends Fragment{
             }
         });
     }
+
+    // Show time
+    public void showTime() {
+        mStartTime = mMediaPlayer.getCurrentPosition();
+        mStopTime = mMediaPlayer.getDuration();
+//        mSeekBar.setMax((int) mStopTime);
+//        mSeekBar.setProgress((int) mStartTime);
+//        convertTime();
+        mHandler.postDelayed(updateTime, 100);
+    }
+
+    // Convert time
+    public void convertTime(Intent intent) {
+        // Time current position
+//        IntentFilter filter = new IntentFilter(Action.TIME.getValue());
+//        getContext().registerReceiver(mBroadcastReceiver, filter);
+//        Intent intent = new Intent(getContext(), NotificationServiceMusic.class);
+        String minuteStart = String.valueOf(Long.parseLong(String.valueOf(intent.getLongExtra("minuteStart", 0))));
+        long secondsStart = intent.getLongExtra("secondsStart", 2);
+        mTvStart.setText(String.format(getString(R.string.time_format), minuteStart, secondsStart));
+        // Total time
+        String minuteStop = intent.getStringExtra("minuteStop");
+        long secondsStop = intent.getLongExtra("secondsStop", 2);
+        mTvEnd.setText(String.format(getString(R.string.time_format), minuteStop, secondsStop));
+        Log.d("tag", "convertTime: 12 " + minuteStart);
+        Log.d("tag", "convertTime: 12 " + secondsStart);
+        Log.d("tag", "convertTime: 12 " + minuteStop);
+        Log.d("tag", "convertTime: 12 " + secondsStop);
+    }
+
+    // Update song current time
+    private Runnable updateTime = new Runnable() {
+        @Override
+        public void run() {
+            mStartTime = mMediaPlayer.getCurrentPosition();
+            long minuteStart = TimeUnit.MILLISECONDS.toMinutes((long) mStartTime);
+            long secondsStart = TimeUnit.MILLISECONDS.toSeconds((long) mStartTime) -
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStartTime));
+
+//            mTvStart.setText(String.format(getString(R.string.time_format), minuteStart, secondsStart));
+            mHandler.postDelayed(this, 100);
+            mSeekBar.setProgress((int) mStartTime);
+        }
+    };
 
     private void processTime(Intent intent) {
         if (mLength == 0) {

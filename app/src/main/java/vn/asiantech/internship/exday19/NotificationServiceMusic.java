@@ -59,25 +59,29 @@ public class NotificationServiceMusic extends Service {
                     public void onPrepared(MediaPlayer mediaPlayer) {
                         showNotification();
                         mMediaPlayer.start();
+                        mStartTime = mMediaPlayer.getCurrentPosition();
+                        mStopTime = mMediaPlayer.getDuration();
+                        // Time current position
+                        Intent intentTime = new Intent(Action.TIME.getValue());
+                        long minuteStart = TimeUnit.MILLISECONDS.toMinutes((long) mStartTime);
+                        long secondsStart = TimeUnit.MILLISECONDS.toSeconds((long) mStartTime) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStartTime));
+                        // Total time
+                        long minuteStop = TimeUnit.MILLISECONDS.toMinutes((long) mStopTime);
+                        long secondsStop = TimeUnit.MILLISECONDS.toSeconds((long) mStopTime) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStopTime));
+                        intentTime.putExtra("minuteStart", minuteStart);
+                        intentTime.putExtra("secondsStart", secondsStart);
+                        intentTime.putExtra("minuteStop", minuteStop);
+                        intentTime.putExtra("secondsStop", secondsStop);
+                        sendBroadcast(intentTime);
                     }
                 });
                 final Intent timeIntent = new Intent(Action.SEEK.getValue());
-                // Time current position
-                final long minuteStart = TimeUnit.MILLISECONDS.toMinutes((long) mStartTime);
-                final long secondsStart = TimeUnit.MILLISECONDS.toSeconds((long) mStartTime) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStartTime));
-                // Total time
-                final long minuteStop = TimeUnit.MILLISECONDS.toMinutes((long) mStopTime);
-                final long secondsStop = TimeUnit.MILLISECONDS.toSeconds((long) mStopTime) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStopTime));
                 mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration(), 1000) {
                     @Override
                     public void onTick(long l) {
                         //TODO set time
-                        timeIntent.putExtra("minuteStart", minuteStart);
-                        timeIntent.putExtra("secondsStart", secondsStart);
-                        timeIntent.putExtra("minuteStop", minuteStop);
-                        timeIntent.putExtra("secondsStop", secondsStop);
                         timeIntent.putExtra("time", mMediaPlayer.getDuration() + "");
                         timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
                         sendBroadcast(timeIntent);
