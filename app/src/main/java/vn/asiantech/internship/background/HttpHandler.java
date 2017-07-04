@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -44,7 +45,12 @@ public class HttpHandler {
     }
 
     private String convertStreamToString(InputStream inputStream) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Log.i(TAG, e.getMessage());
+        }
         StringBuilder sb = new StringBuilder();
 
         String line;
