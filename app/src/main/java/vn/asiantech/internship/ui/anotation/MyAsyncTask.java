@@ -24,8 +24,8 @@ class MyAsyncTask extends AsyncTask<String, Void, List<Contact>> {
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();
         mOnGetContactListener.openAsyncTask();
+        super.onPreExecute();
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
@@ -29,9 +30,8 @@ public class ContactFragment extends Fragment implements MyAsyncTask.OnGetContac
     RecyclerView mRecyclerView;
 
     @AfterViews
-    void afterViews(){
+    void afterViews() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         mMyAsyncTask = new MyAsyncTask();
         mMyAsyncTask.setOnGetContactListener(this);
         mMyAsyncTask.execute(url);
@@ -39,14 +39,24 @@ public class ContactFragment extends Fragment implements MyAsyncTask.OnGetContac
 
     @Override
     public void openAsyncTask() {
+        showProgress();
+    }
+
+    @Override
+    public void finishAsyncTask(List<Contact> contacts) {
+        showFinished(contacts);
+    }
+
+    @UiThread
+    void showProgress() {
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setMessage(getString(R.string.progress_please_wait));
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
     }
 
-    @Override
-    public void finishAsyncTask(List<Contact> contacts) {
+    @UiThread
+    void showFinished(List<Contact> contacts) {
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
