@@ -25,4 +25,7 @@
     <string name="textview.splash.button2">Exercise 6</string>
 
     <string name="edittext.fragment.hint">Send Message</string>
+
+    <string name="progress_dialog">Wait....</string>
+
 </resources>
