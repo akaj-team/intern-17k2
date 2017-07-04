@@ -1,6 +1,7 @@
 package vn.asiantech.internship.contact;
 
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * Author AsianTech Inc.
- * Created by sony on 03/07/2017.
+ * Created by at-hangtran on 03/07/2017.
  */
 class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
     private static final String TAG = GetContacts.class.getSimpleName();
@@ -31,7 +32,7 @@ class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
         ArrayList<Contact> contacts = new ArrayList<>();
         HttpHandler httpHandler = new HttpHandler();
         String jsonString = httpHandler.makeServiceCall(strings[0]);
-        if (jsonString != null) {
+        if (!TextUtils.equals(jsonString, "")) {
             try {
                 JSONObject jsonObj = new JSONObject(jsonString);
                 JSONArray contactArray = jsonObj.getJSONArray("contacts");

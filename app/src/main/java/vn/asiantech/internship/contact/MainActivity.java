@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ArrayList<Contact> mContacts = new ArrayList<>();
     public static final String URL = "http://api.androidhive.info/contacts/";
+
     private GetContacts mGetContacts = new GetContacts(new GetContacts.OnAsyncResponseListener() {
         @Override
         public void onProcessFinish(ArrayList<Contact> contacts) {
