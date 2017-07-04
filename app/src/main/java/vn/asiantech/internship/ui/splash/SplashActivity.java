@@ -7,16 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import org.androidannotations.annotations.EActivity;
-
 import vn.asiantech.internship.MainIntentActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.activity.ChatActivity;
-import vn.asiantech.internship.activity.FriendActivity;
 import vn.asiantech.internship.activity.ContactActivity;
+import vn.asiantech.internship.activity.ContactAnnotationActivity_;
+import vn.asiantech.internship.activity.FriendActivity;
+import vn.asiantech.internship.activity.TestActivity;
 import vn.asiantech.internship.ui.feed.FeedActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
-import vn.asiantech.internship.activity.TestActivity;
 
 /**
  * Created by ducle on 15/06/2017.
@@ -30,6 +29,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private Button mBtnBai13;
     private Button mBtnBai15;
     private Button mBtnBai21;
+    private Button mBtnBai22;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai13.setOnClickListener(this);
         mBtnBai15.setOnClickListener(this);
         mBtnBai21.setOnClickListener(this);
+        mBtnBai22.setOnClickListener(this);
     }
 
     private void initViews() {
@@ -57,6 +58,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai13 = (Button) findViewById(R.id.btnBai13);
         mBtnBai15 = (Button) findViewById(R.id.btnBai15);
         mBtnBai21 = (Button) findViewById(R.id.btnBai21);
+        mBtnBai22 = (Button) findViewById(R.id.btnBai22);
     }
 
     @Override
@@ -82,6 +84,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btnBai21:
                 startActivity(new Intent(this, ContactActivity.class));
+                break;
+            case R.id.btnBai22:
+                startActivity(new Intent(this, ContactAnnotationActivity_.class));
                 break;
         }
     }

@@ -50,6 +50,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bai21" />
+
+        <Button
+            android:id="@+id/btnBai22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bai22" />
     </LinearLayout>
 
 </ScrollView>
