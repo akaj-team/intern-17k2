@@ -41,6 +41,9 @@ public class ContactAnnotationAdapter extends RecyclerView.Adapter<ContactAnnota
         return mContacts.size();
     }
 
+    /**
+     * Created by quanghai on 04/07/2017.
+     */
     class ContactHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private TextView mTvEmail;
