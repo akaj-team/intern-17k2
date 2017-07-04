@@ -16,7 +16,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import vn.asiantech.internship.R;
 
@@ -33,6 +32,8 @@ public class NotificationServiceMusic extends Service {
     private double mStartTime;
     private double mStopTime;
     private Handler mHandler;
+    private String mStart;
+    private String mStop;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -59,22 +60,6 @@ public class NotificationServiceMusic extends Service {
                     public void onPrepared(MediaPlayer mediaPlayer) {
                         showNotification();
                         mMediaPlayer.start();
-                        mStartTime = mMediaPlayer.getCurrentPosition();
-                        mStopTime = mMediaPlayer.getDuration();
-                        // Time current position
-                        Intent intentTime = new Intent(Action.TIME.getValue());
-                        long minuteStart = TimeUnit.MILLISECONDS.toMinutes((long) mStartTime);
-                        long secondsStart = TimeUnit.MILLISECONDS.toSeconds((long) mStartTime) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStartTime));
-                        // Total time
-                        long minuteStop = TimeUnit.MILLISECONDS.toMinutes((long) mStopTime);
-                        long secondsStop = TimeUnit.MILLISECONDS.toSeconds((long) mStopTime) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStopTime));
-                        intentTime.putExtra("minuteStart", minuteStart);
-                        intentTime.putExtra("secondsStart", secondsStart);
-                        intentTime.putExtra("minuteStop", minuteStop);
-                        intentTime.putExtra("secondsStop", secondsStop);
-                        sendBroadcast(intentTime);
                     }
                 });
                 final Intent timeIntent = new Intent(Action.SEEK.getValue());
@@ -162,7 +147,7 @@ public class NotificationServiceMusic extends Service {
             try {
                 mMediaPlayer.release();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d(TAG, "onDestroy: " + e);
             }
         }
     }

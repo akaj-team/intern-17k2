@@ -26,10 +26,12 @@ import java.util.concurrent.TimeUnit;
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
 
+import static vn.asiantech.internship.R.id.seekBar;
+
 /**
  * Created by datbu on 02-07-2017.
  */
-public class PlayMusicFragment extends Fragment {
+public class PlayMusicFragment extends Fragment implements View.OnClickListener {
     private MusicItem mMusicItem;
     private CircleImageView mAlbumArt;
     private ImageView mImgPlay;
@@ -42,7 +44,6 @@ public class PlayMusicFragment extends Fragment {
     private double mStartTime;
     private double mStopTime;
     private SeekBar mSeekBar;
-    //    private seekUpdater mSeekUpdater;
     private Uri mUri;
     private String mUrl;
     private String mUrlImage;
@@ -53,11 +54,13 @@ public class PlayMusicFragment extends Fragment {
     private boolean mIsShuffle;
     private boolean mIsRepeat;
     private int mLength;
+    private int mTime;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            processTime(intent);
-            convertTime(intent);
+            if (intent != null) {
+                processTime(intent);
+            }
         }
     };
 
@@ -65,13 +68,12 @@ public class PlayMusicFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_play_music, container, false);
-        mMediaPlayer = new MediaPlayer();
-        mHandler = new Handler();
         initView(view);
         initData();
         initIntentFilter();
         initStart();
-//        convertTime();
+        showTime();
+        initClick();
         return view;
     }
 
@@ -96,6 +98,8 @@ public class PlayMusicFragment extends Fragment {
     }
 
     public void initView(View view) {
+        mMediaPlayer = new MediaPlayer();
+        mHandler = new Handler();
         mTvStart = (TextView) view.findViewById(R.id.tvTime);
         mTvEnd = (TextView) view.findViewById(R.id.tvDuration);
         mAlbumArt = (CircleImageView) view.findViewById(R.id.imgAlbumArt);
@@ -104,9 +108,27 @@ public class PlayMusicFragment extends Fragment {
         mImgNext = (ImageView) view.findViewById(R.id.imgNext);
         mImgShuffle = (ImageView) view.findViewById(R.id.imgShuffle);
         mImgRepeat = (ImageView) view.findViewById(R.id.imgRepeat);
-        mSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
+        mSeekBar = (SeekBar) view.findViewById(seekBar);
     }
 
+    public void initClick() {
+        mImgPlay.setOnClickListener(this);
+        mImgPrev.setOnClickListener(this);
+        mImgNext.setOnClickListener(this);
+        mImgShuffle.setOnClickListener(this);
+        mImgRepeat.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imgPlay:
+                Intent playIntent = new Intent(getContext(), NotificationServiceMusic.class);
+                playIntent.setAction(Action.PLAY.getValue());
+                getContext().startService(playIntent);
+                break;
+        }
+    }
 
     private void initIntentFilter() {
         IntentFilter filter = new IntentFilter(Action.SEEK.getValue());
@@ -130,50 +152,6 @@ public class PlayMusicFragment extends Fragment {
         });
     }
 
-    // Show time
-    public void showTime() {
-        mStartTime = mMediaPlayer.getCurrentPosition();
-        mStopTime = mMediaPlayer.getDuration();
-//        mSeekBar.setMax((int) mStopTime);
-//        mSeekBar.setProgress((int) mStartTime);
-//        convertTime();
-        mHandler.postDelayed(updateTime, 100);
-    }
-
-    // Convert time
-    public void convertTime(Intent intent) {
-        // Time current position
-//        IntentFilter filter = new IntentFilter(Action.TIME.getValue());
-//        getContext().registerReceiver(mBroadcastReceiver, filter);
-//        Intent intent = new Intent(getContext(), NotificationServiceMusic.class);
-        String minuteStart = String.valueOf(Long.parseLong(String.valueOf(intent.getLongExtra("minuteStart", 0))));
-        long secondsStart = intent.getLongExtra("secondsStart", 2);
-        mTvStart.setText(String.format(getString(R.string.time_format), minuteStart, secondsStart));
-        // Total time
-        String minuteStop = intent.getStringExtra("minuteStop");
-        long secondsStop = intent.getLongExtra("secondsStop", 2);
-        mTvEnd.setText(String.format(getString(R.string.time_format), minuteStop, secondsStop));
-        Log.d("tag", "convertTime: 12 " + minuteStart);
-        Log.d("tag", "convertTime: 12 " + secondsStart);
-        Log.d("tag", "convertTime: 12 " + minuteStop);
-        Log.d("tag", "convertTime: 12 " + secondsStop);
-    }
-
-    // Update song current time
-    private Runnable updateTime = new Runnable() {
-        @Override
-        public void run() {
-            mStartTime = mMediaPlayer.getCurrentPosition();
-            long minuteStart = TimeUnit.MILLISECONDS.toMinutes((long) mStartTime);
-            long secondsStart = TimeUnit.MILLISECONDS.toSeconds((long) mStartTime) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStartTime));
-
-//            mTvStart.setText(String.format(getString(R.string.time_format), minuteStart, secondsStart));
-            mHandler.postDelayed(this, 100);
-            mSeekBar.setProgress((int) mStartTime);
-        }
-    };
-
     private void processTime(Intent intent) {
         if (mLength == 0) {
             mLength = Integer.parseInt(intent.getStringExtra("time"));
@@ -181,9 +159,9 @@ public class PlayMusicFragment extends Fragment {
             mSeekBar.setProgress(0);
             return;
         }
-        int position = Integer.parseInt(intent.getStringExtra("second"));
-        Log.d("tag", "processTime: " + position);
-        mSeekBar.setProgress(position);
+        mTime = Integer.parseInt(intent.getStringExtra("second"));
+        Log.d("tag", "processTime: " + mTime);
+        mSeekBar.setProgress(mTime);
     }
 
     @Override
@@ -191,4 +169,41 @@ public class PlayMusicFragment extends Fragment {
         getContext().unregisterReceiver(mBroadcastReceiver);
         super.onDestroy();
     }
+
+    // Show time
+    public void showTime() {
+        mStartTime = mMediaPlayer.getCurrentPosition();
+        mStopTime = mMediaPlayer.getDuration();
+        Log.d("tag", "showTime: " + mMediaPlayer.getCurrentPosition());
+        Log.d("tag", "showTime: " + mMediaPlayer.getDuration());
+        convertTime();
+        mHandler.postDelayed(updateTime, 100);
+    }
+
+    // Convert time
+    public void convertTime() {
+        // Time current position
+        long minuteStart = TimeUnit.MILLISECONDS.toMinutes((long) mStartTime);
+        long secondsStart = TimeUnit.MILLISECONDS.toSeconds((long) mStartTime) -
+                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStartTime));
+        mTvStart.setText(String.format(getString(R.string.time_format), minuteStart, secondsStart));
+        // Total time
+        long minuteStop = TimeUnit.MILLISECONDS.toMinutes((long) mStopTime);
+        long secondsStop = TimeUnit.MILLISECONDS.toSeconds((long) mStopTime) -
+                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStopTime));
+        mTvEnd.setText(String.format(getString(R.string.time_format), minuteStop, secondsStop));
+    }
+
+    // Update song current time
+    private Runnable updateTime = new Runnable() {
+        @Override
+        public void run() {
+            mStartTime = mTime;
+            long minuteStart = TimeUnit.MILLISECONDS.toMinutes((long) mStartTime);
+            long secondsStart = TimeUnit.MILLISECONDS.toSeconds((long) mStartTime) -
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStartTime));
+            mTvStart.setText(String.format(getString(R.string.time_format), minuteStart, secondsStart));
+            mHandler.postDelayed(this, 100);
+        }
+    };
 }
