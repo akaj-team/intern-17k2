@@ -28,7 +28,9 @@
         <activity android:name=".ui.main.ChatActivity" />
         <activity android:name=".ui.main.TestActivity" />
         <activity android:name=".ui.main.ResultActivity" />
-        <activity android:name=".ui.main.MusicActivity" />
+        <activity
+            android:name=".ui.main.MusicActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".services.MusicService"

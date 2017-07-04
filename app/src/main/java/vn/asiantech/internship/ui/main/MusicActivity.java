@@ -1,5 +1,6 @@
 package vn.asiantech.internship.ui.main;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapters.SongListAdapter;
+import vn.asiantech.internship.backgrounds.GetSongAsyncTask;
 import vn.asiantech.internship.models.Action;
 import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.services.MusicService;
@@ -44,6 +46,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private TextView mTvTitle;
     private ImageView mImgCloseFragment;
     private ImageView mImgOpenPlayFragment;
+    private ProgressDialog mProgressDialog;
 
     private ArrayList<Song> mSongs;
     private int mSongPosition;
@@ -89,51 +92,53 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mTvTitle = (TextView) findViewById(R.id.tvTitle);
         mImgCloseFragment = (ImageView) findViewById(R.id.imgClose);
         mImgOpenPlayFragment = (ImageView) findViewById(R.id.imgOpenFragmentPlay);
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage("Loading...");
 
         mSongs = new ArrayList<>();
 
-        mSongs.add(new Song("Ghen", "Khắc Hưng, ERIK, MIN",
-                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGXLDETLDJTDGLG",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("Ghen", "Khắc Hưng, ERIK, MIN",
-                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGXLDETLDJTDGLG",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("Ghen", "Khắc Hưng, ERIK, MIN",
-                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGXLDETLDJTDGLG",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("Ghen", "Khắc Hưng, ERIK, MIN",
-                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGXLDETLDJTDGLG",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-        mSongs.add(new Song("Ghen", "Khắc Hưng, ERIK, MIN",
-                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGXLDETLDJTDGLG",
-                "https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"));
-
-        MainFragment mainFragment = MainFragment.getNewInstance(mSongs, new SongListAdapter.OnItemClickListener() {
+        GetSongAsyncTask task = new GetSongAsyncTask(this, new GetSongAsyncTask.CallBackListener() {
             @Override
-            public void onItemClickListener(Song song, int position) {
-                mSongPosition = position;
-                startSong();
+            public void onTaskPreExecute() {
+                mProgressDialog.show();
+            }
+
+            @Override
+            public void onTaskCompleted(ArrayList<Song> songs) {
+                mSongs = songs;
+                MainFragment mainFragment = MainFragment.getNewInstance(mSongs, new SongListAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClickListener(Song song, int position) {
+                        mSongPosition = position;
+                        startSong();
+                    }
+                });
+                replaceFragment(mainFragment, false);
+                String s = getIntent().getStringExtra(KEY_STATUS);
+                if ("running".equals(s)) {
+                    replaceFragment(PlayFragment.getNewInstance(), true);
+                    mSongPosition = getIntent().getIntExtra(KEY_POSITION, -1);
+                    if (mSongPosition > -1) {
+                        mTvTitle.setText(getString(R.string.song_title, mSongs.get(mSongPosition).getName(), mSongs.get(mSongPosition).getSinger()));
+                    } else {
+                        mTvTitle.setText("");
+                    }
+                } else {
+                    if (!mServiceRunning) {
+                        Intent intent = new Intent(MusicActivity.this, MusicService.class);
+                        intent.putParcelableArrayListExtra(KEY_SONGS, mSongs);
+                        mServiceRunning = true;
+                        startService(intent);
+                    }
+
+                }
+                mProgressDialog.dismiss();
             }
         });
-        replaceFragment(mainFragment, false);
-        String s = getIntent().getStringExtra(KEY_STATUS);
-        if ("running".equals(s)) {
-            replaceFragment(PlayFragment.getNewInstance(), true);
-            mSongPosition = getIntent().getIntExtra("position", -1);
-            if (mSongPosition > -1) {
-                mTvTitle.setText(getString(R.string.song_title, mSongs.get(mSongPosition).getName(), mSongs.get(mSongPosition).getSinger()));
-            } else {
-                mTvTitle.setText("");
-            }
-        } else {
-            if (!mServiceRunning) {
-                Intent intent = new Intent(MusicActivity.this, MusicService.class);
-                intent.putParcelableArrayListExtra(KEY_SONGS, mSongs);
-                mServiceRunning = true;
-                startService(intent);
-            }
+        String songIds[] = {"ZW7FC0I7", "ZW80UUCB", "ZW7FE0FC", "ZW79F6A7", "ZW79O8DI", "ZW7FODC9"
+                , "ZW78B06A", "ZW78U908", "ZW78I80B", "ZW77F8E0"};
+        task.execute(songIds);
 
-        }
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Action.SEEK.getValue());
         intentFilter.addAction(Action.SONG_CHANGE.getValue());
@@ -207,4 +212,20 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         startService(startIntent);
         replaceFragment(PlayFragment.getNewInstance(), true);
     }
+
+//    public static ArrayList<Song> findsong(File root) {
+//        File[] files = root.listFiles();
+//        ArrayList<Song> songList = new ArrayList<>();
+//        for (File singleFile : files) {
+//            if (singleFile.isDirectory() && !singleFile.isHidden() && !singleFile.getName().equals("Android")) {
+//                songList.addAll(findsong(singleFile));
+//            } else {
+//                if (singleFile.getName().endsWith(".mp3")) {
+//                    Song song = new Song(singleFile.getName(), "Cao Cuong Idol", singleFile.getPath(), "kememi");
+//                    songList.add(song);
+//                }
+//            }
+//        }
+//        return songList;
+//    }
 }

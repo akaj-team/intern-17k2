@@ -15,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Action;
@@ -36,6 +37,8 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private ImageView mImgShuffle;
     private ImageView mImgPlay;
     private ImageView mImgReplay;
+    private TextView mTvCur;
+    private TextView mTvTotal;
     private int mSongDuration;
     private boolean mIsPlaying;
     private boolean mIsShuffle;
@@ -49,6 +52,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
             if (Action.SEEK.getValue().equals(action)) {
                 if (mSongDuration == 0) {
                     mSongDuration = intent.getIntExtra(KEY_DURATION, 0);
+                    mTvTotal.setText(miliSecondToString(mSongDuration));
                     mSeekBar.setMax(mSongDuration);
                 }
                 boolean isPlaying = intent.getBooleanExtra(KEY_PLAYING, false);
@@ -60,6 +64,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                         mImgPlay.setImageResource(R.drawable.ic_play_circle_outline_red_a700_36dp);
                     }
                 }
+                mTvCur.setText(miliSecondToString(intent.getIntExtra(KEY_CURRENT, 0)));
                 mSeekBar.setProgress(intent.getIntExtra(KEY_CURRENT, 0));
                 return;
             }
@@ -99,6 +104,9 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         ImageView imgNext = (ImageView) view.findViewById(R.id.imgNext);
         mImgReplay = (ImageView) view.findViewById(R.id.imgReplay);
         ImageView imgDisk = (ImageView) view.findViewById(R.id.imgDisk);
+
+        mTvCur = (TextView) view.findViewById(R.id.tvCurrent);
+        mTvTotal = (TextView) view.findViewById(R.id.tvTotal);
 
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.clockwise);
         animation.setFillAfter(true);
@@ -200,6 +208,11 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     public void onDestroy() {
         super.onDestroy();
         getActivity().unregisterReceiver(mReceiver);
+    }
+
+    private static String miliSecondToString(int milis) {
+        milis /= 1000;
+        return ((milis / 60) < 10 ? "0" : "") + String.valueOf(milis / 60) + ":" + ((milis % 60) < 10 ? "0" : "") + String.valueOf(milis % 60);
     }
 
     public void sendMyBroadcast(Intent intent) {
