@@ -3,26 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/padding"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="@dimen/padding">
+
+    <ImageView
+        android:id="@+id/imgIcon"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_launcher"
+        android:layout_weight="0.5" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvSongTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             tools:text="2 nam" />
 
         <TextView
             android:id="@+id/tvArtist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="MJ"/>
+            tools:text="MJ" />
     </LinearLayout>
 
     <TextView

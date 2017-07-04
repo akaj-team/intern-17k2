@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.Service;
 import android.content.ContentUris;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,12 +14,14 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.RemoteViews;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Song;
@@ -26,15 +29,15 @@ import vn.asiantech.internship.ui.music.Action;
 import vn.asiantech.internship.ui.music.MusicActivity;
 
 /**
- *
  * Created by quanghai on 30/06/2017.
  */
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
     private MediaPlayer mMediaPLayer;
     private List<Song> mSongs;
-    private int mPosition;
+    private int mCurrentPosition;
     private boolean mIsShuffle;
-    private boolean mIsAutoNext;
+    private boolean mIsReplay;
+    private int mShufflePosition = 0;
 
     @Nullable
     @Override
@@ -55,14 +58,18 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
             if (intent.getAction().equals(Action.START.getValue())) {
-                if (mIsShuffle){
+                if (mIsShuffle) {
                     Log.d("xxx", "onStartCommand: shuffle");
+                    playSong(shuffleSongs(), mShufflePosition);
+                    if (mShufflePosition < shuffleSongs().size()) {
+                        mShufflePosition++;
+                    }
                 } else {
                     Bundle bundle = intent.getBundleExtra(MusicActivity.KEY_INTENT);
                     mSongs = bundle.getParcelableArrayList(MusicActivity.KEY_BUNDLE_ARRAYLIST);
-                    mPosition = bundle.getInt(MusicActivity.KEY_BUNDLE_POSITION);
+                    mCurrentPosition = bundle.getInt(MusicActivity.KEY_BUNDLE_POSITION);
                 }
-                playSong(mPosition);
+                playSong(mSongs, mCurrentPosition);
             } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
                 mMediaPLayer.pause();
             } else if (intent.getAction().equals(Action.RESUME.getValue())) {
@@ -74,16 +81,23 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
                 mIsShuffle = intent.getBooleanExtra("shuffle", false);
                 Log.d("xxxx", "onStartCommand: " + mIsShuffle);
-            } else if (intent.getAction().equals(Action.AUTO_NEXT.getValue())) {
-                mIsAutoNext = intent.getBooleanExtra("autonext", false);
+            } else if (intent.getAction().equals(Action.REPLAY.getValue())) {
+                mIsReplay = intent.getBooleanExtra("replay", false);
             }
         }
         return START_STICKY;
     }
 
-    private void playSong(int position) {
+    private List<Song> shuffleSongs() {
+        List<Song> songs = mSongs;
+        songs.remove(mCurrentPosition);
+        Collections.shuffle(songs);
+        return songs;
+    }
+
+    private void playSong(List<Song> songs, int position) {
         mMediaPLayer.reset();
-        Song song = mSongs.get(position);
+        Song song = songs.get(position);
         int id = song.getId();
         Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
         try {
@@ -95,10 +109,16 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void showNotification() {
+        //TODO
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.custom_notification);
+        remoteViews.setTextViewText(R.id.tvNotificationSongName, mSongs.get(mCurrentPosition).getTitle());
+        remoteViews.setTextViewText(R.id.tvNotificationArtist, mSongs.get(mCurrentPosition).getArtist());
+//        remoteViews.setTextColor(R.id.tvSongTitle, Color.BLACK);
+//        remoteViews.setTextColor(R.id.tvArtist, Color.BLACK);
         Notification builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_play_arrow_black_24dp)
                 .setContentTitle("Music player")
-                .setContentText(mSongs.get(mPosition).getTitle())
+                .setContent(remoteViews)
                 .build();
         startForeground(1, builder);
     }
@@ -107,6 +127,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void onDestroy() {
         super.onDestroy();
         mMediaPLayer.stop();
+        stopForeground(true);
     }
 
     @Override
@@ -132,9 +153,15 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        if (mIsAutoNext) {
-            mPosition++;
-            playSong(mPosition);
+        if (mIsReplay) {
+            mp.setLooping(true);
+        } else {
+            if (mIsShuffle) {
+                playSong(shuffleSongs(), mShufflePosition);
+                return;
+            }
+            mCurrentPosition++;
+            playSong(mSongs, mCurrentPosition);
         }
     }
 }

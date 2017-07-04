@@ -61,7 +61,7 @@
             android:src="@drawable/ic_skip_next_black_24dp" />
 
         <ImageView
-            android:id="@+id/imgAutoNext"
+            android:id="@+id/imgReplay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

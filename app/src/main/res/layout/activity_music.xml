@@ -50,6 +50,7 @@
             android:id="@+id/imgPrevious"
             android:layout_width="@dimen/image.width"
             android:layout_height="@dimen/image.height"
+            android:layout_gravity="center"
             android:contentDescription="@null"
             android:src="@drawable/ic_skip_previous_black_24dp"
             android:visibility="gone" />
@@ -58,6 +59,7 @@
             android:id="@+id/imgPause"
             android:layout_width="@dimen/image.width"
             android:layout_height="@dimen/image.height"
+            android:layout_gravity="center"
             android:contentDescription="@null"
             android:src="@drawable/ic_play_arrow_black_24dp"
             android:visibility="gone" />
@@ -66,6 +68,7 @@
             android:id="@+id/imgNext"
             android:layout_width="@dimen/image.width"
             android:layout_height="@dimen/image.height"
+            android:layout_gravity="center"
             android:contentDescription="@null"
             android:src="@drawable/ic_skip_next_black_24dp"
             android:visibility="gone" />

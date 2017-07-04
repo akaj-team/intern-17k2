@@ -22,7 +22,7 @@ import vn.asiantech.internship.services.MusicService;
 /**
  * Created by quanghai on 02/07/2017.
  */
-public class SongDetailActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+public class SongPlayingActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private TextView mTvSongName;
     private TextView mTvArtist;
     private ImageView mImgPause;
@@ -33,7 +33,7 @@ public class SongDetailActivity extends Activity implements View.OnClickListener
     private boolean mIsPlaying;
     private int mCurrentPosition;
     private boolean mIsShuffle;
-    private boolean mIsAutoNext;
+    private boolean mIsReplay;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -62,14 +62,14 @@ public class SongDetailActivity extends Activity implements View.OnClickListener
         ImageView imgNext = (ImageView) findViewById(R.id.imgNextSong);
         mImgPause = (ImageView) findViewById(R.id.imgPauseSong);
         ImageView imgShuffle = (ImageView) findViewById(R.id.imgShuffleSong);
-        ImageView imgAutoNext = (ImageView) findViewById(R.id.imgAutoNext);
+        ImageView imgReplay = (ImageView) findViewById(R.id.imgReplay);
         mSeekBar = (SeekBar) findViewById(R.id.seekBarTime);
 
         imgPrevious.setOnClickListener(this);
         mImgPause.setOnClickListener(this);
         imgNext.setOnClickListener(this);
         imgShuffle.setOnClickListener(this);
-        imgAutoNext.setOnClickListener(this);
+        imgReplay.setOnClickListener(this);
         mSeekBar.setOnSeekBarChangeListener(this);
     }
 
@@ -126,12 +126,12 @@ public class SongDetailActivity extends Activity implements View.OnClickListener
                 shuffleIntent.putExtra("shuffle", mIsShuffle);
                 startService(shuffleIntent);
                 break;
-            case R.id.imgAutoNext:
-                mIsAutoNext = !mIsAutoNext;
-                Log.d("xxx", "autonext: " + mIsAutoNext);
+            case R.id.imgReplay:
+                mIsReplay = !mIsReplay;
+                Log.d("xxx", "autonext: " + mIsReplay);
                 Intent autoNextIntent = new Intent(this, MusicService.class);
-                autoNextIntent.setAction(Action.AUTO_NEXT.getValue());
-                autoNextIntent.putExtra("autonext", mIsAutoNext);
+                autoNextIntent.setAction(Action.REPLAY.getValue());
+                autoNextIntent.putExtra("replay", mIsReplay);
                 startService(autoNextIntent);
                 break;
         }
@@ -149,7 +149,7 @@ public class SongDetailActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        Intent intent = new Intent(SongDetailActivity.this, MusicService.class);
+        Intent intent = new Intent(SongPlayingActivity.this, MusicService.class);
         intent.putExtra("chooseTime", seekBar.getProgress());
         intent.setAction(Action.SEEK_TO.getValue());
         startService(intent);

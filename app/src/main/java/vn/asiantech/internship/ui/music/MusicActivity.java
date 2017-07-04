@@ -1,6 +1,5 @@
 package vn.asiantech.internship.ui.music;
 
-import android.app.Notification;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -27,6 +25,7 @@ import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.services.MusicService;
 
 /**
+ *
  * Created by quanghai on 30/06/2017.
  */
 public class MusicActivity extends AppCompatActivity implements View.OnClickListener {
@@ -43,7 +42,6 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private TextView mTvSongName;
     private TextView mTvSinger;
 
-    private SongAdapter mAdapter;
     private int mCurrentPosition;
     private boolean mIsPlaying;
 
@@ -87,7 +85,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.llSong:
-                Intent intentDetail = new Intent(MusicActivity.this, SongDetailActivity.class);
+                Intent intentDetail = new Intent(MusicActivity.this, SongPlayingActivity.class);
                 intentDetail.putExtra("position", mCurrentPosition);
                 startActivity(intentDetail);
                 break;
@@ -135,7 +133,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     private void initAdapter() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new SongAdapter(getAllSong(this), new SongAdapter.OnListener() {
+        SongAdapter adapter = new SongAdapter(getAllSong(this), new SongAdapter.OnListener() {
             @Override
             public void onItemClick(int position) {
                 mCurrentPosition = position;
@@ -144,7 +142,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             }
         });
         mRecyclerViewSong.setLayoutManager(linearLayoutManager);
-        mRecyclerViewSong.setAdapter(mAdapter);
+        mRecyclerViewSong.setAdapter(adapter);
     }
 
     public void intentStartService(Context context, int position) {

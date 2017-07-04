@@ -7,7 +7,7 @@ package vn.asiantech.internship.ui.music;
 public enum Action {
     INTENT("INTENT"), PAUSE("PAUSE"), START("START"),
     RESUME("RESUME"), SEEK("SEEK"),
-    SEEK_TO("SEEK_TO"), SHUFFLE("SHUFFLE"), AUTO_NEXT("AUTO_NEXT"), STOP("STOP");
+    SEEK_TO("SEEK_TO"), SHUFFLE("SHUFFLE"), REPLAY("REPLAY"), STOP("STOP");
 
     private String mValue;
 
