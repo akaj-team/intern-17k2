@@ -43,7 +43,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         return mContacts != null ? mContacts.size() : 0;
     }
 
-    class ContactViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * ContactViewHolder is an item ViewHolder
+     */
+    final class ContactViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private TextView mTvEmail;
         private TextView mTvNumber;

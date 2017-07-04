@@ -66,6 +66,9 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
         ((OnUpdateListener) mContext).onUpdateData(mContacts);
     }
 
+    /**
+     * interface to update UI
+     */
     public interface OnUpdateListener {
         void onShowProgressDialog();
 

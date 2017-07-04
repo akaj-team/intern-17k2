@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,7 +30,7 @@ public class HttpHandler {
             conn.setRequestMethod("GET");
             InputStream in = new BufferedInputStream(conn.getInputStream());
             response = convertStreamToString(in);
-            Log.d("tag111", "makeServiceCall: "+response);
+            Log.d("tag111", "makeServiceCall: " + response);
         } catch (MalformedURLException e) {
             Log.e(TAG, "MalformedURLException: " + e.getMessage());
         } catch (IOException e) {
@@ -41,7 +42,12 @@ public class HttpHandler {
     }
 
     private String convertStreamToString(InputStream is) {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Log.d(TAG, "convertStreamToString: " + e.getMessage());
+        }
         StringBuilder stringBuffer = new StringBuilder();
         String line;
         try {

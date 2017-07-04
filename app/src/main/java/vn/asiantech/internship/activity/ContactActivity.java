@@ -25,14 +25,16 @@ public class ContactActivity extends AppCompatActivity implements GetContacts.On
     private RecyclerView mRecyclerViewContact;
     private ContactAdapter mContactAdapter;
     private ProgressDialog mProgressDialog;
-    private static String url = ContactApi.url;
+    private static String url = ContactApi.URL;
+    private GetContacts mGetContacts;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         mRecyclerViewContact = (RecyclerView) findViewById(R.id.recyclerViewContact);
-        new GetContacts(this).execute(url);
+        mGetContacts = new GetContacts(this);
+        mGetContacts.execute(url);
     }
 
     @Override
@@ -59,5 +61,13 @@ public class ContactActivity extends AppCompatActivity implements GetContacts.On
         mRecyclerViewContact.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewContact.setAdapter(mContactAdapter);
         Log.d(TAG, "onUpdateData: ");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mGetContacts != null && mGetContacts.isCancelled()) {
+            mGetContacts.cancel(true);
+        }
     }
 }
