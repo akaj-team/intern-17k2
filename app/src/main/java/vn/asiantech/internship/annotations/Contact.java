@@ -9,6 +9,9 @@ public class Contact {
     private String mail;
     private String phone;
 
+    public Contact() {
+    }
+
     public Contact(String name, String mail, String phone) {
         this.name = name;
         this.mail = mail;

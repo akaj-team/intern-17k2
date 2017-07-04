@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     static final String URL = "http://api.androidhive.info/contacts/";
     private ArrayList<Contact> mContacts = new ArrayList<>();
     private ProgressDialog mProgressDialog;
-    private ContactAdapter mAdapter;
 
     @ViewById(R.id.recyclerViewContactAnnotation)
     RecyclerView mRecyclerView;
@@ -50,13 +49,31 @@ public class MainActivity extends AppCompatActivity {
     void asysnTask(String url) {
         HttpHandler httpHandler = new HttpHandler();
         String jsonString = httpHandler.makeServiceCall(url);
+        JSONArray contactArray;
         if (!TextUtils.equals(jsonString, "")) {
             try {
                 JSONObject jsonObj = new JSONObject(jsonString);
-                JSONArray contactArray = jsonObj.getJSONArray("contacts");
-                for (int i = 0; i < contactArray.length(); i++) {
-                    JSONObject jsonObject = contactArray.getJSONObject(i);
-                    mContacts.add(new Contact(jsonObject.getString("name"), jsonObject.getString("email"), jsonObject.getJSONObject("phone").getString("mobile")));
+                if (jsonObj.optJSONArray("contacts") != null) {
+                    contactArray = jsonObj.getJSONArray("contacts");
+                    if (contactArray != null) {
+                        for (int i = 0; i < contactArray.length(); i++) {
+                            JSONObject jsonObject = contactArray.getJSONObject(i);
+                            Contact contact = new Contact();
+                            String name = jsonObject.getString("name");
+                            String mail = jsonObject.getString("email");
+                            String phone = jsonObject.getJSONObject("phone").getString("mobile");
+                            if (!TextUtils.equals(name, "")) {
+                                contact.setName(name);
+                                if (TextUtils.equals(mail, "")) {
+                                    contact.setName(mail);
+                                    if (TextUtils.equals(phone, "")) {
+                                        contact.setName(phone);
+                                    }
+                                }
+                            }
+                            mContacts.add(contact);
+                        }
+                    }
                 }
             } catch (JSONException e) {
                 Log.e(TAG, "IOException: " + e.toString());
@@ -67,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
     @UiThread
     void updateUI() {
-        mAdapter = new ContactAdapter(mContacts);
-        mRecyclerView.setAdapter(mAdapter);
+        ContactAdapter adapter = new ContactAdapter(mContacts);
+        mRecyclerView.setAdapter(adapter);
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
