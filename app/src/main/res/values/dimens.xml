@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="view.height">1dp</dimen>
-    <dimen name="padding">10dp</dimen>
-    <dimen name="tvname.width">220dp</dimen>
-</resources>

@@ -33,4 +33,6 @@
     <string name="newnote.hint.title">Title</string>
     <string name="newnote.hint.content">Content</string>
     <string name="chat.button.send">SEND</string>
+    <!--Contact-->
+    <string name="dialog.message">Please wait…</string>
 </resources>
