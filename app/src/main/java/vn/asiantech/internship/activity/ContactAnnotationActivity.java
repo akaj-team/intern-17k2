@@ -56,7 +56,6 @@ public class ContactAnnotationActivity extends AppCompatActivity {
     void setList() {
         closeProgressDialog();
         setRecyclerView();
-
     }
 
     private void setRecyclerView() {
