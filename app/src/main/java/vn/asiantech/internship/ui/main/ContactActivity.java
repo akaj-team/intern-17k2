@@ -1,19 +1,27 @@
 package vn.asiantech.internship.ui.main;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapters.ContactAdapter;
-import vn.asiantech.internship.background.GetContactsAsyncTask;
+import vn.asiantech.internship.background.HttpHandler;
 import vn.asiantech.internship.models.Contact;
 
 /**
@@ -21,51 +29,53 @@ import vn.asiantech.internship.models.Contact;
  * @version 1.0
  * @since 7/3/2017.
  */
+@EActivity(R.layout.activity_contact)
 public class ContactActivity extends AppCompatActivity {
 
     private static final String URL = "http://api.androidhive.info/contacts/";
     private ProgressDialog mProgressDialog;
-    private RecyclerView mRecyclerViewContacts;
-    private ContactAdapter mAdapter;
-    private List<Contact> mContacts;
-    private GetContactsAsyncTask mGetContactsAsyncTask;
 
+    @ViewById(R.id.recyclerViewContact)
+    RecyclerView mRecyclerViewContacts;
+    @ViewById(R.id.tvTitle)
+    TextView mTvTitle;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact);
-
-        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText(getString(R.string.contact));
-        mRecyclerViewContacts = (RecyclerView) findViewById(R.id.recyclerViewContact);
+    @AfterViews
+    void afterView() {
         mRecyclerViewContacts.setLayoutManager(new LinearLayoutManager(this));
-
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage(getString(R.string.loading));
         mProgressDialog.setCancelable(false);
-        mGetContactsAsyncTask = new GetContactsAsyncTask(new GetContactsAsyncTask.CallBackListener() {
-            @Override
-            public void onTaskPreExecute() {
-                mProgressDialog.show();
-            }
-
-            @Override
-            public void onComplete(ArrayList<Contact> contacts) {
-                mContacts = contacts;
-                mAdapter = new ContactAdapter(mContacts);
-                mRecyclerViewContacts.setAdapter(mAdapter);
-                mProgressDialog.dismiss();
-            }
-        });
-        mGetContactsAsyncTask.execute(URL);
+        loadData(URL);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mGetContactsAsyncTask != null) {
-            mGetContactsAsyncTask.cancel(true);
+    @Background
+    void loadData(String url) {
+        preLoadData();
+        HttpHandler httpHandler = new HttpHandler();
+        String json = httpHandler.makeServiceCall(url);
+        List<Contact> contacts = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray jsonArray = jsonObject.getJSONArray("contacts");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                contacts.add(new Contact(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("email"), jsonArray.getJSONObject(i).getJSONObject("phone").getString("mobile")));
+            }
+        } catch (JSONException e) {
+            Log.i("tag11", e.getMessage());
         }
+        dataLoaded(contacts);
+    }
+
+    @UiThread
+    void preLoadData() {
+        mProgressDialog.show();
+    }
+
+    @UiThread
+    void dataLoaded(List<Contact> contacts) {
+        ContactAdapter adapter = new ContactAdapter(contacts);
+        mRecyclerViewContacts.setAdapter(adapter);
+        mProgressDialog.dismiss();
     }
 }

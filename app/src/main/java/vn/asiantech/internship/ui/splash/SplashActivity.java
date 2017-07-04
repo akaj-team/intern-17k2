@@ -11,7 +11,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.feed.FeedActivity;
 import vn.asiantech.internship.friend.ListFriendActivity;
 import vn.asiantech.internship.ui.main.ChatActivity;
-import vn.asiantech.internship.ui.main.ContactActivity;
+import vn.asiantech.internship.ui.main.ContactActivity_;
 import vn.asiantech.internship.ui.main.MainActivity;
 import vn.asiantech.internship.ui.main.NoteActivity;
 import vn.asiantech.internship.ui.main.PassDataActivity;
@@ -20,7 +20,6 @@ import vn.asiantech.internship.ui.main.TestActivity;
 /**
  * Created by PC on 6/15/2017.
  */
-
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,7 +76,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent15);
                 break;
             case R.id.btnDay21:
-                Intent intent21 = new Intent(SplashActivity.this, ContactActivity.class);
+                Intent intent21 = new Intent(SplashActivity.this, ContactActivity_.class);
                 startActivity(intent21);
                 break;
         }
