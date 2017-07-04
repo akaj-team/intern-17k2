@@ -14,6 +14,11 @@
     <!--Bai13-->
     <string name="textView_title">Title</string>
     <string name="textView_content">Content</string>
+    <string name="menu.item_add">Add Note</string>
+    <string name="menu.item_attachFile">Attach File</string>
+    <string name="menu.item_save">Save Note</string>
+    <string name="toolBar_title_screenAdd">Add Note</string>
+    <string name="toolBar_title_screenList">List Note</string>
     <!--Bai15-->
     <string name="drawer_open">Draw open</string>
     <string name="drawer_close">Draw close</string>

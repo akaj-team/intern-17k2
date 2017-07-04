@@ -1,6 +1,5 @@
 package vn.asiantech.internship.note.ui;
 
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
