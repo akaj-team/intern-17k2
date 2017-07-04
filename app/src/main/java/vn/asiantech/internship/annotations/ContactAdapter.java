@@ -42,7 +42,7 @@ class ContactAdapter extends RecyclerView.Adapter {
     }
 
     /*
-     * Used to register for contact
+    * Used to register for contact.
      */
     private class ContactViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
