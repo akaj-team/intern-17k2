@@ -32,13 +32,31 @@ class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
         ArrayList<Contact> contacts = new ArrayList<>();
         HttpHandler httpHandler = new HttpHandler();
         String jsonString = httpHandler.makeServiceCall(strings[0]);
+        JSONArray contactArray;
         if (!TextUtils.equals(jsonString, "")) {
             try {
                 JSONObject jsonObj = new JSONObject(jsonString);
-                JSONArray contactArray = jsonObj.getJSONArray("contacts");
-                for (int i = 0; i < contactArray.length(); i++) {
-                    JSONObject jsonObject = contactArray.getJSONObject(i);
-                    contacts.add(new Contact(jsonObject.getString("name"), jsonObject.getString("email"), jsonObject.getJSONObject("phone").getString("mobile")));
+                if (jsonObj.optJSONArray("contacts") != null) {
+                    contactArray = jsonObj.getJSONArray("contacts");
+                    if (contactArray != null) {
+                        for (int i = 0; i < contactArray.length(); i++) {
+                            JSONObject jsonObject = contactArray.getJSONObject(i);
+                            Contact contact = new Contact();
+                            String name = jsonObject.getString("name");
+                            String mail = jsonObject.getString("email");
+                            String phone = jsonObject.getJSONObject("phone").getString("mobile");
+                            if (!TextUtils.equals(name, "")) {
+                                contact.setName(name);
+                                if (TextUtils.equals(mail, "")) {
+                                    contact.setName(mail);
+                                    if (TextUtils.equals(phone, "")) {
+                                        contact.setName(phone);
+                                    }
+                                }
+                            }
+                            contacts.add(contact);
+                        }
+                    }
                 }
             } catch (JSONException e) {
                 Log.e(TAG, "IOException: " + e.toString());
