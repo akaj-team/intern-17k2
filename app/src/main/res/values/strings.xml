@@ -14,7 +14,6 @@
     <string name="button.text.ex06">ex 06</string>
     <string name="button.text.ex07_1">ex 07.1</string>
     <string name="button.text.ex07_2">ex 07.2</string>
-    <string name="button.text.ex08">ex 08</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
     <string name="tip.show.text.do_you_want_to_exit">do you want to exit ?</string>
@@ -50,7 +49,4 @@
     <string name="button.text.ex19">Ex 19</string>
     <string name="error_message_you_must_play_first">You must play first</string>
     <string name="start">00:00</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
