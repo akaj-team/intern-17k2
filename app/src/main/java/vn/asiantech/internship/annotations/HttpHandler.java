@@ -54,12 +54,12 @@ class HttpHandler {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "IOException: " + e.toString());
         } finally {
             try {
                 inputStream.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "IOException: " + e.toString());
             }
         }
         return sb.toString();

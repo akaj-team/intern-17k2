@@ -1,7 +1,6 @@
 package vn.asiantech.internship.annotations;
 
 import android.app.ProgressDialog;
-import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +10,7 @@ import android.util.Log;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,10 +27,10 @@ import vn.asiantech.internship.R;
 @EActivity(R.layout.activity_contact_annotation)
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private ProgressDialog mProgressDialog;
-    private ArrayList<Contact> mContacts = new ArrayList<>();
     static final String URL = "http://api.androidhive.info/contacts/";
-    ContactAdapter mAdapter;
+    private ArrayList<Contact> mContacts = new ArrayList<>();
+    private ProgressDialog mProgressDialog;
+    private ContactAdapter mAdapter;
 
     @ViewById(R.id.recyclerViewContactAnnotation)
     RecyclerView mRecyclerView;
@@ -67,16 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
     @UiThread
     void updateUI() {
-        Log.d("aaaaaaaaaaaaaa", "initView: " + mContacts.size());
+        mAdapter = new ContactAdapter(mContacts);
+        mRecyclerView.setAdapter(mAdapter);
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
-        updateAdapter();
-    }
-
-    void updateAdapter() {
-        mAdapter = new ContactAdapter(mContacts);
-        mRecyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
     }
 }

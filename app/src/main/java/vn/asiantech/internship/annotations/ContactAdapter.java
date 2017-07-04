@@ -14,7 +14,7 @@ import vn.asiantech.internship.R;
  * Author AsianTech Inc.
  * Created by sony on 04/07/2017.
  */
-public class ContactAdapter extends RecyclerView.Adapter {
+class ContactAdapter extends RecyclerView.Adapter {
     private List<Contact> mContacts;
 
     ContactAdapter(List<Contact> contacts) {
@@ -41,14 +41,13 @@ public class ContactAdapter extends RecyclerView.Adapter {
         return mContacts.size();
     }
 
-    private class ContactViewHolder extends RecyclerView.ViewHolder {
+    class ContactViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private TextView mTvMail;
         private TextView mTvPhone;
 
         ContactViewHolder(View itemView) {
             super(itemView);
-
             mTvName = (TextView) itemView.findViewById(R.id.tvContactNameAnnotation);
             mTvMail = (TextView) itemView.findViewById(R.id.tvContactMailAnnotation);
             mTvPhone = (TextView) itemView.findViewById(R.id.tvContactPhoneAnnotation);
