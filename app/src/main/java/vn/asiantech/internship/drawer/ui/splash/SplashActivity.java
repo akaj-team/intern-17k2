@@ -7,7 +7,7 @@ import android.view.View;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day16.ui.TabActivity;
-import vn.asiantech.internship.day22.ui.JSONActivity;
+import vn.asiantech.internship.day22.ui.JSONActivity_;
 import vn.asiantech.internship.drawer.ui.main.MainActivity;
 
 /**
@@ -34,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
         findViewById(R.id.btnBai22).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SplashActivity.this, JSONActivity.class));
+                startActivity(new Intent(SplashActivity.this, JSONActivity_.class));
             }
         });
     }

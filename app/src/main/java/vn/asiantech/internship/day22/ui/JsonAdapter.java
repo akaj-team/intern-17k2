@@ -14,11 +14,11 @@ import vn.asiantech.internship.day22.models.Contact;
 /**
  * Created by at-dinhvo on 03/07/2017.
  */
-public class JsonAdapter extends RecyclerView.Adapter<JsonAdapter.ItemViewHolder> {
+class JsonAdapter extends RecyclerView.Adapter<JsonAdapter.ItemViewHolder> {
 
     private List<Contact> mContacts;
 
-    public JsonAdapter(List<Contact> contacts) {
+    JsonAdapter(List<Contact> contacts) {
         mContacts = contacts;
     }
 

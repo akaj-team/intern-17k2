@@ -22,7 +22,7 @@
         <activity android:name=".drawer.ui.main.MainActivity" />
         <activity android:name=".drawer.ui.feed.FeedActivity" />
         <activity android:name=".day16.ui.TabActivity" />
-        <activity android:name=".day22.ui.JSONActivity" />
+        <activity android:name=".day22.ui.JSONActivity_" />
     </application>
 
 </manifest>

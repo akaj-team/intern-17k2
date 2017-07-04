@@ -1,53 +1,103 @@
 package vn.asiantech.internship.day22.ui;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.day22.handlerjson.JSONAsyncTask;
+import vn.asiantech.internship.day22.handlerjson.HttpHandler;
 import vn.asiantech.internship.day22.models.Contact;
+import vn.asiantech.internship.day22.models.Phone;
 
 /**
  * JSONActivity show list contact
  */
+@EActivity(R.layout.activity_json)
 public class JSONActivity extends AppCompatActivity {
+
+    private static final String URL = "http://api.androidhive.info/contacts/";
 
     private ProgressDialog mProgressDialog;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_json);
-        initUI();
+    private ArrayList<Contact> mContacts;
+
+    @ViewById(R.id.recyclerViewJSON)
+    RecyclerView recyclerView;
+
+    @AfterViews
+    void afterView() {
+        handlerHttpUrl();
     }
 
-    private void initUI() {
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewJSON);
-        recyclerView.setLayoutManager(new LinearLayoutManager(JSONActivity.this));
-        recyclerView.setHasFixedSize(true);
-        JSONAsyncTask asyncTask = new JSONAsyncTask(new JSONAsyncTask.OnUpdateUiListener() {
-            @Override
-            public void onShowDialog() {
-                mProgressDialog = new ProgressDialog(JSONActivity.this);
-                mProgressDialog.setMessage(getResources().getString(R.string.dialog_wait));
-                mProgressDialog.setCancelable(false);
-                mProgressDialog.show();
-            }
-
-            @Override
-            public void onUpdateRecyclerView(ArrayList<Contact> contacts) {
-                if (mProgressDialog.isShowing()) {
-                    mProgressDialog.dismiss();
+    @Background
+    void handlerHttpUrl() {
+        HttpHandler httpHandler = new HttpHandler();
+        mContacts = new ArrayList<>();
+        String jsonString = httpHandler.makeServiceCall(URL);
+        Contact contact;
+        Phone phone;
+        if (!TextUtils.isEmpty(jsonString)) {
+            showDialog();
+            try {
+                JSONObject jsonObject = new JSONObject(jsonString);
+                if (jsonObject.has("contacts")) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("contacts");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        if (object.has("name") && object.has("email") && object.has("gender")
+                                && object.has("address") && object.has("id") && object.has("phone")) {
+                            JSONObject jsonPhone = object.getJSONObject("phone");
+                            if (jsonPhone.has("mobile") && jsonPhone.has("home") && jsonPhone.has("office")) {
+                                phone = new Phone(jsonPhone.getString("mobile"),
+                                        jsonPhone.getString("home"), jsonPhone.getString("office"));
+                                contact = new Contact(object.getString("id"), object.getString("name"),
+                                        object.getString("email"), object.getString("gender"),
+                                        object.getString("address"), phone);
+                                mContacts.add(contact);
+                            }
+                        }
+                    }
+                } else {
+                    Log.e("JSON isn't exist", "" + jsonObject.has("contacts"));
                 }
-                JsonAdapter adapter = new JsonAdapter(contacts);
-                recyclerView.setAdapter(adapter);
+            } catch (JSONException e) {
+                Log.e("JSONException", "JSONException: " + e.getMessage());
             }
-        });
-        asyncTask.execute();
+            updateUI();
+        }
+    }
+
+    @UiThread
+    void updateUI() {
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewJSON);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+        JsonAdapter adapter = new JsonAdapter(mContacts);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @UiThread
+    void showDialog() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage(getResources().getString(R.string.dialog_wait));
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
     }
 }

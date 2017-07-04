@@ -40,4 +40,7 @@
         <item>Camera</item>
     </string-array>
     <string name="dialog_wait">Please wait…</string>
+    <string name="titleJSON">List contacts</string>
+    <string name="email">Email: </string>
+    <string name="phone">Phone: </string>
 </resources>

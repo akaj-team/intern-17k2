@@ -1,5 +1,6 @@
 package vn.asiantech.internship.day22.handlerjson;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -15,14 +16,14 @@ import java.net.URL;
 /**
  * Created by at-dinhvo on 03/07/2017.
  */
-class HttpHandler {
+public class HttpHandler {
 
     private static final String[] METHOD = {"GET", "POST"};
 
-    HttpHandler() {
+    public HttpHandler() {
     }
 
-    String makeServiceCall(String reqUrl) {
+    public String makeServiceCall(String reqUrl) {
         String response = null;
         try {
             URL url = new URL(reqUrl);
@@ -42,7 +43,7 @@ class HttpHandler {
         return response;
     }
 
-    private String convertStreamToString(InputStream inputStream) {
+    private String convertStreamToString(@NonNull InputStream inputStream) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder sb = new StringBuilder();
         String line;
