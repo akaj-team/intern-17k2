@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".day21.activity.ContactActivity">
+        <activity android:name=".day22.activity.ContactActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
