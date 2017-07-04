@@ -34,7 +34,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private List<Song> mSongs;
     private int mPosition;
     private boolean mIsShuffle;
-    private boolean mIsCompleted;
+    private boolean mIsAutoNext;
 
     @Nullable
     @Override
@@ -75,15 +75,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 mIsShuffle = intent.getBooleanExtra("shuffle", false);
                 Log.d("xxxx", "onStartCommand: " + mIsShuffle);
             } else if (intent.getAction().equals(Action.AUTO_NEXT.getValue())) {
-                boolean isAutoNext = intent.getBooleanExtra("autonext", false);
-                if(isAutoNext) {
-                    for (int i = mPosition + 1; i < mSongs.size(); i++) {
-                        if (mIsCompleted) {
-                            Log.d("xxx", "i: " + i);
-                            playSong(i);
-                        }
-                    }
-                }
+                mIsAutoNext = intent.getBooleanExtra("autonext", false);
             }
         }
         return START_STICKY;
@@ -91,7 +83,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     private void playSong(int position) {
         mMediaPLayer.reset();
-        mIsCompleted = false;
         Song song = mSongs.get(position);
         int id = song.getId();
         Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
@@ -101,12 +92,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             e.getMessage();
         }
         mMediaPLayer.prepareAsync();
-    }
-
-    private void playShuffleSong(int position) {
-        List<Song> songs = mSongs;
-        Random random = new Random();
-        mPosition = random.nextInt(songs.size());
     }
 
     private void showNotification() {
@@ -147,7 +132,19 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        mIsCompleted = true;
-        Log.d("xxx", "onCompletion: true " );
+        if (mIsAutoNext) {
+            mp.stop();
+            mp.reset();
+            Song song = mSongs.get(mPosition++);
+            int id = song.getId();
+            Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
+            try {
+                mp.setDataSource(this, uri);
+                mp.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            mp.start();
+        }
     }
 }
