@@ -72,7 +72,7 @@ public class JSONActivity extends AppCompatActivity {
                         }
                     }
                 } else {
-                    Log.e("JSON isn't exist", "" + jsonObject.has("contacts"));
+                    Log.e("Exist", "JSON isn't exist: " + !jsonObject.has("contacts"));
                 }
             } catch (JSONException e) {
                 Log.e("JSONException", "JSONException: " + e.getMessage());
@@ -83,7 +83,6 @@ public class JSONActivity extends AppCompatActivity {
 
     @UiThread
     void updateUI() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewJSON);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         if (mProgressDialog.isShowing()) {
