@@ -41,7 +41,10 @@ class ContactAdapter extends RecyclerView.Adapter {
         return mContacts.size();
     }
 
-    class ContactViewHolder extends RecyclerView.ViewHolder {
+    /*
+     * Used to register for contact
+     */
+    private class ContactViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private TextView mTvMail;
         private TextView mTvPhone;
