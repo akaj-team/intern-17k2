@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import org.androidannotations.annotations.EActivity;
+
 import vn.asiantech.internship.MainIntentActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.activity.ChatActivity;
