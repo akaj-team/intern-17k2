@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -53,31 +54,64 @@ public class ContactActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(jsonString)) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                JSONArray jsonArray = jsonObject.getJSONArray("contacts");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    String name = object.getString("name");
-                    String email = object.getString("email");
-                    JSONObject phone = object.getJSONObject("phone");
-                    String mobile = phone.getString("mobile");
-                    Phone newPhone = new Phone(mobile);
-                    Contact contact = new Contact(name, email, newPhone);
-                    contacts.add(contact);
+                if (jsonObject.has("contacts")) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("contacts");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject phone;
+                        String name;
+                        String mobile;
+                        String email = null;
+                        Phone newPhone = null;
+                            if (jsonArray.getJSONObject(i) != null) {
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                if (object.has("name")) {
+                                    name = object.getString("name");
+                                    if (object.has("email")) {
+                                        email = object.getString("email");
+                                        if (object.has("phone")) {
+                                            phone = object.getJSONObject("phone");
+                                            if (phone.has("mobile")) {
+                                                mobile = phone.getString("mobile");
+                                            } else {
+                                                Log.e("xxx", "mobile null: ");
+                                                mobile = null;
+                                            }
+                                            newPhone = new Phone(mobile);
+                                        } else {
+                                            newPhone = null;
+                                            Log.e("xxx", "phone null");
+                                        }
+                                    } else {
+                                        email = null;
+                                        Log.e("xxx", "email null");
+                                    }
+                                } else {
+                                    name = null;
+                                    Log.e("xxx", "name null");
+                                }
+                                Contact contact = new Contact(name, email, newPhone);
+                                contacts.add(contact);
+                            } else {
+                                Log.e("xxx", "jsonObject null ");
+                            }
+                    }
+                } else {
+                    Log.e("xxx", "Json is not exist");
                 }
             } catch (JSONException e) {
-                e.getMessage();
+                e.printStackTrace();
             }
+            showContact(contacts);
         }
-        showContact(contacts);
     }
 
-    @UiThread
-    void showContact(List<Contact> contacts) {
-        if (mDialog.isShowing()) {
-            mDialog.dismiss();
+        @UiThread
+        void showContact (List < Contact > contacts) {
+            if (mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
+            mRecyclerViewContact.setLayoutManager(new LinearLayoutManager(this));
+            ContactAnnotationAdapter adapter = new ContactAnnotationAdapter(contacts);
+            mRecyclerViewContact.setAdapter(adapter);
         }
-        mRecyclerViewContact.setLayoutManager(new LinearLayoutManager(this));
-        ContactAnnotationAdapter adapter = new ContactAnnotationAdapter(contacts);
-        mRecyclerViewContact.setAdapter(adapter);
     }
-}
