@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <vn.asiantech.internship.drawer.day16.ui.CustomView
+    <vn.asiantech.internship.day16.ui.CustomView
         android:id="@+id/customView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -20,6 +20,6 @@
         android:gravity="center"
         android:padding="@dimen/item.layout_padding"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/item.textview_text_size"
+        android:textSize="@dimen/item.textView_text_size"
         tools:text="tab item" />
 </LinearLayout>

@@ -2,7 +2,7 @@
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/imgFeed"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/feed.viewpager.height"
+    android:layout_height="@dimen/tab.viewpager.height"
     android:layout_gravity="center"
-    android:contentDescription="@string/bai8"
+    android:contentDescription="@string/bai15"
     android:src="@drawable/img_caurong" />
