@@ -21,8 +21,6 @@ import static vn.asiantech.internship.R.id.viewPager;
 class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     private List<FeedItem> mFeedItems;
-    private FeedPagerAdapter mPagerAdapter;
-    private int mCurrentPage;
 
     FeedAdapter(List<FeedItem> feedItems) {
         mFeedItems = feedItems;
@@ -39,8 +37,8 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.mTvName.setText(mFeedItems.get(position).getName());
         holder.mTvComment.setText(mFeedItems.get(position).getComment());
-        mPagerAdapter = new FeedPagerAdapter(mFeedItems.get(position).getImages());
-        holder.mViewPager.setAdapter(mPagerAdapter);
+        FeedPagerAdapter pagerAdapter = new FeedPagerAdapter(mFeedItems.get(position).getImages());
+        holder.mViewPager.setAdapter(pagerAdapter);
     }
 
     @Override
@@ -63,37 +61,58 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvFeed);
             mTvComment = (TextView) itemView.findViewById(R.id.tvComment);
-            mViewPager = (ViewPager) itemView.findViewById(viewPager);
-            mBtnLeftSlide = (ImageButton) itemView.findViewById(R.id.btnLeftSlide);
-            mBtnRightSlide = (ImageButton) itemView.findViewById(R.id.btnRightSlide);
+            mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
+            mBtnLeftSlide = (ImageButton) itemView.findViewById(R.id.imgBtnLeftSlide);
+            mBtnRightSlide = (ImageButton) itemView.findViewById(R.id.imgBtnRightSlide);
             mViewPager.setPageMargin(5);
             mViewPager.setPageMarginDrawable(R.color.colorBlack);
-            mCurrentPage = mViewPager.getCurrentItem();
+            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    updateSlide(getLayoutPosition());
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
             mBtnLeftSlide.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    if (mCurrentPage > 0) {
-                        mCurrentPage--;
-                        mBtnRightSlide.setVisibility(View.VISIBLE);
-                    } else {
-                        mBtnLeftSlide.setVisibility(View.GONE);
-                    }
-                    mViewPager.setCurrentItem(mCurrentPage);
+                public void onClick(View v) {
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
                 }
             });
             mBtnRightSlide.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    if (mCurrentPage < mPagerAdapter.getCount()) {
-                        mCurrentPage++;
-                        mBtnLeftSlide.setVisibility(View.VISIBLE);
-                    } else {
-                        mBtnRightSlide.setVisibility(View.GONE);
-                    }
-                    mViewPager.setCurrentItem(mCurrentPage);
+                public void onClick(View v) {
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
                 }
             });
+        }
+
+        private void updateSlide(int position) {
+            List<Integer> mImageArray = mFeedItems.get(position).getImages();
+            if (mImageArray.size() > 1) {
+                if (mViewPager.getCurrentItem() != 0) {
+                    mBtnLeftSlide.setVisibility(View.VISIBLE);
+                } else {
+                    mBtnLeftSlide.setVisibility(View.GONE);
+                }
+                if (mViewPager.getCurrentItem() != mImageArray.size() - 1) {
+                    mBtnRightSlide.setVisibility(View.VISIBLE);
+                } else {
+                    mBtnRightSlide.setVisibility(View.GONE);
+                }
+            } else {
+                mBtnLeftSlide.setVisibility(View.GONE);
+                mBtnRightSlide.setVisibility(View.GONE);
+            }
         }
     }
 }

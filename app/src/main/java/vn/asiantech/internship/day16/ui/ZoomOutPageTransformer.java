@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day16.ui;
+package vn.asiantech.internship.day16.ui;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="vn.asiantech.internship">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -20,7 +21,8 @@
         </activity>
         <activity android:name=".drawer.ui.main.MainActivity" />
         <activity android:name=".drawer.ui.feed.FeedActivity" />
-        <activity android:name=".drawer.day16.ui.TabActivity" />
+        <activity android:name=".day16.ui.TabActivity" />
+        <activity android:name=".day22.ui.JSONActivity" />
     </application>
 
 </manifest>

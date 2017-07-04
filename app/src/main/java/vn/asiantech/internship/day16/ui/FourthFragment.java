@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.day16.ui;
+package vn.asiantech.internship.day16.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,13 +12,13 @@ import vn.asiantech.internship.R;
 /**
  * Created by at-dinhvo on 29/06/2017.
  */
-public class FifthFragment extends Fragment {
+public class FourthFragment extends Fragment {
 
     private View mLayout;
 
     private boolean isVisible;
 
-    public FifthFragment() {
+    public FourthFragment() {
         // Required empty public constructor
     }
 
@@ -27,7 +27,7 @@ public class FifthFragment extends Fragment {
                              Bundle savedInstanceState) {
         mLayout = inflater.inflate(R.layout.fragment_first, container, false);
         if (isVisible && getUserVisibleHint()) {
-            loadData();
+            showUI();
         }
         return mLayout;
     }
@@ -35,16 +35,16 @@ public class FifthFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        isVisible = isVisibleToUser;
         if (isVisibleToUser) {
-            loadData();
+            showUI();
         }
+        isVisible = isVisibleToUser;
     }
 
-    private void loadData() {
+    private void showUI() {
         if (mLayout != null) {
             ImageView imageView = (ImageView) mLayout.findViewById(R.id.imgFragment);
-            imageView.setImageResource(R.drawable.img_danang);
+            imageView.setImageResource(R.drawable.img_binhdinh);
             isVisible = true;
         }
     }
