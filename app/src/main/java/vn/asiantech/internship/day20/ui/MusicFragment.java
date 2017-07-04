@@ -3,9 +3,11 @@ package vn.asiantech.internship.day20.ui;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +39,23 @@ public class MusicFragment extends Fragment {
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("CURRENT_TIME")) {
-                // TODO: 30/06/2017
+            if (intent.getAction().equals(CURRENT_TIME)) {
+                Log.e("at-dinhvo", "onReceive: " + intent.getAction());
+                mTvMusicTime.setText(intToStringDuration(intent.getIntExtra("time", -1)));
+                mCurrentTime.setText(intToStringDuration(intent.getIntExtra("second", -1)));
             }
         }
     };
+
+    private String intToStringDuration(int aDuration) {
+        String result = "";
+        int hours = 0, minutes = 0, seconds = 0;
+        hours = aDuration / 3600;
+        minutes = (aDuration - hours * 3600) / 60;
+        seconds = (aDuration - (hours * 3600 + minutes * 60));
+        result = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return result;
+    }
 
     public MusicFragment() {
         // Required empty public constructor
@@ -77,7 +91,7 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentNext = new Intent();
-                intentNext.setAction(MusicService.ACTION_PLAY);
+                intentNext.setAction(MusicService.ACTION_NEXT);
                 intentNext.putExtra("url", URL);
                 getActivity().sendBroadcast(intentNext);
             }
@@ -87,7 +101,7 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentPrevious = new Intent();
-                intentPrevious.setAction(MusicService.ACTION_PLAY);
+                intentPrevious.setAction(MusicService.ACTION_PREVIOUS);
                 intentPrevious.putExtra("url", URL);
                 getActivity().sendBroadcast(intentPrevious);
             }
@@ -103,4 +117,18 @@ public class MusicFragment extends Fragment {
         mCurrentTime = (TextView) layout.findViewById(R.id.tvCurrentTime);
         mTvMusicTime = (TextView) layout.findViewById(R.id.tvTimeSong);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(CURRENT_TIME);
+        getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
+    }
+/*
+    private void showNotification() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SCREEN_OFF);
+        getActivity().sendBroadcast(intent);
+    }*/
 }
