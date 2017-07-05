@@ -6,11 +6,10 @@
     <string name="baiNote">BaiNote</string>
     <string name="bai15">Bai15</string>
     <string name="bai16">Bai16</string>
-    <!--Bai5-->
-    <string name="friendFragment_button_friend_state">Friend</string>
-    <string name="friendFragment_button_friend_add">Add</string>
     <!--Bai7-->
     <string name="textView_input">Input Text</string>
+    <string name="friendFragment_button_friend_state">Friend</string>
+    <string name="friendFragment_button_friend_add">Add</string>
     <!--Bai13-->
     <string name="textView_title">Title</string>
     <string name="textView_content">Content</string>
