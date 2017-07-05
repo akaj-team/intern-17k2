@@ -13,6 +13,7 @@ import vn.asiantech.internship.ui.feeds.FeedsActivity;
 import vn.asiantech.internship.ui.main.Ex05Activity;
 import vn.asiantech.internship.ui.main.Ex072Activity;
 import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.ui.music.MusicActivity;
 import vn.asiantech.internship.ui.questions.QuestionActivity;
 import vn.asiantech.internship.ui.note.NoteActivity;
 import vn.asiantech.internship.ui.ninepatch.ChatActivity;
@@ -61,6 +62,9 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
             case R.id.btnEx15:
                 openActivity(QuestionActivity.class);
                 break;
+            case R.id.btnEx19:
+                openActivity(MusicActivity.class);
+                break;
         }
     }
 
@@ -79,6 +83,7 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         Button btnEx11_2 = (Button) v.findViewById(R.id.btnEx11_2);;
         Button btnEx13 = (Button) v.findViewById(R.id.btnEx13);
         Button btnEx15 = (Button) v.findViewById(R.id.btnEx15);
+        Button btnEx19 = (Button) v.findViewById(R.id.btnEx19);
 
         btnEx05.setOnClickListener(this);
         btnEx06.setOnClickListener(this);
@@ -89,5 +94,6 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         btnEx11_2.setOnClickListener(this);
         btnEx13.setOnClickListener(this);
         btnEx15.setOnClickListener(this);
+        btnEx19.setOnClickListener(this);
     }
 }

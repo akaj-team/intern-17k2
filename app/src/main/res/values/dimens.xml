@@ -12,7 +12,8 @@
     <dimen name="paddingSomeThing">7dp</dimen>
     <dimen name="marginLarge">50dp</dimen>
     <dimen name="marginButtonContent">15dp</dimen>
-    <dimen name="textSizeHeadFriend">20sp</dimen>
     <dimen name="friendsTextSizes">18sp</dimen>
+    <dimen name="textSizeHeadFriend">20sp</dimen>
     <dimen name="textSizeNormal">16sp</dimen>
+    <dimen name="textSizeSmall">10sp</dimen>
 </resources>
