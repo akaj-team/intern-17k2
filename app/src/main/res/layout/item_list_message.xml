@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/item.layout_padding"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvMessageReceive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chat1"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvMessageSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@drawable/chat2"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        android:visibility="gone" />
+</LinearLayout>

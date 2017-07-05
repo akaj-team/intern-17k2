@@ -6,6 +6,7 @@
     <string name="baiNote">BaiNote</string>
     <string name="bai15">Bai15</string>
     <string name="baiQuestion">Question</string>
+    <string name="bai13">Bai13</string>
     <string name="bai16">Bai16</string>
     <!--Bai7-->
     <string name="textView_input">Input Text</string>
@@ -20,7 +21,6 @@
     <string name="toolBar_title_screenAdd">Add Note</string>
     <string name="toolBar_title_screenList">List Note</string>
     <!--Bai15-->
-    <string name="bai8">Bai8</string>
     <string name="drawer_open">Draw open</string>
     <string name="drawer_close">Draw close</string>
     <string name="header.name">at-dinhvo</string>
@@ -47,6 +47,8 @@
         <item>Gallery</item>
         <item>Camera</item>
     </string-array>
+    <!--Bai13-->
+    <string name="button_message">Send</string>
     <!--Bai15-->
     <string name="question.next">Next</string>
     <string name="question.previous">Prev</string>
