@@ -100,4 +100,22 @@
     <item name="recyclerView.chat.layout_weight" type="dimen">9</item>
     <item name="edittext.chat.layout_weight" type="dimen" format="float">0.8</item>
     <item name="button.chat.layout_weight" type="dimen" format="float">0.2</item>
+    <dimen name="quiz.layout_marginLeft">40dp</dimen>
+    <dimen name="textview.questionQuiz.textSize">20sp</dimen>
+    <dimen name="radiobutton.answer.textSize">15sp</dimen>
+    <dimen name="textview.resultQuestion.textSize">30sp</dimen>
+    <dimen name="textview.QuestionItem.textSize">20sp</dimen>
+    <dimen name="textview.questionResult.layout_marginStart">20dp</dimen>
+    <dimen name="ll.item_list_result.layout_height">50dp</dimen>
+    <dimen name="imageview.resultQuestion.layout_marginStart">230dp</dimen>
+    <dimen name="imageview.resultQuestion.padding">10dp</dimen>
+    <dimen name="textview.quiz.textSize">30sp</dimen>
+    <dimen name="textview.resulttoolbar.padding">10dp</dimen>
+    <dimen name="textview.questionQuiz.layout_marginTop">50dp</dimen>
+    <dimen name="relativeLayout.quiz.layout_height">50dp</dimen>
+    <dimen name="textview.resultLabel.textSize">20sp</dimen>
+    <dimen name="textview.resultLabel.layout_marginStart">100dp</dimen>
+    <dimen name="button.dialog_cancel.layout_marginStart">15dp</dimen>
+    <dimen name="recyclerView.layout_height">400dp</dimen>
+    <dimen name="recyclerViewResult.layout_marginTop">20dp</dimen>
 </resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/relativeLayout.quiz.layout_height"
+        android:background="@color/colorBackgroundLabelResult">
+
+        <ImageView
+            android:id="@+id/imgPrevious"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:contentDescription="@null"
+            android:src="@mipmap/ic_previous" />
+
+        <TextView
+            android:id="@+id/tvQuiz"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/imgPrevious"
+            android:layout_toStartOf="@+id/imgNext"
+            android:gravity="center"
+            android:text="@string/textview.questionQuiz.text"
+            android:textColor="@color/colorResult"
+            android:textSize="@dimen/textview.quiz.textSize" />
+
+        <ImageView
+            android:id="@+id/imgNext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@null"
+            android:src="@mipmap/ic_next" />
+
+        <TextView
+            android:id="@+id/tvResultLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/textview.resulttoolbar.padding"
+            android:text="@string/textview.resulttoolbar.text"
+            android:textColor="@color/textview.resultQuestion"
+            android:textSize="@dimen/textview.resultLabel.textSize"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/textview.border.layout_height"
+            android:layout_alignBottom="@+id/tvQuiz"
+            android:background="@color/colorBorderQuestion" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
