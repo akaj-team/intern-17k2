@@ -4,9 +4,6 @@
     <string name="bai7.2">Bai7.2</string>
     <string name="bai15">Bai15</string>
     <string name="bai16">Bai16</string>
-    <!--Bai5-->
-    <string name="friendFragment_button_friend_state">Friend</string>
-    <string name="friendFragment_button_friend_add">Add</string>
     <!--Bai7-->
     <string name="textView_input">Input Text</string>
     <!--Bai15-->
