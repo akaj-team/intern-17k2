@@ -82,29 +82,29 @@ public class AnnotationsActivity extends AppCompatActivity {
                                             String mobile = phone.getString("mobile");
                                             mJsonItems.add(new JsonItem(name, email, mobile));
                                         } else {
-                                            Log.e("tag", "mobile null");
+                                            Log.e("tag1", "mobile null");
                                         }
                                     } else {
-                                        Log.e("tag", "phone null");
+                                        Log.e("tag2", "phone null");
                                     }
                                 } else {
-                                    Log.e("tag", "email null");
+                                    Log.e("tag3", "email null");
                                 }
                             } else {
-                                Log.e("tag", "name null");
+                                Log.e("tag4", "name null");
                             }
                         } else {
-                            Log.e("tag", "contact null");
+                            Log.e("tag5", "contact null");
                         }
                     }
                 } else {
-                    Log.e("tag", "contacts null");
+                    Log.e("tag6", "contacts null");
                 }
             } catch (JSONException e) {
-                Log.e("tag", "Json parsing error: " + e.getMessage());
+                Log.e("tag7", "Json parsing error: " + e.getMessage());
             }
         } else {
-            Log.e("tag", "json str null");
+            Log.e("tag8", "json str null");
         }
     }
 
