@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -27,5 +28,6 @@
         <activity android:name=".ui.main.ChatActivity" />
         <activity android:name=".ui.main.TestActivity" />
         <activity android:name=".ui.main.ResultActivity" />
+        <activity android:name=".ui.main.FootballStarActivity" />
     </application>
 </manifest>
