@@ -14,7 +14,7 @@
     <ImageView
         android:id="@+id/imgAddNote"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/feed.item_padding"
+        android:layout_height="@dimen/detail.image_size"
         android:layout_margin="@dimen/feed.item_padding"
         android:background="@color/colorGrayLight"
         android:contentDescription="@string/textView_input" />

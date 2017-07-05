@@ -45,7 +45,6 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
             }
         });
-
         findViewById(R.id.btnBai16).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
