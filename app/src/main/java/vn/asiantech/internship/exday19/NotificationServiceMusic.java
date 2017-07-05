@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -18,7 +17,6 @@ import android.util.Log;
 import java.io.IOException;
 
 import vn.asiantech.internship.R;
-
 
 /**
  * Created by datbu on 02-07-2017.
@@ -29,11 +27,6 @@ public class NotificationServiceMusic extends Service {
     private String mUrl;
     private int mLength;
     private CountDownTimer mCountDownTimer;
-    private double mStartTime;
-    private double mStopTime;
-    private Handler mHandler;
-    private String mStart;
-    private String mStop;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -43,7 +36,20 @@ public class NotificationServiceMusic extends Service {
 
         Log.d(TAG, "onStartCommand: " + mUrl);
         if (intent != null && intent.getAction() != null) {
-            if (intent.getAction().equals(Action.PAUSE.getValue())) {
+            if (intent.getAction().equals(Action.PLAY.getValue())) {
+                Intent timeIntent = new Intent(Action.PLAY.getValue());
+                if (mMediaPlayer.isPlaying()) {
+                    timeIntent.putExtra("play", R.drawable.play);
+                    mMediaPlayer.pause();
+                } else {
+                    timeIntent.putExtra("pause", R.drawable.pause);
+                    mMediaPlayer.start();
+                }
+            } else if (intent.getAction().equals(Action.NEXT.getValue())) {
+                mMediaPlayer.stop();
+                mMediaPlayer.release();
+
+            } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
                 mMediaPlayer.pause();
                 mLength = mMediaPlayer.getCurrentPosition();
             } else if (intent.getAction().equals(Action.START.getValue())) {
@@ -80,8 +86,7 @@ public class NotificationServiceMusic extends Service {
             } else if (intent.getAction().equals(Action.RESUME.getValue())) {
                 mMediaPlayer.seekTo(mLength);
                 mMediaPlayer.start();
-            } else if (intent.getAction().equals(
-                    Action.STOP.getValue())) {
+            } else if (intent.getAction().equals(Action.STOP.getValue())) {
                 stopForeground(true);
                 stopSelf();
             } else if (intent.getAction().equals(Action.SEEK_TO.getValue())) {

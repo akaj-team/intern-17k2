@@ -8,6 +8,7 @@ enum Action {
     INTENT("INTENT"), PAUSE("PAUSE"), START("START"),
     TIME("TIME"), PLAY("PLAY"),
     NEXT("NEXT"), PREV("PREV"),
+    REPEAT("REPEAT"), SHUFFLE("SHUFFLE"),
     RESUME("RESUME"), SEEK("SEEK"),
     SEEK_TO("SEEK_TO"), STOP("STOP");
 

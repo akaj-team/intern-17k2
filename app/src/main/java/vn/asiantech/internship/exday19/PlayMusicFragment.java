@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -50,6 +51,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     private MediaPlayer mMediaPlayer;
     private Handler mHandler;
     private ArrayList<MusicItem> mMusicItems;
+    private Intent mIntent;
     private int mPosition;
     private boolean mIsShuffle;
     private boolean mIsRepeat;
@@ -60,6 +62,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         public void onReceive(Context context, Intent intent) {
             if (intent != null) {
                 processTime(intent);
+//                image(intent);
             }
         }
     };
@@ -84,6 +87,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         startIntent.putExtra("image", mUrlImage);
         getContext().startService(startIntent);
         mImgPlay.setImageResource(R.drawable.pause);
+
     }
 
     public void initData() {
@@ -123,9 +127,25 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgPlay:
-                Intent playIntent = new Intent(getContext(), NotificationServiceMusic.class);
-                playIntent.setAction(Action.PLAY.getValue());
-                getContext().startService(playIntent);
+                mIntent = new Intent(getContext(), NotificationServiceMusic.class);
+                mIntent.setAction(Action.PLAY.getValue());
+                getContext().startService(mIntent);
+                break;
+            case R.id.imgNext:
+                mIntent.setAction(Action.NEXT.getValue());
+                getContext().startService(mIntent);
+                break;
+            case R.id.imgPrevious:
+                mIntent.setAction(Action.PREV.getValue());
+                getContext().startService(mIntent);
+                break;
+            case R.id.imgRepeat:
+                mIntent.setAction(Action.REPEAT.getValue());
+                getContext().startService(mIntent);
+                break;
+            case R.id.imgShuffle:
+                mIntent.setAction(Action.SHUFFLE.getValue());
+                getContext().startService(mIntent);
                 break;
         }
     }
@@ -152,8 +172,24 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         });
     }
 
+//    private void image(Intent intent) {
+//        int img;
+//        if (mMediaPlayer.isPlaying()) {
+//            img = Integer.parseInt(intent.getStringExtra("pause"));
+//            mImgPlay.setImageResource(img);
+//            Log.d("tag", "image: " + img);
+//        } else {
+//            img = Integer.parseInt(intent.getStringExtra("play"));
+//            mImgPlay.setImageResource(img);
+//            Log.d("tag", "image: " + img);
+//        }
+//    }
+
     private void processTime(Intent intent) {
-        if (mLength == 0) {
+        if (mMediaPlayer.isPlaying()) {
+            Log.d("tag", "processTime: " + Integer.parseInt(intent.getStringExtra("time")));
+            mImgPlay.setImageResource(Integer.parseInt(intent.getStringExtra("pause")));
+        } else if (mLength == 0) {
             mLength = Integer.parseInt(intent.getStringExtra("time"));
             mSeekBar.setMax(mLength);
             mSeekBar.setProgress(0);
@@ -162,6 +198,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         mTime = Integer.parseInt(intent.getStringExtra("second"));
         Log.d("tag", "processTime: " + mTime);
         mSeekBar.setProgress(mTime);
+        showTime();
     }
 
     @Override
@@ -174,8 +211,6 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     public void showTime() {
         mStartTime = mMediaPlayer.getCurrentPosition();
         mStopTime = mMediaPlayer.getDuration();
-        Log.d("tag", "showTime: " + mMediaPlayer.getCurrentPosition());
-        Log.d("tag", "showTime: " + mMediaPlayer.getDuration());
         convertTime();
         mHandler.postDelayed(updateTime, 100);
     }
@@ -206,4 +241,16 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
             mHandler.postDelayed(this, 100);
         }
     };
+
+    public void initShuffle() {
+        if (!mIsShuffle) {
+            // shuffle is on - play a random song
+            Random rand = new Random();
+            for (int i = 0; i < mMusicItems.size(); i++) {
+                mPosition = rand.nextInt(mMusicItems.size());
+            }
+        } else {
+            mPosition = (mPosition + 1) % mMusicItems.size();
+        }
+    }
 }
