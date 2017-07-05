@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import java.util.List;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day19.activity.MusicActivity;
 import vn.asiantech.internship.day19.model.Song;
+import vn.asiantech.internship.day19.service.Action;
 import vn.asiantech.internship.day19.service.SongService;
 
 /**
@@ -40,7 +40,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
     @Override
     public void onBindViewHolder(SongViewHolder holder, int position) {
-        Log.d("bbbbb", "setPosition: " + mPositionCurrent);
         if (mPositionCurrent == position) {
             holder.mItemView.setBackgroundColor(Color.LTGRAY);
         } else {
@@ -75,11 +74,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
             mItemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mChooseSongListener.updateSong(getAdapterPosition());
-                    mPositionCurrent = getAdapterPosition();
-                    Intent intent = new Intent();
-                    intent.setAction(SongService.ACTION_CHOOSE_PLAY);
-                    intent.putExtra(MusicActivity.TYPE_INDEX, getAdapterPosition());
+                    mChooseSongListener.updateSong(getLayoutPosition());
+                    mPositionCurrent = getLayoutPosition();
+                    Intent intent = new Intent(mMusicActivity, SongService.class);
+                    intent.setAction(Action.CHOOSE_PLAY.getValue());
+                    intent.putExtra(MusicActivity.TYPE_POSITION, getLayoutPosition());
                     mMusicActivity.startService(intent);
                 }
             });

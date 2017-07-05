@@ -1,21 +1,33 @@
 package vn.asiantech.internship.day19.service;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import java.io.IOException;
 import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Random;
 
+import vn.asiantech.internship.R;
 import vn.asiantech.internship.day19.activity.MusicActivity;
 import vn.asiantech.internship.day19.model.Song;
+import vn.asiantech.internship.day19.model.Utils;
 
 /**
  * Copyright © 2017 AsianTech inc.
@@ -23,27 +35,19 @@ import vn.asiantech.internship.day19.model.Song;
  */
 public class SongService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
     private static final String TAG = SongService.class.getName();
+    private static final int MY_NOTIFICATION_ID = 12345;
 
-    // Intent Service
-    public static final String ACTION_SONGS = "vn.asiantech.internship.SONGS";
-    public static final String ACTION_PAUSE = "vn.asiantech.internship.PAUSE";
-    public static final String ACTION_CHOOSE_PLAY = "vn.asiantech.internship.PLAY";
-    public static final String ACTION_PLAY = "vn.asiantech.internship.CHOOSE_PLAY";
-    public static final String ACTION_PREVIOUS = "vn.asiantech.internship.PREVIOUS";
-    public static final String ACTION_NEXT = "vn.asiantech.internship.NEXT";
-    public static final String ACTION_AUTO_NEXT = "vn.asiantech.internship.AUTO_NEXT";
-    public static final String ACTION_AUTO_NEXT_SELECTED = "vn.asiantech.internship.AUTO_NEXT_SELECTED";
-
-    // Intent Broadcast
-    public static final String ACTION_SEND_POSITION = "vn.asiantech.internship.SEND_POSITION";
-    public static final String TYPE_POSITION = "POSITION";
-
-    public static MediaPlayer sMediaPlayer;
+    private MediaPlayer mMediaPlayer;
     private List<Song> mSongs;
     private int mCurrentPosition;
     private boolean mCheck;
     private boolean mCheckAutoNext;
     private boolean mCheckShuffle;
+    private Utils mUtils = new Utils();
+    private Handler mHandler = new Handler();
+    private Runnable mRunnable;
+    private CountDownTimer mCountDownTimer;
+    private NotificationBroadcast mNotificationBroadcast;
 
     // No-op
     @Nullable
@@ -53,70 +57,101 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
     }
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        mNotificationBroadcast = new NotificationBroadcast();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        registerReceiver(mNotificationBroadcast, intentFilter);
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
-            switch (intent.getAction()) {
-                case ACTION_SONGS:
-                    mSongs = intent.getParcelableArrayListExtra(MusicActivity.TYPE_SONGS);
-                    break;
-                case ACTION_CHOOSE_PLAY:
-                    mCurrentPosition = intent.getIntExtra(MusicActivity.TYPE_INDEX, -1);
+            if (intent.getAction().equals(Action.SONGS.getValue())) {
+                mSongs = intent.getParcelableArrayListExtra(MusicActivity.TYPE_SONGS);
+            } else if (intent.getAction().equals(Action.CHOOSE_PLAY.getValue())) {
+                mCurrentPosition = intent.getIntExtra(MusicActivity.TYPE_POSITION, 0);
+                Log.d("sssss1", "onStartCommand: " + mCurrentPosition);
+                setSongPlay();
+            } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
+                Log.d("kkkk1", "onStartCommand: ");
+                if (!mCheck) {
                     setSongPlay();
-                    break;
-                case ACTION_PAUSE:
-                    if (!mCheck) {
-                        mCurrentPosition = intent.getIntExtra(MusicActivity.TYPE_INDEX, -1);
-                        setSongPlay();
-                        mCheck = true;
-                    } else {
-                        if (sMediaPlayer != null) {
-                            sMediaPlayer.start();
-                        }
+                    mCheck = true;
+                } else {
+                    if (mMediaPlayer != null) {
+                        mMediaPlayer.start();
                     }
-
-                    break;
-                case ACTION_PLAY:
-                    if (sMediaPlayer != null) {
-                        if (sMediaPlayer.isPlaying()) {
-                            sMediaPlayer.pause();
-                        }
+                }
+            } else if (intent.getAction().equals(Action.PLAY.getValue())) {
+                if (mMediaPlayer != null) {
+                    if (mMediaPlayer.isPlaying()) {
+                        mMediaPlayer.pause();
                     }
-                    break;
-                case ACTION_NEXT:
-                    mCurrentPosition = intent.getIntExtra(MusicActivity.TYPE_INDEX, -1);
-                    setSongPlay();
-                    break;
-                case ACTION_PREVIOUS:
-                    mCurrentPosition = intent.getIntExtra(MusicActivity.TYPE_INDEX, -1);
-                    setSongPlay();
-                    break;
-                case ACTION_AUTO_NEXT:
-                    Log.d("bbbbbbbb2", "onClick: ");
-                    mCheckAutoNext = intent.getBooleanExtra(MusicActivity.TYPE_AUTO_NEXT, false);
-                    mCheckShuffle = intent.getBooleanExtra(MusicActivity.TYPE_SHUFFLE, false);
-                    Log.d("bbbbbbbb3", "onClick: " + mCheckShuffle);
-                    break;
-                case ACTION_AUTO_NEXT_SELECTED:
-                    mCheckAutoNext = false;
+                }
+            } else if (intent.getAction().equals(Action.NEXT.getValue())) {
+                if (mCheckShuffle) {
+                    mCurrentPosition = getRandomPosition();
+                } else {
+                    mCurrentPosition++;
+                    if (mCurrentPosition == mSongs.size() - 1) {
+                        mCurrentPosition = 0;
+                    }
+                }
+                setSongPlay();
+                sendPositionToActivity();
+            } else if (intent.getAction().equals(Action.PREVIOUS.getValue())) {
+                if (mCheckShuffle) {
+                    mCurrentPosition = getRandomPosition();
+                } else {
+                    mCurrentPosition--;
+                    if (mCurrentPosition < 0) {
+                        mCurrentPosition = mSongs.size() - 1;
+                    }
+                }
+                setSongPlay();
+                sendPositionToActivity();
+            } else if (intent.getAction().equals(Action.SEEK_TO.getValue())) {
+                int time = intent.getIntExtra(MusicActivity.TYPE_CHOOSE_TIME, 0);
+                mMediaPlayer.seekTo(time);
+                mMediaPlayer.start();
+            } else if (intent.getAction().equals(Action.AUTO_NEXT.getValue())) {
+                Log.d("bbbbbbbb2", "onClick: ");
+                mCheckAutoNext = true;
+            } else if (intent.getAction().equals(Action.AUTO_NEXT_SELETED.getValue())) {
+                mCheckAutoNext = false;
+            } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
+                mCheckShuffle = true;
+            } else if (intent.getAction().equals(Action.SHUFFLE_SELECTED.getValue())) {
+                mCheckShuffle = false;
+            } else if (intent.getAction().equals(Action.CLOSE_NOTIFICATION.getValue())) {
+                mHandler.removeCallbacks(mRunnable);
+                if (mCountDownTimer != null) {
+                    mCountDownTimer.cancel();
+                }
+//                Intent inVisibleIntent = new Intent();
+//                inVisibleIntent.setAction(Action.CLOSE.getValue());
+//                sendBroadcast(inVisibleIntent);
+                Intent myIntent = new Intent(this, SongService.class);
+                stopService(myIntent);
             }
         }
         return START_STICKY;
     }
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (sMediaPlayer != null) {
-            sMediaPlayer.release();
-            sMediaPlayer = null;
+        if (mMediaPlayer != null) {
+            mMediaPlayer.release();
+            mMediaPlayer = null;
         }
+        unregisterReceiver(mNotificationBroadcast);
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        Log.d("bbbbbbbb7", "onCompletion: " + mCheckAutoNext);
-        Log.d("bbbbbbbb8", "onClick: " + mCheckShuffle);
         if (mCheckAutoNext) {
             if (mCheckShuffle) {
                 mCurrentPosition = getRandomPosition();
@@ -128,33 +163,35 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
                 }
             }
             setSongPlay();
-            sendDataToActivity();
+            sendPositionToActivity();
         }
     }
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        if (sMediaPlayer != null) {
-            sMediaPlayer.start();
+        if (mMediaPlayer != null) {
+            mMediaPlayer.start();
+            setProgress();
         }
     }
 
     private void createSongIfNeed() {
-        if (sMediaPlayer == null) {
-            sMediaPlayer = new MediaPlayer();
-            sMediaPlayer.setOnPreparedListener(this);
-            sMediaPlayer.setOnCompletionListener(this);
+        if (mMediaPlayer == null) {
+            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.setOnPreparedListener(this);
+            mMediaPlayer.setOnCompletionListener(this);
         } else {
-            sMediaPlayer.reset();
+            mMediaPlayer.reset();
         }
     }
 
     private void setSongPlay() {
         try {
             createSongIfNeed();
-            sMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            sMediaPlayer.setDataSource(getApplicationContext(), Uri.parse(mSongs.get(mCurrentPosition).getSongUrl()));
-            sMediaPlayer.prepare();
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mMediaPlayer.setDataSource(getApplicationContext(), Uri.parse(mSongs.get(mCurrentPosition).getSongUrl()));
+            mMediaPlayer.prepare();
+            Log.d(TAG, "onStartCommand: " + mCurrentPosition);
         } catch (IOException e) {
             Log.d(TAG, "IOException of MediaPlayer ");
         } catch (IllegalFormatException e) {
@@ -162,14 +199,89 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
         }
     }
 
-    private void sendDataToActivity() {
+    private void sendPositionToActivity() {
         Intent i = new Intent();
-        i.setAction(SongService.ACTION_SEND_POSITION);
-        i.putExtra(SongService.TYPE_POSITION, mCurrentPosition);
+        i.setAction(Action.SEND_POSITION.getValue());
+        i.putExtra(MusicActivity.TYPE_POSITION, mCurrentPosition);
         sendBroadcast(i);
     }
 
     private int getRandomPosition() {
         return new Random().nextInt(mSongs.size());
+    }
+
+    private void setProgress() {
+        final Intent timeIntent = new Intent(Action.SEEK.getValue());
+        mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration(), 1000) {
+            @Override
+            public void onTick(long l) {
+                timeIntent.putExtra(MusicActivity.TYPE_TIME, mMediaPlayer.getDuration() + "");
+                timeIntent.putExtra(MusicActivity.TYPE_SECOND, mMediaPlayer.getCurrentPosition() + "");
+                timeIntent.putExtra(MusicActivity.TYPE_POSITION, mCurrentPosition);
+                sendBroadcast(timeIntent);
+            }
+
+            // No-op
+            @Override
+            public void onFinish() {
+            }
+        };
+        mCountDownTimer.start();
+    }
+
+    private void initNotification() {
+        final RemoteViews views = new RemoteViews(getPackageName(), R.layout.notification_music);
+        views.setImageViewResource(R.id.imgBtnCloseNotification, R.mipmap.ic_close);
+        views.setProgressBar(R.id.progressBarNotification, 50, 0, false);
+        views.setImageViewResource(R.id.imgSongNotification, mSongs.get(mCurrentPosition).getSongImage());
+        views.setTextViewText(R.id.tvSongNotification, mSongs.get(mCurrentPosition).getSongName());
+        views.setTextViewText(R.id.tvArtistNotification, mSongs.get(mCurrentPosition).getSongArtist());
+        views.setTextViewText(R.id.tvTimeNowNotification, String.valueOf(mUtils.showTime(mMediaPlayer.getCurrentPosition())));
+        views.setTextViewText(R.id.tvTimeTotalNotification, String.valueOf(mUtils.showTime(mMediaPlayer.getDuration())));
+        views.setProgressBar(R.id.progressBarNotification, 100, 100 * mMediaPlayer.getCurrentPosition() / mMediaPlayer.getDuration(), false);
+        Intent intent = new Intent(this, MusicActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setAction(Action.CLICK_NOTIFICATION.getValue());
+        if (mMediaPlayer.isPlaying()) {
+            intent.putExtra(MusicActivity.TYPE_ISPLAYING, true);
+        }
+        intent.putExtra(MusicActivity.TYPE_POSITION, mCurrentPosition);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        Intent closeIntent = new Intent(this, SongService.class);
+        closeIntent.setAction(Action.CLOSE_NOTIFICATION.getValue());
+        PendingIntent closePendingIntent = PendingIntent.getService(getApplicationContext(), 0, closeIntent, 0);
+        views.setOnClickPendingIntent(R.id.imgBtnCloseNotification, closePendingIntent);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setSmallIcon(R.mipmap.ic_music_notification);
+        builder.setOngoing(true);
+        builder.setCustomBigContentView(views);
+        builder.setAutoCancel(true);
+        builder.setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+//        notificationManager.cancel(MY_NOTIFICATION_ID);
+        Notification notification = builder.build();
+//        notification.flags|=Notification.FLAG_AUTO_CANCEL;
+        notificationManager.notify(MY_NOTIFICATION_ID, notification);
+    }
+
+    // Create NotificationBroadcast
+    class NotificationBroadcast extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                mRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mMediaPlayer != null) {
+                            initNotification();
+                        }
+                        mHandler.post(this);
+                    }
+                };
+                mHandler.post(mRunnable);
+            }
+        }
     }
 }

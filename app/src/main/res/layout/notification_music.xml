@@ -2,17 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/llNotification"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imgSongNotification"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:contentDescription="@null" />
 
         <LinearLayout
@@ -29,6 +30,15 @@
                 android:id="@+id/tvArtistNotification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/imgBtnCloseNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="250dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null" />
+
         </LinearLayout>
     </LinearLayout>
 
@@ -37,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llNotification"
+        android:layout_marginStart="100dp"
         tools:text="0:00:00" />
 
     <TextView
@@ -45,23 +56,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/llNotification"
+        android:layout_marginEnd="100dp"
         tools:text="0:00:00" />
 
     <ProgressBar
         android:id="@+id/progressBarNotification"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTimeNowNotification" />
-
-    <ImageButton
-        android:id="@+id/imgBtnCloseNotification"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_below="@+id/progressBarNotification"
-        android:layout_marginStart="350dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@null" />
-
+        android:layout_below="@+id/tvTimeNowNotification"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
