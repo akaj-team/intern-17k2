@@ -12,6 +12,20 @@
     <string name="title.notefragment">Note Fragment</string>
     <string name="title.detail">Detail Note Fragment</string>
     <string name="title.edit">Edit</string>
+    <string name="title.question">Question %d</string>
+    <string name="result_message">You have finish %1$d / %2$d question. \nDo you want to submit?</string>
+    <string name="result_format">"Your point: %1$d/%2$d"</string>
+    <string name="qustion">Question %d</string>
+    <string name="tv.next">Next</string>
+    <string name="tv.prev">Previous</string>
+    <string name="tv.result">Result</string>
+    <string name="dialog.title.result">Do you want to replay?</string>
+    <string name="dialog.message.result">If you click exit, the app will close</string>
+    <string name="dialog.button.exit">Exit</string>
+    <string name="dialog.button.yes">Yes</string>
+    <string name="dialog.title.show">Your point:</string>
+    <string name="button.cancel">Cancel</string>
+    <string name="button.ok">OK</string>
     <string name="chat.hello">Hello</string>
     <string name="chat.meet">Nice to meet you</string>
     <string name="chat.goodbye">GoodBye</string>
@@ -26,7 +40,6 @@
 
     <string name="action_settings">Settings</string>
     <string name="Alert_choose">Choose action</string>
-    <string name="button.cancel">Cancel</string>
     <string name="iten.feed">Feed</string>
     <string name="item.activity">Activity</string>
     <string name="item.profile">Profile</string>
@@ -41,6 +54,7 @@
     <string name="ex_day_16">Ex day 16</string>
     <string name="ex_day_13">EX Day 13</string>
     <string name="ex_day_11">Ex Day 11</string>
+    <string name="ex_day_15">Ex day 15</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>
