@@ -33,7 +33,6 @@
             android:layout_height="wrap_content"
             android:text="@string/bai9" />
 
-
         <Button
             android:id="@+id/btnBai11"
             android:layout_width="match_parent"
@@ -47,10 +46,16 @@
             android:text="@string/bai13" />
 
         <Button
+            android:id="@+id/btnBai15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btnBai15"
-            android:text="@string/bai15"/>
+            android:text="@string/bai15" />
+
+        <Button
+            android:id="@+id/btnBai16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bai16" />
     </LinearLayout>
 
 </ScrollView>

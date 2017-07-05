@@ -26,4 +26,9 @@
     <dimen name="linearlayout.margin">5dp</dimen>
     <dimen name="cardview.radius">14.5sp</dimen>
     <dimen name="imageview.size.note">50dp</dimen>
+    <dimen name="viewpager.margin_bottom">60dp</dimen>
+    <dimen name="tablayout.height">80dp</dimen>
+    <dimen name="tablayout.textview.size">13sp</dimen>
+    <dimen name="tab.textview.height">60dp</dimen>
+    <dimen name="tab.circle.height">20dp</dimen>
 </resources>

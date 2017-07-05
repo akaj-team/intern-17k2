@@ -24,6 +24,7 @@
     <string name="bai11">Bai 11</string>
     <string name="bai13">Bai 13</string>
     <string name="bai15">Bai 15</string>
+    <string name="bai16">Bai 16</string>
     <string name="question">Question %d</string>
     <string name="question1">Question 1</string>
     <string name="previous">previous</string>
@@ -35,4 +36,9 @@
     <string name="textview.text.desription">This is desription</string>
     <string name="edittext.hint.title">Title</string>
     <string name="editetext.hint.content">Content</string>
+    <string name="cat">Cat</string>
+    <string name="dog">Dog</string>
+    <string name="mouse">Mouse</string>
+    <string name="penguin">Penguin</string>
+    <string name="gorilla">Gorilla</string>
 </resources>
