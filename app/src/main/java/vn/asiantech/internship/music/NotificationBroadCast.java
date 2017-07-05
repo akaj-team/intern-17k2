@@ -58,7 +58,6 @@ public class NotificationBroadCast extends BroadcastReceiver {
                             .setContent(mNotificationView)
                             .setSmallIcon(R.drawable.ic_music_note_white_48dp)
                             .setContentIntent(pendingIntent)
-                            .setContentIntent(cancelPendingIntent)
                             .setOngoing(true).build();
                     NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     notificationManager.notify(1, notification);

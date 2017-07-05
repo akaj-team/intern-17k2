@@ -53,9 +53,9 @@ public class MusicService extends Service {
 
     @Override
     public void onCreate() {
+        super.onCreate();
         IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
         registerReceiver(mNotificationBroadCast, screenStateFilter);
-        super.onCreate();
     }
 
     @Override
@@ -258,7 +258,7 @@ public class MusicService extends Service {
             try {
                 mMediaPlayer.release();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d(TAG, e.toString());
             }
         }
     }
