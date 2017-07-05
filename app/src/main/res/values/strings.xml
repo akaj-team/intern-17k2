@@ -33,6 +33,7 @@
     <string name="txt.name">Name:</string>
     <string name="txt.email">Email:</string>
     <string name="txt.mobile">Mobile:</string>
+    <string name="progressdialog">Please wait...</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>

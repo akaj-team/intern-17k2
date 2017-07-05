@@ -35,7 +35,7 @@ public class AnnotationsActivity extends AppCompatActivity {
     void initView() {
         mJsonItems = new ArrayList<>();
         mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage("Please wait...");
+        mProgressDialog.setMessage(getString(R.string.progressdialog));
         mProgressDialog.setCancelable(false);
         backGround();
     }
@@ -65,21 +65,46 @@ public class AnnotationsActivity extends AppCompatActivity {
         if (jsonStr != null) {
             try {
                 JSONObject jsonObj = new JSONObject(jsonStr);
-                JSONArray contacts = jsonObj.getJSONArray("contacts");
-                // looping through All Contacts
-                for (int i = 0; i < contacts.length(); i++) {
-                    JSONObject c = contacts.getJSONObject(i);
-
-                    String name = c.getString("name");
-                    String email = c.getString("email");
-                    // Phone node is JSON Object
-                    JSONObject phone = c.getJSONObject("phone");
-                    String mobile = phone.getString("mobile");
-                    mJsonItems.add(new JsonItem(name, email, mobile));
+                if (jsonObj.has("contacts") && jsonObj.optJSONArray("contacts") != null) {
+                    JSONArray contacts = jsonObj.getJSONArray("contacts");
+                    // looping through All Contacts
+                    for (int i = 0; i < contacts.length(); i++) {
+                        if (contacts.getJSONObject(i) != null) {
+                            JSONObject c = contacts.getJSONObject(i);
+                            if (c.has("name") && c.optString("name") != null) {
+                                String name = c.getString("name");
+                                if (c.has("email") && c.optString("email") != null) {
+                                    String email = c.getString("email");
+                                    // Phone node is JSON Object
+                                    if (c.has("phone") && c.optJSONObject("phone") != null) {
+                                        JSONObject phone = c.getJSONObject("phone");
+                                        if (phone.has("mobile") && phone.optString("mobile") != null) {
+                                            String mobile = phone.getString("mobile");
+                                            mJsonItems.add(new JsonItem(name, email, mobile));
+                                        } else {
+                                            Log.e("tag", "mobile null");
+                                        }
+                                    } else {
+                                        Log.e("tag", "phone null");
+                                    }
+                                } else {
+                                    Log.e("tag", "email null");
+                                }
+                            } else {
+                                Log.e("tag", "name null");
+                            }
+                        } else {
+                            Log.e("tag", "contact null");
+                        }
+                    }
+                } else {
+                    Log.e("tag", "contacts null");
                 }
-            } catch (final JSONException e) {
+            } catch (JSONException e) {
                 Log.e("tag", "Json parsing error: " + e.getMessage());
             }
+        } else {
+            Log.e("tag", "json str null");
         }
     }
 
