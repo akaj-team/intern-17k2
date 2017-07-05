@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,26 +34,48 @@ public class MusicFragment extends Fragment {
     private SeekBar mSeekBar;
     private TextView mTvMusicTime;
     private TextView mCurrentTime;
+    private boolean isPause = false;
+    private boolean isPlaying = false;
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(CURRENT_TIME)) {
-                Log.e("at-dinhvo", "onReceive: " + intent.getAction());
-                mTvMusicTime.setText(intToStringDuration(intent.getIntExtra("time", -1)));
-                mCurrentTime.setText(intToStringDuration(intent.getIntExtra("second", -1)));
+                int duration = intent.getIntExtra("time", -1);
+                int second = intent.getIntExtra("second", -1);
+                showSeekBar(second, duration);
+                mTvMusicTime.setText(showTime(duration / 1000));
+                mCurrentTime.setText(showTime(second / 1000));
             }
         }
     };
 
-    private String intToStringDuration(int aDuration) {
-        String result = "";
-        int hours = 0, minutes = 0, seconds = 0;
-        hours = aDuration / 3600;
-        minutes = (aDuration - hours * 3600) / 60;
-        seconds = (aDuration - (hours * 3600 + minutes * 60));
-        result = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        return result;
+    private String showTime(int duration) {
+        int min = duration / 60;
+        int sec = duration % 60;
+        String minute = (min < 10) ? "0" + min + ":" : min + ":";
+        String second = (sec < 10) ? "0" + sec : "" + sec;
+        return minute + second;
+    }
+
+    private void showSeekBar(int second, int duration) {
+        mSeekBar.setProgress(second * 100 / duration);
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     public MusicFragment() {
@@ -81,8 +102,21 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentPlay = new Intent();
-                intentPlay.setAction(MusicService.ACTION_PLAY);
-                intentPlay.putExtra("url", URL);
+                if(isPause){ // if music is pausing
+                    intentPlay.setAction(MusicService.ACTION_RESUME);
+                    intentPlay.putExtra("url", URL);
+                    isPlaying = true;
+                    isPause = false;
+                }else if(isPlaying){ // if music is playing
+                    intentPlay.setAction(MusicService.ACTION_PAUSE);
+                    intentPlay.putExtra("url", URL);
+                    isPause = true;
+                    isPlaying = false;
+                }else { // music is starting
+                    intentPlay.setAction(MusicService.ACTION_PLAY);
+                    intentPlay.putExtra("url", URL);
+                    isPlaying = true;
+                }
                 getActivity().sendBroadcast(intentPlay);
             }
         });

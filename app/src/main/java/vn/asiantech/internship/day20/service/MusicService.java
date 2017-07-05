@@ -16,6 +16,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day20.ui.MusicFragment;
@@ -33,11 +34,12 @@ public class MusicService extends Service {
     public static final String ACTION_AUTONEXT = "auto_next";
 
     private ArrayList<Integer> raws = new ArrayList();
-
+    private ArrayList<Integer> shuffles = new ArrayList<>();
     private String mUrl;
     private MediaPlayer mMediaPlayer;
     private int mLength;
     private boolean isPause = false;
+    private boolean isShuffle = false;
     private int currentPost = 0;
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
@@ -47,46 +49,34 @@ public class MusicService extends Service {
                 mUrl = intent.getStringExtra("url");
                 switch (intent.getAction()) {
                     case ACTION_PLAY:
-                        // pause music
-                        if (mMediaPlayer.isPlaying()) {
-                            mMediaPlayer.pause();
-                            isPause = true;
-                            mLength = mMediaPlayer.getCurrentPosition();
-                            Log.e(TAG, "pause: " + mLength);
-                        } else if (isPause) { // resume music
-                            mMediaPlayer.seekTo(mLength);
-                            Log.e(TAG, "resume: " + mLength);
-                            mMediaPlayer.start();
-                        } else { // play music
-                            Log.e(TAG, "play: " + mLength);
-                            mMediaPlayer.start();
-                        }
-                        handlerProgress();
-                        showNotification();
+                        Log.e(TAG, "ACTION_PLAY");
+//                        if (mMediaPlayer.isPlaying()) {
+//                            pauseMusic();
+//                        } else if (isPause) {
+//                            resumeMusic();
+//                        } else {
+                        startMusic();
+//                        }
+                        break;
+                    case ACTION_PAUSE:
+                        Log.e(TAG, "ACTION_PAUSE");
+                        pauseMusic();
+                        break;
+                    case ACTION_RESUME:
+                        Log.e(TAG, "ACTION_RESUME");
+                        resumeMusic();
                         break;
                     case ACTION_NEXT:
-                        if (mMediaPlayer.isPlaying()) {
-                            mMediaPlayer.release();
-                        }
-                        currentPost = (currentPost == raws.size() - 1) ? 0 : currentPost + 1;
-                        Log.e(TAG, "next: " + currentPost);
-                        mMediaPlayer = MediaPlayer.create(getApplicationContext(), raws.get(currentPost));
-                        mMediaPlayer.start();
-                        handlerProgress();
+                        nextMusic();
                         break;
                     case ACTION_PREVIOUS:
-                        if (mMediaPlayer.isPlaying()) {
-                            mMediaPlayer.release();
-                        }
-                        currentPost = (currentPost == 0) ? raws.size() - 1 : currentPost - 1;
-                        Log.e(TAG, "previous: " + currentPost);
-                        mMediaPlayer = MediaPlayer.create(getApplicationContext(), raws.get(currentPost));
-                        mMediaPlayer.start();
-                        handlerProgress();
+                        previousMusic();
                         break;
                     case ACTION_SHUFFLE:
+                        shuffleMusic();
                         break;
                     case ACTION_AUTONEXT:
+                        autoNextMusic();
                         break;
                     /*case Intent.ACTION_SCREEN_OFF:
                         showNotification();*/
@@ -97,6 +87,58 @@ public class MusicService extends Service {
         }
     };
 
+    private void pauseMusic() {
+        mMediaPlayer.pause();
+        isPause = true;
+        mLength = mMediaPlayer.getCurrentPosition();
+    }
+
+    private void resumeMusic() {
+        mMediaPlayer.seekTo(mLength);
+        mMediaPlayer.start();
+        startMusic();
+    }
+
+    private void startMusic() {
+        if (mMediaPlayer != null) {
+            mMediaPlayer.start();
+            handlerProgress();
+        }
+    }
+
+    private void nextMusic() {
+        mMediaPlayer.reset();
+        currentPost = (currentPost == raws.size() - 1) ? 0 : currentPost + 1;
+        mMediaPlayer = MediaPlayer.create(getApplicationContext(), raws.get(currentPost));
+        startMusic();
+    }
+
+    private void previousMusic() {
+        mMediaPlayer.reset();
+        currentPost = (currentPost == 0) ? raws.size() - 1 : currentPost - 1;
+        mMediaPlayer = MediaPlayer.create(getApplicationContext(), raws.get(currentPost));
+        startMusic();
+    }
+
+    private void shuffleMusic() {
+        shuffles = raws;
+        Collections.shuffle(shuffles);
+        isShuffle = true;
+        // TODO: 05/07/2017
+    }
+
+    private void autoNextMusic() {
+        if (mMediaPlayer.isPlaying()) {
+            if (mMediaPlayer.getCurrentPosition() == mMediaPlayer.getDuration()) {
+                if (isShuffle) {
+                    // TODO: 05/07/2017
+                } else {
+                    nextMusic();
+                }
+            }
+        }
+    }
+
     private void handlerProgress() {
         final Intent timeIntent = new Intent();
         timeIntent.setAction(MusicFragment.CURRENT_TIME);
@@ -106,11 +148,11 @@ public class MusicService extends Service {
                 timeIntent.putExtra("time", mMediaPlayer.getDuration());
                 timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition());
                 sendBroadcast(timeIntent);
-                Log.e(TAG, "onTick: " + mMediaPlayer.getCurrentPosition());
             }
 
             @Override
             public void onFinish() {
+
             }
         };
         countDownTimer.start();
@@ -150,7 +192,7 @@ public class MusicService extends Service {
                 .setLargeIcon(Bitmap.createScaledBitmap(bm, 128, 128, false))
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
-                .addAction(android.R.drawable.ic_media_play, "Play",
+                .addAction(android.R.drawable.ic_media_previous, "Play",
                         playPIntent)
                 .addAction(android.R.drawable.ic_media_pause, "Resume",
                         resumePIntent)
@@ -169,23 +211,21 @@ public class MusicService extends Service {
         super.onCreate();
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION_PLAY);
-        filter.addAction(ACTION_PAUSE);
         filter.addAction(ACTION_NEXT);
         filter.addAction(ACTION_PREVIOUS);
+        filter.addAction(ACTION_PAUSE);
         filter.addAction(ACTION_RESUME);
         registerReceiver(mBroadcastReceiver, filter);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e("AAAAA", "onStartCommand: ");
 //        mMediaPlayer = new MediaPlayer();
-//        {R.raw.animals, R.raw.maps, R.raw.onecallaway, R.raw.onemorenight};
         raws.add(R.raw.animals);
         raws.add(R.raw.maps);
         raws.add(R.raw.onecallaway);
         raws.add(R.raw.onemorenight);
-        mMediaPlayer = MediaPlayer.create(getApplicationContext(), raws.get(0));
+        mMediaPlayer = MediaPlayer.create(getApplicationContext(), raws.get(currentPost));
         return START_STICKY;
     }
 
