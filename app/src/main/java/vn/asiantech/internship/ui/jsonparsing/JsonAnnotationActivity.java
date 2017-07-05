@@ -85,7 +85,7 @@ public class JsonAnnotationActivity extends AppCompatActivity {
         if (jsonString != null) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                if (jsonObject.has("contacts")) {
+                if (jsonObject.has("contacts") && jsonObject.optJSONArray("contacts") != null) {
                     JSONArray jsonArray = jsonObject.getJSONArray("contacts");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         String id;
@@ -95,15 +95,15 @@ public class JsonAnnotationActivity extends AppCompatActivity {
 
                         if (jsonArray.getJSONObject(i) != null) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            if (object.has("id")) {
+                            if (object.has("id") && object.optString("id") != null) {
                                 id = object.getString("id");
-                                if (object.has("name")) {
+                                if (object.has("name") && object.optString("name") != null) {
                                     name = object.getString("name");
-                                    if (object.has("email")) {
+                                    if (object.has("email") && object.optString("email") != null) {
                                         email = object.getString("email");
-                                        if (object.has("phone")) {
+                                        if (object.has("phone") && object.optJSONObject("phone") != null) {
                                             JSONObject phone = object.getJSONObject("phone");
-                                            if (phone.has("mobile")) {
+                                            if (phone.has("mobile") && phone.optString("mobile") != null) {
                                                 mobile = phone.getString("mobile");
                                             } else {
                                                 Log.e(TAG, "mobile null");
