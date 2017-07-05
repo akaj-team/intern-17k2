@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/feed.item_marginbottom"
+    android:layout_marginBottom="@dimen/feed.item_marginBottom"
     android:padding="@dimen/item.layout_padding">
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/feed.layout_padding"
             android:layout_marginStart="@dimen/feed.layout_padding"
-            android:layout_weight="2"
+            android:layout_weight="1.5"
             android:drawableLeft="@drawable/ic_male"
             android:drawablePadding="@dimen/item.layout_padding"
             android:drawableStart="@drawable/ic_male"
@@ -47,7 +47,7 @@
                 android:id="@+id/tvContactPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/item.textview_margin"
+                android:layout_marginTop="@dimen/item.textView_margin"
                 android:text="@string/phone"
                 android:textColor="@color/colorPhone" />
         </LinearLayout>

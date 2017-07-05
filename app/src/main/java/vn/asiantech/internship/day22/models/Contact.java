@@ -12,12 +12,35 @@ public class Contact {
     private String address;
     private Phone phone;
 
+    public Contact() {
+    }
+
     public Contact(String id, String name, String email, String gender, String address, Phone phone) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.gender = gender;
         this.address = address;
+        this.phone = phone;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPhone(Phone phone) {
         this.phone = phone;
     }
 

@@ -4,5 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:contentDescription="@string/feed.buttonleft_description"
+    android:contentDescription="@string/feed.buttonLeft_description"
     android:src="@drawable/img_sunwheel" />

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.models;
+package vn.asiantech.internship.day15.drawer.models;
 
 /**
  * Created by at-dinhvo on 12/06/2017.
@@ -14,10 +14,6 @@ public class DrawerItem {
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public boolean isSelected() {
