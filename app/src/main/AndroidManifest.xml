@@ -28,6 +28,7 @@
         <activity android:name=".ui.main.Ex072Activity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.questions.QuestionActivity" />
+        <activity android:name=".ui.ninepatch.ChatActivity" />
         <activity android:name=".ui.anotation.ContactActivity_" />
     </application>
 </manifest>
