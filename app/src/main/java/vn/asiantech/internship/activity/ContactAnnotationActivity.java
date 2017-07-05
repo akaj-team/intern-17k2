@@ -76,15 +76,39 @@ public class ContactAnnotationActivity extends AppCompatActivity {
         if (json != null) {
             try {
                 JSONObject jsonObject = new JSONObject(json);
-                JSONArray jsonArray = jsonObject.getJSONArray("contacts");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonContact = jsonArray.getJSONObject(i);
-                    String name = jsonContact.getString("name");
-                    String email = jsonContact.getString("email");
-                    JSONObject jsonNumber = jsonContact.getJSONObject("phone");
-                    String number = jsonNumber.getString("mobile");
-                    Contact contact = new Contact(name, email, number);
-                    mContacts.add(contact);
+                if (jsonObject.optJSONArray("contacts") != null) {
+                    Log.d(TAG, "getContacts: " + 1134685);
+                    JSONArray jsonArray = jsonObject.getJSONArray("contacts");
+                    Log.d(TAG, "getContacts: " + jsonArray.length());
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        String name;
+                        String email;
+                        String number;
+                        JSONObject jsonContact = jsonArray.getJSONObject(i);
+                        if (jsonContact.optString("name") != null) {
+                            name = jsonContact.getString("name");
+                        } else {
+                            name = null;
+                        }
+                        if (jsonContact.optString("email") != null) {
+                            email = jsonContact.getString("email");
+                        } else {
+                            email = null;
+                        }
+                        if (jsonContact.optJSONObject("phone") != null) {
+                            JSONObject jsonPhone = jsonContact.getJSONObject("phone");
+                            if (jsonPhone.optString("mobile") != null) {
+                                number = jsonPhone.getString("mobile");
+                            } else {
+                                number = null;
+                            }
+                        } else {
+                            number = null;
+                        }
+                        Contact contact = new Contact(name, email, number);
+                        mContacts.add(contact);
+                    }
+                    Log.d(TAG, "getContacts: " + mContacts.size());
                 }
             } catch (JSONException e) {
                 Log.d(TAG, "JSONException: " + e.getMessage());
