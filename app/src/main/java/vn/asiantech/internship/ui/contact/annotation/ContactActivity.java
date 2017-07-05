@@ -55,7 +55,7 @@ public class ContactActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(jsonString)) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                if (jsonObject.has("contacts")) {
+                if (jsonObject.has("contacts") && jsonObject.getJSONArray("contacts") != null) {
                     JSONArray jsonArray = jsonObject.getJSONArray("contacts");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject phone;
@@ -65,16 +65,16 @@ public class ContactActivity extends AppCompatActivity {
                         Phone newPhone = null;
                         if (jsonArray.getJSONObject(i) != null) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            if (object.has("name")) {
+                            if (object.has("name") && !TextUtils.isEmpty(object.getString("name"))) {
                                 name = object.getString("name");
-                                if (object.has("email")) {
+                                if (object.has("email") && !TextUtils.isEmpty(object.getString("email"))) {
                                     email = object.getString("email");
-                                    if (object.has("phone")) {
+                                    if (object.has("phone") && object.getJSONObject("phone") != null) {
                                         phone = object.getJSONObject("phone");
-                                        if (phone.has("mobile")) {
+                                        if (phone.has("mobile") && !TextUtils.isEmpty(object.getString("mobile"))) {
                                             mobile = phone.getString("mobile");
                                         } else {
-                                            Log.e(TAG, "mobile null: ");
+                                            Log.e(TAG, "mobile null");
                                             mobile = null;
                                         }
                                         newPhone = new Phone(mobile);
