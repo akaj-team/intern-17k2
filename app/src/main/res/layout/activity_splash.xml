@@ -5,14 +5,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context="vn.asiantech.internship.drawer.ui.splash.SplashActivity">
+    tools:context=".day15.drawer.ui.splash.SplashActivity">
 
     <Button
-        android:id="@+id/btnBai8"
+        android:id="@+id/btnBai7ex2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/splash_item_margin"
-        android:text="@string/bai8" />
+        android:text="@string/bai7.2" />
+
+    <Button
+        android:id="@+id/btnBai15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/splash_item_margin"
+        android:text="@string/bai15" />
 
     <Button
         android:id="@+id/btnBai13"

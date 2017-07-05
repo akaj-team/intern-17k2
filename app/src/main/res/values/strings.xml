@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Internship</string>
     <!--Splash-->
+    <string name="bai7.2">Bai7.2</string>
+    <string name="bai15">Bai15</string>
     <string name="bai13">Bai13</string>
     <string name="bai16">Bai16</string>
-    <string name="bai8">Bai8</string>
-    <!--Bai5-->
-    <string name="friendfragment_button_friend_state">Friend</string>
-    <string name="friendfragment_button_friend_add">Add</string>
-
+    <!--Bai7-->
+    <string name="textView_input">Input Text</string>
+    <!--Bai15-->
     <string name="drawer_open">Draw open</string>
     <string name="drawer_close">Draw close</string>
     <string name="header.name">at-dinhvo</string>
@@ -17,18 +17,18 @@
     <string name="crop.outputX">outputX</string>
     <string name="crop.outputY">outputY</string>
     <string name="dialog.title">Choose Image From:</string>
-    <string name="menuleft.title.feed">Feed</string>
-    <string name="menuleft.title.activity">Activity</string>
-    <string name="menuleft.title.profile">Profile</string>
-    <string name="menuleft.title.friend">Friends</string>
-    <string name="menuleft.title.map">Map</string>
-    <string name="menuleft.title.chat">Chat</string>
-    <string name="menuleft.title.history">History</string>
-    <string name="menuleft.title.home">Home</string>
-    <string name="menuleft.title.store">Store</string>
-    <string name="menuleft.title.back">Back</string>
-    <string name="menuleft.title.setting">Settings</string>
-    <string name="menuleft.title.exit">Exit</string>
+    <string name="menuLeft.title.feed">Feed</string>
+    <string name="menuLeft.title.activity">Activity</string>
+    <string name="menuLeft.title.profile">Profile</string>
+    <string name="menuLeft.title.friend">Friends</string>
+    <string name="menuLeft.title.map">Map</string>
+    <string name="menuLeft.title.chat">Chat</string>
+    <string name="menuLeft.title.history">History</string>
+    <string name="menuLeft.title.home">Home</string>
+    <string name="menuLeft.title.store">Store</string>
+    <string name="menuLeft.title.back">Back</string>
+    <string name="menuLeft.title.setting">Settings</string>
+    <string name="menuLeft.title.exit">Exit</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button">Get Content</string>

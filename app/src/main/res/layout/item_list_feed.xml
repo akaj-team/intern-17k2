@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/feed.item_marginbottom"
+    android:layout_marginBottom="@dimen/feed.item_marginBottom"
     android:padding="@dimen/feed.item_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/feed.item.viewpager_marginbottom"
+        android:layout_marginBottom="@dimen/feed.item.viewpager_marginBottom"
         android:orientation="vertical"
         android:padding="@dimen/item.button_padding">
 
@@ -34,8 +34,8 @@
                 android:id="@+id/tvFeed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/item.textview_margin"
-                android:layout_marginStart="@dimen/item.textview_margin"
+                android:layout_marginLeft="@dimen/item.textView_margin"
+                android:layout_marginStart="@dimen/item.textView_margin"
                 android:gravity="center_vertical"
                 android:textColor="@color/colorBlack"
                 tools:text="Hello world" />
@@ -44,29 +44,29 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/feed.item.viewpager_marginbottom"
+            android:layout_marginBottom="@dimen/feed.item.viewpager_marginBottom"
             android:orientation="horizontal">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/feed.viewpager.height" />
+                android:layout_height="@dimen/tab.viewpager.height" />
 
             <ImageButton
-                android:id="@+id/btnLeftSlide"
+                android:id="@+id/imgBtnLeftSlide"
                 android:layout_width="@dimen/feed.item.viewpager.button_size"
                 android:layout_height="@dimen/feed.item.viewpager.button_size"
                 android:layout_gravity="center_vertical|start"
-                android:contentDescription="@string/feed.buttonleft_description"
+                android:contentDescription="@string/bai15"
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
                 android:visibility="gone" />
 
             <ImageButton
-                android:id="@+id/btnRightSlide"
+                android:id="@+id/imgBtnRightSlide"
                 android:layout_width="@dimen/feed.item.viewpager.button_size"
                 android:layout_height="@dimen/feed.item.viewpager.button_size"
                 android:layout_gravity="center_vertical|end"
-                android:contentDescription="@string/feed.buttonright_description"
+                android:contentDescription="@string/bai15"
                 android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
         </FrameLayout>
@@ -75,8 +75,8 @@
             android:id="@+id/tvComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/item.textview_margin"
-            android:layout_marginStart="@dimen/item.textview_margin"
+            android:layout_marginLeft="@dimen/item.textView_margin"
+            android:layout_marginStart="@dimen/item.textView_margin"
             android:gravity="center_vertical"
             android:textColor="@color/colorBlack"
             tools:text="Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world " />
