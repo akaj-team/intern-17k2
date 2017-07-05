@@ -1,10 +1,13 @@
 package vn.asiantech.internship.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by ducle on 04/07/2017.
  * Song model
  */
-public class Song {
+public class Song implements Parcelable{
     private String title;
     private String artist;
     private String source;
@@ -16,6 +19,25 @@ public class Song {
         this.source = source;
         this.duration = duration;
     }
+
+    protected Song(Parcel in) {
+        title = in.readString();
+        artist = in.readString();
+        source = in.readString();
+        duration = in.readInt();
+    }
+
+    public static final Creator<Song> CREATOR = new Creator<Song>() {
+        @Override
+        public Song createFromParcel(Parcel in) {
+            return new Song(in);
+        }
+
+        @Override
+        public Song[] newArray(int size) {
+            return new Song[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -47,5 +69,18 @@ public class Song {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(artist);
+        dest.writeString(source);
+        dest.writeInt(duration);
     }
 }

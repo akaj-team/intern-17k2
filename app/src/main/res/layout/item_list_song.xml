@@ -21,7 +21,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/cardview.padding"
+            android:paddingStart="@dimen/cardview.padding">
 
             <TextView
                 android:id="@+id/tvTitle"

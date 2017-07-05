@@ -1,5 +1,8 @@
 package vn.asiantech.internship.activity;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,23 +23,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.fragment.SongFragment;
+import vn.asiantech.internship.interfaces.OnUpdateDataListerner;
 import vn.asiantech.internship.models.Song;
 
 /**
  * Created by ducle on 03/07/2017.
  * MusicActivity show media to play music
  */
-public class MusicActivity extends AppCompatActivity{
+public class MusicActivity extends AppCompatActivity implements OnUpdateDataListerner{
     private static final String TAG = MusicActivity.class.getSimpleName();
     private List<String> mSongId;
-    private List<Song> mSongs;
+    private ArrayList<Song> mSongs;
     private RequestQueue mRequestQueue;
+    private SongFragment mSongFragment;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_play_music);
+        setContentView(R.layout.activity_main_music);
+
+
+        addFragment();
         init();
+    }
+
+    private void addFragment() {
+        mSongFragment=SongFragment.newInstance(mSongs);
+        FragmentManager fragmentManager=getFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.flContain,mSongFragment);
+        fragmentTransaction.commit();
     }
 
     private void init() {
@@ -91,6 +109,31 @@ public class MusicActivity extends AppCompatActivity{
                 }
             });
             mRequestQueue.add(jsonRequest);
+        }
+    }
+
+    @Override
+    public void onShowProgressDialog() {
+        mProgressDialog=new ProgressDialog(this);
+        mProgressDialog.setMessage("Please wait ...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+    }
+
+    @Override
+    public void onAddSong(Song song) {
+        mSongs.add(song);
+    }
+
+    @Override
+    public void onShowFragment() {
+        addFragment();
+    }
+
+    @Override
+    public void onCloseProgressDialog() {
+        if (mProgressDialog!=null && mProgressDialog.isShowing()){
+            mProgressDialog.dismiss();
         }
     }
 }
