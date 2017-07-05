@@ -11,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 /**
  * Created by at-dinhvo on 03/07/2017.
@@ -43,7 +44,7 @@ class HttpHandler {
     }
 
     private String convertStreamToString(InputStream inputStream) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
         StringBuilder sb = new StringBuilder();
         String line;
         try {

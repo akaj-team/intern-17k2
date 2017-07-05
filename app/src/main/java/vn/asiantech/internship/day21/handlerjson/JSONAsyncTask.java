@@ -47,38 +47,57 @@ public class JSONAsyncTask extends AsyncTask<Void, Void, ArrayList<Contact>> {
         HttpHandler httpHandler = new HttpHandler();
         mContacts = new ArrayList<>();
         String jsonString = httpHandler.makeServiceCall(URL);
-        Contact contact;
-        Phone phone;
         if (!TextUtils.isEmpty(jsonString)) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonString);
-                if (jsonObject.has("contacts")) {
-                    JSONArray jsonArray = jsonObject.getJSONArray("contacts");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        if (object.has("name") && object.has("email") && object.has("gender")
-                                && object.has("address") && object.has("id") && object.has("phone")) {
-                            JSONObject jsonPhone = object.getJSONObject("phone");
-                            if (jsonPhone.has("mobile") && jsonPhone.has("home") && jsonPhone.has("office")) {
-                                phone = new Phone(jsonPhone.getString("mobile"),
-                                        jsonPhone.getString("home"), jsonPhone.getString("office"));
-                                contact = new Contact(object.getString("id"), object.getString("name"),
-                                        object.getString("email"), object.getString("gender"),
-                                        object.getString("address"), phone);
-                                mContacts.add(contact);
-                            } else {
-                                return mContacts;
-                            }
-                        }
-                    }
-                } else {
-                    Log.e("JSON isn't exist", "" + jsonObject.has("contacts"));
-                }
-            } catch (JSONException e) {
-                Log.e("JSONException", "JSONException: " + e.getMessage());
-            }
+            getData(jsonString);
         }
         return mContacts;
+    }
+
+    private boolean checkValueJSon(JSONObject jsonObject, String key) {
+        return (jsonObject.has(key) && !jsonObject.isNull(key));
+    }
+
+    private void getData(String jsonString) {
+        Contact contact;
+        Phone phone;
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            if (checkValueJSon(jsonObject, "contacts")) {
+                JSONArray jsonArray = jsonObject.getJSONArray("contacts");
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        if (jsonArray.get(i) != null) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            if (checkValueJSon(object, "name")
+                                    && checkValueJSon(object, "email")
+                                    && checkValueJSon(object, "gender")
+                                    && checkValueJSon(object, "address")
+                                    && checkValueJSon(object, "id")
+                                    && checkValueJSon(object, "phone")) {
+                                JSONObject jsonPhone = object.getJSONObject("phone");
+                                if (jsonPhone != null) {
+                                    if (checkValueJSon(jsonPhone, "mobile")
+                                            && checkValueJSon(jsonPhone, "home")
+                                            && checkValueJSon(jsonPhone, "office")) {
+                                        phone = new Phone(jsonPhone.getString("mobile"),
+                                                jsonPhone.getString("home"), jsonPhone.getString("office"));
+                                        contact = new Contact(object.getString("id"), object.getString("name"),
+                                                object.getString("email"), object.getString("gender"),
+                                                object.getString("address"), phone);
+                                        mContacts.add(contact);
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            } else {
+                Log.e("JSON isn't exist", "" + jsonObject.has("contacts"));
+            }
+        } catch (JSONException e) {
+            Log.e("JSONException", "JSONException: " + e.getMessage());
+        }
     }
 
     @Override
