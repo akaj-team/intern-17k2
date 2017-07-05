@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerViewNavigation = (RecyclerView) findViewById(R.id.recyclerViewNavigation);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dlNavigation);
         mLlContent = (LinearLayout) findViewById(R.id.llContent);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mTvToolbar = (TextView) findViewById(R.id.tvToolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolBar);
+        mTvToolbar = (TextView) findViewById(R.id.tvToolbarTitle);
     }
 
     private void initDataDrawer() {
