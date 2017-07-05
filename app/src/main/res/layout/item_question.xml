@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/question.dialog.textview.padding"
+    tools:context=".ui.question.QuestionFragment">
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/question.tvquestion.height"
+        android:textSize="@dimen/textview.item.textsize"
+        android:gravity="center"
+        tools:text="VietNamVietNamVietNamVietNamVietNamVietNamVietNam" />
+
+    <RadioGroup
+        android:id="@+id/rgAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbA"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <RadioButton
+            android:id="@+id/rbB"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <RadioButton
+            android:id="@+id/rbC"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <RadioButton
+            android:id="@+id/rbD"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RadioGroup>
+</LinearLayout>

@@ -16,4 +16,7 @@
     <style name="frgResultTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <item name="android:background">@color/frgresult.color</item>
     </style>
+    <style name="toolbar" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/toolbar.color</item>
+    </style>
 </resources>
