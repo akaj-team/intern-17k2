@@ -1,7 +1,6 @@
 package vn.asiantech.internship.services;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -15,7 +14,6 @@ import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import java.util.ArrayList;
@@ -276,21 +274,6 @@ public class MusicService extends Service {
             }
         };
         mCountDownTimer.start();
-    }
-
-    //TODO: 7/4/2017 show foreground when lock screen, complete later
-    private void lockScreen() {
-        NotificationCompat.Builder mBuilder;
-        RemoteViews view = new RemoteViews(getPackageName(), R.layout.notification_main);
-        mBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setContent(view)
-                .setOnlyAlertOnce(true)
-                .setOngoing(true);
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        notificationManager.notify(1, mBuilder.build());
     }
 
     private void skipPreviousSong() {

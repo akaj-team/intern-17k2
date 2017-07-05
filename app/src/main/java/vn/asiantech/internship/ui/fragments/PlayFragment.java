@@ -212,7 +212,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
     private static String miliSecondToString(int milis) {
         milis /= 1000;
-        return ((milis / 60) < 10 ? "0" : "") + String.valueOf(milis / 60) + ":" + ((milis % 60) < 10 ? "0" : "") + String.valueOf(milis % 60);
+        return ((milis / 60) < 10 ? "0" : "") + (milis / 60) + ":" + ((milis % 60) < 10 ? "0" : "") + (milis % 60);
     }
 
     public void sendMyBroadcast(Intent intent) {
