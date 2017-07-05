@@ -29,7 +29,7 @@ public class JsonActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(manager);
 
         mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage("Please wait...");
+        mProgressDialog.setMessage(getString(R.string.progressdialog));
         mProgressDialog.setCancelable(false);
 
         mGetContactsAsyncTask = new GetContactsAsyncTask(new GetContactsAsyncTask.OnCallBack() {

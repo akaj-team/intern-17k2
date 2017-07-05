@@ -9,8 +9,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.nostra13.universalimageloader.core.ImageLoader.TAG;
-
 /**
  * Copyright © 2016 AsianTech inc.
  * Created by datbu on 03-07-2017.
@@ -36,25 +34,49 @@ class GetContactsAsyncTask extends AsyncTask<JsonItem, Void, ArrayList<JsonItem>
         // Making a request to url and getting response
         String url = "http://api.androidhive.info/contacts/";
         String jsonStr = httpHandler.makeServiceCall(url);
-        Log.e(TAG, "Response from url: " + jsonStr);
         if (jsonStr != null) {
             try {
                 JSONObject jsonObj = new JSONObject(jsonStr);
-                JSONArray contacts = jsonObj.getJSONArray("contacts");
-                // looping through All Contacts
-                for (int i = 0; i < contacts.length(); i++) {
-                    JSONObject c = contacts.getJSONObject(i);
-
-                    String name = c.getString("name");
-                    String email = c.getString("email");
-                    // Phone node is JSON Object
-                    JSONObject phone = c.getJSONObject("phone");
-                    String mobile = phone.getString("mobile");
-                    mJsonItems.add(new JsonItem(name, email, mobile));
+                if (jsonObj.has("contacts") && jsonObj.optJSONArray("contacts") != null) {
+                    JSONArray contacts = jsonObj.getJSONArray("contacts");
+                    // looping through All Contacts
+                    for (int i = 0; i < contacts.length(); i++) {
+                        if (contacts.getJSONObject(i) != null) {
+                            JSONObject c = contacts.getJSONObject(i);
+                            if (c.has("name") && c.optString("name") != null) {
+                                String name = c.getString("name");
+                                if (c.has("email") && c.optString("email") != null) {
+                                    String email = c.getString("email");
+                                    // Phone node is JSON Object
+                                    if (c.has("phone") && c.optJSONObject("phone") != null) {
+                                        JSONObject phone = c.getJSONObject("phone");
+                                        if (phone.has("mobile") && phone.optString("mobile") != null) {
+                                            String mobile = phone.getString("mobile");
+                                            mJsonItems.add(new JsonItem(name, email, mobile));
+                                        } else {
+                                            Log.e("tag1", "mobile null");
+                                        }
+                                    } else {
+                                        Log.e("tag2", "phone null");
+                                    }
+                                } else {
+                                    Log.e("tag3", "email null");
+                                }
+                            } else {
+                                Log.e("tag4", "name null");
+                            }
+                        } else {
+                            Log.e("tag5", "contact null");
+                        }
+                    }
+                } else {
+                    Log.e("tag6", "contacts null");
                 }
-            } catch (final JSONException e) {
-                Log.e(TAG, "Json parsing error: " + e.getMessage());
+            } catch (JSONException e) {
+                Log.e("tag7", "Json parsing error: " + e.getMessage());
             }
+        } else {
+            Log.e("tag8", "json str null");
         }
         return null;
     }
