@@ -53,7 +53,7 @@ public class RoundArcView extends View {
     }
 
     private float getEmptySpace() {
-        return (float) Math.sqrt(mWidth * mWidth / 4 - (mWidth / 2 + 20 - mHeight) * (mWidth / 2 + 20 - mHeight));
+        return (float) Math.sqrt(mWidth * mWidth / 5 - (mWidth / 2 + 20 - mHeight) * (mWidth / 2 + 20 - mHeight));
     }
 
     public void setSelected(boolean selected) {
