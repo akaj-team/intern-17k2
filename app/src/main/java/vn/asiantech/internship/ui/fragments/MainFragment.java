@@ -39,17 +39,16 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        List<Song> mSongs = getArguments().getParcelableArrayList(MusicActivity.KEY_SONGS);
-        mAdapter = new SongListAdapter(getContext(), mSongs, mListener);
+        List<Song> songs = getArguments().getParcelableArrayList(MusicActivity.KEY_SONGS);
+        mAdapter = new SongListAdapter(getContext(), songs, mListener);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_music_main, container, false);
-        RecyclerView mRecyclerViewMainList = (RecyclerView) view.findViewById(R.id.recyclerViewMain);
-        mRecyclerViewMainList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerViewMainList.setAdapter(mAdapter);
-        return view;
+        RecyclerView recyclerViewMainList = (RecyclerView) inflater.inflate(R.layout.fragment_music_main, container, false);
+        recyclerViewMainList.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewMainList.setAdapter(mAdapter);
+        return recyclerViewMainList;
     }
 }

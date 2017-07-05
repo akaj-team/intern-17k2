@@ -90,7 +90,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onItemClickListener(mSongs.get(getAdapterPosition()), getAdapterPosition());
+                    mListener.onItemClick(mSongs.get(getAdapterPosition()), getAdapterPosition());
                 }
             });
         }
@@ -100,6 +100,6 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongHo
      * This interface used to handle onItemClick event of RecyclerView
      */
     public interface OnItemClickListener {
-        void onItemClickListener(Song song, int position);
+        void onItemClick(Song song, int position);
     }
 }

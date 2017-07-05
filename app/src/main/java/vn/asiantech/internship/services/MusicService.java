@@ -112,9 +112,9 @@ public class MusicService extends Service {
     @Override
     public int onStartCommand(final Intent intent, int flags, int startId) {
         if (intent != null) {
-            List<Song> list = intent.getParcelableArrayListExtra(MusicActivity.KEY_SONGS);
-            if (list != null) {
-                mSongs = list;
+            List<Song> songs = intent.getParcelableArrayListExtra(MusicActivity.KEY_SONGS);
+            if (songs != null) {
+                mSongs = songs;
             }
             mSongPosition = intent.getIntExtra(MusicActivity.KEY_POSITION, -1);
             if (mSongPosition > -1) {
@@ -143,7 +143,7 @@ public class MusicService extends Service {
     private void showForegroundNotification(String songName, String singerName, int duration, int current) {
 
         // Create intent that will bring our app to the front, as if it was tapped in the app
-        // launcher
+        // Launcher
         Intent showTaskIntent = new Intent(getApplicationContext(), MusicActivity.class);
         showTaskIntent.putExtra(MusicActivity.KEY_POSITION, mSongPosition);
         showTaskIntent.putExtra(MusicActivity.KEY_STATUS, "running");

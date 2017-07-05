@@ -210,9 +210,9 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         getActivity().unregisterReceiver(mReceiver);
     }
 
-    private static String miliSecondToString(int milis) {
-        milis /= 1000;
-        return ((milis / 60) < 10 ? "0" : "") + (milis / 60) + ":" + ((milis % 60) < 10 ? "0" : "") + (milis % 60);
+    private static String miliSecondToString(int millisecond) {
+        millisecond /= 1000;
+        return ((millisecond / 60) < 10 ? "0" : "") + (millisecond / 60) + ":" + ((millisecond % 60) < 10 ? "0" : "") + (millisecond % 60);
     }
 
     public void sendMyBroadcast(Intent intent) {
