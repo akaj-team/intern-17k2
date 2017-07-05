@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.ui.database;
+package vn.asiantech.internship.day15.drawer.ui.database;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -16,7 +16,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 /**
- * Created by at-dinhvo on 24/06/2017.
+ * Created by at-dinhvo on 05/07/2017.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 

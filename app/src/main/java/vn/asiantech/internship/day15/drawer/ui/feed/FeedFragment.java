@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.ui.feed;
+package vn.asiantech.internship.day15.drawer.ui.feed;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.models.FeedItem;
-import vn.asiantech.internship.drawer.ui.database.DatabaseHelper;
+import vn.asiantech.internship.day15.drawer.models.FeedItem;
+import vn.asiantech.internship.day15.drawer.ui.database.DatabaseHelper;
 
 /**
  * A simple {@link Fragment} subclass.

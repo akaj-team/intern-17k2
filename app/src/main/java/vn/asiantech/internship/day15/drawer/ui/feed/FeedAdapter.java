@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.ui.feed;
+package vn.asiantech.internship.day15.drawer.ui.feed;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -12,10 +12,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.models.FeedItem;
+import vn.asiantech.internship.day15.drawer.models.FeedItem;
 
 /**
- * Created by BACKDOOR on 07-Feb-17.
+ * Created by at-dinhvo on 01/07/2017.
  */
 class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
@@ -66,8 +66,8 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             mTvName = (TextView) itemView.findViewById(R.id.tvFeed);
             mTvComment = (TextView) itemView.findViewById(R.id.tvComment);
             mViewPager = (ViewPager) itemView.findViewById(R.id.viewPager);
-            mBtnLeftSlide = (ImageButton) itemView.findViewById(R.id.btnLeftSlide);
-            mBtnRightSlide = (ImageButton) itemView.findViewById(R.id.btnRightSlide);
+            mBtnLeftSlide = (ImageButton) itemView.findViewById(R.id.imgBtnLeftSlide);
+            mBtnRightSlide = (ImageButton) itemView.findViewById(R.id.imgBtnRightSlide);
             mViewPager.setPageMargin(5);
             mViewPager.setPageMarginDrawable(R.color.colorBlack);
             mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.drawer.ui.main;
+package vn.asiantech.internship.day15.drawer.ui.main;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.drawer.models.DrawerItem;
-import vn.asiantech.internship.drawer.ui.feed.FeedActivity;
-import vn.asiantech.internship.drawer.ui.leftmenu.DrawerAdapter;
+import vn.asiantech.internship.day15.drawer.models.DrawerItem;
+import vn.asiantech.internship.day15.drawer.ui.feed.FeedActivity;
+import vn.asiantech.internship.day15.drawer.ui.leftmenu.DrawerAdapter;
 
 /**
  * Day6Activity
@@ -124,18 +124,18 @@ public class MainActivity extends AppCompatActivity {
 
     private List<DrawerItem> initData() {
         List<DrawerItem> drawerItems = new ArrayList<>();
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_feed)));
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_activity)));
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_profile)));
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_friend)));
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_map)));
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_chat)));
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_setting)));
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_home)));
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_store)));
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_history)));
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_back)));
-        drawerItems.add(new DrawerItem(getString(R.string.menuleft_title_exit)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_feed)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_activity)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_profile)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_friend)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_map)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_chat)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_setting)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_home)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_store)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_history)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_back)));
+        drawerItems.add(new DrawerItem(getString(R.string.menuLeft_title_exit)));
         return drawerItems;
     }
 
