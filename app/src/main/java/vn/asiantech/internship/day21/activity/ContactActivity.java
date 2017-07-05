@@ -23,7 +23,7 @@ public class ContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contact);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewContact);
         mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage("Please wait ...");
+        mProgressDialog.setMessage(getString(R.string.message_progress_dialog));
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
         mGetContact = new GetContact(this);
@@ -52,4 +52,3 @@ public class ContactActivity extends AppCompatActivity {
         }
     }
 }
-

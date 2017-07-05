@@ -2,9 +2,8 @@ package vn.asiantech.internship.day21.model;
 
 /**
  * Copyright © 2017 AsianTech inc.
- * Created by rimoka on 03/07/2017.
+ * Created by at-hoavo on 03/07/2017.
  */
-
 public class Contact {
     private String id;
     private String name;

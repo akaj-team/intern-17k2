@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="@dimen/ll.contact.layout_height"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvNameContact"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/ll.contact.layout_marginStart">
-
-        <TextView
-            android:id="@+id/tvNameContact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/textview.title_infor_note"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/imgGenderContact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@null" />
-    </LinearLayout>
+        android:layout_marginStart="@dimen/ll.contact.layout_marginStart"
+        android:textColor="@color/textview.title_infor_note"
+        android:textSize="@dimen/textview.contact.textSize"
+        tools:text="Nguyen Van a" />
 
     <TextView
         android:id="@+id/tvAddressContact"

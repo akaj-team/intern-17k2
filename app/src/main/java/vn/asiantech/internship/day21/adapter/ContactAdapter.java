@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -16,7 +15,6 @@ import vn.asiantech.internship.day21.model.Contact;
  * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 03/07/2017.
  */
-
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
     private List<Contact> mContacts;
 
@@ -35,9 +33,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         holder.mTvAddress.setText(mContacts.get(position).getAddress());
         holder.mTvPhone.setText(mContacts.get(position).getPhone());
         if (mContacts.get(position).getGender().equals("male")) {
-            holder.mImgGender.setImageResource(R.mipmap.ic_male);
+            holder.mTvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_male, 0);
         } else {
-            holder.mImgGender.setImageResource(R.mipmap.ic_female);
+            holder.mTvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_female, 0);
         }
     }
 
@@ -53,14 +51,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         private TextView mTvName;
         private TextView mTvPhone;
         private TextView mTvAddress;
-        private ImageView mImgGender;
 
         ContactViewHolder(View itemView) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvNameContact);
             mTvAddress = (TextView) itemView.findViewById(R.id.tvAddressContact);
             mTvPhone = (TextView) itemView.findViewById(R.id.tvPhoneContact);
-            mImgGender = (ImageView) itemView.findViewById(R.id.imgGenderContact);
         }
     }
 }

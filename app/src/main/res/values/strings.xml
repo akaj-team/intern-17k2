@@ -36,6 +36,7 @@
     <string name="textview.edit_information.text">Edit Information</string>
     <string name="textview.information_title.text">Information</string>
     <string name="textview.information.text">InformationNote</string>
+    <string name="message_progress_dialog">Please wait.....</string>
     <string-array name="items">
         <item name="Gallery">Gallery</item>
         <item name="Camera">Camera</item>
