@@ -53,8 +53,9 @@ class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
                         }
                         if (jsonObj.has("phone") && jsonObj.optJSONObject("phone") != null) {
                             phone = jsonObj.getJSONObject("phone");
-                            if (phone.has("mobile") && phone.optString("mobile") != null)
+                            if (phone.has("mobile") && phone.optString("mobile") != null) {
                                 mobile = phone.getString("mobile");
+                            }
                         }
                         if (!TextUtils.equals(name, "")) {
                             contact.setName(name);
