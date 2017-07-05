@@ -14,7 +14,7 @@ import vn.asiantech.internship.R;
  * Created by sony on 04/07/2017.
  */
 
-public class SongManager {
+class SongManager {
     public SongManager() {
     }
 

@@ -22,18 +22,18 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-7-1
  */
-public class SongFragment extends Fragment {
+public class SongsFragment extends Fragment {
     private final List<Song> mSongs = new ArrayList<>();
     private OnGetSongListener mListener;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mListener = (OnGetSongListener) activity;
+
     }
 
-    public static SongFragment newInstance() {
-        return new SongFragment();
+    public static SongsFragment newInstance() {
+        return new SongsFragment();
     }
 
     @Nullable
@@ -56,10 +56,13 @@ public class SongFragment extends Fragment {
     }
 
     private void getSong(Song song, int position) {
-        mListener.onGetSong(song, position);
+        mListener.onGetSong(position);
     }
 
+    /*
+     * Used to get song and positon when click to song list
+     */
     interface OnGetSongListener {
-        void onGetSong(Song song, int position);
+        void onGetSong(int position);
     }
 }

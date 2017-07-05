@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import vn.asiantech.internship.R;
@@ -31,17 +30,17 @@ public class NotificationBroadCast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-            Log.d("aaaaaaaaa", "onReceive: ");
             mSeekBroadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
                     Intent notificationIntent = new Intent(context, MusicActivity.class);
-                    notificationIntent.setAction("intent");
+                    notificationIntent.setAction(Action.INTENT.getValue());
                     notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
                     mLength = Integer.parseInt(intent.getStringExtra("time"));
                     mPosition = Integer.parseInt(intent.getStringExtra("second"));
                     mSong = intent.getExtras().getParcelable("song");
+
                     mNotificationView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
                     mNotificationView.setTextViewText(R.id.tvTitleMusicNotification, mSong.getName());
                     mNotificationView.setTextViewText(R.id.tvSingerNotification, mSong.getSinger());
@@ -49,17 +48,25 @@ public class NotificationBroadCast extends BroadcastReceiver {
                     mNotificationView.setTextViewText(R.id.tvCurrentTimeNotification, mTime.milliSecondsToTimer(mPosition));
                     mNotificationView.setTextViewText(R.id.tvTotalTimeNotification, mTime.milliSecondsToTimer(mLength));
                     mNotificationView.setProgressBar(R.id.progressBar, mLength, mPosition, false);
+
+                    Intent cancleIntent = new Intent(context, MusicService.class);
+                    cancleIntent.setAction(Action.CANCEL.getValue());
+                    PendingIntent cancelPendingIntent = PendingIntent.getService(context, 0, cancleIntent, 0);
+                    mNotificationView.setOnClickPendingIntent(R.id.imgCancle, cancelPendingIntent);
+
                     Notification notification = new NotificationCompat.Builder(context)
                             .setContent(mNotificationView)
                             .setSmallIcon(R.drawable.ic_music_note_white_48dp)
                             .setContentIntent(pendingIntent)
+                            .setContentIntent(cancelPendingIntent)
                             .setOngoing(true).build();
                     NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     notificationManager.notify(1, notification);
+
                 }
             };
         }
-        IntentFilter filter = new IntentFilter("seek");
+        IntentFilter filter = new IntentFilter(Action.SEEK.getValue());
         context.registerReceiver(mSeekBroadcastReceiver, filter);
     }
 }

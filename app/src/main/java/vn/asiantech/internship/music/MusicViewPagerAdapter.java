@@ -22,7 +22,7 @@ class MusicViewPagerAdapter extends FragmentStatePagerAdapter {
         if (position == 0) {
             return MainFragment.newInstance();
         } else if (position == 1) {
-            return SongFragment.newInstance();
+            return SongsFragment.newInstance();
         }
         return null;
     }
