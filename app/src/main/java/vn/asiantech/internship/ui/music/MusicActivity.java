@@ -96,6 +96,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         List<Song> songs = new ArrayList<>();
         ContentResolver musicResolver = context.getContentResolver();
         Uri musicUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+
         Cursor cursor = musicResolver.query(musicUri, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             int idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID);

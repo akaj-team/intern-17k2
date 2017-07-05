@@ -113,12 +113,12 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.custom_notification);
         remoteViews.setTextViewText(R.id.tvNotificationSongName, mSongs.get(mCurrentPosition).getTitle());
         remoteViews.setTextViewText(R.id.tvNotificationArtist, mSongs.get(mCurrentPosition).getArtist());
-//        remoteViews.setTextColor(R.id.tvSongTitle, Color.BLACK);
-//        remoteViews.setTextColor(R.id.tvArtist, Color.BLACK);
+        remoteViews.setTextColor(R.id.tvNotificationSongName, Color.BLACK);
+        remoteViews.setTextColor(R.id.tvNotificationArtist, Color.BLACK);
         Notification builder = new NotificationCompat.Builder(this)
+                .setCustomBigContentView(remoteViews)
                 .setSmallIcon(R.drawable.ic_play_arrow_black_24dp)
                 .setContentTitle("Music player")
-                .setContent(remoteViews)
                 .build();
         startForeground(1, builder);
     }
