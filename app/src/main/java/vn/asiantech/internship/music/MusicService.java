@@ -250,7 +250,6 @@ public class MusicService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
@@ -261,6 +260,7 @@ public class MusicService extends Service {
                 Log.d(TAG, e.toString());
             }
         }
+        super.onDestroy();
     }
 
     private void random() {
