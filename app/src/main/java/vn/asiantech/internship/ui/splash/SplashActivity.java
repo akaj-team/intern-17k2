@@ -15,6 +15,7 @@ import vn.asiantech.internship.activity.ContactActivity;
 import vn.asiantech.internship.ui.feed.FeedActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 import vn.asiantech.internship.activity.TestActivity;
+import vn.asiantech.internship.ui.main.NoteActivity;
 
 /**
  * Created by ducle on 15/06/2017.
@@ -27,6 +28,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private Button mBtnBai9;
     private Button mBtnBai13;
     private Button mBtnBai15;
+    private Button mBtnBai11;
     private Button mBtnBai21;
 
     @Override
@@ -44,6 +46,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai9.setOnClickListener(this);
         mBtnBai13.setOnClickListener(this);
         mBtnBai15.setOnClickListener(this);
+        mBtnBai11.setOnClickListener(this);
         mBtnBai21.setOnClickListener(this);
     }
 
@@ -54,6 +57,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai9 = (Button) findViewById(R.id.btnBai9);
         mBtnBai13 = (Button) findViewById(R.id.btnBai13);
         mBtnBai15 = (Button) findViewById(R.id.btnBai15);
+        mBtnBai11 = (Button) findViewById(R.id.btnBai11);
         mBtnBai21 = (Button) findViewById(R.id.btnBai21);
     }
 
@@ -77,6 +81,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btnBai15:
                 startActivity(new Intent(this, TestActivity.class));
+                break;
+            case R.id.btnBai11:
+                startActivity(new Intent(this, NoteActivity.class));
                 break;
             case R.id.btnBai21:
                 startActivity(new Intent(this, ContactActivity.class));
