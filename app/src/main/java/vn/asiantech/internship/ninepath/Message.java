@@ -7,7 +7,7 @@ package vn.asiantech.internship.ninepath;
  * @version 1.0
  * @since 2017-6-21
  */
-public class Message {
+class Message {
     private String sms;
     private boolean state;
 
