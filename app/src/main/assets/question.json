@@ -1,0 +1,164 @@
+{
+  "test": [
+    {
+      "question": "Quốc gia nào đăng cai EURO 2016?",
+      "answer_a": "Pháp",
+      "answer_b": "Anh",
+      "answer_c": "Hà Lan",
+      "answer_d": "Đức",
+      "answer_right": "Pháp"
+    },
+    {
+      "question": "Sông Thạch Hãn ở tỉnh Quảng Trị đổ ra biển bởi cửa sông nào?",
+      "answer_a": "Cửa Việt",
+      "answer_b": "Cửa Tùng",
+      "answer_c": "Cửa Đại",
+      "answer_d": "Cửa Hội",
+      "answer_right": "Cửa Việt"
+    },
+    {
+      "question": "Hòn đảo là nơi duy nhất mà chủ tịch Hồ Chí Minh đồng ý cho dựng tượng khi người còn sống?",
+      "answer_a": "Cát Bà",
+      "answer_b": "Phú Quốc",
+      "answer_c": "Cô Tô",
+      "answer_d": "Cồn Cỏ",
+      "answer_right": "Cô Tô"
+    },
+    {
+      "question": "Liên hoan phim Việt Nam lần thứ XVII được tổ chức tại tỉnh thành nào của nước ta?",
+      "answer_a": "Hà Nội",
+      "answer_b": "TP Hồ Chí Minh",
+      "answer_c": "Nam Định",
+      "answer_d": "Phú Yên",
+      "answer_right": "Phú Yên"
+    },
+    {
+      "question": "Tháng 7 (July) và tháng 8 (August) được đặt theo tên các vị hoàng đế cổ đại của nước nào?",
+      "answer_a": "La Mã",
+      "answer_b": "Ai Cập",
+      "answer_c": "Ba Tư",
+      "answer_d": "Thổ Nhĩ Kỳ",
+      "answer_right": "La Mã"
+    },
+    {
+      "question": "Theo thuyết Ngũ Hành thì hành nào khắc với Thổ?",
+      "answer_a": "Kim",
+      "answer_b": "Mộc",
+      "answer_c": "Thuỷ",
+      "answer_d": "Hoả",
+      "answer_right": "Mộc"
+    },
+    {
+      "question": "Môi trường truyền âm không bao gồm:",
+      "answer_a": "Chất lỏng",
+      "answer_b": "Chất rắn",
+      "answer_c": "Chất khí",
+      "answer_d": "Chân không",
+      "answer_right": "Chân không"
+    },
+    {
+      "question": "Năm 1824, động Phong Nha được vị vua nào sắc phong là \"Diệu ứng chi thần\"?",
+      "answer_a": "Gia Long",
+      "answer_b": "Minh Mạng",
+      "answer_c": "Thiệu Trị",
+      "answer_d": "Tự Đức",
+      "answer_right": "Minh Mạng"
+    },
+    {
+      "question": "Bùi Đình Diệm là tên thật của nhà thơ nào?",
+      "answer_a": "Tố Hữu",
+      "answer_b": "Chính Hữu",
+      "answer_c": "Quang Dũng",
+      "answer_d": "Thế Lữ",
+      "answer_right": "Quang Dũng"
+    },
+    {
+      "question": "Tàu Titanic bị đắm vào năm nào?",
+      "answer_a": "1910",
+      "answer_b": "1911",
+      "answer_c": "1912",
+      "answer_d": "1913",
+      "answer_right": "1912"
+    },
+    {
+      "question": "Các tế bào nào của máu tham gia tiêu diệt các vi khuẩn gây tổn thương?",
+      "answer_a": "Huyết cầu",
+      "answer_b": "Hồng cầu",
+      "answer_c": "Bạch cầu",
+      "answer_d": "Tiểu cầu",
+      "answer_right": "Bạch cầu"
+    },
+    {
+      "question": "Trụ sở của liên minh châu Âu EU đặt tại quốc gia nào?",
+      "answer_a": "Italia",
+      "answer_b": "Thụy Sĩ",
+      "answer_c": "Bỉ",
+      "answer_d": "Pháp",
+      "answer_right": "Bỉ"
+    },
+    {
+      "question": "Tại lễ trao giải Cánh diều vàng 2010, bộ phim nào đạt giải Cánh diều vàng ở hạng mục Phim truyện nhựa?",
+      "answer_a": "Long Thành cầm giả ca",
+      "answer_b": "Cánh đồng bất tận",
+      "answer_c": "Vũ điệu đam mê",
+      "answer_d": "Khát vọng Thăng Long",
+      "answer_right": "Long Thành cầm giả ca"
+    },
+    {
+      "question": "Ngày dài nhất và đêm ngắn nhất ở bán cầu Bắc là ngày?",
+      "answer_a": "Xuân phân",
+      "answer_b": "Hạ chí",
+      "answer_c": "Thu phân",
+      "answer_d": "Đông chí",
+      "answer_right": "Hạ chí"
+    },
+    {
+      "question": "Ai là người nữ anh hùng đầu tiên của Quân đội nhân dân Việt Nam?",
+      "answer_a": "Nguyễn Thị Minh Khai",
+      "answer_b": "Nguyễn Thị Chiên",
+      "answer_c": "Đinh Thị Vân",
+      "answer_d": "Nguyễn Thị Định",
+      "answer_right": "Nguyễn Thị Chiên"
+    },
+    {
+      "question": "Cacbon monooxit (CO) thuộc loại oxit nào?",
+      "answer_a": "Oxit axit",
+      "answer_b": "Oxit bazơ",
+      "answer_c": "Oxit trung tính",
+      "answer_d": "Oxit lưỡng tính",
+      "answer_right": "Oxit trung tính"
+    },
+    {
+      "question": "ASIAD 2014 được tổ chức tại nước nào?",
+      "answer_a": "Hàn Quốc",
+      "answer_b": "Trung Quốc",
+      "answer_c": "Nhật Bản",
+      "answer_d": "Ấn Độ",
+      "answer_right": "Hàn Quốc"
+    },
+    {
+      "question": "Bộ phim truyền hình nào đạt giải Cánh diều vàng 2010?",
+      "answer_a": "Bí thư tỉnh uỷ",
+      "answer_b": "Vó ngựa trời Nam",
+      "answer_c": "Câu chuyện pháp đình-Ngã rẽ",
+      "answer_d": "Người lính đặc nhiệm",
+      "answer_right": "Bí thư tỉnh uỷ"
+    },
+    {
+      "question": "Than đá, than bùn là loại khoáng sản nào?",
+      "answer_a": "Năng lượng",
+      "answer_b": "Kim loại đen",
+      "answer_c": "Kim loại màu",
+      "answer_d": "Phi kim loại",
+      "answer_right": "Phi kim loại"
+    },
+    {
+      "question": "Chỉ số gia tiêu dùng có ký hiệu là gì?",
+      "answer_a": "HDI",
+      "answer_b": "CPI",
+      "answer_c": "GEI",
+      "answer_d": "FDI",
+      "answer_right": "CPI"
+    }
+  ]
+}

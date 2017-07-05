@@ -59,6 +59,16 @@
     <string name="chat.toolbar.title">MY FRIEND</string>
     <string name="chat.button.back">Back</string>
     <string name="edittext.input.hint">Enter sms</string>
+    <string name="test.textView.back">Prev</string>
+    <string name="test.textView.next">Next</string>
+    <string name="test.textView.question">Question 1</string>
+    <string name="textView.result">Result</string>
+    <string name="dialog.cancle">Cancle</string>
+    <string name="dialog.OK">OK</string>
+    <string name="textView.title.result">Your result</string>
+    <string name="textView.question">Question </string>
+    <string name="textView.yourResult">You choosed: </string>
+    <string name="text.cross">/</string>
     <string name="music.time">00:00</string>
     <string name="music.textView.margin_left_right">5dp</string>
 </resources>
