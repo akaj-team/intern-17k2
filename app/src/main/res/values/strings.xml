@@ -1,11 +1,17 @@
 <resources>
-    <string name="app_name">MyProject</string>
+    <string name="app_name">Internship</string>
     <string name="get_text">Get Text</string>
     <string name="pass_data">Pass Data</string>
 
     <string name="btn_friend">Friend</string>
     <string name="btn_add">Add</string>
     <string name="tv_value">asdsadasdsadsad</string>
+    <string name="edt.title">Title</string>
+    <string name="edt.note">Note …</string>
+    <string name="title.addnote">Add Note Fragment</string>
+    <string name="title.notefragment">Note Fragment</string>
+    <string name="title.detail">Detail Note Fragment</string>
+    <string name="title.edit">Edit</string>
     <string name="chat.hello">Hello</string>
     <string name="chat.meet">Nice to meet you</string>
     <string name="chat.goodbye">GoodBye</string>
@@ -30,6 +36,11 @@
     <string name="item.setting">Settings</string>
     <string name="fragment_layout">Fragment Layout</string>
     <string name="drawer_layout">Drawer Layout</string>
+    <string name="ex_day_7">Ex day 7</string>
+    <string name="ex_day_9">Ex day 9</string>
+    <string name="ex_day_16">Ex day 16</string>
+    <string name="ex_day_13">EX Day 13</string>
+    <string name="ex_day_11">Ex Day 11</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>
