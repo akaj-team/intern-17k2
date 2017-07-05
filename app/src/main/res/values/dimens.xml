@@ -20,4 +20,7 @@
     <dimen name="imageview.padding.send">5dp</dimen>
     <dimen name="textview.padding">10dp</dimen>
     <dimen name="linearlayout.marging.left_right">50dp</dimen>
+    <dimen name="cardview.radius">10dp</dimen>
+    <dimen name="cardview.elevation">4dp</dimen>
+    <dimen name="cardview.imageview.size">60dp</dimen>
 </resources>

@@ -20,14 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.interfaces.VolleyCallBack;
 import vn.asiantech.internship.models.Song;
 
 /**
  * Created by ducle on 03/07/2017.
  * MusicActivity show media to play music
  */
-public class MusicActivity extends AppCompatActivity implements VolleyCallBack {
+public class MusicActivity extends AppCompatActivity{
     private static final String TAG = MusicActivity.class.getSimpleName();
     private List<String> mSongId;
     private List<Song> mSongs;
@@ -36,7 +35,7 @@ public class MusicActivity extends AppCompatActivity implements VolleyCallBack {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music);
+        setContentView(R.layout.fragment_play_music);
         init();
     }
 
@@ -53,8 +52,6 @@ public class MusicActivity extends AppCompatActivity implements VolleyCallBack {
         getSongs();
     }
 
-
-    @Override
     public void getJSONObject(JSONObject json) {
         try {
             String title = json.getString("title");
@@ -69,7 +66,6 @@ public class MusicActivity extends AppCompatActivity implements VolleyCallBack {
         }
     }
 
-    @Override
     public void showToast() {
         Toast.makeText(this, mSongs.size() + "", Toast.LENGTH_LONG).show();
     }
