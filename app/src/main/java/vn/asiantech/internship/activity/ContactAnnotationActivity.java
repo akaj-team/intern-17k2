@@ -76,28 +76,26 @@ public class ContactAnnotationActivity extends AppCompatActivity {
         if (json != null) {
             try {
                 JSONObject jsonObject = new JSONObject(json);
-                if (jsonObject.optJSONArray("contacts") != null) {
-                    Log.d(TAG, "getContacts: " + 1134685);
+                if (jsonObject.has("contacts") && jsonObject.optJSONArray("contacts") != null) {
                     JSONArray jsonArray = jsonObject.getJSONArray("contacts");
-                    Log.d(TAG, "getContacts: " + jsonArray.length());
                     for (int i = 0; i < jsonArray.length(); i++) {
                         String name;
                         String email;
                         String number;
                         JSONObject jsonContact = jsonArray.getJSONObject(i);
-                        if (jsonContact.optString("name") != null) {
+                        if (jsonContact.has("name") && jsonContact.optString("name") != null) {
                             name = jsonContact.getString("name");
                         } else {
                             name = null;
                         }
-                        if (jsonContact.optString("email") != null) {
+                        if (jsonContact.has("email") && jsonContact.optString("email") != null) {
                             email = jsonContact.getString("email");
                         } else {
                             email = null;
                         }
-                        if (jsonContact.optJSONObject("phone") != null) {
+                        if (jsonContact.has("phone") && jsonContact.optJSONObject("phone") != null) {
                             JSONObject jsonPhone = jsonContact.getJSONObject("phone");
-                            if (jsonPhone.optString("mobile") != null) {
+                            if (jsonPhone.has("mobile") && jsonPhone.optString("mobile") != null) {
                                 number = jsonPhone.getString("mobile");
                             } else {
                                 number = null;
@@ -108,7 +106,6 @@ public class ContactAnnotationActivity extends AppCompatActivity {
                         Contact contact = new Contact(name, email, number);
                         mContacts.add(contact);
                     }
-                    Log.d(TAG, "getContacts: " + mContacts.size());
                 }
             } catch (JSONException e) {
                 Log.d(TAG, "JSONException: " + e.getMessage());
