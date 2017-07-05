@@ -2,7 +2,6 @@ package vn.asiantech.internship.ui.jsonparsing;
 
 import android.app.ProgressDialog;
 import android.graphics.Rect;
-import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +11,7 @@ import android.view.View;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +30,7 @@ import vn.asiantech.internship.ui.adapters.JsonParsingAdapter;
  */
 @EActivity(R.layout.activity_json_parsing)
 public class JsonAnnotationActivity extends AppCompatActivity {
+    private static final String TAG = "JsonAnnotationActivity";
     private ArrayList<Contact> mContacts;
     private ProgressDialog mProgressDialog;
 
@@ -54,8 +55,8 @@ public class JsonAnnotationActivity extends AppCompatActivity {
 
     @UiThread
     void initView() {
-        closeProgressDialog();
         initRecyclerView();
+        closeProgressDialog();
     }
 
     private void closeProgressDialog() {
@@ -67,6 +68,7 @@ public class JsonAnnotationActivity extends AppCompatActivity {
     private void initRecyclerView() {
         JsonParsingAdapter adapter = new JsonParsingAdapter(mContacts);
         mRecyclerViewJson.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewJson.setAdapter(adapter);
         mRecyclerViewJson.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
@@ -74,7 +76,6 @@ public class JsonAnnotationActivity extends AppCompatActivity {
                 outRect.set(20, position == 0 ? 15 : 20, 20, 20);
             }
         });
-        mRecyclerViewJson.setAdapter(adapter);
     }
 
     private void doBackground() {
@@ -84,18 +85,52 @@ public class JsonAnnotationActivity extends AppCompatActivity {
         if (jsonString != null) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                JSONArray jsonArray = jsonObject.getJSONArray("contacts");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject(i);
+                if (jsonObject.has("contacts")) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("contacts");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        String id;
+                        String name = null;
+                        String email = null;
+                        String mobile = null;
 
-                    String id = object.getString("id");
-                    String name = object.getString("name");
-                    String email = object.getString("email");
-
-                    JSONObject phone = object.getJSONObject("phone");
-                    String mobile = phone.getString("mobile");
-
-                    mContacts.add(new Contact(id, name, email, mobile));
+                        if (jsonArray.getJSONObject(i) != null) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            if (object.has("id")) {
+                                id = object.getString("id");
+                                if (object.has("name")) {
+                                    name = object.getString("name");
+                                    if (object.has("email")) {
+                                        email = object.getString("email");
+                                        if (object.has("phone")) {
+                                            JSONObject phone = object.getJSONObject("phone");
+                                            if (phone.has("mobile")) {
+                                                mobile = phone.getString("mobile");
+                                            } else {
+                                                Log.e(TAG, "mobile null");
+                                                mobile = null;
+                                            }
+                                        } else {
+                                            Log.e(TAG, "phone null");
+                                        }
+                                    } else {
+                                        Log.e(TAG, "email null");
+                                        email = null;
+                                    }
+                                } else {
+                                    Log.e(TAG, "name null");
+                                    name = null;
+                                }
+                            } else {
+                                Log.e(TAG, "id null");
+                                id = null;
+                            }
+                            mContacts.add(new Contact(id, name, email, mobile));
+                        } else {
+                            Log.e(TAG, "JsonArray null");
+                        }
+                    }
+                } else {
+                    Log.e(TAG, "Can not find json");
                 }
             } catch (JSONException e) {
                 Log.e("doInBackground: ", e.getMessage());
