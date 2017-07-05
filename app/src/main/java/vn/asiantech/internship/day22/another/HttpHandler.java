@@ -26,7 +26,8 @@ public class HttpHandler {
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            // read the response
+
+            // Read the response
             InputStream in = new BufferedInputStream(conn.getInputStream());
             response = convertStreamToString(in);
         } catch (MalformedURLException e) {
@@ -52,8 +53,10 @@ public class HttpHandler {
 
         String line;
         try {
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append('\n');
+            if (reader != null) {
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append('\n');
+                }
             }
         } catch (IOException e) {
             Log.d(TAG, "IOException when convert Stream to String: ");
