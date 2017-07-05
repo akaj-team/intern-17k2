@@ -25,6 +25,8 @@
         <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.TestActivity"/>
         <activity android:name=".activity.ResultActivity"/>
+        <activity android:name=".ui.main.NoteActivity"/>
+        <activity android:name=".activity.AnimalActivity" />
         <activity android:name=".activity.MusicActivity"/>
     </application>
 </manifest>
