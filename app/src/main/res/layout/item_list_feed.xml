@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/feed.item.viewPager_marginBottom"
+        android:layout_marginBottom="@dimen/feed.item.viewpager_marginBottom"
         android:orientation="vertical"
         android:padding="@dimen/item.button_padding">
 
@@ -44,7 +44,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/feed.item.viewPager_marginBottom"
+            android:layout_marginBottom="@dimen/feed.item.viewpager_marginBottom"
             android:orientation="horizontal">
 
             <android.support.v4.view.ViewPager
@@ -67,8 +67,7 @@
                 android:layout_height="@dimen/feed.item.viewpager.button_size"
                 android:layout_gravity="center_vertical|end"
                 android:contentDescription="@string/feed.buttonRight_description"
-                android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                android:visibility="gone" />
+                android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
         </FrameLayout>
 

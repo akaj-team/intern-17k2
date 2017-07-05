@@ -104,6 +104,8 @@ public class QuestionActivity extends AppCompatActivity {
             android.app.FragmentManager fragmentManager = this.getFragmentManager();
             FinishDialog finishDialog = FinishDialog.newInstance();
             finishDialog.show(fragmentManager, null);
+        } else {
+            super.onBackPressed();
         }
     }
 

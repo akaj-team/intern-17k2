@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBarNote"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity.toolbar_height"
+        android:background="#ccc" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleViewNote"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
