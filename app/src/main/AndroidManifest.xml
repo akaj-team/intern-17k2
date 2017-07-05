@@ -21,8 +21,10 @@
         </activity>
         <activity android:name=".day15.drawer.ui.main.MainActivity" />
         <activity android:name=".day15.drawer.ui.feed.FeedActivity" />
+        <activity android:name=".note.ui.NoteActivity" />
         <activity android:name=".day16.ui.TabActivity" />
         <activity android:name=".day7.ui.CommunicateActivity" />
+        <activity android:name=".friend.FriendActivity" />
         <activity android:name=".day13.ChatActivity" />
     </application>
 

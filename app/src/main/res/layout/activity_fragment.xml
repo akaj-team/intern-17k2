@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/colorToolbar" />
+        android:background="@color/colorGrayLight" />
 
     <FrameLayout
         android:id="@+id/frContainerAction"
@@ -20,5 +20,5 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/activity2.layout_padding"
         android:layout_weight="1"
-        android:background="@color/colorToolbar" />
+        android:background="@color/colorGrayLight" />
 </LinearLayout>
