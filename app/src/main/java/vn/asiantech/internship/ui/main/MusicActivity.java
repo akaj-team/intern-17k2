@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import vn.asiantech.internship.R;
@@ -53,7 +52,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private int mSongPosition;
     private boolean mServiceRunning;
     private boolean mIsPlaying;
-    private String mSongIds[] = {"ZW7FC0I7", "ZW80UUCB", "ZW7FE0FC", "ZW79F6A7", "ZW79O8DI", "ZW7FODC9"
+    private String[] mSongIds = {"ZW7FC0I7", "ZW80UUCB", "ZW7FE0FC", "ZW79F6A7", "ZW79O8DI", "ZW7FODC9"
             , "ZW78B06A", "ZW78U908", "ZW78I80B", "ZW77F8E0"};
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -214,19 +213,20 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         replaceFragment(PlayFragment.getNewInstance(), true);
     }
 
-    public static ArrayList<Song> findsong(File root) {
-        File[] files = root.listFiles();
-        ArrayList<Song> songList = new ArrayList<>();
-        for (File singleFile : files) {
-            if (singleFile.isDirectory() && !singleFile.isHidden() && !singleFile.getName().equals("Android")) {
-                songList.addAll(findsong(singleFile));
-            } else {
-                if (singleFile.getName().endsWith(".mp3")) {
-                    Song song = new Song(singleFile.getName(), "Cao Cuong Idol", singleFile.getPath(), "kememi");
-                    songList.add(song);
-                }
-            }
-        }
-        return songList;
-    }
+//    Get Local Songs
+//    public static ArrayList<Song> findsong(File root) {
+//        File[] files = root.listFiles();
+//        ArrayList<Song> songList = new ArrayList<>();
+//        for (File singleFile : files) {
+//            if (singleFile.isDirectory() && !singleFile.isHidden() && !singleFile.getName().equals("Android")) {
+//                songList.addAll(findsong(singleFile));
+//            } else {
+//                if (singleFile.getName().endsWith(".mp3")) {
+//                    Song song = new Song(singleFile.getName(), "Cao Cuong Idol", singleFile.getPath(), "kememi");
+//                    songList.add(song);
+//                }
+//            }
+//        }
+//        return songList;
+//    }
 }
