@@ -8,6 +8,7 @@ import android.view.View;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day15.drawer.ui.main.MainActivity;
 import vn.asiantech.internship.day16.ui.TabActivity;
+import vn.asiantech.internship.day23.UploadImageActivity;
 import vn.asiantech.internship.day7.ui.CommunicateActivity;
 import vn.asiantech.internship.friend.FriendActivity;
 import vn.asiantech.internship.note.ui.NoteActivity;
@@ -49,6 +50,12 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SplashActivity.this, TabActivity.class));
+            }
+        });
+        findViewById(R.id.btnBai23).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SplashActivity.this, UploadImageActivity.class));
             }
         });
     }

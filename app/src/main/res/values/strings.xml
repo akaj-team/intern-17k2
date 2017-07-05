@@ -6,6 +6,7 @@
     <string name="baiNote">BaiNote</string>
     <string name="bai15">Bai15</string>
     <string name="bai16">Bai16</string>
+    <string name="bai23">Bai23</string>
     <!--Bai7-->
     <string name="textView_input">Input Text</string>
     <string name="friendFragment_button_friend_state">Friend</string>
@@ -49,4 +50,6 @@
         <item>Gallery</item>
         <item>Camera</item>
     </string-array>
+    <!--Bai23-->
+    <string name="button.upload">Select Image</string>
 </resources>
