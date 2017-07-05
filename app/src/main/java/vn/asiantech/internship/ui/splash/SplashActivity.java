@@ -28,7 +28,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
 
         Button btnDrawer = (Button) findViewById(R.id.btnDrawer);
         Button btnFragment = (Button) findViewById(R.id.btnFragment);
-        Button btnFeed = (Button) findViewById(R.id.btnExday9);
+        Button btnExday9 = (Button) findViewById(R.id.btnExday9);
         Button btnExday7 = (Button) findViewById(R.id.btnExDay7);
         Button btnExday11 = (Button) findViewById(R.id.btnExday11);
         Button btnExday13 = (Button) findViewById(R.id.btnExday13);
@@ -36,7 +36,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
 
         btnDrawer.setOnClickListener(this);
         btnFragment.setOnClickListener(this);
-        btnFeed.setOnClickListener(this);
+        btnExday9.setOnClickListener(this);
         btnExday7.setOnClickListener(this);
         btnExday11.setOnClickListener(this);
         btnExday13.setOnClickListener(this);
@@ -69,6 +69,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
             case R.id.btnExday13:
                 mIntent = new Intent(SplashActivity.this, ChatActivity.class);
                 startActivity(mIntent);
+                break;
             case R.id.btnExday15:
                 mIntent = new Intent(SplashActivity.this, JsonActivity.class);
                 startActivity(mIntent);
