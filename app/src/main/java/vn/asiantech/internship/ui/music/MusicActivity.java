@@ -18,13 +18,10 @@ import java.util.ArrayList;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Music;
 
-import static vn.asiantech.internship.R.id.seekBar;
-
 /**
  * MusicActivity created by Thanh Thien
  */
 public class MusicActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = MusicActivity.class.getSimpleName();
 
     private SeekBar mSeekBar;
     private ImageView mImgPause;
@@ -54,7 +51,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mImgPause = (ImageView) findViewById(R.id.imgPause);
         mImgShuffle = (ImageView) findViewById(R.id.imgShuffle);
         mImgRepeat = (ImageView) findViewById(R.id.imgRepeat);
-        mSeekBar = (SeekBar) findViewById(seekBar);
+        mSeekBar = (SeekBar) findViewById(R.id.seekBar);
         mTvCurrentTime = (TextView) findViewById(R.id.tvCurrentTime);
         mTvDurationTime = (TextView) findViewById(R.id.tvDurationTime);
         mMusicBroadcastReceiver = new MusicBroadcastReceiver();

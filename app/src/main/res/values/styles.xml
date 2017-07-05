@@ -53,6 +53,13 @@
         <item name="android:textColor">@color/friendsColorWhite</item>
     </style>
 
+    <style name="EditTextSendStyle">
+        <item name="android:background">@drawable/bg_input_editext</item>
+        <item name="android:padding">@dimen/paddingSomeThing</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:layout_marginBottom">@dimen/marginSomething</item>
+    </style>
+
     <style name="TextViewStyleNormalQuestion">
         <item name="android:textColor">@color/colorMenuArrow</item>
         <item name="android:textSize">16sp</item>
