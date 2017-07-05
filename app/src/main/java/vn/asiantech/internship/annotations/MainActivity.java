@@ -47,32 +47,43 @@ public class MainActivity extends AppCompatActivity {
 
     @Background
     void asysnTask(String url) {
+        ArrayList<Contact> contacts = new ArrayList<>();
         HttpHandler httpHandler = new HttpHandler();
-        String jsonString = httpHandler.makeServiceCall(url);
         JSONArray contactArray;
+        String name = "";
+        String mail = "";
+        String mobile = "";
+        JSONObject phone;
+        String jsonString = httpHandler.makeServiceCall(url);
         if (!TextUtils.equals(jsonString, "")) {
             try {
                 JSONObject jsonObj = new JSONObject(jsonString);
-                if (jsonObj.optJSONArray("contacts") != null) {
+                if (jsonObj.has("contacts") && jsonObj.optJSONArray("contacts") != null) {
                     contactArray = jsonObj.getJSONArray("contacts");
-                    if (contactArray != null) {
-                        for (int i = 0; i < contactArray.length(); i++) {
-                            JSONObject jsonObject = contactArray.getJSONObject(i);
-                            Contact contact = new Contact();
-                            String name = jsonObject.getString("name");
-                            String mail = jsonObject.getString("email");
-                            String phone = jsonObject.getJSONObject("phone").getString("mobile");
-                            if (!TextUtils.equals(name, "")) {
-                                contact.setName(name);
-                                if (TextUtils.equals(mail, "")) {
-                                    contact.setName(mail);
-                                    if (TextUtils.equals(phone, "")) {
-                                        contact.setName(phone);
-                                    }
+                    for (int i = 0; i < contactArray.length(); i++) {
+                        Contact contact = new Contact();
+                        JSONObject jsonObject = contactArray.getJSONObject(i);
+                        if (jsonObj.has("name") && jsonObj.optString("name") != null) {
+                            name = jsonObject.getString("name");
+                        }
+                        if (jsonObj.has("email") && jsonObj.optString("email") != null) {
+                            mail = jsonObject.getString("email");
+                        }
+                        if (jsonObj.has("phone") && jsonObj.optJSONObject("phone") != null) {
+                            phone = jsonObj.getJSONObject("phone");
+                            if (phone.has("mobile") && phone.optString("mobile") != null)
+                                mobile = phone.getString("mobile");
+                        }
+                        if (!TextUtils.equals(name, "")) {
+                            contact.setName(name);
+                            if (TextUtils.equals(mail, "")) {
+                                contact.setName(mail);
+                                if (TextUtils.equals(mobile, "")) {
+                                    contact.setName(mobile);
                                 }
                             }
-                            mContacts.add(contact);
                         }
+                        contacts.add(contact);
                     }
                 }
             } catch (JSONException e) {
