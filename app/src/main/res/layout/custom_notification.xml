@@ -26,42 +26,4 @@
         android:layout_toEndOf="@+id/imgNotificationThumnail"
         android:layout_toRightOf="@+id/imgNotificationThumnail" />
 
-    <ImageView
-        android:id="@+id/imgNotificationPrevious"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/tvNotificationArtist"
-        android:layout_marginLeft="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/imgNotificationThumnail"
-        android:layout_toRightOf="@+id/imgNotificationThumnail"
-        android:background="@drawable/ic_skip_previous_black_24dp"
-        android:contentDescription="@null" />
-
-    <ImageView
-        android:id="@+id/imgNotificationPlay"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/tvNotificationArtist"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/imgNotificationPrevious"
-        android:layout_toRightOf="@+id/imgNotificationPrevious"
-        android:background="@drawable/ic_play_arrow_black_24dp"
-        android:contentDescription="@null" />
-
-    <ImageView
-        android:id="@+id/imgNotificationNext"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/tvNotificationArtist"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/imgNotificationPlay"
-        android:layout_toRightOf="@+id/imgNotificationPlay"
-        android:background="@drawable/ic_skip_next_black_24dp"
-        android:contentDescription="@null" />
 </RelativeLayout>

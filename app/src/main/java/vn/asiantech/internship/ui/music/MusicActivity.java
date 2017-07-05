@@ -25,11 +25,9 @@ import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.services.MusicService;
 
 /**
- *
  * Created by quanghai on 30/06/2017.
  */
 public class MusicActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final String KEY_INTENT = "package";
     public static final String KEY_BUNDLE_ARRAYLIST = "arraylist";
     public static final String KEY_BUNDLE_POSITION = "position";
 
@@ -59,8 +57,10 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             case R.id.imgPrevious:
                 if (mCurrentPosition > 0) {
                     mCurrentPosition--;
-                    setViewAction();
-                    intentStartService(this, mCurrentPosition);
+                    setViewAction(mCurrentPosition);
+                    Intent previousIntent = new Intent(this, MusicService.class);
+                    previousIntent.setAction(Action.PREVIOUS_SONG.getValue());
+                    startService(previousIntent);
                 }
                 break;
             case R.id.imgPause:
@@ -80,8 +80,9 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             case R.id.imgNext:
                 if (mCurrentPosition < getAllSong(this).size() - 1) {
                     mCurrentPosition++;
-                    setViewAction();
-                    intentStartService(this, mCurrentPosition);
+                    Intent nextIntent = new Intent(this, MusicService.class);
+                    nextIntent.setAction(Action.NEXT_SONG.getValue());
+                    startService(nextIntent);
                 }
                 break;
             case R.id.llSong:
@@ -138,31 +139,29 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onItemClick(int position) {
                 mCurrentPosition = position;
-                intentStartService(MusicActivity.this, position);
-                setViewAction();
+                intentStartService(MusicActivity.this, position, Action.START.getValue());
+                setViewAction(mCurrentPosition);
             }
         });
         mRecyclerViewSong.setLayoutManager(linearLayoutManager);
         mRecyclerViewSong.setAdapter(adapter);
     }
 
-    public void intentStartService(Context context, int position) {
+    public void intentStartService(Context context, int position, String action) {
         Intent intent = new Intent(context, MusicService.class);
-        intent.setAction(Action.START.getValue());
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(KEY_BUNDLE_ARRAYLIST, (ArrayList<? extends Parcelable>) getAllSong(context));
-        bundle.putInt(KEY_BUNDLE_POSITION, position);
-        intent.putExtra(KEY_INTENT, bundle);
+        intent.setAction(action);
+        intent.putParcelableArrayListExtra(KEY_BUNDLE_ARRAYLIST, (ArrayList<? extends Parcelable>) getAllSong(context));
+        intent.putExtra(KEY_BUNDLE_POSITION, position);
         context.startService(intent);
     }
 
-    private void setViewAction() {
+    private void setViewAction(int position) {
         mLlSong.setVisibility(View.VISIBLE);
         mImgPrevious.setVisibility(View.VISIBLE);
         mImgPause.setVisibility(View.VISIBLE);
         mImgNext.setVisibility(View.VISIBLE);
 
-        Song song = getAllSong(this).get(mCurrentPosition);
+        Song song = getAllSong(this).get(position);
         mTvSongName.setText(song.getTitle());
         mTvSinger.setText(song.getArtist());
     }

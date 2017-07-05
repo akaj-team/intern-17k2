@@ -93,14 +93,14 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
             case R.id.imgPreviousSong:
                 if (mCurrentPosition > 0) {
                     mCurrentPosition--;
-                    mActivity.intentStartService(this, mCurrentPosition);
+                    mActivity.intentStartService(this, mCurrentPosition, Action.PREVIOUS_SONG.getValue());
                     setView();
                 }
                 break;
             case R.id.imgNextSong:
                 if (mCurrentPosition < mSongs.size() - 1) {
                     mCurrentPosition++;
-                    mActivity.intentStartService(this, mCurrentPosition);
+                    mActivity.intentStartService(this, mCurrentPosition, Action.NEXT_SONG.getValue());
                     setView();
                 }
                 break;

@@ -1,6 +1,7 @@
 package vn.asiantech.internship.services;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
 import android.content.Intent;
@@ -14,8 +15,6 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.RemoteViews;
 
 import java.io.IOException;
@@ -65,10 +64,14 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                         mShufflePosition++;
                     }
                 } else {
-                    Bundle bundle = intent.getBundleExtra(MusicActivity.KEY_INTENT);
-                    mSongs = bundle.getParcelableArrayList(MusicActivity.KEY_BUNDLE_ARRAYLIST);
-                    mCurrentPosition = bundle.getInt(MusicActivity.KEY_BUNDLE_POSITION);
+                    getBundle(intent);
                 }
+                playSong(mSongs, mCurrentPosition);
+            } else if (intent.getAction().equals(Action.PREVIOUS_SONG.getValue())) {
+                mCurrentPosition--;
+                playSong(mSongs, mCurrentPosition);
+            } else if (intent.getAction().equals(Action.NEXT_SONG.getValue())) {
+                mCurrentPosition++;
                 playSong(mSongs, mCurrentPosition);
             } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
                 mMediaPLayer.pause();
@@ -86,6 +89,12 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             }
         }
         return START_STICKY;
+    }
+
+    private void getBundle(Intent intent) {
+        mSongs = intent.getParcelableArrayListExtra(MusicActivity.KEY_BUNDLE_ARRAYLIST);
+        mCurrentPosition = intent.getIntExtra(MusicActivity.KEY_BUNDLE_POSITION, -1);
+        Log.d("xxx", "getBundle: " + mCurrentPosition);
     }
 
     private List<Song> shuffleSongs() {
@@ -109,16 +118,35 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void showNotification() {
-        //TODO
+        Intent nextIntent = new Intent(this, MusicService.class);
+        nextIntent.setAction(Action.NEXT_SONG.getValue());
+        PendingIntent nextPendingIntent = PendingIntent.getService(this, 0, nextIntent, 0);
+
+        Intent previousIntent = new Intent(this, MusicService.class);
+        previousIntent.setAction(Action.PREVIOUS_SONG.getValue());
+        PendingIntent previousPendingIntent = PendingIntent.getService(this, 0, previousIntent, 0);
+
+        Intent pauseIntent = new Intent(this, MusicService.class);
+        if (mMediaPLayer.isPlaying()) {
+            previousIntent.setAction(Action.PAUSE.getValue());
+            return;
+        }
+        pauseIntent.setAction(Action.RESUME.getValue());
+        PendingIntent playPendingIntent = PendingIntent.getService(this, 0, pauseIntent, 0);
+
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.custom_notification);
         remoteViews.setTextViewText(R.id.tvNotificationSongName, mSongs.get(mCurrentPosition).getTitle());
         remoteViews.setTextViewText(R.id.tvNotificationArtist, mSongs.get(mCurrentPosition).getArtist());
         remoteViews.setTextColor(R.id.tvNotificationSongName, Color.BLACK);
         remoteViews.setTextColor(R.id.tvNotificationArtist, Color.BLACK);
         Notification builder = new NotificationCompat.Builder(this)
-                .setCustomBigContentView(remoteViews)
+//                .setCustomBigContentView(remoteViews)
+                .setContent(remoteViews)
                 .setSmallIcon(R.drawable.ic_play_arrow_black_24dp)
                 .setContentTitle("Music player")
+                .addAction(R.drawable.ic_skip_previous_black_24dp, null, previousPendingIntent)
+                .addAction(R.drawable.ic_play_arrow_black_24dp, null, playPendingIntent)
+                .addAction(R.drawable.ic_skip_next_black_24dp, null, nextPendingIntent)
                 .build();
         startForeground(1, builder);
     }

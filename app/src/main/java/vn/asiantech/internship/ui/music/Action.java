@@ -6,6 +6,7 @@ package vn.asiantech.internship.ui.music;
 
 public enum Action {
     INTENT("INTENT"), PAUSE("PAUSE"), START("START"),
+    NEXT_SONG("NEXT_SONG"), PREVIOUS_SONG("PREVIOUS_SONG"),
     RESUME("RESUME"), SEEK("SEEK"),
     SEEK_TO("SEEK_TO"), SHUFFLE("SHUFFLE"), REPLAY("REPLAY"), STOP("STOP");
 
