@@ -1,5 +1,6 @@
 package vn.asiantech.internship.drawer.ui.feed;
 
+import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,14 +14,18 @@ import java.util.List;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.drawer.models.FeedItem;
 
+import static vn.asiantech.internship.R.id.viewPager;
+
 /**
  * Created by BACKDOOR on 07-Feb-17.
  */
 class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     private List<FeedItem> mFeedItems;
+    private Context mContext;
 
-    FeedAdapter(List<FeedItem> feedItems) {
+    FeedAdapter(Context context, List<FeedItem> feedItems) {
+        mContext = context;
         mFeedItems = feedItems;
     }
 
@@ -35,8 +40,11 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.mTvName.setText(mFeedItems.get(position).getName());
         holder.mTvComment.setText(mFeedItems.get(position).getComment());
-        FeedPagerAdapter pagerAdapter = new FeedPagerAdapter(mFeedItems.get(position).getImages());
+        FeedPagerAdapter pagerAdapter = new FeedPagerAdapter(mContext, mFeedItems.get(position).getImages());
         holder.mViewPager.setAdapter(pagerAdapter);
+        if (mFeedItems.get(position).getImages().length > 1) {
+            holder.mBtnRightSlide.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -72,7 +80,7 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
                 @Override
                 public void onPageSelected(int position) {
-                    updateSlide(getLayoutPosition());
+                    updateArrow(getLayoutPosition());
                 }
 
                 @Override
@@ -94,19 +102,11 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             });
         }
 
-        private void updateSlide(int position) {
-            List<Integer> mImageArray = mFeedItems.get(position).getImages();
-            if (mImageArray.size() > 1) {
-                if (mViewPager.getCurrentItem() != 0) {
-                    mBtnLeftSlide.setVisibility(View.VISIBLE);
-                } else {
-                    mBtnLeftSlide.setVisibility(View.GONE);
-                }
-                if (mViewPager.getCurrentItem() != mImageArray.size() - 1) {
-                    mBtnRightSlide.setVisibility(View.VISIBLE);
-                } else {
-                    mBtnRightSlide.setVisibility(View.GONE);
-                }
+        private void updateArrow(int position) {
+            String[] mImageArray = mFeedItems.get(position).getImages();
+            if (mImageArray.length > 1) {
+                mBtnLeftSlide.setVisibility(mViewPager.getCurrentItem() != 0 ? View.VISIBLE : View.GONE);
+                mBtnRightSlide.setVisibility(mViewPager.getCurrentItem() != mImageArray.length - 1 ? View.VISIBLE : View.GONE);
             } else {
                 mBtnLeftSlide.setVisibility(View.GONE);
                 mBtnRightSlide.setVisibility(View.GONE);
