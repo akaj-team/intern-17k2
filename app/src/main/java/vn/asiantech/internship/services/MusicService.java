@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.telephony.TelephonyManager;
 import android.widget.RemoteViews;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class MusicService extends Service {
     private MediaPlayer mMediaPlayer;
     private CountDownTimer mCountDownTimer;
     private int mSongPosition;
+    private boolean mStopForCall;
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -73,6 +75,21 @@ public class MusicService extends Service {
                 if (Action.STOP.getValue().equals(action)) {
                     stopSelf();
                 }
+                if (Action.CALL.getValue().equals(action)) {
+                    String phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
+                    if (mMediaPlayer.isPlaying()) {
+                        if (phoneState.equals(TelephonyManager.EXTRA_STATE_RINGING) || phoneState.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
+                            mMediaPlayer.pause();
+                            mStopForCall = true;
+                        }
+                    } else {
+                        if (mStopForCall && phoneState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+                            mMediaPlayer.start();
+                            starCountDownTimer();
+                            mStopForCall = false;
+                        }
+                    }
+                }
             }
         }
     };
@@ -88,6 +105,7 @@ public class MusicService extends Service {
         intentFilter.addAction(Action.PREVIOUS_SONG.getValue());
         intentFilter.addAction(Action.SEEK_TO.getValue());
         intentFilter.addAction(Action.STOP.getValue());
+        intentFilter.addAction(Action.CALL.getValue());
         registerReceiver(mReceiver, intentFilter);
     }
 
