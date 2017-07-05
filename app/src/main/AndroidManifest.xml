@@ -18,15 +18,21 @@
 
         <activity android:name=".ui.feed.FeedActivity" />
 
-        <activity android:name=".ui.ChatActivity">
+        <activity android:name=".ui.ChatActivity" />
+
+        <activity android:name=".ui.view.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity android:name=".ui.main.MainActivity" />
+
+        <activity android:name=".ui.view.ResultActivity" />
 
     </application>
 
