@@ -2,10 +2,22 @@
     <string name="app_name">Internship</string>
     <!--Splash-->
     <string name="bai7.2">Bai7.2</string>
+    <string name="baiFriend">BaiFriend</string>
+    <string name="baiNote">BaiNote</string>
     <string name="bai15">Bai15</string>
     <string name="bai16">Bai16</string>
     <!--Bai7-->
     <string name="textView_input">Input Text</string>
+    <string name="friendFragment_button_friend_state">Friend</string>
+    <string name="friendFragment_button_friend_add">Add</string>
+    <!--Bai13-->
+    <string name="textView_title">Title</string>
+    <string name="textView_content">Content</string>
+    <string name="menu.item_add">Add Note</string>
+    <string name="menu.item_attachFile">Attach File</string>
+    <string name="menu.item_save">Save Note</string>
+    <string name="toolBar_title_screenAdd">Add Note</string>
+    <string name="toolBar_title_screenList">List Note</string>
     <!--Bai15-->
     <string name="drawer_open">Draw open</string>
     <string name="drawer_close">Draw close</string>
@@ -28,10 +40,8 @@
     <string name="menuLeft.title.back">Back</string>
     <string name="menuLeft.title.setting">Settings</string>
     <string name="menuLeft.title.exit">Exit</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button">Get Content</string>
-    <!--Bai8-->
     <!--feedActivity-->
     <string name="feed.buttonLeft_description">Slide left</string>
     <string name="feed.buttonRight_description">Slide right</string>

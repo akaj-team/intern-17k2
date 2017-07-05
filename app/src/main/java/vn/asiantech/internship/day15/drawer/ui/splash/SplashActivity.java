@@ -9,6 +9,8 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.day15.drawer.ui.main.MainActivity;
 import vn.asiantech.internship.day16.ui.TabActivity;
 import vn.asiantech.internship.day7.ui.CommunicateActivity;
+import vn.asiantech.internship.friend.FriendActivity;
+import vn.asiantech.internship.note.ui.NoteActivity;
 
 /**
  * SplashActivity
@@ -23,6 +25,18 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SplashActivity.this, CommunicateActivity.class));
+            }
+        });
+        findViewById(R.id.btnFriend).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SplashActivity.this, FriendActivity.class));
+            }
+        });
+        findViewById(R.id.btnNote).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SplashActivity.this, NoteActivity.class));
             }
         });
         findViewById(R.id.btnBai15).setOnClickListener(new View.OnClickListener() {

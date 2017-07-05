@@ -1,7 +1,7 @@
 <resources>
     <!--splash-->
     <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">10dp</dimen>
     <dimen name="splash_item_margin">10dp</dimen>
     <!-- Bai5 -->
     <dimen name="item.textView_padding">5dp</dimen>
@@ -37,6 +37,9 @@
     <dimen name="feed.item_padding">15dp</dimen>
     <dimen name="feed.item.viewpager_marginBottom">3dp</dimen>
     <dimen name="feed.item.viewpager.button_size">48dp</dimen>
+    <!--Bai13-->
+    <dimen name="detail.image_size">300dp</dimen>
+    <dimen name="item.image_size">80dp</dimen>
     <!--Bai15-->
     <dimen name="result.item.text_size">22sp</dimen>
     <dimen name="result.item.textPoint_size">35sp</dimen>
