@@ -42,5 +42,4 @@ dependencies {
     annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
 }
-
 apply from: "https://raw.githubusercontent.com/monstar-lab/gradle-android-ci-check/1.3.1/ci.gradle"
