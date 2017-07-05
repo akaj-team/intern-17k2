@@ -132,7 +132,6 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                         mServiceRunning = true;
                         startService(intent);
                     }
-
                 }
                 mProgressDialog.dismiss();
             }
