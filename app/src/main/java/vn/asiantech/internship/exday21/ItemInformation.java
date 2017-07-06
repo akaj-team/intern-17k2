@@ -4,12 +4,12 @@ package vn.asiantech.internship.exday21;
  * Copyright © 2016 AsianTech inc.
  * Created by datbu on 03-07-2017.
  */
-class JsonItem {
+class ItemInformation {
     private String name;
     private String email;
     private String mobile;
 
-    JsonItem(String name, String email, String mobile) {
+    ItemInformation(String name, String email, String mobile) {
         this.name = name;
         this.email = email;
         this.mobile = mobile;

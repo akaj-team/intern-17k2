@@ -13,23 +13,23 @@ import java.util.ArrayList;
  * Copyright © 2016 AsianTech inc.
  * Created by datbu on 03-07-2017.
  */
-class GetContactsAsyncTask extends AsyncTask<JsonItem, Void, ArrayList<JsonItem>> {
-    private ArrayList<JsonItem> mJsonItems;
+class GetContactsAsyncTask extends AsyncTask<ItemInformation, Void, ArrayList<ItemInformation>> {
+    private ArrayList<ItemInformation> mItemInformations;
     private OnCallBack mOnCallBack;
 
     GetContactsAsyncTask(OnCallBack mOnCallBack) {
-        this.mJsonItems = new ArrayList<>();
+        this.mItemInformations = new ArrayList<>();
         this.mOnCallBack = mOnCallBack;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mOnCallBack.onCall();
+        mOnCallBack.onShowDialog();
     }
 
     @Override
-    protected ArrayList<JsonItem> doInBackground(JsonItem... arg0) {
+    protected ArrayList<ItemInformation> doInBackground(ItemInformation... arg0) {
         HttpHandler httpHandler = new HttpHandler();
         // Making a request to url and getting response
         String url = "http://api.androidhive.info/contacts/";
@@ -52,7 +52,7 @@ class GetContactsAsyncTask extends AsyncTask<JsonItem, Void, ArrayList<JsonItem>
                                         JSONObject phone = c.getJSONObject("phone");
                                         if (phone.has("mobile") && phone.optString("mobile") != null) {
                                             String mobile = phone.getString("mobile");
-                                            mJsonItems.add(new JsonItem(name, email, mobile));
+                                            mItemInformations.add(new ItemInformation(name, email, mobile));
                                         } else {
                                             Log.e("tag1", "mobile null");
                                         }
@@ -82,9 +82,9 @@ class GetContactsAsyncTask extends AsyncTask<JsonItem, Void, ArrayList<JsonItem>
     }
 
     @Override
-    protected void onPostExecute(ArrayList<JsonItem> jsonItems) {
-        super.onPostExecute(jsonItems);
-        mOnCallBack.onCallBack(mJsonItems);
+    protected void onPostExecute(ArrayList<ItemInformation> itemInformations) {
+        super.onPostExecute(itemInformations);
+        mOnCallBack.onSetAdapter(mItemInformations);
     }
 
     /**
@@ -92,8 +92,8 @@ class GetContactsAsyncTask extends AsyncTask<JsonItem, Void, ArrayList<JsonItem>
      * Created by datbu on 03-07-2017.
      */
     interface OnCallBack {
-        void onCall();
+        void onShowDialog();
 
-        void onCallBack(ArrayList<JsonItem> jsonItems);
+        void onSetAdapter(ArrayList<ItemInformation> itemInformations);
     }
 }

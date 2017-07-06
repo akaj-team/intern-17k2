@@ -24,14 +24,13 @@
 
 
         <RelativeLayout
-            android:id="@+id/lnImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/lnName"
+                android:id="@+id/llName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -57,10 +56,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lnEmail"
+                android:id="@+id/llEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lnName"
+                android:layout_below="@id/llName"
                 android:orientation="horizontal">
 
                 <TextView
@@ -84,10 +83,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lnMobile"
+                android:id="@+id/llMobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lnEmail"
+                android:layout_below="@id/llEmail"
                 android:orientation="horizontal">
 
                 <TextView

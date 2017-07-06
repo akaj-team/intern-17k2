@@ -34,12 +34,12 @@ public class JsonActivity extends AppCompatActivity {
 
         mGetContactsAsyncTask = new GetContactsAsyncTask(new GetContactsAsyncTask.OnCallBack() {
             @Override
-            public void onCall() {
+            public void onShowDialog() {
                 mProgressDialog.show();
             }
             @Override
-            public void onCallBack(ArrayList<JsonItem> jsonItems) {
-                JsonAdapter adapter = new JsonAdapter(jsonItems);
+            public void onSetAdapter(ArrayList<ItemInformation> itemInformations) {
+                InformationAdapter adapter = new InformationAdapter(itemInformations);
                 mRecyclerView.setAdapter(adapter);
                 mProgressDialog.dismiss();
             }

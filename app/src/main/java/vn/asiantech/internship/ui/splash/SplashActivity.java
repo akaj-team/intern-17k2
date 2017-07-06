@@ -9,8 +9,9 @@ import android.widget.Button;
 import vn.asiantech.internship.exday15.JsonActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.exday13.ChatActivity;
+import vn.asiantech.internship.exday16.ViewPagerActivity;
 import vn.asiantech.internship.exfragment.RecyclerViewActivity;
-import vn.asiantech.internship.feed.ActivityFeed;
+import vn.asiantech.internship.feed.FeedActivity;
 import vn.asiantech.internship.note.NoteActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 
@@ -33,6 +34,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
         Button btnExday11 = (Button) findViewById(R.id.btnExday11);
         Button btnExday13 = (Button) findViewById(R.id.btnExday13);
         Button btnExday15 = (Button) findViewById(R.id.btnExday15);
+        Button btnExday16 = (Button) findViewById(R.id.btnExday16);
         Button btnExday21 = (Button) findViewById(R.id.btnExday21);
 
         btnDrawer.setOnClickListener(this);
@@ -42,6 +44,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
         btnExday11.setOnClickListener(this);
         btnExday13.setOnClickListener(this);
         btnExday15.setOnClickListener(this);
+        btnExday16.setOnClickListener(this);
         btnExday21.setOnClickListener(this);
     }
 
@@ -57,7 +60,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
                 startActivity(mIntent);
                 break;
             case R.id.btnExday9:
-                mIntent = new Intent(SplashActivity.this, ActivityFeed.class);
+                mIntent = new Intent(SplashActivity.this, FeedActivity.class);
                 startActivity(mIntent);
                 break;
             case R.id.btnExDay7:
@@ -74,6 +77,10 @@ public class SplashActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btnExday15:
                 mIntent = new Intent(SplashActivity.this, JsonActivity.class);
+                startActivity(mIntent);
+                break;
+            case R.id.btnExday16:
+                mIntent = new Intent(SplashActivity.this, ViewPagerActivity.class);
                 startActivity(mIntent);
                 break;
             case R.id.btnExday21:
