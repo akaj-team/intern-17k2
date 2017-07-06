@@ -40,7 +40,7 @@ public class ContactAnnotationActivity extends AppCompatActivity {
     void init() {
         mContacts = new ArrayList<>();
         mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage("Please wait ... ");
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
         setUpdate();
