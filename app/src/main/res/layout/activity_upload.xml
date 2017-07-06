@@ -7,18 +7,18 @@
     tools:context="vn.asiantech.internship.day23.UploadActivity">
 
     <ImageView
-        android:layout_marginTop="100dp"
         android:id="@+id/imgShowImage"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/imageview.show.layout_height"
+        android:layout_marginTop="@dimen/imageview.show.layout_marginTop"
         android:contentDescription="@null" />
 
     <Button
         android:id="@+id/btnUpload"
-        android:text="Upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="35dp" />
+        android:layout_marginTop="@dimen/button.upload.layout_marginTop"
+        android:text="@string/button.upload.text" />
 
 </LinearLayout>

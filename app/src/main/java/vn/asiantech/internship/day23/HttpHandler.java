@@ -1,35 +1,61 @@
 package vn.asiantech.internship.day23;
 
+import android.net.Uri;
 import android.util.Log;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
+import javax.net.ssl.HttpsURLConnection;
+
 /**
  * Copyright © 2017 AsianTech inc.
- * Created by rimoka on 06/07/2017.
+ * Created by at-hoavo on 06/07/2017.
  */
 class HttpHandler {
     private static final String TAG = HttpHandler.class.getSimpleName();
 
-    String makeServiceCall(String reqUrl) {
-        String response = null;
+    String makeServiceCall(String reqUrl, String base64) {
+        String response = " ";
+
         try {
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
 
-            // Read the response
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            response = convertStreamToString(in);
+            Uri.Builder builder = new Uri.Builder()
+                    .appendQueryParameter("image", base64);
+            String query = builder.build().getEncodedQuery();
+
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(query);
+            writer.flush();
+            writer.close();
+            os.close();
+
+            conn.connect();
+
+            int responseCode = conn.getResponseCode();
+
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+                response = convertStreamToString(conn.getInputStream());
+            } else {
+                response = "";
+            }
         } catch (MalformedURLException e) {
             Log.e(TAG, "MalformedURLException: " + e.getMessage());
         } catch (ProtocolException e) {
