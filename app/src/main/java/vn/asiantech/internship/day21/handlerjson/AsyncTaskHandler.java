@@ -16,7 +16,7 @@ import vn.asiantech.internship.day21.models.Phone;
 /**
  * Created by at-dinhvo on 03/07/2017.
  */
-public class JSONAsyncTask extends AsyncTask<Void, Void, ArrayList<Contact>> {
+public class AsyncTaskHandler extends AsyncTask<Void, Void, ArrayList<Contact>> {
 
     private static final String URL = "http://api.androidhive.info/contacts/";
 
@@ -32,7 +32,7 @@ public class JSONAsyncTask extends AsyncTask<Void, Void, ArrayList<Contact>> {
         void onUpdateRecyclerView(ArrayList<Contact> contacts);
     }
 
-    public JSONAsyncTask(OnUpdateUiListener onUpdateUiListener) {
+    public AsyncTaskHandler(OnUpdateUiListener onUpdateUiListener) {
         mOnUpdateUiListener = onUpdateUiListener;
     }
 

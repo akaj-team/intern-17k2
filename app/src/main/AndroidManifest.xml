@@ -27,7 +27,7 @@
         <activity android:name=".friend.FriendActivity" />
         <activity android:name=".day13.ChatActivity" />
         <activity android:name=".day15.ui.QuestionActivity" />
-        <activity android:name=".day21.ui.JSONActivity" />
+        <activity android:name=".day21.ui.JsonActivity" />
     </application>
 
 </manifest>

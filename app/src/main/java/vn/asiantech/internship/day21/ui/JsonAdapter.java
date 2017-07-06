@@ -14,11 +14,11 @@ import vn.asiantech.internship.day21.models.Contact;
 /**
  * Created by at-dinhvo on 03/07/2017.
  */
-public class JsonAdapter extends RecyclerView.Adapter<JsonAdapter.ItemViewHolder> {
+class JsonAdapter extends RecyclerView.Adapter<JsonAdapter.ItemViewHolder> {
 
     private List<Contact> mContacts;
 
-    public JsonAdapter(List<Contact> contacts) {
+    JsonAdapter(List<Contact> contacts) {
         mContacts = contacts;
     }
 
@@ -36,6 +36,8 @@ public class JsonAdapter extends RecyclerView.Adapter<JsonAdapter.ItemViewHolder
         holder.mTvEmail.append(contact.getEmail());
         if (!contact.getGender().equals("male")) {
             holder.mTvName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_female, 0, 0, 0);
+        } else {
+            holder.mTvName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_male, 0, 0, 0);
         }
     }
 

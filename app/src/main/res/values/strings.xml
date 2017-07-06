@@ -67,7 +67,7 @@
     <string name="result.dialog.button.exit">Cancel</string>
     <string name="result.dialog.message">Do you want to show result?</string>
     <!--Bai21-->
-    <string name="titleJSON">List contacts</string>
+    <string name="titleJson">List contacts</string>
     <string name="email">Email: </string>
     <string name="phone">Phone: </string>
     <string name="dialog.wait">Please wait...</string>

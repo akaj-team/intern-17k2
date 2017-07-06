@@ -9,13 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.day21.handlerjson.JSONAsyncTask;
+import vn.asiantech.internship.day21.handlerjson.AsyncTaskHandler;
 import vn.asiantech.internship.day21.models.Contact;
 
 /**
- * JSONActivity show list contact
+ * JsonActivity show list contact
  */
-public class JSONActivity extends AppCompatActivity {
+public class JsonActivity extends AppCompatActivity {
 
     private ProgressDialog mProgressDialog;
 
@@ -27,13 +27,13 @@ public class JSONActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewJSON);
-        recyclerView.setLayoutManager(new LinearLayoutManager(JSONActivity.this));
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewJson);
+        recyclerView.setLayoutManager(new LinearLayoutManager(JsonActivity.this));
         recyclerView.setHasFixedSize(true);
-        JSONAsyncTask asyncTask = new JSONAsyncTask(new JSONAsyncTask.OnUpdateUiListener() {
+        AsyncTaskHandler asyncTask = new AsyncTaskHandler(new AsyncTaskHandler.OnUpdateUiListener() {
             @Override
             public void onShowDialog() {
-                mProgressDialog = new ProgressDialog(JSONActivity.this);
+                mProgressDialog = new ProgressDialog(JsonActivity.this);
                 mProgressDialog.setMessage(getResources().getString(R.string.dialog_wait));
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
