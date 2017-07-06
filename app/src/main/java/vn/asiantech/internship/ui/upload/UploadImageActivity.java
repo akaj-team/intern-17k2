@@ -6,7 +6,7 @@ import android.os.Bundle;
 import vn.asiantech.internship.R;
 
 /**
- * Upload activity cread by Thanh Thien
+ * Upload activity created by Thanh Thien
  */
 public class UploadImageActivity extends AppCompatActivity {
 

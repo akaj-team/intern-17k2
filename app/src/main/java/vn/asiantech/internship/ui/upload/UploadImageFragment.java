@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +30,8 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -37,13 +45,13 @@ import vn.asiantech.internship.R;
  */
 public class UploadImageFragment extends Fragment {
 
-    private static final String URL = "http://2.pik.vn/";
+    private static final String URL_HOST = "http://2.pik.vn/";
     private static final String TAG = "UploadImageFragment";
     private static final int KEY_LIBRARY = 2;
 
     private ImageView mImgShow;
     private String mBase64 = "";
-    private MediaType mMediaType = MediaType.parse("application/x-www-form-urlencoded");
+    private ImageLoader mImageLoader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,22 +69,13 @@ public class UploadImageFragment extends Fragment {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    if (TextUtils.equals(mBase64, "")) {
-                        String json = post(URL, mBase64);
-                        getData(json);
-                    }
-                } catch (IOException e) {
-                    Log.d(TAG, "onClick: " + e.toString());
-                } catch (JSONException e) {
-                    Log.d(TAG, "JSONException: " + e.toString());
+                if (!TextUtils.equals(mBase64, "")) {
+                    new UploadToNetwork().execute(URL_HOST);
+                } else {
+                    Toast.makeText(getContext(), "Please choice image", Toast.LENGTH_SHORT).show();
                 }
             }
         };
-    }
-
-    private void getData(String json) throws JSONException {
-        JSONObject jsonObj = new JSONObject(json);
     }
 
     private View.OnClickListener choiceImage() {
@@ -96,20 +95,26 @@ public class UploadImageFragment extends Fragment {
 
     String post(String url, String base64) throws IOException {
         OkHttpClient client = new OkHttpClient();
-        mMediaType = MediaType.parse("application/x-www-form-urlencoded");
-        RequestBody body = RequestBody.create(mMediaType, base64);
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded; charset=UTF-8");
+        RequestBody body = RequestBody.create(mediaType, base64);
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
-                .addHeader("content-type", "application/x-www-form-urlencoded")
-                .addHeader("content-length", "36378")
-                .addHeader("cache-control", "no-cache")
-                .addHeader("postman-token", "8d3f2152-b86e-af83-c5af-0b850bce9cc3")
+                .addHeader("content-type", "application/x-www-form-urlencoded; charset=UTF-8")
                 .build();
-        Response response = client.newCall(request).execute();
-        return response.body().string();
-    }
 
+        Response response = client.newCall(request).execute();
+        String s = "";
+        try {
+             s = response.body().string();
+            Log.d(TAG, "post: " + base64);
+            Log.d(TAG, "post: " + response);
+            Log.d(TAG, "post: " + s);
+        } catch (NullPointerException e) {
+            Log.e(TAG, "ERROR: " + e);
+        }
+        return s;
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -144,15 +149,74 @@ public class UploadImageFragment extends Fragment {
                                         .openInputStream(uriSelectedImage), null,
                                 bmpFactoryOptions);
 
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                        byte[] byteArray = stream.toByteArray();
-                        mBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                    } catch (FileNotFoundException e) {
-                        Log.v("ERROR", e.toString());
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        bmp.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                        byte[] byteArray = byteArrayOutputStream.toByteArray();
+                        mBase64 = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+                        mBase64 = "image=data:image/jpeg;base64," + mBase64;
+                        mBase64 = URLEncoder.encode(mBase64, "UTF-8");
+                    } catch (FileNotFoundException | UnsupportedEncodingException e) {
+                        Log.e("ERROR", e.toString());
                     }
                     break;
             }
         }
+    }
+
+    /**
+     * UploadToNetwork using AsyncTask
+     */
+    private class UploadToNetwork extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String s = "";
+            try {
+                s = post(params[0], mBase64);
+            } catch (IOException e) {
+                Log.e("ERROR", e.toString());
+            }
+            return s;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            try {
+                String urlImage = getData(s);
+                if (!TextUtils.equals(urlImage, "") && !TextUtils.equals(urlImage, null)) {
+                    pushOnToImages(urlImage);
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.error_message_load_fail), Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                Log.e("ERROR", e.toString());
+            }
+            super.onPostExecute(s);
+        }
+    }
+
+    private String getData(String json) throws JSONException {
+        JSONObject jsonObj = new JSONObject(json);
+        String s = "";
+        if (jsonObj.getString("saved") != null) {
+            s = jsonObj.getString("saved");
+        }
+        return s;
+    }
+
+    private void pushOnToImages(String urlImage) {
+        DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.loading)
+                .showImageOnFail(R.drawable.ic_avatar)
+                .build();
+        getImageLoader();
+        mImageLoader.displayImage(URL_HOST + urlImage, mImgShow, displayImageOptions);
+    }
+
+    private ImageLoader getImageLoader() {
+        if (mImageLoader == null) {
+            mImageLoader = ImageLoader.getInstance();
+            mImageLoader.init(ImageLoaderConfiguration.createDefault(getContext()));
+        }
+        return this.mImageLoader;
     }
 }

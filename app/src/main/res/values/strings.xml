@@ -10,6 +10,7 @@
     <string name="dialog.text.choice_select">choice select</string>
     <string name="error.message.error">error !!</string>
     <string name="error.message.please_enter_text">Please enter text..</string>
+    <string name="error.message.load_fail">Load fail !!</string>
     <string name="title">title</string>
     <string name="button.text.ex05">ex 05</string>
     <string name="button.text.ex06">ex 06</string>
@@ -55,9 +56,6 @@
     <string name="text.no_content">No content</string>
     <string name="button.text.feed">FEEDS</string>
     <string name="edittext.hint.type">Type....</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="upload">Upload</string>
     <string name="button.text.ex23">Ex 23</string>
 </resources>
