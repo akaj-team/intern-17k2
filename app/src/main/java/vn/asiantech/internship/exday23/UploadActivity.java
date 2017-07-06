@@ -34,6 +34,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import vn.asiantech.internship.R;
 
 /**
@@ -147,7 +148,10 @@ public class UploadActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                res[0] = response.body().string();
+                ResponseBody responseBody = response.body();
+                if (responseBody != null) {
+                    res[0] = responseBody.string();
+                }
                 JSONObject jsObject;
                 try {
                     jsObject = new JSONObject(res[0]);
