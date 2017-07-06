@@ -14,8 +14,6 @@ import java.util.List;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.drawer.models.FeedItem;
 
-import static vn.asiantech.internship.R.id.viewPager;
-
 /**
  * Created by BACKDOOR on 07-Feb-17.
  */
