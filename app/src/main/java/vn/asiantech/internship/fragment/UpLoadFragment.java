@@ -113,7 +113,7 @@ public class UpLoadFragment extends Fragment implements View.OnClickListener {
 
                 responseString[0] = response.body().string();
                 Log.d(TAG, "onResponse: " + responseString[0]);
-                url=getUrl(responseString[0]);
+                url = getUrl(responseString[0]);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -129,12 +129,12 @@ public class UpLoadFragment extends Fragment implements View.OnClickListener {
 
     private String getUrl(String s) {
         try {
-            JSONObject jsonObject=new JSONObject(s);
-            if (jsonObject.has("saved")&& jsonObject.optString("saved")!=null){
+            JSONObject jsonObject = new JSONObject(s);
+            if (jsonObject.has("saved") && jsonObject.optString("saved") != null) {
                 return jsonObject.getString("saved");
-            }else return null;
+            } else return null;
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d(TAG, "JSONException: " + e.getMessage());
             return null;
         }
     }
@@ -153,10 +153,10 @@ public class UpLoadFragment extends Fragment implements View.OnClickListener {
             }
             return byteBuffer.toByteArray();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Log.d(TAG, "FileNotFoundException: ");
             return null;
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d(TAG, "IOException: ");
             return null;
         }
     }
