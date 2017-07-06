@@ -21,7 +21,6 @@ import vn.asiantech.internship.database.DatabaseHelper;
 public class NoteFragment extends Fragment {
 
     private RelativeLayout mRlSecond;
-    private RelativeLayout mRlThird;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

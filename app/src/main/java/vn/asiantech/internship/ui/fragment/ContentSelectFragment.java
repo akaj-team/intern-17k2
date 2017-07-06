@@ -13,9 +13,11 @@ import vn.asiantech.internship.ui.feeds.FeedsActivity;
 import vn.asiantech.internship.ui.main.Ex05Activity;
 import vn.asiantech.internship.ui.main.Ex072Activity;
 import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.ui.music.MusicActivity;
 import vn.asiantech.internship.ui.tablayout.ViewPagerActivity;
 import vn.asiantech.internship.ui.questions.QuestionActivity;
 import vn.asiantech.internship.ui.note.NoteActivity;
+import vn.asiantech.internship.ui.ninepatch.ChatActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,11 +57,17 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
             case R.id.btnEx11_2:
                 openActivity(NoteActivity.class);
                 break;
+            case R.id.btnEx13:
+                openActivity(ChatActivity.class);
+                break;
             case R.id.btnEx15:
                 openActivity(QuestionActivity.class);
                 break;
             case R.id.btnEx16:
                 openActivity(ViewPagerActivity.class);
+                break;
+            case R.id.btnEx19:
+                openActivity(MusicActivity.class);
                 break;
         }
     }
@@ -67,7 +75,6 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
     private void openActivity(Class<?> className) {
         Intent intent = new Intent(getContext(), className);
         getContext().startActivity(intent);
-        getActivity().finish();
     }
 
     private void init(View v) {
@@ -77,9 +84,11 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         Button btnEx07_2 = (Button) v.findViewById(R.id.btnEx07_2);
         Button btnEx08 = (Button) v.findViewById(R.id.btnEx08);
         Button btnEx11 = (Button) v.findViewById(R.id.btnEx11);
-        Button btnEx11_2 = (Button) v.findViewById(R.id.btnEx11_2);
+        Button btnEx11_2 = (Button) v.findViewById(R.id.btnEx11_2);;
+        Button btnEx13 = (Button) v.findViewById(R.id.btnEx13);
         Button btnEx15 = (Button) v.findViewById(R.id.btnEx15);
         Button btnEx16 = (Button) v.findViewById(R.id.btnEx16);
+        Button btnEx19 = (Button) v.findViewById(R.id.btnEx19);
 
         btnEx05.setOnClickListener(this);
         btnEx06.setOnClickListener(this);
@@ -88,7 +97,9 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         btnEx08.setOnClickListener(this);
         btnEx11.setOnClickListener(this);
         btnEx11_2.setOnClickListener(this);
+        btnEx13.setOnClickListener(this);
         btnEx15.setOnClickListener(this);
         btnEx16.setOnClickListener(this);
+        btnEx19.setOnClickListener(this);
     }
 }

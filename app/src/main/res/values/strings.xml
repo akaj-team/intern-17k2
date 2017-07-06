@@ -9,6 +9,7 @@
     <string name="text.messages.navigation_close">navigation close </string>
     <string name="dialog.text.choice_select">choice select</string>
     <string name="error.message.error">error !!</string>
+    <string name="error.message.please_enter_text">Please enter text..</string>
     <string name="title">title</string>
     <string name="button.text.ex05">ex 05</string>
     <string name="button.text.ex06">ex 06</string>
@@ -17,6 +18,7 @@
     <string name="button.text.ex08">ex 08</string>
     <string name="button.text.ex11_1">ex 11</string>
     <string name="button.text.ex11_2">Ex 11.2</string>
+    <string name="button.text.ex13">Ex 13</string>
     <string name="button.text.ex15">Ex 15</string>
     <string name="button.text.ex16">Ex 16</string>
     <string name="yes">yes</string>
@@ -25,6 +27,7 @@
     <string name="text.friend">friend</string>
     <string name="text.friends">Friends</string>
     <string name="button.text.send">send</string>
+    <string name="button.text.friends">Friends</string>
     <string name="string_text">Steven George \"Stevie\" Gerrard, MBE (born 30 May 1980) is an English professional football coach and former footballer who serves as an academy coach at Liverpool. He spent the majority of his playing career as a central midfielder for Liverpool and the England national team, with most of that time spent as club captain. In 2009, Zinedine Zidane and Pele said that they considered Gerrard to be the best footballer in the world.</string>
     <string-array name="listdrawer">
         <item>Feed</item>
@@ -51,6 +54,11 @@
     <string name="correct">Correct</string>
     <string name="complete">Complete !</string>
     <string name="text.no_content">No content</string>
+    <string name="button.text.feed">FEEDS</string>
+    <string name="edittext.hint.type">Type....</string>
+    <string name="button.text.ex19">Ex 19</string>
+    <string name="error_message_you_must_play_first">You must play first</string>
+    <string name="start">00:00</string>
 
     <string-array name="Sliders">
         <item>Cube Pager Transformer</item>
