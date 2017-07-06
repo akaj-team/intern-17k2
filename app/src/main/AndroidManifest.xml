@@ -28,6 +28,7 @@
         <activity android:name=".ui.main.ChatActivity" />
         <activity android:name=".ui.main.TestActivity" />
         <activity android:name=".ui.main.ResultActivity" />
+        <activity android:name=".ui.main.FootballStarActivity" />
         <activity android:name=".ui.main.ContactActivity" />
     </application>
 </manifest>
