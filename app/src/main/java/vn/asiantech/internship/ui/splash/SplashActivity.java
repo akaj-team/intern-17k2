@@ -12,6 +12,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.activity.ChatActivity;
 import vn.asiantech.internship.activity.AnimalActivity;
 import vn.asiantech.internship.activity.FriendActivity;
+import vn.asiantech.internship.activity.ContactActivity;
 import vn.asiantech.internship.ui.feed.FeedActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 import vn.asiantech.internship.activity.TestActivity;
@@ -19,6 +20,7 @@ import vn.asiantech.internship.ui.main.NoteActivity;
 
 /**
  * Created by ducle on 15/06/2017.
+ * main to each ex
  */
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
     private Button mBtnBai5;
@@ -29,6 +31,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private Button mBtnBai15;
     private Button mBtnBai11;
     private Button mBtnBai16;
+    private Button mBtnBai21;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai15.setOnClickListener(this);
         mBtnBai11.setOnClickListener(this);
         mBtnBai16.setOnClickListener(this);
+        mBtnBai21.setOnClickListener(this);
     }
 
     private void initViews() {
@@ -58,6 +62,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai15 = (Button) findViewById(R.id.btnBai15);
         mBtnBai11 = (Button) findViewById(R.id.btnBai11);
         mBtnBai16 = (Button) findViewById(R.id.btnBai16);
+        mBtnBai21 = (Button) findViewById(R.id.btnBai21);
     }
 
     @Override
@@ -86,6 +91,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btnBai16:
                 startActivity(new Intent(this, AnimalActivity.class));
+                break;
+            case R.id.btnBai21:
+                startActivity(new Intent(this, ContactActivity.class));
                 break;
         }
     }
