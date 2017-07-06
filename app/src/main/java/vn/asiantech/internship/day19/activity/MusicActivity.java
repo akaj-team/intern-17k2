@@ -35,7 +35,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     public static final String TYPE_CHOOSE_TIME = "chooseTime";
     public static final String TYPE_TIME = "time";
     public static final String TYPE_SECOND = "second";
-    public static final String TYPE_ISPLAYING="isPlaying";
+    public static final String TYPE_ISPLAYING = "isPlaying";
 
     private ImageButton mImgBtnPlay;
     private ImageButton mImgBtnPause;
@@ -83,17 +83,20 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.imgBtnPrevious).setOnClickListener(this);
         findViewById(R.id.imgBtnNext).setOnClickListener(this);
 
+        // Register Broadcast
         mMyBroadcast = new MyBroadcast();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Action.SEND_POSITION.getValue());
         intentFilter.addAction(Action.SEEK.getValue());
+        intentFilter.addAction(Action.CLOSE_ACTIVITY.getValue());
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
         registerReceiver(mMyBroadcast, intentFilter);
 
+        // Get song information from resource
         String[] songUrls = getApplicationContext().getResources().getStringArray(R.array.song_urls);
         String[] songNames = getApplicationContext().getResources().getStringArray(R.array.song_names);
         String[] songArtists = getApplicationContext().getResources().getStringArray(R.array.song_artists);
-        int[] songImages={
+        int[] songImages = {
                 R.mipmap.img_taylor_swift,
                 R.mipmap.img_taylor_swift,
                 R.mipmap.img_taylor_swift,
@@ -107,12 +110,15 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         for (int i = 0; i < songUrls.length; i++) {
             mSongs.add(new Song(songNames[i], songArtists[i], songImages[i], songUrls[i], 0));
         }
+
+        // Create RecyclerView
         mSongAdapter = new SongAdapter(mSongs, this, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mSongAdapter);
         mSongAdapter.notifyDataSetChanged();
 
+        // Send list song to Service
         sendListSong();
 
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -137,18 +143,18 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        Intent intent = getIntent();
-        if (intent.getAction().equals(Action.CLICK_NOTIFICATION.getValue())) {
-            boolean check=intent.getBooleanExtra(TYPE_ISPLAYING,false);
-            if(check) {
+        // Hander when click into notification
+        if (getIntent().getAction().equals(Action.CLICK_NOTIFICATION.getValue())) {
+            boolean check = getIntent().getBooleanExtra(TYPE_ISPLAYING, false);
+            if (check) {
                 mImgBtnPlay.setVisibility(View.VISIBLE);
                 mImgBtnPause.setVisibility(View.INVISIBLE);
-            }
-            else{
+            } else {
                 mImgBtnPlay.setVisibility(View.INVISIBLE);
                 mImgBtnPause.setVisibility(View.VISIBLE);
             }
-            mCurrentPlay = intent.getIntExtra(TYPE_POSITION, 0);
+            sendIntent(Action.CLICK_NOTIFICATION.getValue());
+            mCurrentPlay = getIntent().getIntExtra(TYPE_POSITION, 0);
             mSongAdapter.setPosition(mCurrentPlay);
             mRecyclerView.scrollToPosition(mCurrentPlay);
         }
@@ -226,6 +232,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         startService(intent);
     }
 
+    // Hander when click item on RecyclerView
     @Override
     public void updateSong(int positon) {
         mImgBtnPlay.setVisibility(View.VISIBLE);
@@ -237,7 +244,9 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mRecyclerView.scrollToPosition(mCurrentPlay);
     }
 
-    // Create MyBroadcast
+    /**
+     * Create MyBroadcast
+     */
     class MyBroadcast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -249,18 +258,17 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 mRecyclerView.scrollToPosition(mCurrentPlay);
             } else if (s.equals(Action.SEEK.getValue())) {
                 processTime(intent);
-            } else if (s.equals(Action.CLOSE.getValue())) {
-                mImgBtnPlay.setVisibility(View.INVISIBLE);
-                mImgBtnPause.setVisibility(View.VISIBLE);
+            } else if (s.equals(Action.CLOSE_ACTIVITY.getValue())) {
+                finish();
             }
         }
     }
 
+    // Process seekbar
     private void processTime(Intent intent) {
         if (mMyBroadcast != null) {
             int length = Integer.parseInt(intent.getStringExtra(TYPE_TIME));
             mSeekBar.setMax(length);
-            mSeekBar.setProgress(0);
             int position = Integer.parseInt(intent.getStringExtra(TYPE_SECOND));
             mCurrentPlay = intent.getIntExtra(TYPE_POSITION, 0);
             mSeekBar.setProgress(position);

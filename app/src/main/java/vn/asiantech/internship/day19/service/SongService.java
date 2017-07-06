@@ -35,7 +35,7 @@ import vn.asiantech.internship.day19.model.Utils;
  */
 public class SongService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
     private static final String TAG = SongService.class.getName();
-    private static final int MY_NOTIFICATION_ID = 12345;
+    private static final int MY_NOTIFICATION_ID = 12;
 
     private MediaPlayer mMediaPlayer;
     private List<Song> mSongs;
@@ -44,10 +44,10 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
     private boolean mCheckAutoNext;
     private boolean mCheckShuffle;
     private Utils mUtils = new Utils();
-    private Handler mHandler = new Handler();
-    private Runnable mRunnable;
     private CountDownTimer mCountDownTimer;
     private NotificationBroadcast mNotificationBroadcast;
+    private Handler mHander = new Handler();
+    private Runnable mRunnable;
 
     // No-op
     @Nullable
@@ -62,6 +62,7 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
         mNotificationBroadcast = new NotificationBroadcast();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        intentFilter.addAction(Action.SEEK.getValue());
         registerReceiver(mNotificationBroadcast, intentFilter);
     }
 
@@ -72,10 +73,8 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
                 mSongs = intent.getParcelableArrayListExtra(MusicActivity.TYPE_SONGS);
             } else if (intent.getAction().equals(Action.CHOOSE_PLAY.getValue())) {
                 mCurrentPosition = intent.getIntExtra(MusicActivity.TYPE_POSITION, 0);
-                Log.d("sssss1", "onStartCommand: " + mCurrentPosition);
                 setSongPlay();
             } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
-                Log.d("kkkk1", "onStartCommand: ");
                 if (!mCheck) {
                     setSongPlay();
                     mCheck = true;
@@ -117,7 +116,6 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
                 mMediaPlayer.seekTo(time);
                 mMediaPlayer.start();
             } else if (intent.getAction().equals(Action.AUTO_NEXT.getValue())) {
-                Log.d("bbbbbbbb2", "onClick: ");
                 mCheckAutoNext = true;
             } else if (intent.getAction().equals(Action.AUTO_NEXT_SELETED.getValue())) {
                 mCheckAutoNext = false;
@@ -126,15 +124,24 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
             } else if (intent.getAction().equals(Action.SHUFFLE_SELECTED.getValue())) {
                 mCheckShuffle = false;
             } else if (intent.getAction().equals(Action.CLOSE_NOTIFICATION.getValue())) {
-                mHandler.removeCallbacks(mRunnable);
                 if (mCountDownTimer != null) {
                     mCountDownTimer.cancel();
                 }
-//                Intent inVisibleIntent = new Intent();
-//                inVisibleIntent.setAction(Action.CLOSE.getValue());
-//                sendBroadcast(inVisibleIntent);
+                mHander.removeCallbacks(mRunnable);
+                NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(MY_NOTIFICATION_ID);
+
+                Intent i = new Intent();
+                i.setAction(Action.CLOSE_ACTIVITY.getValue());
+                sendBroadcast(i);
+
                 Intent myIntent = new Intent(this, SongService.class);
                 stopService(myIntent);
+
+            } else if (intent.getAction().equals(Action.CLICK_NOTIFICATION.getValue())) {
+                mHander.removeCallbacks(mRunnable);
+                NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(MY_NOTIFICATION_ID);
             }
         }
         return START_STICKY;
@@ -175,6 +182,7 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
         }
     }
 
+    // Init Mediaplayer
     private void createSongIfNeed() {
         if (mMediaPlayer == null) {
             mMediaPlayer = new MediaPlayer();
@@ -199,6 +207,7 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
         }
     }
 
+    // Update current position of Activity
     private void sendPositionToActivity() {
         Intent i = new Intent();
         i.setAction(Action.SEND_POSITION.getValue());
@@ -210,6 +219,7 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
         return new Random().nextInt(mSongs.size());
     }
 
+    // Update Seekbar
     private void setProgress() {
         final Intent timeIntent = new Intent(Action.SEEK.getValue());
         mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration(), 1000) {
@@ -232,13 +242,8 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
     private void initNotification() {
         final RemoteViews views = new RemoteViews(getPackageName(), R.layout.notification_music);
         views.setImageViewResource(R.id.imgBtnCloseNotification, R.mipmap.ic_close);
-        views.setProgressBar(R.id.progressBarNotification, 50, 0, false);
-        views.setImageViewResource(R.id.imgSongNotification, mSongs.get(mCurrentPosition).getSongImage());
-        views.setTextViewText(R.id.tvSongNotification, mSongs.get(mCurrentPosition).getSongName());
-        views.setTextViewText(R.id.tvArtistNotification, mSongs.get(mCurrentPosition).getSongArtist());
-        views.setTextViewText(R.id.tvTimeNowNotification, String.valueOf(mUtils.showTime(mMediaPlayer.getCurrentPosition())));
-        views.setTextViewText(R.id.tvTimeTotalNotification, String.valueOf(mUtils.showTime(mMediaPlayer.getDuration())));
-        views.setProgressBar(R.id.progressBarNotification, 100, 100 * mMediaPlayer.getCurrentPosition() / mMediaPlayer.getDuration(), false);
+        views.setProgressBar(R.id.progressBarNotification, 100, 0, false);
+
         Intent intent = new Intent(this, MusicActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setAction(Action.CLICK_NOTIFICATION.getValue());
@@ -253,34 +258,42 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
         PendingIntent closePendingIntent = PendingIntent.getService(getApplicationContext(), 0, closeIntent, 0);
         views.setOnClickPendingIntent(R.id.imgBtnCloseNotification, closePendingIntent);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_music_notification);
         builder.setOngoing(true);
-        builder.setCustomBigContentView(views);
-        builder.setAutoCancel(true);
+        builder.setAutoCancel(false);
         builder.setContentIntent(pendingIntent);
-        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-//        notificationManager.cancel(MY_NOTIFICATION_ID);
-        Notification notification = builder.build();
-//        notification.flags|=Notification.FLAG_AUTO_CANCEL;
-        notificationManager.notify(MY_NOTIFICATION_ID, notification);
+
+        final NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mRunnable = new Runnable() {
+            @Override
+            public void run() {
+                views.setImageViewResource(R.id.imgSongNotification, mSongs.get(mCurrentPosition).getSongImage());
+                views.setTextViewText(R.id.tvSongNotification, mSongs.get(mCurrentPosition).getSongName());
+                views.setTextViewText(R.id.tvArtistNotification, mSongs.get(mCurrentPosition).getSongArtist());
+                views.setTextViewText(R.id.tvTimeNowNotification, String.valueOf(mUtils.showTime(mMediaPlayer.getCurrentPosition())));
+                views.setTextViewText(R.id.tvTimeTotalNotification, String.valueOf(mUtils.showTime(mMediaPlayer.getDuration())));
+                views.setProgressBar(R.id.progressBarNotification, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
+
+                builder.setCustomBigContentView(views);
+
+                Notification notification = builder.build();
+                notificationManager.notify(MY_NOTIFICATION_ID, notification);
+                mHander.postDelayed(this, 1000);
+            }
+        };
+        mHander.postDelayed(mRunnable, 1000);
     }
 
-    // Create NotificationBroadcast
+    /**
+     * Create NotificationBroadcast
+     */
     class NotificationBroadcast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null && intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-                mRunnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mMediaPlayer != null) {
-                            initNotification();
-                        }
-                        mHandler.post(this);
-                    }
-                };
-                mHandler.post(mRunnable);
+                initNotification();
             }
         }
     }
