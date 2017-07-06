@@ -30,7 +30,9 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        ((OnUpdateListener) mContext).onShowProgressDialog();
+        if (mContext instanceof OnUpdateListener) {
+            ((OnUpdateListener) mContext).onShowProgressDialog();
+        }
     }
 
     @Override
@@ -40,15 +42,37 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
         if (json != null) {
             try {
                 JSONObject jsonObject = new JSONObject(json);
-                JSONArray jsonArray = jsonObject.getJSONArray("contacts");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonContact = jsonArray.getJSONObject(i);
-                    String name = jsonContact.getString("name");
-                    String email = jsonContact.getString("email");
-                    JSONObject jsonNumber = jsonContact.getJSONObject("phone");
-                    String number = jsonNumber.getString("mobile");
-                    Contact contact = new Contact(name, email, number);
-                    mContacts.add(contact);
+                if (jsonObject.has("contacts") && jsonObject.optJSONArray("contacts") != null) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("contacts");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonContact = jsonArray.getJSONObject(i);
+                        String name;
+                        String email;
+                        String number;
+                        if (jsonContact.has("name") && jsonContact.optString("name") != null) {
+                            name = jsonContact.getString("name");
+                        } else {
+                            name = null;
+                        }
+                        if (jsonContact.has("email") && jsonContact.optString("email") != null) {
+                            email = jsonContact.getString("email");
+                        } else {
+                            email = null;
+                        }
+                        if (jsonContact.has("phone") && jsonContact.optJSONObject("phone") != null) {
+                            JSONObject jsonNumber = jsonContact.getJSONObject("phone");
+                            if (jsonNumber.has("mobile") && jsonNumber.optString("mobile") != null) {
+                                number = jsonNumber.getString("mobile");
+                            } else {
+                                number = null;
+                            }
+                        } else {
+                            number = null;
+                        }
+
+                        Contact contact = new Contact(name, email, number);
+                        mContacts.add(contact);
+                    }
                 }
             } catch (JSONException e) {
                 Log.d(TAG, "JSONException: " + e.getMessage());
