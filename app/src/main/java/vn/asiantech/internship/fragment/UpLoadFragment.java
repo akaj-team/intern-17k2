@@ -132,7 +132,9 @@ public class UpLoadFragment extends Fragment implements View.OnClickListener {
             JSONObject jsonObject = new JSONObject(s);
             if (jsonObject.has("saved") && jsonObject.optString("saved") != null) {
                 return jsonObject.getString("saved");
-            } else return null;
+            } else {
+                return null;
+            }
         } catch (JSONException e) {
             Log.d(TAG, "JSONException: " + e.getMessage());
             return null;
