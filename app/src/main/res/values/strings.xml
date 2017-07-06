@@ -51,7 +51,6 @@
     <string name="drawer_layout">Drawer Layout</string>
     <string name="ex_day_7">Ex day 7</string>
     <string name="ex_day_9">Ex day 9</string>
-    <string name="ex_day_16">Ex day 16</string>
     <string name="ex_day_13">EX Day 13</string>
     <string name="ex_day_11">Ex Day 11</string>
     <string name="ex_day_15">Ex day 15</string>
@@ -60,6 +59,7 @@
     <string name="txt.email">Email:</string>
     <string name="txt.mobile">Mobile:</string>
     <string name="progressdialog">Please wait…</string>
+    <string name="ex_day_16">Ex day 16</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>
