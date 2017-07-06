@@ -33,4 +33,8 @@
     <string name="newnote.hint.title">Title</string>
     <string name="newnote.hint.content">Content</string>
     <string name="chat.button.send">SEND</string>
+    <!--Upload Image-->
+    <string name="upload.button.text">Pick Image</string>
+    <string name="upload.dialog.message">Please wait…</string>
+    <string name="message.failed">Loading Failed</string>
 </resources>

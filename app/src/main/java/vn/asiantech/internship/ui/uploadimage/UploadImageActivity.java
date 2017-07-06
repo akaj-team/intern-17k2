@@ -1,12 +1,13 @@
 package vn.asiantech.internship.ui.uploadimage;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -14,8 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,16 +29,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,37 +53,33 @@ import vn.asiantech.internship.R;
 @EActivity(R.layout.activity_upload_image)
 public class UploadImageActivity extends AppCompatActivity {
     private static final String URL = "http://2.pik.vn/";
+    private static final String HEADER_URL = "data:image/png;base64,";
     private static final int REQUEST_CODE_PERMISSION_GALLERY = 101;
     private static final int REQUEST_CODE_GALLERY = 1000;
-    @ViewById(R.id.imgView)
-    ImageView mImgUpload;
 
-    @ViewById(R.id.btnUpload)
+    @ViewById(R.id.imgView)
+    ImageView mImageView;
+
+    @ViewById(R.id.btnPickImage)
     Button mBtnUpload;
 
-    private Uri mUri;
+    private ProgressDialog mProgressDialog;
 
     @Click
-    void imgView() {
+    void btnPickImage() {
         checkPermissionGallery();
     }
 
-    @Click
-    void btnUpload() {
-        postImage();
-    }
-
-    @Background
-    void postImage() {
+    private void postImage(final Uri uri) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("xxx", "onResponse: " + response);
+                Log.d("xxx", "onResponse: " + response);
                 try {
                     if (!TextUtils.isEmpty(response)) {
                         JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.has("saved")) {
+                        if (jsonObject.has("saved") && !TextUtils.isEmpty(jsonObject.getString("saved"))) {
                             String path = jsonObject.getString("saved");
                             setImageView(URL.concat(path));
                         }
@@ -96,27 +97,53 @@ public class UploadImageActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> params = new HashMap<>();
-                params.put("image", encodeImage());
+                params.put("image", HEADER_URL.concat(encodeImage(uri)));
                 return params;
             }
         };
+        stringRequest.setShouldCache(false);
         requestQueue.add(stringRequest);
     }
 
-    @UiThread
     void setImageView(String uri) {
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(this));
-        imageLoader.displayImage(uri, mImgUpload);
+        imageLoader.displayImage(uri, mImageView, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                dismissDialog();
+                Toast.makeText(getBaseContext(), getString(R.string.message_failed), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                dismissDialog();
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                dismissDialog();
+                Toast.makeText(getBaseContext(), getString(R.string.message_failed), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private String encodeImage() {
-        Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(mUri));
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] b = baos.toByteArray();
-        Log.d("xxx", "encodeImage: " + Base64.encodeToString(b, Base64.DEFAULT));
-        return Base64.encodeToString(b, Base64.DEFAULT);
+    private String encodeImage(Uri uri) {
+        String result = null;
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] b = baos.toByteArray();
+            result = Base64.encodeToString(b, Base64.NO_WRAP);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     private void intentGallery() {
@@ -124,6 +151,19 @@ public class UploadImageActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, REQUEST_CODE_GALLERY);
+    }
+
+    private void showDialog() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage(getResources().getString(R.string.upload_dialog_message));
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+    }
+
+    private void dismissDialog() {
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 
     private void checkPermissionGallery() {
@@ -147,11 +187,12 @@ public class UploadImageActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data != null && resultCode == RESULT_OK && requestCode == REQUEST_CODE_GALLERY) {
-            mUri = data.getData();
+    @OnActivityResult(REQUEST_CODE_GALLERY)
+    void onResult(int resultCode, Intent data) {
+        if (data != null && resultCode == RESULT_OK) {
+            showDialog();
+            Uri uri = data.getData();
+            postImage(uri);
         }
     }
 }

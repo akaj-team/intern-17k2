@@ -19,4 +19,6 @@
     <color name="item_list_friend.background">#F5F5F6</color>
     <color name="splash.button.color">#d1a3a3</color>
     <color name="line">#d1a3a3</color>
+    <!--Upload Image-->
+    <color name="imageview.color">#dfc6c6</color>
 </resources>
