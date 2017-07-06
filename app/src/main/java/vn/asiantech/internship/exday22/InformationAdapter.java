@@ -14,11 +14,11 @@ import vn.asiantech.internship.R;
  * Copyright © 2016 AsianTech inc.
  * Created by datbu on 03-07-2017.
  */
-class JsonAdapter extends RecyclerView.Adapter<JsonAdapter.MyHolder> {
-    private ArrayList<JsonItem> mJsonItems;
+class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.MyHolder> {
+    private ArrayList<InformationItem> mInformationItems;
 
-    JsonAdapter(ArrayList<JsonItem> mJsonItems) {
-        this.mJsonItems = mJsonItems;
+    InformationAdapter(ArrayList<InformationItem> mInformationItems) {
+        this.mInformationItems = mInformationItems;
     }
 
     @Override
@@ -29,15 +29,15 @@ class JsonAdapter extends RecyclerView.Adapter<JsonAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
-        JsonItem jsonItem = mJsonItems.get(position);
-        holder.mTvMobile.setText(jsonItem.getMobile());
-        holder.mTvName.setText(jsonItem.getName());
-        holder.mTvEmail.setText(jsonItem.getEmail());
+        InformationItem informationItem = mInformationItems.get(position);
+        holder.mTvMobile.setText(informationItem.getMobile());
+        holder.mTvName.setText(informationItem.getName());
+        holder.mTvEmail.setText(informationItem.getEmail());
     }
 
     @Override
     public int getItemCount() {
-        return mJsonItems.size();
+        return mInformationItems.size();
     }
 
     /**

@@ -26,14 +26,14 @@ import vn.asiantech.internship.R;
 @EActivity(R.layout.activity_annotations)
 public class AnnotationsActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
-    private ArrayList<JsonItem> mJsonItems;
+    private ArrayList<InformationItem> mInformationItems;
 
     @ViewById(R.id.rvJson)
     RecyclerView mRecyclerView;
 
     @AfterViews
     void initView() {
-        mJsonItems = new ArrayList<>();
+        mInformationItems = new ArrayList<>();
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage(getString(R.string.progressdialog));
         mProgressDialog.setCancelable(false);
@@ -47,7 +47,7 @@ public class AnnotationsActivity extends AppCompatActivity {
         }
         LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(manager);
-        JsonAdapter adapter = new JsonAdapter(mJsonItems);
+        InformationAdapter adapter = new InformationAdapter(mInformationItems);
         mRecyclerView.setAdapter(adapter);
     }
 
@@ -80,7 +80,7 @@ public class AnnotationsActivity extends AppCompatActivity {
                                         JSONObject phone = c.getJSONObject("phone");
                                         if (phone.has("mobile") && phone.optString("mobile") != null) {
                                             String mobile = phone.getString("mobile");
-                                            mJsonItems.add(new JsonItem(name, email, mobile));
+                                            mInformationItems.add(new InformationItem(name, email, mobile));
                                         } else {
                                             Log.e("tag1", "mobile null");
                                         }
@@ -106,10 +106,5 @@ public class AnnotationsActivity extends AppCompatActivity {
         } else {
             Log.e("tag8", "json str null");
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }
