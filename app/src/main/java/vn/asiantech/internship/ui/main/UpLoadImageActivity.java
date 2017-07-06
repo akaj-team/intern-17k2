@@ -115,7 +115,7 @@ public class UpLoadImageActivity extends AppCompatActivity {
             stringBuilder.append("==");
             return stringBuilder.toString();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Log.i("tag11", e.getMessage());
         }
         return null;
     }
@@ -123,7 +123,7 @@ public class UpLoadImageActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mUpImageAsyncTask!=null){
+        if (mUpImageAsyncTask != null) {
             mUpImageAsyncTask.cancel(true);
         }
     }
