@@ -50,9 +50,9 @@ class UploadFileToServe extends AsyncTask<String, Integer, String> {
         try {
             Response response = client.newCall(request).execute();
             if (response != null) {
-                String Json = response.body().string();
-                if (Json != null) {
-                    JSONObject jsonObj = new JSONObject(Json);
+                String jsonString = response.body().string();
+                if (jsonString != null) {
+                    JSONObject jsonObj = new JSONObject(jsonString);
                     String image = jsonObj.getString("saved");
                     link = URL + image;
                 }

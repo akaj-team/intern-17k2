@@ -112,7 +112,7 @@ public class UploadImageActivity extends AppCompatActivity {
         try {
             stringBuilder.append(URLEncoder.encode("data:image/jpg;base64," + encodeString, "utf-8"));
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            Log.e(TAG, "UnsupportedEncodingException" + e.toString());
         }
         stringBuilder.append("==");
         return stringBuilder.toString();
