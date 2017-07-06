@@ -40,7 +40,7 @@ public class ContactActivity extends AppCompatActivity implements GetContacts.On
     @Override
     public void onShowProgressDialog() {
         mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage("Please wait ... ");
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
         Log.d(TAG, "onShowProgressDialog: ");

@@ -44,4 +44,5 @@
     <string name="gorilla">Gorilla</string>
     <string name="email">Email  : %s</string>
     <string name="number">Number : %s</string>
+    <string name="wait">Please wait &#8230; </string>
 </resources>
