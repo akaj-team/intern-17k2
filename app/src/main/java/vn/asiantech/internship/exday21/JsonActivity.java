@@ -23,7 +23,7 @@ public class JsonActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_json);
+        setContentView(R.layout.activity_json_http);
         mRecyclerView = (RecyclerView) findViewById(R.id.rvJson);
         LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(manager);
