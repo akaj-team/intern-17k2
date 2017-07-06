@@ -29,4 +29,13 @@
     <dimen name="result_item_height">76dp</dimen>
     <dimen name="image_action_size">36dp</dimen>
     <dimen name="image_disk_size">250dp</dimen>
+    <dimen name="tab_height">76dp</dimen>
+
+    <dimen name="tab_canvas_height">20dp</dimen>
+    <dimen name="tab_canvas_boder">2dp</dimen>
+    <dimen name="tab_canvas_margin">6dp</dimen>
+    <dimen name="tab_text_size">14sp</dimen>
+    <dimen name="tab_text_view_padding">3dp</dimen>
+    <dimen name="tab_icon_size">30dp</dimen>
+
 </resources>

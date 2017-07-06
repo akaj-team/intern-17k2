@@ -36,5 +36,6 @@
         <service
             android:name=".services.MusicService"
             android:enabled="true" />
+        <activity android:name=".ui.main.FootballStarActivity" />
     </application>
 </manifest>
