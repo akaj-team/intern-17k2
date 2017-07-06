@@ -32,6 +32,10 @@
     <color name="colorBackgroundNotify">#F4F6CB</color>
     <color name="colorBackgroundNotifyDismiss">#66CCCC</color>
     <color name="button.ok_dismiss.background">#009966</color>
+    <color name="imageview.custom.tablayout_title">#efe7e7</color>
+    <color name="textview.tab.title">#002200</color>
+    <color name="stroke">#745151</color>
+    <color name="relative_layout.tablayout.background">#b49a9a</color>
     <color name="textview.title_music.textcolor">#3d0404</color>
     <color name="textview.item_song.textColor">#990000</color>
 </resources>
