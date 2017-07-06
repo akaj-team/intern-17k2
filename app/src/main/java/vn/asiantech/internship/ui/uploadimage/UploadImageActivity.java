@@ -141,7 +141,7 @@ public class UploadImageActivity extends AppCompatActivity {
             byte[] b = baos.toByteArray();
             result = Base64.encodeToString(b, Base64.NO_WRAP);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("IOException", "IOException: " +e.getMessage());
         }
         return result;
     }
