@@ -30,7 +30,7 @@ public class Test implements Parcelable {
         this.rightAnswer = rightAnswer;
     }
 
-    protected Test(Parcel in) {
+    private Test(Parcel in) {
         question = in.readString();
         answerA = in.readString();
         answerB = in.readString();
@@ -113,8 +113,8 @@ public class Test implements Parcelable {
         return state;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setState() {
+        this.state = 1;
     }
 
     @Override

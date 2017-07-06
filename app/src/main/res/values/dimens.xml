@@ -60,6 +60,9 @@
     <dimen name="test.textView.margin_top">10dp</dimen>
     <dimen name="test.button.margin_right_left">5dp</dimen>
     <dimen name="test.radioGroup.margin_top">10dp</dimen>
+    <dimen name="tab.title.size">8sp</dimen>
+    <dimen name="customTab.height">15dp</dimen>
+    <dimen name="tabLayout.height">80dp</dimen>
     <dimen name="contact.relativeLayout.margin_left_right_top">5dp</dimen>
     <dimen name="contact.linearLayout.padding">20dp</dimen>
     <dimen name="contact.name.size">20sp</dimen>

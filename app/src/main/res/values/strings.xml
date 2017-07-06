@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Internship</string>
-    <string name="app_name_recyclerView">TestRecyleView</string>
     <string name="image.description.recyclerView">person</string>
     <string name="recycleView.textView.name">Name:</string>
     <string name="recycleView.textView.description">Description:</string>
@@ -50,9 +49,7 @@
     <string name="button.name">Send</string>
     <string name="editText.hint">Input</string>
     <string name="name.node_add">Input Note</string>
-    <string name="name.note">Note</string>
     <string name="textView.title">Title:</string>
-    <string name="textView.content">Your content</string>
     <string name="title.hint">Your title</string>
     <string name="name.node_edit">Note</string>
     <string name="textView.edit.title">Edit Note</string>
@@ -62,10 +59,8 @@
     <string name="test.textView.back">Prev</string>
     <string name="test.textView.next">Next</string>
     <string name="test.textView.question">Question 1</string>
-    <string name="textView.result">Result</string>
     <string name="dialog.cancle">Cancle</string>
     <string name="dialog.OK">OK</string>
-    <string name="textView.title.result">Your result</string>
     <string name="textView.question">Question </string>
     <string name="textView.yourResult">You choosed: </string>
     <string name="text.cross">/</string>

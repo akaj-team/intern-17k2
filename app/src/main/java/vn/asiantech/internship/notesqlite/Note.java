@@ -30,7 +30,7 @@ class Note implements Parcelable {
         this.pathImage = pathImage;
     }
 
-    protected Note(Parcel in) {
+    private Note(Parcel in) {
         id = in.readInt();
         dayOfWeek = in.readString();
         day = in.readString();
