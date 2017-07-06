@@ -106,7 +106,7 @@ public class UploadImageFragment extends Fragment {
         Response response = client.newCall(request).execute();
         String s = "";
         try {
-             s = response.body().string();
+            s = response.body().string();
             Log.d(TAG, "post: " + base64);
             Log.d(TAG, "post: " + response);
             Log.d(TAG, "post: " + s);
@@ -181,9 +181,14 @@ public class UploadImageFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             try {
-                String urlImage = getData(s);
-                if (!TextUtils.equals(urlImage, "") && !TextUtils.equals(urlImage, null)) {
-                    pushOnToImages(urlImage);
+                JSONObject jsonObj = new JSONObject(s);
+                if (jsonObj.getString("saved") != null) {
+                    String urlImage = jsonObj.getString("saved");
+                    if (!TextUtils.equals(urlImage, "") && !TextUtils.equals(urlImage, null)) {
+                        pushOnToImages(urlImage);
+                    } else {
+                        Toast.makeText(getContext(), getString(R.string.error_message_load_fail), Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(getContext(), getString(R.string.error_message_load_fail), Toast.LENGTH_SHORT).show();
                 }
@@ -192,15 +197,6 @@ public class UploadImageFragment extends Fragment {
             }
             super.onPostExecute(s);
         }
-    }
-
-    private String getData(String json) throws JSONException {
-        JSONObject jsonObj = new JSONObject(json);
-        String s = "";
-        if (jsonObj.getString("saved") != null) {
-            s = jsonObj.getString("saved");
-        }
-        return s;
     }
 
     private void pushOnToImages(String urlImage) {
