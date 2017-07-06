@@ -27,7 +27,7 @@ import java.util.Random;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day19.activity.MusicActivity;
 import vn.asiantech.internship.day19.model.Song;
-import vn.asiantech.internship.day19.utils.Utils;
+import vn.asiantech.internship.day19.utils.MusicUtil;
 
 /**
  * Copyright © 2017 AsianTech inc.
@@ -45,13 +45,13 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
     private boolean mCheckShuffle;
     private CountDownTimer mCountDownTimer;
     private NotificationBroadcast mNotificationBroadcast;
-    private Handler mHander = new Handler();
+    private Handler mHandler = new Handler();
     private Runnable mRunnable;
 
-    // No-op
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        // No-op
         return null;
     }
 
@@ -126,7 +126,7 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
                 if (mCountDownTimer != null) {
                     mCountDownTimer.cancel();
                 }
-                mHander.removeCallbacks(mRunnable);
+                mHandler.removeCallbacks(mRunnable);
                 NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.cancel(MY_NOTIFICATION_ID);
 
@@ -138,7 +138,7 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
                 stopService(myIntent);
 
             } else if (intent.getAction().equals(Action.CLICK_NOTIFICATION.getValue())) {
-                mHander.removeCallbacks(mRunnable);
+                mHandler.removeCallbacks(mRunnable);
                 NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.cancel(MY_NOTIFICATION_ID);
             }
@@ -232,9 +232,9 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
                 }
             }
 
-            // No-op
             @Override
             public void onFinish() {
+                // No-op
             }
         };
         mCountDownTimer.start();
@@ -274,8 +274,8 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
                     views.setImageViewResource(R.id.imgSongNotification, mSongs.get(mCurrentPosition).getImage());
                     views.setTextViewText(R.id.tvSongNotification, mSongs.get(mCurrentPosition).getName());
                     views.setTextViewText(R.id.tvArtistNotification, mSongs.get(mCurrentPosition).getArtist());
-                    views.setTextViewText(R.id.tvTimeNowNotification, String.valueOf(Utils.getUtils().showTime(mMediaPlayer.getCurrentPosition())));
-                    views.setTextViewText(R.id.tvTimeTotalNotification, String.valueOf(Utils.getUtils().showTime(mMediaPlayer.getDuration())));
+                    views.setTextViewText(R.id.tvTimeNowNotification, String.valueOf(MusicUtil.showTime(mMediaPlayer.getCurrentPosition())));
+                    views.setTextViewText(R.id.tvTimeTotalNotification, String.valueOf(MusicUtil.showTime(mMediaPlayer.getDuration())));
                     views.setProgressBar(R.id.progressBarNotification, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
 
                     builder.setCustomBigContentView(views);
@@ -283,10 +283,10 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
                     Notification notification = builder.build();
                     notificationManager.notify(MY_NOTIFICATION_ID, notification);
                 }
-                mHander.postDelayed(this, 1000);
+                mHandler.postDelayed(this, 1000);
             }
         };
-        mHander.postDelayed(mRunnable, 1000);
+        mHandler.postDelayed(mRunnable, 1000);
     }
 
     /**

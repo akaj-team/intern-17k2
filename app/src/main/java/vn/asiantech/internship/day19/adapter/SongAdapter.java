@@ -1,6 +1,6 @@
 package vn.asiantech.internship.day19.adapter;
 
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -12,10 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.day19.activity.MusicActivity;
 import vn.asiantech.internship.day19.model.Song;
-import vn.asiantech.internship.day19.service.Action;
-import vn.asiantech.internship.day19.service.SongService;
 
 /**
  * Copyright © 2017 AsianTech inc.
@@ -23,13 +20,13 @@ import vn.asiantech.internship.day19.service.SongService;
  */
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder> {
     private List<Song> mSongs;
-    private MusicActivity mMusicActivity;
+    private Context mContext;
     private int mPositionCurrent;
     private OnChooseSongListener mOnChooseSongListener;
 
-    public SongAdapter(List<Song> songs, MusicActivity musicActivity, OnChooseSongListener onChooseSongListener) {
+    public SongAdapter(List<Song> songs, Context context, OnChooseSongListener onChooseSongListener) {
         mSongs = songs;
-        mMusicActivity = musicActivity;
+        mContext = context;
         mOnChooseSongListener = onChooseSongListener;
     }
 
@@ -43,7 +40,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         if (mPositionCurrent == position) {
             holder.mItemView.setBackgroundColor(Color.LTGRAY);
         } else {
-            holder.mItemView.setBackgroundColor(ContextCompat.getColor(mMusicActivity, R.color.avatar_bolder));
+            holder.mItemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.avatar_bolder));
         }
         holder.mTvSongName.setText(mSongs.get(position).getName());
         holder.mTvSongArtist.setText(mSongs.get(position).getArtist());
@@ -59,7 +56,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     }
 
     /**
-     * create SongViewHolder
+     * Create SongViewHolder
      */
     class SongViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvSongName;
@@ -76,10 +73,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                 public void onClick(View v) {
                     mOnChooseSongListener.OnSongUpdate(getLayoutPosition());
                     mPositionCurrent = getLayoutPosition();
-                    Intent intent = new Intent(mMusicActivity, SongService.class);
-                    intent.setAction(Action.CHOOSE_PLAY.getValue());
-                    intent.putExtra(MusicActivity.TYPE_POSITION, getLayoutPosition());
-                    mMusicActivity.startService(intent);
                 }
             });
         }

@@ -21,7 +21,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.day19.adapter.OnChooseSongListener;
 import vn.asiantech.internship.day19.adapter.SongAdapter;
 import vn.asiantech.internship.day19.model.Song;
-import vn.asiantech.internship.day19.utils.Utils;
+import vn.asiantech.internship.day19.utils.MusicUtil;
 import vn.asiantech.internship.day19.service.Action;
 import vn.asiantech.internship.day19.service.SongService;
 
@@ -116,22 +116,20 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mSongAdapter);
-        mSongAdapter.notifyDataSetChanged();
 
         // Send list song to Service
         sendListSong();
 
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            // No-op
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                // No-op
             }
 
-            // No-op
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                // No-op
             }
 
             @Override
@@ -241,6 +239,10 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mTvArtistNow.setText(mSongs.get(positon).getArtist());
         mSongAdapter.setPosition(positon);
         mSongAdapter.notifyDataSetChanged();
+        Intent intent = new Intent(this, SongService.class);
+        intent.setAction(Action.CHOOSE_PLAY.getValue());
+        intent.putExtra(MusicActivity.TYPE_POSITION, positon);
+        startService(intent);
         mRecyclerView.scrollToPosition(mCurrentPlay);
     }
 
@@ -272,8 +274,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             int position = Integer.parseInt(intent.getStringExtra(TYPE_SECOND));
             mCurrentPlay = intent.getIntExtra(TYPE_POSITION, 0);
             mSeekBar.setProgress(position);
-            mTvCurrentTime.setText(Utils.getUtils().showTime(position));
-            mTvTimeTotal.setText(Utils.getUtils().showTime(length));
+            mTvCurrentTime.setText(MusicUtil.showTime(position));
+            mTvTimeTotal.setText(MusicUtil.showTime(length));
             mTvSongNow.setText(mSongs.get(mCurrentPlay).getName());
             mTvArtistNow.setText(mSongs.get(mCurrentPlay).getArtist());
         }

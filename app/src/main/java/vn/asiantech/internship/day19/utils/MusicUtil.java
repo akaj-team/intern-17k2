@@ -4,20 +4,12 @@ package vn.asiantech.internship.day19.utils;
  * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 01/07/2017.
  */
-public final class Utils {
-    private static Utils sUtils;
+public final class MusicUtil {
 
-    private Utils() {
+    private MusicUtil() {
     }
 
-    public static Utils getUtils() {
-        if (sUtils == null) {
-            sUtils= new Utils();
-        }
-        return sUtils;
-    }
-
-    public String showTime(long milliseconds) {
+    public static String showTime(long milliseconds) {
         String timer = "";
         int hours = (int) (milliseconds / (1000 * 60 * 60));
         int minutes = (int) (milliseconds % (1000 * 60 * 60)) / (1000 * 60);
