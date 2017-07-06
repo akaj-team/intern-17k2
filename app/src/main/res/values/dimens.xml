@@ -98,8 +98,8 @@
     <dimen name="textview.chat1.layout_mmarginStart">8dp</dimen>
     <dimen name="ll.chat.layout_height">50dp</dimen>
     <item name="recyclerView.chat.layout_weight" type="dimen">9</item>
-    <item name="edittext.chat.layout_weight" type="dimen" format="float">0.8</item>
-    <item name="button.chat.layout_weight" type="dimen" format="float">0.2</item>
+    <item name="edittext.chat.layout_weight" format="float" type="dimen">0.8</item>
+    <item name="button.chat.layout_weight" format="float" type="dimen">0.2</item>
     <dimen name="quiz.layout_marginLeft">40dp</dimen>
     <dimen name="textview.questionQuiz.textSize">20sp</dimen>
     <dimen name="radiobutton.answer.textSize">15sp</dimen>
@@ -124,4 +124,7 @@
     <dimen name="tablayout.custom_title.layout_height">50dp</dimen>
     <dimen name="viewpager.tablayout.layout_height">200dp</dimen>
     <dimen name="viewpager.tablayout.layout_marginTop">200dp</dimen>
+    <dimen name="imageview.show.layout_height">300dp</dimen>
+    <dimen name="imageview.show.layout_marginTop">40dp</dimen>
+    <dimen name="button.upload.layout_marginTop">30dp</dimen>
 </resources>

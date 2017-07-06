@@ -39,12 +39,14 @@
     <string name="textview.resultQuestion.text">RESULT</string>
     <string name="textview.questionQuiz.text">Question</string>
     <string name="textview.resulttoolbar.text">Result</string>
+    <string name="error_http_json">\"Couldn\'t get json from server. Check LogCat for possible errors!\"</string>
+    <string name="json_passing_error">Json passing error %s</string>
     <string-array name="items">
         <item name="Gallery">Gallery</item>
         <item name="Camera">Camera</item>
     </string-array>
     <string name="textview.quiz.text">Question 1</string>
-    <string name="button.text.dialog_ok">Ok</string>
+    <string name="button.text.dialog_ok">OK</string>
     <string name="button.text.dialog_cancel">Cancel</string>
     <string name="dismiss_dialog">Do you want to reset Quiz app?</string>
     <string name="question">Question %d</string>
@@ -56,4 +58,6 @@
         <item name="music">music</item>
         <item name="lead">lead</item>
     </string-array>
+    <string name="message_progress_dialog">Please wait....</string>
+    <string name="button.upload.text">Upload</string>
 </resources>
