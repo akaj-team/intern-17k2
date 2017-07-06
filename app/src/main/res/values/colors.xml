@@ -22,6 +22,16 @@
     <color name="textview.title_infor_note">#003300</color>
     <color name="cardview.textview.background.border">#CCCCCC</color>
     <color name="colorchat">#CCFFFF</color>
+    <color name="colorBorderQuestion">#888888</color>
+    <color name="textview.Question">#FFFFCC</color>
+    <color name="textview.resultQuestion">#FFFFFF</color>
+    <color name="colorBackgroundResult">#EAF6B9</color>
+    <color name="colorResult">#FFFFCC</color>
+    <color name="colorBackgroundLabelResult">#220000</color>
+    <color name="button.ok.background">#F2B93F</color>
+    <color name="colorBackgroundNotify">#F4F6CB</color>
+    <color name="colorBackgroundNotifyDismiss">#66CCCC</color>
+    <color name="button.ok_dismiss.background">#009966</color>
     <color name="textview.title_music.textcolor">#3d0404</color>
     <color name="textview.item_song.textColor">#990000</color>
 </resources>

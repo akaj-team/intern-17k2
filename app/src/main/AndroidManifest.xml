@@ -19,21 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".day19.service.SongService"
-            android:enabled="true"/>
-            <!--<intent-filter>-->
-                <!--<action android:name="vn.asiantech.internship.PAUSE" />-->
-                <!--<action android:name="vn.asiantech.internship.PLAY" />-->
-                <!--<action android:name="vn.asiantech.internship.PREVIOUS" />-->
-                <!--<action android:name="vn.asiantech.internship.NEXT" />-->
-                <!--<action android:name="vn.asiantech.internship.AUTO_NEXT" />-->
-                <!--<action android:name="vn.asiantech.internship.AUTO_NEXT_SELECTED" />-->
-                <!--<action android:name="vn.asiantech.internship.CHOOSE_PLAY" />-->
-                <!--<action android:name="vn.asiantech.internship.SONGS" />-->
-                <!--<action android:name="vn.asiantech.internship.SEND_POSITION" />-->
-                <!--<action android:name="vn.asiantech.internship.SHUFFLE" />-->
-                <!--<action android:name="vn.asiantech.internship.SHUFFLE_SELECTED" />-->
-            <!--</intent-filter>-->
+        <service
+            android:name=".day19.service.SongService"
+            android:enabled="true" />
     </application>
-
 </manifest>
