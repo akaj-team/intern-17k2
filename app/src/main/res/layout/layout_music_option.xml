@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/LayoutMusic"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/paddingSomeThing">
+
+    <ImageView
+        android:id="@+id/imgShuffle"
+        style="@style/StyleTextMusic"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/textview.text.description"
+        android:gravity="center_horizontal"
+        android:src="@drawable/bg_shuffle" />
+
+    <ImageView
+        android:id="@+id/imgPrevious"
+        style="@style/StyleTextMusic"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/textview.text.description"
+        android:gravity="center_horizontal"
+        android:src="@drawable/vector_skip_previous" />
+
+    <ImageView
+        android:id="@+id/imgPause"
+        style="@style/StyleTextMusic"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/textview.text.description"
+        android:gravity="center_horizontal"
+        android:src="@drawable/vector_play" />
+
+    <ImageView
+        android:id="@+id/imgNext"
+        style="@style/StyleTextMusic"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/textview.text.description"
+        android:gravity="center_horizontal"
+        android:src="@drawable/vector_skip_next" />
+
+    <ImageView
+        android:id="@+id/imgRepeat"
+        style="@style/StyleTextMusic"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/textview.text.description"
+        android:gravity="center_horizontal"
+        android:src="@drawable/bg_repeat" />
+</LinearLayout>
