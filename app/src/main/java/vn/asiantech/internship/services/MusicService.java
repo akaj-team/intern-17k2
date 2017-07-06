@@ -37,7 +37,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private boolean mIsShuffle;
     private boolean mIsReplay;
     private int mShufflePosition = 0;
-
+    private boolean mIsPlaying;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -68,15 +68,25 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 }
                 playSong(mSongs, mCurrentPosition);
             } else if (intent.getAction().equals(Action.PREVIOUS_SONG.getValue())) {
-                mCurrentPosition--;
-                playSong(mSongs, mCurrentPosition);
+                if (mCurrentPosition > 0) {
+                    mCurrentPosition--;
+                    playSong(mSongs, mCurrentPosition);
+                }
             } else if (intent.getAction().equals(Action.NEXT_SONG.getValue())) {
-                mCurrentPosition++;
-                playSong(mSongs, mCurrentPosition);
+                if (mCurrentPosition < mSongs.size() - 1) {
+                    mCurrentPosition++;
+                    playSong(mSongs, mCurrentPosition);
+                }
             } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
-                mMediaPLayer.pause();
+                if (mMediaPLayer.isPlaying()) {
+                    mMediaPLayer.pause();
+                    Log.d("xxx", "onStartCommand: pause ");
+                }
             } else if (intent.getAction().equals(Action.RESUME.getValue())) {
-                mMediaPLayer.start();
+                if (!mMediaPLayer.isPlaying()) {
+                    mMediaPLayer.start();
+                    Log.d("xxx", "onStartCommand: resume");
+                }
             } else if (intent.getAction().equals(Action.SEEK_TO.getValue())) {
                 int position = intent.getIntExtra("chooseTime", 0);
                 mMediaPLayer.seekTo(position);
@@ -118,6 +128,12 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void showNotification() {
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.custom_notification);
+        remoteViews.setTextViewText(R.id.tvNotificationSongName, mSongs.get(mCurrentPosition).getTitle());
+        remoteViews.setTextViewText(R.id.tvNotificationArtist, mSongs.get(mCurrentPosition).getArtist());
+        remoteViews.setTextColor(R.id.tvNotificationSongName, Color.BLACK);
+        remoteViews.setTextColor(R.id.tvNotificationArtist, Color.BLACK);
+
         Intent nextIntent = new Intent(this, MusicService.class);
         nextIntent.setAction(Action.NEXT_SONG.getValue());
         PendingIntent nextPendingIntent = PendingIntent.getService(this, 0, nextIntent, 0);
@@ -126,19 +142,16 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         previousIntent.setAction(Action.PREVIOUS_SONG.getValue());
         PendingIntent previousPendingIntent = PendingIntent.getService(this, 0, previousIntent, 0);
 
-        Intent pauseIntent = new Intent(this, MusicService.class);
+        Intent playIntent = new Intent(this, MusicService.class);
         if (mMediaPLayer.isPlaying()) {
-            previousIntent.setAction(Action.PAUSE.getValue());
-            return;
+            Log.d("xxx", "showNotification: playing");
+            playIntent.setAction(Action.PAUSE.getValue());
+        } else {
+            Log.d("xxx", "showNotification: nononono");
+            playIntent.setAction(Action.RESUME.getValue());
         }
-        pauseIntent.setAction(Action.RESUME.getValue());
-        PendingIntent playPendingIntent = PendingIntent.getService(this, 0, pauseIntent, 0);
+        PendingIntent playPendingIntent = PendingIntent.getService(this, 0, playIntent, 0);
 
-        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.custom_notification);
-        remoteViews.setTextViewText(R.id.tvNotificationSongName, mSongs.get(mCurrentPosition).getTitle());
-        remoteViews.setTextViewText(R.id.tvNotificationArtist, mSongs.get(mCurrentPosition).getArtist());
-        remoteViews.setTextColor(R.id.tvNotificationSongName, Color.BLACK);
-        remoteViews.setTextColor(R.id.tvNotificationArtist, Color.BLACK);
         Notification builder = new NotificationCompat.Builder(this)
 //                .setCustomBigContentView(remoteViews)
                 .setContent(remoteViews)

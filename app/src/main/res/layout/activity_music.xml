@@ -61,7 +61,7 @@
             android:layout_height="@dimen/image.height"
             android:layout_gravity="center"
             android:contentDescription="@null"
-            android:src="@drawable/ic_play_arrow_black_24dp"
+            android:src="@drawable/ic_pause_black_24dp"
             android:visibility="gone" />
 
         <ImageView

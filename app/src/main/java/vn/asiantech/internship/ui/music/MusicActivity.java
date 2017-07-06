@@ -33,7 +33,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     private LinearLayout mLlSong;
     private RecyclerView mRecyclerViewSong;
-    private ImageView mImgThumnail;
+    private ImageView mImgThumbnail;
     private ImageView mImgPrevious;
     private ImageView mImgPause;
     private ImageView mImgNext;
@@ -66,13 +66,13 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             case R.id.imgPause:
                 Intent intent = new Intent(MusicActivity.this, MusicService.class);
                 if (mIsPlaying) {
-                    mImgPause.setImageResource(R.drawable.ic_pause_black_24dp);
+                    mImgPause.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     intent.setAction(Action.PAUSE.getValue());
                     startService(intent);
                     mIsPlaying = false;
                     return;
                 }
-                mImgPause.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                mImgPause.setImageResource(R.drawable.ic_pause_black_24dp);
                 intent.setAction(Action.RESUME.getValue());
                 startService(intent);
                 mIsPlaying = true;
@@ -119,7 +119,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     private void initView() {
         mLlSong = (LinearLayout) findViewById(R.id.llSong);
-        mImgThumnail = (ImageView) findViewById(R.id.imgThumnail);
+        mImgThumbnail = (ImageView) findViewById(R.id.imgThumnail);
         mImgPrevious = (ImageView) findViewById(R.id.imgPrevious);
         mImgPause = (ImageView) findViewById(R.id.imgPause);
         mImgNext = (ImageView) findViewById(R.id.imgNext);
@@ -139,6 +139,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onItemClick(int position) {
                 mCurrentPosition = position;
+                mIsPlaying = true;
                 intentStartService(MusicActivity.this, position, Action.START.getValue());
                 setViewAction(mCurrentPosition);
             }
