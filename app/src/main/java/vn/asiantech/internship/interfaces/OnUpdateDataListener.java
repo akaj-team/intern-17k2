@@ -6,7 +6,7 @@ import vn.asiantech.internship.models.Song;
  * Created by ducle on 05/07/2017.
  */
 
-public interface OnUpdateDataListerner {
+public interface OnUpdateDataListener {
     void onShowProgressDialog();
     void onAddSong(Song song);
     void onShowFragment();

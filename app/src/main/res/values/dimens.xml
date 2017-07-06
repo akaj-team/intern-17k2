@@ -33,4 +33,5 @@
     <dimen name="cardview.radius">10dp</dimen>
     <dimen name="cardview.elevation">4dp</dimen>
     <dimen name="cardview.imageview.size">60dp</dimen>
+    <dimen name="cardview.item_song.padding">7dp</dimen>
 </resources>

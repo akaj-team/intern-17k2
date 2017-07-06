@@ -7,122 +7,58 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.asynctasks.LoadListSongAsyncTask;
 import vn.asiantech.internship.fragment.SongFragment;
-import vn.asiantech.internship.interfaces.OnUpdateDataListerner;
+import vn.asiantech.internship.interfaces.OnUpdateDataListener;
 import vn.asiantech.internship.models.Song;
 
 /**
  * Created by ducle on 03/07/2017.
  * MusicActivity show media to play music
  */
-public class MusicActivity extends AppCompatActivity implements OnUpdateDataListerner{
+public class MusicActivity extends AppCompatActivity implements OnUpdateDataListener {
     private static final String TAG = MusicActivity.class.getSimpleName();
-    private List<String> mSongId;
+    private String[] mSongId;
     private ArrayList<Song> mSongs;
-    private RequestQueue mRequestQueue;
     private SongFragment mSongFragment;
-    private ProgressDialog mProgressDialog;
+    private LoadListSongAsyncTask mLoadListSongAsyncTask;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_music);
-
-
+        initData();
         addFragment();
-        init();
+        mLoadListSongAsyncTask.execute(mSongId);
     }
 
     private void addFragment() {
-        mSongFragment=SongFragment.newInstance(mSongs);
-        FragmentManager fragmentManager=getFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.flContain,mSongFragment);
+        mSongFragment = SongFragment.newInstance(mSongs);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.flContain, mSongFragment);
         fragmentTransaction.commit();
-    }
-
-    private void init() {
-        initData();
+        Log.d(TAG, "addFragment: ");
     }
 
     private void initData() {
-        mSongId = new ArrayList<>();
+        mSongId = new String[]{"IW9AAAEA", "IW89O70O", "IWB6OEFZ","ZWZ9A80D"};
         mSongs = new ArrayList<>();
-        mSongId.add("IW9AAAEA");
-        mSongId.add("IW89O70O");
-        mSongId.add("IWB6OEFZ");
-        getSongs();
-    }
-
-    public void getJSONObject(JSONObject json) {
-        try {
-            String title = json.getString("title");
-            String artist = json.getString("artist");
-            JSONObject jsonSource = json.getJSONObject("source");
-            String source = jsonSource.getString("128");
-            int duration = json.getInt("duration");
-            Song song = new Song(title, artist, source, duration);
-            mSongs.add(song);
-        } catch (JSONException e) {
-            Log.d(TAG, "onResponse: " + e.getMessage());
-        }
-    }
-
-    public void showToast() {
-        Toast.makeText(this, mSongs.size() + "", Toast.LENGTH_LONG).show();
-    }
-
-
-    public void getSongs() {
-        mRequestQueue = Volley.newRequestQueue(this);
-        for (int i = 0; i < mSongId.size(); i++) {
-            String url = "http://api.mp3.zing.vn/api/mobile/song/getsonginfo?requestdata={%22id%22:%22" + mSongId.get(i) + "%22}";
-            final int finalI = i;
-            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    getJSONObject(response);
-                    if (finalI == (mSongId.size() - 1)) {
-                        showToast();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d(TAG, "onErrorResponse: " + error.getMessage());
-                }
-            });
-            mRequestQueue.add(jsonRequest);
-        }
+        mLoadListSongAsyncTask = new LoadListSongAsyncTask(this);
     }
 
     @Override
     public void onShowProgressDialog() {
-        mProgressDialog=new ProgressDialog(this);
-        mProgressDialog.setMessage("Please wait ...");
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.show();
+        mSongFragment.showProgressDialog();
     }
 
     @Override
     public void onAddSong(Song song) {
-        mSongs.add(song);
+        mSongFragment.updateListSong(song);
     }
 
     @Override
@@ -132,8 +68,6 @@ public class MusicActivity extends AppCompatActivity implements OnUpdateDataList
 
     @Override
     public void onCloseProgressDialog() {
-        if (mProgressDialog!=null && mProgressDialog.isShowing()){
-            mProgressDialog.dismiss();
-        }
+        mSongFragment.closeProgressDialog();
     }
 }

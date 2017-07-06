@@ -53,4 +53,5 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
             mTvArtist = (TextView) itemView.findViewById(R.id.tvArtist);
         }
     }
+
 }

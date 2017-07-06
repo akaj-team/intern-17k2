@@ -14,7 +14,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import vn.asiantech.internship.interfaces.OnUpdateDataListerner;
+import vn.asiantech.internship.interfaces.OnUpdateDataListener;
 import vn.asiantech.internship.models.Song;
 
 /**
@@ -24,17 +24,17 @@ import vn.asiantech.internship.models.Song;
 public class LoadListSongAsyncTask extends AsyncTask<String[], Void, Void> {
     private static final String TAG = LoadListSongAsyncTask.class.getSimpleName();
     private Context mContext;
-    private OnUpdateDataListerner mOnUpdateDataListerner;
+    private OnUpdateDataListener mOnUpdateDataListener;
 
     public LoadListSongAsyncTask(Context context) {
         mContext = context;
-        mOnUpdateDataListerner = (OnUpdateDataListerner) context;
+        mOnUpdateDataListener = (OnUpdateDataListener) context;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mOnUpdateDataListerner.onShowProgressDialog();
+        //mOnUpdateDataListener.onShowProgressDialog();
     }
 
     @Override
@@ -46,8 +46,7 @@ public class LoadListSongAsyncTask extends AsyncTask<String[], Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        mOnUpdateDataListerner.onCloseProgressDialog();
-        mOnUpdateDataListerner.onShowFragment();
+        //mOnUpdateDataListener.onCloseProgressDialog();
     }
 
     private void addSong(String[] songIDs) {
@@ -88,7 +87,7 @@ public class LoadListSongAsyncTask extends AsyncTask<String[], Void, Void> {
                             duration = 0;
                         }
                         Song song = new Song(title, artist, source, duration);
-                        mOnUpdateDataListerner.onAddSong(song);
+                        mOnUpdateDataListener.onAddSong(song);
                     } catch (JSONException e) {
                         Log.d(TAG, "onResponse: " + e.getMessage());
                     }
