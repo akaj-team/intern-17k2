@@ -9,7 +9,8 @@
         android:id="@+id/imgUpload"
         android:layout_width="@dimen/navigation.width"
         android:layout_height="@dimen/navigation.width"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@null" />
 
     <Button
         android:id="@+id/btnUpLoad"

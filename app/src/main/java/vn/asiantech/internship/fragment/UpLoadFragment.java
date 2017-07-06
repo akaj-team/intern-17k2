@@ -81,8 +81,8 @@ public class UpLoadFragment extends Fragment implements View.OnClickListener {
                 Log.d(TAG, "onActivityResult: path " + path);
                 byte[] byteArr = convertImageToByte(data.getData());
                 StringBuffer stringBuffer = new StringBuffer();
-                stringBuffer.append("data:image/png;base64,");
-                stringBuffer.append(Base64.encodeToString(byteArr, Base64.NO_WRAP));
+                stringBuffer.append("data:image/png;base64,")
+                        .append(Base64.encodeToString(byteArr, Base64.NO_WRAP));
                 mImgString = stringBuffer.toString();
                 Log.d(TAG, "onActivityResult: " + mImgString);
                 mThread = new Thread(new Runnable() {
