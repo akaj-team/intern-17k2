@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ import vn.asiantech.internship.day20.service.MusicService;
  */
 public class MusicFragment extends Fragment {
 
-    public static final String KEY_SONG = "song";
     public static final String CURRENT_TIME = "current_time";
 
     private ImageButton mImgBtnPlay;
@@ -41,8 +39,7 @@ public class MusicFragment extends Fragment {
     private boolean isPause = false;
     private boolean isPlaying = false;
     private ArrayList<Song> mSongs;
-    private Song mSong;
-    private int mCurrentPostion = -1;
+    private int mCurrentPosition = -1;
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -92,7 +89,6 @@ public class MusicFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_music, container, false);
         initUI(layout);
         return layout;
@@ -108,18 +104,19 @@ public class MusicFragment extends Fragment {
     private void getSong() {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mCurrentPostion = bundle.getInt(MusicActivity.KEY_POS);
-            mSong = bundle.getParcelable(MusicActivity.KEY_DATA);
+            mCurrentPosition = bundle.getInt(MusicActivity.KEY_POS);
             mSongs = bundle.getParcelableArrayList(MusicActivity.KEY_LIST);
         }
         // start the song
-        Intent intentPlay = new Intent();
-        intentPlay.setAction(MusicService.ACTION_PLAY);
-        intentPlay.putExtra(KEY_SONG, mSong);
-        getActivity().sendBroadcast(intentPlay);
-        isPlaying = true;
-        Log.e("at-dinhvo", "getSong: " + mSong.getUrl());
-        Log.e("at-dinhvo", "getSong: " + mSongs.size());
+        if (mCurrentPosition != -1) {
+            Intent intentPlay = new Intent();
+            intentPlay.setAction(MusicService.ACTION_PLAY);
+            intentPlay.putExtra(MusicActivity.KEY_POS, mCurrentPosition);
+            getActivity().sendBroadcast(intentPlay);
+            isPlaying = true;
+        } else {
+            Toast.makeText(getContext(), "Position is wrong!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void addEvents() {
@@ -132,27 +129,21 @@ public class MusicFragment extends Fragment {
                     mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_pause);
                     isPlaying = true;
                     isPause = false;
-                    getActivity().sendBroadcast(intentPlay);
-                    Log.e("at-dinhvo", "onClick: resume nay`" + isPlaying + ": paus: " + isPause);
                 } else if (isPlaying) { // if music is playing
                     intentPlay.setAction(MusicService.ACTION_PAUSE);
                     mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_play);
                     isPause = true;
                     isPlaying = false;
-                    getActivity().sendBroadcast(intentPlay);
-                    Log.e("at-dinhvo", "onClick: pause nay`" + isPlaying + ": paus: " + isPause);
                 } else { // music is starting
                     intentPlay.setAction(MusicService.ACTION_PLAY);
-                    if (mSong != null) {
-                        intentPlay.putExtra(KEY_SONG, mSong);
+                    if (mCurrentPosition != -1) {
+                        intentPlay.putExtra(MusicActivity.KEY_POS, mCurrentPosition);
                     } else {
                         Toast.makeText(getContext(), "Please check your url!", Toast.LENGTH_SHORT).show();
                     }
                     isPlaying = true;
-                    getActivity().sendBroadcast(intentPlay);
-                    Log.e("at-dinhvo", "onClick: play nay`" + isPlaying + ": paus: " + isPause);
                 }
-
+                getActivity().sendBroadcast(intentPlay);
             }
         });
 
@@ -161,10 +152,6 @@ public class MusicFragment extends Fragment {
             public void onClick(View view) {
                 Intent intentNext = new Intent();
                 intentNext.setAction(MusicService.ACTION_NEXT);
-                if (mCurrentPostion != -1) {
-                    mCurrentPostion = (mCurrentPostion == mSongs.size() - 1) ? 0 : mCurrentPostion + 1;
-                }
-                intentNext.putExtra(KEY_SONG, mSongs.get(mCurrentPostion));
                 getActivity().sendBroadcast(intentNext);
             }
         });
@@ -174,10 +161,6 @@ public class MusicFragment extends Fragment {
             public void onClick(View view) {
                 Intent intentPrevious = new Intent();
                 intentPrevious.setAction(MusicService.ACTION_PREVIOUS);
-                if (mCurrentPostion != -1) {
-                    mCurrentPostion = (mCurrentPostion == 0) ? mSongs.size() - 1 : mCurrentPostion - 1;
-                }
-                intentPrevious.putExtra(KEY_SONG, mSongs.get(mCurrentPostion));
                 getActivity().sendBroadcast(intentPrevious);
             }
         });

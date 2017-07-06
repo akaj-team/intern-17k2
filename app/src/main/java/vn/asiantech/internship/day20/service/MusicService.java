@@ -13,8 +13,10 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.day20.model.Song;
+import vn.asiantech.internship.day20.ui.MusicActivity;
 import vn.asiantech.internship.day20.ui.MusicFragment;
 
 public class MusicService extends Service {
@@ -31,6 +33,7 @@ public class MusicService extends Service {
 
     private ArrayList<Integer> raws = new ArrayList();
     private ArrayList<Integer> shuffles = new ArrayList<>();
+    private List<Song> mSongs;
     private Song mSong;
     private MediaPlayer mMediaPlayer;
     private CountDownTimer mCountDownTimer;
@@ -38,44 +41,40 @@ public class MusicService extends Service {
     private boolean isPause = false;
     private boolean isAutoNext = false;
     private boolean isShuffle = false;
-    private int currentPost = 0;
+    private int mCurrentPosition;
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent != null && intent.getParcelableExtra(MusicFragment.KEY_SONG) != null) {
-                mSong = intent.getParcelableExtra(MusicFragment.KEY_SONG);
+            Log.e(TAG, "onReceive: intent :" + (intent != null));
+            if (intent != null) {
                 switch (intent.getAction()) {
                     case ACTION_PLAY:
-                        Log.e(TAG, "ACTION_PLAY" + mSong.getName());
-//                        startMusic();
+                        mCurrentPosition = intent.getIntExtra(MusicActivity.KEY_POS, -1);
+                        if (mCurrentPosition != -1) {
+                            mSong = mSongs.get(mCurrentPosition);
+                            Log.e(TAG, "onReceive: " + mSong.getName());
+                        }
+                        resetMusic();
                         startMedia();
                         break;
                     case ACTION_PAUSE:
-                        Log.e(TAG, "ACTION_PAUSE" + mSong.getName());
-//                        pauseMusic();
-                        pauseMedia();
+                        pauseMusic();
                         break;
                     case ACTION_RESUME:
-                        Log.e(TAG, "ACTION_RESUME" + mSong.getName());
-//                        resumeMusic();
-                        resumeMedia();
+                        resumeMusic();
                         break;
                     case ACTION_NEXT:
-                        Log.e(TAG, "ACTION_NEXT" + mSong.getName());
-//                        nextMusic();
-                        nextMedia();
+                        Log.e(TAG, "ACTION_NEXT");
+                        nextMusic();
                         break;
                     case ACTION_PREVIOUS:
-                        Log.e(TAG, "ACTION_PREVIOUS" + mSong.getName());
-//                        previousMusic();
-                        nextMedia();
+                        Log.e(TAG, "ACTION_PREVIOUS");
+                        previousMusic();
                         break;
                     case ACTION_SHUFFLE:
-//                        shuffleMusic();
                         break;
                     case ACTION_AUTONEXT:
-//                        autoNextMusic();
                         break;
                     case Intent.ACTION_SCREEN_OFF:
                         Log.e(TAG, "ACTION_SCREEN_OFF");
@@ -87,59 +86,62 @@ public class MusicService extends Service {
     };
 
     public MusicService() {
+
     }
 
     private void startMedia() {
-        if (mMediaPlayer != null) {
-            try {
-                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                mMediaPlayer.setDataSource(mSong.getUrl());
-                mMediaPlayer.prepare();
-            } catch (IOException e) {
-                Log.e(TAG, "IOException: " + e.toString());
-            }
-            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    mMediaPlayer.start();
-                    handlerProgress();
-                }
-            });
-        }
-    }
-
-    private void nextMedia() {
+        mMediaPlayer = new MediaPlayer();
         try {
-            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mMediaPlayer.setDataSource(mSong.getUrl());
             mMediaPlayer.prepare();
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         } catch (IOException e) {
-            Log.e(TAG, "nextMedia: " + mSong.getName());
+            Log.e(TAG, "IOException: " + e.toString());
+        }
+        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mMediaPlayer.start();
+                handlerProgress();
+            }
+        });
+    }
+
+    private void nextMusic() {
+        mMediaPlayer.reset();
+        mCurrentPosition = (mCurrentPosition == mSongs.size() - 1) ? 0 : mCurrentPosition + 1;
+        Log.e(TAG, "nextMusic: " + mCurrentPosition);
+        try {
+            mMediaPlayer.setDataSource(mSongs.get(mCurrentPosition).getUrl());
+            mMediaPlayer.prepare();
+            startMusic();
+            Log.e(TAG, "nextMusic: " + mSongs.get(mCurrentPosition).getName());
+        } catch (IOException e) {
+            Log.e(TAG, "IOException");
         }
     }
 
-    private void previousMedia() {
-//        mMediaPlayer.reset();
-        startMedia();
+    private void previousMusic() {
+        mMediaPlayer.reset();
+        mCurrentPosition = (mCurrentPosition == 0) ? mSongs.size() - 1 : mCurrentPosition - 1;
+        Log.e(TAG, "prevMusic: " + mCurrentPosition);
+        try {
+            mMediaPlayer.setDataSource(mSongs.get(mCurrentPosition).getUrl());
+            mMediaPlayer.prepare();
+            startMusic();
+            Log.e(TAG, "nextMusic: " + mSongs.get(mCurrentPosition).getName());
+        } catch (IOException e) {
+            Log.e(TAG, "IOException");
+        }
     }
 
-    private void pauseMedia() {
-        mMediaPlayer.pause();
-        isPause = true;
-        mLength = mMediaPlayer.getCurrentPosition();
-    }
-
-    private void resumeMedia() {
-        resumeMusic();
-    }
-
-    private void shuffleMedia() {
-
-    }
-
-    private void autoNextMedia() {
-
+    private void resetMusic() {
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+        }
+        if (mMediaPlayer != null) {
+            mMediaPlayer.release();
+        }
     }
 
     private void pauseMusic() {
@@ -158,20 +160,6 @@ public class MusicService extends Service {
             mMediaPlayer.start();
             handlerProgress();
         }
-    }
-
-    private void nextMusic() {
-        mMediaPlayer.reset();
-        currentPost = (currentPost == raws.size() - 1) ? 0 : currentPost + 1;
-        mMediaPlayer = MediaPlayer.create(getApplicationContext(), raws.get(currentPost));
-        startMusic();
-    }
-
-    private void previousMusic() {
-        mMediaPlayer.reset();
-        currentPost = (currentPost == 0) ? raws.size() - 1 : currentPost - 1;
-        mMediaPlayer = MediaPlayer.create(getApplicationContext(), raws.get(currentPost));
-        startMusic();
     }
 
     private void handlerProgress() {
@@ -214,7 +202,13 @@ public class MusicService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mMediaPlayer = new MediaPlayer();
-        return START_STICKY;
+        if (intent != null && intent.getParcelableArrayListExtra(MusicActivity.KEY_LIST) != null) {
+            mSongs = intent.getParcelableArrayListExtra(MusicActivity.KEY_LIST);
+            Log.e(TAG, "onStartCommand: " + mSongs.size());
+        } else {
+            Log.e(TAG, "onStartCommand: " + mSongs.size());
+        }
+        return START_NOT_STICKY;
     }
 
     @Override

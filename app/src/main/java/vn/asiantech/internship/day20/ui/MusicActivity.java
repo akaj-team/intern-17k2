@@ -22,7 +22,6 @@ import vn.asiantech.internship.day20.service.MusicService;
 public class MusicActivity extends AppCompatActivity {
 
     public static final String KEY_POS = "position";
-    public static final String KEY_DATA = "data";
     public static final String KEY_LIST = "list_data";
     private FrameLayout mFrameLayout;
     private RecyclerView mRecyclerView;
@@ -33,7 +32,6 @@ public class MusicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
-        startService(new Intent(MusicActivity.this, MusicService.class));
         initUI();
     }
 
@@ -43,6 +41,7 @@ public class MusicActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(MusicActivity.this));
         addMusicSource();
+        startMusicService();
         mRecyclerView.setAdapter(new MusicAdapter(mSongs, new MusicAdapter.OnShowMusicPlayer() {
             @Override
             public void onShowPlayer(int position) {
@@ -53,12 +52,17 @@ public class MusicActivity extends AppCompatActivity {
         }));
     }
 
-    private void showMediaPlayer(int position){
+    private void startMusicService() {
+        Intent serviceIntent = new Intent(MusicActivity.this, MusicService.class);
+        serviceIntent.putParcelableArrayListExtra(KEY_LIST, mSongs);
+        startService(serviceIntent);
+    }
+
+    private void showMediaPlayer(int position) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         MusicFragment musicFragment = new MusicFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_POS, position);
-        bundle.putParcelable(KEY_DATA, mSongs.get(position));
         bundle.putParcelableArrayList(KEY_LIST, mSongs);
         musicFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.frContainerMusic, musicFragment);
