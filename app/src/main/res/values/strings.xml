@@ -49,4 +49,11 @@
     <string name="dismiss_dialog">Do you want to reset Quiz app?</string>
     <string name="question">Question %d</string>
     <string name="question_order">You answered %s, Do you want to go to Result Screen?</string>
+    <string-array name="tabtitles">
+        <item name="bike">bike</item>
+        <item name="dog">dog</item>
+        <item name="food">food</item>
+        <item name="music">music</item>
+        <item name="lead">lead</item>
+    </string-array>
 </resources>
