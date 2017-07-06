@@ -16,6 +16,7 @@ import vn.asiantech.internship.ui.main.MainActivity;
 import vn.asiantech.internship.ui.main.NoteActivity;
 import vn.asiantech.internship.ui.main.PassDataActivity;
 import vn.asiantech.internship.ui.main.TestActivity;
+import vn.asiantech.internship.ui.main.UpLoadImageActivity;
 
 /**
  * Created by PC on 6/15/2017.
@@ -34,6 +35,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         Button btnDay13 = (Button) findViewById(R.id.btnDay13);
         Button btnDay15 = (Button) findViewById(R.id.btnDay15);
         Button btnDay16 = (Button) findViewById(R.id.btnDay16);
+        Button btnDay23 = (Button) findViewById(R.id.btnDay23);
 
         btnDay5.setOnClickListener(this);
         btnDay6.setOnClickListener(this);
@@ -43,6 +45,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         btnDay13.setOnClickListener(this);
         btnDay15.setOnClickListener(this);
         btnDay16.setOnClickListener(this);
+        btnDay23.setOnClickListener(this);
     }
 
     @Override
@@ -79,6 +82,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btnDay16:
                 Intent intent16 = new Intent(SplashActivity.this, FootballStarActivity.class);
                 startActivity(intent16);
+                break;
+            case R.id.btnDay23:
+                Intent intent23 = new Intent(SplashActivity.this, UpLoadImageActivity.class);
+                startActivity(intent23);
+                break;
         }
     }
 }

@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.UpLoadImageActivity">
+        <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -29,5 +29,6 @@
         <activity android:name=".ui.main.TestActivity" />
         <activity android:name=".ui.main.ResultActivity" />
         <activity android:name=".ui.main.FootballStarActivity" />
+        <activity android:name=".ui.main.UpLoadImageActivity" />
     </application>
 </manifest>
