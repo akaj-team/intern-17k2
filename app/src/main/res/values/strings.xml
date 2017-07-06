@@ -25,6 +25,7 @@
     <string name="bai13">Bai 13</string>
     <string name="bai15">Bai 15</string>
     <string name="bai16">Bai 16</string>
+    <string name="bai22">Bai 22</string>
     <string name="question">Question %d</string>
     <string name="question1">Question 1</string>
     <string name="previous">previous</string>
@@ -41,4 +42,7 @@
     <string name="mouse">Mouse</string>
     <string name="penguin">Penguin</string>
     <string name="gorilla">Gorilla</string>
+    <string name="email">Email  : %s</string>
+    <string name="number">Number : %s</string>
+    <string name="wait">Please wait &#8230;</string>
 </resources>
