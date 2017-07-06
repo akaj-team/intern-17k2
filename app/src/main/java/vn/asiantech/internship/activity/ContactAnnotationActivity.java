@@ -113,4 +113,3 @@ public class ContactAnnotationActivity extends AppCompatActivity {
         }
     }
 }
-
