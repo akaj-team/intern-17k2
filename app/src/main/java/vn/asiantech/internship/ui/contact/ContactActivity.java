@@ -30,9 +30,9 @@ public class ContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contact);
         setProgressDialog();
         mRecyclerViewContact = (RecyclerView) findViewById(R.id.recyclerViewContact);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager   (this);
         mRecyclerViewContact.setLayoutManager(linearLayoutManager);
-        mGetContacts = new GetContacts(new GetContacts.OnListener() {
+        mGetContacts = new GetContacts(new GetContacts.OnUpdateViewListener() {
             @Override
             public void onUpdateRecyclerView(ArrayList<Contact> contacts) {
                 if (mProgressDialog.isShowing()) {
