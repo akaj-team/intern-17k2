@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/LayoutMusic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <vn.asiantech.internship.ui.music.MyCircleView
+        android:id="@+id/myCircleView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorBackgroundMusic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/textview.text.description"
+                android:paddingBottom="@dimen/paddingSomeThing"
+                android:paddingTop="@dimen/paddingSomeThing"
+                android:src="@drawable/vector_favorite_border" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/textview.text.description"
+                android:paddingBottom="@dimen/paddingSomeThing"
+                android:paddingTop="@dimen/paddingSomeThing"
+                android:src="@drawable/vector_playlist" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/textview.text.description"
+                android:paddingBottom="@dimen/paddingSomeThing"
+                android:paddingTop="@dimen/paddingSomeThing"
+                android:src="@drawable/vector_file_download" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/textview.text.description"
+                android:paddingBottom="@dimen/paddingSomeThing"
+                android:paddingTop="@dimen/paddingSomeThing"
+                android:src="@drawable/vector_share" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/textview.text.description"
+                android:paddingBottom="@dimen/paddingSomeThing"
+                android:paddingTop="@dimen/paddingSomeThing"
+                android:src="@drawable/vector_more_vert" />
+        </LinearLayout>
+
+        <include layout="@layout/layout_music_timer" />
+
+        <include layout="@layout/layout_music_option" />
+    </LinearLayout>
+</LinearLayout>

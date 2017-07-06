@@ -85,6 +85,9 @@ class MyAsyncTask extends AsyncTask<String, Void, List<Contact>> {
         super.onPostExecute(result);
     }
 
+    /**
+     * OnGetContactListener
+     */
     interface OnGetContactListener {
         void openAsyncTask();
 

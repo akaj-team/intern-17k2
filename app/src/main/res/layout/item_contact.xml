@@ -38,6 +38,14 @@
                 android:src="@drawable/vector_person" />
 
             <TextView
+                style="@style/TextViewStyleJson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/paddingSomeThings"
+                android:text="@string/textview.text.name"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/tvName"
                 style="@style/TextViewStyleJson"
                 android:layout_width="match_parent"
@@ -60,6 +68,13 @@
                 android:src="@drawable/vector_email" />
 
             <TextView
+                style="@style/TextViewStyleJson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/paddingSomeThings"
+                android:text="@string/textview.text.email" />
+
+            <TextView
                 android:id="@+id/tvEmail"
                 style="@style/TextViewStyleJson"
                 android:layout_width="match_parent"
@@ -79,6 +94,13 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/textview.text.description"
                 android:src="@drawable/vector_phone" />
+
+            <TextView
+                style="@style/TextViewStyleJson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/paddingSomeThings"
+                android:text="@string/textview.text.phone" />
 
             <TextView
                 android:id="@+id/tvPhone"

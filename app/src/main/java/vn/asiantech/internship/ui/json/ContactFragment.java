@@ -1,6 +1,5 @@
 package vn.asiantech.internship.ui.json;
 
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,7 +19,7 @@ import vn.asiantech.internship.models.Contact;
  * Created by Thanh Thien
  */
 public class ContactFragment extends Fragment implements MyAsyncTask.OnGetContactListener {
-    private static final String url = "http://api.androidhive.info/contacts/";
+    private static final String URL_API = "http://api.androidhive.info/contacts/";
 
     private ProgressDialog mProgressDialog;
     private RecyclerView mRecyclerView;
@@ -36,7 +35,7 @@ public class ContactFragment extends Fragment implements MyAsyncTask.OnGetContac
 
         mMyAsyncTask = new MyAsyncTask();
         mMyAsyncTask.setOnGetContactListener(this);
-        mMyAsyncTask.execute(url);
+        mMyAsyncTask.execute(URL_API);
         return v;
     }
 

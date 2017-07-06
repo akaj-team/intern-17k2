@@ -21,8 +21,8 @@ class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHolder> {
 
     private List<Contact> mContacts;
 
-    ContactAdapter(List<Contact> Contacts) {
-        mContacts = Contacts;
+    ContactAdapter(List<Contact> contacts) {
+        mContacts = contacts;
     }
 
     @Override

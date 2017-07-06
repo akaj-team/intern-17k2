@@ -14,7 +14,6 @@ import java.net.URL;
 
 /**
  * Created by Thanh Thien
- *
  */
 class HttpHandler {
 
@@ -51,12 +50,12 @@ class HttpHandler {
                 sb.append(line).append('\n');
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "convertStreamToString: " + e.toString());
         } finally {
             try {
                 is.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "convertStreamToString: " + e.toString());
             }
         }
         return sb.toString();
