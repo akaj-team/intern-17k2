@@ -20,6 +20,12 @@
 
         <activity android:name=".ui.ChatActivity" />
 
+        <activity android:name=".ui.view.TestActivity" />
+
+        <activity android:name=".ui.note.NoteActivity" />
+
+        <activity android:name=".ui.tablayout.TabActivity" />
+
         <activity android:name=".ui.jsonparsing.JsonAnnotationActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +35,8 @@
         </activity>
 
         <activity android:name=".ui.main.MainActivity" />
+
+        <activity android:name=".ui.view.ResultActivity" />
 
     </application>
 
