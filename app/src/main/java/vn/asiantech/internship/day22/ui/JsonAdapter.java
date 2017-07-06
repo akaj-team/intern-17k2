@@ -36,6 +36,8 @@ class JsonAdapter extends RecyclerView.Adapter<JsonAdapter.ItemViewHolder> {
         holder.mTvEmail.append(contact.getEmail());
         if (!contact.getGender().equals("male")) {
             holder.mTvName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_female, 0, 0, 0);
+        } else {
+            holder.mTvName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_male, 0, 0, 0);
         }
     }
 

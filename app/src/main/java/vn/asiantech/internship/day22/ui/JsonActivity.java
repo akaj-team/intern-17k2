@@ -24,10 +24,10 @@ import vn.asiantech.internship.day22.models.Contact;
 import vn.asiantech.internship.day22.models.Phone;
 
 /**
- * JSONActivity show list contact
+ * JsonActivity show list contact
  */
 @EActivity(R.layout.activity_json)
-public class JSONActivity extends AppCompatActivity {
+public class JsonActivity extends AppCompatActivity {
 
     private static final String URL = "http://api.androidhive.info/contacts/";
 
@@ -35,7 +35,7 @@ public class JSONActivity extends AppCompatActivity {
 
     private ArrayList<Contact> mContacts;
 
-    @ViewById(R.id.recyclerViewJSON)
+    @ViewById(R.id.recyclerViewJson)
     RecyclerView mRecyclerView;
 
     @AfterViews

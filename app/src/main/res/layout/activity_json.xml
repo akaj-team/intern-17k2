@@ -4,18 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="vn.asiantech.internship.day22.ui.JSONActivity">
+    tools:context="vn.asiantech.internship.day22.ui.JsonActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/titleJSON"
+        android:text="@string/titleJson"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/header.name_text_size"
         android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewJSON"
+        android:id="@+id/recyclerViewJson"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/feed.layout_padding" />
