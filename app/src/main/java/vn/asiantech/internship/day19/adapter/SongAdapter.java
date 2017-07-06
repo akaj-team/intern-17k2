@@ -25,12 +25,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     private List<Song> mSongs;
     private MusicActivity mMusicActivity;
     private int mPositionCurrent;
-    private ChooseSongListener mChooseSongListener;
+    private OnChooseSongListener mOnChooseSongListener;
 
-    public SongAdapter(List<Song> songs, MusicActivity musicActivity, ChooseSongListener chooseSongListener) {
+    public SongAdapter(List<Song> songs, MusicActivity musicActivity, OnChooseSongListener onChooseSongListener) {
         mSongs = songs;
         mMusicActivity = musicActivity;
-        mChooseSongListener = chooseSongListener;
+        mOnChooseSongListener = onChooseSongListener;
     }
 
     @Override
@@ -45,8 +45,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         } else {
             holder.mItemView.setBackgroundColor(ContextCompat.getColor(mMusicActivity, R.color.avatar_bolder));
         }
-        holder.mTvSongName.setText(mSongs.get(position).getSongName());
-        holder.mTvSongArtist.setText(mSongs.get(position).getSongArtist());
+        holder.mTvSongName.setText(mSongs.get(position).getName());
+        holder.mTvSongArtist.setText(mSongs.get(position).getArtist());
     }
 
     @Override
@@ -74,7 +74,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
             mItemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mChooseSongListener.updateSong(getLayoutPosition());
+                    mOnChooseSongListener.OnSongUpdate(getLayoutPosition());
                     mPositionCurrent = getLayoutPosition();
                     Intent intent = new Intent(mMusicActivity, SongService.class);
                     intent.setAction(Action.CHOOSE_PLAY.getValue());

@@ -8,29 +8,29 @@ import android.os.Parcelable;
  * Created by at-hoavo on 01/07/2017.
  */
 public class Song implements Parcelable {
-    private String songName;
-    private String songArtist;
-    private int songImage;
-    private String songUrl;
-    private int songDuration;
+    private String name;
+    private String artist;
+    private int image;
+    private String url;
+    private int duration;
 
     public Song() {
     }
 
-    public Song(String songName, String songArtist, int songImage, String songUrl, int songDuration) {
-        this.songName = songName;
-        this.songArtist = songArtist;
-        this.songImage = songImage;
-        this.songUrl = songUrl;
-        this.songDuration = songDuration;
+    public Song(String name, String artist, int image, String url, int duration) {
+        this.name = name;
+        this.artist = artist;
+        this.image = image;
+        this.url = url;
+        this.duration = duration;
     }
 
     protected Song(Parcel in) {
-        songName = in.readString();
-        songArtist = in.readString();
-        songImage = in.readInt();
-        songUrl = in.readString();
-        songDuration = in.readInt();
+        name = in.readString();
+        artist = in.readString();
+        image = in.readInt();
+        url = in.readString();
+        duration = in.readInt();
     }
 
     public static final Creator<Song> CREATOR = new Creator<Song>() {
@@ -45,44 +45,44 @@ public class Song implements Parcelable {
         }
     };
 
-    public String getSongName() {
-        return songName;
+    public String getName() {
+        return name;
     }
 
-    public void setSongName(String songName) {
-        this.songName = songName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getSongArtist() {
-        return songArtist;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setSongArtist(String songArtist) {
-        this.songArtist = songArtist;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
-    public int getSongImage() {
-        return songImage;
+    public int getImage() {
+        return image;
     }
 
-    public void setSongImage(int songImage) {
-        this.songImage = songImage;
+    public void setImage(int image) {
+        this.image = image;
     }
 
-    public String getSongUrl() {
-        return songUrl;
+    public String getUrl() {
+        return url;
     }
 
-    public void setSongUrl(String songUrl) {
-        this.songUrl = songUrl;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public int getSongDuration() {
-        return songDuration;
+    public int getDuration() {
+        return duration;
     }
 
-    public void setSongDuration(int songDuration) {
-        this.songDuration = songDuration;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     @Override
@@ -92,10 +92,10 @@ public class Song implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(songName);
-        dest.writeString(songArtist);
-        dest.writeInt(songImage);
-        dest.writeString(songUrl);
-        dest.writeInt(songDuration);
+        dest.writeString(name);
+        dest.writeString(artist);
+        dest.writeInt(image);
+        dest.writeString(url);
+        dest.writeInt(duration);
     }
 }

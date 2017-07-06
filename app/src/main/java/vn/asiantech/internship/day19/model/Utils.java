@@ -4,8 +4,8 @@ package vn.asiantech.internship.day19.model;
  * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 01/07/2017.
  */
-public class Utils {
-    public String showTime(long milliseconds) {
+public final class Utils {
+    public static String showTime(long milliseconds) {
         String timer = "";
         int hours = (int) (milliseconds / (1000 * 60 * 60));
         int minutes = (int) (milliseconds % (1000 * 60 * 60)) / (1000 * 60);

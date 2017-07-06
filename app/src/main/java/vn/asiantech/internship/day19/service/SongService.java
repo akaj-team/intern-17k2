@@ -43,7 +43,6 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
     private boolean mCheck;
     private boolean mCheckAutoNext;
     private boolean mCheckShuffle;
-    private Utils mUtils = new Utils();
     private CountDownTimer mCountDownTimer;
     private NotificationBroadcast mNotificationBroadcast;
     private Handler mHander = new Handler();
@@ -197,7 +196,7 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
         try {
             createSongIfNeed();
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mMediaPlayer.setDataSource(getApplicationContext(), Uri.parse(mSongs.get(mCurrentPosition).getSongUrl()));
+            mMediaPlayer.setDataSource(getApplicationContext(), Uri.parse(mSongs.get(mCurrentPosition).getUrl()));
             mMediaPlayer.prepare();
             Log.d(TAG, "onStartCommand: " + mCurrentPosition);
         } catch (IOException e) {
@@ -269,11 +268,11 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                views.setImageViewResource(R.id.imgSongNotification, mSongs.get(mCurrentPosition).getSongImage());
-                views.setTextViewText(R.id.tvSongNotification, mSongs.get(mCurrentPosition).getSongName());
-                views.setTextViewText(R.id.tvArtistNotification, mSongs.get(mCurrentPosition).getSongArtist());
-                views.setTextViewText(R.id.tvTimeNowNotification, String.valueOf(mUtils.showTime(mMediaPlayer.getCurrentPosition())));
-                views.setTextViewText(R.id.tvTimeTotalNotification, String.valueOf(mUtils.showTime(mMediaPlayer.getDuration())));
+                views.setImageViewResource(R.id.imgSongNotification, mSongs.get(mCurrentPosition).getImage());
+                views.setTextViewText(R.id.tvSongNotification, mSongs.get(mCurrentPosition).getName());
+                views.setTextViewText(R.id.tvArtistNotification, mSongs.get(mCurrentPosition).getArtist());
+                views.setTextViewText(R.id.tvTimeNowNotification, String.valueOf(Utils.showTime(mMediaPlayer.getCurrentPosition())));
+                views.setTextViewText(R.id.tvTimeTotalNotification, String.valueOf(Utils.showTime(mMediaPlayer.getDuration())));
                 views.setProgressBar(R.id.progressBarNotification, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
 
                 builder.setCustomBigContentView(views);

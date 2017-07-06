@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.day19.adapter.ChooseSongListener;
+import vn.asiantech.internship.day19.adapter.OnChooseSongListener;
 import vn.asiantech.internship.day19.adapter.SongAdapter;
 import vn.asiantech.internship.day19.model.Song;
 import vn.asiantech.internship.day19.model.Utils;
@@ -29,7 +29,7 @@ import vn.asiantech.internship.day19.service.SongService;
  * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 01/07/2017.
  */
-public class MusicActivity extends AppCompatActivity implements View.OnClickListener, ChooseSongListener {
+public class MusicActivity extends AppCompatActivity implements View.OnClickListener, OnChooseSongListener {
     public static final String TYPE_SONGS = "Songs";
     public static final String TYPE_POSITION = "Position";
     public static final String TYPE_CHOOSE_TIME = "chooseTime";
@@ -51,7 +51,6 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private TextView mTvArtistNow;
 
     private List<Song> mSongs = new ArrayList<>();
-    private Utils mUtils = new Utils();
     private int mCurrentPlay;
     private SongAdapter mSongAdapter;
     private MyBroadcast mMyBroadcast;
@@ -234,11 +233,11 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     // Hander when click item on RecyclerView
     @Override
-    public void updateSong(int positon) {
+    public void OnSongUpdate(int positon) {
         mImgBtnPlay.setVisibility(View.VISIBLE);
         mImgBtnPause.setVisibility(View.INVISIBLE);
-        mTvSongNow.setText(mSongs.get(positon).getSongName());
-        mTvArtistNow.setText(mSongs.get(positon).getSongArtist());
+        mTvSongNow.setText(mSongs.get(positon).getName());
+        mTvArtistNow.setText(mSongs.get(positon).getArtist());
         mSongAdapter.setPosition(positon);
         mSongAdapter.notifyDataSetChanged();
         mRecyclerView.scrollToPosition(mCurrentPlay);
@@ -272,10 +271,10 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             int position = Integer.parseInt(intent.getStringExtra(TYPE_SECOND));
             mCurrentPlay = intent.getIntExtra(TYPE_POSITION, 0);
             mSeekBar.setProgress(position);
-            mTvCurrentTime.setText(mUtils.showTime(position));
-            mTvTimeTotal.setText(mUtils.showTime(length));
-            mTvSongNow.setText(mSongs.get(mCurrentPlay).getSongName());
-            mTvArtistNow.setText(mSongs.get(mCurrentPlay).getSongArtist());
+            mTvCurrentTime.setText(Utils.showTime(position));
+            mTvTimeTotal.setText(Utils.showTime(length));
+            mTvSongNow.setText(mSongs.get(mCurrentPlay).getName());
+            mTvArtistNow.setText(mSongs.get(mCurrentPlay).getArtist());
         }
     }
 }
