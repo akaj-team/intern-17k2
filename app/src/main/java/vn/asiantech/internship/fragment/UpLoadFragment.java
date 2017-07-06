@@ -120,6 +120,7 @@ public class UpLoadFragment extends Fragment implements View.OnClickListener {
                         ImageLoader imageLoader = ImageLoader.getInstance();
                         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
                         imageLoader.displayImage(SERVER_URL + url, mImgUpLoad);
+                        mThread.interrupt();
                     }
                 });
             }
