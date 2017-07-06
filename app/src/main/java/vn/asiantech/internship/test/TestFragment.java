@@ -49,7 +49,7 @@ public class TestFragment extends Fragment {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-                mTest.setState(1);
+                mTest.setState();
                 switch (i) {
                     case R.id.rbAnswerA:
                         mAnswer = mRbA.getText().toString();
