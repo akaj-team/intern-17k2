@@ -21,7 +21,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.day19.adapter.OnChooseSongListener;
 import vn.asiantech.internship.day19.adapter.SongAdapter;
 import vn.asiantech.internship.day19.model.Song;
-import vn.asiantech.internship.day19.model.Utils;
+import vn.asiantech.internship.day19.utils.Utils;
 import vn.asiantech.internship.day19.service.Action;
 import vn.asiantech.internship.day19.service.SongService;
 
@@ -59,6 +59,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewMusic);
         mSeekBar = (SeekBar) findViewById(R.id.seekBarMusic);
         mTvCurrentTime = (TextView) findViewById(R.id.tvTimeNow);
@@ -271,8 +272,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             int position = Integer.parseInt(intent.getStringExtra(TYPE_SECOND));
             mCurrentPlay = intent.getIntExtra(TYPE_POSITION, 0);
             mSeekBar.setProgress(position);
-            mTvCurrentTime.setText(Utils.showTime(position));
-            mTvTimeTotal.setText(Utils.showTime(length));
+            mTvCurrentTime.setText(Utils.getUtils().showTime(position));
+            mTvTimeTotal.setText(Utils.getUtils().showTime(length));
             mTvSongNow.setText(mSongs.get(mCurrentPlay).getName());
             mTvArtistNow.setText(mSongs.get(mCurrentPlay).getArtist());
         }

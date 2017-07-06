@@ -27,7 +27,7 @@ import java.util.Random;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day19.activity.MusicActivity;
 import vn.asiantech.internship.day19.model.Song;
-import vn.asiantech.internship.day19.model.Utils;
+import vn.asiantech.internship.day19.utils.Utils;
 
 /**
  * Copyright © 2017 AsianTech inc.
@@ -181,7 +181,7 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
         }
     }
 
-    // Init Mediaplayer
+    // Init MediaPlayer
     private void createSongIfNeed() {
         if (mMediaPlayer == null) {
             mMediaPlayer = new MediaPlayer();
@@ -224,10 +224,12 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
         mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration(), 1000) {
             @Override
             public void onTick(long l) {
-                timeIntent.putExtra(MusicActivity.TYPE_TIME, mMediaPlayer.getDuration() + "");
-                timeIntent.putExtra(MusicActivity.TYPE_SECOND, mMediaPlayer.getCurrentPosition() + "");
-                timeIntent.putExtra(MusicActivity.TYPE_POSITION, mCurrentPosition);
-                sendBroadcast(timeIntent);
+                if (mMediaPlayer != null) {
+                    timeIntent.putExtra(MusicActivity.TYPE_TIME, mMediaPlayer.getDuration() + "");
+                    timeIntent.putExtra(MusicActivity.TYPE_SECOND, mMediaPlayer.getCurrentPosition() + "");
+                    timeIntent.putExtra(MusicActivity.TYPE_POSITION, mCurrentPosition);
+                    sendBroadcast(timeIntent);
+                }
             }
 
             // No-op
@@ -268,17 +270,19 @@ public class SongService extends Service implements MediaPlayer.OnPreparedListen
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                views.setImageViewResource(R.id.imgSongNotification, mSongs.get(mCurrentPosition).getImage());
-                views.setTextViewText(R.id.tvSongNotification, mSongs.get(mCurrentPosition).getName());
-                views.setTextViewText(R.id.tvArtistNotification, mSongs.get(mCurrentPosition).getArtist());
-                views.setTextViewText(R.id.tvTimeNowNotification, String.valueOf(Utils.showTime(mMediaPlayer.getCurrentPosition())));
-                views.setTextViewText(R.id.tvTimeTotalNotification, String.valueOf(Utils.showTime(mMediaPlayer.getDuration())));
-                views.setProgressBar(R.id.progressBarNotification, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
+                if (mMediaPlayer != null) {
+                    views.setImageViewResource(R.id.imgSongNotification, mSongs.get(mCurrentPosition).getImage());
+                    views.setTextViewText(R.id.tvSongNotification, mSongs.get(mCurrentPosition).getName());
+                    views.setTextViewText(R.id.tvArtistNotification, mSongs.get(mCurrentPosition).getArtist());
+                    views.setTextViewText(R.id.tvTimeNowNotification, String.valueOf(Utils.getUtils().showTime(mMediaPlayer.getCurrentPosition())));
+                    views.setTextViewText(R.id.tvTimeTotalNotification, String.valueOf(Utils.getUtils().showTime(mMediaPlayer.getDuration())));
+                    views.setProgressBar(R.id.progressBarNotification, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
 
-                builder.setCustomBigContentView(views);
+                    builder.setCustomBigContentView(views);
 
-                Notification notification = builder.build();
-                notificationManager.notify(MY_NOTIFICATION_ID, notification);
+                    Notification notification = builder.build();
+                    notificationManager.notify(MY_NOTIFICATION_ID, notification);
+                }
                 mHander.postDelayed(this, 1000);
             }
         };
