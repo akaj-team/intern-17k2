@@ -62,7 +62,6 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         public void onReceive(Context context, Intent intent) {
             if (intent != null) {
                 processTime(intent);
-//                image(intent);
             }
         }
     };
@@ -75,7 +74,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         initData();
         initIntentFilter();
         initStart();
-        showTime();
+//        showTime();
         initClick();
         return view;
     }
@@ -94,6 +93,10 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         mMusicItems = new ArrayList<>();
         mPosition = (int) getArguments().getSerializable("position");
         mMusicItems = getArguments().getParcelableArrayList(MusicActivity.KEY_MUSIC);
+        initUrl();
+    }
+
+    public void initUrl() {
         mUrl = mMusicItems.get(mPosition).getUrl();
         mUri = Uri.parse(mUrl);
         mUrlImage = mMusicItems.get(mPosition).getImage();
@@ -113,6 +116,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         mImgShuffle = (ImageView) view.findViewById(R.id.imgShuffle);
         mImgRepeat = (ImageView) view.findViewById(R.id.imgRepeat);
         mSeekBar = (SeekBar) view.findViewById(seekBar);
+        mIntent = new Intent(getContext(), NotificationServiceMusic.class);
     }
 
     public void initClick() {
@@ -127,7 +131,6 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgPlay:
-                mIntent = new Intent(getContext(), NotificationServiceMusic.class);
                 mIntent.setAction(Action.PLAY.getValue());
                 getContext().startService(mIntent);
                 break;
@@ -172,24 +175,14 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         });
     }
 
-//    private void image(Intent intent) {
-//        int img;
-//        if (mMediaPlayer.isPlaying()) {
-//            img = Integer.parseInt(intent.getStringExtra("pause"));
-//            mImgPlay.setImageResource(img);
-//            Log.d("tag", "image: " + img);
-//        } else {
-//            img = Integer.parseInt(intent.getStringExtra("play"));
-//            mImgPlay.setImageResource(img);
-//            Log.d("tag", "image: " + img);
-//        }
-//    }
-
     private void processTime(Intent intent) {
         if (mMediaPlayer.isPlaying()) {
             Log.d("tag", "processTime: " + Integer.parseInt(intent.getStringExtra("time")));
             mImgPlay.setImageResource(Integer.parseInt(intent.getStringExtra("pause")));
-        } else if (mLength == 0) {
+        } else {
+            mImgPlay.setImageResource(Integer.parseInt(intent.getStringExtra("play")));
+        }
+        if (mLength == 0) {
             mLength = Integer.parseInt(intent.getStringExtra("time"));
             mSeekBar.setMax(mLength);
             mSeekBar.setProgress(0);
@@ -198,13 +191,19 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         mTime = Integer.parseInt(intent.getStringExtra("second"));
         Log.d("tag", "processTime: " + mTime);
         mSeekBar.setProgress(mTime);
-        showTime();
+//        showTime();
     }
 
     @Override
     public void onDestroy() {
         getContext().unregisterReceiver(mBroadcastReceiver);
         super.onDestroy();
+    }
+
+    public void initSetImg() {
+        if (mMediaPlayer.isPlaying()) {
+
+        }
     }
 
     // Show time
@@ -251,6 +250,16 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
             }
         } else {
             mPosition = (mPosition + 1) % mMusicItems.size();
+        }
+    }
+
+    public void initRepeat() {
+        if (mIsRepeat) {
+            mMediaPlayer.setLooping(true);
+            Log.d("tag", "initRepeat: " + mIsRepeat);
+        } else {
+            mMediaPlayer.setLooping(false);
+            Log.d("tag", "initRepeat: 1111" + mIsRepeat);
         }
     }
 }
