@@ -42,6 +42,7 @@ public class ContactActivity extends AppCompatActivity {
 
     @AfterViews
     void afterView() {
+        mTvTitle.setText(getString(R.string.contact));
         mRecyclerViewContacts.setLayoutManager(new LinearLayoutManager(this));
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage(getString(R.string.loading));
