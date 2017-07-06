@@ -79,7 +79,7 @@ public class UploadActivity extends AppCompatActivity {
     @OnActivityResult(REQUEST_CODE_GALLERY)
     void onResult(int resultCode, Intent data) {
         if (resultCode == RESULT_OK && data != null) {
-            performCrop(data.getData());
+            cropImage(data.getData());
             Log.d("tag", "onResult: " + data.getData());
         }
     }
@@ -96,20 +96,20 @@ public class UploadActivity extends AppCompatActivity {
         }
     }
 
-    private void performCrop(Uri uri) {
+    private void cropImage(Uri uri) {
         try {
-            Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            cropIntent.setDataAndType(uri, "image/*");
-            cropIntent.putExtra("crop", "true");
-            cropIntent.putExtra("aspectX", 1);
-            cropIntent.putExtra("aspectY", 1);
-            cropIntent.putExtra("outputX", 256);
-            cropIntent.putExtra("outputY", 256);
-            cropIntent.putExtra("return-data", true);
-            startActivityForResult(cropIntent, REQUEST_CODE_CROP);
+            Intent cropImgIntent = new Intent("com.android.camera.action.CROP");
+            cropImgIntent.setDataAndType(uri, "image/*");
+            cropImgIntent.putExtra("crop", "true");
+            cropImgIntent.putExtra("aspectX", 1);
+            cropImgIntent.putExtra("aspectY", 1);
+            cropImgIntent.putExtra("outputX", 256);
+            cropImgIntent.putExtra("outputY", 256);
+            cropImgIntent.putExtra("return-data", true);
+            startActivityForResult(cropImgIntent, REQUEST_CODE_CROP);
         } catch (ActivityNotFoundException e) {
-            String errorMessage = "Whoops - your device doesn't support the crop action!";
-            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+            String errorMsg = "Crop fail";
+            Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show();
         }
     }
 
