@@ -46,11 +46,18 @@
         <item name="Camera">Camera</item>
     </string-array>
     <string name="textview.quiz.text">Question 1</string>
-    <string name="button.text.dialog_ok">Ok</string>
+    <string name="button.text.dialog_ok">OK</string>
     <string name="button.text.dialog_cancel">Cancel</string>
     <string name="dismiss_dialog">Do you want to reset Quiz app?</string>
     <string name="question">Question %d</string>
     <string name="question_order">You answered %s, Do you want to go to Result Screen?</string>
+    <string-array name="tabtitles">
+        <item name="bike">bike</item>
+        <item name="dog">dog</item>
+        <item name="food">food</item>
+        <item name="music">music</item>
+        <item name="lead">lead</item>
+    </string-array>
     <string name="message_progress_dialog">Please wait....</string>
     <string name="button.upload.text">Upload</string>
 </resources>
