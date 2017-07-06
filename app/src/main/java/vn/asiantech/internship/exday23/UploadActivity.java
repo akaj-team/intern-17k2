@@ -43,8 +43,8 @@ import vn.asiantech.internship.R;
 @EActivity(R.layout.activity_upload)
 public class UploadActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_CROP = 11;
-    public static final int REQUEST_CODE_GALERY = 22;
-    public static String urlServer = "http://2.pik.vn/";
+    public static final int REQUEST_CODE_GALLERY = 22;
+    public static final String URL_SERVER = "http://2.pik.vn/";
     private Bitmap mBitmap;
     private static String mLinkImage = null;
 
@@ -58,7 +58,7 @@ public class UploadActivity extends AppCompatActivity {
     void uploadImage() {
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, REQUEST_CODE_GALERY);
+        startActivityForResult(photoPickerIntent, REQUEST_CODE_GALLERY);
     }
 
     @AfterViews
@@ -76,7 +76,7 @@ public class UploadActivity extends AppCompatActivity {
         initData();
     }
 
-    @OnActivityResult(REQUEST_CODE_GALERY)
+    @OnActivityResult(REQUEST_CODE_GALLERY)
     void onResult(int resultCode, Intent data) {
         if (resultCode == RESULT_OK && data != null) {
             performCrop(data.getData());
@@ -131,7 +131,7 @@ public class UploadActivity extends AppCompatActivity {
                 .addFormDataPart("image", encodedImageData)
                 .build();
         Request request = new Request.Builder()
-                .url(urlServer)
+                .url(URL_SERVER)
                 .addHeader("content-type", "application/x-www-form-urlencoded")
                 .addHeader("content-length", "36378")
                 .method("POST", requestBody)
@@ -155,7 +155,7 @@ public class UploadActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     Log.d("tag", "onResponse: false");
                 }
-                image[0] = urlServer + url[0];
+                image[0] = URL_SERVER + url[0];
                 mLinkImage = image[0];
                 UploadActivity.this.runOnUiThread(new Runnable() {
                     @Override
