@@ -17,11 +17,12 @@ import vn.asiantech.internship.models.Contact;
  * Created by huypham on 03-Jul-17.
  */
 public class GetContactAsync extends AsyncTask<String, Void, ArrayList<Contact>> {
+    private static final String TAG = "GetContactAsync";
     private ProgressDialog mProgressDialog;
     private ArrayList<Contact> mContacts;
-    private CallBackListener mCallBackListener;
+    private CallBackListContactListener mCallBackListener;
 
-    public GetContactAsync(ProgressDialog progressDialog, CallBackListener callBackListener) {
+    public GetContactAsync(ProgressDialog progressDialog, CallBackListContactListener callBackListener) {
         mProgressDialog = progressDialog;
         mContacts = new ArrayList<>();
         mCallBackListener = callBackListener;
@@ -41,18 +42,52 @@ public class GetContactAsync extends AsyncTask<String, Void, ArrayList<Contact>>
         if (jsonString != null) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                JSONArray jsonArray = jsonObject.getJSONArray("contacts");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject(i);
+                if (jsonObject.has("contacts") && jsonObject.optJSONArray("contacts") != null) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("contacts");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        String id;
+                        String name = null;
+                        String email = null;
+                        String mobile = null;
 
-                    String id = object.getString("id");
-                    String name = object.getString("name");
-                    String email = object.getString("email");
-
-                    JSONObject phone = object.getJSONObject("phone");
-                    String mobile = phone.getString("mobile");
-
-                    mContacts.add(new Contact(id, name, email, mobile));
+                        if (jsonArray.getJSONObject(i) != null) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            if (object.has("id") && object.optString("id") != null) {
+                                id = object.getString("id");
+                                if (object.has("name") && object.optString("name") != null) {
+                                    name = object.getString("name");
+                                    if (object.has("email") && object.optString("email") != null) {
+                                        email = object.getString("email");
+                                        if (object.has("phone") && object.optJSONObject("phone") != null) {
+                                            JSONObject phone = object.getJSONObject("phone");
+                                            if (phone.has("mobile") && phone.optString("mobile") != null) {
+                                                mobile = phone.getString("mobile");
+                                            } else {
+                                                Log.e(TAG, "mobile null");
+                                                mobile = null;
+                                            }
+                                        } else {
+                                            Log.e(TAG, "phone null");
+                                        }
+                                    } else {
+                                        Log.e(TAG, "email null");
+                                        email = null;
+                                    }
+                                } else {
+                                    Log.e(TAG, "name null");
+                                    name = null;
+                                }
+                            } else {
+                                Log.e(TAG, "id null");
+                                id = null;
+                            }
+                            mContacts.add(new Contact(id, name, email, mobile));
+                        } else {
+                            Log.e(TAG, "JsonArray null");
+                        }
+                    }
+                } else {
+                    Log.e(TAG, "Can not find json");
                 }
             } catch (JSONException e) {
                 Log.e("doInBackground: ", e.getMessage());
@@ -74,7 +109,7 @@ public class GetContactAsync extends AsyncTask<String, Void, ArrayList<Contact>>
      * Interface Callback.
      * Created by huypham on 03-Jul-17.
      */
-    public interface CallBackListener {
+    public interface CallBackListContactListener {
         void callBack(ArrayList<Contact> contacts);
     }
 }

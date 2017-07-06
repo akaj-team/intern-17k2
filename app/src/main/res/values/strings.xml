@@ -47,4 +47,20 @@
     <string name="title.dialog.title">Test again</string>
     <string name="dialog.result.retest">Do you want to test again?</string>
     <string name="dialog.button.ok">Okay</string>
+
+    <!--Hint-->
+    <string name="edittext.add.title">Title</string>
+    <string name="edittext.add.content">Content</string>
+
+    <!--Toolbar-->
+    <string name="textview.toolbar.home">All Note</string>
+    <string name="textview.toolbar.add">Add New Note</string>
+    <string name="textview.toolbar.edit">Edit Note and Delete Note</string>
+
+    <!--Menu-->
+    <string name="title.menu.add_new_note">Add New</string>
+    <string name="title.menu.add">Add</string>
+    <string name="title.menu.attach_file">Attach Photo</string>
+    <string name="title.menu.edit_note">Edit Note</string>
+    <string name="title.menu.delete_note">Delete Note</string>
 </resources>

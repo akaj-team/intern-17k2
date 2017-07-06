@@ -47,7 +47,7 @@ public class JsonParsingActivity extends AppCompatActivity {
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.progress_dialog));
         progressDialog.setCancelable(false);
-        mGetContactAsync = new GetContactAsync(progressDialog, new GetContactAsync.CallBackListener() {
+        mGetContactAsync = new GetContactAsync(progressDialog, new GetContactAsync.CallBackListContactListener() {
             @Override
             public void callBack(ArrayList<Contact> contacts) {
                 mContacts = contacts;
