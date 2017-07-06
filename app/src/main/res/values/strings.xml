@@ -1,6 +1,26 @@
 <resources>
     <string name="app_name">Internship</string>
     <!--Splash-->
+    <string name="bai7.2">Bai7.2</string>
+    <string name="baiFriend">BaiFriend</string>
+    <string name="baiNote">BaiNote</string>
+    <string name="bai15">Bai15</string>
+    <string name="baiQuestion">Question</string>
+    <string name="bai13">Bai13</string>
+    <string name="bai16">Bai16</string>
+    <!--Bai7-->
+    <string name="textView_input">Input Text</string>
+    <string name="friendFragment_button_friend_state">Friend</string>
+    <string name="friendFragment_button_friend_add">Add</string>
+    <!--Bai13-->
+    <string name="textView_title">Title</string>
+    <string name="textView_content">Content</string>
+    <string name="menu.item_add">Add Note</string>
+    <string name="menu.item_attachFile">Attach File</string>
+    <string name="menu.item_save">Save Note</string>
+    <string name="toolBar_title_screenAdd">Add Note</string>
+    <string name="toolBar_title_screenList">List Note</string>
+    <!--Bai15-->
     <string name="bai8">Bai8</string>
     <string name="bai20">Bai20</string>
     <!--Bai5-->
@@ -11,32 +31,37 @@
     <string name="drawer_close">Draw close</string>
     <string name="header.name">at-dinhvo</string>
     <string name="header.email">at-dinhvo@gmail.com</string>
-    <string name="crop.aspectX">aspectX</string>
-    <string name="crop.aspectY">aspectY</string>
-    <string name="crop.outputX">outputX</string>
-    <string name="crop.outputY">outputY</string>
     <string name="dialog.title">Choose Image From:</string>
-    <string name="menuleft.title.feed">Feed</string>
-    <string name="menuleft.title.activity">Activity</string>
-    <string name="menuleft.title.profile">Profile</string>
-    <string name="menuleft.title.friend">Friends</string>
-    <string name="menuleft.title.map">Map</string>
-    <string name="menuleft.title.chat">Chat</string>
-    <string name="menuleft.title.history">History</string>
-    <string name="menuleft.title.home">Home</string>
-    <string name="menuleft.title.store">Store</string>
-    <string name="menuleft.title.back">Back</string>
-    <string name="menuleft.title.setting">Settings</string>
-    <string name="menuleft.title.exit">Exit</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="menuLeft.title.feed">Feed</string>
+    <string name="menuLeft.title.activity">Activity</string>
+    <string name="menuLeft.title.profile">Profile</string>
+    <string name="menuLeft.title.friend">Friends</string>
+    <string name="menuLeft.title.map">Map</string>
+    <string name="menuLeft.title.chat">Chat</string>
+    <string name="menuLeft.title.history">History</string>
+    <string name="menuLeft.title.home">Home</string>
+    <string name="menuLeft.title.store">Store</string>
+    <string name="menuLeft.title.back">Back</string>
+    <string name="menuLeft.title.setting">Settings</string>
+    <string name="menuLeft.title.exit">Exit</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button">Get Content</string>
-    <!--Bai8-->
-    <!--feedactivity-->
-    <string name="feed.buttonleft_description">Slide left</string>
-    <string name="feed.buttonright_description">Slide right</string>
+    <!--feedActivity-->
+    <string name="feed.buttonLeft_description">Slide left</string>
+    <string name="feed.buttonRight_description">Slide right</string>
     <string-array name="dialog_items">
         <item>Gallery</item>
         <item>Camera</item>
-    </string-array><!-- TODO: Remove or change this placeholder text -->
+    </string-array>
+    <!--Bai13-->
+    <string name="button_message">Send</string>
+    <!--Bai15-->
+    <string name="question.next">Next</string>
+    <string name="question.previous">Prev</string>
+    <string name="result.item.title">Result</string>
+    <string name="result.item.image_description">True of False</string>
+    <string name="result.activity.title">Question 1</string>
+    <string name="result.dialog.button.ok">Ok</string>
+    <string name="result.dialog.button.exit">Cancel</string>
+    <string name="result.dialog.message">Do you want to show result?</string>
 </resources>

@@ -7,15 +7,20 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.day20.model.Song;
 import vn.asiantech.internship.day20.service.MusicService;
 
 /**
@@ -23,8 +28,7 @@ import vn.asiantech.internship.day20.service.MusicService;
  */
 public class MusicFragment extends Fragment {
 
-    public static final String URL = "http://data03.chiasenhac.com/downloads/1540/2/1539612-330ce8e7/128/One%20Call%20Away%20-%20Charlie%20Puth%20[MP3%20128kbps].mp3";
-
+    public static final String KEY_SONG = "song";
     public static final String CURRENT_TIME = "current_time";
 
     private ImageButton mImgBtnPlay;
@@ -36,6 +40,9 @@ public class MusicFragment extends Fragment {
     private TextView mCurrentTime;
     private boolean isPause = false;
     private boolean isPlaying = false;
+    private ArrayList<Song> mSongs;
+    private Song mSong;
+    private int mCurrentPostion = -1;
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -94,7 +101,25 @@ public class MusicFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getSong();
         addEvents();
+    }
+
+    private void getSong() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mCurrentPostion = bundle.getInt(MusicActivity.KEY_POS);
+            mSong = bundle.getParcelable(MusicActivity.KEY_DATA);
+            mSongs = bundle.getParcelableArrayList(MusicActivity.KEY_LIST);
+        }
+        // start the song
+        Intent intentPlay = new Intent();
+        intentPlay.setAction(MusicService.ACTION_PLAY);
+        intentPlay.putExtra(KEY_SONG, mSong);
+        getActivity().sendBroadcast(intentPlay);
+        isPlaying = true;
+        Log.e("at-dinhvo", "getSong: " + mSong.getUrl());
+        Log.e("at-dinhvo", "getSong: " + mSongs.size());
     }
 
     private void addEvents() {
@@ -102,22 +127,32 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentPlay = new Intent();
-                if(isPause){ // if music is pausing
+                if (isPause) { // if music is pausing
                     intentPlay.setAction(MusicService.ACTION_RESUME);
-                    intentPlay.putExtra("url", URL);
+                    mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_pause);
                     isPlaying = true;
                     isPause = false;
-                }else if(isPlaying){ // if music is playing
+                    getActivity().sendBroadcast(intentPlay);
+                    Log.e("at-dinhvo", "onClick: resume nay`" + isPlaying + ": paus: " + isPause);
+                } else if (isPlaying) { // if music is playing
                     intentPlay.setAction(MusicService.ACTION_PAUSE);
-                    intentPlay.putExtra("url", URL);
+                    mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_play);
                     isPause = true;
                     isPlaying = false;
-                }else { // music is starting
+                    getActivity().sendBroadcast(intentPlay);
+                    Log.e("at-dinhvo", "onClick: pause nay`" + isPlaying + ": paus: " + isPause);
+                } else { // music is starting
                     intentPlay.setAction(MusicService.ACTION_PLAY);
-                    intentPlay.putExtra("url", URL);
+                    if (mSong != null) {
+                        intentPlay.putExtra(KEY_SONG, mSong);
+                    } else {
+                        Toast.makeText(getContext(), "Please check your url!", Toast.LENGTH_SHORT).show();
+                    }
                     isPlaying = true;
+                    getActivity().sendBroadcast(intentPlay);
+                    Log.e("at-dinhvo", "onClick: play nay`" + isPlaying + ": paus: " + isPause);
                 }
-                getActivity().sendBroadcast(intentPlay);
+
             }
         });
 
@@ -126,7 +161,10 @@ public class MusicFragment extends Fragment {
             public void onClick(View view) {
                 Intent intentNext = new Intent();
                 intentNext.setAction(MusicService.ACTION_NEXT);
-                intentNext.putExtra("url", URL);
+                if (mCurrentPostion != -1) {
+                    mCurrentPostion = (mCurrentPostion == mSongs.size() - 1) ? 0 : mCurrentPostion + 1;
+                }
+                intentNext.putExtra(KEY_SONG, mSongs.get(mCurrentPostion));
                 getActivity().sendBroadcast(intentNext);
             }
         });
@@ -136,7 +174,10 @@ public class MusicFragment extends Fragment {
             public void onClick(View view) {
                 Intent intentPrevious = new Intent();
                 intentPrevious.setAction(MusicService.ACTION_PREVIOUS);
-                intentPrevious.putExtra("url", URL);
+                if (mCurrentPostion != -1) {
+                    mCurrentPostion = (mCurrentPostion == 0) ? mSongs.size() - 1 : mCurrentPostion - 1;
+                }
+                intentPrevious.putExtra(KEY_SONG, mSongs.get(mCurrentPostion));
                 getActivity().sendBroadcast(intentPrevious);
             }
         });
@@ -159,10 +200,4 @@ public class MusicFragment extends Fragment {
         intentFilter.addAction(CURRENT_TIME);
         getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
     }
-/*
-    private void showNotification() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SCREEN_OFF);
-        getActivity().sendBroadcast(intent);
-    }*/
 }
