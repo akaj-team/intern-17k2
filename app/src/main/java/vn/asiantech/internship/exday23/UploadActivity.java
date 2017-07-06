@@ -36,11 +36,15 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import vn.asiantech.internship.R;
 
+/**
+ * Copyright © 2016 AsianTech inc.
+ * Created by DatBui on 06/07/2017.
+ */
 @EActivity(R.layout.activity_upload)
 public class UploadActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_CROP = 11;
     public static final int REQUEST_CODE_GALERY = 22;
-    public static String URL = "http://2.pik.vn/";
+    public static String urlServer = "http://2.pik.vn/";
     private Bitmap mBitmap;
     private static String mLinkImage = null;
 
@@ -84,8 +88,6 @@ public class UploadActivity extends AppCompatActivity {
     void onCrop(int resultCode, Intent data) {
         if (resultCode == RESULT_OK && data != null) {
             mBitmap = data.getExtras().getParcelable("data");
-            String encodedImageData = getEncoded64ImageStringFromBitmap(mBitmap);
-            Log.d("tag", "onCrop: " + encodedImageData);
             try {
                 upLoadImage();
             } catch (IOException e) {
@@ -117,11 +119,8 @@ public class UploadActivity extends AppCompatActivity {
         byte[] byteFormat = stream.toByteArray();
         // get the base 64 string
         String imgString = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
-        StringBuilder sb = new StringBuilder();
-        sb.append("data:image/png;base64,");
-        sb.append(imgString);
-        String contourChart = sb.toString();
-        return contourChart;
+        return "data:image/png;base64," +
+                imgString;
     }
 
     public String upLoadImage() throws IOException {
@@ -132,7 +131,7 @@ public class UploadActivity extends AppCompatActivity {
                 .addFormDataPart("image", encodedImageData)
                 .build();
         Request request = new Request.Builder()
-                .url(URL)
+                .url(urlServer)
                 .addHeader("content-type", "application/x-www-form-urlencoded")
                 .addHeader("content-length", "36378")
                 .method("POST", requestBody)
@@ -142,29 +141,22 @@ public class UploadActivity extends AppCompatActivity {
         final String[] image = {null};
         client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("VVVV", "onFailure: ");
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.d("VVVV", "onFailure: " + e);
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 res[0] = response.body().string();
-                Log.d("tag", "onResponse: " + response.body().toString());
-                Log.d("TAG", "Response 2: " + res[0]);
-                Log.d("TAG", "Response 1: " + response);
-                JSONObject Jobject;
+                JSONObject jsObject;
                 try {
-                    Jobject = new JSONObject(res[0]);
-                    url[0] = Jobject.get("saved").toString();
-                    Log.d("tag", "onResponse: " + url[0]);
+                    jsObject = new JSONObject(res[0]);
+                    url[0] = jsObject.get("saved").toString();
                 } catch (JSONException e) {
                     Log.d("tag", "onResponse: false");
                 }
-                image[0] = URL + url[0];
-                Log.d("tag", "onResponse: " + image[0]);
+                image[0] = urlServer + url[0];
                 mLinkImage = image[0];
-                Log.d("tag", "onResponse:1132 " + mLinkImage);
-                Log.d("tag", "onCrop: link " + mLinkImage);
                 UploadActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
