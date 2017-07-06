@@ -12,7 +12,6 @@ import vn.asiantech.internship.feed.FeedActivity;
 import vn.asiantech.internship.friend.ListFriendActivity;
 import vn.asiantech.internship.ui.main.ChatActivity;
 import vn.asiantech.internship.ui.main.FootballStarActivity;
-import vn.asiantech.internship.ui.main.ContactActivity;
 import vn.asiantech.internship.ui.main.ContactActivity_;
 import vn.asiantech.internship.ui.main.MainActivity;
 import vn.asiantech.internship.ui.main.NoteActivity;
