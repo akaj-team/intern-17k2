@@ -21,7 +21,7 @@ import vn.asiantech.internship.ui.main.MainActivity;
 
 /**
  * Adapter for Navigation
- * Created by anhhuy on 14/06/2017.
+ * Created by huypham on 14/06/2017.
  */
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 0;

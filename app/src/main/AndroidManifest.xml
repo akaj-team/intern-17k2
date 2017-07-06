@@ -22,7 +22,9 @@
 
         <activity android:name=".ui.view.TestActivity" />
 
-        <activity android:name=".ui.note.NoteActivity">
+        <activity android:name=".ui.note.NoteActivity" />
+
+        <activity android:name=".ui.tablayout.TabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

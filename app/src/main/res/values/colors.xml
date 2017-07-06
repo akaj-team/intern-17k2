@@ -11,4 +11,5 @@
     <color name="colorGreyLight1">#77b6b3b3</color>
     <color name="colorBlue">#1e9cda</color>
     <color name="colorGreen">#64ce2b</color>
+    <color name="colorTransparent">@android:color/transparent</color>
 </resources>
