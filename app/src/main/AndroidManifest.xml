@@ -26,6 +26,7 @@
         <activity android:name=".day7.ui.CommunicateActivity" />
         <activity android:name=".friend.FriendActivity" />
         <activity android:name=".day23.UploadImageActivity" />
+        <activity android:name=".day23.UploadActivity" />
     </application>
 
 </manifest>
