@@ -3,6 +3,7 @@
     package="vn.asiantech.internship">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -17,6 +18,8 @@
         <activity android:name=".exday7.MainActivity" />
 
         <!--d5-->
+        <activity android:name=".note.NoteActivity" />
+        <activity android:name=".exday15.JsonActivity" />
         <activity android:name=".feed.ActivityFeed" />
         <activity android:name=".exday13.ChatActivity" />
         <activity android:name=".ui.splash.SplashActivity">
@@ -26,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".exday15.PointActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".exfragment.RecyclerViewActivity" />
         <activity android:name=".exday22.AnnotationsActivity_" />
