@@ -46,7 +46,7 @@ public class SongsFragment extends Fragment {
         mSongs.addAll(((MusicActivity) getActivity()).getSongs());
         MusicRecyclerViewAdapter adapter = new MusicRecyclerViewAdapter(mSongs, new MusicRecyclerViewAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Song song, int position) {
+            public void onItemClick(int position) {
                 getSong(position);
             }
         });

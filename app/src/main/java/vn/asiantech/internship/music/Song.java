@@ -3,7 +3,6 @@ package vn.asiantech.internship.music;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
 /**
  * As a song project.
  *

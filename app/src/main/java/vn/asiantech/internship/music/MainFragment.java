@@ -25,12 +25,12 @@ import vn.asiantech.internship.R;
  * @since 2017-7-1
  */
 public class MainFragment extends Fragment {
+    private BroadcastReceiver mBroadcastReceiver;
+    private TextView mTvName;
 
     public static MainFragment newInstance() {
         return new MainFragment();
     }
-
-    private TextView mTvName;
 
     @Nullable
     @Override
@@ -41,7 +41,7 @@ public class MainFragment extends Fragment {
         imgMusicMain.startAnimation(animFade);
         mTvName = (TextView) view.findViewById(R.id.tvNameSong);
 
-        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        mBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 mTvName.setText(intent.getStringExtra("songName"));
@@ -49,7 +49,13 @@ public class MainFragment extends Fragment {
         };
 
         IntentFilter mStartFilter = new IntentFilter(Action.UPDATE.getValue());
-        getActivity().registerReceiver(broadcastReceiver, mStartFilter);
+        getActivity().registerReceiver(mBroadcastReceiver, mStartFilter);
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mBroadcastReceiver);
     }
 }

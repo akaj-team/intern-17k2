@@ -1,14 +1,19 @@
 package vn.asiantech.internship.music;
 
 /**
- * Used to handle time that is displayed on textView for seekbar.
+ * Used to handle time that is displayed on textView for seekBar.
  *
  * @author at-HangTran
  * @version 1.0
  * @since 2017-7-1
  */
-class MusicTime {
-    String milliSecondsToTimer(long milliseconds) {
+final class MusicUtil {
+
+    private MusicUtil() {
+
+    }
+
+    public static String milliSecondsToTimer(long milliseconds) {
         String finalTimerString = "";
         String secondsString;
 

@@ -42,7 +42,7 @@ public class MusicService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals(Action.SEEKTO.getValue())) {
+            if (action.equals(Action.SEEK_TO.getValue())) {
                 if (mMediaPlayer != null) {
                     mMediaPlayer.seekTo(intent.getIntExtra("chooseTime", 0));
                 }
@@ -60,7 +60,8 @@ public class MusicService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        IntentFilter seekToFilter = new IntentFilter(Action.SEEKTO.getValue());
+        handleCalling();
+        IntentFilter seekToFilter = new IntentFilter(Action.SEEK_TO.getValue());
         registerReceiver(mReceiver, seekToFilter);
         if (intent.getAction() != null) {
             String action = intent.getAction();
@@ -71,13 +72,13 @@ public class MusicService extends Service {
                 next();
             } else if (TextUtils.equals(action, Action.PREVIOUS.getValue())) {
                 previous();
-            } else if (TextUtils.equals(action, Action.SHUFFEL.getValue())) {
+            } else if (TextUtils.equals(action, Action.SHUFFLE.getValue())) {
                 shuffle();
             } else if (TextUtils.equals(action, Action.REPLAY.getValue())) {
                 replay();
-            } else if (TextUtils.equals(action, Action.AUTONEXT.getValue())) {
+            } else if (TextUtils.equals(action, Action.AUTO_NEXT.getValue())) {
                 autoNext();
-            } else if (TextUtils.equals(action, Action.CHOOSESONGFROMLIST.getValue())) {
+            } else if (TextUtils.equals(action, Action.CHOOSE_SONG_FROM_LIST.getValue())) {
                 mSongs = intent.getParcelableArrayListExtra("songs");
                 mCurrentSongIndex = intent.getIntExtra("currentSong", 0);
                 playSongWithPosition(mCurrentSongIndex);
@@ -90,7 +91,6 @@ public class MusicService extends Service {
                 sendBroadcast(cancelIntent);
             }
         }
-        handleCalling();
         return START_STICKY;
     }
 
@@ -105,13 +105,9 @@ public class MusicService extends Service {
         updateSongNameIntent.putExtra("songName", mSongs.get(mCurrentSongIndex).getName());
         sendBroadcast(updateSongNameIntent);
         if (mMediaPlayer != null) {
-            if (mMediaPlayer.isPlaying()) {
-                final Intent isPlayingIntent = new Intent(Action.ISPLAYING.getValue());
-                sendBroadcast(isPlayingIntent);
-            } else if (!mMediaPlayer.isPlaying()) {
-                final Intent isPauseIntent = new Intent(Action.ISPAUSE.getValue());
-                sendBroadcast(isPauseIntent);
-            }
+            mMediaPlayer.pause();
+            final Intent isPlayingIntent = new Intent(Action.IS_PLAYING.getValue());
+            sendBroadcast(isPlayingIntent);
         }
         try {
             mMediaPlayer = new MediaPlayer();
@@ -163,7 +159,7 @@ public class MusicService extends Service {
                 mIsPause = true;
                 mMediaPlayer.start();
                 mCountDownTimer.start();
-                final Intent autoNextIntent = new Intent(Action.AUTONEXT.getValue());
+                final Intent autoNextIntent = new Intent(Action.AUTO_NEXT.getValue());
                 autoNextIntent.putExtra("autoNext", mMediaPlayer.getCurrentPosition() + "");
                 sendBroadcast(autoNextIntent);
             }
@@ -176,8 +172,8 @@ public class MusicService extends Service {
                 random();
             } else {
                 if (mCurrentSongIndex < (mSongs.size() - 1)) {
-                    playSongWithPosition(mCurrentSongIndex + 1);
                     mCurrentSongIndex = mCurrentSongIndex + 1;
+                    playSongWithPosition(mCurrentSongIndex);
                 } else {
                     playSongWithPosition(0);
                     mCurrentSongIndex = 0;
@@ -192,11 +188,11 @@ public class MusicService extends Service {
                 random();
             } else {
                 if (mCurrentSongIndex > 0) {
-                    playSongWithPosition(mCurrentSongIndex - 1);
                     mCurrentSongIndex = mCurrentSongIndex - 1;
+                    playSongWithPosition(mCurrentSongIndex);
                 } else {
-                    playSongWithPosition(mSongs.size() - 1);
                     mCurrentSongIndex = mSongs.size() - 1;
+                    playSongWithPosition(mSongs.size());
                 }
             }
         }
@@ -205,11 +201,11 @@ public class MusicService extends Service {
     private void shuffle() {
         if (mIsShuffle) {
             mIsShuffle = false;
-            final Intent timeIntent = new Intent(Action.NOTSHUFFEL.getValue());
+            final Intent timeIntent = new Intent(Action.NOT_SHUFFLE.getValue());
             sendBroadcast(timeIntent);
         } else {
             mIsShuffle = true;
-            final Intent timeIntent = new Intent(Action.SHUFFEL.getValue());
+            final Intent timeIntent = new Intent(Action.SHUFFLE.getValue());
             sendBroadcast(timeIntent);
         }
     }
@@ -217,7 +213,7 @@ public class MusicService extends Service {
     private void replay() {
         if (mIsAutoNext) {
             mIsAutoNext = false;
-            final Intent timeIntent = new Intent(Action.NOTREPLAY.getValue());
+            final Intent timeIntent = new Intent(Action.NOT_REPLAY.getValue());
             sendBroadcast(timeIntent);
         } else {
             mIsAutoNext = true;
@@ -251,13 +247,8 @@ public class MusicService extends Service {
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
-        if (mMediaPlayer != null) {
-            try {
-                mMediaPlayer.release();
-            } catch (Exception e) {
-                Log.d(TAG, e.toString());
-            }
-        }
+        mMediaPlayer.stop();
+        mMediaPlayer.release();
         super.onDestroy();
     }
 

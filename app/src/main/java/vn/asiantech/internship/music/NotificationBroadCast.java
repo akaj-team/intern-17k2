@@ -22,7 +22,6 @@ import vn.asiantech.internship.R;
 public class NotificationBroadCast extends BroadcastReceiver {
     private int mLength;
     private int mPosition;
-    private final MusicTime mTime = new MusicTime();
     private RemoteViews mNotificationView;
     private BroadcastReceiver mSeekBroadcastReceiver;
     private Song mSong;
@@ -45,14 +44,14 @@ public class NotificationBroadCast extends BroadcastReceiver {
                     mNotificationView.setTextViewText(R.id.tvTitleMusicNotification, mSong.getName());
                     mNotificationView.setTextViewText(R.id.tvSingerNotification, mSong.getSinger());
                     mNotificationView.setImageViewResource(R.id.imgNotification, mSong.getImage());
-                    mNotificationView.setTextViewText(R.id.tvCurrentTimeNotification, mTime.milliSecondsToTimer(mPosition));
-                    mNotificationView.setTextViewText(R.id.tvTotalTimeNotification, mTime.milliSecondsToTimer(mLength));
+                    mNotificationView.setTextViewText(R.id.tvCurrentTimeNotification, MusicUtil.milliSecondsToTimer(mPosition));
+                    mNotificationView.setTextViewText(R.id.tvTotalTimeNotification, MusicUtil.milliSecondsToTimer(mLength));
                     mNotificationView.setProgressBar(R.id.progressBar, mLength, mPosition, false);
 
                     Intent cancelIntent = new Intent(context, MusicService.class);
                     cancelIntent.setAction(Action.CANCEL.getValue());
                     PendingIntent cancelPendingIntent = PendingIntent.getService(context, 0, cancelIntent, 0);
-                    mNotificationView.setOnClickPendingIntent(R.id.imgCancle, cancelPendingIntent);
+                    mNotificationView.setOnClickPendingIntent(R.id.imgCancel, cancelPendingIntent);
 
                     Notification notification = new NotificationCompat.Builder(context)
                             .setContent(mNotificationView)

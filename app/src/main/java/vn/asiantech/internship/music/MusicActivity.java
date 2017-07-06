@@ -1,11 +1,16 @@
 package vn.asiantech.internship.music;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -28,14 +33,14 @@ import vn.asiantech.internship.R;
  * @since 2017-7-1
  */
 public class MusicActivity extends AppCompatActivity implements View.OnClickListener, SongsFragment.OnGetSongListener {
+    private final List<Song> mSongs = new ArrayList<>();
     private ImageButton mImgBtnPlay;
     private ImageButton mImgBtnShuffle;
     private ImageButton mImgBtnReplay;
     private TextView mTvCurrentTime;
     private TextView mTvTotalTime;
     private SeekBar mSeekBar;
-    private final List<Song> mSongs = new ArrayList<>();
-    private final MusicTime mTime = new MusicTime();
+    private ViewPager mViewPagerMusic;
     private int mLength;
     private int mPosition;
 
@@ -51,24 +56,23 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 mImgBtnPlay.setImageResource(R.drawable.ic_play_circle_filled_white_48dp);
                 mPosition = Integer.parseInt(intent.getStringExtra("second"));
                 updateTime();
-            } else if (TextUtils.equals(action, Action.AUTONEXT.getValue())) {
+            } else if (TextUtils.equals(action, Action.AUTO_NEXT.getValue())) {
                 mImgBtnPlay.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
                 mPosition = Integer.parseInt(intent.getStringExtra("autoNext"));
                 updateTime();
-            } else if (TextUtils.equals(action, Action.SHUFFEL.getValue())) {
+            } else if (TextUtils.equals(action, Action.SHUFFLE.getValue())) {
                 mImgBtnShuffle.setImageResource(R.drawable.ic_shuffle_red_400_24dp);
-            } else if (TextUtils.equals(action, Action.NOTSHUFFEL.getValue())) {
+            } else if (TextUtils.equals(action, Action.NOT_SHUFFLE.getValue())) {
                 mImgBtnShuffle.setImageResource(R.drawable.ic_shuffle_white_24dp);
             } else if (TextUtils.equals(action, Action.REPLAY.getValue())) {
                 mImgBtnReplay.setImageResource(R.drawable.ic_autorenew_red_400_24dp);
-            } else if (TextUtils.equals(action, Action.NOTREPLAY.getValue())) {
+            } else if (TextUtils.equals(action, Action.NOT_REPLAY.getValue())) {
                 mImgBtnReplay.setImageResource(R.drawable.ic_autorenew_white_24dp);
             } else if (TextUtils.equals(action, Action.CANCEL.getValue())) {
                 finish();
-            } else if (TextUtils.equals(action, Action.ISPLAYING.getValue())) {
+            } else if (TextUtils.equals(action, Action.IS_PLAYING.getValue())) {
                 mImgBtnPlay.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
-            } else if (TextUtils.equals(action, Action.ISPAUSE.getValue())) {
-                mImgBtnPlay.setImageResource(R.drawable.ic_play_circle_filled_white_48dp);
+                mViewPagerMusic.setCurrentItem(0);
             } else if (TextUtils.equals(action, Action.CALLING.getValue())) {
                 mImgBtnPlay.setImageResource(R.drawable.ic_play_circle_filled_white_48dp);
             } else if (TextUtils.equals(action, Action.ENDCALL.getValue())) {
@@ -80,6 +84,24 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ActivityCompat.requestPermissions(MusicActivity.this, new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        } else {
+            showApp();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            showApp();
+        } else {
+            finish();
+        }
+    }
+
+    private void showApp() {
         setContentView(R.layout.activity_music);
         initSongs();
         initView();
@@ -98,7 +120,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                final Intent seekIntent = new Intent(Action.SEEKTO.getValue());
+                final Intent seekIntent = new Intent(Action.SEEK_TO.getValue());
                 seekIntent.putExtra("chooseTime", seekBar.getProgress());
                 sendBroadcast(seekIntent);
                 mPosition = seekBar.getProgress();
@@ -108,9 +130,6 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initSongs() {
-        // Get songs from phone if you want
-        SongManager songManager = new SongManager();
-        mSongs.addAll(songManager.getListSongOffline(this));
 
         mSongs.add(new Song("Ghen", "Min", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNXDXGNQETLDJTDGLG", R.drawable.img_ghen));
         mSongs.add(new Song("Shape Of You", "Ed Sheeran", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJGJLNDTLDJTDGLG", R.drawable.img_shape));
@@ -129,9 +148,9 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mTvCurrentTime = (TextView) findViewById(R.id.tvCurrentTime);
         mTvTotalTime = (TextView) findViewById(R.id.tvTotalTime);
         mSeekBar = (SeekBar) findViewById(R.id.seekBar);
-        ViewPager viewPagerMusic = (ViewPager) findViewById(R.id.viewPagerMusic);
+        mViewPagerMusic = (ViewPager) findViewById(R.id.viewPagerMusic);
         MusicViewPagerAdapter adapter = new MusicViewPagerAdapter(getSupportFragmentManager());
-        viewPagerMusic.setAdapter(adapter);
+        mViewPagerMusic.setAdapter(adapter);
 
         mImgBtnPlay.setOnClickListener(this);
         imgBtnNext.setOnClickListener(this);
@@ -145,13 +164,12 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mStartFilter.addAction(Action.START.getValue());
         mStartFilter.addAction(Action.SEEK.getValue());
         mStartFilter.addAction(Action.PAUSE.getValue());
-        mStartFilter.addAction(Action.ISPAUSE.getValue());
-        mStartFilter.addAction(Action.ISPLAYING.getValue());
-        mStartFilter.addAction(Action.AUTONEXT.getValue());
+        mStartFilter.addAction(Action.IS_PLAYING.getValue());
+        mStartFilter.addAction(Action.AUTO_NEXT.getValue());
         mStartFilter.addAction(Action.REPLAY.getValue());
-        mStartFilter.addAction(Action.NOTREPLAY.getValue());
-        mStartFilter.addAction(Action.SHUFFEL.getValue());
-        mStartFilter.addAction(Action.NOTSHUFFEL.getValue());
+        mStartFilter.addAction(Action.NOT_REPLAY.getValue());
+        mStartFilter.addAction(Action.SHUFFLE.getValue());
+        mStartFilter.addAction(Action.NOT_SHUFFLE.getValue());
         mStartFilter.addAction(Action.CANCEL.getValue());
         mStartFilter.addAction(Action.CALLING.getValue());
         mStartFilter.addAction(Action.ENDCALL.getValue());
@@ -179,7 +197,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.imgBtnShuffle:
                 Intent shuffleIntent = new Intent(MusicActivity.this, MusicService.class);
-                shuffleIntent.setAction(Action.SHUFFEL.getValue());
+                shuffleIntent.setAction(Action.SHUFFLE.getValue());
                 startService(shuffleIntent);
                 break;
             case R.id.imgBtnReplay:
@@ -195,7 +213,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         Intent playIntent = new Intent(MusicActivity.this, MusicService.class);
         playIntent.putExtra("currentSong", position);
         playIntent.putParcelableArrayListExtra("songs", (ArrayList<? extends Parcelable>) mSongs);
-        playIntent.setAction(Action.CHOOSESONGFROMLIST.getValue());
+        playIntent.setAction(Action.CHOOSE_SONG_FROM_LIST.getValue());
         startService(playIntent);
     }
 
@@ -207,12 +225,12 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateTime() {
-        mTvTotalTime.setText(mTime.milliSecondsToTimer(mLength));
-        mTvCurrentTime.setText(mTime.milliSecondsToTimer(mPosition));
+        mTvTotalTime.setText(MusicUtil.milliSecondsToTimer(mLength));
+        mTvCurrentTime.setText(MusicUtil.milliSecondsToTimer(mPosition));
         mSeekBar.setProgress(mPosition);
         if (mTvTotalTime.getText().toString().equals(mTvCurrentTime.getText().toString())) {
             Intent playIntent = new Intent(MusicActivity.this, MusicService.class);
-            playIntent.setAction(Action.AUTONEXT.getValue());
+            playIntent.setAction(Action.AUTO_NEXT.getValue());
             startService(playIntent);
         }
     }

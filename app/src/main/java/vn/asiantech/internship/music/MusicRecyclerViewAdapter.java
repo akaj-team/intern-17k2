@@ -37,7 +37,7 @@ class MusicRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MusicViewHolder musicViewHolder = (MusicViewHolder) holder;
-        musicViewHolder.bind(mSongs.get(position), position, mClickListener);
+        musicViewHolder.bind(position, mClickListener);
         musicViewHolder.mTvName.setText(mSongs.get(position).getName());
         musicViewHolder.mTvSinger.setText(mSongs.get(position).getSinger());
         musicViewHolder.mImgSong.setImageResource(mSongs.get(position).getImage());
@@ -63,11 +63,11 @@ class MusicRecyclerViewAdapter extends RecyclerView.Adapter {
             mImgSong = (ImageView) itemView.findViewById(R.id.imgSong);
         }
 
-        private void bind(final Song song, final int position, final OnItemClickListener listener) {
+        private void bind(final int position, final OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItemClick(song, position);
+                    listener.onItemClick(position);
                 }
             });
         }
@@ -77,6 +77,6 @@ class MusicRecyclerViewAdapter extends RecyclerView.Adapter {
      * Used to get song and position in recyclerView
      */
     interface OnItemClickListener {
-        void onItemClick(Song song, int position);
+        void onItemClick(int position);
     }
 }
