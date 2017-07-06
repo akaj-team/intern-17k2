@@ -19,9 +19,9 @@ import vn.asiantech.internship.models.Contact;
 public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Contact>> {
 
     private ArrayList<Contact> mContacts;
-    private CallBackListener mListener;
+    private TaskStatusListener mListener;
 
-    public GetContactsAsyncTask(CallBackListener listener) {
+    public GetContactsAsyncTask(TaskStatusListener listener) {
         this.mContacts = new ArrayList<>();
         this.mListener = listener;
     }
@@ -29,7 +29,7 @@ public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Cont
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mListener.onTaskPreExecute();
+        mListener.onPrepareExecute();
     }
 
     @Override
@@ -38,9 +38,25 @@ public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Cont
         String json = httpHandler.makeServiceCall(params[0]);
         try {
             JSONObject jsonObject = new JSONObject(json);
-            JSONArray jsonArray = jsonObject.getJSONArray("contacts");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                mContacts.add(new Contact(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("email"), jsonArray.getJSONObject(i).getJSONObject("phone").getString("mobile")));
+            if (jsonObject.has("contacts") && jsonObject.optJSONArray("contacts") != null) {
+                JSONArray jsonArray = jsonObject.getJSONArray("contacts");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    Contact contact = new Contact();
+                    JSONObject jsonObjectContact = jsonArray.getJSONObject(i);
+                    if (jsonObjectContact.has("name") && jsonObjectContact.optString("name") != null) {
+                        contact.setName(jsonObjectContact.getString("name"));
+                    }
+                    if (jsonObjectContact.has("email") && jsonObjectContact.optString("email") != null) {
+                        contact.setEmail(jsonObjectContact.getString("email"));
+                    }
+                    if (jsonObjectContact.has("phone") && jsonObjectContact.optJSONObject("phone") != null) {
+                        JSONObject phone = jsonObjectContact.getJSONObject("phone");
+                        if (phone.has("mobile") && phone.optString("mobile") != null) {
+                            contact.setPhone(phone.getString("mobile"));
+                        }
+                    }
+                    mContacts.add(contact);
+                }
             }
         } catch (JSONException e) {
             Log.i("tag11", e.getMessage());
@@ -57,8 +73,8 @@ public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Cont
     /**
      * This interface used to handle when this task complete
      */
-    public interface CallBackListener {
-        void onTaskPreExecute();
+    public interface TaskStatusListener {
+        void onPrepareExecute();
 
         void onComplete(ArrayList<Contact> contacts);
     }

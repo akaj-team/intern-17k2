@@ -44,9 +44,9 @@ public class ContactActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage(getString(R.string.loading));
         mProgressDialog.setCancelable(false);
-        mGetContactsAsyncTask = new GetContactsAsyncTask(new GetContactsAsyncTask.CallBackListener() {
+        mGetContactsAsyncTask = new GetContactsAsyncTask(new GetContactsAsyncTask.TaskStatusListener() {
             @Override
-            public void onTaskPreExecute() {
+            public void onPrepareExecute() {
                 mProgressDialog.show();
             }
 
