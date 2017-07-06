@@ -85,7 +85,7 @@ public class UploadImageActivity extends AppCompatActivity {
                         }
                     }
                 } catch (JSONException e) {
-                    Log.e("JSONException", "JSONException: " +e.getMessage());
+                    Log.e("JSONException", "JSONException: " + e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
@@ -141,7 +141,7 @@ public class UploadImageActivity extends AppCompatActivity {
             byte[] b = baos.toByteArray();
             result = Base64.encodeToString(b, Base64.NO_WRAP);
         } catch (IOException e) {
-            Log.e("IOException", "IOException: " +e.getMessage());
+            Log.e("IOException", "IOException: " + e.getMessage());
         }
         return result;
     }
