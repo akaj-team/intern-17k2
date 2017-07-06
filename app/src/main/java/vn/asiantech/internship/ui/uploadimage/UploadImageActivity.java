@@ -85,7 +85,7 @@ public class UploadImageActivity extends AppCompatActivity {
                         }
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.e("JSONException", "JSONException: " +e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
