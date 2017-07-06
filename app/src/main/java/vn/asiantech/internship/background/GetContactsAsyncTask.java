@@ -19,9 +19,9 @@ import vn.asiantech.internship.models.Contact;
 public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Contact>> {
 
     private ArrayList<Contact> mContacts;
-    private CallBackListener mListener;
+    private TaskStatusListener mListener;
 
-    public GetContactsAsyncTask(CallBackListener listener) {
+    public GetContactsAsyncTask(TaskStatusListener listener) {
         this.mContacts = new ArrayList<>();
         this.mListener = listener;
     }
@@ -29,7 +29,7 @@ public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Cont
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mListener.onTaskPreExecute();
+        mListener.onPrepareExecute();
     }
 
     @Override
@@ -73,8 +73,8 @@ public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Cont
     /**
      * This interface used to handle when this task complete
      */
-    public interface CallBackListener {
-        void onTaskPreExecute();
+    public interface TaskStatusListener {
+        void onPrepareExecute();
 
         void onComplete(ArrayList<Contact> contacts);
     }
