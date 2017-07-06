@@ -26,6 +26,15 @@
     <string name="button.day13.ex.text">Day13 Ex</string>
     <string name="dialog.item.gallery">Gallery</string>
     <string name="dialog.item.Camera">Camera</string>
+    <string name="question1.text">Question 1</string>
+    <string name="question.text">Question %1$d</string>
+    <string name="question.result.text">Result</string>
+    <string name="question.tvprevius.text">Previus</string>
+    <string name="question.tvnext.text">Next</string>
+    <string name="question.dialog.title">Do you want continute ?</string>
+    <string name="question.dialog.result.title">Do you want test again ?</string>
+    <string name="question.dialog.ok">OK</string>
+    <string name="question.dialog.cancel">Cancel</string>
     <string name="friend">FRIEND</string>
     <string name="add">ADD</string>
     <string name="add.note">New note</string>
