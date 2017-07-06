@@ -11,7 +11,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.exday13.ChatActivity;
 import vn.asiantech.internship.exday16.ViewPagerActivity;
 import vn.asiantech.internship.exfragment.RecyclerViewActivity;
-import vn.asiantech.internship.feed.ActivityFeed;
+import vn.asiantech.internship.feed.FeedActivity;
 import vn.asiantech.internship.note.NoteActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 
@@ -58,7 +58,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
                 startActivity(mIntent);
                 break;
             case R.id.btnExday9:
-                mIntent = new Intent(SplashActivity.this, ActivityFeed.class);
+                mIntent = new Intent(SplashActivity.this, FeedActivity.class);
                 startActivity(mIntent);
                 break;
             case R.id.btnExDay7:
