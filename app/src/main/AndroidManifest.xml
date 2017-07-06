@@ -28,5 +28,4 @@
         <activity android:name=".feed.FeedActivity" />
         <activity android:name=".test.ResultActivity" />
     </application>
-
 </manifest>
