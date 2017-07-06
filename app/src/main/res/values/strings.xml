@@ -69,4 +69,5 @@
     <string name="textView.question">Question </string>
     <string name="textView.yourResult">You choosed: </string>
     <string name="text.cross">/</string>
+    <string name="upload.button.text">upload</string>
 </resources>
