@@ -29,7 +29,7 @@ public class SongsFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
+        mListener = (OnGetSongListener) activity;
     }
 
     public static SongsFragment newInstance() {
@@ -47,20 +47,19 @@ public class SongsFragment extends Fragment {
         MusicRecyclerViewAdapter adapter = new MusicRecyclerViewAdapter(mSongs, new MusicRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Song song, int position) {
-                getSong(song, position);
+                getSong(position);
             }
         });
         musicRecyclerView.setAdapter(adapter);
-
         return view;
     }
 
-    private void getSong(Song song, int position) {
+    private void getSong(int position) {
         mListener.onGetSong(position);
     }
 
     /*
-     * Used to get song and positon when click to song list
+     * Used to get song and position when click to song list
      */
     interface OnGetSongListener {
         void onGetSong(int position);

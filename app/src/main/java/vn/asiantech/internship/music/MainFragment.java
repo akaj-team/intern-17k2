@@ -25,6 +25,7 @@ import vn.asiantech.internship.R;
  * @since 2017-7-1
  */
 public class MainFragment extends Fragment {
+
     public static MainFragment newInstance() {
         return new MainFragment();
     }
@@ -35,9 +36,9 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_music, container, false);
-        ImageView imgMain = (ImageView) view.findViewById(R.id.imgMain);
+        ImageView imgMusicMain = (ImageView) view.findViewById(R.id.imgMusicMain);
         Animation animFade = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
-        imgMain.startAnimation(animFade);
+        imgMusicMain.startAnimation(animFade);
         mTvName = (TextView) view.findViewById(R.id.tvNameSong);
 
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {

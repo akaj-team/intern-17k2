@@ -49,9 +49,9 @@ public class NotificationBroadCast extends BroadcastReceiver {
                     mNotificationView.setTextViewText(R.id.tvTotalTimeNotification, mTime.milliSecondsToTimer(mLength));
                     mNotificationView.setProgressBar(R.id.progressBar, mLength, mPosition, false);
 
-                    Intent cancleIntent = new Intent(context, MusicService.class);
-                    cancleIntent.setAction(Action.CANCEL.getValue());
-                    PendingIntent cancelPendingIntent = PendingIntent.getService(context, 0, cancleIntent, 0);
+                    Intent cancelIntent = new Intent(context, MusicService.class);
+                    cancelIntent.setAction(Action.CANCEL.getValue());
+                    PendingIntent cancelPendingIntent = PendingIntent.getService(context, 0, cancelIntent, 0);
                     mNotificationView.setOnClickPendingIntent(R.id.imgCancle, cancelPendingIntent);
 
                     Notification notification = new NotificationCompat.Builder(context)
@@ -61,11 +61,10 @@ public class NotificationBroadCast extends BroadcastReceiver {
                             .setOngoing(true).build();
                     NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     notificationManager.notify(1, notification);
-
                 }
             };
         }
-        IntentFilter filter = new IntentFilter(Action.SEEK.getValue());
-        context.registerReceiver(mSeekBroadcastReceiver, filter);
+        IntentFilter seekFilter = new IntentFilter(Action.SEEK.getValue());
+        context.registerReceiver(mSeekBroadcastReceiver, seekFilter);
     }
 }

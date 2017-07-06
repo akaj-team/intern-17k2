@@ -11,12 +11,9 @@ import vn.asiantech.internship.R;
 
 /**
  * Author AsianTech Inc.
- * Created by sony on 04/07/2017.
+ * Created by at-hangtran on 04/07/2017.
  */
-
 class SongManager {
-    public SongManager() {
-    }
 
     public ArrayList<Song> getListSongOffline(Context context) {
         ArrayList<Song> songs = new ArrayList<>();
@@ -31,8 +28,7 @@ class SongManager {
                 String title = musicCursor.getString(musicColumnIndex);
                 musicColumnIndex = musicCursor.getColumnIndex(MediaStore.Audio.AudioColumns.DATA);
                 String url = musicCursor.getString(musicColumnIndex);
-                musicColumnIndex = musicCursor
-                        .getColumnIndex(MediaStore.Audio.AudioColumns.ARTIST);
+                musicColumnIndex = musicCursor.getColumnIndex(MediaStore.Audio.AudioColumns.ARTIST);
                 String singer = musicCursor.getString(musicColumnIndex);
                 songs.add(new Song(title, singer, url, R.drawable.img_future));
             }

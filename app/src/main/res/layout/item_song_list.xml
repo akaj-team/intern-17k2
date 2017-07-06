@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imgMusicIcon"
+            android:id="@+id/imgSong"
             android:layout_width="@dimen/music.imageView.with"
             android:layout_height="@dimen/music.imageView.with"
             android:contentDescription="@string/image.description" />

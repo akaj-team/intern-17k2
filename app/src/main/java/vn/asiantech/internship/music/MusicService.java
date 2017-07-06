@@ -34,7 +34,7 @@ public class MusicService extends Service {
     private MediaPlayer mMediaPlayer;
     private List<Song> mSongs = new ArrayList<>();
     private CountDownTimer mCountDownTimer;
-    private int mCurrentSongIndex = 0;
+    private int mCurrentSongIndex;
     private boolean mIsShuffle;
     private boolean mIsAutoNext;
     private boolean mIsPause;
@@ -60,8 +60,8 @@ public class MusicService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        IntentFilter mStartFilter = new IntentFilter(Action.SEEKTO.getValue());
-        registerReceiver(mReceiver, mStartFilter);
+        IntentFilter seekToFilter = new IntentFilter(Action.SEEKTO.getValue());
+        registerReceiver(mReceiver, seekToFilter);
         if (intent.getAction() != null) {
             String action = intent.getAction();
             if (TextUtils.equals(action, Action.PLAY.getValue())) {
@@ -84,8 +84,8 @@ public class MusicService extends Service {
             } else if (TextUtils.equals(action, Action.CANCEL.getValue())) {
                 stopSelf();
                 stopForeground(true);
-                NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                mNotificationManager.cancel(1);
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(1);
                 final Intent cancelIntent = new Intent(Action.CANCEL.getValue());
                 sendBroadcast(cancelIntent);
             }
@@ -105,12 +105,10 @@ public class MusicService extends Service {
         updateSongNameIntent.putExtra("songName", mSongs.get(mCurrentSongIndex).getName());
         sendBroadcast(updateSongNameIntent);
         if (mMediaPlayer != null) {
-            mMediaPlayer.pause();
-            if (!mMediaPlayer.isPlaying()) {
-                mMediaPlayer.pause();
+            if (mMediaPlayer.isPlaying()) {
                 final Intent isPlayingIntent = new Intent(Action.ISPLAYING.getValue());
                 sendBroadcast(isPlayingIntent);
-            } else if (mMediaPlayer.isPlaying()) {
+            } else if (!mMediaPlayer.isPlaying()) {
                 final Intent isPauseIntent = new Intent(Action.ISPAUSE.getValue());
                 sendBroadcast(isPauseIntent);
             }
@@ -129,16 +127,16 @@ public class MusicService extends Service {
                 mMediaPlayer.start();
             }
         });
-        final Intent timeIntent = new Intent(Action.SEEK.getValue());
+        final Intent seekIntent = new Intent(Action.SEEK.getValue());
         mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration(), 1000) {
             @Override
             public void onTick(long l) {
-                timeIntent.putExtra("time", mMediaPlayer.getDuration() + "");
-                timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
+                seekIntent.putExtra("time", mMediaPlayer.getDuration() + "");
+                seekIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("song", mSongs.get(mCurrentSongIndex));
-                timeIntent.putExtras(bundle);
-                sendBroadcast(timeIntent);
+                seekIntent.putExtras(bundle);
+                sendBroadcast(seekIntent);
             }
 
             @Override
@@ -151,8 +149,8 @@ public class MusicService extends Service {
     private void play() {
         if (mMediaPlayer == null) {
             playSongWithPosition(mCurrentSongIndex);
-            final Intent timeIntent = new Intent(Action.START.getValue());
-            sendBroadcast(timeIntent);
+            final Intent startIntent = new Intent(Action.START.getValue());
+            sendBroadcast(startIntent);
         } else {
             if (mMediaPlayer.isPlaying()) {
                 mIsPause = false;
@@ -165,9 +163,9 @@ public class MusicService extends Service {
                 mIsPause = true;
                 mMediaPlayer.start();
                 mCountDownTimer.start();
-                final Intent playNextIntent = new Intent(Action.AUTONEXT.getValue());
-                playNextIntent.putExtra("next", mMediaPlayer.getCurrentPosition() + "");
-                sendBroadcast(playNextIntent);
+                final Intent autoNextIntent = new Intent(Action.AUTONEXT.getValue());
+                autoNextIntent.putExtra("autoNext", mMediaPlayer.getCurrentPosition() + "");
+                sendBroadcast(autoNextIntent);
             }
         }
     }
@@ -294,9 +292,9 @@ public class MusicService extends Service {
                 super.onCallStateChanged(state, incomingNumber);
             }
         };
-        TelephonyManager mgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-        if (mgr != null) {
-            mgr.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        if (telephonyManager != null) {
+            telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
         }
     }
 }

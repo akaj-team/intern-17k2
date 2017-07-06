@@ -53,7 +53,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 updateTime();
             } else if (TextUtils.equals(action, Action.AUTONEXT.getValue())) {
                 mImgBtnPlay.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
-                mPosition = Integer.parseInt(intent.getStringExtra("next"));
+                mPosition = Integer.parseInt(intent.getStringExtra("autoNext"));
                 updateTime();
             } else if (TextUtils.equals(action, Action.SHUFFEL.getValue())) {
                 mImgBtnShuffle.setImageResource(R.drawable.ic_shuffle_red_400_24dp);
@@ -129,9 +129,9 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mTvCurrentTime = (TextView) findViewById(R.id.tvCurrentTime);
         mTvTotalTime = (TextView) findViewById(R.id.tvTotalTime);
         mSeekBar = (SeekBar) findViewById(R.id.seekBar);
-        ViewPager musicViewPager = (ViewPager) findViewById(R.id.musicViewPager);
+        ViewPager viewPagerMusic = (ViewPager) findViewById(R.id.viewPagerMusic);
         MusicViewPagerAdapter adapter = new MusicViewPagerAdapter(getSupportFragmentManager());
-        musicViewPager.setAdapter(adapter);
+        viewPagerMusic.setAdapter(adapter);
 
         mImgBtnPlay.setOnClickListener(this);
         imgBtnNext.setOnClickListener(this);
@@ -183,9 +183,9 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 startService(shuffleIntent);
                 break;
             case R.id.imgBtnReplay:
-                Intent autoIntent = new Intent(MusicActivity.this, MusicService.class);
-                autoIntent.setAction(Action.REPLAY.getValue());
-                startService(autoIntent);
+                Intent replayIntent = new Intent(MusicActivity.this, MusicService.class);
+                replayIntent.setAction(Action.REPLAY.getValue());
+                startService(replayIntent);
                 break;
         }
     }

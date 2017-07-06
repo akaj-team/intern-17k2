@@ -24,11 +24,6 @@ public class Song implements Parcelable {
         this.image = image;
     }
 
-    public Song(String name, String url) {
-        this.name = name;
-        this.url = url;
-    }
-
     private Song(Parcel in) {
         name = in.readString();
         singer = in.readString();

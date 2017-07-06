@@ -30,7 +30,7 @@ class MusicRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.item_music_list, parent, false);
+        View itemView = inflater.inflate(R.layout.item_song_list, parent, false);
         return new MusicViewHolder(itemView);
     }
 
@@ -60,7 +60,7 @@ class MusicRecyclerViewAdapter extends RecyclerView.Adapter {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tvMusicTitle);
             mTvSinger = (TextView) itemView.findViewById(R.id.tvSinger);
-            mImgSong = (ImageView) itemView.findViewById(R.id.imgMusicIcon);
+            mImgSong = (ImageView) itemView.findViewById(R.id.imgSong);
         }
 
         private void bind(final Song song, final int position, final OnItemClickListener listener) {
