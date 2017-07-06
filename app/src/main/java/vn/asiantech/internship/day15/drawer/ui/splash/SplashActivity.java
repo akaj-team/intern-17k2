@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.day15.drawer.ui.main.MainActivity;
 import vn.asiantech.internship.day16.ui.TabActivity;
 import vn.asiantech.internship.day22.ui.JsonActivity_;
 import vn.asiantech.internship.day7.ui.CommunicateActivity;
+import vn.asiantech.internship.drawer.ui.main.MainActivity;
 
 /**
  * SplashActivity

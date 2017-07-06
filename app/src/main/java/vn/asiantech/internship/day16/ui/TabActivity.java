@@ -25,7 +25,6 @@ import static vn.asiantech.internship.R.id.tabLayout;
 public class TabActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
-
     private List<CustomView> mCustomTabs;
     private List<TextView> mTvTitleTab;
     private String[] mTitle = {"Loyalty", "Motor", "Open", "Rowing", "Setting"};
@@ -64,7 +63,6 @@ public class TabActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
     }
@@ -110,7 +108,6 @@ public class TabActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -121,7 +118,6 @@ public class TabActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
     }
