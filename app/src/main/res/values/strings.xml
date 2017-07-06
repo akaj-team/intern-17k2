@@ -26,6 +26,8 @@
 
     <string name="edittext.fragment.hint">Send Message</string>
 
+    <string name="progress_dialog">Wait....</string>
+
     <!--Activity-->
     <string name="text_view.test_activity.previous">Previous</string>
     <string name="text_view.test_activity.next">Next</string>
