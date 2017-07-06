@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundLabelResult"
+    style="@style/AppTheme"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/textview.resultLabel.layout_marginStart"
+        android:text="@string/textview.resultQuestion.text"
+        android:textColor="@color/colorResult"
+        android:textSize="@dimen/textview.resultQuestion.textSize" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewResult"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/recyclerView.layout_height"
+        android:layout_marginTop="@dimen/recyclerViewResult.layout_marginTop" />
+
+    <Button
+        android:id="@+id/btnOkResult"
+        android:layout_gravity="center"
+        android:text="@string/button.text.dialog_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
