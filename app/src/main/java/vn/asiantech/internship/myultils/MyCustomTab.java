@@ -54,7 +54,7 @@ public class MyCustomTab extends View {
     }
 
     private float getDxEmpty() {
-        return (float) Math.sqrt(1.0 * mWidth * mWidth / 4 - (1.0 * mWidth / 2 + 10 - 1.0 * mHeight) * (1.0 * mWidth / 2 + 10 - 1.0 * mHeight));
+        return (float) Math.sqrt(1.0 * mWidth * mWidth / 4.0f - (1.0f * mWidth / 2 + 10 - 1.0f * mHeight) * (1.0f * mWidth / 2 + 10 - 1.0f * mHeight)) - 5;
     }
 
     public void setSelected(boolean selected) {
