@@ -159,20 +159,20 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void registerBroadcastReceiver() {
-        IntentFilter mStartFilter = new IntentFilter();
-        mStartFilter.addAction(Action.START.getValue());
-        mStartFilter.addAction(Action.SEEK.getValue());
-        mStartFilter.addAction(Action.PAUSE.getValue());
-        mStartFilter.addAction(Action.IS_PLAYING.getValue());
-        mStartFilter.addAction(Action.AUTO_NEXT.getValue());
-        mStartFilter.addAction(Action.REPLAY.getValue());
-        mStartFilter.addAction(Action.NOT_REPLAY.getValue());
-        mStartFilter.addAction(Action.SHUFFLE.getValue());
-        mStartFilter.addAction(Action.NOT_SHUFFLE.getValue());
-        mStartFilter.addAction(Action.CANCEL.getValue());
-        mStartFilter.addAction(Action.CALLING.getValue());
-        mStartFilter.addAction(Action.END_CALL.getValue());
-        registerReceiver(mBroadcastReceiver, mStartFilter);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Action.START.getValue());
+        intentFilter.addAction(Action.SEEK.getValue());
+        intentFilter.addAction(Action.PAUSE.getValue());
+        intentFilter.addAction(Action.IS_PLAYING.getValue());
+        intentFilter.addAction(Action.AUTO_NEXT.getValue());
+        intentFilter.addAction(Action.REPLAY.getValue());
+        intentFilter.addAction(Action.NOT_REPLAY.getValue());
+        intentFilter.addAction(Action.SHUFFLE.getValue());
+        intentFilter.addAction(Action.NOT_SHUFFLE.getValue());
+        intentFilter.addAction(Action.CANCEL.getValue());
+        intentFilter.addAction(Action.CALLING.getValue());
+        intentFilter.addAction(Action.END_CALL.getValue());
+        registerReceiver(mBroadcastReceiver, intentFilter);
     }
 
     @Override
