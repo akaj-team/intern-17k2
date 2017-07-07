@@ -10,7 +10,7 @@
         android:id="@+id/myView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_canvas_height"
-        android:background="@drawable/bg_custom_tab" />
+        android:background="@android:color/transparent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgTabIcon"
