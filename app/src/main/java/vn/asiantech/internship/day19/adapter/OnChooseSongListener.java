@@ -5,5 +5,5 @@ package vn.asiantech.internship.day19.adapter;
  * Created by rimoka on 03/07/2017.
  */
 public interface OnChooseSongListener {
-    void OnSongUpdate(int position);
+    void onSongUpdate(int position);
 }

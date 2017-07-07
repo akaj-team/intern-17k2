@@ -232,7 +232,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     // Hander when click item on RecyclerView
     @Override
-    public void OnSongUpdate(int positon) {
+    public void onSongUpdate(int positon) {
         mImgBtnPlay.setVisibility(View.VISIBLE);
         mImgBtnPause.setVisibility(View.INVISIBLE);
         mTvSongNow.setText(mSongs.get(positon).getName());

@@ -116,8 +116,7 @@
                 android:layout_alignStart="@+id/imgBtnPlay"
                 android:background="@android:color/transparent"
                 android:contentDescription="@null"
-                android:src="@mipmap/img_btn_pause"
-                android:visibility="visible" />
+                android:src="@mipmap/img_btn_pause" />
 
             <ImageButton
                 android:id="@+id/imgBtnNext"
