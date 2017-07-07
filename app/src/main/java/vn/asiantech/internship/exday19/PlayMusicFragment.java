@@ -17,11 +17,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -34,6 +34,10 @@ import static vn.asiantech.internship.R.id.seekBar;
  */
 public class PlayMusicFragment extends Fragment implements View.OnClickListener {
     public static final String KEY_PLAYING = "playing";
+    public static final String KEY_DURATION = "duration";
+    public static final String KEY_CURRENT_POSITION = "current";
+    public static final String KEY_SHUFFLE = "shuffle";
+
     private MusicItem mMusicItem;
     private CircleImageView mAlbumArt;
     private ImageView mImgPlay;
@@ -147,7 +151,9 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
                 getContext().startService(mIntent);
                 break;
             case R.id.imgShuffle:
+                initShuffle();
                 mIntent.setAction(Action.SHUFFLE.getValue());
+                mIntent.putExtra(KEY_SHUFFLE, mIsShuffle);
                 getContext().startService(mIntent);
                 break;
         }
@@ -242,14 +248,15 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     };
 
     public void initShuffle() {
-        if (!mIsShuffle) {
-            // shuffle is on - play a random song
-            Random rand = new Random();
-            for (int i = 0; i < mMusicItems.size(); i++) {
-                mPosition = rand.nextInt(mMusicItems.size());
-            }
+        if (mIsShuffle) {
+            mIsShuffle = false;
+            Toast.makeText(getContext(), "Shuffle is OFF", Toast.LENGTH_SHORT).show();
+            mImgShuffle.setImageResource(R.drawable.shuffledf);
         } else {
-            mPosition = (mPosition + 1) % mMusicItems.size();
+            // make repeat to true
+            mIsShuffle = true;
+            Toast.makeText(getContext(), "Shuffle is ON", Toast.LENGTH_SHORT).show();
+            mImgShuffle.setImageResource(R.drawable.shufflechg);
         }
     }
 

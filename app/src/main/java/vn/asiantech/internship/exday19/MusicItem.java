@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Created by datbu on 02-07-2017.
  */
-class MusicItem implements Serializable, Parcelable{
+class MusicItem implements Serializable, Parcelable {
     private String url;
     private String songName;
     private String image;
