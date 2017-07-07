@@ -46,12 +46,12 @@ public class CustomTabLayout extends View {
 
     public void onDraw(Canvas canvas) {
         if (mIsSelected) {
-            RectF rectFFill = new RectF(0, 0, getWidth(), getHeight() * 2);
-            RectF rectFStroke = new RectF(1, 1, getWidth() - 1, getHeight() * 2);
+            RectF rectFFill = new RectF(-1, 0, getWidth() + 1, getHeight() * 2 + 20);
+            RectF rectFStroke = new RectF(-1, 1, getWidth() + 1, getHeight() * 2 + 20);
             canvas.drawArc(rectFFill, 0, -180, false, mFillPaint);
             canvas.drawArc(rectFStroke, 0, -180, false, mStrokePaint);
         } else {
-            canvas.drawLine(0, getHeight() - 2, getWidth(), getHeight() - 2, mStrokePaint);
+            canvas.drawLine(-10, getHeight() - 2, getWidth() + 10, getHeight() - 2, mStrokePaint);
         }
     }
 
