@@ -60,13 +60,12 @@ public class MyCanvas extends View {
         }
 
         mPaint.setStrokeWidth(1);
-        Point point = fx(3, -4, 1, 20);
-        mPath.moveTo(point.x, point.y);
+        Point point1 = fx(3, -4, 1, 20);
 
         for (int i = 21; i < mWidth - 20; i++) {
-            point = fx(3, -4, 1, i);
-            mPath.lineTo(point.x, point.y);
-            mPath.moveTo(point.x, point.y);
+            Point point2 = fx(3, -4, 1, i);
+            canvas.drawLine(point1.x, point1.y, point2.x, point2.y, mPaint);
+            point1 = point2;
         }
         canvas.drawPath(mPath, mPaint);
         mPath.close();
