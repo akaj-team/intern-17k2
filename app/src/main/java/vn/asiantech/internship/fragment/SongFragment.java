@@ -34,7 +34,7 @@ public class SongFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_song, container, false);
-        mContext=view.getContext();
+        mContext = view.getContext();
         mRecyclerViewSong = (RecyclerView) view.findViewById(R.id.recyclerViewSong);
         mSongs = getArguments().getParcelableArrayList(KEY_LIST_SONG);
         mSongAdapter = new SongAdapter(mSongs);
@@ -50,18 +50,23 @@ public class SongFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public void updateListSong(Song song){
-        mSongs.add(song);
-        mSongAdapter.notifyItemInserted(mSongs.size()-1);
+
+    public void updateListSong(Song song) {
+        if (song != null) {
+            mSongs.add(song);
+            mSongAdapter.notifyItemInserted(mSongs.size() - 1);
+        }
     }
-    public void showProgressDialog(){
-        mProgressDialog=new ProgressDialog(mContext);
+
+    public void showProgressDialog() {
+        mProgressDialog = new ProgressDialog(mContext);
         mProgressDialog.setMessage("Please wait ...");
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
     }
-    public void closeProgressDialog(){
-        if (mProgressDialog!=null && mProgressDialog.isShowing()){
+
+    public void closeProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
     }

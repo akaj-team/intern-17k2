@@ -28,5 +28,6 @@
         <activity android:name=".ui.main.NoteActivity"/>
         <activity android:name=".activity.AnimalActivity" />
         <activity android:name=".activity.MusicActivity"/>
+        <service android:name=".services.MusicService"/>
     </application>
 </manifest>

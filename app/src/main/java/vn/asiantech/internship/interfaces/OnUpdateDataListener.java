@@ -8,7 +8,10 @@ import vn.asiantech.internship.models.Song;
 
 public interface OnUpdateDataListener {
     void onShowProgressDialog();
+
     void onAddSong(Song song);
+
     void onShowFragment();
+
     void onCloseProgressDialog();
 }
