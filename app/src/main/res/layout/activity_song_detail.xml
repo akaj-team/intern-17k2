@@ -1,32 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
 
     <TextView
+        android:id="@+id/tvSongName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/tvsongname.margin.top"
         android:gravity="center"
-        android:id="@+id/tvSongName"/>
+        android:textIsSelectable="true" />
+
     <TextView
+        android:id="@+id/tvArtist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSongName"
         android:gravity="center"
-        android:id="@+id/tvArtist"
-        android:layout_below="@+id/tvSongName"/>
+        android:textIsSelectable="true" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgDisk"
+        android:layout_width="@dimen/imageview.disk.width"
+        android:layout_height="@dimen/imageview.disk.height"
+        android:layout_below="@+id/tvArtist"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/imageview.disk.margin.top"
+        android:src="@drawable/img_disk" />
 
     <SeekBar
         android:id="@+id/seekBarTime"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="450dp" />
+        android:layout_height="5dp"
+
+        android:layout_below="@+id/imgDisk"
+        android:layout_marginTop="@dimen/seekbat.margin.top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekBarTime">
+
+        <TextView
+            android:id="@+id/tvcurrentTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/tvDuration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textIsSelectable="true" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/seekBarTime"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="@dimen/ll.margin.top">
 
         <ImageView
             android:id="@+id/imgShuffleSong"

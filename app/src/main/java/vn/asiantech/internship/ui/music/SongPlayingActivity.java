@@ -7,37 +7,47 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.services.MusicService;
 
 /**
+ *
  * Created by quanghai on 02/07/2017.
  */
 public class SongPlayingActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private TextView mTvSongName;
     private TextView mTvArtist;
+    private CircleImageView mImgDisk;
+    private TextView mTvCurrentTime;
+    private TextView mTvDuration;
     private ImageView mImgPause;
     private SeekBar mSeekBar;
+    private Animation mAnimation;
 
-    private MusicActivity mActivity;
-    private List<Song> mSongs;
     private boolean mIsPlaying;
-    private int mCurrentPosition;
     private boolean mIsShuffle;
     private boolean mIsReplay;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            processTime(intent);
+            if (intent.getAction().equals(Action.SEEK.getValue())) {
+                processTime(intent);
+            } else if (intent.getAction().equals(Action.NEXT_SONG.getValue())
+                    || intent.getAction().equals(Action.PREVIOUS_SONG.getValue())
+                    || intent.getAction().equals(Action.AUTO_NEXT.getValue())) {
+                getSong(intent);
+            }
         }
     };
 
@@ -46,18 +56,30 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_detail);
         initView();
-        IntentFilter filter = new IntentFilter(Action.SEEK.getValue());
-        registerReceiver(mBroadcastReceiver, filter);
-        mActivity = new MusicActivity();
-        mSongs = mActivity.getAllSong(this);
+        initIntentFilter();
+        MusicActivity activity = new MusicActivity();
+        List<Song> songs = activity.getAllSong(this);
         Intent intent = getIntent();
-        mCurrentPosition = intent.getIntExtra("position", -1);
-        setView();
+        int currentPosition = intent.getIntExtra(Action.KEY_BUNDLE_POSITION.getValue(), -1);
+        setView(songs.get(currentPosition));
+    }
+
+    private void initIntentFilter() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Action.SEEK.getValue());
+        filter.addAction(Action.AUTO_NEXT.getValue());
+        filter.addAction(Action.SHUFFLE.getValue());
+        filter.addAction(Action.PREVIOUS_SONG.getValue());
+        filter.addAction(Action.NEXT_SONG.getValue());
+        registerReceiver(mBroadcastReceiver, filter);
     }
 
     private void initView() {
         mTvSongName = (TextView) findViewById(R.id.tvSongName);
         mTvArtist = (TextView) findViewById(R.id.tvArtist);
+        mImgDisk = (CircleImageView) findViewById(R.id.imgDisk);
+        mTvCurrentTime = (TextView) findViewById(R.id.tvcurrentTime);
+        mTvDuration = (TextView) findViewById(R.id.tvDuration);
         ImageView imgPrevious = (ImageView) findViewById(R.id.imgPreviousSong);
         ImageView imgNext = (ImageView) findViewById(R.id.imgNextSong);
         mImgPause = (ImageView) findViewById(R.id.imgPauseSong);
@@ -73,46 +95,62 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
         mSeekBar.setOnSeekBarChangeListener(this);
     }
 
-    private void setView() {
-        Song song = mSongs.get(mCurrentPosition);
+    private void startAnimation(int duration){
+        mAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_disk);
+        mAnimation.setDuration(duration);
+        mImgDisk.startAnimation(mAnimation);
+    }
+
+    private void setView(Song song) {
         mTvSongName.setText(song.getTitle());
         mTvArtist.setText(song.getArtist());
     }
 
     private void processTime(Intent intent) {
-        int length = intent.getIntExtra("time", 0);
-        int position = intent.getIntExtra("second", 0);
-        Log.d("xxx", length + "processTime: " + position);
-        mSeekBar.setMax(length);
+        int duration = intent.getIntExtra(Action.KEY_DURATION.getValue(), 0);
+        int position = intent.getIntExtra(Action.KEY_CURRENT_TIME.getValue(), 0);
+        mSeekBar.setMax(duration);
         mSeekBar.setProgress(position);
+        mTvCurrentTime.setText(showTime(position / 1000));
+        mTvDuration.setText(showTime(duration / 1000));
+        startAnimation(duration / 1000);
+    }
+
+    private void getSong(Intent intent) {
+        Song song = intent.getParcelableExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue());
+        setView(song);
+    }
+
+    public String showTime(int duration) {
+        int min = (duration / 60);
+        int sec = (duration % 60);
+        String minute = (min < 10) ? "0" + min + ":" : min + ":";
+        String second = (sec < 10) ? "0" + sec : "" + sec;
+        return minute + second;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgPreviousSong:
-                if (mCurrentPosition > 0) {
-                    mCurrentPosition--;
-                    mActivity.intentStartService(this, mCurrentPosition, Action.PREVIOUS_SONG.getValue());
-                    setView();
-                }
+                mImgDisk.startAnimation(mAnimation);
+                intentService(Action.PREVIOUS_SONG.getValue());
                 break;
             case R.id.imgNextSong:
-                if (mCurrentPosition < mSongs.size() - 1) {
-                    mCurrentPosition++;
-                    mActivity.intentStartService(this, mCurrentPosition, Action.NEXT_SONG.getValue());
-                    setView();
-                }
+                mImgDisk.startAnimation(mAnimation);
+                intentService(Action.NEXT_SONG.getValue());
                 break;
             case R.id.imgPauseSong:
                 Intent intent = new Intent(this, MusicService.class);
                 if (mIsPlaying) {
+                    mImgDisk.clearAnimation();
                     mImgPause.setImageResource(R.drawable.ic_pause_black_24dp);
                     intent.setAction(Action.PAUSE.getValue());
                     startService(intent);
                     mIsPlaying = false;
                     return;
                 }
+                mImgDisk.startAnimation(mAnimation);
                 mImgPause.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                 intent.setAction(Action.RESUME.getValue());
                 startService(intent);
@@ -120,21 +158,25 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.imgShuffleSong:
                 mIsShuffle = !mIsShuffle;
-                Log.d("xxx", "onClick: " + mIsShuffle);
                 Intent shuffleIntent = new Intent(this, MusicService.class);
                 shuffleIntent.setAction(Action.SHUFFLE.getValue());
-                shuffleIntent.putExtra("shuffle", mIsShuffle);
+                shuffleIntent.putExtra(Action.SHUFFLE.getValue(), mIsShuffle);
                 startService(shuffleIntent);
                 break;
             case R.id.imgReplay:
                 mIsReplay = !mIsReplay;
-                Log.d("xxx", "autonext: " + mIsReplay);
                 Intent autoNextIntent = new Intent(this, MusicService.class);
                 autoNextIntent.setAction(Action.REPLAY.getValue());
-                autoNextIntent.putExtra("replay", mIsReplay);
+                autoNextIntent.putExtra(Action.REPLAY.getValue(), mIsReplay);
                 startService(autoNextIntent);
                 break;
         }
+    }
+
+    private void intentService(String action) {
+        Intent intent = new Intent(this, MusicService.class);
+        intent.setAction(action);
+        startService(intent);
     }
 
     @Override
@@ -150,7 +192,7 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         Intent intent = new Intent(SongPlayingActivity.this, MusicService.class);
-        intent.putExtra("chooseTime", seekBar.getProgress());
+        intent.putExtra(Action.SEEK_TO.getValue(), seekBar.getProgress());
         intent.setAction(Action.SEEK_TO.getValue());
         startService(intent);
     }

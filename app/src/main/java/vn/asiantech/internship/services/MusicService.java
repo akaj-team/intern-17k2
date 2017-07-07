@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.provider.MediaStore;
@@ -19,15 +18,15 @@ import android.widget.RemoteViews;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.ui.music.Action;
-import vn.asiantech.internship.ui.music.MusicActivity;
 
 /**
+ *
  * Created by quanghai on 30/06/2017.
  */
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
@@ -36,8 +35,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private int mCurrentPosition;
     private boolean mIsShuffle;
     private boolean mIsReplay;
-    private int mShufflePosition = 0;
-    private boolean mIsPlaying;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -57,61 +55,60 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
             if (intent.getAction().equals(Action.START.getValue())) {
-                if (mIsShuffle) {
-                    Log.d("xxx", "onStartCommand: shuffle");
-                    playSong(shuffleSongs(), mShufflePosition);
-                    if (mShufflePosition < shuffleSongs().size()) {
-                        mShufflePosition++;
-                    }
-                } else {
-                    getBundle(intent);
-                }
+                getBundle(intent);
                 playSong(mSongs, mCurrentPosition);
             } else if (intent.getAction().equals(Action.PREVIOUS_SONG.getValue())) {
-                if (mCurrentPosition > 0) {
-                    mCurrentPosition--;
-                    playSong(mSongs, mCurrentPosition);
+                if (mIsShuffle) {
+                    shuffleSongs();
+                } else {
+                    if (mCurrentPosition > 0) {
+                        mCurrentPosition--;
+                    }
                 }
+                playSong(mSongs, mCurrentPosition);
+                sendBroadcastSong(Action.PREVIOUS_SONG.getValue());
             } else if (intent.getAction().equals(Action.NEXT_SONG.getValue())) {
-                if (mCurrentPosition < mSongs.size() - 1) {
-                    mCurrentPosition++;
-                    playSong(mSongs, mCurrentPosition);
+                if (mIsShuffle) {
+                    shuffleSongs();
+                } else {
+                    if (mCurrentPosition < mSongs.size() - 1) {
+                        mCurrentPosition++;
+                    }
                 }
+                playSong(mSongs, mCurrentPosition);
+                sendBroadcastSong(Action.NEXT_SONG.getValue());
+
             } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
                 if (mMediaPLayer.isPlaying()) {
                     mMediaPLayer.pause();
-                    Log.d("xxx", "onStartCommand: pause ");
+                    Log.d("xxx", "onStartCommand: pause " + mMediaPLayer.isPlaying());
                 }
             } else if (intent.getAction().equals(Action.RESUME.getValue())) {
                 if (!mMediaPLayer.isPlaying()) {
                     mMediaPLayer.start();
-                    Log.d("xxx", "onStartCommand: resume");
+                    Log.d("xxx", "onStartCommand: resume" + mMediaPLayer.isPlaying());
                 }
             } else if (intent.getAction().equals(Action.SEEK_TO.getValue())) {
-                int position = intent.getIntExtra("chooseTime", 0);
+                int position = intent.getIntExtra(Action.SEEK_TO.getValue(), 0);
                 mMediaPLayer.seekTo(position);
                 mMediaPLayer.start();
             } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
-                mIsShuffle = intent.getBooleanExtra("shuffle", false);
-                Log.d("xxxx", "onStartCommand: " + mIsShuffle);
+                mIsShuffle = intent.getBooleanExtra(Action.SHUFFLE.getValue(), false);
             } else if (intent.getAction().equals(Action.REPLAY.getValue())) {
-                mIsReplay = intent.getBooleanExtra("replay", false);
+                mIsReplay = intent.getBooleanExtra(Action.REPLAY.getValue(), false);
             }
         }
         return START_STICKY;
     }
 
     private void getBundle(Intent intent) {
-        mSongs = intent.getParcelableArrayListExtra(MusicActivity.KEY_BUNDLE_ARRAYLIST);
-        mCurrentPosition = intent.getIntExtra(MusicActivity.KEY_BUNDLE_POSITION, -1);
-        Log.d("xxx", "getBundle: " + mCurrentPosition);
+        mSongs = intent.getParcelableArrayListExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue());
+        mCurrentPosition = intent.getIntExtra(Action.KEY_BUNDLE_POSITION.getValue(), -1);
     }
 
-    private List<Song> shuffleSongs() {
-        List<Song> songs = mSongs;
-        songs.remove(mCurrentPosition);
-        Collections.shuffle(songs);
-        return songs;
+    private void shuffleSongs() {
+        Random random = new Random();
+        mCurrentPosition = random.nextInt(mSongs.size() - 1);
     }
 
     private void playSong(List<Song> songs, int position) {
@@ -122,15 +119,16 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         try {
             mMediaPLayer.setDataSource(this, uri);
         } catch (IOException e) {
-            e.getMessage();
+            Log.e("xxx", "playSong: " + e.getMessage());
         }
         mMediaPLayer.prepareAsync();
     }
 
     private void showNotification() {
+        Song song = mSongs.get(mCurrentPosition);
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.custom_notification);
-        remoteViews.setTextViewText(R.id.tvNotificationSongName, mSongs.get(mCurrentPosition).getTitle());
-        remoteViews.setTextViewText(R.id.tvNotificationArtist, mSongs.get(mCurrentPosition).getArtist());
+        remoteViews.setTextViewText(R.id.tvNotificationSongName, song.getTitle());
+        remoteViews.setTextViewText(R.id.tvNotificationArtist, song.getArtist());
         remoteViews.setTextColor(R.id.tvNotificationSongName, Color.BLACK);
         remoteViews.setTextColor(R.id.tvNotificationArtist, Color.BLACK);
 
@@ -153,10 +151,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         PendingIntent playPendingIntent = PendingIntent.getService(this, 0, playIntent, 0);
 
         Notification builder = new NotificationCompat.Builder(this)
-//                .setCustomBigContentView(remoteViews)
                 .setContent(remoteViews)
                 .setSmallIcon(R.drawable.ic_play_arrow_black_24dp)
-                .setContentTitle("Music player")
+                .setContentTitle(mSongs.get(mCurrentPosition).getTitle())
                 .addAction(R.drawable.ic_skip_previous_black_24dp, null, previousPendingIntent)
                 .addAction(R.drawable.ic_play_arrow_black_24dp, null, playPendingIntent)
                 .addAction(R.drawable.ic_skip_next_black_24dp, null, nextPendingIntent)
@@ -175,13 +172,13 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void onPrepared(MediaPlayer mediaPlayer) {
         showNotification();
         mediaPlayer.start();
-        final Intent timeIntent = new Intent(Action.SEEK.getValue());
+        final Intent intent = new Intent(Action.SEEK.getValue());
         CountDownTimer countDownTimer = new CountDownTimer(mMediaPLayer.getDuration(), 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timeIntent.putExtra("time", mMediaPLayer.getDuration());
-                timeIntent.putExtra("second", mMediaPLayer.getCurrentPosition());
-                sendBroadcast(timeIntent);
+                intent.putExtra(Action.KEY_DURATION.getValue(), mMediaPLayer.getDuration());
+                intent.putExtra(Action.KEY_CURRENT_TIME.getValue(), mMediaPLayer.getCurrentPosition());
+                sendBroadcast(intent);
             }
 
             @Override
@@ -192,17 +189,27 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         countDownTimer.start();
     }
 
+    private void sendBroadcastSong(String action) {
+        Intent intent = new Intent(action);
+        intent.putExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue(), mSongs.get(mCurrentPosition));
+        sendBroadcast(intent);
+    }
+
     @Override
     public void onCompletion(MediaPlayer mp) {
         if (mIsReplay) {
             mp.setLooping(true);
         } else {
-            if (mIsShuffle) {
-                playSong(shuffleSongs(), mShufflePosition);
-                return;
+            if (!mIsShuffle) {
+                if (mCurrentPosition < mSongs.size() - 1) {
+                    mCurrentPosition++;
+                }
             }
-            mCurrentPosition++;
+            shuffleSongs();
             playSong(mSongs, mCurrentPosition);
+            Intent intent = new Intent(Action.AUTO_NEXT.getValue());
+            intent.putExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue(), mSongs.get(mCurrentPosition));
+            sendBroadcast(intent);
         }
     }
 }

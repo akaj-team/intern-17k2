@@ -12,14 +12,17 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Song;
+import vn.asiantech.internship.ui.music.SongPlayingActivity;
 
 /**
+ *
  * Created by quanghai on 30/06/2017.
  */
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder> {
     private List<Song> mSongs = new ArrayList<>();
     private OnListener mOnListener;
+    private SongPlayingActivity mActivity = new SongPlayingActivity();
 
     public SongAdapter(List<Song> mSongs, OnListener onListener) {
         this.mSongs = mSongs;
@@ -33,14 +36,14 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final ItemViewHolder holder, final int position) {
+    public void onBindViewHolder(final ItemViewHolder holder, int position) {
         holder.mTvTitle.setText(mSongs.get(position).getTitle());
         holder.mTvArtist.setText(mSongs.get(position).getArtist());
-        holder.mTvTime.setText(mSongs.get(position).getTime() + "");
+        holder.mTvTime.setText(mActivity.showTime(mSongs.get(position).getTime() / 1000));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnListener.onItemClick(position);
+                mOnListener.onItemClick(holder.getAdapterPosition());
                 Log.d("xxx", "onClick: ");
             }
         });

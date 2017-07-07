@@ -11,10 +11,6 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,72 +21,19 @@ import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.services.MusicService;
 
 /**
+ *
  * Created by quanghai on 30/06/2017.
  */
-public class MusicActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final String KEY_BUNDLE_ARRAYLIST = "arraylist";
-    public static final String KEY_BUNDLE_POSITION = "position";
-
-    private LinearLayout mLlSong;
+public class MusicActivity extends AppCompatActivity {
     private RecyclerView mRecyclerViewSong;
-    private ImageView mImgThumbnail;
-    private ImageView mImgPrevious;
-    private ImageView mImgPause;
-    private ImageView mImgNext;
-    private TextView mTvSongName;
-    private TextView mTvSinger;
 
-    private int mCurrentPosition;
-    private boolean mIsPlaying;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
-        initView();
+        mRecyclerViewSong = (RecyclerView) findViewById(R.id.recyclerViewSong);
         initAdapter();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.imgPrevious:
-                if (mCurrentPosition > 0) {
-                    mCurrentPosition--;
-                    setViewAction(mCurrentPosition);
-                    Intent previousIntent = new Intent(this, MusicService.class);
-                    previousIntent.setAction(Action.PREVIOUS_SONG.getValue());
-                    startService(previousIntent);
-                }
-                break;
-            case R.id.imgPause:
-                Intent intent = new Intent(MusicActivity.this, MusicService.class);
-                if (mIsPlaying) {
-                    mImgPause.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                    intent.setAction(Action.PAUSE.getValue());
-                    startService(intent);
-                    mIsPlaying = false;
-                    return;
-                }
-                mImgPause.setImageResource(R.drawable.ic_pause_black_24dp);
-                intent.setAction(Action.RESUME.getValue());
-                startService(intent);
-                mIsPlaying = true;
-                break;
-            case R.id.imgNext:
-                if (mCurrentPosition < getAllSong(this).size() - 1) {
-                    mCurrentPosition++;
-                    Intent nextIntent = new Intent(this, MusicService.class);
-                    nextIntent.setAction(Action.NEXT_SONG.getValue());
-                    startService(nextIntent);
-                }
-                break;
-            case R.id.llSong:
-                Intent intentDetail = new Intent(MusicActivity.this, SongPlayingActivity.class);
-                intentDetail.putExtra("position", mCurrentPosition);
-                startActivity(intentDetail);
-                break;
-        }
     }
 
     public List<Song> getAllSong(Context context) {
@@ -109,7 +52,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 int id = cursor.getInt(idColumn);
                 String title = cursor.getString(titleColumn);
                 String artist = cursor.getString(artistColumn);
-                long duration = cursor.getInt(timeColumn);
+                int duration = cursor.getInt(timeColumn);
                 songs.add(new Song(id, title, artist, duration));
             }
             cursor.close();
@@ -117,31 +60,15 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         return songs;
     }
 
-    private void initView() {
-        mLlSong = (LinearLayout) findViewById(R.id.llSong);
-        mImgThumbnail = (ImageView) findViewById(R.id.imgThumnail);
-        mImgPrevious = (ImageView) findViewById(R.id.imgPrevious);
-        mImgPause = (ImageView) findViewById(R.id.imgPause);
-        mImgNext = (ImageView) findViewById(R.id.imgNext);
-        mTvSongName = (TextView) findViewById(R.id.tvSongName);
-        mTvSinger = (TextView) findViewById(R.id.tvSinger);
-        mRecyclerViewSong = (RecyclerView) findViewById(R.id.recyclerViewSong);
-
-        mLlSong.setOnClickListener(this);
-        mImgPrevious.setOnClickListener(this);
-        mImgPause.setOnClickListener(this);
-        mImgNext.setOnClickListener(this);
-    }
-
     private void initAdapter() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         SongAdapter adapter = new SongAdapter(getAllSong(this), new SongAdapter.OnListener() {
             @Override
             public void onItemClick(int position) {
-                mCurrentPosition = position;
-                mIsPlaying = true;
+                Intent intent = new Intent(MusicActivity.this, SongPlayingActivity.class);
+                intent.putExtra(Action.KEY_BUNDLE_POSITION.getValue(), position);
+                startActivity(intent);
                 intentStartService(MusicActivity.this, position, Action.START.getValue());
-                setViewAction(mCurrentPosition);
             }
         });
         mRecyclerViewSong.setLayoutManager(linearLayoutManager);
@@ -151,48 +78,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     public void intentStartService(Context context, int position, String action) {
         Intent intent = new Intent(context, MusicService.class);
         intent.setAction(action);
-        intent.putParcelableArrayListExtra(KEY_BUNDLE_ARRAYLIST, (ArrayList<? extends Parcelable>) getAllSong(context));
-        intent.putExtra(KEY_BUNDLE_POSITION, position);
+        intent.putParcelableArrayListExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue(), (ArrayList<? extends Parcelable>) getAllSong(context));
+        intent.putExtra(Action.KEY_BUNDLE_POSITION.getValue(), position);
         context.startService(intent);
-    }
-
-    private void setViewAction(int position) {
-        mLlSong.setVisibility(View.VISIBLE);
-        mImgPrevious.setVisibility(View.VISIBLE);
-        mImgPause.setVisibility(View.VISIBLE);
-        mImgNext.setVisibility(View.VISIBLE);
-
-        Song song = getAllSong(this).get(position);
-        mTvSongName.setText(song.getTitle());
-        mTvSinger.setText(song.getArtist());
-    }
-
-    public String convertDuration(int duration) {
-        String out = null;
-        long hours;
-        try {
-            hours = (duration / 3600000);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return out;
-        }
-        long remaining_minutes = (duration - (hours * 3600000)) / 60000;
-        String minutes = String.valueOf(remaining_minutes);
-        if (minutes.equals(0)) {
-            minutes = "00";
-        }
-        long remaining_seconds = (duration - (hours * 3600000) - (remaining_minutes * 60000));
-        String seconds = String.valueOf(remaining_seconds);
-        if (seconds.length() < 2) {
-            seconds = "00";
-        } else {
-            seconds = seconds.substring(0, 2);
-        }
-        if (hours > 0) {
-            out = hours + ":" + minutes + ":" + seconds;
-        } else {
-            out = minutes + ":" + seconds;
-        }
-        return out;
     }
 }
