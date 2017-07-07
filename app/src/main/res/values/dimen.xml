@@ -34,6 +34,11 @@
     <dimen name="itemtab.height">45dp</dimen>
     <dimen name="tablayout.height">90dp</dimen>
     <dimen name="pager.height">500dp</dimen>
+    <dimen name="question.dialog.textsize">20sp</dimen>
+    <dimen name="question.dialog.textview.padding">20dp</dimen>
+    <dimen name="question.tvquestion.height">100dp</dimen>
+    <dimen name="textsize.20">20sp</dimen>
+    <dimen name="textsize.18">18sp</dimen>
     <dimen name="note.item_note.padding">10dp</dimen>
     <dimen name="note.imageview.addnote.width">150dp</dimen>
     <dimen name="note.imageview.addnote.height">100dp</dimen>
