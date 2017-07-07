@@ -64,4 +64,6 @@
     <string name="result.dialog.button.ok">Ok</string>
     <string name="result.dialog.button.exit">Cancel</string>
     <string name="result.dialog.message">Do you want to show result?</string>
+    <!--Music-->
+    <string name="currentTime">00:00</string>
 </resources>

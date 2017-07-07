@@ -8,16 +8,26 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgMusic"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="@dimen/music.image_size"
+        android:layout_height="@dimen/music.image_size"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:src="@drawable/img_music" />
+
+    <TextView
+        android:id="@+id/tvNameOfSong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        tools:text="Music" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/activity_vertical_margin"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -27,17 +37,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="00:00"
+            android:text="@string/currentTime"
             android:textColor="#fff"
-            android:textSize="15dp"
+            android:textSize="@dimen/tab.custom.textSize"
             android:textStyle="bold" />
 
         <SeekBar
             android:id="@+id/seekBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="@dimen/item.layout_padding"
+            android:layout_marginRight="@dimen/item.layout_padding"
             android:layout_weight="4"
             android:progress="0" />
 
@@ -47,38 +57,62 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="00:00"
+            android:text="@string/currentTime"
             android:textColor="#fff"
-            android:textSize="15dp"
+            android:textSize="@dimen/tab.custom.textSize"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!--todo add shuffle button-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item.layout_padding"
+        android:layout_marginTop="@dimen/item.layout_padding"
+        android:paddingLeft="@dimen/frame.padding"
+        android:paddingRight="@dimen/frame.padding">
+
+        <ImageButton
+            android:id="@+id/imgBtnShuffle"
+            android:layout_width="@dimen/music.icon_size"
+            android:layout_height="@dimen/music.icon_size"
+            android:layout_gravity="start"
+            android:background="@drawable/ic_shuffle_white" />
+
+        <ImageButton
+            android:id="@+id/imgBtnAutoNext"
+            android:layout_width="@dimen/music.icon_size"
+            android:layout_height="@dimen/music.icon_size"
+            android:layout_gravity="end"
+            android:background="@drawable/ic_auto_next_blue" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="@dimen/music.button_height"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/imgBtnPrevious"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:background="@drawable/bg_button_previous" />
+            android:layout_width="@dimen/music.button_size"
+            android:layout_height="@dimen/music.button_size"
+            android:background="@drawable/bg_button_previous"
+            android:contentDescription="@string/bai20" />
 
         <ImageButton
             android:id="@+id/imgBtnPlay"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/bg_button_pause" />
+            android:layout_width="@dimen/music.button_size"
+            android:layout_height="@dimen/music.button_size"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:background="@drawable/bg_button_pause"
+            android:contentDescription="@string/bai20" />
 
         <ImageButton
             android:id="@+id/imgBtnNext"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:background="@drawable/bg_button_next" />
+            android:layout_width="@dimen/music.button_size"
+            android:layout_height="@dimen/music.button_size"
+            android:background="@drawable/bg_button_next"
+            android:contentDescription="@string/bai20" />
     </LinearLayout>
 </LinearLayout>

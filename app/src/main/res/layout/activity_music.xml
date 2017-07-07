@@ -7,6 +7,19 @@
     android:padding="@dimen/item.layout_padding"
     tools:context="vn.asiantech.internship.day20.ui.MusicActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBarMusic"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity.toolbar_height">
+
+        <ImageButton
+            android:id="@+id/imgBtnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_arrow_back_blue_500_48dp" />
+    </android.support.v7.widget.Toolbar>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewMusic"
         android:layout_width="match_parent"
@@ -16,5 +29,5 @@
         android:id="@+id/frContainerMusic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </LinearLayout>

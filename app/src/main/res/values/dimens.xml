@@ -51,4 +51,9 @@
     <dimen name="tab.viewpager.padding">10dp</dimen>
     <!--Bai20-->
     <dimen name="notification.image_size">150dp</dimen>
+    <dimen name="frame.padding">30dp</dimen>
+    <dimen name="music.image_size">250dp</dimen>
+    <dimen name="music.icon_size">32dp</dimen>
+    <dimen name="music.button_height">90dp</dimen>
+    <dimen name="music.button_size">70dp</dimen>
 </resources>

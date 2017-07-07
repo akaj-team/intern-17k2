@@ -7,9 +7,12 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -32,38 +35,58 @@ public class MusicFragment extends Fragment {
     private ImageButton mImgBtnPlay;
     private ImageButton mImgBtnPrevious;
     private ImageButton mImgBtnNext;
+    private ImageButton mImgBtnShuffle;
+    private ImageButton mImgBtnAutoNext;
+    private TextView mTvNameOfSong;
     private CircleImageView mCircleImageViewMusic;
     private SeekBar mSeekBar;
     private TextView mTvMusicTime;
     private TextView mCurrentTime;
     private boolean isPause = false;
     private boolean isPlaying = false;
+    private boolean isShuffle = false;
+    private boolean isAutoNext = false;
     private ArrayList<Song> mSongs;
     private int mCurrentPosition = -1;
+    private int mDuration;
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(CURRENT_TIME)) {
-                int duration = intent.getIntExtra("time", -1);
-                int second = intent.getIntExtra("second", -1);
-                showSeekBar(second, duration);
-                mTvMusicTime.setText(showTime(duration / 1000));
-                mCurrentTime.setText(showTime(second / 1000));
+            if (intent != null) {
+                switch (intent.getAction()) {
+                    case MusicService.DURATION:
+                        mDuration = intent.getIntExtra("timeInt", -1);
+                        Log.e("at-dinhvo", "onReceive: duration: " + mDuration);
+                        mTvMusicTime.setText(intent.getStringExtra("time"));
+                    case CURRENT_TIME:
+                        showSeekBar(intent.getIntExtra("secondInt", -1), mDuration);
+                        mCurrentTime.setText(intent.getStringExtra("second"));
+                        break;
+                    case MusicService.SONG_SHUFFLE:
+                        Log.e("at-dinhvo", "onReceive: SONG_SHUFFLE");
+                        int index = intent.getIntExtra(MusicService.POS_SHUFFLE, -1);
+                        if (index != -1) {
+                            mTvNameOfSong.setText(mSongs.get(index).getName());
+                        } else {
+                            Log.e("at-dinhvo", "onReceive: khong nhan duoc");
+                        }
+                        break;
+                }
             }
         }
     };
 
-    private String showTime(int duration) {
-        int min = duration / 60;
-        int sec = duration % 60;
-        String minute = (min < 10) ? "0" + min + ":" : min + ":";
-        String second = (sec < 10) ? "0" + sec : "" + sec;
-        return minute + second;
+    private void startAnimation(int duration) {
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.rotation);
+        animation.setDuration(duration / 1000);
+        mCircleImageViewMusic.startAnimation(animation);
     }
 
     private void showSeekBar(int second, int duration) {
-        mSeekBar.setProgress(second * 100 / duration);
+        mSeekBar.setMax(100);
+        mSeekBar.incrementProgressBy(1);
+//        mSeekBar.setProgress(second * 100 / duration);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -99,6 +122,7 @@ public class MusicFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         getSong();
         addEvents();
+        startAnimation(mDuration);
     }
 
     private void getSong() {
@@ -114,6 +138,7 @@ public class MusicFragment extends Fragment {
             intentPlay.putExtra(MusicActivity.KEY_POS, mCurrentPosition);
             getActivity().sendBroadcast(intentPlay);
             isPlaying = true;
+            mTvNameOfSong.setText(mSongs.get(mCurrentPosition).getName());
         } else {
             Toast.makeText(getContext(), "Position is wrong!", Toast.LENGTH_SHORT).show();
         }
@@ -153,6 +178,8 @@ public class MusicFragment extends Fragment {
                 Intent intentNext = new Intent();
                 intentNext.setAction(MusicService.ACTION_NEXT);
                 getActivity().sendBroadcast(intentNext);
+                mCurrentPosition = (mCurrentPosition == mSongs.size() - 1) ? 0 : mCurrentPosition + 1;
+                mTvNameOfSong.setText(mSongs.get(mCurrentPosition).getName());
             }
         });
 
@@ -162,6 +189,40 @@ public class MusicFragment extends Fragment {
                 Intent intentPrevious = new Intent();
                 intentPrevious.setAction(MusicService.ACTION_PREVIOUS);
                 getActivity().sendBroadcast(intentPrevious);
+                mCurrentPosition = (mCurrentPosition == 0) ? mSongs.size() - 1 : mCurrentPosition - 1;
+                mTvNameOfSong.setText(mSongs.get(mCurrentPosition).getName());
+            }
+        });
+
+        mImgBtnShuffle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentShuffle = new Intent();
+                intentShuffle.setAction(MusicService.ACTION_SHUFFLE);
+                getActivity().sendBroadcast(intentShuffle);
+                isShuffle = !isShuffle;
+                if (isShuffle) {
+                    mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_black);
+                } else {
+                    mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_white);
+                }
+                Log.e("at-dinhvo", "shuffle: " + isShuffle);
+            }
+        });
+
+        mImgBtnAutoNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAutoNext = new Intent();
+                intentAutoNext.setAction(MusicService.ACTION_AUTONEXT);
+                getActivity().sendBroadcast(intentAutoNext);
+                isAutoNext = !isAutoNext;
+                if (isAutoNext) {
+                    mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_auto_next_white);
+                } else {
+                    mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_auto_next_blue);
+                }
+                Log.e("at-dinhvo", "auto_next: " + isAutoNext);
             }
         });
     }
@@ -170,17 +231,27 @@ public class MusicFragment extends Fragment {
         mImgBtnPlay = (ImageButton) layout.findViewById(R.id.imgBtnPlay);
         mImgBtnNext = (ImageButton) layout.findViewById(R.id.imgBtnNext);
         mImgBtnPrevious = (ImageButton) layout.findViewById(R.id.imgBtnPrevious);
-        mCircleImageViewMusic = (CircleImageView) layout.findViewById(R.id.imgMusic);
+        mImgBtnShuffle = (ImageButton) layout.findViewById(R.id.imgBtnShuffle);
+        mImgBtnAutoNext = (ImageButton) layout.findViewById(R.id.imgBtnAutoNext);
         mSeekBar = (SeekBar) layout.findViewById(R.id.seekBar);
+        mCircleImageViewMusic = (CircleImageView) layout.findViewById(R.id.imgMusic);
         mCurrentTime = (TextView) layout.findViewById(R.id.tvCurrentTime);
         mTvMusicTime = (TextView) layout.findViewById(R.id.tvTimeSong);
+        mTvNameOfSong = (TextView) layout.findViewById(R.id.tvNameOfSong);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(CURRENT_TIME);
+        intentFilter.addAction(MusicService.DURATION);
+        intentFilter.addAction(MusicService.SONG_SHUFFLE);
+        getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(CURRENT_TIME);
-        getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
     }
 }

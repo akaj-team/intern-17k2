@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -36,6 +37,12 @@ public class MusicActivity extends AppCompatActivity {
     }
 
     private void initUI() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBarMusic);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(null);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
         mFrameLayout = (FrameLayout) findViewById(R.id.frContainerMusic);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewMusic);
         mRecyclerView.setHasFixedSize(true);
@@ -50,6 +57,14 @@ public class MusicActivity extends AppCompatActivity {
                 showMediaPlayer(position);
             }
         }));
+
+        findViewById(R.id.imgBtnBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mRecyclerView.setVisibility(View.VISIBLE);
+                mFrameLayout.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void startMusicService() {
