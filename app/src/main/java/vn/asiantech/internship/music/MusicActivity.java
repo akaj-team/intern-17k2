@@ -75,7 +75,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 mViewPagerMusic.setCurrentItem(0);
             } else if (TextUtils.equals(action, Action.CALLING.getValue())) {
                 mImgBtnPlay.setImageResource(R.drawable.ic_play_circle_filled_white_48dp);
-            } else if (TextUtils.equals(action, Action.ENDCALL.getValue())) {
+            } else if (TextUtils.equals(action, Action.END_CALL.getValue())) {
                 mImgBtnPlay.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
             }
         }
@@ -93,7 +93,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             showApp();
         } else {
@@ -130,7 +130,6 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initSongs() {
-
         mSongs.add(new Song("Ghen", "Min", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNXDXGNQETLDJTDGLG", R.drawable.img_ghen));
         mSongs.add(new Song("Shape Of You", "Ed Sheeran", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJGJLNDTLDJTDGLG", R.drawable.img_shape));
         mSongs.add(new Song("Mask Off", "Future", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJAQXNNTLDJTDGLG", R.drawable.img_future));
@@ -172,7 +171,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mStartFilter.addAction(Action.NOT_SHUFFLE.getValue());
         mStartFilter.addAction(Action.CANCEL.getValue());
         mStartFilter.addAction(Action.CALLING.getValue());
-        mStartFilter.addAction(Action.ENDCALL.getValue());
+        mStartFilter.addAction(Action.END_CALL.getValue());
         registerReceiver(mBroadcastReceiver, mStartFilter);
     }
 
@@ -210,11 +209,11 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onGetSong(int position) {
-        Intent playIntent = new Intent(MusicActivity.this, MusicService.class);
-        playIntent.putExtra("currentSong", position);
-        playIntent.putParcelableArrayListExtra("songs", (ArrayList<? extends Parcelable>) mSongs);
-        playIntent.setAction(Action.CHOOSE_SONG_FROM_LIST.getValue());
-        startService(playIntent);
+        Intent chooseFromListIntent = new Intent(MusicActivity.this, MusicService.class);
+        chooseFromListIntent.putExtra("currentSong", position);
+        chooseFromListIntent.putParcelableArrayListExtra("songs", (ArrayList<? extends Parcelable>) mSongs);
+        chooseFromListIntent.setAction(Action.CHOOSE_SONG_FROM_LIST.getValue());
+        startService(chooseFromListIntent);
     }
 
     private void processTime(Intent intent) {
@@ -229,9 +228,9 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mTvCurrentTime.setText(MusicUtil.milliSecondsToTimer(mPosition));
         mSeekBar.setProgress(mPosition);
         if (mTvTotalTime.getText().toString().equals(mTvCurrentTime.getText().toString())) {
-            Intent playIntent = new Intent(MusicActivity.this, MusicService.class);
-            playIntent.setAction(Action.AUTO_NEXT.getValue());
-            startService(playIntent);
+            Intent autoNextIntent = new Intent(MusicActivity.this, MusicService.class);
+            autoNextIntent.setAction(Action.AUTO_NEXT.getValue());
+            startService(autoNextIntent);
         }
     }
 

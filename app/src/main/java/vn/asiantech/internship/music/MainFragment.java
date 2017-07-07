@@ -37,8 +37,8 @@ public class MainFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_music, container, false);
         ImageView imgMusicMain = (ImageView) view.findViewById(R.id.imgMusicMain);
-        Animation animFade = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
-        imgMusicMain.startAnimation(animFade);
+        Animation animRotate = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
+        imgMusicMain.startAnimation(animRotate);
         mTvName = (TextView) view.findViewById(R.id.tvNameSong);
 
         mBroadcastReceiver = new BroadcastReceiver() {
@@ -48,8 +48,8 @@ public class MainFragment extends Fragment {
             }
         };
 
-        IntentFilter mStartFilter = new IntentFilter(Action.UPDATE.getValue());
-        getActivity().registerReceiver(mBroadcastReceiver, mStartFilter);
+        IntentFilter updateFilter = new IntentFilter(Action.UPDATE.getValue());
+        getActivity().registerReceiver(mBroadcastReceiver, updateFilter);
         return view;
     }
 

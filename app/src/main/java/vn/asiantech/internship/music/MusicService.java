@@ -31,13 +31,14 @@ import java.util.Random;
  */
 public class MusicService extends Service {
     private static final String TAG = MusicService.class.getSimpleName();
-    private MediaPlayer mMediaPlayer;
     private List<Song> mSongs = new ArrayList<>();
+    private MediaPlayer mMediaPlayer;
     private CountDownTimer mCountDownTimer;
     private int mCurrentSongIndex;
     private boolean mIsShuffle;
     private boolean mIsAutoNext;
     private boolean mIsPause;
+    private final NotificationBroadCast mNotificationBroadCast = new NotificationBroadCast();
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -49,7 +50,6 @@ public class MusicService extends Service {
             }
         }
     };
-    private final NotificationBroadCast mNotificationBroadCast = new NotificationBroadCast();
 
     @Override
     public void onCreate() {
@@ -150,9 +150,9 @@ public class MusicService extends Service {
         } else {
             if (mMediaPlayer.isPlaying()) {
                 mIsPause = false;
-                final Intent timeIntent = new Intent(Action.PAUSE.getValue());
-                timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
-                sendBroadcast(timeIntent);
+                final Intent pauseIntent = new Intent(Action.PAUSE.getValue());
+                pauseIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
+                sendBroadcast(pauseIntent);
                 mMediaPlayer.pause();
                 mCountDownTimer.cancel();
             } else {
@@ -169,14 +169,14 @@ public class MusicService extends Service {
     private void next() {
         if (mMediaPlayer != null && mSongs.size() != 0) {
             if (mIsShuffle) {
-                random();
+                playRandom();
             } else {
                 if (mCurrentSongIndex < (mSongs.size() - 1)) {
                     mCurrentSongIndex = mCurrentSongIndex + 1;
                     playSongWithPosition(mCurrentSongIndex);
                 } else {
-                    playSongWithPosition(0);
                     mCurrentSongIndex = 0;
+                    playSongWithPosition(mCurrentSongIndex);
                 }
             }
         }
@@ -185,7 +185,7 @@ public class MusicService extends Service {
     private void previous() {
         if (mMediaPlayer != null && mSongs.size() != 0) {
             if (mIsShuffle) {
-                random();
+                playRandom();
             } else {
                 if (mCurrentSongIndex > 0) {
                     mCurrentSongIndex = mCurrentSongIndex - 1;
@@ -201,24 +201,24 @@ public class MusicService extends Service {
     private void shuffle() {
         if (mIsShuffle) {
             mIsShuffle = false;
-            final Intent timeIntent = new Intent(Action.NOT_SHUFFLE.getValue());
-            sendBroadcast(timeIntent);
+            final Intent notShuffleIntent = new Intent(Action.NOT_SHUFFLE.getValue());
+            sendBroadcast(notShuffleIntent);
         } else {
             mIsShuffle = true;
-            final Intent timeIntent = new Intent(Action.SHUFFLE.getValue());
-            sendBroadcast(timeIntent);
+            final Intent shuffleIntent = new Intent(Action.SHUFFLE.getValue());
+            sendBroadcast(shuffleIntent);
         }
     }
 
     private void replay() {
         if (mIsAutoNext) {
             mIsAutoNext = false;
-            final Intent timeIntent = new Intent(Action.NOT_REPLAY.getValue());
-            sendBroadcast(timeIntent);
+            final Intent notReplayIntent = new Intent(Action.NOT_REPLAY.getValue());
+            sendBroadcast(notReplayIntent);
         } else {
             mIsAutoNext = true;
-            final Intent timeIntent = new Intent(Action.REPLAY.getValue());
-            sendBroadcast(timeIntent);
+            final Intent replayIntent = new Intent(Action.REPLAY.getValue());
+            sendBroadcast(replayIntent);
         }
     }
 
@@ -227,16 +227,14 @@ public class MusicService extends Service {
             if (mIsAutoNext) {
                 playSongWithPosition(mCurrentSongIndex);
             } else if (mIsShuffle) {
-                Random rand = new Random();
-                mCurrentSongIndex = rand.nextInt((mSongs.size() - 1) + 1);
-                playSongWithPosition(mCurrentSongIndex);
+                playRandom();
             } else {
                 if (mCurrentSongIndex < (mSongs.size() - 1)) {
-                    playSongWithPosition(mCurrentSongIndex + 1);
                     mCurrentSongIndex = mCurrentSongIndex + 1;
+                    playSongWithPosition(mCurrentSongIndex);
                 } else if (mCurrentSongIndex == (mSongs.size())) {
-                    playSongWithPosition(0);
                     mCurrentSongIndex = 0;
+                    playSongWithPosition(mCurrentSongIndex);
                 }
             }
         }
@@ -252,7 +250,7 @@ public class MusicService extends Service {
         super.onDestroy();
     }
 
-    private void random() {
+    private void playRandom() {
         Random rand = new Random();
         mCurrentSongIndex = rand.nextInt((mSongs.size() - 1) + 1);
         playSongWithPosition(mCurrentSongIndex);
