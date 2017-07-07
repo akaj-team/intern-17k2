@@ -49,6 +49,14 @@ public class CustomView extends View {
 
         calculate(3, -4, 1);
         drawGraph(canvas);
+        for (int i = -7; i < 7; i++) {
+            if (i > -4 && i < 4) {
+                drawVerticalNumber(canvas, i);
+                drawHorizontalNumber(canvas, i);
+            } else {
+                drawVerticalNumber(canvas, i);
+            }
+        }
     }
 
     private void initPaint() {
@@ -82,7 +90,7 @@ public class CustomView extends View {
         mPath.lineTo(getWidth() - MARGIN + EXTRA_LENGHT, getHeight() / 2);
 
         canvas.drawPath(mPath, mPathPaint);
-        canvas.drawText("O", getWidth() / 2 - EXTRA_LENGHT * 4, getHeight() / 2 + EXTRA_LENGHT * 4, mPaint);
+        canvas.drawText("O", getWidth() / 2 - EXTRA_LENGHT * 4, getHeight() / 2 + EXTRA_LENGHT * 4, mPathPaint);
     }
 
     private void calculate(int a, int b, int c) {
@@ -95,5 +103,13 @@ public class CustomView extends View {
         for (int i = 0; i < mPoints.size() - 1; i++) {
             canvas.drawLine(mPoints.get(i).getX(), mPoints.get(i).getY(), mPoints.get(i + 1).getX(), mPoints.get(i + 1).getY(), mPaint);
         }
+    }
+
+    private void drawHorizontalNumber(Canvas canvas, int i) {
+        canvas.drawLine(getWidth() / 2 + MARGIN * i, getHeight() / 2 + 5, getWidth() / 2 + MARGIN * i, getHeight() / 2 - 5, mPaint);
+    }
+
+    private void drawVerticalNumber(Canvas canvas, int i) {
+        canvas.drawLine(getWidth() / 2 - 5, getHeight() / 2 + MARGIN * i, getWidth() / 2 + 5, getHeight() / 2 + MARGIN * i, mPaint);
     }
 }
