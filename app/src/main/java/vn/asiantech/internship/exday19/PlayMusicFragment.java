@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +36,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     public static final String KEY_DURATION = "duration";
     public static final String KEY_CURRENT_POSITION = "current";
     public static final String KEY_SHUFFLE = "shuffle";
+    public static final String KEY_REPEAT = "repeat";
 
     private MusicItem mMusicItem;
     private CircleImageView mAlbumArt;
@@ -147,7 +147,9 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
                 getContext().startService(mIntent);
                 break;
             case R.id.imgRepeat:
+                initRepeat();
                 mIntent.setAction(Action.REPEAT.getValue());
+                mIntent.putExtra(KEY_REPEAT, mIsShuffle);
                 getContext().startService(mIntent);
                 break;
             case R.id.imgShuffle:
@@ -183,7 +185,6 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
 
     private void processTime(Intent intent) {
         if (mMediaPlayer.isPlaying()) {
-            Log.d("tag", "processTime: " + Integer.parseInt(intent.getStringExtra("time")));
             mImgPlay.setImageResource(intent.getIntExtra("pause", 0));
         } else {
             mImgPlay.setImageResource(intent.getIntExtra("play", 0));
@@ -195,7 +196,6 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
             return;
         }
         mTime = Integer.parseInt(intent.getStringExtra("second"));
-        Log.d("tag", "processTime: " + mTime);
         mSeekBar.setProgress(mTime);
 //        showTime();
     }
@@ -206,11 +206,11 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         super.onDestroy();
     }
 
-    public void initSetImg() {
-        if (mMediaPlayer.isPlaying()) {
-
-        }
-    }
+//    public void initSetImg() {
+//        if (mMediaPlayer.isPlaying()) {
+//
+//        }
+//    }
 
     // Show time
     public void showTime() {
@@ -262,11 +262,14 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
 
     public void initRepeat() {
         if (mIsRepeat) {
-            mMediaPlayer.setLooping(true);
-            Log.d("tag", "initRepeat: " + mIsRepeat);
+            mIsRepeat = false;
+            Toast.makeText(getContext(), "Repeat is OFF", Toast.LENGTH_SHORT).show();
+            mImgRepeat.setImageResource(R.drawable.repeatdf);
         } else {
-            mMediaPlayer.setLooping(false);
-            Log.d("tag", "initRepeat: 1111" + mIsRepeat);
+            // make repeat to true
+            mIsRepeat = true;
+            Toast.makeText(getContext(), "Repeat is ON", Toast.LENGTH_SHORT).show();
+            mImgRepeat.setImageResource(R.drawable.repeatchg);
         }
     }
 }

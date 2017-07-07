@@ -82,7 +82,7 @@ public class NotificationServiceMusic extends Service {
                     mMediaPlayer.setDataSource(mUrl);
                     mMediaPlayer.prepare();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.d(TAG, "onStartCommand: " + e);
                 }
                 mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
@@ -216,8 +216,8 @@ public class NotificationServiceMusic extends Service {
                 R.drawable.ic_notification);
 
         Notification notification = new NotificationCompat.Builder(this)
-                .setContentTitle(" Music Player")
-                .setContentText("Song name....")
+                .setContentTitle(getString(R.string.content_title))
+                .setContentText(getString(R.string.content_songname))
                 .setSmallIcon(R.drawable.ic_notification)
                 .setLargeIcon(Bitmap.createScaledBitmap(bm, 128, 128, false))
                 .setContentIntent(pendingIntent)

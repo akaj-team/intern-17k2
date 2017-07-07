@@ -18,17 +18,17 @@ import vn.asiantech.internship.R;
  * Created by datbu on 02-07-2017.
  */
 public class MusicListFragment extends Fragment {
-    public static String[] mUrls = {"http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQQVEXVVTLDJTDGLG",
+    public static final String[] URL = {"http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQQVEXVVTLDJTDGLG",
             "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNVEGEADETLDJTDGLG",
             "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQLGJLVQTLDJTDGLG",
             "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNXDDGVVATLDJTDGLG",
             "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAXQGGETLDJTDGLG"};
-    public static String[] mSongNames = {"Butterfly - BEAST",
+    public static final String[] SONG_NAME = {"Butterfly - BEAST",
             "On Rainy Days - BEAST",
             "12:30' - BEAST",
             "Attention - Charlie Puth",
             "We Don't Talk Anymore - Charlie Puth, Selena Gomez"};
-    public static String[] mImages = {"http://goodmomusic.net/wp-content/uploads/2016/06/beast-butterfly-1.png",
+    public static String[] IMAGE = {"http://goodmomusic.net/wp-content/uploads/2016/06/beast-butterfly-1.png",
             "http://zmp3-photo-fbcrawler-td.zadn.vn/thumb/600_600/covers/1/0/107f98d149a0f3e406a92b349773749b_1305132154.jpg",
             "http://data.whicdn.com/images/146896977/superthumb.jpg",
             "https://images.genius.com/bc29e1ff20b4931dd9919f2ab5252b0e.1000x1000x1.jpg",
@@ -40,8 +40,8 @@ public class MusicListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_music_list, container, false);
         ArrayList<MusicItem> musicItems = new ArrayList<>();
-        for (int i = 0; i < mUrls.length; i++) {
-            musicItems.add(new MusicItem(mUrls[i], mSongNames[i], mImages[i]));
+        for (int i = 0; i < URL.length; i++) {
+            musicItems.add(new MusicItem(URL[i], SONG_NAME[i], IMAGE[i]));
         }
 
         LinearLayoutManager manager = new LinearLayoutManager(view.getContext());

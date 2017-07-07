@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import vn.asiantech.internship.R;
 
-import static vn.asiantech.internship.exday19.MusicListFragment.mUrls;
+import static vn.asiantech.internship.exday19.MusicListFragment.URL;
 
 /**
  * Created by datbu on 02-07-2017.
@@ -69,8 +69,8 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
         setSupportActionBar(toolbar);
         intentFilter();
         mMusicItems = new ArrayList<>();
-        for (int i = 0; i < MusicListFragment.mUrls.length; i++) {
-            mMusicItems.add(new MusicItem(mUrls[i], MusicListFragment.mSongNames[i], MusicListFragment.mImages[i]));
+        for (int i = 0; i < MusicListFragment.URL.length; i++) {
+            mMusicItems.add(new MusicItem(URL[i], MusicListFragment.SONG_NAME[i], MusicListFragment.IMAGE[i]));
         }
         if (!mIsServiceRunning) {
             Intent intent = new Intent(MusicActivity.this, NotificationServiceMusic.class);
@@ -79,7 +79,6 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
             startService(intent);
         }
         Log.d("tag", "onCreate: " + mMusicItems);
-        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mMusicListFragment = new MusicListFragment();
         mPlayMusicFragment = new PlayMusicFragment();
         replaceFragment(mMusicListFragment, false);
@@ -87,12 +86,12 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
 
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        mFragmentTransaction = fragmentManager.beginTransaction();
         if (addToBackStack) {
-            fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
+            mFragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
         }
-        fragmentTransaction.replace(R.id.flMusicList, fragment);
-        fragmentTransaction.commit();
+        mFragmentTransaction.replace(R.id.flMusicList, fragment);
+        mFragmentTransaction.commit();
     }
 
     @Override
