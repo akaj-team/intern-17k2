@@ -10,11 +10,13 @@ import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
+import vn.asiantech.internship.R;
 import vn.asiantech.internship.day20.model.Song;
 import vn.asiantech.internship.day20.ui.MusicActivity;
 import vn.asiantech.internship.day20.ui.MusicFragment;
@@ -54,21 +56,21 @@ public class MusicService extends Service {
             if (intent != null) {
                 switch (intent.getAction()) {
                     case ACTION_PLAY:
+                        isPause = false;
                         mCurrentPosition = intent.getIntExtra(MusicActivity.KEY_POS, -1);
                         if (mCurrentPosition != -1) {
                             mSong = mSongs.get(mCurrentPosition);
                             Log.e(TAG, "onReceive: " + mSong.getName());
                         }
-                        if (mMediaPlayer.isPlaying()) {
-                            mMediaPlayer.stop();
-                            mMediaPlayer.reset();
-                        }
+                        Log.e(TAG, "Media is playing..." + (mMediaPlayer.isPlaying()));
                         startMedia();
                         break;
                     case ACTION_PAUSE:
+                        isPause = true;
                         pauseMusic();
                         break;
                     case ACTION_RESUME:
+                        isPause = false;
                         resumeMusic();
                         break;
                     case ACTION_NEXT:
@@ -96,6 +98,10 @@ public class MusicService extends Service {
         }
     };
 
+    public MusicService() {
+
+    }
+
     private void shuffleMusic() {
         Random random = new Random();
         int ran;
@@ -110,37 +116,39 @@ public class MusicService extends Service {
         Log.e(TAG, "shuffle music: " + ran + ":" + mSong.getName());
     }
 
-    public MusicService() {
-
-    }
-
     private void startMedia() {
-        mMediaPlayer.stop();
-        mMediaPlayer.reset();
         Log.e(TAG, "at-dinhvo: startMedia:");
+        resetMusic();
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
+            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mMediaPlayer.start();
+                    Intent durationIntent = new Intent();
+                    durationIntent.setAction(MusicService.DURATION);
+                    durationIntent.putExtra("time", showTime(mMediaPlayer.getDuration() / 1000));
+                    durationIntent.putExtra("timeInt", mMediaPlayer.getDuration() / 1000);
+                    sendBroadcast(durationIntent);
+                    handlerProgress();
+                }
+            });
             mMediaPlayer.prepare();
+            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    if (isAutoNext) {
+                        nextMusic();
+                    }
+                }
+            });
         } catch (IOException e) {
             Log.e(TAG, "IOException: " + e.toString());
         }
-        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                mMediaPlayer.start();
-                Intent durationIntent = new Intent();
-                durationIntent.setAction(MusicService.DURATION);
-                durationIntent.putExtra("time", showTime(mMediaPlayer.getDuration() / 1000));
-                durationIntent.putExtra("timeInt", mMediaPlayer.getDuration() / 1000);
-                sendBroadcast(durationIntent);
-                handlerProgress();
-            }
-        });
     }
 
     private void nextMusic() {
-        mMediaPlayer.stop();
-        mMediaPlayer.reset();
+        resetMusic();
         if (isShuffle) {
             shuffleMusic();
             Log.e(TAG, "nextMusic: " + mSong.getName());
@@ -152,7 +160,13 @@ public class MusicService extends Service {
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
             mMediaPlayer.prepare();
-            startMusic();
+            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mMediaPlayer.start();
+                    handlerProgress();
+                }
+            });
             Log.e(TAG, "nextMusic: " + mSong.getName());
         } catch (IOException e) {
             Log.e(TAG, "IOException");
@@ -161,11 +175,17 @@ public class MusicService extends Service {
 
     private void showNotification() {
         // TODO: 07/07/2017
+        RemoteViews notificationView = new RemoteViews(
+                getPackageName(), R.layout.custom_notification);
+        notificationView.setImageViewResource(R.id.imgNotifiMusic, R.drawable.ic_troll);
+        notificationView.setTextViewText(R.id.tvNotifiSongName, mSong.getName());
+        notificationView.setTextViewText(R.id.tvNotifiSinger, mSong.getSinger());
+
+
     }
 
     private void previousMusic() {
-        mMediaPlayer.stop();
-        mMediaPlayer.reset();
+        resetMusic();
         if (isShuffle) {
             shuffleMusic();
         } else {
@@ -175,8 +195,14 @@ public class MusicService extends Service {
         }
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
+            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mMediaPlayer.start();
+                    handlerProgress();
+                }
+            });
             mMediaPlayer.prepare();
-            startMusic();
             Log.e(TAG, "nextMusic: " + mSong.getName());
         } catch (IOException e) {
             Log.e(TAG, "IOException");
@@ -185,13 +211,13 @@ public class MusicService extends Service {
 
     private void resetMusic() {
         if (mCountDownTimer != null) {
+            Log.e(TAG, "resetMusic: " + "aaaaaaaaa");
             mCountDownTimer.cancel();
         }
         if (mMediaPlayer != null) {
-            if (mMediaPlayer.isPlaying()) {
-                mMediaPlayer.stop();
-            }
+            mMediaPlayer.stop();
             mMediaPlayer.release();
+            mMediaPlayer = new MediaPlayer();
         }
         Log.e(TAG, "at-dinhvo: resetMusic:");
     }
@@ -206,44 +232,24 @@ public class MusicService extends Service {
     private void resumeMusic() {
         Log.e(TAG, "at-dinhvo: resumeMusic:");
         mMediaPlayer.seekTo(mLength);
-        startMusic();
-    }
-
-    private void startMusic() {
-        Log.e(TAG, "at-dinhvo: startMusic:");
-        if (mMediaPlayer != null) {
-            mMediaPlayer.start();
-            handlerProgress();
-            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    if (isAutoNext) {
-                        if (isShuffle) {
-                            shuffleMusic();
-                        }
-                        mMediaPlayer.reset();
-                        try {
-                            mMediaPlayer.setDataSource(mSong.getUrl());
-                            mMediaPlayer.prepare();
-                            mMediaPlayer.start();
-                        } catch (IOException e) {
-                            Log.e(TAG, "IOException: " + e.toString());
-                        }
-                    } else {
-                        mMediaPlayer.release();
-                    }
-                }
-            });
-        }
+        mMediaPlayer.start();
     }
 
     private void handlerProgress() {
         final Intent timeIntent = new Intent();
         timeIntent.setAction(MusicFragment.CURRENT_TIME);
-        mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration(), 1000) {
+        int timeOut;
+        if (isPause) {
+            timeOut = mMediaPlayer.getDuration() - mMediaPlayer.getCurrentPosition();
+        } else {
+            timeOut = mMediaPlayer.getDuration();
+        }
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+        }
+        mCountDownTimer = new CountDownTimer(timeOut, 1000) {
             @Override
             public void onTick(long l) {
-                timeIntent.putExtra("second", showTime(mMediaPlayer.getCurrentPosition() / 1000));
                 timeIntent.putExtra("secondInt", mMediaPlayer.getCurrentPosition() / 1000);
                 Log.e(TAG, "onTick: " + mMediaPlayer.getCurrentPosition());
                 sendBroadcast(timeIntent);
@@ -251,9 +257,6 @@ public class MusicService extends Service {
 
             @Override
             public void onFinish() {
-                if (isAutoNext) {
-                    nextMusic();
-                }
             }
         };
         mCountDownTimer.start();

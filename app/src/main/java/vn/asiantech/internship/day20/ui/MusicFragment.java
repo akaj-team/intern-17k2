@@ -58,10 +58,13 @@ public class MusicFragment extends Fragment {
                     case MusicService.DURATION:
                         mDuration = intent.getIntExtra("timeInt", -1);
                         Log.e("at-dinhvo", "onReceive: duration: " + mDuration);
-                        mTvMusicTime.setText(intent.getStringExtra("time"));
+                        mTvMusicTime.setText(showTime(mDuration));
+                        if (mDuration != -1) {
+                            startAnimation(mDuration);
+                        }
                     case CURRENT_TIME:
                         showSeekBar(intent.getIntExtra("secondInt", -1), mDuration);
-                        mCurrentTime.setText(intent.getStringExtra("second"));
+                        mCurrentTime.setText(showTime(intent.getIntExtra("secondInt", -1)));
                         break;
                     case MusicService.SONG_SHUFFLE:
                         Log.e("at-dinhvo", "onReceive: SONG_SHUFFLE");
@@ -77,16 +80,28 @@ public class MusicFragment extends Fragment {
         }
     };
 
+    private String showTime(int duration) {
+        int min = duration / 60;
+        int sec = duration % 60;
+        String minute = (min < 10) ? "0" + min + ":" : min + ":";
+        String second = (sec < 10) ? "0" + sec : "" + sec;
+        return minute + second;
+    }
+
     private void startAnimation(int duration) {
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.rotation);
-        animation.setDuration(duration / 1000);
+        animation.setDuration(duration * 1000);
         mCircleImageViewMusic.startAnimation(animation);
     }
 
     private void showSeekBar(int second, int duration) {
         mSeekBar.setMax(100);
         mSeekBar.incrementProgressBy(1);
-//        mSeekBar.setProgress(second * 100 / duration);
+        if (duration == 0) {
+            mSeekBar.setProgress(0);
+        } else {
+            mSeekBar.setProgress(second * 100 / duration);
+        }
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -122,7 +137,6 @@ public class MusicFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         getSong();
         addEvents();
-        startAnimation(mDuration);
     }
 
     private void getSong() {

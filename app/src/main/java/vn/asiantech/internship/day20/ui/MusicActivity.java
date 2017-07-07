@@ -1,5 +1,7 @@
 package vn.asiantech.internship.day20.ui;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -67,10 +69,22 @@ public class MusicActivity extends AppCompatActivity {
         });
     }
 
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void startMusicService() {
-        Intent serviceIntent = new Intent(MusicActivity.this, MusicService.class);
-        serviceIntent.putParcelableArrayListExtra(KEY_LIST, mSongs);
-        startService(serviceIntent);
+        if (!isMyServiceRunning(MusicService.class)) {
+            Intent serviceIntent = new Intent(MusicActivity.this, MusicService.class);
+            serviceIntent.putParcelableArrayListExtra(KEY_LIST, mSongs);
+            startService(serviceIntent);
+        }
     }
 
     private void showMediaPlayer(int position) {
@@ -92,5 +106,10 @@ public class MusicActivity extends AppCompatActivity {
         mSongs.add(new Song("Sugar", "Maroon5", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQGXGJAATLDJTDGLG"));
         mSongs.add(new Song("One Call Away", "Charlie Puth", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGDQAXTLDJTDGLG"));
         mSongs.add(new Song("See You Again", "Charlie Puth", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQDVEXDETLDJTDGLG"));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
