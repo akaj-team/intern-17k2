@@ -8,18 +8,18 @@ import java.io.Serializable;
 /**
  * Created by datbu on 02-07-2017.
  */
-public class MusicItem implements Serializable, Parcelable{
+class MusicItem implements Serializable, Parcelable{
     private String url;
     private String songName;
     private String image;
 
-    public MusicItem(String url, String songName, String image) {
+    MusicItem(String url, String songName, String image) {
         this.url = url;
         this.songName = songName;
         this.image = image;
     }
 
-    protected MusicItem(Parcel in) {
+    private MusicItem(Parcel in) {
         url = in.readString();
         songName = in.readString();
         image = in.readString();
@@ -37,7 +37,7 @@ public class MusicItem implements Serializable, Parcelable{
         }
     };
 
-    public String getUrl() {
+    String getUrl() {
         return url;
     }
 
@@ -45,7 +45,7 @@ public class MusicItem implements Serializable, Parcelable{
         this.url = url;
     }
 
-    public String getSongName() {
+    String getSongName() {
         return songName;
     }
 
@@ -53,7 +53,7 @@ public class MusicItem implements Serializable, Parcelable{
         this.songName = songName;
     }
 
-    public String getImage() {
+    String getImage() {
         return image;
     }
 

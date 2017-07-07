@@ -46,6 +46,9 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MyHo
         return mMusicItemList.size();
     }
 
+    /**
+     * Created by datbu on 02-07-2017.
+     */
     public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private CircleImageView mImageSong;
         private TextView mSongName;
@@ -60,7 +63,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MyHo
         @Override
         public void onClick(View v) {
             if (mOnClickMusicItemListener != null) {
-                mOnClickMusicItemListener.onItemClick(mMusicItemList,getAdapterPosition());
+                mOnClickMusicItemListener.onItemClick(mMusicItemList, getAdapterPosition());
             }
         }
     }

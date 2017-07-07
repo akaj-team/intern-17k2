@@ -33,6 +33,7 @@ import static vn.asiantech.internship.R.id.seekBar;
  * Created by datbu on 02-07-2017.
  */
 public class PlayMusicFragment extends Fragment implements View.OnClickListener {
+    public static final String KEY_PLAYING = "playing";
     private MusicItem mMusicItem;
     private CircleImageView mAlbumArt;
     private ImageView mImgPlay;
@@ -74,7 +75,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         initData();
         initIntentFilter();
         initStart();
-//        showTime();
+        showTime();
         initClick();
         return view;
     }
@@ -86,7 +87,6 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         startIntent.putExtra("image", mUrlImage);
         getContext().startService(startIntent);
         mImgPlay.setImageResource(R.drawable.pause);
-
     }
 
     public void initData() {
@@ -178,9 +178,9 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     private void processTime(Intent intent) {
         if (mMediaPlayer.isPlaying()) {
             Log.d("tag", "processTime: " + Integer.parseInt(intent.getStringExtra("time")));
-            mImgPlay.setImageResource(Integer.parseInt(intent.getStringExtra("pause")));
+            mImgPlay.setImageResource(intent.getIntExtra("pause", 0));
         } else {
-            mImgPlay.setImageResource(Integer.parseInt(intent.getStringExtra("play")));
+            mImgPlay.setImageResource(intent.getIntExtra("play", 0));
         }
         if (mLength == 0) {
             mLength = Integer.parseInt(intent.getStringExtra("time"));

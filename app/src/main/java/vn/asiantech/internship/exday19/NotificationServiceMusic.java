@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import vn.asiantech.internship.R;
 
@@ -24,20 +26,31 @@ import vn.asiantech.internship.R;
 public class NotificationServiceMusic extends Service {
     private static final String TAG = NotificationServiceMusic.class.getSimpleName();
     private MediaPlayer mMediaPlayer;
+    private Uri mUri;
+    private String mUrlImage;
     private String mUrl;
     private int mLength;
     private CountDownTimer mCountDownTimer;
+    private ArrayList<MusicItem> mMusicItems;
+    private int mPosition;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent != null && intent.getStringExtra("url") != null) {
-            mUrl = intent.getStringExtra("url");
+        if (intent != null) {
+            ArrayList<MusicItem> songs = intent.getParcelableArrayListExtra(MusicActivity.KEY_MUSIC);
+            if (songs != null) {
+                mMusicItems = songs;
+            }
+            mPosition = intent.getIntExtra(MusicActivity.KEY_POSITION, -1);
+            if (mPosition > -1) {
+                startSong();
+            }
+//            mUrl = intent.getStringExtra("url");
         }
-
         Log.d(TAG, "onStartCommand: " + mUrl);
         if (intent != null && intent.getAction() != null) {
             if (intent.getAction().equals(Action.PLAY.getValue())) {
-                Intent timeIntent = new Intent(Action.PLAY.getValue());
+                Intent timeIntent = new Intent(NotificationServiceMusic.this, PlayMusicFragment.class);
                 if (mMediaPlayer.isPlaying()) {
                     timeIntent.putExtra("play", R.drawable.play);
                     mMediaPlayer.pause();
@@ -46,9 +59,7 @@ public class NotificationServiceMusic extends Service {
                     mMediaPlayer.start();
                 }
             } else if (intent.getAction().equals(Action.NEXT.getValue())) {
-                mMediaPlayer.stop();
-                mMediaPlayer.release();
-
+                playNextSong();
             } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
                 mMediaPlayer.pause();
                 mLength = mMediaPlayer.getCurrentPosition();
@@ -96,6 +107,17 @@ public class NotificationServiceMusic extends Service {
             }
         }
         return START_STICKY;
+    }
+
+    private void startSong() {
+        mUrl = mMusicItems.get(mPosition).getUrl();
+        mUri = Uri.parse(mUrl);
+        mUrlImage = mMusicItems.get(mPosition).getImage();
+        mMediaPlayer = MediaPlayer.create(getApplicationContext(), mUri);
+    }
+
+    private void playNextSong() {
+
     }
 
     private void showNotification() {

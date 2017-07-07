@@ -6,7 +6,7 @@ package vn.asiantech.internship.exday19;
  */
 enum Action {
     INTENT("INTENT"), PAUSE("PAUSE"), START("START"),
-    TIME("TIME"), PLAY("PLAY"),
+    TIME("TIME"), PLAY("PLAY"), STOP_SERVICE("STOP_SERVICE"),
     NEXT("NEXT"), PREV("PREV"),
     REPEAT("REPEAT"), SHUFFLE("SHUFFLE"),
     RESUME("RESUME"), SEEK("SEEK"),
