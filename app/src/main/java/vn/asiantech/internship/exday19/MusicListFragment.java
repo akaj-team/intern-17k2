@@ -28,7 +28,7 @@ public class MusicListFragment extends Fragment {
             "12:30' - BEAST",
             "Attention - Charlie Puth",
             "We Don't Talk Anymore - Charlie Puth, Selena Gomez"};
-    public static String[] IMAGE = {"http://goodmomusic.net/wp-content/uploads/2016/06/beast-butterfly-1.png",
+    public static final String[] IMAGE = {"http://goodmomusic.net/wp-content/uploads/2016/06/beast-butterfly-1.png",
             "http://zmp3-photo-fbcrawler-td.zadn.vn/thumb/600_600/covers/1/0/107f98d149a0f3e406a92b349773749b_1305132154.jpg",
             "http://data.whicdn.com/images/146896977/superthumb.jpg",
             "https://images.genius.com/bc29e1ff20b4931dd9919f2ab5252b0e.1000x1000x1.jpg",
