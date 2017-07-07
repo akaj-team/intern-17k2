@@ -13,11 +13,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.asiantech.internship.R;
 import vn.asiantech.internship.day21.activity.ContactActivity;
 import vn.asiantech.internship.day21.adapter.ContactAdapter;
 import vn.asiantech.internship.day21.model.Contact;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Create AsyncTask to get JSON by making HTTP call
@@ -25,6 +24,7 @@ import static android.content.ContentValues.TAG;
  * Created by at-hoavo on 03/07/2017.
  */
 public class GetContact extends AsyncTask<Void, Void, List<Contact>> {
+    private static final String TAG = GetContact.class.getName();
     private static final String TYPE_CONTACTS = "contacts";
     private static final String TYPE_NAME = "name";
     private static final String TYPE_ID = "id";
@@ -102,7 +102,7 @@ public class GetContact extends AsyncTask<Void, Void, List<Contact>> {
                     @Override
                     public void run() {
                         Toast.makeText(mContactActivity.getApplicationContext(),
-                                "Json parsing error: " + e.getMessage(),
+                                mContactActivity.getString(R.string.json_passing_error, e.getMessage()),
                                 Toast.LENGTH_LONG)
                                 .show();
                     }
@@ -115,12 +115,11 @@ public class GetContact extends AsyncTask<Void, Void, List<Contact>> {
                 @Override
                 public void run() {
                     Toast.makeText(mContactActivity.getApplicationContext(),
-                            "Couldn't get json from server. Check LogCat for possible errors!",
+                            mContactActivity.getString(R.string.error_http_json),
                             Toast.LENGTH_LONG)
                             .show();
                 }
             });
-
         }
         return mContacts;
     }
