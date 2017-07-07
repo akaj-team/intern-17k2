@@ -31,6 +31,9 @@
     <dimen name="chat.tvmessage.margin.left">100dp</dimen>
     <dimen name="button.width">70dp</dimen>
     <dimen name="button.height">30dp</dimen>
+    <dimen name="itemtab.height">45dp</dimen>
+    <dimen name="tablayout.height">90dp</dimen>
+    <dimen name="pager.height">500dp</dimen>
     <dimen name="question.dialog.textsize">20sp</dimen>
     <dimen name="question.dialog.textview.padding">20dp</dimen>
     <dimen name="question.tvquestion.height">100dp</dimen>
@@ -44,4 +47,5 @@
     <dimen name="itemnote.height">80dp</dimen>
     <dimen name="note.edittext.margin">10dp</dimen>
     <dimen name="imgviewpager.height">100dp</dimen>
+    <dimen name="customview.height">15dp</dimen>
 </resources>
