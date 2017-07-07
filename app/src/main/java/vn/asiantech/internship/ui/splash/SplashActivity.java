@@ -10,6 +10,7 @@ import android.widget.Button;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.feed.FeedActivity;
 import vn.asiantech.internship.friend.ListFriendActivity;
+import vn.asiantech.internship.ui.main.CanvasActivity;
 import vn.asiantech.internship.ui.main.ChatActivity;
 import vn.asiantech.internship.ui.main.FootballStarActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
@@ -20,7 +21,6 @@ import vn.asiantech.internship.ui.main.TestActivity;
 /**
  * Created by PC on 6/15/2017.
  */
-
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         Button btnDay13 = (Button) findViewById(R.id.btnDay13);
         Button btnDay15 = (Button) findViewById(R.id.btnDay15);
         Button btnDay16 = (Button) findViewById(R.id.btnDay16);
+        Button btnDay24 = (Button) findViewById(R.id.btnDay24);
 
         btnDay5.setOnClickListener(this);
         btnDay6.setOnClickListener(this);
@@ -43,6 +44,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         btnDay13.setOnClickListener(this);
         btnDay15.setOnClickListener(this);
         btnDay16.setOnClickListener(this);
+        btnDay24.setOnClickListener(this);
     }
 
     @Override
@@ -79,6 +81,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btnDay16:
                 Intent intent16 = new Intent(SplashActivity.this, FootballStarActivity.class);
                 startActivity(intent16);
+                break;
+            case R.id.btnDay24:
+                Intent intent24 = new Intent(SplashActivity.this, CanvasActivity.class);
+                startActivity(intent24);
                 break;
         }
     }

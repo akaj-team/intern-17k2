@@ -11,7 +11,6 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 7/7/2017.
  */
-
 public class CanvasActivity extends AppCompatActivity {
 
     @Override
