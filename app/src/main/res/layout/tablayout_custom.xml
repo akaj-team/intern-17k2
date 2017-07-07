@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <vn.asiantech.internship.myultils.MyCustomTab
         android:id="@+id/myView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_canvas_height"
-        android:background="@android:color/transparent" />
+        android:background="@drawable/bg_custom_tab" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgTabIcon"
@@ -17,7 +18,7 @@
         android:layout_height="@dimen/tab_icon_size"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/tab_canvas_margin"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         app:civ_border_color="@android:color/darker_gray"
         app:civ_border_overlay="true"
         app:civ_border_width="@dimen/tab_canvas_boder" />
@@ -27,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/toolbar_height"
         android:layout_gravity="center_horizontal"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         android:padding="@dimen/tab_text_view_padding"
         android:textColor="@android:color/darker_gray"
         android:textSize="@dimen/tab_text_size" />
