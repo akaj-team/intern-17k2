@@ -22,7 +22,7 @@ import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.services.MusicService;
 
 /**
- *
+ * 
  * Created by quanghai on 02/07/2017.
  */
 public class SongPlayingActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
@@ -95,7 +95,7 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
         mSeekBar.setOnSeekBarChangeListener(this);
     }
 
-    private void startAnimation(int duration){
+    private void startAnimation(int duration) {
         mAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_disk);
         mAnimation.setDuration(duration);
         mImgDisk.startAnimation(mAnimation);
