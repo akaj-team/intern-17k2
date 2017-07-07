@@ -60,11 +60,11 @@ public class MyCanvas extends View {
         }
 
         mPaint.setStrokeWidth(1);
-        Point point = fx(20);
+        Point point = fx(3, -4, 1, 20);
         mPath.moveTo(point.x, point.y);
 
-        for (int i = 21; i < mWidth - 20; i += 5) {
-            point = fx(i);
+        for (int i = 21; i < mWidth - 20; i++) {
+            point = fx(3, -4, 1, i);
             mPath.lineTo(point.x, point.y);
             mPath.moveTo(point.x, point.y);
         }
@@ -79,11 +79,11 @@ public class MyCanvas extends View {
         mPath = new Path();
     }
 
-    //f(x) = 3x^2 - 4x + 1
-    private Point fx(int x) {
+    //f(x) = ax^2 + bx + c
+    private Point fx(float a, float b, float c, int x) {
         Point point = new Point();
         float xOnOxy = (x - mWidth / 2.0f) / UNIT;
-        double yOnOxy = 3 * Math.pow(xOnOxy, 2) - 4 * xOnOxy + 1;
+        double yOnOxy = a * Math.pow(xOnOxy, 2) + b * xOnOxy + c;
         double y = (mHeight / 2 - yOnOxy * UNIT);
         point.x = x;
         point.y = (int) y;
