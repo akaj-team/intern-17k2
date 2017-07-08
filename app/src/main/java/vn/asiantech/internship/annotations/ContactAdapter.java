@@ -15,7 +15,7 @@ import vn.asiantech.internship.R;
  * Created by sony on 04/07/2017.
  */
 class ContactAdapter extends RecyclerView.Adapter {
-    private List<Contact> mContacts;
+    private final List<Contact> mContacts;
 
     ContactAdapter(List<Contact> contacts) {
         mContacts = contacts;
@@ -45,9 +45,9 @@ class ContactAdapter extends RecyclerView.Adapter {
      * Used to register for contact.
      */
     private class ContactViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTvName;
-        private TextView mTvMail;
-        private TextView mTvPhone;
+        private final TextView mTvName;
+        private final TextView mTvMail;
+        private final TextView mTvPhone;
 
         ContactViewHolder(View itemView) {
             super(itemView);

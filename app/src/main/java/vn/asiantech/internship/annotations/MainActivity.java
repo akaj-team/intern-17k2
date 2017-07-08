@@ -26,8 +26,8 @@ import vn.asiantech.internship.R;
 @EActivity(R.layout.activity_contact_annotation)
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
-    static final String URL = "http://api.androidhive.info/contacts/";
-    private ArrayList<Contact> mContacts = new ArrayList<>();
+    private static final String URL = "http://api.androidhive.info/contacts/";
+    private final ArrayList<Contact> mContacts = new ArrayList<>();
     private ProgressDialog mProgressDialog;
 
     @ViewById(R.id.recyclerViewContactAnnotation)
