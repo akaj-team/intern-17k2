@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -32,6 +33,7 @@ public class MyCanvas extends View {
 
     public MyCanvas(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        Log.i("tag11", Math.ceil(4.1) + "");
         init();
     }
 
@@ -54,8 +56,8 @@ public class MyCanvas extends View {
             canvas.drawLine(height - 10, mPointO.y + 10, width, mPointO.y, mPaint);
             mPaint.setStrokeWidth(3);
             mPaint.setColor(Color.RED);
-            for (int i = (int) Math.ceil((0 - mPointO.x) / unit); i <= (int) Math.ceil((width - mPointO.x) / unit); i++) {
-                canvas.drawPoint(mPointO.x + i * unit, mPointO.y, mPaint);
+            for (double i = Math.ceil((0 - mPointO.x) / unit); i <= Math.ceil((width - mPointO.x) / unit); i++) {
+                canvas.drawPoint((float) (mPointO.x + i * unit), mPointO.y, mPaint);
             }
             mPaint.setStrokeWidth(1);
         }
@@ -68,8 +70,8 @@ public class MyCanvas extends View {
             canvas.drawLine(mPointO.x, 0, mPointO.x + 10, 10, mPaint);
             mPaint.setStrokeWidth(3);
             mPaint.setColor(Color.RED);
-            for (int i = (int) Math.ceil((0 - mPointO.y) / unit); i <= (int) Math.ceil((height - mPointO.y) / unit); i++) {
-                canvas.drawPoint(mPointO.x, mPointO.y + i * unit, mPaint);
+            for (double i = Math.ceil((0 - mPointO.y) / unit); i <= Math.ceil((height - mPointO.y) / unit); i++) {
+                canvas.drawPoint(mPointO.x, (float) (mPointO.y + i * unit), mPaint);
             }
             mPaint.setStrokeWidth(1);
         }
@@ -146,7 +148,7 @@ public class MyCanvas extends View {
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.i("tag11", e.getMessage());
         }
         invalidate();
     }
