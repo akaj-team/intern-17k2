@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -17,35 +19,36 @@ import java.util.List;
  * Created by at-hangtran on 06/07/2017.
  */
 public class CustomView extends View {
-    private Paint mPaint;
-    private Paint mPathPaint;
-    private Path mPath;
-    private List<Point> mPoints = new ArrayList<>();
     private static final int MARGIN = 50;
     private static final int STROKE_WITH = 2;
     private static final int EXTRA_LENGHT = 10;
     private static final int TEXT_SIZE = 30;
+    private float scaleFactor = 1.0f;
+    private List<Point> mPoints = new ArrayList<>();
+
+    private ScaleGestureDetector mScaleGestureDetector;
+    private Paint mPaint;
+    private Paint mPathPaint;
+    private Path mPath;
 
     public CustomView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public CustomView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        initPaint();
+        initPathPaint();
+        mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (mPaint == null) {
-            initPaint();
-            drawAxis(canvas);
-        }
-
-        if (mPathPaint == null) {
-            initPathPaint();
-            drawNarrow(canvas);
-        }
+        canvas.save();
+        canvas.scale(scaleFactor, scaleFactor);
+        drawAxis(canvas);
+        drawNarrow(canvas);
 
         calculate(3, -4, 1);
         drawGraph(canvas);
@@ -57,6 +60,8 @@ public class CustomView extends View {
                 drawVerticalNumber(canvas, i);
             }
         }
+
+        canvas.restore();
     }
 
     private void initPaint() {
@@ -90,11 +95,11 @@ public class CustomView extends View {
         mPath.lineTo(getWidth() - MARGIN + EXTRA_LENGHT, getHeight() / 2);
 
         canvas.drawPath(mPath, mPathPaint);
-        canvas.drawText("O", getWidth() / 2 - EXTRA_LENGHT * 4, getHeight() / 2 + EXTRA_LENGHT * 4, mPathPaint);
+        canvas.drawText("O", getWidth() / 2 - EXTRA_LENGHT * 4, getHeight() / 2 + EXTRA_LENGHT * 4, mPaint);
     }
 
     private void calculate(int a, int b, int c) {
-        for (float i = -3; i < 3; i = i + 0.1f) {
+        for (float i = -3; i < 3; i = i + 0.05f) {
             mPoints.add(new Point(getWidth() / 2 + i * 50, getHeight() / 2 - (a * i * i + b * i + c) * 50));
         }
     }
@@ -111,5 +116,22 @@ public class CustomView extends View {
 
     private void drawVerticalNumber(Canvas canvas, int i) {
         canvas.drawLine(getWidth() / 2 - 5, getHeight() / 2 + MARGIN * i, getWidth() / 2 + 5, getHeight() / 2 + MARGIN * i, mPaint);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        mScaleGestureDetector.onTouchEvent(event);
+        invalidate();
+        return true;
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            scaleFactor *= detector.getScaleFactor();
+            scaleFactor = Math.max(0.1f, Math.min(scaleFactor, 5.0f));
+            invalidate();
+            return true;
+        }
     }
 }

@@ -1,9 +1,7 @@
 package vn.asiantech.internship.canvas;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import vn.asiantech.internship.R;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Author AsianTech Inc.
@@ -14,6 +12,6 @@ public class CanvasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_canvas);
+        setContentView(new CustomView(this));
     }
 }
