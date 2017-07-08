@@ -123,6 +123,7 @@ public class MusicService extends Service {
                 mMediaPlayer.start();
             }
         });
+
         final Intent seekIntent = new Intent(Action.SEEK.getValue());
         mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration(), 1000) {
             @Override
@@ -242,11 +243,10 @@ public class MusicService extends Service {
 
     @Override
     public void onDestroy() {
-        if (mCountDownTimer != null) {
-            mCountDownTimer.cancel();
-        }
+        unregisterReceiver(mReceiver);
+        unregisterReceiver(mNotificationBroadCast);
         mMediaPlayer.stop();
-        mMediaPlayer.release();
+        mCountDownTimer.cancel();
         super.onDestroy();
     }
 

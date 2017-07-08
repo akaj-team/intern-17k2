@@ -13,6 +13,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/music.image.margin_right_left"
         android:layout_weight="7"
         android:orientation="vertical">
 
@@ -20,7 +21,8 @@
             android:id="@+id/tvTitleMusicNotification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite" />
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvSingerNotification"
