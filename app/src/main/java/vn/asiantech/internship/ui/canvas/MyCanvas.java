@@ -56,7 +56,7 @@ public class MyCanvas extends View {
             canvas.drawLine(height - 10, mPointO.y + 10, width, mPointO.y, mPaint);
             mPaint.setStrokeWidth(3);
             mPaint.setColor(Color.RED);
-            for (double i = Math.ceil((0 - mPointO.x) / unit); i <= Math.ceil((width - mPointO.x) / unit); i++) {
+            for (double i = Math.ceil((0.0 - mPointO.x) / unit); i <= Math.ceil((width*1.0 - mPointO.x) / unit); i++) {
                 canvas.drawPoint((float) (mPointO.x + i * unit), mPointO.y, mPaint);
             }
             mPaint.setStrokeWidth(1);
@@ -70,7 +70,7 @@ public class MyCanvas extends View {
             canvas.drawLine(mPointO.x, 0, mPointO.x + 10, 10, mPaint);
             mPaint.setStrokeWidth(3);
             mPaint.setColor(Color.RED);
-            for (double i = Math.ceil((0 - mPointO.y) / unit); i <= Math.ceil((height - mPointO.y) / unit); i++) {
+            for (double i = Math.ceil((0.0 - mPointO.y) / unit); i <= Math.ceil((height*1.0 - mPointO.y) / unit); i++) {
                 canvas.drawPoint(mPointO.x, (float) (mPointO.y + i * unit), mPaint);
             }
             mPaint.setStrokeWidth(1);
