@@ -58,7 +58,7 @@ public class SongsFragment extends Fragment {
         mListener.onGetSong(position);
     }
 
-    /*
+    /**
      * Used to get song and position when click to song list
      */
     interface OnGetSongListener {

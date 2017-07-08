@@ -48,7 +48,7 @@ class MusicRecyclerViewAdapter extends RecyclerView.Adapter {
         return mSongs.size();
     }
 
-    /*
+    /**
      * Used to register for song
      */
     private class MusicViewHolder extends RecyclerView.ViewHolder {
@@ -73,7 +73,7 @@ class MusicRecyclerViewAdapter extends RecyclerView.Adapter {
         }
     }
 
-    /*
+    /**
      * Used to get song and position in recyclerView
      */
     interface OnItemClickListener {
