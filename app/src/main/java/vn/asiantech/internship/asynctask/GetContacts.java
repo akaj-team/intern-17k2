@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.models.Contact;
 import vn.asiantech.internship.models.Phone;
@@ -19,7 +20,7 @@ import vn.asiantech.internship.ui.contact.ContactActivity;
  *
  * Created by quanghai on 03/07/2017.
  */
-public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
+public class GetContacts extends AsyncTask<String, Void, List<Contact>> {
     private static final String TAG = ContactActivity.class.getSimpleName();
     private OnUpdateViewListener mOnUpdateViewListener;
 
@@ -33,8 +34,8 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
     }
 
     @Override
-    protected ArrayList<Contact> doInBackground(String... url) {
-        ArrayList<Contact> contacts = new ArrayList<>();
+    protected List<Contact> doInBackground(String... url) {
+        List<Contact> contacts = new ArrayList<>();
         HttpHandler httpHandler = new HttpHandler();
         String jsonString = httpHandler.makeServiceCall(url[0]);
         if (!TextUtils.isEmpty(jsonString)) {
@@ -85,16 +86,16 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
                     Log.e(TAG, "Json is not exist");
                 }
             } catch (JSONException e) {
-                e.getMessage();
-                return null;
+                Log.e("JSONException", "JSONException: " + e.getMessage());
             }
         }
         return contacts;
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Contact> contacts) {
+    protected void onPostExecute(List<Contact> contacts) {
         super.onPostExecute(contacts);
+        Log.d(TAG, "onPostExecute: " + contacts.size());
         if (mOnUpdateViewListener != null && contacts.size() > 0) {
             mOnUpdateViewListener.onUpdateRecyclerView(contacts);
         }
@@ -104,6 +105,6 @@ public class GetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
      * Created by quanghai on 03/07/2017.
      */
     public interface OnUpdateViewListener {
-        void onUpdateRecyclerView(ArrayList<Contact> contacts);
+        void onUpdateRecyclerView(List<Contact> contacts);
     }
 }

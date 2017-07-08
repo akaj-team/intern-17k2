@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapters.ContactAdapter;
@@ -34,7 +35,7 @@ public class ContactActivity extends AppCompatActivity {
         mRecyclerViewContact.setLayoutManager(linearLayoutManager);
         mGetContacts = new GetContacts(new GetContacts.OnUpdateViewListener() {
             @Override
-            public void onUpdateRecyclerView(ArrayList<Contact> contacts) {
+            public void onUpdateRecyclerView(List<Contact> contacts) {
                 if (mProgressDialog.isShowing()) {
                     mProgressDialog.dismiss();
                 }
