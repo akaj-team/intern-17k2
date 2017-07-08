@@ -1,9 +1,9 @@
 package vn.asiantech.internship.models;
 
 /**
+ *
  * Created by quanghai on 03/07/2017.
  */
-
 public class Phone {
     private String mobile;
 
