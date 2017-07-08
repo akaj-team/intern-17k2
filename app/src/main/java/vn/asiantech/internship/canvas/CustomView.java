@@ -99,8 +99,8 @@ public class CustomView extends View {
     }
 
     private void calculate(int a, int b, int c) {
-        for (float i = -3; i < 3; i = i + 0.05f) {
-            mPoints.add(new Point(getWidth() / 2 + i * 50, getHeight() / 2 - (a * i * i + b * i + c) * 50));
+        for (double i = -3; i < 3; i = i + 0.05f) {
+            mPoints.add(new Point((float) (getWidth() / 2 + i * 50), (float) (getHeight() / 2 - (a * i * i + b * i + c) * 50)));
         }
     }
 
@@ -125,6 +125,15 @@ public class CustomView extends View {
         return true;
     }
 
+    @Override
+    public boolean performClick() {
+        super.performClick();
+        return true;
+    }
+
+    /**
+     * Used to scale graph.
+     */
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
