@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -31,7 +30,7 @@ public class ContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contact);
         setProgressDialog();
         mRecyclerViewContact = (RecyclerView) findViewById(R.id.recyclerViewContact);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager   (this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerViewContact.setLayoutManager(linearLayoutManager);
         mGetContacts = new GetContacts(new GetContacts.OnUpdateViewListener() {
             @Override
