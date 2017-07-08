@@ -54,5 +54,4 @@
     <dimen name="view.height">1dp</dimen>
     <dimen name="tvname.width">220dp</dimen>
     <dimen name="customview.height">15dp</dimen>
->>>>>>> at-haingo
 </resources>
