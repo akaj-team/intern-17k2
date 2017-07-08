@@ -15,4 +15,6 @@
     <color name="colorBack">#252323</color>
     <color name="colorYellow">#bf7a11</color>
     <color name="colorYellowLight">#e1b675</color>
+    <color name="colorLightBlue">#91b7e4</color>
+    <color name="colorDarkBlue">#606e8e</color>
 </resources>
