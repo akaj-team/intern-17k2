@@ -21,4 +21,5 @@
     <color name="tab.selected.true">#0432b1</color>
     <color name="tab.selected.false">#5e4d4d</color>
     <color name="line">#d1a3a3</color>
+    <color name="view.color">#000</color>
 </resources>
