@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.ui.canvas.MyCanvas;
 
 /**
  * @author at-cuongcao
@@ -12,6 +13,7 @@ import vn.asiantech.internship.R;
  * @since 7/7/2017.
  */
 public class CanvasActivity extends AppCompatActivity {
+    MyCanvas myCanvas;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

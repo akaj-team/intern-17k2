@@ -4,10 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -16,11 +16,15 @@ import android.view.View;
  * @since 7/7/2017.
  */
 public class MyCanvas extends View {
-    private static final int UNIT = 50;
+
+    private int unit = 50;
     private Paint mPaint;
-    private int mWidth;
-    private int mHeight;
-    private Path mPath;
+    private Point mPointO;
+    private boolean mIsFirstTime;
+    private Point mDownPoint;
+    private Point mMidPoint;
+    private Point mMidPointOnOxy;
+    private double mOldDistance;
 
     public MyCanvas(Context context) {
         this(context, null);
@@ -34,58 +38,124 @@ public class MyCanvas extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        mWidth = getWidth();
-        mHeight = getHeight();
+        int width = getWidth();
+        int height = getHeight();
+        if (!mIsFirstTime) {
+            mPointO.x = width / 2;
+            mPointO.y = height / 2;
+            mIsFirstTime = true;
+        }
 
-        mPaint.setColor(Color.BLACK);
         //Ox
-        canvas.drawLine(20, mHeight / 2, mWidth - 20, mHeight / 2, mPaint);
-        canvas.drawLine(mWidth - 20, mHeight / 2, mWidth - 30, mHeight / 2 - 10, mPaint);
-        canvas.drawLine(mWidth - 20, mHeight / 2, mWidth - 30, mHeight / 2 + 10, mPaint);
+        if (mPointO.y >= 0 && mPointO.y <= height) {
+            mPaint.setColor(Color.BLACK);
+            canvas.drawLine(0, mPointO.y, width, mPointO.y, mPaint);
+            canvas.drawLine(width - 10, mPointO.y - 10, width, mPointO.y, mPaint);
+            canvas.drawLine(height - 10, mPointO.y + 10, width, mPointO.y, mPaint);
+            mPaint.setStrokeWidth(3);
+            mPaint.setColor(Color.RED);
+            for (int i = (int) Math.ceil((0 - mPointO.x) / unit); i <= (int) Math.ceil((width - mPointO.x) / unit); i++) {
+                canvas.drawPoint(mPointO.x + i * unit, mPointO.y, mPaint);
+            }
+            mPaint.setStrokeWidth(1);
+        }
 
         //Oy
-        canvas.drawLine(mWidth / 2, 20, mWidth / 2, mHeight - 20, mPaint);
-        canvas.drawLine(mWidth / 2, 20, mWidth / 2 - 10, 30, mPaint);
-        canvas.drawLine(mWidth / 2, 20, mWidth / 2 + 10, 30, mPaint);
-
-        mPaint.setColor(Color.RED);
-        mPaint.setStrokeWidth(3);
-        for (int i = 0; i < mWidth / 2 - 20; i += UNIT) {
-            canvas.drawPoint(mWidth / 2 + i, mHeight / 2, mPaint);
-            canvas.drawPoint(mWidth / 2 - i, mHeight / 2, mPaint);
+        if (mPointO.x >= 0 && mPointO.x <= width) {
+            mPaint.setColor(Color.BLACK);
+            canvas.drawLine(mPointO.x, 0, mPointO.x, height, mPaint);
+            canvas.drawLine(mPointO.x, 0, mPointO.x - 10, 10, mPaint);
+            canvas.drawLine(mPointO.x, 0, mPointO.x + 10, 10, mPaint);
+            mPaint.setStrokeWidth(3);
+            mPaint.setColor(Color.RED);
+            for (int i = (int) Math.ceil((0 - mPointO.y) / unit); i <= (int) Math.ceil((height - mPointO.y) / unit); i++) {
+                canvas.drawPoint(mPointO.x, mPointO.y + i * unit, mPaint);
+            }
+            mPaint.setStrokeWidth(1);
         }
-        for (int i = 0; i < mHeight / 2 - 20; i += UNIT) {
-            canvas.drawPoint(mWidth / 2, mHeight / 2 + i, mPaint);
-            canvas.drawPoint(mWidth / 2, mHeight / 2 - i, mPaint);
+        Point oldPoint = fx(3, -4, 1, 0);
+        Point newPoint;
+        for (int i = 1; i < width; i++) {
+            newPoint = fx(3, -4, 1, i);
+            canvas.drawLine(oldPoint.x, oldPoint.y, newPoint.x, newPoint.y, mPaint);
+            oldPoint = newPoint;
         }
-
-        mPaint.setStrokeWidth(1);
-        Point point1 = fx(3, -4, 1, 20);
-
-        for (int i = 21; i < mWidth - 20; i++) {
-            Point point2 = fx(3, -4, 1, i);
-            canvas.drawLine(point1.x, point1.y, point2.x, point2.y, mPaint);
-            point1 = point2;
-        }
-        canvas.drawPath(mPath, mPaint);
-        mPath.close();
     }
 
     private void init() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mPaint.setStrokeWidth(1);
-        mPath = new Path();
+        mPointO = new Point();
+        mDownPoint = new Point();
+        mMidPoint = new Point();
+        mMidPointOnOxy = new Point();
     }
 
     //f(x) = ax^2 + bx + c
     private Point fx(float a, float b, float c, int x) {
         Point point = new Point();
-        float xOnOxy = (x - mWidth / 2.0f) / UNIT;
+        float xOnOxy = (x - mPointO.x * 1f) / unit;
         double yOnOxy = a * Math.pow(xOnOxy, 2) + b * xOnOxy + c;
-        double y = (mHeight / 2 - yOnOxy * UNIT);
+        double y = (mPointO.y - yOnOxy * unit);
         point.x = x;
         point.y = (int) y;
         return point;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mDownPoint.x = (int) event.getX();
+                mDownPoint.y = (int) event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (event.getPointerCount() == 2) {
+                    if (mOldDistance == 0) {
+                        mOldDistance = getDistance(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+                    } else {
+                        mMidPoint = getMidPoint(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+                        mMidPointOnOxy.x = (mMidPoint.x - mPointO.x) / unit;
+                        mMidPointOnOxy.y = (mPointO.y - mMidPoint.y) / unit;
+                        double newDistance = getDistance(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+                        double proportion = newDistance / mOldDistance;
+                        if (proportion * unit > 20 && proportion * unit < 200) {
+                            zoomIn(newDistance / mOldDistance);
+                        }
+                    }
+                } else if (event.getPointerCount() == 1) {
+                    mPointO.x = mPointO.x + ((int) event.getX() - mDownPoint.x);
+                    mPointO.y = mPointO.y + ((int) event.getY() - mDownPoint.y);
+                    mDownPoint.x = (int) event.getX();
+                    mDownPoint.y = (int) event.getY();
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                mOldDistance = 0;
+                break;
+        }
+        invalidate();
+        return true;
+    }
+
+    public void zoomIn(double x) {
+        unit = (int) (unit * x);
+        mPointO.x = mMidPoint.x - mMidPointOnOxy.x * unit;
+        mPointO.y = mMidPoint.y + mMidPointOnOxy.y * unit;
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        invalidate();
+    }
+
+    private double getDistance(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    }
+
+    private Point getMidPoint(double x1, double y1, double x2, double y2) {
+        return new Point((int) (x1 + x2) / 2, (int) (y1 + y2) / 2);
     }
 }
