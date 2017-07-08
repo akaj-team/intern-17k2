@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 
 import org.androidannotations.annotations.AfterViews;
@@ -47,49 +46,52 @@ public class MainActivity extends AppCompatActivity {
 
     @Background
     void asysnTask(String url) {
-        ArrayList<Contact> contacts = new ArrayList<>();
         HttpHandler httpHandler = new HttpHandler();
-        JSONArray contactArray;
-        String name = "";
-        String mail = "";
-        String mobile = "";
-        JSONObject phone;
         String jsonString = httpHandler.makeServiceCall(url);
-        if (!TextUtils.equals(jsonString, "")) {
+        String name = "";
+        String email = "";
+        String mobile = "";
+        if (jsonString != null) {
             try {
-                JSONObject jsonObj = new JSONObject(jsonString);
-                if (jsonObj.has("contacts") && jsonObj.optJSONArray("contacts") != null) {
-                    contactArray = jsonObj.getJSONArray("contacts");
-                    for (int i = 0; i < contactArray.length(); i++) {
-                        Contact contact = new Contact();
-                        JSONObject jsonObject = contactArray.getJSONObject(i);
-                        if (jsonObj.has("name") && jsonObj.optString("name") != null) {
-                            name = jsonObject.getString("name");
-                        }
-                        if (jsonObj.has("email") && jsonObj.optString("email") != null) {
-                            mail = jsonObject.getString("email");
-                        }
-                        if (jsonObj.has("phone") && jsonObj.optJSONObject("phone") != null) {
-                            phone = jsonObj.getJSONObject("phone");
-                            if (phone.has("mobile") && phone.optString("mobile") != null) {
-                                mobile = phone.getString("mobile");
+                JSONObject jsonObject = new JSONObject(jsonString);
+                if (jsonObject.has("contacts") && jsonObject.optJSONArray("contacts") != null) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("contacts");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        if (jsonArray.getJSONObject(i) != null) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            if (object.has("name") && object.optString("name") != null) {
+                                name = object.getString("name");
+                            } else {
+                                Log.d(TAG, "name null or object does not have name column");
                             }
-                        }
-                        if (!TextUtils.equals(name, "")) {
-                            contact.setName(name);
-                            if (TextUtils.equals(mail, "")) {
-                                contact.setName(mail);
-                                if (TextUtils.equals(mobile, "")) {
-                                    contact.setName(mobile);
+                            if (object.has("email") && object.optString("email") != null) {
+                                email = object.getString("email");
+                            } else {
+                                Log.d(TAG, "email null or object does not have email column");
+                            }
+                            if (object.has("phone") && object.optJSONObject("phone") != null) {
+                                JSONObject phoneObject = object.getJSONObject("phone");
+                                if (phoneObject.has("mobile") && phoneObject.optString("mobile") != null) {
+                                    mobile = phoneObject.getString("mobile");
+                                } else {
+                                    Log.d(TAG, "mobile null or object does not have mobile column");
                                 }
+                            } else {
+                                Log.d(TAG, "phone null or object does not have phone column");
                             }
+                        } else {
+                            Log.d(TAG, "contacts null or jsonObject does not have contacts column");
                         }
-                        contacts.add(contact);
+                        mContacts.add(new Contact(name, email, mobile));
                     }
+                } else {
+                    Log.d(TAG, "object null");
                 }
             } catch (JSONException e) {
-                Log.e(TAG, "IOException: " + e.toString());
+                Log.e(TAG, "JSONException" + e.toString());
             }
+        } else {
+            Log.d(TAG, "jsonString null");
         }
         updateUI();
     }
