@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="@dimen/tvname.width"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        tools:text="Napoleon" />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        tools:text="napoleon@gmail.com" />
+
+    <TextView
+        android:id="@+id/tvPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tvName"
+        android:layout_toRightOf="@+id/tvName"
+        android:gravity="end"
+        tools:text="0976545507" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view.height"
+        android:layout_below="@+id/tvEmail"
+        android:layout_marginTop="@dimen/view.margin"
+        android:background="@color/view.color" />
+</RelativeLayout>
