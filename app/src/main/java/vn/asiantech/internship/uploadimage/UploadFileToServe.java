@@ -22,18 +22,12 @@ import okhttp3.Response;
 class UploadFileToServe extends AsyncTask<String, Integer, String> {
     private static final String URL = "http://2.pik.vn/";
     private static final String TAG = "error";
-    private MediaType mMediaType = MediaType.parse("application/x-www-form-urlencoded");
+    private final MediaType mMediaType = MediaType.parse("application/x-www-form-urlencoded");
     private OnAsyncResponseListener mListener = null;
 
     UploadFileToServe(OnAsyncResponseListener listener) {
         mListener = listener;
     }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
 
     @Override
     protected String doInBackground(String... strings) {
@@ -69,7 +63,7 @@ class UploadFileToServe extends AsyncTask<String, Integer, String> {
         mListener.onProcessFinish(result);
     }
 
-    /*
+    /**
      * Used to get contacts from AsyncTask to MainActivity
      */
     interface OnAsyncResponseListener {

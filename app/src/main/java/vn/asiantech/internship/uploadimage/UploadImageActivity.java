@@ -33,7 +33,7 @@ public class UploadImageActivity extends AppCompatActivity {
     private static final String TAG = "error";
     private ImageView mImgShowImage;
     private ProgressDialog mProgressDialog;
-    private UploadFileToServe mUploadFileToServe = new UploadFileToServe(new UploadFileToServe.OnAsyncResponseListener() {
+    private final UploadFileToServe mUploadFileToServe = new UploadFileToServe(new UploadFileToServe.OnAsyncResponseListener() {
         @Override
         public void onProcessFinish(String link) {
             if (link != null) {
@@ -101,7 +101,7 @@ public class UploadImageActivity extends AppCompatActivity {
         }
     }
 
-    public String getFileToByte(String path) {
+    private String getFileToByte(String path) {
         Bitmap bitmap = BitmapFactory.decodeFile(path);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
