@@ -56,16 +56,13 @@ public class MusicService extends Service {
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e(TAG, "onReceive: intent :" + (intent != null));
             if (intent != null) {
                 if (intent.getAction().equals(Action.PLAY.getValue())) {
                     isPause = false;
                     mCurrentPosition = intent.getIntExtra(MusicActivity.KEY_POS, -1);
                     if (mCurrentPosition != -1) {
                         mSong = mSongs.get(mCurrentPosition);
-                        Log.e(TAG, "onReceive: " + mSong.getName());
                     }
-                    Log.e(TAG, "Media is playing..." + (mMediaPlayer.isPlaying()));
                     startMedia();
                 } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
                     isPause = true;
@@ -74,19 +71,14 @@ public class MusicService extends Service {
                     isPause = false;
                     resumeMusic();
                 } else if (intent.getAction().equals(Action.NEXT.getValue())) {
-                    Log.e(TAG, "ACTION_NEXT");
                     nextMusic();
                 } else if (intent.getAction().equals(Action.PREVIOUS.getValue())) {
-                    Log.e(TAG, "ACTION_PREVIOUS");
                     previousMusic();
                 } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
                     isShuffle = (!isShuffle);
-                    Log.e(TAG, "ACTION_SHUFFLE" + isShuffle);
                 } else if (intent.getAction().equals(Action.AUTONEXT.getValue())) {
                     isAutoNext = (!isAutoNext);
-                    Log.e(TAG, "ACTION_AUTONEXT" + isAutoNext);
                 } else if (intent.getAction().equals(Action.STOP.getValue())) {
-                    Log.e(TAG, "ACTION_STOP");
                     stopForeground(true);
                     stopSelf();
                 } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
@@ -101,7 +93,6 @@ public class MusicService extends Service {
     }
 
     private void startMedia() {
-        Log.e(TAG, "at-dinhvo: startMedia:");
         resetMusic();
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
@@ -135,7 +126,6 @@ public class MusicService extends Service {
             mCurrentPosition = (mCurrentPosition == mSongs.size() - 1) ? 0 : mCurrentPosition + 1;
         }
         mSong = mSongs.get(mCurrentPosition);
-        Log.e(TAG, "nextMusic: " + mCurrentPosition + ":" + mSong.getName());
         sendSong(SONG_NEXT, mCurrentPosition);
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
@@ -148,7 +138,6 @@ public class MusicService extends Service {
                     handlerProgress();
                 }
             });
-            Log.e(TAG, "nextMusic: " + mSong.getName());
         } catch (IOException e) {
             Log.e(TAG, "IOException");
         }
@@ -160,11 +149,8 @@ public class MusicService extends Service {
             mCurrentPosition = shuffleMusic();
         } else {
             mCurrentPosition = (mCurrentPosition == 0) ? mSongs.size() - 1 : mCurrentPosition - 1;
-
-            Log.e(TAG, "prevMusic: " + mCurrentPosition);
         }
         mSong = mSongs.get(mCurrentPosition);
-        Log.e(TAG, "nextMusic: " + mCurrentPosition + ":" + mSong.getName());
         sendSong(SONG_PREVIOUS, mCurrentPosition);
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
@@ -177,7 +163,6 @@ public class MusicService extends Service {
                 }
             });
             mMediaPlayer.prepare();
-            Log.e(TAG, "nextMusic: " + mSong.getName());
         } catch (IOException e) {
             Log.e(TAG, "IOException");
         }
@@ -185,7 +170,6 @@ public class MusicService extends Service {
 
     private void resetMusic() {
         if (mCountDownTimer != null) {
-            Log.e(TAG, "resetMusic: " + "aaaaaaaaa");
             mCountDownTimer.cancel();
         }
         if (mMediaPlayer != null) {
@@ -193,18 +177,15 @@ public class MusicService extends Service {
             mMediaPlayer.release();
             mMediaPlayer = new MediaPlayer();
         }
-        Log.e(TAG, "at-dinhvo: resetMusic:");
     }
 
     private void pauseMusic() {
-        Log.e(TAG, "at-dinhvo: pauseMusic:");
         mMediaPlayer.pause();
         isPause = true;
         mLength = mMediaPlayer.getCurrentPosition();
     }
 
     private void resumeMusic() {
-        Log.e(TAG, "at-dinhvo: resumeMusic:");
         mMediaPlayer.seekTo(mLength);
         mMediaPlayer.start();
     }
@@ -215,7 +196,6 @@ public class MusicService extends Service {
         do {
             ran = random.nextInt(mSongs.size() - 1);
         } while (ran == mCurrentPosition);
-        Log.e(TAG, "shuffle music: " + ran + ":" + mSong.getName());
         return ran;
     }
 
@@ -229,7 +209,6 @@ public class MusicService extends Service {
             @Override
             public void onTick(long l) {
                 timeIntent.putExtra(KEY_SECOND_INT, mMediaPlayer.getCurrentPosition() / 1000);
-                Log.e(TAG, "onTick: " + mMediaPlayer.getCurrentPosition());
                 sendBroadcast(timeIntent);
                 showNotification(mSong.getName(), mSong.getSinger(), mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition());
             }
@@ -239,14 +218,6 @@ public class MusicService extends Service {
             }
         };
         mCountDownTimer.start();
-    }
-
-    private String showTime(int duration) {
-        int min = duration / 60;
-        int sec = duration % 60;
-        String minute = (min < 10) ? "0" + min + ":" : min + ":";
-        String second = (sec < 10) ? "0" + sec : "" + sec;
-        return minute + second;
     }
 
     private void sendSong(String action, int pos) {
@@ -259,7 +230,6 @@ public class MusicService extends Service {
     private void sendDuration() {
         Intent durationIntent = new Intent();
         durationIntent.setAction(DURATION);
-        durationIntent.putExtra(KEY_TIME, showTime(mMediaPlayer.getDuration() / 1000));
         durationIntent.putExtra(KEY_TIME_INT, mMediaPlayer.getDuration() / 1000);
         sendBroadcast(durationIntent);
     }
@@ -286,12 +256,10 @@ public class MusicService extends Service {
         }
         bigViews.setImageViewBitmap(R.id.imgNotifiMusic, bitmap);
         Intent notificationIntent = new Intent(this, MusicActivity.class);
-        // add a flag
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 notificationIntent, 0);
-
         Intent intentPlay = new Intent();
         if (mMediaPlayer.isPlaying()) {
             intentPlay.setAction(Action.PAUSE.getValue());
@@ -301,21 +269,17 @@ public class MusicService extends Service {
         PendingIntent playSong = PendingIntent.getBroadcast(this, 0, intentPlay, 0);
         bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiPlay, playSong);
         views.setOnClickPendingIntent(R.id.imgBtnNotifiPlay, playSong);
-
         Intent intentNextSong = new Intent(Action.NEXT.getValue());
         PendingIntent nextSong = PendingIntent.getBroadcast(this, 0, intentNextSong, 0);
         bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiNext, nextSong);
         views.setOnClickPendingIntent(R.id.imgBtnNotifiNext, nextSong);
-
         Intent intentTurnOff = new Intent(Action.STOP.getValue());
         PendingIntent turnOff = PendingIntent.getBroadcast(this, 0, intentTurnOff, 0);
         bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiExit, turnOff);
         views.setOnClickPendingIntent(R.id.imgBtnNotifiExit, turnOff);
-
         Intent intentPrevious = new Intent(Action.PREVIOUS.getValue());
         PendingIntent previous = PendingIntent.getBroadcast(this, 0, intentPrevious, 0);
         bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiPrev, previous);
-//        views.setOnClickPendingIntent(R.id.imgBtnNotifiExit, previous);
         Notification notification = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             notification = new Notification.Builder(this).build();
@@ -351,7 +315,6 @@ public class MusicService extends Service {
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         if (intent != null && intent.getParcelableArrayListExtra(MusicActivity.KEY_LIST) != null) {
             mSongs = intent.getParcelableArrayListExtra(MusicActivity.KEY_LIST);
-            Log.e(TAG, "onStartCommand: " + mSongs.size());
         } else {
             stopSelf();
         }
@@ -361,16 +324,11 @@ public class MusicService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "at-dinhvo: onDestroy:");
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
         if (mMediaPlayer != null) {
-            try {
-                mMediaPlayer.release();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            mMediaPlayer.release();
         }
         stopSelf();
     }

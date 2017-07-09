@@ -74,6 +74,9 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ItemViewHold
         mImageLoader.displayImage(link, imageView, mDefaultOptions);
     }
 
+    /**
+     * ItemViewHolder
+     */
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvSong;

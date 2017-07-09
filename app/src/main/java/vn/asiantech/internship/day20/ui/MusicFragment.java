@@ -28,6 +28,7 @@ import vn.asiantech.internship.day20.model.Song;
 import static vn.asiantech.internship.day20.service.MusicService.DURATION;
 import static vn.asiantech.internship.day20.service.MusicService.KEY_TIME_INT;
 import static vn.asiantech.internship.day20.service.MusicService.POS_DATA;
+import static vn.asiantech.internship.day20.service.MusicService.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +66,6 @@ public class MusicFragment extends Fragment {
                 switch (intent.getAction()) {
                     case DURATION:
                         mDuration = intent.getIntExtra(KEY_TIME_INT, -1);
-                        Log.e("at-dinhvo", "onReceive: duration: " + mDuration);
                         mTvMusicTime.setText(showTime(mDuration));
                         if (mDuration != -1) {
                             startAnimation(mDuration);
@@ -80,7 +80,7 @@ public class MusicFragment extends Fragment {
                             mTvNameOfSong.setText(mSongs.get(indexNext).getName());
                             resetPlayFlag();
                         } else {
-                            Log.e("at-dinhvo", "song_next: khong nhan duoc");
+                            Log.e(TAG, "song_next: khong nhan duoc");
                         }
                         break;
                     case SONG_PREVIOUS:
@@ -89,7 +89,7 @@ public class MusicFragment extends Fragment {
                             mTvNameOfSong.setText(mSongs.get(indexPrev).getName());
                             resetPlayFlag();
                         } else {
-                            Log.e("at-dinhvo", "song_previous: khong nhan duoc");
+                            Log.e(TAG, "song_previous: khong nhan duoc");
                         }
                         break;
                 }
@@ -219,7 +219,6 @@ public class MusicFragment extends Fragment {
                 } else {
                     mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_white_48dp);
                 }
-                Log.e("at-dinhvo", "shuffle: " + isShuffle);
             }
         });
         mImgBtnAutoNext.setOnClickListener(new View.OnClickListener() {
@@ -234,7 +233,6 @@ public class MusicFragment extends Fragment {
                 } else {
                     mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_loop_white_48dp);
                 }
-                Log.e("at-dinhvo", "auto_next: " + isAutoNext);
             }
         });
     }
