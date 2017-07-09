@@ -1,51 +1,73 @@
 package vn.asiantech.internship.day23;
 
+import android.os.AsyncTask;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 /**
  * Created by at-dinhvo on 05/07/2017.
  */
 
-public class FileUpload{
+public class FileUpload extends AsyncTask<String, Integer, String> {
 
-    /*private String webAddressToPost = "http://2.pik.vn";
+    private static final String URL = "http://2.pik.vn/";
+    private static final String TAG = "error";
+    private final MediaType mMediaType = MediaType.parse("application/x-www-form-urlencoded");
+    private OnAsyncResponseListener mListener = null;
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
+    FileUpload(OnAsyncResponseListener listener) {
+        mListener = listener;
     }
 
     @Override
-    protected String doInBackground(Void... voids) {
+    protected String doInBackground(String... strings) {
+        String link = "";
+        RequestBody body = RequestBody.create(mMediaType, strings[0]);
+        Request request = new Request.Builder()
+                .url(URL)
+                .post(body)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .build();
+        OkHttpClient client = new OkHttpClient.Builder().connectTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .build();
         try {
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpContext localContext = new BasicHttpContext();
-            HttpPost httpPost = new HttpPost(webAddressToPost);
-
-            HandlerUploadFile entity = new HandlerUploadFile(HttpMultipartMode.BROWSER_COMPATIBLE);
-
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-            byte[] data = bos.toByteArray();
-            String file = Base64.encodeBytes(data);
-
-            entity.addPart("uploaded", new StringBody(file));
-            entity.addPart("someOtherStringToSend", new StringBody("your string here"));
-
-            httpPost.setEntity(entity);
-            HttpResponse response = httpClient.execute(httpPost,localContext);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    response.getEntity().getContent(), "UTF-8"));
-
-            String sResponse = reader.readLine();
-            return sResponse;
-        } catch (Exception e) {
-            // something went wrong. connection with the server error
+            Response response = client.newCall(request).execute();
+            if (response != null) {
+                String jsonString = response.body().string();
+                if (jsonString != null) {
+                    JSONObject jsonObj = new JSONObject(jsonString);
+                    String image = jsonObj.getString("saved");
+                    link = URL + image;
+                }
+            }
+        } catch (JSONException | IOException e) {
+            Log.d(TAG, "doInBackground: " + e.toString());
         }
-        return null;
-    }
+        return link;
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-    }*/
+    protected void onPostExecute(String result) {
+        super.onPostExecute(result);
+        mListener.onProcessFinish(result);
+    }
+
+    /**
+     * Used to get contacts from AsyncTask to MainActivity
+     */
+    interface OnAsyncResponseListener {
+        void onProcessFinish(String link);
+    }
 }
