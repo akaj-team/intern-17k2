@@ -6,21 +6,24 @@ import android.os.Parcelable;
 /**
  * Created by at-dinhvo on 06/07/2017.
  */
-public class Song implements Parcelable{
+public class Song implements Parcelable {
     private String name;
     private String singer;
     private String url;
+    private String image;
 
-    public Song(String name, String singer, String url) {
+    public Song(String name, String singer, String url, String image) {
         this.name = name;
         this.singer = singer;
         this.url = url;
+        this.image = image;
     }
 
     protected Song(Parcel in) {
         name = in.readString();
         singer = in.readString();
         url = in.readString();
+        image = in.readString();
     }
 
     public static final Creator<Song> CREATOR = new Creator<Song>() {
@@ -59,6 +62,14 @@ public class Song implements Parcelable{
         this.url = url;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -69,5 +80,6 @@ public class Song implements Parcelable{
         parcel.writeString(name);
         parcel.writeString(singer);
         parcel.writeString(url);
+        parcel.writeString(image);
     }
 }

@@ -22,8 +22,8 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.day20.model.Action;
 import vn.asiantech.internship.day20.model.Song;
-import vn.asiantech.internship.day20.service.MusicService;
 
 import static vn.asiantech.internship.day20.service.MusicService.DURATION;
 import static vn.asiantech.internship.day20.service.MusicService.KEY_TIME_INT;
@@ -154,7 +154,7 @@ public class MusicFragment extends Fragment {
         }
         if (mCurrentPosition != -1) {
             Intent intentPlay = new Intent();
-            intentPlay.setAction(MusicService.ACTION_PLAY);
+            intentPlay.setAction(Action.PLAY.getValue());
             intentPlay.putExtra(MusicActivity.KEY_POS, mCurrentPosition);
             getActivity().sendBroadcast(intentPlay);
             isPlaying = true;
@@ -170,17 +170,17 @@ public class MusicFragment extends Fragment {
             public void onClick(View view) {
                 Intent intentPlay = new Intent();
                 if (isPause) { // if music is pausing
-                    intentPlay.setAction(MusicService.ACTION_RESUME);
+                    intentPlay.setAction(Action.RESUME.getValue());
                     mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_pause);
                     isPlaying = true;
                     isPause = false;
                 } else if (isPlaying) { // if music is playing
-                    intentPlay.setAction(MusicService.ACTION_PAUSE);
+                    intentPlay.setAction(Action.PAUSE.getValue());
                     mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_play);
                     isPause = true;
                     isPlaying = false;
                 } else { // music is starting
-                    intentPlay.setAction(MusicService.ACTION_PLAY);
+                    intentPlay.setAction(Action.PLAY.getValue());
                     if (mCurrentPosition != -1) {
                         intentPlay.putExtra(MusicActivity.KEY_POS, mCurrentPosition);
                     } else {
@@ -195,7 +195,7 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentNext = new Intent();
-                intentNext.setAction(MusicService.ACTION_NEXT);
+                intentNext.setAction(Action.NEXT.getValue());
                 getActivity().sendBroadcast(intentNext);
             }
         });
@@ -203,7 +203,7 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentPrevious = new Intent();
-                intentPrevious.setAction(MusicService.ACTION_PREVIOUS);
+                intentPrevious.setAction(Action.PREVIOUS.getValue());
                 getActivity().sendBroadcast(intentPrevious);
             }
         });
@@ -211,7 +211,7 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentShuffle = new Intent();
-                intentShuffle.setAction(MusicService.ACTION_SHUFFLE);
+                intentShuffle.setAction(Action.SHUFFLE.getValue());
                 getActivity().sendBroadcast(intentShuffle);
                 isShuffle = !isShuffle;
                 if (isShuffle) {
@@ -226,7 +226,7 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentAutoNext = new Intent();
-                intentAutoNext.setAction(MusicService.ACTION_AUTONEXT);
+                intentAutoNext.setAction(Action.AUTONEXT.getValue());
                 getActivity().sendBroadcast(intentAutoNext);
                 isAutoNext = !isAutoNext;
                 if (isAutoNext) {

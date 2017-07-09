@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Random;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.day20.model.Action;
 import vn.asiantech.internship.day20.model.Song;
 import vn.asiantech.internship.day20.ui.MusicActivity;
 import vn.asiantech.internship.day20.ui.MusicFragment;
@@ -36,18 +37,8 @@ import static vn.asiantech.internship.day20.ui.MusicFragment.SONG_PREVIOUS;
 public class MusicService extends Service {
 
     public static final String TAG = "at-dinhvo";
-
-    public static final String ACTION_PLAY = "play";
-    public static final String ACTION_PAUSE = "pause";
-    public static final String ACTION_RESUME = "resume";
-    public static final String ACTION_NEXT = "next";
-    public static final String ACTION_STOP = "stop";
-    public static final String ACTION_PREVIOUS = "previous";
-    public static final String ACTION_SHUFFLE = "shuffle";
-    public static final String ACTION_AUTONEXT = "auto_next";
     public static final String POS_DATA = "pos_data";
     public static final String DURATION = "duration";
-
     public static final String KEY_TIME = "time";
     public static final String KEY_TIME_INT = "timeInt";
     public static final String KEY_SECOND_INT = "secondInt";
@@ -67,48 +58,37 @@ public class MusicService extends Service {
         public void onReceive(Context context, Intent intent) {
             Log.e(TAG, "onReceive: intent :" + (intent != null));
             if (intent != null) {
-                switch (intent.getAction()) {
-                    case ACTION_PLAY:
-                        isPause = false;
-                        mCurrentPosition = intent.getIntExtra(MusicActivity.KEY_POS, -1);
-                        if (mCurrentPosition != -1) {
-                            mSong = mSongs.get(mCurrentPosition);
-                            Log.e(TAG, "onReceive: " + mSong.getName());
-                        }
-                        Log.e(TAG, "Media is playing..." + (mMediaPlayer.isPlaying()));
-                        startMedia();
-                        break;
-                    case ACTION_PAUSE:
-                        isPause = true;
-                        pauseMusic();
-                        break;
-                    case ACTION_RESUME:
-                        isPause = false;
-                        resumeMusic();
-                        break;
-                    case ACTION_NEXT:
-                        Log.e(TAG, "ACTION_NEXT");
-                        nextMusic();
-                        break;
-                    case ACTION_PREVIOUS:
-                        Log.e(TAG, "ACTION_PREVIOUS");
-                        previousMusic();
-                        break;
-                    case ACTION_SHUFFLE:
-                        isShuffle = (!isShuffle);
-                        Log.e(TAG, "ACTION_SHUFFLE" + isShuffle);
-                        break;
-                    case ACTION_AUTONEXT:
-                        isAutoNext = (!isAutoNext);
-                        Log.e(TAG, "ACTION_AUTONEXT" + isAutoNext);
-                        break;
-                    case Intent.ACTION_SCREEN_OFF:
-                        Log.e(TAG, "ACTION_SCREEN_OFF");
-                        break;
-                    case ACTION_STOP:
-                        Log.e(TAG, "ACTION_STOP");
-                        stopForeground(true);
-                        stopSelf();
+                if (intent.getAction().equals(Action.PLAY.getValue())) {
+                    isPause = false;
+                    mCurrentPosition = intent.getIntExtra(MusicActivity.KEY_POS, -1);
+                    if (mCurrentPosition != -1) {
+                        mSong = mSongs.get(mCurrentPosition);
+                        Log.e(TAG, "onReceive: " + mSong.getName());
+                    }
+                    Log.e(TAG, "Media is playing..." + (mMediaPlayer.isPlaying()));
+                    startMedia();
+                } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
+                    isPause = true;
+                    pauseMusic();
+                } else if (intent.getAction().equals(Action.RESUME.getValue())) {
+                    isPause = false;
+                    resumeMusic();
+                } else if (intent.getAction().equals(Action.NEXT.getValue())) {
+                    Log.e(TAG, "ACTION_NEXT");
+                    nextMusic();
+                } else if (intent.getAction().equals(Action.PREVIOUS.getValue())) {
+                    Log.e(TAG, "ACTION_PREVIOUS");
+                    previousMusic();
+                } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
+                    isShuffle = (!isShuffle);
+                    Log.e(TAG, "ACTION_SHUFFLE" + isShuffle);
+                } else if (intent.getAction().equals(Action.AUTONEXT.getValue())) {
+                    isAutoNext = (!isAutoNext);
+                    Log.e(TAG, "ACTION_AUTONEXT" + isAutoNext);
+                } else if (intent.getAction().equals(Action.STOP.getValue())) {
+                    Log.e(TAG, "ACTION_STOP");
+                    stopForeground(true);
+                    stopSelf();
                 }
             }
         }
@@ -312,25 +292,25 @@ public class MusicService extends Service {
 
         Intent intentPlay = new Intent();
         if (mMediaPlayer.isPlaying()) {
-            intentPlay.setAction(ACTION_PAUSE);
+            intentPlay.setAction(Action.PAUSE.getValue());
         } else {
-            intentPlay.setAction(ACTION_RESUME);
+            intentPlay.setAction(Action.RESUME.getValue());
         }
         PendingIntent playSong = PendingIntent.getBroadcast(this, 0, intentPlay, 0);
         bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiPlay, playSong);
         views.setOnClickPendingIntent(R.id.imgBtnNotifiPlay, playSong);
 
-        Intent intentNextSong = new Intent(ACTION_NEXT);
+        Intent intentNextSong = new Intent(Action.NEXT.getValue());
         PendingIntent nextSong = PendingIntent.getBroadcast(this, 0, intentNextSong, 0);
         bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiNext, nextSong);
         views.setOnClickPendingIntent(R.id.imgBtnNotifiNext, nextSong);
 
-        Intent intentTurnOff = new Intent(ACTION_STOP);
+        Intent intentTurnOff = new Intent(Action.STOP.getValue());
         PendingIntent turnOff = PendingIntent.getBroadcast(this, 0, intentTurnOff, 0);
         bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiExit, turnOff);
         views.setOnClickPendingIntent(R.id.imgBtnNotifiExit, turnOff);
 
-        Intent intentPrevious = new Intent(ACTION_PREVIOUS);
+        Intent intentPrevious = new Intent(Action.PREVIOUS.getValue());
         PendingIntent previous = PendingIntent.getBroadcast(this, 0, intentPrevious, 0);
         bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiPrev, previous);
 //        views.setOnClickPendingIntent(R.id.imgBtnNotifiExit, previous);
@@ -350,14 +330,14 @@ public class MusicService extends Service {
     public void onCreate() {
         super.onCreate();
         IntentFilter filter = new IntentFilter();
-        filter.addAction(ACTION_PLAY);
-        filter.addAction(ACTION_NEXT);
-        filter.addAction(ACTION_PREVIOUS);
-        filter.addAction(ACTION_PAUSE);
-        filter.addAction(ACTION_RESUME);
-        filter.addAction(ACTION_SHUFFLE);
-        filter.addAction(ACTION_AUTONEXT);
-        filter.addAction(ACTION_STOP);
+        filter.addAction(Action.PLAY.getValue());
+        filter.addAction(Action.NEXT.getValue());
+        filter.addAction(Action.PREVIOUS.getValue());
+        filter.addAction(Action.PAUSE.getValue());
+        filter.addAction(Action.RESUME.getValue());
+        filter.addAction(Action.SHUFFLE.getValue());
+        filter.addAction(Action.AUTONEXT.getValue());
+        filter.addAction(Action.STOP.getValue());
         filter.addAction(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         registerReceiver(mBroadcastReceiver, filter);
@@ -371,7 +351,7 @@ public class MusicService extends Service {
             mSongs = intent.getParcelableArrayListExtra(MusicActivity.KEY_LIST);
             Log.e(TAG, "onStartCommand: " + mSongs.size());
         } else {
-            Log.e(TAG, "onStartCommand: " + mSongs.size());
+            stopSelf();
         }
         return START_STICKY;
     }

@@ -51,7 +51,7 @@ public class MusicActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(MusicActivity.this));
         addMusicSource();
         startMusicService();
-        mRecyclerView.setAdapter(new MusicAdapter(mSongs, new MusicAdapter.OnShowMusicPlayer() {
+        mRecyclerView.setAdapter(new MusicAdapter(MusicActivity.this, mSongs, new MusicAdapter.OnShowMusicPlayer() {
             @Override
             public void onShowPlayer(int position) {
                 mRecyclerView.setVisibility(View.GONE);
@@ -99,11 +99,23 @@ public class MusicActivity extends AppCompatActivity {
 
     private void addMusicSource() {
         mSongs = new ArrayList<>();
-        mSongs.add(new Song("Attention", "Charlie Puth", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNXDNNGEETLDJTDGLG"));
-        mSongs.add(new Song("We Don't Talk Anymore", "Charlie Puth", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAXQGGETLDJTDGLG"));
-        mSongs.add(new Song("Love Yourself", "J-FLA", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQNQJVGJTLDJTDGLG"));
-        mSongs.add(new Song("Shape Of You", "J-FLA", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJNELQQTLDJTDGLG"));
-        mSongs.add(new Song("Don't Let Me Down", "J-FLA", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJVJVAATLDJTDGLG"));
-        mSongs.add(new Song("See You Again", "Charlie Puth", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQDVEXDETLDJTDGLG"));
+        mSongs.add(new Song("Attention", "Charlie Puth",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNXDNNGEETLDJTDGLG",
+                "http://i.imgur.com/zGDdKKR.jpg"));
+        mSongs.add(new Song("We Don't Talk Anymore", "Charlie Puth",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAXQGGETLDJTDGLG",
+                "http://i.imgur.com/dHtH1kP.jpg"));
+        mSongs.add(new Song("Love Yourself", "J-FLA",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQNQJVGJTLDJTDGLG",
+                "http://i.imgur.com/sE3bqCO.jpg"));
+        mSongs.add(new Song("Shape Of You", "J-FLA",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJNELQQTLDJTDGLG",
+                "http://i.imgur.com/P1K1KBD.jpg"));
+        mSongs.add(new Song("Don't Let Me Down", "J-FLA",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJVJVAATLDJTDGLG",
+                "http://i.imgur.com/t5oc1NR.jpg"));
+        mSongs.add(new Song("See You Again", "Charlie Puth",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQDVEXDETLDJTDGLG",
+                "http://i.imgur.com/7cPlIs6.jpg"));
     }
 }

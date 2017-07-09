@@ -66,6 +66,7 @@
     <string name="result.dialog.message">Do you want to show result?</string>
     <!--Music-->
     <string name="currentTime">00:00</string>
+    <string name="music.title">Simple Music App</string>
     <!--Test-->
     <string name="app_version_number">1.0</string>
     <string name="menu_settings">Settings</string>
