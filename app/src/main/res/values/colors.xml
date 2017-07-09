@@ -18,4 +18,7 @@
     <color name="frgFriend.background">#818184</color>
     <color name="item_list_friend.background">#F5F5F6</color>
     <color name="splash.button.color">#d1a3a3</color>
+    <color name="tab.selected.true">#0432b1</color>
+    <color name="tab.selected.false">#5e4d4d</color>
+    <color name="line">#d1a3a3</color>
 </resources>

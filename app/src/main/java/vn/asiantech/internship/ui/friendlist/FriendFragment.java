@@ -29,7 +29,7 @@ public class FriendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_friend, container, false);
         RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.recyclerView);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), createDataListUser());
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(container.getContext(), createDataListUser());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
         recyclerView.setLayoutManager(layoutManager);

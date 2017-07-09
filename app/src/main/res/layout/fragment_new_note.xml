@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_new_note" />
+
+    <ImageView
+        android:id="@+id/imgAddImage"
+        android:layout_width="@dimen/note.imageview.addnote.width"
+        android:layout_height="@dimen/note.imageview.addnote.height"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/note.imageview.margin"
+        android:contentDescription="@null"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/edtNoteTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/note.edittext.margin"
+        android:background="@drawable/custom_edittext"
+        android:hint="@string/newnote.hint.title"
+        android:inputType="text"
+        android:padding="@dimen/note.item_note.padding" />
+
+    <EditText
+        android:id="@+id/edtInputContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/note.edittext.margin"
+        android:background="@drawable/custom_edittext"
+        android:hint="@string/newnote.hint.content"
+        android:inputType="text"
+        android:padding="@dimen/note.item_note.padding" />
+</LinearLayout>

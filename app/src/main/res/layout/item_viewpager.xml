@@ -6,6 +6,6 @@
     <ImageView
         android:id="@+id/imgViewPager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/viewpager.height"
+        android:layout_height="@dimen/pager.height"
         android:contentDescription="@null" />
 </FrameLayout>
