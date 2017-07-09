@@ -22,7 +22,6 @@ import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.services.MusicService;
 
 /**
- * 
  * Created by quanghai on 02/07/2017.
  */
 public class SongPlayingActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
@@ -32,10 +31,12 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
     private TextView mTvCurrentTime;
     private TextView mTvDuration;
     private ImageView mImgPause;
+    private ImageView mImgReplay;
+    private ImageView mImgShuffle;
     private SeekBar mSeekBar;
     private Animation mAnimation;
 
-    private boolean mIsPlaying;
+    private boolean mIsPause;
     private boolean mIsShuffle;
     private boolean mIsReplay;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
@@ -62,6 +63,7 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
         Intent intent = getIntent();
         int currentPosition = intent.getIntExtra(Action.KEY_BUNDLE_POSITION.getValue(), -1);
         setView(songs.get(currentPosition));
+        startAnimation(10000);
     }
 
     private void initIntentFilter() {
@@ -83,15 +85,15 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
         ImageView imgPrevious = (ImageView) findViewById(R.id.imgPreviousSong);
         ImageView imgNext = (ImageView) findViewById(R.id.imgNextSong);
         mImgPause = (ImageView) findViewById(R.id.imgPauseSong);
-        ImageView imgShuffle = (ImageView) findViewById(R.id.imgShuffleSong);
-        ImageView imgReplay = (ImageView) findViewById(R.id.imgReplay);
+        mImgShuffle = (ImageView) findViewById(R.id.imgShuffleSong);
+        mImgReplay = (ImageView) findViewById(R.id.imgReplay);
         mSeekBar = (SeekBar) findViewById(R.id.seekBarTime);
 
         imgPrevious.setOnClickListener(this);
         mImgPause.setOnClickListener(this);
         imgNext.setOnClickListener(this);
-        imgShuffle.setOnClickListener(this);
-        imgReplay.setOnClickListener(this);
+        mImgShuffle.setOnClickListener(this);
+        mImgReplay.setOnClickListener(this);
         mSeekBar.setOnSeekBarChangeListener(this);
     }
 
@@ -113,7 +115,6 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
         mSeekBar.setProgress(position);
         mTvCurrentTime.setText(showTime(position / 1000));
         mTvDuration.setText(showTime(duration / 1000));
-        startAnimation(duration / 1000);
     }
 
     private void getSong(Intent intent) {
@@ -142,22 +143,23 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.imgPauseSong:
                 Intent intent = new Intent(this, MusicService.class);
-                if (mIsPlaying) {
-                    mImgDisk.clearAnimation();
+                if (mIsPause) {
+                    mIsPause = false;
+                    mImgDisk.startAnimation(mAnimation);
                     mImgPause.setImageResource(R.drawable.ic_pause_black_24dp);
-                    intent.setAction(Action.PAUSE.getValue());
+                    intent.setAction(Action.RESUME.getValue());
                     startService(intent);
-                    mIsPlaying = false;
                     return;
                 }
-                mImgDisk.startAnimation(mAnimation);
+                mIsPause = true;
+                mImgDisk.clearAnimation();
                 mImgPause.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                intent.setAction(Action.RESUME.getValue());
+                intent.setAction(Action.PAUSE.getValue());
                 startService(intent);
-                mIsPlaying = true;
                 break;
             case R.id.imgShuffleSong:
                 mIsShuffle = !mIsShuffle;
+                mImgShuffle.setImageResource(mIsShuffle ? R.drawable.ic_shuffle_white_24dp : R.drawable.ic_shuffle_black_24dp);
                 Intent shuffleIntent = new Intent(this, MusicService.class);
                 shuffleIntent.setAction(Action.SHUFFLE.getValue());
                 shuffleIntent.putExtra(Action.SHUFFLE.getValue(), mIsShuffle);
@@ -165,6 +167,7 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.imgReplay:
                 mIsReplay = !mIsReplay;
+                mImgReplay.setImageResource(mIsReplay ? R.drawable.ic_autorenew_white_24dp : R.drawable.ic_autorenew_black_24dp);
                 Intent autoNextIntent = new Intent(this, MusicService.class);
                 autoNextIntent.setAction(Action.REPLAY.getValue());
                 autoNextIntent.putExtra(Action.REPLAY.getValue(), mIsReplay);

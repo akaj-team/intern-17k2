@@ -96,6 +96,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 mIsShuffle = intent.getBooleanExtra(Action.SHUFFLE.getValue(), false);
             } else if (intent.getAction().equals(Action.REPLAY.getValue())) {
                 mIsReplay = intent.getBooleanExtra(Action.REPLAY.getValue(), false);
+                Log.d("xxx", "replay: " + mIsReplay);
             }
         }
         return START_STICKY;
@@ -199,6 +200,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void onCompletion(MediaPlayer mp) {
         if (mIsReplay) {
             mp.setLooping(true);
+            mp.start();
         } else {
             if (!mIsShuffle) {
                 if (mCurrentPosition < mSongs.size() - 1) {

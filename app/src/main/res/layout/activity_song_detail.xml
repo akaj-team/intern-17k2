@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/ic_play_arrow_black_24dp" />
+            android:src="@drawable/ic_pause_black_24dp" />
 
         <ImageView
             android:id="@+id/imgNextSong"

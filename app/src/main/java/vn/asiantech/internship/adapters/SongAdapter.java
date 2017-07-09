@@ -40,7 +40,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder
         holder.mTvTitle.setText(mSongs.get(position).getTitle());
         holder.mTvArtist.setText(mSongs.get(position).getArtist());
         holder.mTvTime.setText(mActivity.showTime(mSongs.get(position).getTime() / 1000));
-        holder.mImgIcon.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+        holder.mImgIcon.setImageResource(R.drawable.ic_song);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
