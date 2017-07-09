@@ -70,7 +70,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder
         }
     }
 
-    public interface OnListener{
+    /**
+     * Created by quanghai on 30/06/2017.
+     */
+    public interface OnListener {
         void onItemClick(int position);
     }
 }
