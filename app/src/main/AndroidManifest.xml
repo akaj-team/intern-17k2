@@ -27,6 +27,7 @@
         <activity android:name=".friend.FriendActivity" />
         <activity android:name=".day13.ChatActivity" />
         <activity android:name=".day15.ui.QuestionActivity" />
+        <activity android:name=".bai24.CanvasActivity" />
     </application>
 
 </manifest>
