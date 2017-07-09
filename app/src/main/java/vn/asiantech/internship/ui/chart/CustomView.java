@@ -39,6 +39,7 @@ public class CustomView extends View {
         super.onDraw(canvas);
         if (mPaint == null) {
             mPaint = new Paint();
+            mPaint.setTextSize(50);
             mPaint.setColor(Color.BLACK);
             mPaint.setStrokeWidth(5);
         }
@@ -64,6 +65,7 @@ public class CustomView extends View {
     private void drawPivot(Canvas canvas) {
         canvas.drawLine(MARGIN, getHeight() / 2, getWidth() - MARGIN, getHeight() / 2, mPaint);
         canvas.drawLine(getWidth() / 2, MARGIN, getWidth() / 2, getHeight() - MARGIN, mPaint);
+        canvas.drawText("0", getWidth() / 2 - 50, getHeight() / 2 + 50, mPaint);
 
         Path path = new Path();
         path.moveTo(getWidth() - MARGIN, getHeight() / 2 - 10);
