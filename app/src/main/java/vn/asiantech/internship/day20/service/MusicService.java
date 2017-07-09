@@ -89,6 +89,8 @@ public class MusicService extends Service {
                     Log.e(TAG, "ACTION_STOP");
                     stopForeground(true);
                     stopSelf();
+                } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                    showNotification(mSong.getName(), mSong.getSinger(), mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition());
                 }
             }
         }
