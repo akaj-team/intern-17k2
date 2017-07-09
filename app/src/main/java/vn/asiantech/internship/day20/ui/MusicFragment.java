@@ -25,12 +25,18 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.day20.model.Song;
 import vn.asiantech.internship.day20.service.MusicService;
 
+import static vn.asiantech.internship.day20.service.MusicService.DURATION;
+import static vn.asiantech.internship.day20.service.MusicService.KEY_TIME_INT;
+import static vn.asiantech.internship.day20.service.MusicService.POS_DATA;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MusicFragment extends Fragment {
 
     public static final String CURRENT_TIME = "current_time";
+    public static final String SONG_NEXT = "song_next";
+    public static final String SONG_PREVIOUS = "song_previous";
 
     private ImageButton mImgBtnPlay;
     private ImageButton mImgBtnPrevious;
@@ -42,6 +48,8 @@ public class MusicFragment extends Fragment {
     private SeekBar mSeekBar;
     private TextView mTvMusicTime;
     private TextView mCurrentTime;
+
+    private Animation mAnimation;
     private boolean isPause = false;
     private boolean isPlaying = false;
     private boolean isShuffle = false;
@@ -55,8 +63,8 @@ public class MusicFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
             if (intent != null) {
                 switch (intent.getAction()) {
-                    case MusicService.DURATION:
-                        mDuration = intent.getIntExtra("timeInt", -1);
+                    case DURATION:
+                        mDuration = intent.getIntExtra(KEY_TIME_INT, -1);
                         Log.e("at-dinhvo", "onReceive: duration: " + mDuration);
                         mTvMusicTime.setText(showTime(mDuration));
                         if (mDuration != -1) {
@@ -66,59 +74,28 @@ public class MusicFragment extends Fragment {
                         showSeekBar(intent.getIntExtra("secondInt", -1), mDuration);
                         mCurrentTime.setText(showTime(intent.getIntExtra("secondInt", -1)));
                         break;
-                    case MusicService.SONG_SHUFFLE:
-                        Log.e("at-dinhvo", "onReceive: SONG_SHUFFLE");
-                        int index = intent.getIntExtra(MusicService.POS_SHUFFLE, -1);
-                        if (index != -1) {
-                            mTvNameOfSong.setText(mSongs.get(index).getName());
+                    case SONG_NEXT:
+                        int indexNext = intent.getIntExtra(POS_DATA, -1);
+                        if (indexNext != -1) {
+                            mTvNameOfSong.setText(mSongs.get(indexNext).getName());
+                            resetPlayFlag();
                         } else {
-                            Log.e("at-dinhvo", "onReceive: khong nhan duoc");
+                            Log.e("at-dinhvo", "song_next: khong nhan duoc");
+                        }
+                        break;
+                    case SONG_PREVIOUS:
+                        int indexPrev = intent.getIntExtra(POS_DATA, -1);
+                        if (indexPrev != -1) {
+                            mTvNameOfSong.setText(mSongs.get(indexPrev).getName());
+                            resetPlayFlag();
+                        } else {
+                            Log.e("at-dinhvo", "song_previous: khong nhan duoc");
                         }
                         break;
                 }
             }
         }
     };
-
-    private String showTime(int duration) {
-        int min = duration / 60;
-        int sec = duration % 60;
-        String minute = (min < 10) ? "0" + min + ":" : min + ":";
-        String second = (sec < 10) ? "0" + sec : "" + sec;
-        return minute + second;
-    }
-
-    private void startAnimation(int duration) {
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.rotation);
-        animation.setDuration(duration * 1000);
-        mCircleImageViewMusic.startAnimation(animation);
-    }
-
-    private void showSeekBar(int second, int duration) {
-        mSeekBar.setMax(100);
-        mSeekBar.incrementProgressBy(1);
-        if (duration == 0) {
-            mSeekBar.setProgress(0);
-        } else {
-            mSeekBar.setProgress(second * 100 / duration);
-        }
-        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-    }
 
     public MusicFragment() {
         // Required empty public constructor
@@ -139,13 +116,42 @@ public class MusicFragment extends Fragment {
         addEvents();
     }
 
+    private void resetPlayFlag() {
+        isPause = false;
+        isPlaying = true;
+        mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_pause);
+    }
+
+    private String showTime(int duration) {
+        int min = duration / 60;
+        int sec = duration % 60;
+        String minute = (min < 10) ? "0" + min + ":" : min + ":";
+        String second = (sec < 10) ? "0" + sec : "" + sec;
+        return minute + second;
+    }
+
+    private void startAnimation(int duration) {
+        mAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.rotation);
+        mAnimation.setDuration(duration * 1000);
+        mCircleImageViewMusic.startAnimation(mAnimation);
+    }
+
+    private void showSeekBar(int second, int duration) {
+        mSeekBar.setMax(100);
+        mSeekBar.incrementProgressBy(1);
+        if (duration == 0) {
+            mSeekBar.setProgress(0);
+        } else {
+            mSeekBar.setProgress(second * 100 / duration);
+        }
+    }
+
     private void getSong() {
         Bundle bundle = getArguments();
         if (bundle != null) {
             mCurrentPosition = bundle.getInt(MusicActivity.KEY_POS);
             mSongs = bundle.getParcelableArrayList(MusicActivity.KEY_LIST);
         }
-        // start the song
         if (mCurrentPosition != -1) {
             Intent intentPlay = new Intent();
             intentPlay.setAction(MusicService.ACTION_PLAY);
@@ -185,29 +191,22 @@ public class MusicFragment extends Fragment {
                 getActivity().sendBroadcast(intentPlay);
             }
         });
-
         mImgBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentNext = new Intent();
                 intentNext.setAction(MusicService.ACTION_NEXT);
                 getActivity().sendBroadcast(intentNext);
-                mCurrentPosition = (mCurrentPosition == mSongs.size() - 1) ? 0 : mCurrentPosition + 1;
-                mTvNameOfSong.setText(mSongs.get(mCurrentPosition).getName());
             }
         });
-
         mImgBtnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentPrevious = new Intent();
                 intentPrevious.setAction(MusicService.ACTION_PREVIOUS);
                 getActivity().sendBroadcast(intentPrevious);
-                mCurrentPosition = (mCurrentPosition == 0) ? mSongs.size() - 1 : mCurrentPosition - 1;
-                mTvNameOfSong.setText(mSongs.get(mCurrentPosition).getName());
             }
         });
-
         mImgBtnShuffle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -216,14 +215,13 @@ public class MusicFragment extends Fragment {
                 getActivity().sendBroadcast(intentShuffle);
                 isShuffle = !isShuffle;
                 if (isShuffle) {
-                    mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_black);
+                    mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_cyan_a700_48dp);
                 } else {
-                    mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_white);
+                    mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_white_48dp);
                 }
                 Log.e("at-dinhvo", "shuffle: " + isShuffle);
             }
         });
-
         mImgBtnAutoNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -232,9 +230,9 @@ public class MusicFragment extends Fragment {
                 getActivity().sendBroadcast(intentAutoNext);
                 isAutoNext = !isAutoNext;
                 if (isAutoNext) {
-                    mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_auto_next_white);
+                    mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_loop_cyan_a700_48dp);
                 } else {
-                    mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_auto_next_blue);
+                    mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_loop_white_48dp);
                 }
                 Log.e("at-dinhvo", "auto_next: " + isAutoNext);
             }
@@ -257,15 +255,15 @@ public class MusicFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(CURRENT_TIME);
-        intentFilter.addAction(MusicService.DURATION);
-        intentFilter.addAction(MusicService.SONG_SHUFFLE);
-        getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
+        setFilterReceiver();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void setFilterReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(CURRENT_TIME);
+        intentFilter.addAction(DURATION);
+        intentFilter.addAction(SONG_PREVIOUS);
+        intentFilter.addAction(SONG_NEXT);
+        getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
     }
 }

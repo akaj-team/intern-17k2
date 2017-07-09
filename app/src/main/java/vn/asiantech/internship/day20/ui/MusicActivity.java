@@ -59,7 +59,6 @@ public class MusicActivity extends AppCompatActivity {
                 showMediaPlayer(position);
             }
         }));
-
         findViewById(R.id.imgBtnBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,16 +99,11 @@ public class MusicActivity extends AppCompatActivity {
 
     private void addMusicSource() {
         mSongs = new ArrayList<>();
-        mSongs.add(new Song("Maps", "Maroon5", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNAEJVGVQTLDJTDGLG"));
-        mSongs.add(new Song("Animals", "Maroon5", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQGQJQNNTLDJTDGLG"));
-        mSongs.add(new Song("One More Night", "Maroon5", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNADVGQEGTLDJTDGLG"));
-        mSongs.add(new Song("Sugar", "Maroon5", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQGXGJAATLDJTDGLG"));
-        mSongs.add(new Song("One Call Away", "Charlie Puth", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAGDQAXTLDJTDGLG"));
+        mSongs.add(new Song("Attention", "Charlie Puth", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNXDNNGEETLDJTDGLG"));
+        mSongs.add(new Song("We Don't Talk Anymore", "Charlie Puth", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQAXQGGETLDJTDGLG"));
+        mSongs.add(new Song("Love Yourself", "J-FLA", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQNQJVGJTLDJTDGLG"));
+        mSongs.add(new Song("Shape Of You", "J-FLA", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJNELQQTLDJTDGLG"));
+        mSongs.add(new Song("Don't Let Me Down", "J-FLA", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJVJVAATLDJTDGLG"));
         mSongs.add(new Song("See You Again", "Charlie Puth", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQDVEXDETLDJTDGLG"));
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 }

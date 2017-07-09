@@ -5,4 +5,6 @@ package vn.asiantech.internship.day20.model;
  */
 
 public enum Action {
+
+
 }

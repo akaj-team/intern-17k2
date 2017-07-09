@@ -76,14 +76,14 @@
             android:layout_width="@dimen/music.icon_size"
             android:layout_height="@dimen/music.icon_size"
             android:layout_gravity="start"
-            android:background="@drawable/ic_shuffle_white" />
+            android:background="@drawable/ic_shuffle_white_48dp" />
 
         <ImageButton
             android:id="@+id/imgBtnAutoNext"
             android:layout_width="@dimen/music.icon_size"
             android:layout_height="@dimen/music.icon_size"
             android:layout_gravity="end"
-            android:background="@drawable/ic_auto_next_blue" />
+            android:background="@drawable/ic_loop_white_48dp" />
     </FrameLayout>
 
     <LinearLayout
