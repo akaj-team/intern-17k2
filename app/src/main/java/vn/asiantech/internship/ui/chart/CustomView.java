@@ -79,6 +79,12 @@ public class CustomView extends View {
     }
 
     @Override
+    public boolean performClick() {
+        super.performClick();
+        return true;
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         mScaleDetector.onTouchEvent(event);
         return true;
