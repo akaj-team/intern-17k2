@@ -27,7 +27,6 @@ import vn.asiantech.internship.services.MusicService;
 public class MusicActivity extends AppCompatActivity {
     private RecyclerView mRecyclerViewSong;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
