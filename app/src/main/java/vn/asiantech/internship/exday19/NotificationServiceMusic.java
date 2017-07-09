@@ -34,35 +34,30 @@ public class NotificationServiceMusic extends Service {
     private boolean mIsShuffle;
     private boolean mIsRepeat;
     private CountDownTimer mCountDownTimer;
-    private ArrayList<MusicItem> mMusicItems;
+    private ArrayList<MusicItem> mMusicItems = new ArrayList<>();
     private int mPosition;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent != null) {
+        mMusicItems = intent.getParcelableArrayListExtra(MusicActivity.KEY_MUSIC);
+        Log.d("tag", "music item 123 " + mMusicItems);
+        if (intent != null && intent.getAction() != null) {
             ArrayList<MusicItem> songs = intent.getParcelableArrayListExtra(MusicActivity.KEY_MUSIC);
+            Log.d("tag", "music item " + songs);
             if (songs != null) {
                 mMusicItems = songs;
+                Log.d("tag", "music item1 " + mMusicItems);
             }
             mPosition = intent.getIntExtra(MusicActivity.KEY_POSITION, -1);
-            if (mPosition > -1) {
-                startSong();
-            }
+            Log.d("tag", "onCreate: position123 " + mPosition);
+//            if (mPosition > -1) {
+//                startSong();
+//            }
             mUrl = intent.getStringExtra("url");
-            mIsShuffle = intent.getBooleanExtra(PlayMusicFragment.KEY_SHUFFLE, false);
-            Log.d("tag", "onStartCommand: " + mIsShuffle);
         }
-        Log.d(TAG, "onStartCommand: " + mUrl);
+        Log.d("tag", "onStartCommand: " + mUrl);
         if (intent != null && intent.getAction() != null) {
             if (intent.getAction().equals(Action.PLAY.getValue())) {
-                Intent timeIntent = new Intent(NotificationServiceMusic.this, PlayMusicFragment.class);
-                if (mMediaPlayer.isPlaying()) {
-                    timeIntent.putExtra("play", R.drawable.play);
-                    mMediaPlayer.pause();
-                } else {
-                    timeIntent.putExtra("pause", R.drawable.pause);
-                    mMediaPlayer.start();
-                }
             } else if (intent.getAction().equals(Action.NEXT.getValue())) {
                 playNextSong();
                 startSong();
@@ -70,8 +65,11 @@ public class NotificationServiceMusic extends Service {
                 playPreviousSong();
                 startSong();
             } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
-                playPreviousSong();
-                startSong();
+                mIsShuffle = intent.getBooleanExtra(PlayMusicFragment.KEY_SHUFFLE, false);
+                Log.d("tag", "shuffle: " + mIsShuffle);
+            } else if (intent.getAction().equals(Action.REPEAT.getValue())) {
+                mIsRepeat = intent.getBooleanExtra(PlayMusicFragment.KEY_REPEAT, false);
+                Log.d("tag", "repeat: " + mIsRepeat);
             } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
                 mMediaPlayer.pause();
                 mLength = mMediaPlayer.getCurrentPosition();
@@ -82,7 +80,7 @@ public class NotificationServiceMusic extends Service {
                     mMediaPlayer.setDataSource(mUrl);
                     mMediaPlayer.prepare();
                 } catch (IOException e) {
-                    Log.d(TAG, "onStartCommand: " + e);
+                    Log.d(TAG, "null media: " + e);
                 }
                 mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
@@ -91,7 +89,7 @@ public class NotificationServiceMusic extends Service {
                         mMediaPlayer.start();
                     }
                 });
-
+                setCountDownTimer();
             } else if (intent.getAction().equals(Action.RESUME.getValue())) {
                 mMediaPlayer.seekTo(mLength);
                 mMediaPlayer.start();
@@ -117,6 +115,7 @@ public class NotificationServiceMusic extends Service {
         } else {
             mPosition = (mPosition + 1) % mMusicItems.size();
         }
+        Log.d("tag", "initShuffleNext: " + mPosition);
     }
 
     public void initRepeat() {
@@ -130,6 +129,11 @@ public class NotificationServiceMusic extends Service {
     }
 
     private void startSong() {
+        if (mPosition < 0) {
+            stopForeground(true);
+            mCountDownTimer.cancel();
+            return;
+        }
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.stop();
             mMediaPlayer.release();
@@ -155,6 +159,11 @@ public class NotificationServiceMusic extends Service {
     private void playNextSong() {
         initShuffleNext();
         initRepeat();
+        if (mPosition == mMusicItems.size() - 1 && !mIsRepeat) {
+            mPosition = -1;
+            Intent stopService = new Intent(Action.STOP_SERVICE.getValue());
+            sendBroadcast(stopService);
+        }
     }
 
     public void playPreviousSong() {
@@ -190,27 +199,33 @@ public class NotificationServiceMusic extends Service {
 
     private void showNotification() {
         Intent notificationIntent = new Intent(this, PlayMusicFragment.class);
+        notificationIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
 
         notificationIntent.setAction(Action.INTENT.getValue());
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 notificationIntent, 0);
 
         Intent playIntent = new Intent(this, NotificationServiceMusic.class);
-        playIntent.setAction(Action.START.getValue());
+        if (mMediaPlayer.isPlaying()) {
+            playIntent.setAction(Action.PAUSE.getValue());
+        } else {
+            playIntent.setAction(Action.RESUME.getValue());
+        }
         PendingIntent playPIntent = PendingIntent.getService(this, 0,
                 playIntent, 0);
-        Intent resumeIntent = new Intent(this, NotificationServiceMusic.class);
-        resumeIntent.setAction(Action.RESUME.getValue());
-        PendingIntent resumePIntent = PendingIntent.getService(this, 0,
-                resumeIntent, 0);
 
-        Intent pauseIntent = new Intent(this, NotificationServiceMusic.class);
-        pauseIntent.setAction(Action.PAUSE.getValue());
-        PendingIntent pausePIntent = PendingIntent.getService(this, 0,
-                pauseIntent, 0);
+        Intent nextIntent = new Intent(this, NotificationServiceMusic.class);
+        nextIntent.setAction(Action.NEXT.getValue());
+        PendingIntent nextPIntent = PendingIntent.getService(this, 0,
+                nextIntent, 0);
+
+        Intent previousIntent = new Intent(this, NotificationServiceMusic.class);
+        previousIntent.setAction(Action.PREV.getValue());
+        PendingIntent previousPIntent = PendingIntent.getService(this, 0,
+                previousIntent, 0);
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_notification);
@@ -222,29 +237,27 @@ public class NotificationServiceMusic extends Service {
                 .setLargeIcon(Bitmap.createScaledBitmap(bm, 128, 128, false))
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
-                .addAction(android.R.drawable.ic_media_previous, "Play",
+                .addAction(android.R.drawable.ic_media_previous, "previous",
+                        previousPIntent)
+                .addAction(android.R.drawable.ic_media_play, "play",
                         playPIntent)
-                .addAction(android.R.drawable.ic_media_play, "Resume",
-                        resumePIntent)
-                .addAction(android.R.drawable.ic_media_next, "Pause",
-                        pausePIntent).build();
+                .addAction(android.R.drawable.ic_media_next, "next",
+                        nextPIntent).build();
         startForeground(111,
                 notification);
     }
 
     @Override
     public void onDestroy() {
+        Intent intent = new Intent(this, NotificationServiceMusic.class);
+        stopService(intent);
+        mCountDownTimer.cancel();
+        stopForeground(true);
+        stopSelf();
+        if (mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
+        }
         super.onDestroy();
-        if (mCountDownTimer != null) {
-            mCountDownTimer.cancel();
-        }
-        if (mMediaPlayer != null) {
-            try {
-                mMediaPlayer.release();
-            } catch (Exception e) {
-                Log.d(TAG, "onDestroy: " + e);
-            }
-        }
     }
 
     @Nullable

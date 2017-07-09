@@ -54,6 +54,12 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
                     }
                     return;
                 }
+                if (Action.STOP.getValue().equals(action)) {
+                    Intent intentStopService = new Intent(MusicActivity.this, NotificationServiceMusic.class);
+                    stopService(intentStopService);
+                    mIsServiceRunning = false;
+                    finish();
+                }
                 if (Action.STOP_SERVICE.getValue().equals(action)) {
                     mIsPlaying = false;
                 }
@@ -74,11 +80,11 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
         }
         if (!mIsServiceRunning) {
             Intent intent = new Intent(MusicActivity.this, NotificationServiceMusic.class);
-            intent.putParcelableArrayListExtra(KEY_MUSIC, mMusicItems);
+//            intent.putParcelableArrayListExtra(KEY_MUSIC, mMusicItems);
+            Log.d("tag", "onCreate1223123123: " + mMusicItems);
             mIsServiceRunning = true;
             startService(intent);
         }
-        Log.d("tag", "onCreate: " + mMusicItems);
         mMusicListFragment = new MusicListFragment();
         mPlayMusicFragment = new PlayMusicFragment();
         replaceFragment(mMusicListFragment, false);
@@ -98,6 +104,7 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
     public void onBackPressed() {
         super.onBackPressed();
         getCurrentFragment();
+        replaceFragment(mMusicListFragment, true);
     }
 
     @Override
@@ -112,13 +119,8 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_settings:
-                Intent intentStopService = new Intent(MusicActivity.this, NotificationServiceMusic.class);
-                stopService(intentStopService);
-                mIsServiceRunning = false;
-                finish();
-                break;
-            case R.id.list_item:
-                replaceFragment(mMusicListFragment, true);
+                onBackPressed();
+                onDestroy();
                 break;
         }
 
@@ -132,6 +134,7 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
     public void intentFilter() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Action.SEEK.getValue());
+        intentFilter.addAction(Action.STOP.getValue());
         intentFilter.addAction(Action.STOP_SERVICE.getValue());
         registerReceiver(mReceiver, intentFilter);
     }
@@ -145,5 +148,15 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
         bundle.putParcelableArrayList(KEY_MUSIC, musicItems);
         mPlayMusicFragment.setArguments(bundle);
         replaceFragment(mPlayMusicFragment, true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!mIsPlaying) {
+            Intent intent = new Intent(MusicActivity.this, NotificationServiceMusic.class);
+            stopService(intent);
+        }
+        unregisterReceiver(mReceiver);
     }
 }

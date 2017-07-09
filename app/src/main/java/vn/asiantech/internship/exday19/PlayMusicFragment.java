@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,11 +63,31 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     private boolean mIsRepeat;
     private int mLength;
     private int mTime;
+    private boolean mIsPlaying;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null) {
                 processTime(intent);
+                String action = intent.getAction();
+                if (Action.SEEK.getValue().equals(action)) {
+                    boolean isPlaying = intent.getBooleanExtra(PlayMusicFragment.KEY_PLAYING, false);
+                    if (isPlaying ^ mIsPlaying) {
+                        mIsPlaying = isPlaying;
+                        Log.d("tag", "onReceive: " + mIsPlaying);
+                        if (mIsPlaying) {
+                            mImgPlay.setImageResource(R.drawable.pause);
+                        } else {
+                            mImgPlay.setImageResource(R.drawable.play);
+                        }
+                    }
+                    showTime();
+                    return;
+                }
+                if (Action.COMPLETED.getValue().equals(action)) {
+                    mLength = 0;
+                    mSeekBar.setProgress(0);
+                }
             }
         }
     };
@@ -79,7 +100,6 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         initData();
         initIntentFilter();
         initStart();
-        showTime();
         initClick();
         return view;
     }
@@ -89,13 +109,14 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         startIntent.setAction(Action.START.getValue());
         startIntent.putExtra("url", mUrl);
         startIntent.putExtra("image", mUrlImage);
+        startIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
         getContext().startService(startIntent);
         mImgPlay.setImageResource(R.drawable.pause);
     }
 
     public void initData() {
         mMusicItems = new ArrayList<>();
-        mPosition = (int) getArguments().getSerializable("position");
+        mPosition = (int) getArguments().getSerializable(MusicActivity.KEY_POSITION);
         mMusicItems = getArguments().getParcelableArrayList(MusicActivity.KEY_MUSIC);
         initUrl();
     }
@@ -135,7 +156,11 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgPlay:
-                mIntent.setAction(Action.PLAY.getValue());
+                if (mIsPlaying) {
+                    mIntent.setAction(Action.PAUSE.getValue());
+                } else {
+                    mIntent.setAction(Action.RESUME.getValue());
+                }
                 getContext().startService(mIntent);
                 break;
             case R.id.imgNext:
@@ -149,7 +174,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
             case R.id.imgRepeat:
                 initRepeat();
                 mIntent.setAction(Action.REPEAT.getValue());
-                mIntent.putExtra(KEY_REPEAT, mIsShuffle);
+                mIntent.putExtra(KEY_REPEAT, mIsRepeat);
                 getContext().startService(mIntent);
                 break;
             case R.id.imgShuffle:
@@ -162,7 +187,9 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     }
 
     private void initIntentFilter() {
-        IntentFilter filter = new IntentFilter(Action.SEEK.getValue());
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Action.SEEK.getValue());
+        filter.addAction(Action.COMPLETED.getValue());
         getContext().registerReceiver(mBroadcastReceiver, filter);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -184,18 +211,13 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     }
 
     private void processTime(Intent intent) {
-        if (mMediaPlayer.isPlaying()) {
-            mImgPlay.setImageResource(intent.getIntExtra("pause", 0));
-        } else {
-            mImgPlay.setImageResource(intent.getIntExtra("play", 0));
-        }
         if (mLength == 0) {
-            mLength = Integer.parseInt(intent.getStringExtra("time"));
+            mLength = intent.getIntExtra(KEY_DURATION, 0);
             mSeekBar.setMax(mLength);
             mSeekBar.setProgress(0);
             return;
         }
-        mTime = Integer.parseInt(intent.getStringExtra("second"));
+        mTime = intent.getIntExtra(KEY_CURRENT_POSITION, 0);
         mSeekBar.setProgress(mTime);
 //        showTime();
     }
@@ -205,12 +227,6 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         getContext().unregisterReceiver(mBroadcastReceiver);
         super.onDestroy();
     }
-
-//    public void initSetImg() {
-//        if (mMediaPlayer.isPlaying()) {
-//
-//        }
-//    }
 
     // Show time
     public void showTime() {
