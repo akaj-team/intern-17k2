@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="vn.asiantech.internship.day23.UploadActivity">
+    android:background="@color/colorDark"
+    android:padding="@dimen/activity.toolbar_margin">
 
     <ImageView
-        android:id="@+id/imageView_pic"
-        android:layout_width="300dp"
-        android:layout_height="300dp" />
+        android:id="@+id/imgImageUpload"
+        android:layout_width="@dimen/detail.image_size"
+        android:layout_height="@dimen/detail.image_size"
+        android:contentDescription="@null" />
 
     <Button
-        android:text="selecte image"
-        android:id="@+id/button_selectpic"
+        android:id="@+id/btnUpload"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/messageText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:text="upload"
-        android:id="@+id/uploadButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity.content_margin"
+        android:text="@string/button.upload" />
 </LinearLayout>

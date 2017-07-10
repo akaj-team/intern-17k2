@@ -19,20 +19,28 @@ import okhttp3.Response;
  * Created by at-dinhvo on 05/07/2017.
  */
 
-public class FileUpload extends AsyncTask<String, Integer, String> {
+class FileUpload extends AsyncTask<String, Integer, String> {
 
     private static final String URL = "http://2.pik.vn/";
-    private static final String TAG = "error";
-    private final MediaType mMediaType = MediaType.parse("application/x-www-form-urlencoded");
-    private OnAsyncResponseListener mListener = null;
+    private static final String TAG = "at-dinhvo";
 
-    FileUpload(OnAsyncResponseListener listener) {
-        mListener = listener;
+    private MediaType mMediaType = MediaType.parse("application/x-www-form-urlencoded");
+    private OnResponseImageListener mOnResponseImageListener;
+
+    /**
+     * Call back return link
+     */
+    interface OnResponseImageListener {
+        void onResponseImage(String link);
+    }
+
+    FileUpload(OnResponseImageListener onResponseImageListener) {
+        mOnResponseImageListener = onResponseImageListener;
     }
 
     @Override
     protected String doInBackground(String... strings) {
-        String link = "";
+        String link = null;
         RequestBody body = RequestBody.create(mMediaType, strings[0]);
         Request request = new Request.Builder()
                 .url(URL)
@@ -53,7 +61,7 @@ public class FileUpload extends AsyncTask<String, Integer, String> {
                 }
             }
         } catch (JSONException | IOException e) {
-            Log.d(TAG, "doInBackground: " + e.toString());
+            Log.d(TAG, "JSONException | IOException" + e.toString());
         }
         return link;
     }
@@ -61,13 +69,6 @@ public class FileUpload extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        mListener.onProcessFinish(result);
-    }
-
-    /**
-     * Used to get contacts from AsyncTask to MainActivity
-     */
-    interface OnAsyncResponseListener {
-        void onProcessFinish(String link);
+        mOnResponseImageListener.onResponseImage(result);
     }
 }

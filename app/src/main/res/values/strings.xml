@@ -51,5 +51,6 @@
         <item>Camera</item>
     </string-array>
     <!--Bai23-->
-    <string name="button.upload">Select Image</string>
+    <string name="button.upload">Select And Upload</string>
+    <string name="progress.title">Please wait…</string>
 </resources>
