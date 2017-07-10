@@ -34,8 +34,6 @@ class ChatAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ChatViewHolder chatViewHolder = (ChatViewHolder) holder;
-        chatViewHolder.mTvShowMessage.setText(mMessages.get(position).getContent());
-        chatViewHolder.mImgAvatar.setImageResource(mMessages.get(position).getState());
         if (mMessages.get(position).getState() == R.drawable.ic_three) {
             chatViewHolder.mTvShowMessage.setBackgroundResource(R.drawable.bg_chat_badboy);
         } else if (mMessages.get(position).getState() == R.drawable.ic_two) {
@@ -43,6 +41,8 @@ class ChatAdapter extends RecyclerView.Adapter {
         } else {
             chatViewHolder.mTvShowMessage.setBackgroundResource(R.drawable.bg_chat_power);
         }
+        chatViewHolder.mTvShowMessage.setText(mMessages.get(position).getContent());
+        chatViewHolder.mImgAvatar.setImageResource(mMessages.get(position).getState());
     }
 
     @Override
