@@ -49,6 +49,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private ProgressDialog mProgressDialog;
 
     private ArrayList<Song> mSongs;
+    private GetSongAsyncTask mGetSongAsyncTask;
     private int mSongPosition;
     private boolean mServiceRunning;
     private boolean mIsPlaying;
@@ -98,7 +99,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
         mSongs = new ArrayList<>();
 
-        GetSongAsyncTask task = new GetSongAsyncTask(this, new GetSongAsyncTask.CallBackListener() {
+        mGetSongAsyncTask = new GetSongAsyncTask(this, new GetSongAsyncTask.CallBackListener() {
             @Override
             public void onTaskPreExecute() {
                 mProgressDialog.show();
@@ -135,7 +136,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 mProgressDialog.dismiss();
             }
         });
-        task.execute(mSongIds);
+        mGetSongAsyncTask.execute(mSongIds);
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Action.SEEK.getValue());
@@ -182,6 +183,9 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         if (!mIsPlaying) {
             Intent stopService = new Intent(MusicActivity.this, MusicService.class);
             stopService(stopService);
+        }
+        if (mGetSongAsyncTask != null) {
+            mGetSongAsyncTask.cancel(true);
         }
         unregisterReceiver(mReceiver);
     }
