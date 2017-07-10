@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/tvTabTitle"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="68dp"
         android:layout_gravity="center_horizontal"
         android:background="@android:color/white"
         android:gravity="center"
