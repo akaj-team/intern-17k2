@@ -48,9 +48,16 @@
         android:text="@string/baiQuestion" />
 
     <Button
-        android:id="@+id/btnBai26"
+        android:id="@+id/btnBai16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/splash_item_margin"
         android:text="@string/bai16" />
+
+    <Button
+        android:id="@+id/btnBai26"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/splash_item_margin"
+        android:text="@string/bai26" />
 </LinearLayout>
