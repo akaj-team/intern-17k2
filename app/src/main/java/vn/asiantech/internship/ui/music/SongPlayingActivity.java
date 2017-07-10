@@ -8,11 +8,12 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.List;
 
@@ -35,7 +36,6 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
     private ImageView mImgReplay;
     private ImageView mImgShuffle;
     private SeekBar mSeekBar;
-    private Animation mAnimation;
 
     private boolean mIsPause;
     private boolean mIsShuffle;
@@ -45,10 +45,12 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Action.SEEK.getValue())) {
                 processTime(intent);
-            } else if (intent.getAction().equals(Action.NEXT_SONG.getValue())
-                    || intent.getAction().equals(Action.PREVIOUS_SONG.getValue())
-                    || intent.getAction().equals(Action.AUTO_NEXT.getValue())) {
+            } else if (intent.getAction().equals(Action.UPDATE_VIEW.getValue())) {
                 getSong(intent);
+            } else if (intent.getAction().equals(Action.CLOSE.getValue())) {
+                Intent stopIntent = new Intent(getApplicationContext(), MusicService.class);
+                stopService(stopIntent);
+                finish();
             }
         }
     };
@@ -59,21 +61,17 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_song_detail);
         initView();
         initIntentFilter();
-        MusicActivity activity = new MusicActivity();
-        List<Song> songs = activity.getAllSong(this);
         Intent intent = getIntent();
-        int currentPosition = intent.getIntExtra(Action.KEY_BUNDLE_POSITION.getValue(), -1);
-        setView(songs.get(currentPosition));
-        startAnimation(10000);
+        List<Song> songs = intent.getParcelableArrayListExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue());
+        int position = intent.getIntExtra(Action.KEY_BUNDLE_POSITION.getValue(), -1);
+        setView(songs.get(position));
     }
 
     private void initIntentFilter() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Action.SEEK.getValue());
-        filter.addAction(Action.AUTO_NEXT.getValue());
-        filter.addAction(Action.SHUFFLE.getValue());
-        filter.addAction(Action.PREVIOUS_SONG.getValue());
-        filter.addAction(Action.NEXT_SONG.getValue());
+        filter.addAction(Action.UPDATE_VIEW.getValue());
+        filter.addAction(Action.CLOSE.getValue());
         registerReceiver(mBroadcastReceiver, filter);
     }
 
@@ -98,15 +96,16 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
         mSeekBar.setOnSeekBarChangeListener(this);
     }
 
-    private void startAnimation(int duration) {
-        mAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_disk);
-        mAnimation.setDuration(duration);
-        mImgDisk.startAnimation(mAnimation);
-    }
-
     private void setView(Song song) {
         mTvSongName.setText(song.getTitle());
         mTvArtist.setText(song.getArtist());
+        setImageLoader(this, song, mImgDisk);
+    }
+
+    public void setImageLoader(Context context, Song song, CircleImageView imgView) {
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(context));
+        imageLoader.displayImage(song.getImageUrl(), imgView);
     }
 
     private void processTime(Intent intent) {
@@ -135,28 +134,21 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgPreviousSong:
-                mImgDisk.startAnimation(mAnimation);
-                intentService(Action.PREVIOUS_SONG.getValue());
+                sendSongBroadcast(Action.PREVIOUS_SONG.getValue());
                 break;
             case R.id.imgNextSong:
-                mImgDisk.startAnimation(mAnimation);
-                intentService(Action.NEXT_SONG.getValue());
+                sendSongBroadcast(Action.NEXT_SONG.getValue());
                 break;
             case R.id.imgPauseSong:
-                Intent intent = new Intent(this, MusicService.class);
                 if (mIsPause) {
                     mIsPause = false;
-                    mImgDisk.startAnimation(mAnimation);
                     mImgPause.setImageResource(R.drawable.ic_pause_black_24dp);
-                    intent.setAction(Action.RESUME.getValue());
-                    startService(intent);
+                    sendSongBroadcast(Action.RESUME.getValue());
                     return;
                 }
                 mIsPause = true;
-                mImgDisk.clearAnimation();
                 mImgPause.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                intent.setAction(Action.PAUSE.getValue());
-                startService(intent);
+                sendSongBroadcast(Action.PAUSE.getValue());
                 break;
             case R.id.imgShuffleSong:
                 mIsShuffle = !mIsShuffle;
@@ -164,7 +156,7 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
                 Intent shuffleIntent = new Intent(this, MusicService.class);
                 shuffleIntent.setAction(Action.SHUFFLE.getValue());
                 shuffleIntent.putExtra(Action.SHUFFLE.getValue(), mIsShuffle);
-                startService(shuffleIntent);
+                sendBroadcast(shuffleIntent);
                 break;
             case R.id.imgReplay:
                 mIsReplay = !mIsReplay;
@@ -172,15 +164,14 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
                 Intent autoNextIntent = new Intent(this, MusicService.class);
                 autoNextIntent.setAction(Action.REPLAY.getValue());
                 autoNextIntent.putExtra(Action.REPLAY.getValue(), mIsReplay);
-                startService(autoNextIntent);
+                sendBroadcast(autoNextIntent);
                 break;
         }
     }
 
-    private void intentService(String action) {
-        Intent intent = new Intent(this, MusicService.class);
-        intent.setAction(action);
-        startService(intent);
+    private void sendSongBroadcast(String action) {
+        Intent intent = new Intent(action);
+        sendBroadcast(intent);
     }
 
     @Override
@@ -198,6 +189,12 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
         Intent intent = new Intent(SongPlayingActivity.this, MusicService.class);
         intent.putExtra(Action.SEEK_TO.getValue(), seekBar.getProgress());
         intent.setAction(Action.SEEK_TO.getValue());
-        startService(intent);
+        sendBroadcast(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
     }
 }

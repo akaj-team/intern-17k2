@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/tvsongname.margin.top"
         android:gravity="center"
-        android:textIsSelectable="true" />
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvArtist"
@@ -18,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvSongName"
         android:gravity="center"
-        android:textIsSelectable="true" />
+        android:textColor="@color/white" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgDisk"
@@ -47,16 +48,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="start"
-            android:textIsSelectable="true" />
+            android:gravity="start" />
 
         <TextView
             android:id="@+id/tvDuration"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end"
-            android:textIsSelectable="true" />
+            android:gravity="end" />
     </LinearLayout>
 
     <LinearLayout

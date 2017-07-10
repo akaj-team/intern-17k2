@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.ui.music.SongPlayingActivity;
@@ -36,18 +37,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final ItemViewHolder holder, int position) {
-        holder.mTvTitle.setText(mSongs.get(position).getTitle());
-        holder.mTvArtist.setText(mSongs.get(position).getArtist());
-        holder.mTvTime.setText(mActivity.showTime(mSongs.get(position).getTime() / 1000));
-        holder.mImgIcon.setImageResource(R.drawable.ic_song);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mOnListener.onItemClick(holder.getAdapterPosition());
-                Log.d("xxx", "onClick: ");
-            }
-        });
+    public void onBindViewHolder(final ItemViewHolder holder, final int position) {
+        Song song = mSongs.get(position);
+        holder.mTvTitle.setText(song.getTitle());
+        holder.mTvArtist.setText(song.getArtist());
+        holder.mTvTime.setText(mActivity.showTime(song.getTime()));
+        holder.mImgPlaying.setVisibility(song.isPlaying() ? View.VISIBLE : View.GONE);
+        mActivity.setImageLoader(holder.itemView.getContext(), song, holder.mImgIcon);
     }
 
     @Override
@@ -59,14 +55,23 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder
         private TextView mTvTitle;
         private TextView mTvArtist;
         private TextView mTvTime;
-        private ImageView mImgIcon;
+        private CircleImageView mImgIcon;
+        private ImageView mImgPlaying;
 
         ItemViewHolder(View itemView) {
             super(itemView);
             mTvTitle = (TextView) itemView.findViewById(R.id.tvSongTitle);
             mTvArtist = (TextView) itemView.findViewById(R.id.tvArtist);
             mTvTime = (TextView) itemView.findViewById(R.id.tvTime);
-            mImgIcon = (ImageView) itemView.findViewById(R.id.imgIcon);
+            mImgIcon = (CircleImageView) itemView.findViewById(R.id.imgIcon);
+            mImgPlaying = (ImageView) itemView.findViewById(R.id.imgPlaying);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("xxx", "onClick: ");
+                    mOnListener.onItemClick(getAdapterPosition());
+                }
+            });
         }
     }
 

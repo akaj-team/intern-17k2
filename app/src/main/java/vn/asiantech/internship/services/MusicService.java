@@ -3,14 +3,15 @@ package vn.asiantech.internship.services;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ContentUris;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.IBinder;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -26,7 +27,6 @@ import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.ui.music.Action;
 
 /**
- *
  * Created by quanghai on 30/06/2017.
  */
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
@@ -35,6 +35,57 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private int mCurrentPosition;
     private boolean mIsShuffle;
     private boolean mIsReplay;
+    private CountDownTimer mCountDownTimer;
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                if (intent.getAction().equals(Action.PREVIOUS_SONG.getValue())) {
+                    if (mIsShuffle) {
+                        shuffleSongs();
+                    } else {
+                        if (mCurrentPosition > 0) {
+                            mCurrentPosition--;
+                        }
+                    }
+                    playSongOnline(mSongs, mCurrentPosition);
+                    sendBroadcastSong(Action.UPDATE_VIEW.getValue());
+                } else if (intent.getAction().equals(Action.NEXT_SONG.getValue())) {
+                    if (mIsShuffle) {
+                        shuffleSongs();
+                    } else {
+                        if (mCurrentPosition < mSongs.size() - 1) {
+                            mCurrentPosition++;
+                        }
+                    }
+                    playSongOnline(mSongs, mCurrentPosition);
+                    sendBroadcastSong(Action.UPDATE_VIEW.getValue());
+                } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
+                    if (mMediaPLayer.isPlaying()) {
+                        mMediaPLayer.pause();
+                        Log.d("xxx", "onStartCommand: pause " + mMediaPLayer.isPlaying());
+                    }
+                } else if (intent.getAction().equals(Action.RESUME.getValue())) {
+                    if (!mMediaPLayer.isPlaying()) {
+                        mMediaPLayer.start();
+                        Log.d("xxx", "onStartCommand: resume" + mMediaPLayer.isPlaying());
+                    }
+                } else if (intent.getAction().equals(Action.SEEK_TO.getValue())) {
+                    int position = intent.getIntExtra(Action.SEEK_TO.getValue(), 0);
+                    mMediaPLayer.seekTo(position);
+                    mMediaPLayer.start();
+                } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
+                    mIsShuffle = intent.getBooleanExtra(Action.SHUFFLE.getValue(), false);
+                } else if (intent.getAction().equals(Action.REPLAY.getValue())) {
+                    mIsReplay = intent.getBooleanExtra(Action.REPLAY.getValue(), false);
+                    Log.d("xxx", "replay: " + mIsReplay);
+                } else if (intent.getAction().equals(Action.CLOSE.getValue())) {
+                    onDestroy();
+                    sendBroadcast(new Intent(Action.CLOSE.getValue()));
+                }
+            }
+        }
+    };
 
     @Nullable
     @Override
@@ -45,59 +96,33 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onCreate() {
         super.onCreate();
+        initIntentFilter();
         mSongs = new ArrayList<>();
         mMediaPLayer = new MediaPlayer();
         mMediaPLayer.setOnPreparedListener(this);
         mMediaPLayer.setOnCompletionListener(this);
     }
 
+    private void initIntentFilter() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Action.START.getValue());
+        filter.addAction(Action.RESUME.getValue());
+        filter.addAction(Action.PAUSE.getValue());
+        filter.addAction(Action.SEEK.getValue());
+        filter.addAction(Action.AUTO_NEXT.getValue());
+        filter.addAction(Action.SHUFFLE.getValue());
+        filter.addAction(Action.PREVIOUS_SONG.getValue());
+        filter.addAction(Action.NEXT_SONG.getValue());
+        filter.addAction(Action.CLOSE.getValue());
+        filter.addAction(Action.REPLAY.getValue());
+        registerReceiver(mBroadcastReceiver, filter);
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
-            if (intent.getAction().equals(Action.START.getValue())) {
-                getBundle(intent);
-                playSong(mSongs, mCurrentPosition);
-            } else if (intent.getAction().equals(Action.PREVIOUS_SONG.getValue())) {
-                if (mIsShuffle) {
-                    shuffleSongs();
-                } else {
-                    if (mCurrentPosition > 0) {
-                        mCurrentPosition--;
-                    }
-                }
-                playSong(mSongs, mCurrentPosition);
-                sendBroadcastSong(Action.PREVIOUS_SONG.getValue());
-            } else if (intent.getAction().equals(Action.NEXT_SONG.getValue())) {
-                if (mIsShuffle) {
-                    shuffleSongs();
-                } else {
-                    if (mCurrentPosition < mSongs.size() - 1) {
-                        mCurrentPosition++;
-                    }
-                }
-                playSong(mSongs, mCurrentPosition);
-                sendBroadcastSong(Action.NEXT_SONG.getValue());
-
-            } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
-                if (mMediaPLayer.isPlaying()) {
-                    mMediaPLayer.pause();
-                    Log.d("xxx", "onStartCommand: pause " + mMediaPLayer.isPlaying());
-                }
-            } else if (intent.getAction().equals(Action.RESUME.getValue())) {
-                if (!mMediaPLayer.isPlaying()) {
-                    mMediaPLayer.start();
-                    Log.d("xxx", "onStartCommand: resume" + mMediaPLayer.isPlaying());
-                }
-            } else if (intent.getAction().equals(Action.SEEK_TO.getValue())) {
-                int position = intent.getIntExtra(Action.SEEK_TO.getValue(), 0);
-                mMediaPLayer.seekTo(position);
-                mMediaPLayer.start();
-            } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
-                mIsShuffle = intent.getBooleanExtra(Action.SHUFFLE.getValue(), false);
-            } else if (intent.getAction().equals(Action.REPLAY.getValue())) {
-                mIsReplay = intent.getBooleanExtra(Action.REPLAY.getValue(), false);
-                Log.d("xxx", "replay: " + mIsReplay);
-            }
+            getBundle(intent);
+            playSongOnline(mSongs, mCurrentPosition);
         }
         return START_STICKY;
     }
@@ -112,17 +137,16 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         mCurrentPosition = random.nextInt(mSongs.size() - 1);
     }
 
-    private void playSong(List<Song> songs, int position) {
-        mMediaPLayer.reset();
+    private void playSongOnline(List<Song> songs, int position) {
         Song song = songs.get(position);
-        int id = song.getId();
-        Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
+        Log.d("xxx", "playSongOnline: " + song.isPlaying());
         try {
-            mMediaPLayer.setDataSource(this, uri);
+            mMediaPLayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mMediaPLayer.setDataSource(song.getUrl());
+            mMediaPLayer.prepare();
         } catch (IOException e) {
-            Log.e("xxx", "playSong: " + e.getMessage());
+            e.printStackTrace();
         }
-        mMediaPLayer.prepareAsync();
     }
 
     private void showNotification() {
@@ -133,31 +157,22 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         remoteViews.setTextColor(R.id.tvNotificationSongName, Color.BLACK);
         remoteViews.setTextColor(R.id.tvNotificationArtist, Color.BLACK);
 
-        Intent nextIntent = new Intent(this, MusicService.class);
-        nextIntent.setAction(Action.NEXT_SONG.getValue());
-        PendingIntent nextPendingIntent = PendingIntent.getService(this, 0, nextIntent, 0);
+        Intent nextIntent = new Intent(Action.NEXT_SONG.getValue());
+        PendingIntent nextPendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, 0);
 
-        Intent previousIntent = new Intent(this, MusicService.class);
-        previousIntent.setAction(Action.PREVIOUS_SONG.getValue());
-        PendingIntent previousPendingIntent = PendingIntent.getService(this, 0, previousIntent, 0);
+        Intent previousIntent = new Intent(Action.PREVIOUS_SONG.getValue());
+        PendingIntent previousPendingIntent = PendingIntent.getBroadcast(this, 0, previousIntent, 0);
 
-        Intent playIntent = new Intent(this, MusicService.class);
-        if (mMediaPLayer.isPlaying()) {
-            Log.d("xxx", "showNotification: playing");
-            playIntent.setAction(Action.PAUSE.getValue());
-        } else {
-            Log.d("xxx", "showNotification: nononono");
-            playIntent.setAction(Action.RESUME.getValue());
-        }
-        PendingIntent playPendingIntent = PendingIntent.getService(this, 0, playIntent, 0);
+        Intent closeNotificationIntent = new Intent(Action.CLOSE.getValue());
+        PendingIntent closeNotificationPendingIntent = PendingIntent.getBroadcast(this, 0, closeNotificationIntent, 0);
 
         Notification builder = new NotificationCompat.Builder(this)
                 .setContent(remoteViews)
                 .setSmallIcon(R.drawable.ic_play_arrow_black_24dp)
                 .setContentTitle(mSongs.get(mCurrentPosition).getTitle())
                 .addAction(R.drawable.ic_skip_previous_black_24dp, null, previousPendingIntent)
-                .addAction(R.drawable.ic_play_arrow_black_24dp, null, playPendingIntent)
                 .addAction(R.drawable.ic_skip_next_black_24dp, null, nextPendingIntent)
+                .addAction(R.drawable.ic_close_black_24dp, null, closeNotificationPendingIntent)
                 .build();
         startForeground(1, builder);
     }
@@ -165,6 +180,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+        }
         mMediaPLayer.stop();
         stopForeground(true);
     }
@@ -174,7 +192,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         showNotification();
         mediaPlayer.start();
         final Intent intent = new Intent(Action.SEEK.getValue());
-        CountDownTimer countDownTimer = new CountDownTimer(mMediaPLayer.getDuration(), 1000) {
+        mCountDownTimer = new CountDownTimer(mMediaPLayer.getDuration(), 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 intent.putExtra(Action.KEY_DURATION.getValue(), mMediaPLayer.getDuration());
@@ -187,7 +205,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
             }
         };
-        countDownTimer.start();
+        mCountDownTimer.start();
     }
 
     private void sendBroadcastSong(String action) {
@@ -208,7 +226,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 }
             }
             shuffleSongs();
-            playSong(mSongs, mCurrentPosition);
+            playSongOnline(mSongs, mCurrentPosition);
             Intent intent = new Intent(Action.AUTO_NEXT.getValue());
             intent.putExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue(), mSongs.get(mCurrentPosition));
             sendBroadcast(intent);

@@ -1,16 +1,14 @@
 package vn.asiantech.internship.ui.music;
 
-import android.content.ContentResolver;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,64 +19,56 @@ import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.services.MusicService;
 
 /**
- *
  * Created by quanghai on 30/06/2017.
  */
 public class MusicActivity extends AppCompatActivity {
     private RecyclerView mRecyclerViewSong;
+    private SongAdapter mSongAdapter;
+    private List<Song> mSongs;
+    private int mOldPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
         mRecyclerViewSong = (RecyclerView) findViewById(R.id.recyclerViewSong);
+        mSongs = new ArrayList<>();
         initAdapter();
-    }
-
-    public List<Song> getAllSong(Context context) {
-        List<Song> songs = new ArrayList<>();
-        ContentResolver musicResolver = context.getContentResolver();
-        Uri musicUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-
-        Cursor cursor = musicResolver.query(musicUri, null, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            int idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID);
-            int titleColumn = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
-            int artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-            int timeColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION);
-
-            while (cursor.moveToNext()) {
-                int id = cursor.getInt(idColumn);
-                String title = cursor.getString(titleColumn);
-                String artist = cursor.getString(artistColumn);
-                int duration = cursor.getInt(timeColumn);
-                songs.add(new Song(id, title, artist, duration));
-            }
-            cursor.close();
-        }
-        return songs;
     }
 
     private void initAdapter() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        SongAdapter adapter = new SongAdapter(getAllSong(this), new SongAdapter.OnListener() {
+        mSongAdapter = new SongAdapter(createSongs(), new SongAdapter.OnListener() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(MusicActivity.this, SongPlayingActivity.class);
+                intent.putParcelableArrayListExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue(), (ArrayList<? extends Parcelable>) mSongs);
                 intent.putExtra(Action.KEY_BUNDLE_POSITION.getValue(), position);
                 startActivity(intent);
-                intentStartService(MusicActivity.this, position, Action.START.getValue());
+                intentStartService(position, Action.START.getValue());
             }
         });
         mRecyclerViewSong.setLayoutManager(linearLayoutManager);
-        mRecyclerViewSong.setAdapter(adapter);
+        mRecyclerViewSong.setAdapter(mSongAdapter);
     }
 
-    public void intentStartService(Context context, int position, String action) {
-        Intent intent = new Intent(context, MusicService.class);
+    public List<Song> createSongs() {
+        mSongs.add(new Song(1073930186, "Trong Lòng Muốn Hát Thì Hát", "Đồng Lệ",
+                "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNVEVGLJXTLDJTDGLG", "http://i.imgur.com/t5oc1NR.jpg", 287));
+        mSongs.add(new Song(1075832913, "Yêu 5", "Rhymastic", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJVDELVTLDJTDGLG",
+                "http://avatar.nct.nixcdn.com/singer/avatar/2016/03/10/5/2/7/a/1457576967042_600.jpg", 328));
+        mSongs.add(new Song(5935306, "Một Nhà", "Da Lab", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTQEVQVGXTLDJTDGLG",
+                "http://avatar.nct.nixcdn.com/singer/avatar/2016/04/29/e/f/0/9/1461897320118_600.jpg", 184));
+        mSongs.add(new Song(1075806956, "Đời Là Đi", "Da Lab", "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNQJGXEQXTLDJTDGLG",
+                "http://avatar.nct.nixcdn.com/singer/avatar/2016/04/29/e/f/0/9/1461897320118_600.jpg", 194));
+        return mSongs;
+    }
+
+    public void intentStartService(int position, String action) {
+        Intent intent = new Intent(this, MusicService.class);
         intent.setAction(action);
-        intent.putParcelableArrayListExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue(), (ArrayList<? extends Parcelable>) getAllSong(context));
+        intent.putParcelableArrayListExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue(), (ArrayList<? extends Parcelable>) mSongs);
         intent.putExtra(Action.KEY_BUNDLE_POSITION.getValue(), position);
-        context.startService(intent);
+        startService(intent);
     }
 }
