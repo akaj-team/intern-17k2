@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#BFBDC4</color>
     <color name="colorBackground">#f4f4f4</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorRed">#ff0004</color>
+    <color name="colorYellow">#ffe600</color>
+    <color name="colorGreen">#7bff00</color>
     <color name="friendsColorBorder">#C1BFC5</color>
     <color name="friendsColorPrimary">#F3F3F3</color>
     <color name="friendsColorPrimaryDark">#e0e0e0</color>
