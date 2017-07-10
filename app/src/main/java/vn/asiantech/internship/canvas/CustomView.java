@@ -49,7 +49,6 @@ public class CustomView extends View {
         canvas.scale(scaleFactor, scaleFactor);
         drawAxis(canvas);
         drawNarrow(canvas);
-
         calculate(3, -4, 1);
         drawGraph(canvas);
         for (int i = -7; i < 7; i++) {
@@ -60,7 +59,6 @@ public class CustomView extends View {
                 drawVerticalNumber(canvas, i);
             }
         }
-
         canvas.restore();
     }
 
@@ -70,7 +68,6 @@ public class CustomView extends View {
         mPaint.setStrokeWidth(STROKE_WITH);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setTextSize(TEXT_SIZE);
-
     }
 
     private void initPathPaint() {
