@@ -52,7 +52,7 @@ public class MyCanvas extends View {
             mPaint.setColor(Color.BLACK);
             canvas.drawLine(0, mPointO.y, width, mPointO.y, mPaint);
             canvas.drawLine(width - 10, mPointO.y - 10, width, mPointO.y, mPaint);
-            canvas.drawLine(height - 10, mPointO.y + 10, width, mPointO.y, mPaint);
+            canvas.drawLine(width - 10, mPointO.y + 10, width, mPointO.y, mPaint);
             mPaint.setStrokeWidth(3);
             mPaint.setColor(Color.RED);
             for (double i = Math.ceil((0.0 - mPointO.x) / unit); i <= Math.ceil((width * 1.0 - mPointO.x) / unit); i++) {
