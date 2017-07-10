@@ -21,6 +21,7 @@
     <string name="button.text.ex11_2">Ex 11.2</string>
     <string name="button.text.ex13">Ex 13</string>
     <string name="button.text.ex15">Ex 15</string>
+    <string name="button.text.ex16">Ex 16</string>
     <string name="button.text.ex19">Ex 19</string>
     <string name="button.text.ex23">Ex 23</string>
     <string name="yes">yes</string>
@@ -60,5 +61,16 @@
     <string name="edittext.hint.type">Type....</string>
     <string name="error_message_you_must_play_first">You must play first</string>
     <string name="start">00:00</string>
+
+    <string-array name="Sliders">
+        <item>Cube Pager Transformer</item>
+        <item>Zoom Out Page Transformer</item>
+        <item>Depth Page Transformer</item>
+        <item>DrawFromBackTransformer</item>
+    </string-array>
+
+    <string-array name="TabStyle">
+        <item>U must set in java code =))</item>
+    </string-array>
     <string name="upload">Upload</string>
 </resources>
