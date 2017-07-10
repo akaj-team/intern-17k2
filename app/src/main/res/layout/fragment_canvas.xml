@@ -1,0 +1,4 @@
+<vn.asiantech.internship.ui.canvas.CustomCanvas xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/customCanvas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />

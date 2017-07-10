@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.ui.canvas.CanvasActivity;
 import vn.asiantech.internship.ui.feeds.FeedsActivity;
 import vn.asiantech.internship.ui.main.Ex05Activity;
 import vn.asiantech.internship.ui.main.Ex072Activity;
@@ -69,6 +70,9 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
             case R.id.btnEx19:
                 openActivity(MusicActivity.class);
                 break;
+            case R.id.btnEx24:
+                openActivity(CanvasActivity.class);
+                break;
         }
     }
 
@@ -84,11 +88,12 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         Button btnEx07_2 = (Button) v.findViewById(R.id.btnEx07_2);
         Button btnEx08 = (Button) v.findViewById(R.id.btnEx08);
         Button btnEx11 = (Button) v.findViewById(R.id.btnEx11);
-        Button btnEx11_2 = (Button) v.findViewById(R.id.btnEx11_2);;
+        Button btnEx11_2 = (Button) v.findViewById(R.id.btnEx11_2);
         Button btnEx13 = (Button) v.findViewById(R.id.btnEx13);
         Button btnEx15 = (Button) v.findViewById(R.id.btnEx15);
         Button btnEx16 = (Button) v.findViewById(R.id.btnEx16);
         Button btnEx19 = (Button) v.findViewById(R.id.btnEx19);
+        Button btnEx24 = (Button) v.findViewById(R.id.btnEx24);
 
         btnEx05.setOnClickListener(this);
         btnEx06.setOnClickListener(this);
@@ -101,5 +106,6 @@ public class ContentSelectFragment extends Fragment implements View.OnClickListe
         btnEx15.setOnClickListener(this);
         btnEx16.setOnClickListener(this);
         btnEx19.setOnClickListener(this);
+        btnEx24.setOnClickListener(this);
     }
 }
