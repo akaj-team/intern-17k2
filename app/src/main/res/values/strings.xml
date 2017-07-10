@@ -70,4 +70,9 @@
     <string-array name="TabStyle">
         <item>U must set in java code =))</item>
     </string-array>
+    <string name="progress.please_wait">Please wait…</string>
+    <string name="button.text.ex21">Ex 21</string>
+    <string name="textview.text.name">Name: </string>
+    <string name="textview.text.email">Email: </string>
+    <string name="textview.text.phone">Phone: </string>
 </resources>
