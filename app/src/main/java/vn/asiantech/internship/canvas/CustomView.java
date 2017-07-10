@@ -23,7 +23,7 @@ public class CustomView extends View {
     private static final int STROKE_WITH = 2;
     private static final int EXTRA_LENGHT = 10;
     private static final int TEXT_SIZE = 30;
-    private float scaleFactor = 1.0f;
+    private float mScaleFactor = 1.0f;
     private List<Point> mPoints = new ArrayList<>();
 
     private ScaleGestureDetector mScaleGestureDetector;
@@ -46,7 +46,7 @@ public class CustomView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
-        canvas.scale(scaleFactor, scaleFactor);
+        canvas.scale(mScaleFactor, mScaleFactor);
         drawAxis(canvas);
         drawNarrow(canvas);
         calculate(3, -4, 1);
@@ -134,8 +134,8 @@ public class CustomView extends View {
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            scaleFactor *= detector.getScaleFactor();
-            scaleFactor = Math.max(0.1f, Math.min(scaleFactor, 5.0f));
+            mScaleFactor *= detector.getScaleFactor();
+            mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 5.0f));
             invalidate();
             return true;
         }
