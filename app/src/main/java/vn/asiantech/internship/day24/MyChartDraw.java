@@ -171,7 +171,7 @@ public class MyChartDraw extends View {
         canvas.drawText(getContext().getString(R.string.truc_X), getWidth() - MARGIN_RIGHT - 30 + mTranslateX, getHeight() / 2 + 50 + mTranslateY, mPaint1);
         canvas.drawText(getContext().getString(R.string.truc_Y), getWidth() / 2 - 50 + mTranslateX, MARGIN_TOP + 50 + mTranslateY, mPaint1);
 
-        ptDoThi(2, 3, -1, canvas);
+        ptDoThi(3, -4, 1, canvas);
         canvas.translate(mTranslateX / scaleFactor, mTranslateY / scaleFactor);
         canvas.restore();
     }
