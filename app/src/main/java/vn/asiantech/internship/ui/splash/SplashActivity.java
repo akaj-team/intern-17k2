@@ -12,11 +12,10 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.activity.ChatActivity;
 import vn.asiantech.internship.activity.AnimalActivity;
 import vn.asiantech.internship.activity.FriendActivity;
-import vn.asiantech.internship.activity.MusicActivity;
 import vn.asiantech.internship.activity.TestActivity;
+import vn.asiantech.internship.music.MusicActivity;
 import vn.asiantech.internship.ui.feed.FeedActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
-import vn.asiantech.internship.activity.TestActivity;
 import vn.asiantech.internship.ui.main.NoteActivity;
 
 /**
