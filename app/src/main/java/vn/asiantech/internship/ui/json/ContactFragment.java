@@ -40,7 +40,7 @@ public class ContactFragment extends Fragment implements MyAsyncTask.OnGetContac
     }
 
     @Override
-    public void openAsyncTask() {
+    public void onStartUpload() {
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setMessage(getString(R.string.progress_please_wait));
         mProgressDialog.setCancelable(false);
@@ -48,7 +48,7 @@ public class ContactFragment extends Fragment implements MyAsyncTask.OnGetContac
     }
 
     @Override
-    public void finishAsyncTask(List<Contact> contacts) {
+    public void onFinishUpload(List<Contact> contacts) {
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }

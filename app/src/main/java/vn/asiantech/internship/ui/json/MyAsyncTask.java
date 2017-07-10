@@ -25,7 +25,7 @@ class MyAsyncTask extends AsyncTask<String, Void, List<Contact>> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mOnGetContactListener.openAsyncTask();
+        mOnGetContactListener.onStartUpload();
     }
 
     @Override
@@ -42,28 +42,32 @@ class MyAsyncTask extends AsyncTask<String, Void, List<Contact>> {
 
                 // Getting JSON Array node
                 JSONArray contacts;
-                if (jsonObj.getJSONArray("contacts") != null) {
+                if (jsonObj.optJSONArray("contacts") != null && jsonObj.getJSONArray("contacts") != null) {
                     contacts = jsonObj.getJSONArray("contacts");
 
                     // looping through All Contacts
                     for (int i = 0; i < contacts.length(); i++) {
-                        JSONObject c = contacts.getJSONObject(i);
-                        if (c.getString("name") != null && c.getString("email") != null && c.getString("address") != null
-                                && c.getString("gender") != null && c.getJSONObject("phone") != null) {
-                            String name = c.getString("name");
-                            String email = c.getString("email");
-                            String address = c.getString("address");
-                            String gender = c.getString("gender");
+                        if (contacts.optJSONObject(i) != null) {
+                            JSONObject c = contacts.getJSONObject(i);
+                            if (c.getString("name") != null && c.getString("email") != null && c.getString("address") != null
+                                    && c.getString("gender") != null && c.getJSONObject("phone") != null) {
+                                String name = c.getString("name");
+                                String email = c.getString("email");
+                                String address = c.getString("address");
+                                String gender = c.getString("gender");
 
-                            // Phone node is JSON Object
-                            JSONObject phoneObject = c.getJSONObject("phone");
-                            if (phoneObject.getString("mobile") != null && phoneObject.getString("home") != null && phoneObject.getString("office") != null) {
-                                String mobile = phoneObject.getString("mobile");
-                                String home = phoneObject.getString("home");
-                                String office = phoneObject.getString("office");
-                                Phone phone = new Phone(home, mobile, office);
-                                Contact contact = new Contact(name, email, address, gender, phone);
-                                thisContacts.add(contact);
+                                // Phone node is JSON Object
+                                if (c.optJSONObject("phone") != null) {
+                                    JSONObject phoneObject = c.getJSONObject("phone");
+                                    if (phoneObject.getString("mobile") != null && phoneObject.getString("home") != null && phoneObject.getString("office") != null) {
+                                        String mobile = phoneObject.getString("mobile");
+                                        String home = phoneObject.getString("home");
+                                        String office = phoneObject.getString("office");
+                                        Phone phone = new Phone(home, mobile, office);
+                                        Contact contact = new Contact(name, email, address, gender, phone);
+                                        thisContacts.add(contact);
+                                    }
+                                }
                             }
                         }
                     }
@@ -81,7 +85,7 @@ class MyAsyncTask extends AsyncTask<String, Void, List<Contact>> {
 
     @Override
     protected void onPostExecute(List result) {
-        mOnGetContactListener.finishAsyncTask(result);
+        mOnGetContactListener.onFinishUpload(result);
         super.onPostExecute(result);
     }
 
@@ -89,8 +93,8 @@ class MyAsyncTask extends AsyncTask<String, Void, List<Contact>> {
      * OnGetContactListener
      */
     interface OnGetContactListener {
-        void openAsyncTask();
+        void onStartUpload();
 
-        void finishAsyncTask(List<Contact> contacts);
+        void onFinishUpload(List<Contact> contacts);
     }
 }

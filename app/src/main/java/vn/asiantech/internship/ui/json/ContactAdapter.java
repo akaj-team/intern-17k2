@@ -36,7 +36,7 @@ class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHolder> {
         Contact contact = mContacts.get(position);
         myViewHolder.mTvName.setText(contact.getName());
         myViewHolder.mTvEmail.setText(contact.getEmail());
-        myViewHolder.mTvPhone.setText(contact.getContacts().getMobile());
+        myViewHolder.mTvPhone.setText(contact.getPhone().getMobile());
         if (contact.getGender().equals("male")) {
             myViewHolder.mRlContainer.setSelected(true);
             myViewHolder.mImgGender.setSelected(true);

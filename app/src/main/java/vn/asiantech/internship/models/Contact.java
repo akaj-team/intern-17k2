@@ -9,14 +9,14 @@ public class Contact {
     private String email;
     private String address;
     private String gender;
-    private Phone contacts;
+    private Phone phone;
 
-    public Contact(String name, String email, String address, String gender, Phone contacts) {
+    public Contact(String name, String email, String address, String gender, Phone phone) {
         this.name = name;
         this.email = email;
         this.address = address;
         this.gender = gender;
-        this.contacts = contacts;
+        this.phone = phone;
     }
 
     public String getName() {
@@ -51,11 +51,11 @@ public class Contact {
         this.gender = gender;
     }
 
-    public Phone getContacts() {
-        return contacts;
+    public Phone getPhone() {
+        return phone;
     }
 
-    public void setContacts(Phone contacts) {
-        this.contacts = contacts;
+    public void setPhone(Phone phone) {
+        this.phone = phone;
     }
 }
