@@ -80,6 +80,12 @@ public class MusicService extends Service {
                 if (Action.STOP.getValue().equals(action)) {
                     stopSelf();
                 }
+                if (Action.STOP_SERVICE.getValue().equals(action)) {
+                    if (mCountDownTimer != null) {
+                        mCountDownTimer.cancel();
+                    }
+                    mNotificationManager.cancel(22);
+                }
                 if (Action.CALL.getValue().equals(action)) {
                     String phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
                     if (mMediaPlayer.isPlaying()) {
@@ -111,6 +117,7 @@ public class MusicService extends Service {
         intentFilter.addAction(Action.PREVIOUS_SONG.getValue());
         intentFilter.addAction(Action.SEEK_TO.getValue());
         intentFilter.addAction(Action.STOP.getValue());
+        intentFilter.addAction(Action.STOP_SERVICE.getValue());
         intentFilter.addAction(Action.CALL.getValue());
         registerReceiver(mReceiver, intentFilter);
         initNotification();

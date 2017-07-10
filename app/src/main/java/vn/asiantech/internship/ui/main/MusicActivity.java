@@ -50,6 +50,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     private ArrayList<Song> mSongs;
     private GetSongAsyncTask mGetSongAsyncTask;
+    private MainFragment mMainFragment;
     private int mSongPosition;
     private boolean mServiceRunning;
     private boolean mIsPlaying;
@@ -81,6 +82,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 }
                 if (Action.STOP_SERVICE.getValue().equals(action)) {
                     mIsPlaying = false;
+                    replaceFragment(mMainFragment, false);
                 }
             }
         }
@@ -108,14 +110,14 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onTaskCompleted(ArrayList<Song> songs) {
                 mSongs = songs;
-                MainFragment mainFragment = MainFragment.getNewInstance(mSongs, new SongListAdapter.OnItemClickListener() {
+                mMainFragment = MainFragment.getNewInstance(mSongs, new SongListAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(Song song, int position) {
                         mSongPosition = position;
                         startSong();
                     }
                 });
-                replaceFragment(mainFragment, false);
+                replaceFragment(mMainFragment, false);
                 String status = getIntent().getStringExtra(KEY_STATUS);
                 if ("running".equals(status)) {
                     replaceFragment(PlayFragment.getNewInstance(), true);

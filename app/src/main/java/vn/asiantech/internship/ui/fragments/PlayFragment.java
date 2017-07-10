@@ -68,7 +68,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                 mSeekBar.setProgress(intent.getIntExtra(KEY_CURRENT, 0));
                 return;
             }
-            if (Action.SONG_COMPLETED.getValue().equals(action)) {
+            if (Action.SONG_CHANGE.getValue().equals(action)) {
                 mSongDuration = 0;
                 mSeekBar.setProgress(0);
             }
@@ -89,7 +89,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Action.SEEK.getValue());
-        intentFilter.addAction(Action.SONG_COMPLETED.getValue());
+        intentFilter.addAction(Action.SONG_CHANGE.getValue());
         getActivity().registerReceiver(mReceiver, intentFilter);
     }
 
