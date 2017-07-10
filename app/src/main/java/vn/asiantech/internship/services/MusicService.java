@@ -88,16 +88,18 @@ public class MusicService extends Service {
                 }
                 if (Action.CALL.getValue().equals(action)) {
                     String phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
-                    if (mMediaPlayer.isPlaying()) {
-                        if (phoneState.equals(TelephonyManager.EXTRA_STATE_RINGING) || phoneState.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
-                            mMediaPlayer.pause();
-                            mStopForCall = true;
-                        }
-                    } else {
-                        if (mStopForCall && phoneState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
-                            mMediaPlayer.start();
-                            starCountDownTimer();
-                            mStopForCall = false;
+                    if (mMediaPlayer != null) {
+                        if (mMediaPlayer.isPlaying()) {
+                            if (phoneState.equals(TelephonyManager.EXTRA_STATE_RINGING) || phoneState.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
+                                mMediaPlayer.pause();
+                                mStopForCall = true;
+                            }
+                        } else {
+                            if (mStopForCall && phoneState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+                                mMediaPlayer.start();
+                                starCountDownTimer();
+                                mStopForCall = false;
+                            }
                         }
                     }
                 }
@@ -140,7 +142,9 @@ public class MusicService extends Service {
 
     @Override
     public void onDestroy() {
-        mCountDownTimer.cancel();
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+        }
         unregisterReceiver(mReceiver);
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.stop();
@@ -313,6 +317,10 @@ public class MusicService extends Service {
     }
 
     private void skipPreviousSong() {
+        if (mSongPosition == 0) {
+            mSongPosition = mSongs.size() - 1;
+            return;
+        }
         mSongPosition = (mSongPosition - 1) % mSongs.size();
     }
 }

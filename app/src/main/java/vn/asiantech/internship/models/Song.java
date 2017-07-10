@@ -16,6 +16,7 @@ public class Song implements Parcelable {
     private String imageUrl;
     private Bitmap iconBitmap;
     private boolean isLoaded;
+    private boolean isPlaying;
 
     public Song(String name, String singer, String songUrl, String imageUrl) {
         this.name = name;
@@ -36,6 +37,7 @@ public class Song implements Parcelable {
         imageUrl = in.readString();
         iconBitmap = in.readParcelable(Bitmap.class.getClassLoader());
         isLoaded = in.readByte() != 0;
+        isPlaying = in.readByte() != 0;
     }
 
     public static final Creator<Song> CREATOR = new Creator<Song>() {
@@ -49,6 +51,14 @@ public class Song implements Parcelable {
             return new Song[size];
         }
     };
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying() {
+        isPlaying = !isPlaying;
+    }
 
     public String getName() {
         return name;
@@ -115,5 +125,6 @@ public class Song implements Parcelable {
         dest.writeString(imageUrl);
         dest.writeParcelable(iconBitmap, flags);
         dest.writeByte((byte) (isLoaded ? 1 : 0));
+        dest.writeByte((byte) (isPlaying ? 1 : 0));
     }
 }

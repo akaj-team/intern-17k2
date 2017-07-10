@@ -38,6 +38,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     public static final String KEY_REPLAY = "replay";
     public static final String KEY_SHUFFLE = "shuffle";
     public static final String KEY_STATUS = "status";
+    private static final int MEDIA_STOP = 0;
+    private static final int MEDIA_PLAYING_OR_PAUSE = 1;
 
     public static final int NOT_REPLAY = 0;
     public static final int REPLAY_ONE = 1;
@@ -53,7 +55,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private MainFragment mMainFragment;
     private int mSongPosition;
     private boolean mServiceRunning;
-    private boolean mIsPlaying;
+    private int mMediaStatus;
     private String[] mSongIds = {"ZW7FC0I7", "ZW80UUCB", "ZW7FE0FC", "ZW79F6A7", "ZW79O8DI", "ZW7FODC9"
             , "ZW78B06A", "ZW78U908", "ZW78I80B", "ZW77F8E0"};
 
@@ -63,10 +65,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             if (intent != null) {
                 String action = intent.getAction();
                 if (Action.SEEK.getValue().equals(action)) {
-                    boolean isPlaying = intent.getBooleanExtra(PlayFragment.KEY_PLAYING, false);
-                    if (isPlaying ^ mIsPlaying) {
-                        mIsPlaying = isPlaying;
-                    }
+                    mMediaStatus = MEDIA_PLAYING_OR_PAUSE;
                     return;
                 }
                 if (Action.SONG_CHANGE.getValue().equals(action)) {
@@ -81,7 +80,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                     finish();
                 }
                 if (Action.STOP_SERVICE.getValue().equals(action)) {
-                    mIsPlaying = false;
+                    mMediaStatus = MEDIA_STOP;
                     replaceFragment(mMainFragment, false);
                 }
             }
@@ -114,6 +113,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onItemClick(Song song, int position) {
                         mSongPosition = position;
+                        mMediaStatus = MEDIA_PLAYING_OR_PAUSE;
                         startSong();
                     }
                 });
@@ -156,10 +156,10 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         if (fragment instanceof MainFragment) {
             mTvTitle.setText(getString(R.string.app_name));
             mImgCloseFragment.setVisibility(View.GONE);
-            if (mIsPlaying) {
-                mImgOpenPlayFragment.setVisibility(View.VISIBLE);
-            } else {
+            if (mMediaStatus == MEDIA_STOP) {
                 mImgOpenPlayFragment.setVisibility(View.GONE);
+            } else {
+                mImgOpenPlayFragment.setVisibility(View.VISIBLE);
             }
             return;
         }
@@ -182,10 +182,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (!mIsPlaying) {
-            Intent stopService = new Intent(MusicActivity.this, MusicService.class);
-            stopService(stopService);
-        }
+        Intent stopService = new Intent(MusicActivity.this, MusicService.class);
+        stopService(stopService);
         if (mGetSongAsyncTask != null) {
             mGetSongAsyncTask.cancel(true);
         }

@@ -1,5 +1,9 @@
 package vn.asiantech.internship.ui.fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +18,7 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.adapters.SongListAdapter;
+import vn.asiantech.internship.models.Action;
 import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.ui.main.MusicActivity;
 
@@ -26,6 +31,32 @@ public class MainFragment extends Fragment {
 
     private SongListAdapter mAdapter;
     private SongListAdapter.OnItemClickListener mListener;
+    private List<Song> mSongs;
+    private int mSongPosition = -1;
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                String action = intent.getAction();
+                if (Action.SONG_CHANGE.getValue().equals(action)) {
+                    if (mSongPosition > -1) {
+                        mSongs.get(mSongPosition).setPlaying();
+                        mAdapter.notifyItemChanged(mSongPosition);
+                    }
+                    mSongPosition = intent.getIntExtra(MusicActivity.KEY_POSITION, -1);
+                    if (mSongPosition > -1) {
+                        mSongs.get(mSongPosition).setPlaying();
+                    }
+                    mAdapter.notifyItemChanged(mSongPosition);
+                }
+                if (Action.STOP_SERVICE.getValue().equals(action)) {
+                    mSongs.get(mSongPosition).setPlaying();
+                    mAdapter.notifyItemChanged(mSongPosition);
+                }
+            }
+
+        }
+    };
 
     public static MainFragment getNewInstance(ArrayList<Song> songs, SongListAdapter.OnItemClickListener listener) {
         MainFragment mainFragment = new MainFragment();
@@ -39,8 +70,11 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        List<Song> songs = getArguments().getParcelableArrayList(MusicActivity.KEY_SONGS);
-        mAdapter = new SongListAdapter(getContext(), songs, mListener);
+        mSongs = getArguments().getParcelableArrayList(MusicActivity.KEY_SONGS);
+        mAdapter = new SongListAdapter(getContext(), mSongs, mListener);
+        IntentFilter intentFilter = new IntentFilter(Action.SONG_CHANGE.getValue());
+        intentFilter.addAction(Action.STOP_SERVICE.getValue());
+        getActivity().registerReceiver(mReceiver, intentFilter);
     }
 
     @Nullable
@@ -50,5 +84,11 @@ public class MainFragment extends Fragment {
         recyclerViewMainList.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewMainList.setAdapter(mAdapter);
         return recyclerViewMainList;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mReceiver);
     }
 }
