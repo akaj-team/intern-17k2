@@ -98,7 +98,7 @@ public class MusicService extends Service {
             mMediaPlayer.setDataSource(mUrls.get(position));
             mMediaPlayer.prepare();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d(TAG, "startNew: IOException " + e.getMessage());
         }
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -111,24 +111,24 @@ public class MusicService extends Service {
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                if (mRepeatStatus == MusicActivity.REPEAT_ONE) {
-
-                } else if (mShuffleStatus == MusicActivity.SHUFFLE) {
-                    Random random = new Random();
-                    int position;
-                    do {
-                        position = random.nextInt(mUrls.size());
-                    } while (position == mPosition);
-                    mPosition = position;
-                } else if (mRepeatStatus == MusicActivity.REPEAT) {
-                    if (mPosition == mUrls.size() - 1) {
-                        mPosition = 0;
-                    } else {
-                        mPosition++;
-                    }
-                } else if (mRepeatStatus == MusicActivity.NO_REPEAT) {
-                    if (mPosition != mUrls.size() - 1) {
-                        mPosition++;
+                if (mRepeatStatus != MusicActivity.REPEAT_ONE) {
+                    if (mShuffleStatus == MusicActivity.SHUFFLE) {
+                        Random random = new Random();
+                        int position;
+                        do {
+                            position = random.nextInt(mUrls.size());
+                        } while (position == mPosition);
+                        mPosition = position;
+                    } else if (mRepeatStatus == MusicActivity.REPEAT) {
+                        if (mPosition == mUrls.size() - 1) {
+                            mPosition = 0;
+                        } else {
+                            mPosition++;
+                        }
+                    } else if (mRepeatStatus == MusicActivity.NO_REPEAT) {
+                        if (mPosition != mUrls.size() - 1) {
+                            mPosition++;
+                        }
                     }
                 }
                 startNew(mPosition);
@@ -165,7 +165,6 @@ public class MusicService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
@@ -175,6 +174,7 @@ public class MusicService extends Service {
         if (mStatusBroadcastReceiver != null) {
             unregisterReceiver(mStatusBroadcastReceiver);
         }
+        super.onDestroy();
     }
 
     private void showNotification() {
