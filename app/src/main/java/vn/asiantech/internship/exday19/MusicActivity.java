@@ -26,14 +26,7 @@ import static vn.asiantech.internship.exday19.MusicListFragment.URL;
 public class MusicActivity extends AppCompatActivity implements MusicListAdapter.OnClickMusicItemListener {
     public static final String KEY_MUSIC = "music";
     public static final String KEY_POSITION = "position";
-    public static final String PREFERENCES_NAME = "preferences";
-    public static final String KEY_REPLAY = "replay";
-    public static final String KEY_SHUFFLE = "shuffle";
-    public static final String KEY_STATUS = "status";
-
-    public static final int NOT_REPLAY = 0;
-    public static final int REPLAY_ONE = 1;
-    public static final int REPLAY_ALL = 2;
+    public static final String KEY_SEND = "send";
 
     private FragmentTransaction mFragmentTransaction;
     private PlayMusicFragment mPlayMusicFragment;
@@ -80,7 +73,7 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
         }
         if (!mIsServiceRunning) {
             Intent intent = new Intent(MusicActivity.this, NotificationServiceMusic.class);
-//            intent.putParcelableArrayListExtra(KEY_MUSIC, mMusicItems);
+            intent.putParcelableArrayListExtra(KEY_SEND, mMusicItems);
             Log.d("tag", "onCreate1223123123: " + mMusicItems);
             mIsServiceRunning = true;
             startService(intent);
@@ -144,7 +137,7 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
         mPosition = position;
         mMusicItems = musicItems;
         Bundle bundle = new Bundle();
-        bundle.putSerializable(KEY_POSITION, position);
+        bundle.putInt(KEY_POSITION, position);
         bundle.putParcelableArrayList(KEY_MUSIC, musicItems);
         mPlayMusicFragment.setArguments(bundle);
         replaceFragment(mPlayMusicFragment, true);

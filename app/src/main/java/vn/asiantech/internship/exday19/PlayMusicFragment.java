@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -38,8 +37,10 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     public static final String KEY_CURRENT_POSITION = "current";
     public static final String KEY_SHUFFLE = "shuffle";
     public static final String KEY_REPEAT = "repeat";
+    public static final String KEY_URL = "url";
+    public static final String KEY_IMAGE = "image";
 
-    private MusicItem mMusicItem;
+
     private CircleImageView mAlbumArt;
     private ImageView mImgPlay;
     private ImageView mImgPrev;
@@ -84,6 +85,15 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
                     showTime();
                     return;
                 }
+                if (Action.START.getValue().equals(action)) {
+                    String urlImage = intent.getStringExtra(KEY_IMAGE);
+                    Log.d("tag11", "onReceive: image  " + urlImage);
+                    if (urlImage != null) {
+                        mUrlImage = urlImage;
+                        Glide.with(getContext()).load(mUrlImage).into(mAlbumArt);
+                        Log.d("tag11", "onReceive: image1  " + mUrlImage);
+                    }
+                }
                 if (Action.COMPLETED.getValue().equals(action)) {
                     mLength = 0;
                     mSeekBar.setProgress(0);
@@ -107,8 +117,8 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     public void initStart() {
         Intent startIntent = new Intent(getContext(), NotificationServiceMusic.class);
         startIntent.setAction(Action.START.getValue());
-        startIntent.putExtra("url", mUrl);
-        startIntent.putExtra("image", mUrlImage);
+        startIntent.putExtra(KEY_URL, mUrl);
+        startIntent.putExtra(KEY_IMAGE, mUrlImage);
         startIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
         getContext().startService(startIntent);
         mImgPlay.setImageResource(R.drawable.pause);
@@ -124,7 +134,6 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     public void initUrl() {
         mUrl = mMusicItems.get(mPosition).getUrl();
         mUri = Uri.parse(mUrl);
-        mUrlImage = mMusicItems.get(mPosition).getImage();
         Glide.with(getContext()).load(mUrlImage).into(mAlbumArt);
         mMediaPlayer = MediaPlayer.create(getContext(), mUri);
     }
@@ -219,7 +228,6 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         }
         mTime = intent.getIntExtra(KEY_CURRENT_POSITION, 0);
         mSeekBar.setProgress(mTime);
-//        showTime();
     }
 
     @Override
@@ -266,12 +274,10 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     public void initShuffle() {
         if (mIsShuffle) {
             mIsShuffle = false;
-            Toast.makeText(getContext(), "Shuffle is OFF", Toast.LENGTH_SHORT).show();
             mImgShuffle.setImageResource(R.drawable.shuffledf);
         } else {
             // make repeat to true
             mIsShuffle = true;
-            Toast.makeText(getContext(), "Shuffle is ON", Toast.LENGTH_SHORT).show();
             mImgShuffle.setImageResource(R.drawable.shufflechg);
         }
     }
@@ -279,12 +285,10 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     public void initRepeat() {
         if (mIsRepeat) {
             mIsRepeat = false;
-            Toast.makeText(getContext(), "Repeat is OFF", Toast.LENGTH_SHORT).show();
             mImgRepeat.setImageResource(R.drawable.repeatdf);
         } else {
             // make repeat to true
             mIsRepeat = true;
-            Toast.makeText(getContext(), "Repeat is ON", Toast.LENGTH_SHORT).show();
             mImgRepeat.setImageResource(R.drawable.repeatchg);
         }
     }

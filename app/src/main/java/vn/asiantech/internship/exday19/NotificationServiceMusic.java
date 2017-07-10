@@ -39,23 +39,16 @@ public class NotificationServiceMusic extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mMusicItems = intent.getParcelableArrayListExtra(MusicActivity.KEY_MUSIC);
-        Log.d("tag", "music item 123 " + mMusicItems);
-        if (intent != null && intent.getAction() != null) {
-            ArrayList<MusicItem> songs = intent.getParcelableArrayListExtra(MusicActivity.KEY_MUSIC);
-            Log.d("tag", "music item " + songs);
-            if (songs != null) {
+        if (intent != null) {
+            ArrayList<MusicItem> songs = intent.getParcelableArrayListExtra(MusicActivity.KEY_SEND);
+            if (songs != null && mMusicItems.size() < 1) {
                 mMusicItems = songs;
-                Log.d("tag", "music item1 " + mMusicItems);
             }
-            mPosition = intent.getIntExtra(MusicActivity.KEY_POSITION, -1);
-            Log.d("tag", "onCreate: position123 " + mPosition);
-//            if (mPosition > -1) {
-//                startSong();
-//            }
+            mPosition = intent.getIntExtra(MusicActivity.KEY_POSITION, mPosition);
             mUrl = intent.getStringExtra("url");
         }
         Log.d("tag", "onStartCommand: " + mUrl);
+        //TODO set image for each song ahihi
         if (intent != null && intent.getAction() != null) {
             if (intent.getAction().equals(Action.PLAY.getValue())) {
             } else if (intent.getAction().equals(Action.NEXT.getValue())) {
@@ -89,7 +82,7 @@ public class NotificationServiceMusic extends Service {
                         mMediaPlayer.start();
                     }
                 });
-                setCountDownTimer();
+                startSong();
             } else if (intent.getAction().equals(Action.RESUME.getValue())) {
                 mMediaPlayer.seekTo(mLength);
                 mMediaPlayer.start();
@@ -105,29 +98,6 @@ public class NotificationServiceMusic extends Service {
         return START_STICKY;
     }
 
-    public void initShuffleNext() {
-        if (!mIsShuffle) {
-            // shuffle is on - play a random song
-            Random rand = new Random();
-            for (int i = 0; i < mMusicItems.size(); i++) {
-                mPosition = rand.nextInt(mMusicItems.size());
-            }
-        } else {
-            mPosition = (mPosition + 1) % mMusicItems.size();
-        }
-        Log.d("tag", "initShuffleNext: " + mPosition);
-    }
-
-    public void initRepeat() {
-        if (mIsRepeat) {
-            mMediaPlayer.setLooping(true);
-            Log.d("tag", "initRepeat: " + mIsRepeat);
-        } else {
-            mMediaPlayer.setLooping(false);
-            Log.d("tag", "initRepeat: 1111" + mIsRepeat);
-        }
-    }
-
     private void startSong() {
         if (mPosition < 0) {
             stopForeground(true);
@@ -141,10 +111,13 @@ public class NotificationServiceMusic extends Service {
         mUrl = mMusicItems.get(mPosition).getUrl();
         mUri = Uri.parse(mUrl);
         mUrlImage = mMusicItems.get(mPosition).getImage();
+        Log.d("tag11", "startSong: " + mUrlImage);
         mMediaPlayer = MediaPlayer.create(getApplicationContext(), mUri);
-        Intent sendDataIntent = new Intent(Action.CHANGE_SONG.getValue());
+        Intent sendDataIntent = new Intent(NotificationServiceMusic.this, PlayMusicFragment.class);
+        sendDataIntent.setAction(Action.START.getValue());
         sendDataIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
-        sendBroadcast(sendDataIntent);
+        sendDataIntent.putExtra(PlayMusicFragment.KEY_IMAGE, mUrlImage);
+        startService(sendDataIntent);
         mMediaPlayer.start();
         setCountDownTimer();
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -157,25 +130,34 @@ public class NotificationServiceMusic extends Service {
     }
 
     private void playNextSong() {
-        initShuffleNext();
-        initRepeat();
-        if (mPosition == mMusicItems.size() - 1 && !mIsRepeat) {
-            mPosition = -1;
-            Intent stopService = new Intent(Action.STOP_SERVICE.getValue());
-            sendBroadcast(stopService);
+        if (!mIsRepeat) {
+            if (mIsShuffle) {
+                // shuffle is on - play a random song
+                Random rand = new Random();
+                mPosition = rand.nextInt(mMusicItems.size());
+            } else {
+                mPosition = (mPosition + 1) % mMusicItems.size();
+            }
+        } else {
+            mPosition = (mPosition) % mMusicItems.size();
         }
     }
 
     public void playPreviousSong() {
-        initRepeat();
-        if (mIsShuffle) {
-            // shuffle is on - play a random song
-            Random rand = new Random();
-            for (int i = 0; i < mMusicItems.size(); i++) {
-                mPosition = rand.nextInt(mMusicItems.size());
+        if (!mIsRepeat) {
+            if (mIsShuffle) {
+                // shuffle is on - play a random song
+                Random rand = new Random();
+                int position;
+                do {
+                    position = rand.nextInt(mMusicItems.size());
+                } while (mPosition == position);
+                mPosition = position;
+            } else {
+                mPosition = (mPosition - 1 < 0) ? mMusicItems.size() - 1 : mPosition - 1;
             }
         } else {
-            mPosition = (mPosition - 1 < 0) ? mMusicItems.size() - 1 : mPosition - 1;
+            mPosition = (mPosition) % mMusicItems.size();
         }
     }
 
