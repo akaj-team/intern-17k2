@@ -20,7 +20,6 @@ public class CustomCanvas extends View {
     private static final String TAG = "CustomCanvas";
     private static final int MARGIN = 50;
     private static final int ARROW_HEIGHT = 20;
-    private static int ONE_LINE = 3 * MARGIN;
 
     private boolean[] mCanScales = new boolean[2];
     private float[] mDifferentPoints = new float[2];
@@ -29,6 +28,7 @@ public class CustomCanvas extends View {
     private Paint[] mPaints = new Paint[5];
     private boolean mNotFirstTouch;
     private int mScale;
+    private int mOneLine = 3 * MARGIN;
 
     public CustomCanvas(Context context) {
         this(context, null);
@@ -90,24 +90,24 @@ public class CustomCanvas extends View {
             mOldPoints[1] = y;
         } else {
             if (mCanScales[1] && x < mOldPoints[0]) {
-                if (ONE_LINE < getWidth() - 5) {
+                if (mOneLine < getWidth() - 5) {
                     setScale(false);
                 } else {
-                    ONE_LINE = getWidth() - 5;
+                    mOneLine = getWidth() - 5;
                 }
             } else if (mCanScales[0] && x > mOldPoints[0]) {
-                if (ONE_LINE > 25) {
+                if (mOneLine > 25) {
                     setScale(true);
                 } else {
-                    ONE_LINE = 25;
+                    mOneLine = 25;
                 }
             }
-            if (ONE_LINE > getWidth() - 5) {
-                ONE_LINE = getWidth() - 5;
+            if (mOneLine > getWidth() - 5) {
+                mOneLine = getWidth() - 5;
             }
 
-            if (ONE_LINE < 50) {
-                ONE_LINE = 50;
+            if (mOneLine < 50) {
+                mOneLine = 50;
             }
             invalidate();
         }
@@ -116,16 +116,16 @@ public class CustomCanvas extends View {
     private void drawCoordinateSystem(Canvas canvas) {
         float positionY = getHeight() * 0.75f + mDifferentPoints[1];
         float positionX = getWidth() * 0.25f + mDifferentPoints[0];
-        if (ONE_LINE >= 40 && ONE_LINE <= getWidth()) {
-            if (ONE_LINE <= 40) {
+        if (mOneLine >= 40 && mOneLine <= getWidth()) {
+            if (mOneLine <= 40) {
                 mCanScales[0] = false;
                 mCanScales[1] = true;
             }
-            if (ONE_LINE >= getWidth()) {
+            if (mOneLine >= getWidth()) {
                 mCanScales[1] = false;
                 mCanScales[0] = true;
             }
-            ONE_LINE += mScale;
+            mOneLine += mScale;
         }
 
         // Draw Ox and Oy
@@ -162,25 +162,25 @@ public class CustomCanvas extends View {
     }
 
     private void drawPosition(float positionX, float positionY, Canvas canvas) {
-        mValues[0] = (int) -positionX / ONE_LINE;
-        mValues[1] = (int) -((getHeight() - MARGIN) - positionY) / ONE_LINE;
+        mValues[0] = (int) -positionX / mOneLine;
+        mValues[1] = (int) -((getHeight() - MARGIN) - positionY) / mOneLine;
         drawPositionX(canvas, positionX, positionY, mValues[0]);
         drawPositionY(canvas, positionX, positionY, mValues[1]);
     }
 
     private void drawPositionY(Canvas canvas, float positionX, float positionY, float value) {
-        if (getHeight() - (ONE_LINE * value) <= MARGIN * 1.5) {
+        if (getHeight() - (mOneLine * value) <= MARGIN * 1.5) {
             return;
         }
         float y;
         if (value < 0) {
-            y = positionY - ONE_LINE * value;
+            y = positionY - mOneLine * value;
         } else if (value == 0) {
             value++;
             drawPositionY(canvas, positionX, positionY, value);
             return;
         } else {
-            y = positionY - ONE_LINE * value;
+            y = positionY - mOneLine * value;
         }
         canvas.drawCircle(positionX, y, 7 + (mScale * 0.05f), mPaints[0]);
         canvas.drawText(value + "", positionX - ARROW_HEIGHT * 1.5f, y, mPaints[2]);
@@ -193,18 +193,18 @@ public class CustomCanvas extends View {
     }
 
     private void drawPositionX(Canvas canvas, float positionX, float positionY, float value) {
-        if (ONE_LINE * value >= getWidth() - (MARGIN * 1.5)) {
+        if (mOneLine * value >= getWidth() - (MARGIN * 1.5)) {
             return;
         }
         float x;
         if (value < 0) {
-            x = positionX + ONE_LINE * value;
+            x = positionX + mOneLine * value;
         } else if (value == 0) {
             value++;
             drawPositionX(canvas, positionX, positionY, value);
             return;
         } else {
-            x = positionX + ONE_LINE * value;
+            x = positionX + mOneLine * value;
         }
         canvas.drawCircle(x, positionY, 7 + (mScale * 0.05f), mPaints[0]);
         canvas.drawText(value + "", x, positionY + ARROW_HEIGHT * 1.5f, mPaints[2]);
@@ -231,7 +231,7 @@ public class CustomCanvas extends View {
         float nextDelta;
         float positionNextY;
 
-        for (i = start; (positionY - (i * ONE_LINE)) > end; i += jump) {
+        for (i = start; (positionY - (i * mOneLine)) > end; i += jump) {
 
             // Location of x1, x2
             delta = b * b - (4 * a * (c - i));
@@ -255,7 +255,7 @@ public class CustomCanvas extends View {
 
             // Find the next point and connect with the previous (@x1, @x2)
             nextY = i + jump;
-            positionNextY = positionY - (nextY * ONE_LINE);
+            positionNextY = positionY - (nextY * mOneLine);
             nextDelta = b * b - (4 * a * (c - nextY));
             nextX1 = (float) (((-b) + Math.sqrt(nextDelta)) / (2 * a));
             nextX2 = (float) (((-b) - Math.sqrt(nextDelta)) / (2 * a));
@@ -263,16 +263,16 @@ public class CustomCanvas extends View {
             // Check position of next location when it go to outside system
             if (positionNextY < end) {
                 positionNextY = end + ARROW_HEIGHT;
-                nextY = -(positionNextY - positionY) / ONE_LINE;
+                nextY = -(positionNextY - positionY) / mOneLine;
                 nextDelta = b * b - (4 * a * (c - nextY));
                 nextX1 = (float) (((-b) + Math.sqrt(nextDelta)) / (2 * a));
                 nextX2 = (float) (((-b) - Math.sqrt(nextDelta)) / (2 * a));
-                canvas.drawLine(positionX + (x1 * ONE_LINE), positionY - (i * ONE_LINE), positionX + (nextX1 * ONE_LINE), positionNextY, mPaints[3]);
-                canvas.drawLine(positionX + (x2 * ONE_LINE), positionY - (i * ONE_LINE), positionX + (nextX2 * ONE_LINE), positionNextY, mPaints[3]);
+                canvas.drawLine(positionX + (x1 * mOneLine), positionY - (i * mOneLine), positionX + (nextX1 * mOneLine), positionNextY, mPaints[3]);
+                canvas.drawLine(positionX + (x2 * mOneLine), positionY - (i * mOneLine), positionX + (nextX2 * mOneLine), positionNextY, mPaints[3]);
                 break;
             }
-            canvas.drawLine(positionX + (x1 * ONE_LINE), positionY - (i * ONE_LINE), positionX + (nextX1 * ONE_LINE), positionNextY, mPaints[3]);
-            canvas.drawLine(positionX + (x2 * ONE_LINE), positionY - (i * ONE_LINE), positionX + (nextX2 * ONE_LINE), positionNextY, mPaints[3]);
+            canvas.drawLine(positionX + (x1 * mOneLine), positionY - (i * mOneLine), positionX + (nextX1 * mOneLine), positionNextY, mPaints[3]);
+            canvas.drawLine(positionX + (x2 * mOneLine), positionY - (i * mOneLine), positionX + (nextX2 * mOneLine), positionNextY, mPaints[3]);
         }
     }
 
