@@ -21,7 +21,7 @@ import vn.asiantech.internship.models.Contact;
  */
 @EFragment(R.layout.fragment_contact_anontation)
 public class ContactFragment extends Fragment implements MyAsyncTask.OnGetContactListener {
-    private static final String url = "http://api.androidhive.info/contacts/";
+    private static final String URL_API = "http://api.androidhive.info/contacts/";
 
     private ProgressDialog mProgressDialog;
     private MyAsyncTask mMyAsyncTask;
@@ -34,7 +34,7 @@ public class ContactFragment extends Fragment implements MyAsyncTask.OnGetContac
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mMyAsyncTask = new MyAsyncTask();
         mMyAsyncTask.setOnGetContactListener(this);
-        mMyAsyncTask.execute(url);
+        mMyAsyncTask.execute(URL_API);
     }
 
     @Override
