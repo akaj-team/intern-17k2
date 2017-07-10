@@ -1,6 +1,7 @@
 package vn.asiantech.internship.services;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -15,6 +16,7 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import java.util.ArrayList;
@@ -39,6 +41,10 @@ public class MusicService extends Service {
     private CountDownTimer mCountDownTimer;
     private int mSongPosition;
     private boolean mStopForCall;
+    private NotificationManager mNotificationManager;
+    private Notification mNotification;
+    private RemoteViews mRemoteViewsBig;
+    private RemoteViews mRemoteViewsSmall;
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -98,6 +104,7 @@ public class MusicService extends Service {
     public void onCreate() {
         super.onCreate();
         mSongs = new ArrayList<>();
+        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Action.PAUSE.getValue());
         intentFilter.addAction(Action.RESUME.getValue());
@@ -107,6 +114,7 @@ public class MusicService extends Service {
         intentFilter.addAction(Action.STOP.getValue());
         intentFilter.addAction(Action.CALL.getValue());
         registerReceiver(mReceiver, intentFilter);
+        initNotification();
     }
 
     @Override
@@ -131,6 +139,8 @@ public class MusicService extends Service {
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.stop();
         }
+        mNotificationManager.cancelAll();
+        Log.i("tag112211", "onDestroy: ");
         super.onDestroy();
     }
 
@@ -140,7 +150,7 @@ public class MusicService extends Service {
         return null;
     }
 
-    private void showForegroundNotification(String songName, String singerName, int duration, int current) {
+    private void initNotification() {
 
         // Create intent that will bring our app to the front, as if it was tapped in the app
         // Launcher
@@ -155,26 +165,42 @@ public class MusicService extends Service {
                 showTaskIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        RemoteViews view = new RemoteViews(getPackageName(), R.layout.notification_main);
-        RemoteViews smallView = new RemoteViews(getPackageName(), R.layout.notification_main_small);
-
-        view.setProgressBar(R.id.progressBar, duration, current, false);
-        view.setTextViewText(R.id.tvSongName, songName);
-        view.setTextViewText(R.id.tvSingerName, singerName);
-        smallView.setTextViewText(R.id.tvSongName, songName);
-
-        if (mMediaPlayer.isPlaying()) {
-            view.setImageViewResource(R.id.imgPlay, R.drawable.ic_pause_circle_outline_red_a700_36dp);
-            smallView.setImageViewResource(R.id.imgPlay, R.drawable.ic_pause_circle_outline_red_a700_36dp);
-        } else {
-            view.setImageViewResource(R.id.imgPlay, R.drawable.ic_play_circle_outline_red_a700_36dp);
-            smallView.setImageViewResource(R.id.imgPlay, R.drawable.ic_play_circle_outline_red_a700_36dp);
-        }
+        mRemoteViewsBig = new RemoteViews(getPackageName(), R.layout.notification_main);
+        mRemoteViewsSmall = new RemoteViews(getPackageName(), R.layout.notification_main_small);
 
         Intent intentPreviousSong = new Intent(Action.PREVIOUS_SONG.getValue());
         PendingIntent previousSong = PendingIntent.getBroadcast(this, 0, intentPreviousSong, 0);
-        view.setOnClickPendingIntent(R.id.imgPrevious, previousSong);
-        smallView.setOnClickPendingIntent(R.id.imgPrevious, previousSong);
+        mRemoteViewsBig.setOnClickPendingIntent(R.id.imgPrevious, previousSong);
+        mRemoteViewsSmall.setOnClickPendingIntent(R.id.imgPrevious, previousSong);
+
+        Intent intentNextSong = new Intent(Action.NEXT_SONG.getValue());
+        PendingIntent nextSong = PendingIntent.getBroadcast(this, 0, intentNextSong, 0);
+        mRemoteViewsBig.setOnClickPendingIntent(R.id.imgNext, nextSong);
+        mRemoteViewsSmall.setOnClickPendingIntent(R.id.imgNext, nextSong);
+
+        Intent intentTurnOff = new Intent(Action.STOP.getValue());
+        PendingIntent turnOff = PendingIntent.getBroadcast(this, 0, intentTurnOff, 0);
+        mRemoteViewsBig.setOnClickPendingIntent(R.id.imgTurnOff, turnOff);
+        mRemoteViewsSmall.setOnClickPendingIntent(R.id.imgTurnOff, turnOff);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            mNotification = new Notification.Builder(getApplicationContext())
+                    .setContent(mRemoteViewsSmall)
+                    .setSmallIcon(R.drawable.ic_music_note_red_700_24dp)
+                    .setWhen(System.currentTimeMillis())
+                    .setAutoCancel(false)
+                    .setOngoing(true)
+                    .setContentIntent(contentIntent)
+                    .build();
+            mNotification.bigContentView = mRemoteViewsBig;
+        }
+    }
+
+    private void updateNotification() {
+        mRemoteViewsBig.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
+        mRemoteViewsBig.setTextViewText(R.id.tvSongName, mSongs.get(mSongPosition).getName());
+        mRemoteViewsBig.setTextViewText(R.id.tvSingerName, mSongs.get(mSongPosition).getSinger());
+        mRemoteViewsSmall.setTextViewText(R.id.tvSongName, mSongs.get(mSongPosition).getName());
 
         Intent intentPlay = new Intent();
         if (mMediaPlayer.isPlaying()) {
@@ -182,33 +208,17 @@ public class MusicService extends Service {
         } else {
             intentPlay.setAction(Action.RESUME.getValue());
         }
-        PendingIntent play = PendingIntent.getBroadcast(this, 0, intentPlay, 0);
-        view.setOnClickPendingIntent(R.id.imgPlay, play);
-        smallView.setOnClickPendingIntent(R.id.imgPlay, play);
+        PendingIntent play = PendingIntent.getBroadcast(MusicService.this, 0, intentPlay, 0);
+        mRemoteViewsBig.setOnClickPendingIntent(R.id.imgPlay, play);
+        mRemoteViewsSmall.setOnClickPendingIntent(R.id.imgPlay, play);
 
-        Intent intentNextSong = new Intent(Action.NEXT_SONG.getValue());
-        PendingIntent nextSong = PendingIntent.getBroadcast(this, 0, intentNextSong, 0);
-        view.setOnClickPendingIntent(R.id.imgNext, nextSong);
-        smallView.setOnClickPendingIntent(R.id.imgNext, nextSong);
-
-        Intent intentTurnOff = new Intent(Action.STOP.getValue());
-        PendingIntent turnOff = PendingIntent.getBroadcast(this, 0, intentTurnOff, 0);
-        view.setOnClickPendingIntent(R.id.imgTurnOff, turnOff);
-        smallView.setOnClickPendingIntent(R.id.imgTurnOff, turnOff);
-
-        Notification notification = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            notification = new Notification.Builder(getApplicationContext())
-                    .setContent(smallView)
-                    .setSmallIcon(R.drawable.ic_music_note_red_700_24dp)
-                    .setWhen(System.currentTimeMillis())
-                    .setAutoCancel(false)
-                    .setOngoing(true)
-                    .setContentIntent(contentIntent)
-                    .build();
-            notification.bigContentView = view;
+        if (mMediaPlayer.isPlaying()) {
+            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.ic_pause_circle_outline_red_a700_36dp);
+            mRemoteViewsSmall.setImageViewResource(R.id.imgPlay, R.drawable.ic_pause_circle_outline_red_a700_36dp);
+        } else {
+            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.ic_play_circle_outline_red_a700_36dp);
+            mRemoteViewsSmall.setImageViewResource(R.id.imgPlay, R.drawable.ic_play_circle_outline_red_a700_36dp);
         }
-        startForeground(100, notification);
     }
 
     private void nextSong() {
@@ -258,7 +268,6 @@ public class MusicService extends Service {
                 startSong();
             }
         });
-        showForegroundNotification(mSongs.get(mSongPosition).getName(), mSongs.get(mSongPosition).getSinger(), mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition());
     }
 
     private void skipAndNextSong() {
@@ -273,6 +282,9 @@ public class MusicService extends Service {
     }
 
     private void starCountDownTimer() {
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+        }
         mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration() - mMediaPlayer.getCurrentPosition(), 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -282,7 +294,8 @@ public class MusicService extends Service {
                     intent1.putExtra(PlayFragment.KEY_CURRENT, mMediaPlayer.getCurrentPosition());
                     intent1.putExtra(PlayFragment.KEY_PLAYING, mMediaPlayer.isPlaying());
                     sendBroadcast(intent1);
-                    showForegroundNotification(mSongs.get(mSongPosition).getName(), mSongs.get(mSongPosition).getSinger(), mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition());
+                    updateNotification();
+                    mNotificationManager.notify(22, mNotification);
                 }
             }
 
