@@ -36,6 +36,7 @@
     <dimen name="feed.item_marginBottom">5dp</dimen>
     <dimen name="feed.item_padding">15dp</dimen>
     <dimen name="feed.item.viewpager_marginBottom">3dp</dimen>
+    <dimen name="feed.item.viewPager_marginBottom">3dp</dimen>
     <dimen name="feed.item.viewpager.button_size">48dp</dimen>
     <!--Bai13-->
     <dimen name="detail.image_size">300dp</dimen>

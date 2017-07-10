@@ -1,4 +1,4 @@
-package vn.asiantech.internship.day15.drawer.ui.database;
+package vn.asiantech.internship.drawer.ui.database;
 
 import android.content.Context;
 import android.database.Cursor;

@@ -1,4 +1,4 @@
-package vn.asiantech.internship.day15.drawer.ui.feed;
+package vn.asiantech.internship.drawer.ui.feed;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -12,10 +12,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.day15.drawer.models.FeedItem;
+import vn.asiantech.internship.drawer.models.FeedItem;
 
 /**
- * Created by at-dinhvo on 01/07/2017.
+ * Created by BACKDOOR on 07-Feb-17.
  */
 class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
