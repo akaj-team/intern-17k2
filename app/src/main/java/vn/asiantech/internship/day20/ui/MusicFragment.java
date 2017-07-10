@@ -51,10 +51,10 @@ public class MusicFragment extends Fragment {
     private TextView mCurrentTime;
 
     private Animation mAnimation;
-    private boolean isPause = false;
-    private boolean isPlaying = false;
-    private boolean isShuffle = false;
-    private boolean isAutoNext = false;
+    private boolean mIsPause;
+    private boolean mIsPlaying;
+    private boolean mIsShuffle;
+    private boolean mIsAutoNext;
     private ArrayList<Song> mSongs;
     private int mCurrentPosition = -1;
     private int mDuration;
@@ -118,8 +118,8 @@ public class MusicFragment extends Fragment {
     }
 
     private void resetPlayFlag() {
-        isPause = false;
-        isPlaying = true;
+        mIsPause = false;
+        mIsPlaying = true;
         mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_pause);
     }
 
@@ -158,7 +158,7 @@ public class MusicFragment extends Fragment {
             intentPlay.setAction(Action.PLAY.getValue());
             intentPlay.putExtra(MusicActivity.KEY_POS, mCurrentPosition);
             getActivity().sendBroadcast(intentPlay);
-            isPlaying = true;
+            mIsPlaying = true;
             mTvNameOfSong.setText(mSongs.get(mCurrentPosition).getName());
         } else {
             Toast.makeText(getContext(), "Position is wrong!", Toast.LENGTH_SHORT).show();
@@ -170,16 +170,16 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentPlay = new Intent();
-                if (isPause) { // if music is pausing
+                if (mIsPause) { // if music is pausing
                     intentPlay.setAction(Action.RESUME.getValue());
                     mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_pause);
-                    isPlaying = true;
-                    isPause = false;
-                } else if (isPlaying) { // if music is playing
+                    mIsPlaying = true;
+                    mIsPause = false;
+                } else if (mIsPlaying) { // if music is playing
                     intentPlay.setAction(Action.PAUSE.getValue());
                     mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_play);
-                    isPause = true;
-                    isPlaying = false;
+                    mIsPause = true;
+                    mIsPlaying = false;
                 } else { // music is starting
                     intentPlay.setAction(Action.PLAY.getValue());
                     if (mCurrentPosition != -1) {
@@ -187,7 +187,7 @@ public class MusicFragment extends Fragment {
                     } else {
                         Toast.makeText(getContext(), "Please check your url!", Toast.LENGTH_SHORT).show();
                     }
-                    isPlaying = true;
+                    mIsPlaying = true;
                 }
                 getActivity().sendBroadcast(intentPlay);
             }
@@ -214,8 +214,8 @@ public class MusicFragment extends Fragment {
                 Intent intentShuffle = new Intent();
                 intentShuffle.setAction(Action.SHUFFLE.getValue());
                 getActivity().sendBroadcast(intentShuffle);
-                isShuffle = !isShuffle;
-                if (isShuffle) {
+                mIsShuffle = !mIsShuffle;
+                if (mIsShuffle) {
                     mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_cyan_a700_48dp);
                 } else {
                     mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_white_48dp);
@@ -228,8 +228,8 @@ public class MusicFragment extends Fragment {
                 Intent intentAutoNext = new Intent();
                 intentAutoNext.setAction(Action.AUTONEXT.getValue());
                 getActivity().sendBroadcast(intentAutoNext);
-                isAutoNext = !isAutoNext;
-                if (isAutoNext) {
+                mIsAutoNext = !mIsAutoNext;
+                if (mIsAutoNext) {
                     mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_loop_cyan_a700_48dp);
                 } else {
                     mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_loop_white_48dp);

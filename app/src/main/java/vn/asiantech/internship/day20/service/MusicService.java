@@ -48,9 +48,9 @@ public class MusicService extends Service {
     private MediaPlayer mMediaPlayer;
     private CountDownTimer mCountDownTimer;
     private int mLength;
-    private boolean isPause = false;
-    private boolean isAutoNext = false;
-    private boolean isShuffle = false;
+    private boolean mIsPause;
+    private boolean mIsAutoNext;
+    private boolean mIsShuffle;
     private int mCurrentPosition;
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
@@ -58,35 +58,35 @@ public class MusicService extends Service {
         public void onReceive(Context context, Intent intent) {
             if (intent != null) {
                 if (intent.getAction().equals(Action.PLAY.getValue())) {
-                    isPause = false;
+                    mIsPause = false;
                     mCurrentPosition = intent.getIntExtra(MusicActivity.KEY_POS, -1);
                     if (mCurrentPosition != -1) {
                         mSong = mSongs.get(mCurrentPosition);
                     }
                     startMedia();
                 } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
-                    isPause = true;
+                    mIsPause = true;
                     pauseMusic();
                 } else if (intent.getAction().equals(Action.RESUME.getValue())) {
-                    isPause = false;
+                    mIsPause = false;
                     resumeMusic();
                 } else if (intent.getAction().equals(Action.NEXT.getValue())) {
                     nextMusic();
                 } else if (intent.getAction().equals(Action.PREVIOUS.getValue())) {
                     previousMusic();
                 } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
-                    isShuffle = (!isShuffle);
+                    mIsShuffle = (!mIsShuffle);
                 } else if (intent.getAction().equals(Action.AUTONEXT.getValue())) {
-                    isAutoNext = (!isAutoNext);
+                    mIsAutoNext = (!mIsAutoNext);
                 } else if (intent.getAction().equals(Action.STOP.getValue())) {
                     exitApp();
                 } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                     showNotification(mSong.getName(), mSong.getSinger(), mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition());
                 } else if (intent.getAction().equals(String.valueOf(TelephonyManager.CALL_STATE_RINGING))) {
-                    isPause = true;
+                    mIsPause = true;
                     pauseMusic();
                 } else if (intent.getAction().equals(String.valueOf(TelephonyManager.CALL_STATE_IDLE))) {
-                    isPause = false;
+                    mIsPause = false;
                     resumeMusic();
                 }
             }
@@ -113,7 +113,7 @@ public class MusicService extends Service {
             mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
-                    if (isAutoNext) {
+                    if (mIsAutoNext) {
                         nextMusic();
                     }
                 }
@@ -125,7 +125,7 @@ public class MusicService extends Service {
 
     private void nextMusic() {
         resetMusic();
-        if (isShuffle) {
+        if (mIsShuffle) {
             mCurrentPosition = shuffleMusic();
         } else {
             mCurrentPosition = (mCurrentPosition == mSongs.size() - 1) ? 0 : mCurrentPosition + 1;
@@ -150,7 +150,7 @@ public class MusicService extends Service {
 
     private void previousMusic() {
         resetMusic();
-        if (isShuffle) {
+        if (mIsShuffle) {
             mCurrentPosition = shuffleMusic();
         } else {
             mCurrentPosition = (mCurrentPosition == 0) ? mSongs.size() - 1 : mCurrentPosition - 1;
@@ -186,7 +186,7 @@ public class MusicService extends Service {
 
     private void pauseMusic() {
         mMediaPlayer.pause();
-        isPause = true;
+        mIsPause = true;
         mLength = mMediaPlayer.getCurrentPosition();
     }
 
@@ -248,25 +248,25 @@ public class MusicService extends Service {
 
     private void showNotification(String song, String singer, int duration, int currentTime) {
         RemoteViews views = new RemoteViews(getPackageName(), R.layout.custom_notification);
-        RemoteViews bigViews = new RemoteViews(getPackageName(), R.layout.custom_notification_expanse);
+//        RemoteViews bigViews = new RemoteViews(getPackageName(), R.layout.custom_notification_expanse);
         BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
                 R.drawable.img_music, options);
         views.setViewVisibility(R.id.imgSmallIconMusic, View.VISIBLE);
         views.setViewVisibility(R.id.imgNotifiMusic, View.GONE);
-        bigViews.setProgressBar(R.id.progressBar, duration, currentTime, false);
+//        bigViews.setProgressBar(R.id.progressBar, duration, currentTime, false);
         views.setTextViewText(R.id.tvNotifiSong, song);
-        bigViews.setTextViewText(R.id.tvNotifiSong, song);
+//        bigViews.setTextViewText(R.id.tvNotifiSong, song);
         views.setTextViewText(R.id.tvNotifiSinger, singer);
-        bigViews.setTextViewText(R.id.tvNotifiSinger, singer);
+//        bigViews.setTextViewText(R.id.tvNotifiSinger, singer);
         if (mMediaPlayer.isPlaying()) {
-            bigViews.setImageViewResource(R.id.imgBtnNotifiPlay, R.drawable.apollo_holo_dark_pause);
+//            bigViews.setImageViewResource(R.id.imgBtnNotifiPlay, R.drawable.apollo_holo_dark_pause);
             views.setImageViewResource(R.id.imgBtnNotifiPlay, R.drawable.apollo_holo_dark_pause);
         } else {
-            bigViews.setImageViewResource(R.id.imgBtnNotifiPlay, R.drawable.apollo_holo_dark_play);
+//            bigViews.setImageViewResource(R.id.imgBtnNotifiPlay, R.drawable.apollo_holo_dark_play);
             views.setImageViewResource(R.id.imgBtnNotifiPlay, R.drawable.apollo_holo_dark_play);
         }
-        bigViews.setImageViewBitmap(R.id.imgNotifiMusic, bitmap);
+//        bigViews.setImageViewBitmap(R.id.imgNotifiMusic, bitmap);
         Intent notificationIntent = new Intent(this, MusicActivity.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -279,24 +279,24 @@ public class MusicService extends Service {
             intentPlay.setAction(Action.RESUME.getValue());
         }
         PendingIntent playSong = PendingIntent.getBroadcast(this, 0, intentPlay, 0);
-        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiPlay, playSong);
+//        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiPlay, playSong);
         views.setOnClickPendingIntent(R.id.imgBtnNotifiPlay, playSong);
         Intent intentNextSong = new Intent(Action.NEXT.getValue());
         PendingIntent nextSong = PendingIntent.getBroadcast(this, 0, intentNextSong, 0);
-        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiNext, nextSong);
+//        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiNext, nextSong);
         views.setOnClickPendingIntent(R.id.imgBtnNotifiNext, nextSong);
         Intent intentTurnOff = new Intent(Action.STOP.getValue());
         PendingIntent turnOff = PendingIntent.getBroadcast(this, 0, intentTurnOff, 0);
-        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiExit, turnOff);
+//        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiExit, turnOff);
         views.setOnClickPendingIntent(R.id.imgBtnNotifiExit, turnOff);
         Intent intentPrevious = new Intent(Action.PREVIOUS.getValue());
         PendingIntent previous = PendingIntent.getBroadcast(this, 0, intentPrevious, 0);
-        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiPrev, previous);
+//        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiPrev, previous);
         Notification notification = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             notification = new Notification.Builder(this).build();
             notification.contentView = views;
-            notification.bigContentView = bigViews;
+//            notification.bigContentView = bigViews;
             notification.flags = Notification.FLAG_ONGOING_EVENT;
             notification.icon = R.drawable.ic_music_note_white_48dp;
             notification.contentIntent = pendingIntent;
@@ -346,6 +346,9 @@ public class MusicService extends Service {
             mMediaPlayer.release();
             Log.e(TAG, "onDestroy: ");
         }
+        mLength = 0;
+        mSong = null;
+        unregisterReceiver(mBroadcastReceiver);
         stopSelf();
     }
 
