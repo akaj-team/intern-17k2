@@ -16,7 +16,6 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import java.util.ArrayList;
@@ -140,7 +139,6 @@ public class MusicService extends Service {
             mMediaPlayer.stop();
         }
         mNotificationManager.cancelAll();
-        Log.i("tag112211", "onDestroy: ");
         super.onDestroy();
     }
 
