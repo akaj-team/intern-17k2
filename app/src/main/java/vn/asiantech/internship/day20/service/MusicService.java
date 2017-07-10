@@ -14,6 +14,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -79,10 +80,15 @@ public class MusicService extends Service {
                 } else if (intent.getAction().equals(Action.AUTONEXT.getValue())) {
                     isAutoNext = (!isAutoNext);
                 } else if (intent.getAction().equals(Action.STOP.getValue())) {
-                    stopForeground(true);
-                    stopSelf();
+                    exitApp();
                 } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                     showNotification(mSong.getName(), mSong.getSinger(), mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition());
+                } else if (intent.getAction().equals(String.valueOf(TelephonyManager.CALL_STATE_RINGING))) {
+                    isPause = true;
+                    pauseMusic();
+                } else if (intent.getAction().equals(String.valueOf(TelephonyManager.CALL_STATE_IDLE))) {
+                    isPause = false;
+                    resumeMusic();
                 }
             }
         }
@@ -199,6 +205,13 @@ public class MusicService extends Service {
         return ran;
     }
 
+    private void exitApp() {
+        stopForeground(true);
+        stopSelf();
+        Intent intent = new Intent(Action.EXIT.getValue());
+        sendBroadcast(intent);
+    }
+
     private void handlerProgress() {
         final Intent timeIntent = new Intent();
         timeIntent.setAction(MusicFragment.CURRENT_TIME);
@@ -304,8 +317,9 @@ public class MusicService extends Service {
         filter.addAction(Action.SHUFFLE.getValue());
         filter.addAction(Action.AUTONEXT.getValue());
         filter.addAction(Action.STOP.getValue());
-        filter.addAction(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(String.valueOf(TelephonyManager.CALL_STATE_OFFHOOK));
+        filter.addAction(String.valueOf(TelephonyManager.CALL_STATE_IDLE));
         registerReceiver(mBroadcastReceiver, filter);
     }
 
