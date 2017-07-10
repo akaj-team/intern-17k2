@@ -22,6 +22,8 @@ import java.util.Random;
 
 import vn.asiantech.internship.R;
 
+import static android.support.v4.app.NotificationCompat.FLAG_HIGH_PRIORITY;
+
 /**
  * Created by ducle on 08/07/2017.
  * MusicService to play music
@@ -41,8 +43,12 @@ public class MusicService extends Service {
     private StatusBroadcastReceiver mStatusBroadcastReceiver;
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mNotificationManager;
-    private int mNotificationId = 1;
     private RemoteViews mRemoteViews;
+    private RemoteViews mRemoteViewsSmall;
+    private String[] mSongNames;
+    private String[] mArtists;
+    private PendingIntent mPendingIntent;
+    private int mNotificationId = 100;
 
     @Override
     public void onCreate() {
@@ -53,6 +59,8 @@ public class MusicService extends Service {
         mUrls.add("http://zmp3-mp3-s1-te-vnso-tn-8.zadn.vn/8fcd13c21b86f2d8ab97/8208839230443218911?key=ciN9WIlgrK7moANpgD0etA&expires=1499729440");
         mUrls.add("http://zmp3-mp3-s1-te-zmp3-fpthcm-1.zadn.vn/233f19a477e09ebec7f1/7720256713557916913?key=8GLqedajvi-o0x-BB2jGww&expires=1499729505");
 
+        mSongNames = new String[]{"1234", "Cay bang", "chi la giac mo", "Mot dieu la mai mai"};
+        mArtists = new String[]{"Chi Dan", "Buc tuong", "Microwave", "RoseWood"};
         mStatusBroadcastReceiver = new StatusBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Action.PLAY.getValue());
@@ -60,6 +68,8 @@ public class MusicService extends Service {
         intentFilter.addAction(Action.REPEAT.getValue());
         intentFilter.addAction(Action.PREVIOUS.getValue());
         intentFilter.addAction(Action.NEXT.getValue());
+        intentFilter.addAction(Action.CLEAR.getValue());
+        intentFilter.addAction(Action.SHOW.getValue());
         registerReceiver(mStatusBroadcastReceiver, intentFilter);
     }
 
@@ -103,7 +113,7 @@ public class MusicService extends Service {
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
-                //showNotification();
+                showNotification();
                 mMediaPlayer.start();
             }
         });
@@ -147,6 +157,12 @@ public class MusicService extends Service {
                 Log.d(TAG, "onTick: " + mMediaPlayer.getDuration());
                 timeIntent.putExtra(KEY_CURRENT_TIME, mMediaPlayer.getCurrentPosition());
                 sendBroadcast(timeIntent);
+                mRemoteViews.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
+                mRemoteViews.setTextViewText(R.id.tvCurrentTime, Utils.getTime(mMediaPlayer.getCurrentPosition()));
+                mBuilder.setCustomBigContentView(mRemoteViews);
+                if (mNotificationManager != null) {
+                    mNotificationManager.notify(mNotificationId, mBuilder.build());
+                }
             }
 
             @Override
@@ -168,7 +184,7 @@ public class MusicService extends Service {
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
-        if (mMediaPlayer != null) {
+        if (mPlayStatus == MusicActivity.PAUSE_STATUS) {
             mMediaPlayer.release();
         }
         if (mStatusBroadcastReceiver != null) {
@@ -180,14 +196,30 @@ public class MusicService extends Service {
     private void showNotification() {
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mBuilder = new NotificationCompat.Builder(this);
+
         mRemoteViews = new RemoteViews(getPackageName(), R.layout.notification_music);
-        mRemoteViews.setTextViewText(R.id.tvSong, "song name");
-        Intent notificationIntent = new Intent(this, MusicActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher)
+        mRemoteViews.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
+        mRemoteViews.setTextViewText(R.id.tvSong, mSongNames[mPosition]);
+        mRemoteViews.setTextViewText(R.id.tvArtist, mArtists[mPosition]);
+        mRemoteViews.setTextViewText(R.id.tvTime, Utils.getTime(mMediaPlayer.getDuration()));
+        mRemoteViews.setTextViewText(R.id.tvCurrentTime, Utils.getTime(mMediaPlayer.getCurrentPosition()));
+
+        Intent clearIntent = new Intent();
+        clearIntent.setAction(Action.CLEAR.getValue());
+        clearIntent.putExtra("id", mNotificationId);
+        PendingIntent clearPendingIntent = PendingIntent.getBroadcast(this, 0, clearIntent, 0);
+        mRemoteViews.setOnClickPendingIntent(R.id.imgClear, clearPendingIntent);
+
+        Intent notificationIntent = new Intent(getApplicationContext(), MusicActivity.class);
+        notificationIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mPendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setSmallIcon(R.mipmap.ic_music)
                 .setAutoCancel(false)
-                .setCustomContentView(mRemoteViews)
-                .setContentIntent(pendingIntent);
+                .setPriority(FLAG_HIGH_PRIORITY)
+                .setCustomBigContentView(mRemoteViews)
+                .setContentIntent(mPendingIntent);
+
         mNotificationManager.notify(mNotificationId, mBuilder.build());
     }
 
@@ -221,6 +253,11 @@ public class MusicService extends Service {
                     }
                     mMediaPlayer.stop();
                     startNew(mPosition);
+                    if (mPlayStatus == MusicActivity.PAUSE_STATUS) {
+                        mLength = 0;
+                        mMediaPlayer.seekTo(mLength);
+                        mMediaPlayer.pause();
+                    }
 
                 } else if (intent.getAction().equals(Action.NEXT.getValue())) {
                     if (mShuffleStatus == MusicActivity.SHUFFLE) {
@@ -239,6 +276,18 @@ public class MusicService extends Service {
                     }
                     mMediaPlayer.stop();
                     startNew(mPosition);
+                    if (mPlayStatus == MusicActivity.PAUSE_STATUS) {
+                        mLength = 0;
+                        mMediaPlayer.seekTo(mLength);
+                        mMediaPlayer.pause();
+                    }
+                } else if (intent.getAction().equals(Action.CLEAR.getValue())) {
+                    mNotificationManager.cancelAll();
+                    mNotificationManager = null;
+                } else if (intent.getAction().equals(Action.SHOW.getValue())) {
+                    if (mNotificationManager == null) {
+                        showNotification();
+                    }
                 }
             }
         }

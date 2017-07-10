@@ -40,9 +40,9 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private ImageView mImgPlay;
     private ImageView mImgNext;
     private ImageView mImgRepeat;
-    private int mBtnPlayStatus;
-    private int mBtnShuffleStatus;
-    private int mBtnRepeatStatus;
+    private int mImgPlayStatus;
+    private int mImgShuffleStatus;
+    private int mImgRepeatStatus;
     private int mPosition;
     private int mLength = 0;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
@@ -68,7 +68,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                mTvCurrentTime.setText(getTime(seekBar.getProgress()));
+                mTvCurrentTime.setText(Utils.getTime(seekBar.getProgress()));
             }
 
             @Override
@@ -77,7 +77,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                mTvCurrentTime.setText(getTime(seekBar.getProgress()));
+                mTvCurrentTime.setText(Utils.getTime(seekBar.getProgress()));
                 Intent playIntent = new Intent(MusicActivity.this, MusicService.class);
                 playIntent.putExtra(KEY_CHOOSE_TIME, seekBar.getProgress());
                 playIntent.setAction(Action.SEEK_TO.getValue());
@@ -88,23 +88,20 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void processTime(Intent intent) {
-//        if (mLength == 0) {
         mLength = intent.getIntExtra(MusicService.KEY_TIME, 0);
         mSeekBar.setMax(mLength);
-        mTvTime.setText(getTime(mLength));
-//            mSeekBar.setProgress(0);
-//            return;
-//        }
+        mTvTime.setText(Utils.getTime(mLength));
+
         int position = intent.getIntExtra(MusicService.KEY_CURRENT_TIME, 0);
         Log.d(TAG, "processTime: " + position);
         mSeekBar.setProgress(position);
-        mTvCurrentTime.setText(getTime(position));
+        mTvCurrentTime.setText(Utils.getTime(position));
     }
 
     private void initState() {
-        mBtnPlayStatus = STOP_STATUS;
-        mBtnShuffleStatus = NO_SHUFFLE;
-        mBtnRepeatStatus = NO_REPEAT;
+        mImgPlayStatus = STOP_STATUS;
+        mImgShuffleStatus = NO_SHUFFLE;
+        mImgRepeatStatus = NO_REPEAT;
         mPosition = 0;
     }
 
@@ -125,15 +122,15 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mImgPlay = (ImageView) findViewById(R.id.imgPlay);
         mImgNext = (ImageView) findViewById(R.id.imgNext);
         mImgRepeat = (ImageView) findViewById(R.id.imgRepeat);
-        mSeekBar = (SeekBar) findViewById(R.id.seekBar);
+        mSeekBar = (SeekBar) findViewById(R.id.progressBar);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgPlay:
-                if (mBtnPlayStatus == STOP_STATUS) {
-                    mBtnPlayStatus = PLAY_STATUS;
+                if (mImgPlayStatus == STOP_STATUS) {
+                    mImgPlayStatus = PLAY_STATUS;
 
                     sendPlayStatus();
 
@@ -146,8 +143,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
                     break;
                 }
-                if (mBtnPlayStatus == PLAY_STATUS) {
-                    mBtnPlayStatus = PAUSE_STATUS;
+                if (mImgPlayStatus == PLAY_STATUS) {
+                    mImgPlayStatus = PAUSE_STATUS;
 
                     sendPlayStatus();
 
@@ -159,8 +156,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
                     break;
                 }
-                if (mBtnPlayStatus == PAUSE_STATUS) {
-                    mBtnPlayStatus = PLAY_STATUS;
+                if (mImgPlayStatus == PAUSE_STATUS) {
+                    mImgPlayStatus = PLAY_STATUS;
 
                     sendPlayStatus();
 
@@ -173,13 +170,13 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                     break;
                 }
             case R.id.imgShuffle:
-                if (mBtnShuffleStatus == NO_SHUFFLE) {
+                if (mImgShuffleStatus == NO_SHUFFLE) {
                     mImgShuffle.setImageResource(R.drawable.ic_shuffle_red_700_24dp);
-                    mBtnShuffleStatus = SHUFFLE;
+                    mImgShuffleStatus = SHUFFLE;
 
                 } else {
                     mImgShuffle.setImageResource(R.drawable.ic_shuffle_black_24dp);
-                    mBtnShuffleStatus = NO_SHUFFLE;
+                    mImgShuffleStatus = NO_SHUFFLE;
                 }
                 sendShuffleStatus();
                 break;
@@ -190,33 +187,25 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 sendNext();
                 break;
             case R.id.imgRepeat:
-                if (mBtnRepeatStatus == NO_REPEAT) {
+                if (mImgRepeatStatus == NO_REPEAT) {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_red_700_24dp);
-                    mBtnRepeatStatus = REPEAT;
+                    mImgRepeatStatus = REPEAT;
                     sendRepeatStatus();
                     break;
                 }
-                if (mBtnRepeatStatus == REPEAT) {
+                if (mImgRepeatStatus == REPEAT) {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_one_red_700_24dp);
-                    mBtnRepeatStatus = REPEAT_ONE;
+                    mImgRepeatStatus = REPEAT_ONE;
                     sendRepeatStatus();
                     break;
                 }
-                if (mBtnRepeatStatus == REPEAT_ONE) {
+                if (mImgRepeatStatus == REPEAT_ONE) {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_black_24dp);
-                    mBtnRepeatStatus = NO_REPEAT;
+                    mImgRepeatStatus = NO_REPEAT;
                     sendRepeatStatus();
                     break;
                 }
         }
-    }
-
-    private String getTime(int time) {
-        time /= 1000;
-        int minute = time / 60;
-        int second = time % 60;
-        return minute < 10 ? ("0" + minute + ":" + ((second < 10) ? "0" + second : second))
-                : (minute + ":" + ((second < 10) ? "0" + second : second));
     }
 
     private void sendNext() {
@@ -231,19 +220,19 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     private void sendPlayStatus() {
         Intent intentPlay = new Intent(Action.PLAY.getValue());
-        intentPlay.putExtra(KEY_PLAY_STATUS, mBtnPlayStatus);
+        intentPlay.putExtra(KEY_PLAY_STATUS, mImgPlayStatus);
         sendBroadcast(intentPlay);
     }
 
     private void sendShuffleStatus() {
         Intent intentShuffle = new Intent(Action.SHUFFLE.getValue());
-        intentShuffle.putExtra(KEY_SHUFFLE_STATUS, mBtnShuffleStatus);
+        intentShuffle.putExtra(KEY_SHUFFLE_STATUS, mImgShuffleStatus);
         sendBroadcast(intentShuffle);
     }
 
     private void sendRepeatStatus() {
         Intent intentRepeat = new Intent(Action.REPEAT.getValue());
-        intentRepeat.putExtra(KEY_LOOP_STATUS, mBtnRepeatStatus);
+        intentRepeat.putExtra(KEY_LOOP_STATUS, mImgRepeatStatus);
         sendBroadcast(intentRepeat);
     }
 
@@ -251,5 +240,12 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mBroadcastReceiver);
+    }
+
+    @Override
+    protected void onPause() {
+        Intent showNotificationIntent = new Intent(Action.SHOW.getValue());
+        sendBroadcast(showNotificationIntent);
+        super.onPause();
     }
 }
