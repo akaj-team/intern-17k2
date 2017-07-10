@@ -332,7 +332,7 @@ public class MusicService extends Service {
         } else {
             stopSelf();
         }
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     @Override
@@ -340,9 +340,11 @@ public class MusicService extends Service {
         super.onDestroy();
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
+            Log.e(TAG, "onDestroy: " + 1);
         }
         if (mMediaPlayer != null) {
             mMediaPlayer.release();
+            Log.e(TAG, "onDestroy: ");
         }
         stopSelf();
     }

@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgItemMusic"
             android:layout_width="@dimen/item.image_size"
             android:layout_height="@dimen/item.image_size"

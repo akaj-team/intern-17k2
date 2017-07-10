@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day20.model.Song;
 
@@ -81,13 +82,13 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ItemViewHold
 
         private TextView mTvSong;
         private TextView mTvSinger;
-        private ImageView mImgMusic;
+        private CircleImageView mImgMusic;
 
         ItemViewHolder(View itemView) {
             super(itemView);
             mTvSong = (TextView) itemView.findViewById(R.id.tvSongName);
             mTvSinger = (TextView) itemView.findViewById(R.id.tvSinger);
-            mImgMusic = (ImageView) itemView.findViewById(R.id.imgItemMusic);
+            mImgMusic = (CircleImageView) itemView.findViewById(R.id.imgItemMusic);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

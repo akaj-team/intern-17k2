@@ -70,6 +70,7 @@ public class MusicFragment extends Fragment {
                         if (mDuration != -1) {
                             startAnimation(mDuration);
                         }
+                        break;
                     case CURRENT_TIME:
                         showSeekBar(intent.getIntExtra("secondInt", -1), mDuration);
                         mCurrentTime.setText(showTime(intent.getIntExtra("secondInt", -1)));
@@ -263,5 +264,11 @@ public class MusicFragment extends Fragment {
         intentFilter.addAction(SONG_PREVIOUS);
         intentFilter.addAction(SONG_NEXT);
         getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mBroadcastReceiver);
     }
 }
