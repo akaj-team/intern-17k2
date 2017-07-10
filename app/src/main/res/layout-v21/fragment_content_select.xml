@@ -100,5 +100,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/button.text.ex19" />
+
+        <Button
+            android:id="@+id/btnEx24"
+            style="@style/ButtonNormalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button.text.ex24" />
     </LinearLayout>
 </ScrollView>
