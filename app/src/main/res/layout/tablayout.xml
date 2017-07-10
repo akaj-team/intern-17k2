@@ -7,7 +7,7 @@
     <vn.asiantech.internship.exday16.CustomTab
         android:id="@+id/myView"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="21dp"
         android:background="@android:color/transparent" />
 
     <TextView
