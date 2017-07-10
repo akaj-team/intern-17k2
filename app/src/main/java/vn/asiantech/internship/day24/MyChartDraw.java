@@ -17,7 +17,7 @@ import vn.asiantech.internship.R;
  * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 07/07/2017.
  */
-public class MyChartDraw extends View {
+public class MyChartDraw extends View implements View.OnTouchListener {
     private static final int MARGIN_LEFT = 50;
     private static final int MARGIN_RIGHT = 10;
     private static final int MARGIN_TOP = 50;
@@ -27,7 +27,7 @@ public class MyChartDraw extends View {
     private static final float MAX_ZOOM = 4f;
 
     private float scaleFactor = 1f;
-    private ScaleGestureDetector detector;
+    private ScaleGestureDetector mDetector;
 
     // These constants specify the mMode that we're in
     private static final int NONE = 0;
@@ -65,63 +65,12 @@ public class MyChartDraw extends View {
         super(context, attrs);
         initPaint1();
         initPaint2();
-        detector = new ScaleGestureDetector(getContext(), new ScaleListener());
+        mDetector = new ScaleGestureDetector(getContext(), new ScaleListener());
+        setOnTouchListener(this);
     }
 
     public MyChartDraw(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
-
-            case MotionEvent.ACTION_DOWN:
-                mMode = DRAG;
-                mStartX = event.getX() - mPreviousTranslateX;
-                mStartY = event.getY() - mPreviousTranslateY;
-                break;
-
-            case MotionEvent.ACTION_MOVE:
-                mTranslateX = event.getX() - mStartX;
-                mTranslateY = event.getY() - mStartY;
-
-                double distance = Math.sqrt(Math.pow(event.getX() - (mStartX + mPreviousTranslateX), 2) +
-                        Math.pow(event.getY() - (mStartY + mPreviousTranslateY), 2)
-                );
-
-                if (distance > 0) {
-                    dragged = true;
-                }
-
-                break;
-
-            case MotionEvent.ACTION_POINTER_DOWN:
-                mMode = ZOOM;
-                dragged = false;
-                break;
-
-            case MotionEvent.ACTION_UP:
-                mMode = NONE;
-                dragged = false;
-                mPreviousTranslateX = mTranslateX;
-                mPreviousTranslateY = mTranslateY;
-                break;
-
-            case MotionEvent.ACTION_POINTER_UP:
-                dragged = false;
-                mMode = DRAG;
-                mPreviousTranslateX = mTranslateX;
-                mPreviousTranslateY = mTranslateY;
-                break;
-        }
-
-        detector.onTouchEvent(event);
-
-        if ((mMode == DRAG && scaleFactor != 1f && dragged) || mMode == ZOOM) {
-            invalidate();
-        }
-        return true;
     }
 
     @Override
@@ -192,18 +141,70 @@ public class MyChartDraw extends View {
     }
 
     private void ptDoThi(float a, float b, float c, Canvas canvas) {
-        float width = getWidth() / SCALE;
-        float xT = -width / 2;
-        float yT = a * xT * xT + b * xT + c;
+        double width = getWidth() / SCALE;
+        double xT = -width / 2;
+        double yT = a * xT * xT + b * xT + c;
 
-        for (float i = -width / 2; i < width / 2; i += 0.05f) {
-            float y = a * i * i + b * i + c;
+        for (double i = -width / 2; i < width / 2; i += 0.05f) {
+            double y = a * i * i + b * i + c;
             if ((getHeight() / 2 - yT * SCALE) < getHeight() && (getHeight() / 2 - yT * SCALE) > 0 && (getHeight() / 2 - y * SCALE) < getHeight() && (getHeight() / 2 - y * SCALE) > 0) {
-                canvas.drawLine(getWidth() / 2 + xT * SCALE + mTranslateX, getHeight() / 2 - yT * SCALE + mTranslateY, getWidth() / 2 + i * SCALE + mTranslateX, getHeight() / 2 - y * SCALE + mTranslateY, mPaint2);
+                canvas.drawLine((float) (getWidth() / 2 + xT * SCALE + mTranslateX), (float) (getHeight() / 2 - yT * SCALE + mTranslateY), (float) (getWidth() / 2 + i * SCALE + mTranslateX), (float) (getHeight() / 2 - y * SCALE + mTranslateY), mPaint2);
             }
             xT = i;
             yT = y;
         }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+
+            case MotionEvent.ACTION_DOWN:
+                mMode = DRAG;
+                mStartX = event.getX() - mPreviousTranslateX;
+                mStartY = event.getY() - mPreviousTranslateY;
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                mTranslateX = event.getX() - mStartX;
+                mTranslateY = event.getY() - mStartY;
+
+                double distance = Math.sqrt(Math.pow(event.getX() - (mStartX + mPreviousTranslateX), 2) +
+                        Math.pow(event.getY() - (mStartY + mPreviousTranslateY), 2)
+                );
+
+                if (distance > 0) {
+                    dragged = true;
+                }
+
+                break;
+
+            case MotionEvent.ACTION_POINTER_DOWN:
+                mMode = ZOOM;
+                dragged = false;
+                break;
+
+            case MotionEvent.ACTION_UP:
+                mMode = NONE;
+                dragged = false;
+                mPreviousTranslateX = mTranslateX;
+                mPreviousTranslateY = mTranslateY;
+                break;
+
+            case MotionEvent.ACTION_POINTER_UP:
+                dragged = false;
+                mMode = DRAG;
+                mPreviousTranslateX = mTranslateX;
+                mPreviousTranslateY = mTranslateY;
+                break;
+        }
+
+        mDetector.onTouchEvent(event);
+
+        if ((mMode == DRAG && scaleFactor != 1f && dragged) || mMode == ZOOM) {
+            invalidate();
+        }
+        return true;
     }
 
     /**
