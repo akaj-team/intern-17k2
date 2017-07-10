@@ -18,7 +18,6 @@ import okhttp3.Response;
 /**
  * Created by at-dinhvo on 05/07/2017.
  */
-
 class FileUpload extends AsyncTask<String, Integer, String> {
 
     private static final String URL = "http://2.pik.vn/";
