@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by Thanh Thien on 7/7/2017.
  * CustomCanvas
@@ -168,7 +170,7 @@ public class CustomCanvas extends View {
         drawPositionY(canvas, positionX, positionY, mValues[1]);
     }
 
-    private void drawPositionY(Canvas canvas, float positionX, float positionY, float value) {
+    private void drawPositionY(Canvas canvas, float positionX, float positionY, int value) {
         if (getHeight() - (mOneLine * value) <= MARGIN * 1.5) {
             return;
         }
@@ -182,8 +184,10 @@ public class CustomCanvas extends View {
         } else {
             y = positionY - mOneLine * value;
         }
-        canvas.drawCircle(positionX, y, 7 + (mScale * 0.05f), mPaints[0]);
-        canvas.drawText(value + "", positionX - ARROW_HEIGHT * 1.5f, y, mPaints[2]);
+        if (value<=26) {
+            canvas.drawCircle(positionX, y, 7 + (mScale * 0.05f), mPaints[0]);
+            canvas.drawText(value + "", positionX - ARROW_HEIGHT * 1.5f, y, mPaints[2]);
+        }
         value++;
         try {
             drawPositionY(canvas, positionX, positionY, value);
@@ -192,7 +196,7 @@ public class CustomCanvas extends View {
         }
     }
 
-    private void drawPositionX(Canvas canvas, float positionX, float positionY, float value) {
+    private void drawPositionX(Canvas canvas, float positionX, float positionY, int value) {
         if (mOneLine * value >= getWidth() - (MARGIN * 1.5)) {
             return;
         }
@@ -206,8 +210,10 @@ public class CustomCanvas extends View {
         } else {
             x = positionX + mOneLine * value;
         }
-        canvas.drawCircle(x, positionY, 7 + (mScale * 0.05f), mPaints[0]);
-        canvas.drawText(value + "", x, positionY + ARROW_HEIGHT * 1.5f, mPaints[2]);
+        if (value <= 13) {
+            canvas.drawCircle(x, positionY, 7 + (mScale * 0.05f), mPaints[0]);
+            canvas.drawText(value + "", x, positionY + ARROW_HEIGHT * 1.5f, mPaints[2]);
+        }
         value++;
         try {
             drawPositionX(canvas, positionX, positionY, value);
@@ -289,5 +295,18 @@ public class CustomCanvas extends View {
             mScale -= 5;
             mCanScales[1] = true;
         }
+    }
+
+    private Integer getInt(Float f) {
+        String str;
+        int i = 0;
+        try {
+            DecimalFormat df = new DecimalFormat("0");
+            str = df.format(f);
+            i = Integer.valueOf(str);
+        } catch (NumberFormatException e) {
+            Log.d(TAG, "getInt: " + e.toString());
+        }
+        return i;
     }
 }
