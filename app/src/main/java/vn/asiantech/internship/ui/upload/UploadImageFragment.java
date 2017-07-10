@@ -41,7 +41,7 @@ import okhttp3.Response;
 import vn.asiantech.internship.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * UploadImageFragment
  */
 public class UploadImageFragment extends Fragment {
 
@@ -72,7 +72,7 @@ public class UploadImageFragment extends Fragment {
                 if (!TextUtils.equals(mBase64, "")) {
                     new UploadToNetwork().execute(URL_HOST);
                 } else {
-                    Toast.makeText(getContext(), "Please choice image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.error_message_please_choice_image), Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -104,16 +104,7 @@ public class UploadImageFragment extends Fragment {
                 .build();
 
         Response response = client.newCall(request).execute();
-        String s = "";
-        try {
-            s = response.body().string();
-            Log.d(TAG, "post: " + base64);
-            Log.d(TAG, "post: " + response);
-            Log.d(TAG, "post: " + s);
-        } catch (NullPointerException e) {
-            Log.e(TAG, "ERROR: " + e);
-        }
-        return s;
+        return response.body().string();
     }
 
     @Override
@@ -150,13 +141,13 @@ public class UploadImageFragment extends Fragment {
                                 bmpFactoryOptions);
 
                         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                        bmp.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                         byte[] byteArray = byteArrayOutputStream.toByteArray();
                         mBase64 = Base64.encodeToString(byteArray, Base64.NO_WRAP);
-                        mBase64 = "image=data:image/jpeg;base64," + mBase64;
+                        mBase64 = "image=data:image/png;base64," + mBase64;
                         mBase64 = URLEncoder.encode(mBase64, "UTF-8");
                     } catch (FileNotFoundException | UnsupportedEncodingException e) {
-                        Log.e("ERROR", e.toString());
+                        Log.e("onActivityResult ", e.toString());
                     }
                     break;
             }
@@ -173,7 +164,7 @@ public class UploadImageFragment extends Fragment {
             try {
                 s = post(params[0], mBase64);
             } catch (IOException e) {
-                Log.e("ERROR", e.toString());
+                Log.e("IOException", e.toString());
             }
             return s;
         }
@@ -193,7 +184,7 @@ public class UploadImageFragment extends Fragment {
                     Toast.makeText(getContext(), getString(R.string.error_message_load_fail), Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
-                Log.e("ERROR", e.toString());
+                Log.e("JSONException", e.toString());
             }
             super.onPostExecute(s);
         }

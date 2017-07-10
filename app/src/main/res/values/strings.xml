@@ -11,6 +11,7 @@
     <string name="error.message.error">error !!</string>
     <string name="error.message.please_enter_text">Please enter text..</string>
     <string name="error.message.load_fail">Load fail !!</string>
+    <string name="error.message.please_choice_image">Please choice image</string>
     <string name="title">title</string>
     <string name="button.text.ex05">ex 05</string>
     <string name="button.text.ex06">ex 06</string>
