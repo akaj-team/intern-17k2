@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -25,6 +27,7 @@ public class CustomView extends View {
     private static final int TEXT_SIZE = 30;
     private float mScaleFactor = 1.0f;
     private List<Point> mPoints = new ArrayList<>();
+    private Point mPoint;
 
     private ScaleGestureDetector mScaleGestureDetector;
     private Paint mPaint;
@@ -46,7 +49,9 @@ public class CustomView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
-        canvas.scale(mScaleFactor, mScaleFactor);
+        if (mPoint != null) {
+            canvas.scale(mScaleFactor, mScaleFactor, mPoint.getX(), mPoint.getY());
+        }
         drawAxis(canvas);
         drawNarrow(canvas);
         calculate(3, -4, 1);
@@ -96,7 +101,7 @@ public class CustomView extends View {
     }
 
     private void calculate(int a, int b, int c) {
-        for (double i = -3; i < 3; i = i + 0.05f) {
+        for (double i = -getWidth() / 50; i < getWidth() / 50; i = i + 0.1f) {
             mPoints.add(new Point((float) (getWidth() / 2 + i * 50), (float) (getHeight() / 2 - (a * i * i + b * i + c) * 50)));
         }
     }
@@ -118,6 +123,8 @@ public class CustomView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mScaleGestureDetector.onTouchEvent(event);
+        int index = MotionEventCompat.getActionIndex(event);
+        mPoint = new Point(event.getX(index), event.getY(index));
         invalidate();
         return true;
     }
