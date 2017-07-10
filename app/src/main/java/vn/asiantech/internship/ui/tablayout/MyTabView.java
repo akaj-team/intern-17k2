@@ -83,8 +83,8 @@ public class MyTabView extends View {
 
         canvas.drawLine(0, positionY, lengthOfOne * position - lengthOfOne, positionY, mPaints[0]);
         canvas.drawLine(lengthOfOne * position, positionY, getWidth(), positionY, mPaints[0]);
-        canvas.drawArc(new RectF(lengthOfOne * position - lengthOfOne, 8, lengthOfOne * position, getHeight() / 3), 180, 178, false, mPaints[4]);
-        canvas.drawArc(new RectF(lengthOfOne * position - lengthOfOne, 8, lengthOfOne * position, getHeight() / 3), 180, 178, false, mPaints[2]);
+        canvas.drawArc(new RectF(lengthOfOne * position - lengthOfOne, 8, lengthOfOne * position, getHeight() / 3), 177, 192, false, mPaints[4]);
+        canvas.drawArc(new RectF(lengthOfOne * position - lengthOfOne, 8, lengthOfOne * position, getHeight() / 3), 177, 192, false, mPaints[2]);
     }
 
     private void drawTouchStyle(Canvas canvas, float position) {
