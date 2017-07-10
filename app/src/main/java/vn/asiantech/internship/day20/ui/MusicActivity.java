@@ -30,6 +30,7 @@ public class MusicActivity extends AppCompatActivity {
 
     public static final String KEY_POS = "position";
     public static final String KEY_LIST = "list_data";
+
     private FrameLayout mFrameLayout;
     private RecyclerView mRecyclerView;
 

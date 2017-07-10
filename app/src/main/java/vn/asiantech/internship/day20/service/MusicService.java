@@ -40,7 +40,6 @@ public class MusicService extends Service {
     public static final String TAG = "at-dinhvo";
     public static final String POS_DATA = "pos_data";
     public static final String DURATION = "duration";
-    public static final String KEY_TIME = "time";
     public static final String KEY_TIME_INT = "timeInt";
     public static final String KEY_SECOND_INT = "secondInt";
 
@@ -325,6 +324,7 @@ public class MusicService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e(TAG, "onStartCommand:");
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         if (intent != null && intent.getParcelableArrayListExtra(MusicActivity.KEY_LIST) != null) {
