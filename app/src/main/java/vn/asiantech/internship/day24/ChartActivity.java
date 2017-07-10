@@ -5,6 +5,10 @@ import android.os.Bundle;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Copyright © 2017 AsianTech inc.
+ * Created by at-hoavo on 07/07/2017.
+ */
 public class ChartActivity extends AppCompatActivity {
 
     @Override

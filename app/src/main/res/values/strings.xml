@@ -49,6 +49,9 @@
     <string name="dismiss_dialog">Do you want to reset Quiz app?</string>
     <string name="question">Question %d</string>
     <string name="question_order">You answered %s, Do you want to go to Result Screen?</string>
+    <string name="goc_O">O</string>
+    <string name="truc_X">X</string>
+    <string name="truc_Y">Y</string>
     <string-array name="tabtitles">
         <item name="bike">bike</item>
         <item name="dog">dog</item>
