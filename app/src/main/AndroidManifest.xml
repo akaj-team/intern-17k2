@@ -19,6 +19,7 @@
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -35,5 +36,8 @@
         <service
             android:name=".ui.music.NotificationServiceMusic"
             android:enabled="true" />
-        </application>
+
+        <activity android:name=".ui.testcase.RegisterActivity"></activity>
+    </application>
+
 </manifest>
