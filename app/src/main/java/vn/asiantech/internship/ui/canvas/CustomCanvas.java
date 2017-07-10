@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.text.DecimalFormat;
-
 /**
  * Created by Thanh Thien on 7/7/2017.
  * CustomCanvas
@@ -295,18 +293,5 @@ public class CustomCanvas extends View {
             mScale -= 5;
             mCanScales[1] = true;
         }
-    }
-
-    private Integer getInt(Float f) {
-        String str;
-        int i = 0;
-        try {
-            DecimalFormat df = new DecimalFormat("0");
-            str = df.format(f);
-            i = Integer.valueOf(str);
-        } catch (NumberFormatException e) {
-            Log.d(TAG, "getInt: " + e.toString());
-        }
-        return i;
     }
 }
