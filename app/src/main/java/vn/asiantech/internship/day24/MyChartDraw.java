@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PointF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -28,6 +29,7 @@ public class MyChartDraw extends View implements View.OnTouchListener {
 
     private float scaleFactor = 1f;
     private ScaleGestureDetector mDetector;
+    private PointF mPoint;
 
     // These constants specify the mMode that we're in
     private static final int NONE = 0;
@@ -79,7 +81,9 @@ public class MyChartDraw extends View implements View.OnTouchListener {
 
         // We're going to scale the X and Y coordinates by the same amount
         canvas.save();
-        canvas.scale(scaleFactor, scaleFactor);
+        if (mPoint != null) {
+            canvas.scale(scaleFactor, scaleFactor, mPoint.x, mPoint.y);
+        }
 
         // If mTranslateX times -1 is lesser than zero, let's set it to zero. This takes care of the left bound
         if ((mTranslateX * -1) < 0) {
@@ -181,6 +185,11 @@ public class MyChartDraw extends View implements View.OnTouchListener {
 
             case MotionEvent.ACTION_POINTER_DOWN:
                 mMode = ZOOM;
+                if (mPoint == null) {
+                    mPoint = new PointF();
+                }
+                mPoint.x = event.getX(event.getActionIndex());
+                mPoint.y = event.getY(event.getActionIndex());
                 dragged = false;
                 break;
 
