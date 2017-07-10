@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import vn.asiantech.internship.R;
 
+/**
+ * MusicActivity show control
+ */
 public class MusicActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = MusicActivity.class.getSimpleName();
     public static final int STOP_STATUS = 0;

@@ -191,6 +191,9 @@ public class MusicService extends Service {
         mNotificationManager.notify(mNotificationId, mBuilder.build());
     }
 
+    /**
+     * StatusBroadcastReceiver receive status
+     */
     class StatusBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
