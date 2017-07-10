@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/paddingSomeThings"
+            android:id="@+id/tvDescription"
             android:text="@string/textview.text.description" />
     </LinearLayout>
 
@@ -57,13 +58,6 @@
         android:layout_toRightOf="@id/imgAvatar"
         android:layout_toEndOf="@id/imgAvatar"
         android:background="@color/friendsColorPrimaryDark" />
-
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/paddingSomeThings"
-        android:text="@string/textview.text.description" />
 
     <View
         android:layout_width="match_parent"
