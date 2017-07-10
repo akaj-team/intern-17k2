@@ -8,6 +8,7 @@
     <string name="baiQuestion">Question</string>
     <string name="bai13">Bai13</string>
     <string name="bai16">Bai16</string>
+    <string name="bai26">Bai26</string>
     <!--Bai7-->
     <string name="textView_input">Input Text</string>
     <string name="friendFragment_button_friend_state">Friend</string>
