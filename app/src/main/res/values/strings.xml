@@ -59,6 +59,11 @@
     <string name="button.text.ex19">Ex 19</string>
     <string name="error_message_you_must_play_first">You must play first</string>
     <string name="start">00:00</string>
+    <string name="progress.please_wait">Please wait…</string>
+    <string name="button.text.ex22">Ex 22</string>
+    <string name="textview.text.name">Name: </string>
+    <string name="textview.text.email">Email: </string>
+    <string name="textview.text.phone">Phone: </string>
 
     <string-array name="Sliders">
         <item>Cube Pager Transformer</item>

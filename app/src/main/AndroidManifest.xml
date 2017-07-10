@@ -31,6 +31,7 @@
         <activity android:name=".ui.ninepatch.ChatActivity" />
         <activity android:name=".ui.music.MusicActivity" />
         <activity android:name=".ui.tablayout.ViewPagerActivity" />
+        <activity android:name=".ui.anotation.ContactActivity_" />
 
         <service
             android:name=".ui.music.NotificationServiceMusic"
