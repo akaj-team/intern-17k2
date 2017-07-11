@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.IBinder;
@@ -44,7 +45,6 @@ public class MusicService extends Service {
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mNotificationManager;
     private RemoteViews mRemoteViews;
-    private RemoteViews mRemoteViewsSmall;
     private String[] mSongNames;
     private String[] mArtists;
     private PendingIntent mPendingIntent;
@@ -54,10 +54,10 @@ public class MusicService extends Service {
     public void onCreate() {
         super.onCreate();
         mUrls = new ArrayList<>();
-        mUrls.add("http://zmp3-mp3-s1-te-zmp3-fpthcm-1.zadn.vn/e7563f83e7c70e9957d6/727637092126384063?key=FaBy9qizMNA8fL04XHgnwQ&expires=1499727453");
-        mUrls.add("http://zmp3-mp3-s1-te-zmp3-fpthcm-1.zadn.vn/bd48c43e657a8c24d56b/8699665750036675704?key=XIVM7F8HoFaJXHoJHtMNXw&expires=1499729390");
-        mUrls.add("http://zmp3-mp3-s1-te-vnso-tn-8.zadn.vn/8fcd13c21b86f2d8ab97/8208839230443218911?key=ciN9WIlgrK7moANpgD0etA&expires=1499729440");
-        mUrls.add("http://zmp3-mp3-s1-te-zmp3-fpthcm-1.zadn.vn/233f19a477e09ebec7f1/7720256713557916913?key=8GLqedajvi-o0x-BB2jGww&expires=1499729505");
+        mUrls.add("http://zmp3-mp3-s1-te-zmp3-fpthcm-1.zadn.vn/e7563f83e7c70e9957d6/727637092126384063?key=22YdQfCnnMElJ_mclwXaRw&expires=1499822177");
+        mUrls.add("http://zmp3-mp3-s1-te-vnso-qt-4.zadn.vn/bd48c43e657a8c24d56b/8699665750036675704?key=v3YZubQ610amL0vx5yLXrA&expires=1499821964");
+        mUrls.add("http://zmp3-mp3-s1-te-vnso-qt-4.zadn.vn/8fcd13c21b86f2d8ab97/8208839230443218911?key=7JRFx8J9Y-sJTHdcQQAT8w&expires=1499822001");
+        mUrls.add("http://zmp3-mp3-s1-te-zmp3-fpthcm-1.zadn.vn/233f19a477e09ebec7f1/7720256713557916913?key=3LM8sAXm3GgdgEKdKzt2aA&expires=1499822042");
 
         mSongNames = new String[]{"1234", "Cay bang", "chi la giac mo", "Mot dieu la mai mai"};
         mArtists = new String[]{"Chi Dan", "Buc tuong", "Microwave", "RoseWood"};
@@ -94,8 +94,10 @@ public class MusicService extends Service {
                 startCountDownTimer(mMediaPlayer.getDuration() - mLength);
                 Log.d(TAG, "onStartCommand: seek to " + mLength);
             } else if (intent.getAction().equals(Action.STOP.getValue())) {
-                stopForeground(true);
-                stopSelf();
+                if (mNotificationManager == null) {
+                    stopForeground(true);
+                    stopSelf();
+                }
             }
         }
         return START_STICKY;
@@ -214,11 +216,11 @@ public class MusicService extends Service {
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mPendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setSmallIcon(R.mipmap.ic_music)
-                .setAutoCancel(false)
+                .setAutoCancel(true)
                 .setPriority(FLAG_HIGH_PRIORITY)
                 .setCustomBigContentView(mRemoteViews)
                 .setContentIntent(mPendingIntent);
-
+        startForeground(mNotificationId, mBuilder.build());
         mNotificationManager.notify(mNotificationId, mBuilder.build());
     }
 
@@ -234,7 +236,7 @@ public class MusicService extends Service {
                 } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
                     mShuffleStatus = intent.getIntExtra(MusicActivity.KEY_SHUFFLE_STATUS, 0);
                 } else if (intent.getAction().equals(Action.REPEAT.getValue())) {
-                    mRepeatStatus = intent.getIntExtra(MusicActivity.KEY_LOOP_STATUS, 0);
+                    mRepeatStatus = intent.getIntExtra(MusicActivity.KEY_REPEAT_STATUS, 0);
                 } else if (intent.getAction().equals(Action.PREVIOUS.getValue())) {
                     if (mShuffleStatus == MusicActivity.SHUFFLE) {
                         Random random = new Random();
@@ -286,6 +288,14 @@ public class MusicService extends Service {
                 } else if (intent.getAction().equals(Action.SHOW.getValue())) {
                     if (mNotificationManager == null) {
                         showNotification();
+                    }
+                } else if (intent.getAction().equals(Action.CHANGE.getValue())) {
+                    if (mNotificationManager == null) {
+                        SharedPreferences sp = getApplicationContext().getSharedPreferences("status", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putInt(MusicActivity.KEY_PLAY_STATUS, MusicActivity.STOP_STATUS);
+                        editor.apply();
+                        editor.commit();
                     }
                 }
             }
