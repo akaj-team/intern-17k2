@@ -5,25 +5,25 @@ package vn.asiantech.internship.ui.testcase;
  * RegisterChecker
  */
 public class RegisterChecker {
-    private char[] mNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    private static char[] mNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
-    public boolean checkMaxLength(String s, int maxLength) {
+    public static boolean checkMaxLength(String s, int maxLength) {
         return s.length() <= maxLength;
     }
 
-    public boolean checkMinLength(String s, int minLength) {
+    public static boolean checkMinLength(String s, int minLength) {
         return s.length() >= minLength;
     }
 
-    public boolean checkSpace(String s) {
-        return s.contains(" ");
+    public static boolean checkSpace(String s) {
+        return s.indexOf(" ") == -1;
     }
 
-    public boolean isAlpha(String s) {
+    public static boolean isOnlyAlpha(String s) {
         return s.matches("[a-zA-Z0-9]+");
     }
 
-    public boolean hasNumber(String s) {
+    public static boolean hasNumber(String s) {
         int length = s.length();
         for (int i = 0; i < length; i++) {
             for (char num : mNumbers) {
@@ -35,7 +35,7 @@ public class RegisterChecker {
         return false;
     }
 
-    public boolean hasSymbol(String s) {
+    public static boolean hasSymbol(String s) {
         String specialCharacters = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~";
         String str2[] = s.split("");
         for (int i = 0; i < str2.length; i++) {
@@ -46,7 +46,7 @@ public class RegisterChecker {
         return false;
     }
 
-    public boolean hasUpChar(String s) {
+    public static boolean hasUpChar(String s) {
         String specialCharacters = "ZXCVBNMLKJHGFDSAQWERTYUIOP";
         String str2[] = s.split("");
         for (int i = 0; i < str2.length; i++) {
@@ -57,7 +57,7 @@ public class RegisterChecker {
         return false;
     }
 
-    public boolean hasUser(String password, String user) {
-        return !password.contains(user);
+    public static boolean hasUser(String password, String user) {
+        return !password.toLowerCase().contains(user.toLowerCase());
     }
 }
