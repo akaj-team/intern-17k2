@@ -20,10 +20,6 @@ public class Login {
         return (userName.length() >= 6 && userName.length() <= 24);
     }
 
-    public int checkUserNameLength1(String userName) {
-        return userName.length();
-    }
-
     public boolean checkTypeUserName(String userName) {
         char[] name = userName.trim().toCharArray();
         for (char key : name) {

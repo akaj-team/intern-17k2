@@ -5,7 +5,6 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import vn.asiantech.internship.day26.Login;
@@ -22,54 +21,53 @@ public class LoginUnitTest {
     @Mock
     private User mUser;
 
-    @Spy
-    private Login mLogin;
+    private Login mLogin = new Login();
 
     @Test
     public void checkUserNameLength() {
-        when(mUser.getmUserName()).thenReturn("helloWorld");
-        Assert.assertTrue(mLogin.checkUserNameLength(mUser.getmUserName()));
+        when(mUser.getUserName()).thenReturn("helloWorld");
+        Assert.assertTrue(mLogin.checkUserNameLength(mUser.getUserName()));
     }
 
     @Test
     public void checkIgnoreUpperCase() {
-        when(mUser.getmUserName()).thenReturn("helloworld");
-        Assert.assertTrue(mLogin.checkUpperCase(mUser.getmUserName(), "heLLoWorld"));
+        when(mUser.getUserName()).thenReturn("helloworld");
+        Assert.assertTrue(mLogin.checkUpperCase(mUser.getUserName(), "heLLoWorld"));
     }
 
     @Test
     public void checkUserType() {
-        when(mUser.getmUserName()).thenReturn("helloWorld777");
-        Assert.assertTrue(mLogin.checkTypeUserName(mUser.getmUserName()));
+        when(mUser.getUserName()).thenReturn("helloWorld777");
+        Assert.assertTrue(mLogin.checkTypeUserName(mUser.getUserName()));
     }
 
     @Test
     public void checkPasswordLength() {
-        when(mUser.getmPassword()).thenReturn("PhiLongTaiThien2017!!");
-        Assert.assertTrue(mLogin.checkPasswordLength(mUser.getmPassword()));
+        when(mUser.getPassword()).thenReturn("PhiLongTaiThien2017!!");
+        Assert.assertTrue(mLogin.checkPasswordLength(mUser.getPassword()));
     }
 
     @Test
     public void checkSpecialCharacter() {
-        when(mUser.getmPassword()).thenReturn("Philongtaithien1119%");
-        Assert.assertTrue(mLogin.checkSpecialCharacter(mUser.getmPassword()));
+        when(mUser.getPassword()).thenReturn("Philongtaithien1119%");
+        Assert.assertTrue(mLogin.checkSpecialCharacter(mUser.getPassword()));
     }
 
     @Test
     public void checkCountNumber() {
-        when(mUser.getmPassword()).thenReturn("Philongtaithien3*");
-        Assert.assertTrue(mLogin.checkNumber(mUser.getmPassword()));
+        when(mUser.getPassword()).thenReturn("Philongtaithien3*");
+        Assert.assertTrue(mLogin.checkNumber(mUser.getPassword()));
     }
 
     @Test
     public void checkUpperCase() {
-        when(mUser.getmPassword()).thenReturn("Philongtaithien");
-        Assert.assertTrue(mLogin.checkPasswordUpperCase(mUser.getmPassword()));
+        when(mUser.getPassword()).thenReturn("Philongtaithien");
+        Assert.assertTrue(mLogin.checkPasswordUpperCase(mUser.getPassword()));
     }
 
     @Test
     public void checkPasswordType() {
-        when(mUser.getmPassword()).thenReturn("Philongtaithien3339/");
-        Assert.assertTrue(mLogin.checkTypePassword(mUser.getmPassword()));
+        when(mUser.getPassword()).thenReturn("Philongtaithien3339/");
+        Assert.assertTrue(mLogin.checkTypePassword(mUser.getPassword()));
     }
 }

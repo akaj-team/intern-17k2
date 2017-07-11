@@ -6,27 +6,27 @@ package vn.asiantech.internship.day26;
 
 public class User {
 
-    private String mUserName;
-    private String mPassword;
+    private String userName;
+    private String password;
 
-    public User(String mUserName, String mPassword) {
-        this.mUserName = mUserName;
-        this.mPassword = mPassword;
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
     }
 
-    public String getmUserName() {
-        return mUserName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setmUserName(String mUserName) {
-        this.mUserName = mUserName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getmPassword() {
-        return mPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setmPassword(String mPassword) {
-        this.mPassword = mPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
