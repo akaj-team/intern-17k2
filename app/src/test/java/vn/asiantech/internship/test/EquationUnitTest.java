@@ -27,13 +27,13 @@ public class EquationUnitTest {
         Mockito.when(mEquation.getA()).thenReturn("123");
         Assert.assertTrue(EquationValidation.checkFactorDigit(mEquation.getA()));
         Mockito.when(mEquation.getA()).thenReturn("a123");
-
         Assert.assertFalse(EquationValidation.checkFactorDigit(mEquation.getA()));
+
         Mockito.when(mEquation.getB()).thenReturn("123");
         Assert.assertTrue(EquationValidation.checkFactorDigit(mEquation.getB()));
         Mockito.when(mEquation.getB()).thenReturn("a123");
-
         Assert.assertFalse(EquationValidation.checkFactorDigit(mEquation.getB()));
+
         Mockito.when(mEquation.getC()).thenReturn("123");
         Assert.assertTrue(EquationValidation.checkFactorDigit(mEquation.getC()));
         Mockito.when(mEquation.getC()).thenReturn("a123");
@@ -52,10 +52,10 @@ public class EquationUnitTest {
 
     @Test
     public void checkCondition() {
-        Assert.assertEquals(EquationValidation.checkCondition(0, 0, 0), "VoSoNghiem");
-        Assert.assertEquals(EquationValidation.checkCondition(0, 0, 6), "0");
-        Assert.assertEquals(EquationValidation.checkCondition(0, 5, 6), "1");
-        Assert.assertEquals(EquationValidation.checkCondition(1, 0, 0), "TinhDenta");
+        Assert.assertEquals(EquationValidation.checkDataInput(0, 0, 0), "VoSoNghiem");
+        Assert.assertEquals(EquationValidation.checkDataInput(0, 0, 6), "0");
+        Assert.assertEquals(EquationValidation.checkDataInput(0, 5, 6), "1");
+        Assert.assertEquals(EquationValidation.checkDataInput(1, 0, 0), "TinhDenta");
     }
 
     @Test

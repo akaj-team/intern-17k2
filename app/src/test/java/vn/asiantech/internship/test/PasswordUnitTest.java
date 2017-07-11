@@ -44,6 +44,10 @@ public class PasswordUnitTest {
         Assert.assertFalse(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
         Mockito.when(mUser.getPassword()).thenReturn("1234");
         Assert.assertFalse(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
+        Mockito.when(mUser.getPassword()).thenReturn("abcd1234");
+        Assert.assertFalse(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
+        Mockito.when(mUser.getPassword()).thenReturn("abcd1234*");
+        Assert.assertFalse(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
     }
 
     @Test

@@ -48,15 +48,15 @@ public class EquationActivity extends AppCompatActivity {
     }
 
     private void calculate(int a, int b, int c) {
-        EquationValidation.checkCondition(a, b, c);
-        if (TextUtils.equals(EquationValidation.checkCondition(a, b, c), "VoSoNghiem")) {
+        EquationValidation.checkDataInput(a, b, c);
+        if (TextUtils.equals(EquationValidation.checkDataInput(a, b, c), "VoSoNghiem")) {
             mTvResult.setText(R.string.text_vosonghiem);
-        } else if (TextUtils.equals(EquationValidation.checkCondition(a, b, c), "0")) {
+        } else if (TextUtils.equals(EquationValidation.checkDataInput(a, b, c), "0")) {
             mTvResult.setText(R.string.text_vonghiem);
-        } else if (TextUtils.equals(EquationValidation.checkCondition(a, b, c), "1")) {
+        } else if (TextUtils.equals(EquationValidation.checkDataInput(a, b, c), "1")) {
             mTvResult.setText(String.valueOf(R.string.text_1nghiem + (float) -c / b));
 
-        } else if (TextUtils.equals(EquationValidation.checkCondition(a, b, c), "TinhDenta")) {
+        } else if (TextUtils.equals(EquationValidation.checkDataInput(a, b, c), "TinhDenta")) {
             int denta = b * b - 4 * a * c;
             if (EquationValidation.checkDenta(denta) == 1) {
                 mTvResult.setText(String.valueOf(R.string.text_nghiemkep + EquationValidation.checkOneRoot(a, b)));

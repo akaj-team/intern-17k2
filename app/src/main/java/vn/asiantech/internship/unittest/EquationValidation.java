@@ -22,7 +22,7 @@ public final class EquationValidation {
         return flag;
     }
 
-    public static String checkCondition(int a, int b, int c) {
+    public static String checkDataInput(int a, int b, int c) {
         if (a == 0) {
             if (b == 0) {
                 if (c == 0) {

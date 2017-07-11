@@ -28,7 +28,7 @@ public class UserUnitTest {
         Assert.assertTrue(UserNameValidation.checkUserNameLength(mUser.getUserName()));
         Mockito.when(mUser.getUserName()).thenReturn("hoa");
         Assert.assertFalse(UserNameValidation.checkUserNameLength(mUser.getUserName()));
-        Mockito.when(mUser.getUserName()).thenReturn("0123456789abcdefghilttffdd");
+        Mockito.when(mUser.getUserName()).thenReturn("0123456789abcdefghiklmnopq");
         Assert.assertFalse(UserNameValidation.checkUserNameLength(mUser.getUserName()));
     }
 
