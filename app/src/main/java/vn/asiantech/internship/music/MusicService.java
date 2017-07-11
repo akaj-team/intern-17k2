@@ -206,7 +206,6 @@ public class MusicService extends Service {
 
         Intent clearIntent = new Intent();
         clearIntent.setAction(Action.CLEAR.getValue());
-        clearIntent.putExtra("id", mNotificationId);
         PendingIntent clearPendingIntent = PendingIntent.getBroadcast(this, 0, clearIntent, 0);
         mRemoteViews.setOnClickPendingIntent(R.id.imgClear, clearPendingIntent);
 
