@@ -25,6 +25,7 @@ import java.util.Random;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.ui.music.Action;
+import vn.asiantech.internship.ui.music.MusicActivity;
 
 /**
  *
@@ -37,6 +38,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private boolean mIsShuffle;
     private boolean mIsReplay;
     private CountDownTimer mCountDownTimer;
+    private int mPositionPlaying = -1;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -121,7 +123,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
             getBundle(intent);
-            playSongOnline(mSongs, mCurrentPosition);
+            if (mPositionPlaying == -1 ||  mPositionPlaying != mCurrentPosition) {
+                playSongOnline(mSongs, mCurrentPosition);
+            }
         }
         return START_STICKY;
     }
@@ -137,6 +141,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void playSongOnline(List<Song> songs, int position) {
+        mMediaPLayer.reset();
         Song song = songs.get(position);
         try {
             mMediaPLayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -145,6 +150,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         } catch (IOException e) {
             Log.e("IOException", "IOException" + e.getMessage());
         }
+        mPositionPlaying = position;
     }
 
     private void showNotification() {
@@ -154,6 +160,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         remoteViews.setTextViewText(R.id.tvNotificationArtist, song.getArtist());
         remoteViews.setTextColor(R.id.tvNotificationSongName, Color.BLACK);
         remoteViews.setTextColor(R.id.tvNotificationArtist, Color.BLACK);
+
+        Intent intent = new Intent(this, MusicActivity.class);
+        PendingIntent activityIntent = PendingIntent.getActivity(this, 0 , intent, 0);
 
         Intent nextIntent = new Intent(Action.NEXT_SONG.getValue());
         PendingIntent nextPendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, 0);
@@ -171,6 +180,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 .addAction(R.drawable.ic_skip_previous_black_24dp, null, previousPendingIntent)
                 .addAction(R.drawable.ic_skip_next_black_24dp, null, nextPendingIntent)
                 .addAction(R.drawable.ic_close_black_24dp, null, closeNotificationPendingIntent)
+                .setContentIntent(activityIntent)
                 .build();
         startForeground(1, builder);
     }

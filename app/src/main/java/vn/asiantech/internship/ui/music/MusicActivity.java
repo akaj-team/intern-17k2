@@ -22,6 +22,7 @@ import vn.asiantech.internship.services.MusicService;
 public class MusicActivity extends AppCompatActivity {
     private RecyclerView mRecyclerViewSong;
     private List<Song> mSongs;
+    private SongAdapter mSongAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +35,18 @@ public class MusicActivity extends AppCompatActivity {
 
     private void initAdapter() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        SongAdapter songAdapter = new SongAdapter(createSongs(), new SongAdapter.OnSelectSongListener() {
+        mSongAdapter = new SongAdapter(createSongs(), new SongAdapter.OnSelectSongListener() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(MusicActivity.this, SongPlayingActivity.class);
                 intent.putParcelableArrayListExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue(), (ArrayList<? extends Parcelable>) mSongs);
                 intent.putExtra(Action.KEY_BUNDLE_POSITION.getValue(), position);
                 startActivity(intent);
-                intentStartService(position, Action.START.getValue());
+                intentStartService(position);
             }
         });
         mRecyclerViewSong.setLayoutManager(linearLayoutManager);
-        mRecyclerViewSong.setAdapter(songAdapter);
+        mRecyclerViewSong.setAdapter(mSongAdapter);
     }
 
     public List<Song> createSongs() {
@@ -60,11 +61,15 @@ public class MusicActivity extends AppCompatActivity {
         return mSongs;
     }
 
-    public void intentStartService(int position, String action) {
+    public void intentStartService(int position) {
+        for (Song song : mSongs) {
+            song.setPlaying(false);
+        }
         Intent intent = new Intent(this, MusicService.class);
-        intent.setAction(action);
         intent.putParcelableArrayListExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue(), (ArrayList<? extends Parcelable>) mSongs);
         intent.putExtra(Action.KEY_BUNDLE_POSITION.getValue(), position);
         startService(intent);
+        mSongs.get(position).setPlaying(true);
+        mSongAdapter.notifyDataSetChanged();
     }
 }
