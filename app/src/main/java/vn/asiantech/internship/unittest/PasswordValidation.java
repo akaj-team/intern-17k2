@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
  * Author AsianTech Inc.
  * Created by sony on 11/07/2017.
  */
-public class PasswordValidation {
+public final class PasswordValidation {
 
     private PasswordValidation() {
     }
@@ -19,15 +19,15 @@ public class PasswordValidation {
         return !password.contains(" ");
     }
 
-    public static boolean checkPasswordHaveOneUpperCase_OneNumber_OneSpecialCharacter(String password) {
+    public static boolean checkPasswordRequirement(String password) {
         Pattern specialCharPatten = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
-        Pattern UpperCasePatten = Pattern.compile("[A-Z ]");
+        Pattern upperCasePatten = Pattern.compile("[A-Z ]");
         Pattern digitCasePatten = Pattern.compile("[0-9 ]");
         boolean flag = true;
         if (!specialCharPatten.matcher(password).find()) {
             flag = false;
         }
-        if (!UpperCasePatten.matcher(password).find()) {
+        if (!upperCasePatten.matcher(password).find()) {
             flag = false;
         }
         if (!digitCasePatten.matcher(password).find()) {

@@ -7,7 +7,7 @@ import java.util.List;
  * Author AsianTech Inc.
  * Created by sony on 11/07/2017.
  */
-public class EquationValidation {
+public final class EquationValidation {
 
     private EquationValidation() {
     }

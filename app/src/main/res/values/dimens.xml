@@ -55,7 +55,6 @@
     <dimen name="tab.title.size">8sp</dimen>
     <dimen name="customTab.height">15dp</dimen>
     <dimen name="tabLayout.height">80dp</dimen>
-    <dimen name="equation.linearLayout.margin_left_right">20dp</dimen>
     <dimen name="equation.editText.margin_top">30dp</dimen>
     <dimen name="equation.editText.small.margin_top">10dp</dimen>
     <dimen name="equation.text.size">20sp</dimen>

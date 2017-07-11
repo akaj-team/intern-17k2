@@ -4,7 +4,7 @@ package vn.asiantech.internship.unittest;
  * Author AsianTech Inc.
  * Created by sony on 10/07/2017.
  */
-public class UserNameValidation {
+public final class UserNameValidation {
     private UserNameValidation() {
     }
 

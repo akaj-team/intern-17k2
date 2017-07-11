@@ -54,14 +54,14 @@ public class EquationActivity extends AppCompatActivity {
         } else if (TextUtils.equals(EquationValidation.checkCondition(a, b, c), "0")) {
             mTvResult.setText(R.string.text_vonghiem);
         } else if (TextUtils.equals(EquationValidation.checkCondition(a, b, c), "1")) {
-            mTvResult.setText(R.string.text_1nghiem + (float) -c / b + "");
+            mTvResult.setText(String.valueOf(R.string.text_1nghiem + (float) -c / b));
 
         } else if (TextUtils.equals(EquationValidation.checkCondition(a, b, c), "TinhDenta")) {
             int denta = b * b - 4 * a * c;
             if (EquationValidation.checkDenta(denta) == 1) {
-                mTvResult.setText(R.string.text_nghiemkep + EquationValidation.checkOneRoot(a, b) + "");
+                mTvResult.setText(String.valueOf(R.string.text_nghiemkep + EquationValidation.checkOneRoot(a, b)));
             } else if (EquationValidation.checkDenta(denta) == 2) {
-                mTvResult.setText("Phuong trinh co 2 nghiem phan biet:\n x1 = " + EquationValidation.checkTwoRoot(a, b, denta).get(0) + "  x2 = " + EquationValidation.checkTwoRoot(a, b, denta).get(1));
+                mTvResult.setText(String.valueOf("Phuong trinh co 2 nghiem phan biet:\n x1 = " + EquationValidation.checkTwoRoot(a, b, denta).get(0) + "  x2 = " + EquationValidation.checkTwoRoot(a, b, denta).get(1)));
             } else if (EquationValidation.checkDenta(denta) == 0) {
                 mTvResult.setText(R.string.text_vonghiem);
             }

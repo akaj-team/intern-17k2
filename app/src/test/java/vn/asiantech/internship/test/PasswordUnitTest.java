@@ -39,11 +39,11 @@ public class PasswordUnitTest {
     @Test
     public void checkPasswordHaveOneUpperCase_OneNumber_OneSpecialCharacter() {
         Mockito.when(mUser.getPassword()).thenReturn("Abc123*");
-        Assert.assertTrue(PasswordValidation.checkPasswordHaveOneUpperCase_OneNumber_OneSpecialCharacter(mUser.getPassword()));
+        Assert.assertTrue(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
         Mockito.when(mUser.getPassword()).thenReturn("abcd");
-        Assert.assertFalse(PasswordValidation.checkPasswordHaveOneUpperCase_OneNumber_OneSpecialCharacter(mUser.getPassword()));
+        Assert.assertFalse(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
         Mockito.when(mUser.getPassword()).thenReturn("1234");
-        Assert.assertFalse(PasswordValidation.checkPasswordHaveOneUpperCase_OneNumber_OneSpecialCharacter(mUser.getPassword()));
+        Assert.assertFalse(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
     }
 
     @Test
