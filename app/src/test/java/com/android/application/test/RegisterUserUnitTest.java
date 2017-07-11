@@ -15,7 +15,7 @@ import vn.asiantech.internship.ui.testcase.UserTest;
  * UserTest
  */
 @RunWith(MockitoJUnitRunner.class)
-public class UserUnitTest {
+public class RegisterUserUnitTest {
     private static final int MIN_USER_LENGTH = 6;
     private static final int MAX_USER_LENGTH = 26;
 
@@ -57,9 +57,9 @@ public class UserUnitTest {
 
     @Test
     public void checkOnlyAlphabet() {
-        for (String trueAllThing : mUtils.trueAllThings) {
+        for (String trueAllThing : mUtils.trueUserName) {
             Mockito.when(mUserTest.getUserName()).thenReturn(trueAllThing);
-            Assert.assertTrue(RegisterChecker.isOnlyAlpha(mUserTest.getUserName()));
+            Assert.assertTrue(RegisterChecker.trueAllUserName(mUserTest.getUserName()));
         }
     }
 
@@ -67,7 +67,7 @@ public class UserUnitTest {
     public void checkOnlyAlphabetFalse() {
         for (String falseCheckAlphabet : mUtils.falseCheckAlphabets) {
             Mockito.when(mUserTest.getUserName()).thenReturn(falseCheckAlphabet);
-            Assert.assertFalse(RegisterChecker.isOnlyAlpha(mUserTest.getUserName()));
+            Assert.assertFalse(RegisterChecker.trueAllUserName(mUserTest.getUserName()));
         }
     }
 }

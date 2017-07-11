@@ -15,7 +15,7 @@ import vn.asiantech.internship.ui.testcase.UserTest;
  * UserTest
  */
 @RunWith(MockitoJUnitRunner.class)
-public class PasswordUnitTest {
+public class RegisterPasswordUnitTest {
     private static final int MIN_PASS_LENGTH = 4;
 
     @Mock

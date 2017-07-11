@@ -19,8 +19,8 @@ public class RegisterChecker {
         return s.indexOf(" ") == -1;
     }
 
-    public static boolean isOnlyAlpha(String s) {
-        return s.matches("[a-zA-Z0-9]+");
+    public static boolean trueAllUserName(String s) {
+        return s.matches("[a-z0-9]+");
     }
 
     public static boolean hasNumber(String s) {

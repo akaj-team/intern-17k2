@@ -15,7 +15,7 @@ import vn.asiantech.internship.ui.testcase.UserTest;
  * UserTest
  */
 @RunWith(MockitoJUnitRunner.class)
-public class UserPasswordUnitTest {
+public class RegisterUserPasswordUnitTest {
 
     private static final String USER_NAME = "Thien";
     private static final String[] PASSWORDS = {"nguyenthanhPass12(", "_DayLapassDung98", "ThisISpass_98"};
