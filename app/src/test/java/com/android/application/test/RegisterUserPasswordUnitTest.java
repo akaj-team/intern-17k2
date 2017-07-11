@@ -8,11 +8,11 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import vn.asiantech.internship.ui.testcase.RegisterChecker;
-import vn.asiantech.internship.ui.testcase.UserTest;
+import vn.asiantech.internship.ui.testcase.User;
 
 /**
  * Created by Thanh Thien on 7/10/2017.
- * UserTest
+ * User
  */
 @RunWith(MockitoJUnitRunner.class)
 public class RegisterUserPasswordUnitTest {
@@ -21,22 +21,22 @@ public class RegisterUserPasswordUnitTest {
     private static final String[] PASSWORDS = {"nguyenthanhPass12(", "_DayLapassDung98", "ThisISpass_98"};
     private static final String[] PASSWORDS_PAIL = {"ThanhThien97(", "_thienNguyen123", "Thien9753_Thanh", "thien090_@#$_Nguyen"};
     @Mock
-    private UserTest mUserTest;
+    private User mUser;
     private RegisterChecker mRegisterChecker = new RegisterChecker();
 
     @Test
     public void passwordHasUser() {
-        Mockito.when(mUserTest.getUserName()).thenReturn(USER_NAME);
+        Mockito.when(mUser.getUserName()).thenReturn(USER_NAME);
         for (String password : PASSWORDS) {
-            Assert.assertTrue(mRegisterChecker.hasUser(password, mUserTest.getUserName()));
+            Assert.assertTrue(mRegisterChecker.hasUser(password, mUser.getUserName()));
         }
     }
 
     @Test
     public void passwordHasUserFalse() {
-        Mockito.when(mUserTest.getUserName()).thenReturn(USER_NAME);
+        Mockito.when(mUser.getUserName()).thenReturn(USER_NAME);
         for (String passwordFail : PASSWORDS_PAIL) {
-            Assert.assertFalse(mRegisterChecker.hasUser(passwordFail, mUserTest.getUserName()));
+            Assert.assertFalse(mRegisterChecker.hasUser(passwordFail, mUser.getUserName()));
         }
     }
 }

@@ -5,26 +5,26 @@ import android.os.Parcelable;
 
 /**
  * Created by Thanh Thien on 7/10/2017.
- * UserTest
+ * User
  */
-public class UserTest implements Parcelable {
+public class User implements Parcelable {
     private String userName;
     private String passWord;
 
-    private UserTest(Parcel in) {
+    private User(Parcel in) {
         userName = in.readString();
         passWord = in.readString();
     }
 
-    public static final Creator<UserTest> CREATOR = new Creator<UserTest>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
-        public UserTest createFromParcel(Parcel in) {
-            return new UserTest(in);
+        public User createFromParcel(Parcel in) {
+            return new User(in);
         }
 
         @Override
-        public UserTest[] newArray(int size) {
-            return new UserTest[size];
+        public User[] newArray(int size) {
+            return new User[size];
         }
     };
 
@@ -44,7 +44,7 @@ public class UserTest implements Parcelable {
         this.passWord = passWord;
     }
 
-    public UserTest(String userName, String passWord) {
+    public User(String userName, String passWord) {
         this.userName = userName;
         this.passWord = passWord;
     }

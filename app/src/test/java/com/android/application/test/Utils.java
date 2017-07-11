@@ -1,13 +1,9 @@
 package com.android.application.test;
 
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
-
 /**
  * Created by Thanh Thien on 7/11/2017.
  * Utils
  */
-@RunWith(MockitoJUnitRunner.class)
 class Utils {
     String[] trueAllThings = {"ThienNguyen", "thanewehthien", "nguyentwewehanhthien97", "16thiewewennguyen"};
     String[] trueAllPasswordThings = {"Thien$Nguyen19", "than_ Thien97", "nguyen_Thanhthien97", "16Thien Nguyen_"};
