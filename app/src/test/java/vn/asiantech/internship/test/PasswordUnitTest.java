@@ -37,7 +37,7 @@ public class PasswordUnitTest {
     }
 
     @Test
-    public void checkPasswordHaveOneUpperCase_OneNumber_OneSpecialCharacter() {
+    public void checkPasswordRequirement() {
         Mockito.when(mUser.getPassword()).thenReturn("Abc123*");
         Assert.assertTrue(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
         Mockito.when(mUser.getPassword()).thenReturn("abcd");

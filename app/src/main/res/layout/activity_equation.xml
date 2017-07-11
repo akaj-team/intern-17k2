@@ -2,66 +2,70 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:background="@color/colorBlue"
-    android:padding="@dimen/equation.editText.padding">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/equation.title"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/equation.text.size" />
-
-    <EditText
-        android:id="@+id/edtFactorA"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/equation.editText.margin_top"
-        android:background="@drawable/bg_edittext"
-        android:hint="@string/equation.hint.a"
-        android:inputType="numberDecimal"
-        android:padding="@dimen/equation.editText.padding"
-        android:textColor="@color/colorWhite" />
+        android:layout_height="match_parent"
+        android:background="@color/colorBlue"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/equation.editText.padding">
 
-    <EditText
-        android:id="@+id/edtFactorB"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/equation.title"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/equation.text.size" />
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/equation.editText.small.margin_top"
-        android:background="@drawable/bg_edittext"
-        android:hint="@string/equation.hint.b"
-        android:inputType="numberDecimal"
-        android:padding="@dimen/equation.editText.padding"
-        android:textColor="@color/colorWhite" />
+        <EditText
+            android:id="@+id/edtFactorA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/equation.editText.margin_top"
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/equation.hint.a"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/equation.editText.padding"
+            android:textColor="@color/colorWhite" />
 
-    <EditText
-        android:id="@+id/edtFactorC"
+        <EditText
+            android:id="@+id/edtFactorB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/equation.editText.small.margin_top"
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/equation.hint.b"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/equation.editText.padding"
+            android:textColor="@color/colorWhite" />
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/equation.editText.small.margin_top"
-        android:background="@drawable/bg_edittext"
-        android:hint="@string/equation.hint.c"
-        android:inputType="numberDecimal"
-        android:padding="@dimen/equation.editText.padding"
-        android:textColor="@color/colorWhite" />
+        <EditText
+            android:id="@+id/edtFactorC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/equation.editText.small.margin_top"
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/equation.hint.c"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/equation.editText.padding"
+            android:textColor="@color/colorWhite" />
 
-    <Button
-        android:id="@+id/btnCalculate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/equation.editText.small.margin_top"
-        android:background="@drawable/bg_login"
-        android:text="@string/equation.calculate" />
+        <Button
+            android:id="@+id/btnCalculate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/equation.editText.small.margin_top"
+            android:background="@drawable/bg_login"
+            android:text="@string/equation.calculate" />
 
-    <TextView
-        android:id="@+id/tvResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/equation.editText.small.margin_top"
-        android:textColor="@color/colorBack"
-        android:textSize="@dimen/equation.text.size" />
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/equation.editText.small.margin_top"
+            android:textColor="@color/colorBack"
+            android:textSize="@dimen/equation.text.size" />
+    </LinearLayout>
 </LinearLayout>
