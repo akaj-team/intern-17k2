@@ -1,14 +1,11 @@
 package vn.asiantech.internship.ui.music;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +16,12 @@ import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.services.MusicService;
 
 /**
+ *
  * Created by quanghai on 30/06/2017.
  */
 public class MusicActivity extends AppCompatActivity {
     private RecyclerView mRecyclerViewSong;
-    private SongAdapter mSongAdapter;
     private List<Song> mSongs;
-    private int mOldPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +34,7 @@ public class MusicActivity extends AppCompatActivity {
 
     private void initAdapter() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mSongAdapter = new SongAdapter(createSongs(), new SongAdapter.OnListener() {
+        SongAdapter songAdapter = new SongAdapter(createSongs(), new SongAdapter.OnSelectSongListener() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(MusicActivity.this, SongPlayingActivity.class);
@@ -49,7 +45,7 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
         mRecyclerViewSong.setLayoutManager(linearLayoutManager);
-        mRecyclerViewSong.setAdapter(mSongAdapter);
+        mRecyclerViewSong.setAdapter(songAdapter);
     }
 
     public List<Song> createSongs() {

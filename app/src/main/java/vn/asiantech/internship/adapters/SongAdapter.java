@@ -22,12 +22,12 @@ import vn.asiantech.internship.ui.music.SongPlayingActivity;
  */
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder> {
     private List<Song> mSongs = new ArrayList<>();
-    private OnListener mOnListener;
+    private OnSelectSongListener mOnSelectSongListener;
     private SongPlayingActivity mActivity = new SongPlayingActivity();
 
-    public SongAdapter(List<Song> mSongs, OnListener onListener) {
+    public SongAdapter(List<Song> mSongs, OnSelectSongListener onSelectSongListener) {
         this.mSongs = mSongs;
-        mOnListener = onListener;
+        mOnSelectSongListener = onSelectSongListener;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder
                 @Override
                 public void onClick(View v) {
                     Log.d("xxx", "onClick: ");
-                    mOnListener.onItemClick(getAdapterPosition());
+                    mOnSelectSongListener.onItemClick(getAdapterPosition());
                 }
             });
         }
@@ -78,7 +78,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder
     /**
      * Created by quanghai on 30/06/2017.
      */
-    public interface OnListener {
+    public interface OnSelectSongListener {
         void onItemClick(int position);
     }
 }

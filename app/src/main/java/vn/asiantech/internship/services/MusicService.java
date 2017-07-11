@@ -27,6 +27,7 @@ import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.ui.music.Action;
 
 /**
+ *
  * Created by quanghai on 30/06/2017.
  */
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
@@ -63,12 +64,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
                     if (mMediaPLayer.isPlaying()) {
                         mMediaPLayer.pause();
-                        Log.d("xxx", "onStartCommand: pause " + mMediaPLayer.isPlaying());
                     }
                 } else if (intent.getAction().equals(Action.RESUME.getValue())) {
                     if (!mMediaPLayer.isPlaying()) {
                         mMediaPLayer.start();
-                        Log.d("xxx", "onStartCommand: resume" + mMediaPLayer.isPlaying());
                     }
                 } else if (intent.getAction().equals(Action.SEEK_TO.getValue())) {
                     int position = intent.getIntExtra(Action.SEEK_TO.getValue(), 0);
@@ -139,13 +138,12 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     private void playSongOnline(List<Song> songs, int position) {
         Song song = songs.get(position);
-        Log.d("xxx", "playSongOnline: " + song.isPlaying());
         try {
             mMediaPLayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mMediaPLayer.setDataSource(song.getUrl());
             mMediaPLayer.prepare();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("IOException", "IOException" + e.getMessage());
         }
     }
 
