@@ -2,7 +2,6 @@ package vn.asiantech.internship.test;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import vn.asiantech.internship.unittest.SolveQuadraticEquation;
@@ -17,9 +16,6 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class SolveQuadraticEquationTest {
-
-    @Mock
-    SolveQuadraticEquation mSolveQuadraticEquation;
 
     @Test
     public void getDeltaTest() {
