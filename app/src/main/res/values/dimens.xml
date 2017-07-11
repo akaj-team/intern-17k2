@@ -61,4 +61,5 @@
     <dimen name="equation.text.size">20sp</dimen>
     <dimen name="login.text.size">50sp</dimen>
     <dimen name="login.editText.margin_top">50dp</dimen>
+    <dimen name="equation.editText.padding">10dp</dimen>
 </resources>

@@ -17,27 +17,27 @@ import vn.asiantech.internship.R;
  * Created by sony on 11/07/2017.
  */
 public class EquationActivity extends AppCompatActivity {
-    private EditText mEdtFatorA;
-    private EditText mEdtFatorB;
-    private EditText mEdtFatorC;
+    private EditText mEdtFactorA;
+    private EditText mEdtFactorB;
+    private EditText mEdtFactorC;
     private TextView mTvResult;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equation);
-        mEdtFatorA = (EditText) findViewById(R.id.edtFactorA);
-        mEdtFatorB = (EditText) findViewById(R.id.edtFactorB);
-        mEdtFatorC = (EditText) findViewById(R.id.edtFactorC);
+        mEdtFactorA = (EditText) findViewById(R.id.edtFactorA);
+        mEdtFactorB = (EditText) findViewById(R.id.edtFactorB);
+        mEdtFactorC = (EditText) findViewById(R.id.edtFactorC);
         Button btnCalculate = (Button) findViewById(R.id.btnCalculate);
         mTvResult = (TextView) findViewById(R.id.tvResult);
 
         btnCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String a = mEdtFatorA.getText().toString();
-                String b = mEdtFatorB.getText().toString();
-                String c = mEdtFatorC.getText().toString();
+                String a = mEdtFactorA.getText().toString();
+                String b = mEdtFactorB.getText().toString();
+                String c = mEdtFactorC.getText().toString();
                 if (TextUtils.equals(a, " ") || TextUtils.equals(b, " ") || TextUtils.equals(c, " ")) {
                     Toast.makeText(EquationActivity.this, "Not enough data", Toast.LENGTH_SHORT).show();
                 } else {

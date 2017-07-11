@@ -43,7 +43,12 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "UserName don't have space", Toast.LENGTH_SHORT).show();
                 } else if (!UserNameValidation.checkUserNameIgnoreUpperCase(userName)) {
                     Toast.makeText(LoginActivity.this, "UserName don't have upper case character", Toast.LENGTH_SHORT).show();
-                } else {
+                }else if (!PasswordValidation.checkPasswordHaveOneUpperCase_OneNumber_OneSpecialCharacter(password)) {
+                    Toast.makeText(LoginActivity.this, "Password is not correct", Toast.LENGTH_SHORT).show();
+                }
+                else if (!PasswordValidation.checkPasswordDifferentWithUserName(password,userName)) {
+                    Toast.makeText(LoginActivity.this, "Password is not same UserName", Toast.LENGTH_SHORT).show();
+                }else {
                     startActivity(new Intent(LoginActivity.this, EquationActivity.class));
                 }
             }
