@@ -29,8 +29,8 @@ public class QuadraticEquationUnitTest {
     @Test
     public void checkResult() {
         when(mQuadraticEquation.getResult(3, -4, 1)).thenReturn("X1 = " + 1f
-                + ", X2 = " + String.valueOf((float) 1 / 3));
+                + ", X2 = " + (float) 1 / 3);
         Assert.assertEquals(mQuadraticEquation.getResult(3, -4, 1), "X1 = " + 1f
-                + ", X2 = " + String.valueOf((float) 1 / 3));
+                + ", X2 = " + (float) 1 / 3);
     }
 }
