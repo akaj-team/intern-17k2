@@ -60,6 +60,7 @@
     <string name="ex_day_16">Ex day 16</string>
     <string name="content_title">Music Player</string>
     <string name="content_songname">Song name....</string>
+    <string name="tv.time">00:00</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>

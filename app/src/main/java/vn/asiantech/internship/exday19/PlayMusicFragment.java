@@ -7,13 +7,14 @@ import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -21,7 +22,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
@@ -49,14 +49,11 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     private ImageView mImgRepeat;
     private TextView mTvStart;
     private TextView mTvEnd;
-    private double mStartTime;
-    private double mStopTime;
     private SeekBar mSeekBar;
     private Uri mUri;
     private String mUrl;
     private String mUrlImage;
     private MediaPlayer mMediaPlayer;
-    private Handler mHandler;
     private ArrayList<MusicItem> mMusicItems;
     private Intent mIntent;
     private int mPosition;
@@ -82,17 +79,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
                             mImgPlay.setImageResource(R.drawable.play);
                         }
                     }
-                    showTime();
                     return;
-                }
-                if (Action.START.getValue().equals(action)) {
-                    String urlImage = intent.getStringExtra(KEY_IMAGE);
-                    Log.d("tag11", "onReceive: image  " + urlImage);
-                    if (urlImage != null) {
-                        mUrlImage = urlImage;
-                        Glide.with(getContext()).load(mUrlImage).into(mAlbumArt);
-                        Log.d("tag11", "onReceive: image1  " + mUrlImage);
-                    }
                 }
                 if (Action.COMPLETED.getValue().equals(action)) {
                     mLength = 0;
@@ -115,32 +102,42 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     }
 
     public void initStart() {
-        Intent startIntent = new Intent(getContext(), NotificationServiceMusic.class);
-        startIntent.setAction(Action.START.getValue());
-        startIntent.putExtra(KEY_URL, mUrl);
-        startIntent.putExtra(KEY_IMAGE, mUrlImage);
-        startIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
-        getContext().startService(startIntent);
-        mImgPlay.setImageResource(R.drawable.pause);
+        if (!mIsPlaying) {
+            Intent startIntent = new Intent(getContext(), NotificationServiceMusic.class);
+            startIntent.setAction(Action.START.getValue());
+            startIntent.putExtra(KEY_URL, mUrl);
+            startIntent.putExtra(KEY_IMAGE, mUrlImage);
+            startIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
+            getContext().startService(startIntent);
+            mImgPlay.setImageResource(R.drawable.pause);
+        } else {
+            Intent startIntent = new Intent(getContext(), NotificationServiceMusic.class);
+            startIntent.setAction(Action.PLAY.getValue());
+            startIntent.putExtra(KEY_URL, mUrl);
+            startIntent.putExtra(KEY_IMAGE, mUrlImage);
+            startIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
+            getContext().startService(startIntent);
+            mImgPlay.setImageResource(R.drawable.pause);
+        }
     }
 
     public void initData() {
         mMusicItems = new ArrayList<>();
         mPosition = (int) getArguments().getSerializable(MusicActivity.KEY_POSITION);
         mMusicItems = getArguments().getParcelableArrayList(MusicActivity.KEY_MUSIC);
-        initUrl();
+        mTvStart.setText(R.string.tv_time);
+        mTvEnd.setText(R.string.tv_time);
+        initAnimation();
     }
 
-    public void initUrl() {
-        mUrl = mMusicItems.get(mPosition).getUrl();
-        mUri = Uri.parse(mUrl);
-        Glide.with(getContext()).load(mUrlImage).into(mAlbumArt);
-        mMediaPlayer = MediaPlayer.create(getContext(), mUri);
+    public void initAnimation() {
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_disk);
+        animation.setFillAfter(true);
+        mAlbumArt.startAnimation(animation);
     }
 
     public void initView(View view) {
         mMediaPlayer = new MediaPlayer();
-        mHandler = new Handler();
         mTvStart = (TextView) view.findViewById(R.id.tvTime);
         mTvEnd = (TextView) view.findViewById(R.id.tvDuration);
         mAlbumArt = (CircleImageView) view.findViewById(R.id.imgAlbumArt);
@@ -220,14 +217,16 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     }
 
     private void processTime(Intent intent) {
-        if (mLength == 0) {
-            mLength = intent.getIntExtra(KEY_DURATION, 0);
-            mSeekBar.setMax(mLength);
-            mSeekBar.setProgress(0);
-            return;
-        }
+        mLength = intent.getIntExtra(KEY_DURATION, 0);
+        mTvEnd.setText(miliSecondToString(mLength));
+        mSeekBar.setMax(mLength);
+        mSeekBar.setProgress(0);
         mTime = intent.getIntExtra(KEY_CURRENT_POSITION, 0);
+        mTvStart.setText(miliSecondToString(mTime));
         mSeekBar.setProgress(mTime);
+        mUrlImage = intent.getStringExtra(KEY_IMAGE);
+        Log.d("tag22", "onReceive:112 " + mUrlImage);
+        Glide.with(getContext()).load(mUrlImage).into(mAlbumArt);
     }
 
     @Override
@@ -236,40 +235,10 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         super.onDestroy();
     }
 
-    // Show time
-    public void showTime() {
-        mStartTime = mMediaPlayer.getCurrentPosition();
-        mStopTime = mMediaPlayer.getDuration();
-        convertTime();
-        mHandler.postDelayed(updateTime, 100);
+    private static String miliSecondToString(int millisecond) {
+        millisecond /= 1000;
+        return ((millisecond / 60) < 10 ? "0" : "") + (millisecond / 60) + ":" + ((millisecond % 60) < 10 ? "0" : "") + (millisecond % 60);
     }
-
-    // Convert time
-    public void convertTime() {
-        // Time current position
-        long minuteStart = TimeUnit.MILLISECONDS.toMinutes((long) mStartTime);
-        long secondsStart = TimeUnit.MILLISECONDS.toSeconds((long) mStartTime) -
-                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStartTime));
-        mTvStart.setText(String.format(getString(R.string.time_format), minuteStart, secondsStart));
-        // Total time
-        long minuteStop = TimeUnit.MILLISECONDS.toMinutes((long) mStopTime);
-        long secondsStop = TimeUnit.MILLISECONDS.toSeconds((long) mStopTime) -
-                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStopTime));
-        mTvEnd.setText(String.format(getString(R.string.time_format), minuteStop, secondsStop));
-    }
-
-    // Update song current time
-    private Runnable updateTime = new Runnable() {
-        @Override
-        public void run() {
-            mStartTime = mTime;
-            long minuteStart = TimeUnit.MILLISECONDS.toMinutes((long) mStartTime);
-            long secondsStart = TimeUnit.MILLISECONDS.toSeconds((long) mStartTime) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mStartTime));
-            mTvStart.setText(String.format(getString(R.string.time_format), minuteStart, secondsStart));
-            mHandler.postDelayed(this, 100);
-        }
-    };
 
     public void initShuffle() {
         if (mIsShuffle) {

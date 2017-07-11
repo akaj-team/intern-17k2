@@ -1,6 +1,7 @@
 package vn.asiantech.internship.exday19;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +38,11 @@ public class NotificationServiceMusic extends Service {
     private CountDownTimer mCountDownTimer;
     private ArrayList<MusicItem> mMusicItems = new ArrayList<>();
     private int mPosition;
+    private NotificationManager mNotificationManager;
+    private Notification mNotification;
+    private NotificationCompat.Builder mBuilder;
+    private RemoteViews mRemoteViewsBig;
+    private RemoteViews mRemoteViewsSmall;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -47,10 +54,9 @@ public class NotificationServiceMusic extends Service {
             mPosition = intent.getIntExtra(MusicActivity.KEY_POSITION, mPosition);
             mUrl = intent.getStringExtra("url");
         }
-        Log.d("tag", "onStartCommand: " + mUrl);
-        //TODO set image for each song ahihi
         if (intent != null && intent.getAction() != null) {
             if (intent.getAction().equals(Action.PLAY.getValue())) {
+                startSong();
             } else if (intent.getAction().equals(Action.NEXT.getValue())) {
                 playNextSong();
                 startSong();
@@ -59,21 +65,21 @@ public class NotificationServiceMusic extends Service {
                 startSong();
             } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
                 mIsShuffle = intent.getBooleanExtra(PlayMusicFragment.KEY_SHUFFLE, false);
-                Log.d("tag", "shuffle: " + mIsShuffle);
             } else if (intent.getAction().equals(Action.REPEAT.getValue())) {
                 mIsRepeat = intent.getBooleanExtra(PlayMusicFragment.KEY_REPEAT, false);
-                Log.d("tag", "repeat: " + mIsRepeat);
             } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
                 mMediaPlayer.pause();
                 mLength = mMediaPlayer.getCurrentPosition();
             } else if (intent.getAction().equals(Action.START.getValue())) {
                 mMediaPlayer = new MediaPlayer();
-                try {
-                    mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    mMediaPlayer.setDataSource(mUrl);
-                    mMediaPlayer.prepare();
-                } catch (IOException e) {
-                    Log.d(TAG, "null media: " + e);
+                if (mUrl != null) {
+                    try {
+                        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        mMediaPlayer.setDataSource(mUrl);
+                        mMediaPlayer.prepare();
+                    } catch (IOException e) {
+                        Log.d(TAG, "null media: " + e);
+                    }
                 }
                 mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
@@ -111,13 +117,7 @@ public class NotificationServiceMusic extends Service {
         mUrl = mMusicItems.get(mPosition).getUrl();
         mUri = Uri.parse(mUrl);
         mUrlImage = mMusicItems.get(mPosition).getImage();
-        Log.d("tag11", "startSong: " + mUrlImage);
         mMediaPlayer = MediaPlayer.create(getApplicationContext(), mUri);
-        Intent sendDataIntent = new Intent(NotificationServiceMusic.this, PlayMusicFragment.class);
-        sendDataIntent.setAction(Action.START.getValue());
-        sendDataIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
-        sendDataIntent.putExtra(PlayMusicFragment.KEY_IMAGE, mUrlImage);
-        startService(sendDataIntent);
         mMediaPlayer.start();
         setCountDownTimer();
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -169,7 +169,11 @@ public class NotificationServiceMusic extends Service {
                 timeIntent.putExtra(PlayMusicFragment.KEY_DURATION, mMediaPlayer.getDuration());
                 timeIntent.putExtra(PlayMusicFragment.KEY_CURRENT_POSITION, mMediaPlayer.getCurrentPosition());
                 timeIntent.putExtra(PlayMusicFragment.KEY_PLAYING, mMediaPlayer.isPlaying());
+                if (mMediaPlayer.isPlaying()) {
+                    timeIntent.putExtra(PlayMusicFragment.KEY_IMAGE, mUrlImage);
+                }
                 sendBroadcast(timeIntent);
+                showNotification();
             }
 
             @Override
@@ -180,71 +184,75 @@ public class NotificationServiceMusic extends Service {
     }
 
     private void showNotification() {
-        Intent notificationIntent = new Intent(this, PlayMusicFragment.class);
-        notificationIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
-
-        notificationIntent.setAction(Action.INTENT.getValue());
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-                notificationIntent, 0);
-
-        Intent playIntent = new Intent(this, NotificationServiceMusic.class);
-        if (mMediaPlayer.isPlaying()) {
-            playIntent.setAction(Action.PAUSE.getValue());
-        } else {
-            playIntent.setAction(Action.RESUME.getValue());
-        }
-        PendingIntent playPIntent = PendingIntent.getService(this, 0,
-                playIntent, 0);
-
-        Intent nextIntent = new Intent(this, NotificationServiceMusic.class);
-        nextIntent.setAction(Action.NEXT.getValue());
-        PendingIntent nextPIntent = PendingIntent.getService(this, 0,
-                nextIntent, 0);
-
-        Intent previousIntent = new Intent(this, NotificationServiceMusic.class);
-        previousIntent.setAction(Action.PREV.getValue());
-        PendingIntent previousPIntent = PendingIntent.getService(this, 0,
-                previousIntent, 0);
-
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mBuilder = new NotificationCompat.Builder(this);
+        mRemoteViewsBig = new RemoteViews(getPackageName(), R.layout.notification_main);
+        mRemoteViewsBig.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
+        mRemoteViewsBig.setTextViewText(R.id.tvSongName, mMusicItems.get(mPosition).getSongName());
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_notification);
+                R.drawable.album_art);
+        mRemoteViewsBig.setImageViewBitmap(R.id.imgNotification, bm);
 
-        Notification notification = new NotificationCompat.Builder(this)
-                .setContentTitle(getString(R.string.content_title))
-                .setContentText(getString(R.string.content_songname))
-                .setSmallIcon(R.drawable.ic_notification)
-                .setLargeIcon(Bitmap.createScaledBitmap(bm, 128, 128, false))
-                .setContentIntent(pendingIntent)
-                .setOngoing(true)
-                .addAction(android.R.drawable.ic_media_previous, "previous",
-                        previousPIntent)
-                .addAction(android.R.drawable.ic_media_play, "play",
-                        playPIntent)
-                .addAction(android.R.drawable.ic_media_next, "next",
-                        nextPIntent).build();
-        startForeground(111,
-                notification);
-    }
-
-    @Override
-    public void onDestroy() {
-        Intent intent = new Intent(this, NotificationServiceMusic.class);
-        stopService(intent);
-        mCountDownTimer.cancel();
-        stopForeground(true);
-        stopSelf();
+        Intent intentPlaySong = new Intent(this, NotificationServiceMusic.class);
+        // play intent
         if (mMediaPlayer.isPlaying()) {
-            mMediaPlayer.stop();
+            intentPlaySong.setAction(Action.PAUSE.getValue());
+            PendingIntent playSong = PendingIntent.getService(this, 0, intentPlaySong, 0);
+            mRemoteViewsBig.setOnClickPendingIntent(R.id.imgPlay, playSong);
+            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.pause);
+        } else if (!mMediaPlayer.isPlaying()) {
+            intentPlaySong.setAction(Action.RESUME.getValue());
+            PendingIntent playSong = PendingIntent.getService(this, 0, intentPlaySong, 0);
+            mRemoteViewsBig.setOnClickPendingIntent(R.id.imgPlay, playSong);
+            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.play);
         }
-        super.onDestroy();
+
+        Intent intentPreviousSong = new Intent(this, NotificationServiceMusic.class);
+        intentPreviousSong.setAction(Action.PREV.getValue());
+        PendingIntent previousSong = PendingIntent.getService(this, 0, intentPreviousSong, 0);
+        mRemoteViewsBig.setOnClickPendingIntent(R.id.imgPrevious, previousSong);
+
+        Intent intentNextSong = new Intent(this, NotificationServiceMusic.class);
+        intentNextSong.setAction(Action.NEXT.getValue());
+        PendingIntent nextSong = PendingIntent.getService(this, 0, intentNextSong, 0);
+        mRemoteViewsBig.setOnClickPendingIntent(R.id.imgNext, nextSong);
+
+        Intent intentTurnOff = new Intent(this, NotificationServiceMusic.class);
+        intentTurnOff.setAction(Action.STOP.getValue());
+        PendingIntent turnOff = PendingIntent.getService(this, 0, intentTurnOff, 0);
+        mRemoteViewsBig.setOnClickPendingIntent(R.id.imgTurnOff, turnOff);
+
+        Intent notificationIntent = new Intent(getApplicationContext(), PlayMusicFragment.class);
+        notificationIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        mBuilder.setSmallIcon(R.drawable.album_art)
+                .setLargeIcon(Bitmap.createScaledBitmap(bm, 128, 128, false))
+                .setAutoCancel(false)
+                .setOngoing(true)
+                .setCustomBigContentView(mRemoteViewsBig)
+                .setContentIntent(pendingIntent);
+
+        mNotificationManager.notify(111, mBuilder.build());
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public void onDestroy() {
+        Intent intent = new Intent(this, NotificationServiceMusic.class);
+        stopService(intent);
+        mCountDownTimer.onFinish();
+        stopForeground(true);
+        stopSelf();
+        if (mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
+        }
+        super.onDestroy();
     }
 }

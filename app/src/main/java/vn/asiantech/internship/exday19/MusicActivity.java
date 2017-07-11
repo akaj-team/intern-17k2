@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -32,7 +31,6 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
     private PlayMusicFragment mPlayMusicFragment;
     private MusicListFragment mMusicListFragment;
     private ArrayList<MusicItem> mMusicItems;
-    private int mPosition;
     private boolean mIsServiceRunning;
     private boolean mIsPlaying;
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -74,7 +72,6 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
         if (!mIsServiceRunning) {
             Intent intent = new Intent(MusicActivity.this, NotificationServiceMusic.class);
             intent.putParcelableArrayListExtra(KEY_SEND, mMusicItems);
-            Log.d("tag", "onCreate1223123123: " + mMusicItems);
             mIsServiceRunning = true;
             startService(intent);
         }
@@ -134,13 +131,23 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
 
     @Override
     public void onItemClick(ArrayList<MusicItem> musicItems, int position) {
-        mPosition = position;
         mMusicItems = musicItems;
-        Bundle bundle = new Bundle();
-        bundle.putInt(KEY_POSITION, position);
-        bundle.putParcelableArrayList(KEY_MUSIC, musicItems);
-        mPlayMusicFragment.setArguments(bundle);
-        replaceFragment(mPlayMusicFragment, true);
+        if (!mIsPlaying) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(KEY_POSITION, position);
+            bundle.putParcelableArrayList(KEY_MUSIC, musicItems);
+            mPlayMusicFragment.setArguments(bundle);
+            replaceFragment(mPlayMusicFragment, true);
+        } else {
+            Intent intent = new Intent(this, NotificationServiceMusic.class);
+            intent.setAction(Action.PLAY.getValue());
+            Bundle bundle = new Bundle();
+            bundle.putInt(KEY_POSITION, position);
+            bundle.putParcelableArrayList(KEY_MUSIC, musicItems);
+            mPlayMusicFragment.setArguments(bundle);
+            replaceFragment(mPlayMusicFragment, true);
+            startService(intent);
+        }
     }
 
     @Override
