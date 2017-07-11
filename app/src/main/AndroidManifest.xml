@@ -32,12 +32,10 @@
         <activity android:name=".ui.ninepatch.ChatActivity" />
         <activity android:name=".ui.music.MusicActivity" />
         <activity android:name=".ui.tablayout.ViewPagerActivity" />
+        <activity android:name=".ui.testcase.RegisterActivity" />
 
         <service
             android:name=".ui.music.NotificationServiceMusic"
             android:enabled="true" />
-
-        <activity android:name=".ui.testcase.RegisterActivity"></activity>
     </application>
-
 </manifest>

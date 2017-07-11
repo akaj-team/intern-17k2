@@ -37,7 +37,7 @@ public class RegisterChecker {
 
     public static boolean hasSymbol(String s) {
         String specialCharacters = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~";
-        String str2[] = s.split("");
+        String[] str2 = s.split("");
         for (int i = 0; i < str2.length; i++) {
             if (specialCharacters.contains(str2[i])) {
                 return true;
@@ -48,7 +48,7 @@ public class RegisterChecker {
 
     public static boolean hasUpChar(String s) {
         String specialCharacters = "ZXCVBNMLKJHGFDSAQWERTYUIOP";
-        String str2[] = s.split("");
+        String[] str2 = s.split("");
         for (int i = 0; i < str2.length; i++) {
             if (specialCharacters.contains(str2[i])) {
                 return true;
