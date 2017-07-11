@@ -31,6 +31,7 @@
         <activity android:name=".ui.main.ResultActivity" />
         <activity
             android:name=".ui.main.MusicActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <service

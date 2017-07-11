@@ -38,12 +38,13 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     public static final String KEY_REPLAY = "replay";
     public static final String KEY_SHUFFLE = "shuffle";
     public static final String KEY_STATUS = "status";
-    private static final int MEDIA_STOP = 0;
-    private static final int MEDIA_PLAYING_OR_PAUSE = 1;
-
     public static final int NOT_REPLAY = 0;
     public static final int REPLAY_ONE = 1;
     public static final int REPLAY_ALL = 2;
+
+    private static final int MEDIA_STOP = 0;
+    private static final int MEDIA_PAUSE = 1;
+    private static final int MEDIA_PLAYING = 2;
 
     private TextView mTvTitle;
     private ImageView mImgCloseFragment;
@@ -51,10 +52,33 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private ProgressDialog mProgressDialog;
 
     private ArrayList<Song> mSongs;
-    private GetSongAsyncTask mGetSongAsyncTask;
+    private GetSongAsyncTask mGetSongAsyncTask = new GetSongAsyncTask(this, new GetSongAsyncTask.CallBackListener() {
+        @Override
+        public void onTaskPreExecute() {
+            mProgressDialog.show();
+        }
+
+        @Override
+        public void onTaskCompleted(ArrayList<Song> songs) {
+            mSongs = songs;
+            Intent intent = new Intent(MusicActivity.this, MusicService.class);
+            intent.putParcelableArrayListExtra(KEY_SONGS, mSongs);
+            startService(intent);
+            mMainFragment = MainFragment.getNewInstance(mSongs, -1, new SongListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(Song song, int position) {
+                    mSongPosition = position;
+                    mMediaStatus = MEDIA_PLAYING;
+                    startSong();
+                }
+            });
+            replaceFragment(mMainFragment, false);
+            mProgressDialog.dismiss();
+            registerBroadcast();
+        }
+    });
     private MainFragment mMainFragment;
     private int mSongPosition;
-    private boolean mServiceRunning;
     private int mMediaStatus;
     private String[] mSongIds = {"ZW7FC0I7", "ZW80UUCB", "ZW7FE0FC", "ZW79F6A7", "ZW79O8DI", "ZW7FODC9"
             , "ZW78B06A", "ZW78U908", "ZW78I80B", "ZW77F8E0"};
@@ -65,18 +89,35 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             if (intent != null) {
                 String action = intent.getAction();
                 if (Action.SEEK.getValue().equals(action)) {
-                    mMediaStatus = MEDIA_PLAYING_OR_PAUSE;
+                    boolean isPlaying = intent.getBooleanExtra(PlayFragment.KEY_PLAYING, false);
+                    if (isPlaying) {
+                        mMediaStatus = MEDIA_PLAYING;
+                    } else {
+                        mMediaStatus = MEDIA_PAUSE;
+                    }
+                    int songPosition = intent.getIntExtra(KEY_POSITION, -1);
+                    if (songPosition > -1 && songPosition != mSongPosition) {
+                        mSongPosition = songPosition;
+                        mMainFragment.setSongPosition(mSongPosition);
+                    }
+                    if (getCurrentFragment() instanceof MainFragment) {
+                        mImgOpenPlayFragment.setVisibility(View.VISIBLE);
+                    } else {
+                        mImgOpenPlayFragment.setVisibility(View.GONE);
+                    }
                     return;
                 }
                 if (Action.SONG_CHANGE.getValue().equals(action)) {
-                    int position = intent.getIntExtra(KEY_POSITION, 0);
-                    mTvTitle.setText(getString(R.string.song_title, mSongs.get(position).getName(), mSongs.get(position).getSinger()));
+                    mSongPosition = intent.getIntExtra(KEY_POSITION, 0);
+                    if (getCurrentFragment() instanceof PlayFragment) {
+                        mTvTitle.setText(getString(R.string.song_title, mSongs.get(mSongPosition).getName(), mSongs.get(mSongPosition).getSinger()));
+                    }
+                    mMainFragment.setSongPosition(mSongPosition);
                     return;
                 }
                 if (Action.STOP.getValue().equals(action)) {
                     Intent intentStopService = new Intent(MusicActivity.this, MusicService.class);
                     stopService(intentStopService);
-                    mServiceRunning = false;
                     finish();
                 }
                 if (Action.STOP_SERVICE.getValue().equals(action)) {
@@ -99,54 +140,29 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mProgressDialog.setMessage("Loading...");
 
         mSongs = new ArrayList<>();
-
-        mGetSongAsyncTask = new GetSongAsyncTask(this, new GetSongAsyncTask.CallBackListener() {
-            @Override
-            public void onTaskPreExecute() {
-                mProgressDialog.show();
-            }
-
-            @Override
-            public void onTaskCompleted(ArrayList<Song> songs) {
-                mSongs = songs;
-                mMainFragment = MainFragment.getNewInstance(mSongs, new SongListAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(Song song, int position) {
-                        mSongPosition = position;
-                        mMediaStatus = MEDIA_PLAYING_OR_PAUSE;
-                        startSong();
-                    }
-                });
-                replaceFragment(mMainFragment, false);
-                String status = getIntent().getStringExtra(KEY_STATUS);
-                if ("running".equals(status)) {
-                    replaceFragment(PlayFragment.getNewInstance(), true);
-                    mSongPosition = getIntent().getIntExtra(KEY_POSITION, -1);
-                    if (mSongPosition > -1) {
-                        mTvTitle.setText(getString(R.string.song_title, mSongs.get(mSongPosition).getName(), mSongs.get(mSongPosition).getSinger()));
-                    } else {
-                        mTvTitle.setText("");
-                    }
-                } else {
-                    if (!mServiceRunning) {
-                        Intent intent = new Intent(MusicActivity.this, MusicService.class);
-                        intent.putParcelableArrayListExtra(KEY_SONGS, mSongs);
-                        mServiceRunning = true;
-                        startService(intent);
-                    }
+        String status = getIntent().getStringExtra(KEY_STATUS);
+        if ("running".equals(status)) {
+            mSongs = getIntent().getParcelableArrayListExtra(KEY_SONGS);
+            mSongPosition = getIntent().getIntExtra(KEY_POSITION, -1);
+            mMainFragment = MainFragment.getNewInstance(mSongs, mSongPosition, new SongListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(Song song, int position) {
+                    mSongPosition = position;
+                    startSong();
                 }
-                mProgressDialog.dismiss();
+            });
+            replaceFragment(mMainFragment, false);
+            mSongPosition = getIntent().getIntExtra(KEY_POSITION, -1);
+            replaceFragment(PlayFragment.getNewInstance(), true);
+            if (mSongPosition > -1) {
+                mTvTitle.setText(getString(R.string.song_title, mSongs.get(mSongPosition).getName(), mSongs.get(mSongPosition).getSinger()));
+            } else {
+                mTvTitle.setText("");
             }
-        });
-        mGetSongAsyncTask.execute(mSongIds);
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Action.SEEK.getValue());
-        intentFilter.addAction(Action.SONG_CHANGE.getValue());
-        intentFilter.addAction(Action.STOP.getValue());
-        intentFilter.addAction(Action.STOP_SERVICE.getValue());
-        registerReceiver(mReceiver, intentFilter);
-
+            registerBroadcast();
+        } else {
+            mGetSongAsyncTask.execute(mSongIds);
+        }
         mImgCloseFragment.setOnClickListener(this);
         mImgOpenPlayFragment.setOnClickListener(this);
 
@@ -181,13 +197,15 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        Intent stopService = new Intent(MusicActivity.this, MusicService.class);
-        stopService(stopService);
+        if (mMediaStatus != MEDIA_PLAYING) {
+            unregisterReceiver(mReceiver);
+            Intent stopService = new Intent(MusicActivity.this, MusicService.class);
+            stopService(stopService);
+        }
         if (mGetSongAsyncTask != null) {
             mGetSongAsyncTask.cancel(true);
         }
-        unregisterReceiver(mReceiver);
+        super.onDestroy();
     }
 
     @Override
@@ -215,4 +233,16 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         replaceFragment(PlayFragment.getNewInstance(), true);
     }
 
+    private void registerBroadcast() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Action.SEEK.getValue());
+        intentFilter.addAction(Action.SONG_CHANGE.getValue());
+        intentFilter.addAction(Action.STOP.getValue());
+        intentFilter.addAction(Action.STOP_SERVICE.getValue());
+        registerReceiver(mReceiver, intentFilter);
+    }
+
+    private Fragment getCurrentFragment() {
+        return getSupportFragmentManager().findFragmentById(R.id.flMainContent);
+    }
 }

@@ -19,7 +19,6 @@ import android.telephony.TelephonyManager;
 import android.widget.RemoteViews;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import vn.asiantech.internship.R;
@@ -35,7 +34,7 @@ import vn.asiantech.internship.ui.main.MusicActivity;
  */
 public class MusicService extends Service {
 
-    private List<Song> mSongs;
+    private ArrayList<Song> mSongs;
     private MediaPlayer mMediaPlayer;
     private CountDownTimer mCountDownTimer;
     private int mSongPosition;
@@ -121,19 +120,20 @@ public class MusicService extends Service {
         intentFilter.addAction(Action.STOP.getValue());
         intentFilter.addAction(Action.STOP_SERVICE.getValue());
         intentFilter.addAction(Action.CALL.getValue());
+        initRemoteViews();
         registerReceiver(mReceiver, intentFilter);
-        initNotification();
     }
 
     @Override
     public int onStartCommand(final Intent intent, int flags, int startId) {
         if (intent != null) {
-            List<Song> songs = intent.getParcelableArrayListExtra(MusicActivity.KEY_SONGS);
+            ArrayList<Song> songs = intent.getParcelableArrayListExtra(MusicActivity.KEY_SONGS);
             if (songs != null) {
                 mSongs = songs;
             }
-            mSongPosition = intent.getIntExtra(MusicActivity.KEY_POSITION, -1);
-            if (mSongPosition > -1) {
+            int position = intent.getIntExtra(MusicActivity.KEY_POSITION, -1);
+            if (position > -1) {
+                mSongPosition = position;
                 startSong();
             }
         }
@@ -146,10 +146,14 @@ public class MusicService extends Service {
             mCountDownTimer.cancel();
         }
         unregisterReceiver(mReceiver);
-        if (mMediaPlayer.isPlaying()) {
-            mMediaPlayer.stop();
+        if (mMediaPlayer != null) {
+            if (mMediaPlayer.isPlaying()) {
+                mMediaPlayer.stop();
+            }
         }
-        mNotificationManager.cancelAll();
+        if (mNotificationManager != null) {
+            mNotificationManager.cancelAll();
+        }
         super.onDestroy();
     }
 
@@ -163,10 +167,12 @@ public class MusicService extends Service {
 
         // Create intent that will bring our app to the front, as if it was tapped in the app
         // Launcher
-        Intent showTaskIntent = new Intent(getApplicationContext(), MusicActivity.class);
+        Intent showTaskIntent;
+        showTaskIntent = new Intent(getApplicationContext(), MusicActivity.class);
+        showTaskIntent.putParcelableArrayListExtra(MusicActivity.KEY_SONGS, mSongs);
         showTaskIntent.putExtra(MusicActivity.KEY_POSITION, mSongPosition);
         showTaskIntent.putExtra(MusicActivity.KEY_STATUS, "running");
-        showTaskIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        showTaskIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent contentIntent = PendingIntent.getActivity(
                 this,
@@ -174,6 +180,20 @@ public class MusicService extends Service {
                 showTaskIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            mNotification = new Notification.Builder(getApplicationContext())
+                    .setContent(mRemoteViewsSmall)
+                    .setSmallIcon(R.drawable.ic_music_note_red_700_24dp)
+                    .setWhen(System.currentTimeMillis())
+                    .setAutoCancel(false)
+                    .setOngoing(true)
+                    .setContentIntent(contentIntent)
+                    .build();
+            mNotification.bigContentView = mRemoteViewsBig;
+        }
+    }
+
+    private void initRemoteViews() {
         mRemoteViewsBig = new RemoteViews(getPackageName(), R.layout.notification_main);
         mRemoteViewsSmall = new RemoteViews(getPackageName(), R.layout.notification_main_small);
 
@@ -191,18 +211,6 @@ public class MusicService extends Service {
         PendingIntent turnOff = PendingIntent.getBroadcast(this, 0, intentTurnOff, 0);
         mRemoteViewsBig.setOnClickPendingIntent(R.id.imgTurnOff, turnOff);
         mRemoteViewsSmall.setOnClickPendingIntent(R.id.imgTurnOff, turnOff);
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            mNotification = new Notification.Builder(getApplicationContext())
-                    .setContent(mRemoteViewsSmall)
-                    .setSmallIcon(R.drawable.ic_music_note_red_700_24dp)
-                    .setWhen(System.currentTimeMillis())
-                    .setAutoCancel(false)
-                    .setOngoing(true)
-                    .setContentIntent(contentIntent)
-                    .build();
-            mNotification.bigContentView = mRemoteViewsBig;
-        }
     }
 
     private void updateNotification() {
@@ -268,6 +276,8 @@ public class MusicService extends Service {
         Intent songChange = new Intent(Action.SONG_CHANGE.getValue());
         songChange.putExtra(MusicActivity.KEY_POSITION, mSongPosition);
         sendBroadcast(songChange);
+        initNotification();
+        startForeground(22, mNotification);
         starCountDownTimer();
         mMediaPlayer.start();
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -297,8 +307,9 @@ public class MusicService extends Service {
         mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration() - mMediaPlayer.getCurrentPosition(), 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                if (mSongPosition > -1) {
+                if (mSongPosition > -1 && mMediaPlayer != null) {
                     Intent intent1 = new Intent(Action.SEEK.getValue());
+                    intent1.putExtra(MusicActivity.KEY_POSITION, mSongPosition);
                     intent1.putExtra(PlayFragment.KEY_DURATION, mMediaPlayer.getDuration());
                     intent1.putExtra(PlayFragment.KEY_CURRENT, mMediaPlayer.getCurrentPosition());
                     intent1.putExtra(PlayFragment.KEY_PLAYING, mMediaPlayer.isPlaying());

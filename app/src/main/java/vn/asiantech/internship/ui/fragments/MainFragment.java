@@ -58,11 +58,12 @@ public class MainFragment extends Fragment {
         }
     };
 
-    public static MainFragment getNewInstance(ArrayList<Song> songs, SongListAdapter.OnItemClickListener listener) {
+    public static MainFragment getNewInstance(ArrayList<Song> songs, int songPosition, SongListAdapter.OnItemClickListener listener) {
         MainFragment mainFragment = new MainFragment();
         mainFragment.mListener = listener;
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(MusicActivity.KEY_SONGS, songs);
+        bundle.putInt(MusicActivity.KEY_POSITION, songPosition);
         mainFragment.setArguments(bundle);
         return mainFragment;
     }
@@ -71,6 +72,10 @@ public class MainFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSongs = getArguments().getParcelableArrayList(MusicActivity.KEY_SONGS);
+        mSongPosition = getArguments().getInt(MusicActivity.KEY_POSITION);
+        if (mSongPosition > -1) {
+            mSongs.get(mSongPosition).setPlaying();
+        }
         mAdapter = new SongListAdapter(getContext(), mSongs, mListener);
         IntentFilter intentFilter = new IntentFilter(Action.SONG_CHANGE.getValue());
         intentFilter.addAction(Action.STOP_SERVICE.getValue());
@@ -90,5 +95,17 @@ public class MainFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         getActivity().unregisterReceiver(mReceiver);
+    }
+
+    public void setSongPosition(int position) {
+        if (position > -1) {
+            if (mSongPosition > -1) {
+                mSongs.get(mSongPosition).setPlaying();
+                mAdapter.notifyItemChanged(mSongPosition);
+            }
+            mSongPosition = position;
+            mSongs.get(mSongPosition).setPlaying();
+            mAdapter.notifyItemChanged(mSongPosition);
+        }
     }
 }
