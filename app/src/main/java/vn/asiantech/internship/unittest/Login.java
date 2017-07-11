@@ -6,6 +6,10 @@ package vn.asiantech.internship.unittest;
  * @since 7/11/2017.
  */
 public class Login {
+
+    public Login() {
+    }
+
     public static boolean checkUserLength(String user) {
         return user.length() > 5 && user.length() < 25;
     }
