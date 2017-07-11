@@ -40,21 +40,15 @@ public class PasswordUnitTest {
     public void checkPasswordRequirement() {
         Mockito.when(mUser.getPassword()).thenReturn("Abc123*");
         Assert.assertTrue(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
-        Mockito.when(mUser.getPassword()).thenReturn("abcd");
-        Assert.assertFalse(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
-        Mockito.when(mUser.getPassword()).thenReturn("1234");
-        Assert.assertFalse(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
         Mockito.when(mUser.getPassword()).thenReturn("abcd1234");
-        Assert.assertFalse(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
-        Mockito.when(mUser.getPassword()).thenReturn("abcd1234*");
         Assert.assertFalse(PasswordValidation.checkPasswordRequirement(mUser.getPassword()));
     }
 
     @Test
     public void checkPasswordDifferentWithUser() {
-        Mockito.when(mUser.getPassword()).thenReturn("abcde");
+        Mockito.when(mUser.getPassword()).thenReturn("abc");
         Assert.assertTrue(PasswordValidation.checkPasswordDifferentWithUserName(mUser.getPassword(), "abcd"));
-        Mockito.when(mUser.getPassword()).thenReturn("abcde");
-        Assert.assertFalse(PasswordValidation.checkPasswordDifferentWithUserName(mUser.getPassword(), "abcde"));
+        Mockito.when(mUser.getPassword()).thenReturn("abc");
+        Assert.assertFalse(PasswordValidation.checkPasswordDifferentWithUserName(mUser.getPassword(), "abc"));
     }
 }

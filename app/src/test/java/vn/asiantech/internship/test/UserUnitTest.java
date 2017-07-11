@@ -22,22 +22,18 @@ public class UserUnitTest {
 
     @Test
     public void checkUserNameLength() {
-        Mockito.when(mUser.getUserName()).thenReturn("hangtr");
-        Assert.assertTrue(UserNameValidation.checkUserNameLength(mUser.getUserName()));
         Mockito.when(mUser.getUserName()).thenReturn("hangtran");
         Assert.assertTrue(UserNameValidation.checkUserNameLength(mUser.getUserName()));
         Mockito.when(mUser.getUserName()).thenReturn("hoa");
-        Assert.assertFalse(UserNameValidation.checkUserNameLength(mUser.getUserName()));
-        Mockito.when(mUser.getUserName()).thenReturn("0123456789abcdefghiklmnopq");
         Assert.assertFalse(UserNameValidation.checkUserNameLength(mUser.getUserName()));
     }
 
     @Test
     public void checkUserNameSpace() {
-        Mockito.when(mUser.getUserName()).thenReturn("hang tran");
-        Assert.assertFalse(UserNameValidation.checkUserNameSpace(mUser.getUserName()));
         Mockito.when(mUser.getUserName()).thenReturn("hangtran");
         Assert.assertTrue(UserNameValidation.checkUserNameSpace(mUser.getUserName()));
+        Mockito.when(mUser.getUserName()).thenReturn("hang tran");
+        Assert.assertFalse(UserNameValidation.checkUserNameSpace(mUser.getUserName()));
     }
 
     @Test

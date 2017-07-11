@@ -59,7 +59,7 @@
     <string name="test.textView.back">Prev</string>
     <string name="test.textView.next">Next</string>
     <string name="test.textView.question">Question 1</string>
-    <string name="dialog.cancle">Cancle</string>
+    <string name="dialog.cancle">Cancel</string>
     <string name="dialog.OK">OK</string>
     <string name="textView.question">Question </string>
     <string name="textView.yourResult">You choosed: </string>
@@ -68,12 +68,10 @@
     <string name="equation.hint.b">Enter b</string>
     <string name="equation.hint.c">Enter c</string>
     <string name="equation.calculate">Calculate</string>
-    <string name="equation.title">ax^2+bx+c=0</string>
+    <string name="equation.title">Quadratic equation: ax^2+bx+c=0</string>
     <string name="login.text">Login</string>
     <string name="equation.hint.userName">UserName</string>
     <string name="equation.hint.passWord">Password</string>
-    <string name="text_vosonghiem">Phuong trinh co vo so nghiem</string>
-    <string name="text_vonghiem">Phuong trinh vo nghiem</string>
-    <string name="text_1nghiem">\Phuong trinh co 1 nghiem :\\n x = \</string>
-    <string name="text_nghiemkep">\Phuong trinh co nghiem kep :\\n</string>
+    <string name="text_unlessRoots">Quadratic equation has unless roots</string>
+    <string name="text_noRoot">Quadratic equation has no root</string>
 </resources>

@@ -36,7 +36,7 @@ public final class PasswordValidation {
         return flag;
     }
 
-    public static boolean checkPasswordDifferentWithUserName(String password, String username) {
-        return !password.equals(username);
+    public static boolean checkPasswordDifferentWithUserName(String password, String userName) {
+        return !password.equals(userName);
     }
 }

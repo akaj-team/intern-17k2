@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.margin_top"
-        android:background="@drawable/bg_edittext"
+        android:background="@drawable/bg_edt_login_signin"
         android:hint="@string/equation.hint.a"
         android:inputType="numberDecimal"
         android:padding="@dimen/equation.editText.padding"
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.small.margin_top"
-        android:background="@drawable/bg_edittext"
+        android:background="@drawable/bg_edt_login_signin"
         android:hint="@string/equation.hint.b"
         android:inputType="numberDecimal"
         android:padding="@dimen/equation.editText.padding"
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.small.margin_top"
-        android:background="@drawable/bg_edittext"
+        android:background="@drawable/bg_edt_login_signin"
         android:hint="@string/equation.hint.c"
         android:inputType="numberDecimal"
         android:padding="@dimen/equation.editText.padding"
@@ -52,14 +52,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.small.margin_top"
-        android:background="@drawable/bg_login"
+        android:background="@drawable/bg_btn_login_signin"
         android:text="@string/equation.calculate" />
 
     <TextView
-        android:id="@+id/tvResult"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvResultCalculate"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.small.margin_top"
+        android:gravity="center"
         android:textColor="@color/colorBack"
         android:textSize="@dimen/equation.text.size" />
 </LinearLayout>

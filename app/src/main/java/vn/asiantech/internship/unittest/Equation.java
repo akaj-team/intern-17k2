@@ -8,7 +8,7 @@ public class Equation {
     private String a;
     private String b;
     private String c;
-    private int denta;
+    private int delta;
 
     public Equation(String a, String b, String c) {
         this.a = a;
@@ -40,11 +40,11 @@ public class Equation {
         this.c = c;
     }
 
-    public int getDenta() {
-        return denta;
+    public int getDelta() {
+        return delta;
     }
 
-    public void setDenta(int denta) {
-        this.denta = denta;
+    public void setDelta(int delta) {
+        this.delta = delta;
     }
 }

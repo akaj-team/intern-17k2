@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/login.editText.margin_top"
-        android:background="@drawable/bg_edittext"
+        android:background="@drawable/bg_edt_login_signin"
         android:hint="@string/equation.hint.userName"
         android:padding="@dimen/equation.editText.padding"
         android:textColor="@color/colorWhite"
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.small.margin_top"
-        android:background="@drawable/bg_edittext"
+        android:background="@drawable/bg_edt_login_signin"
         android:hint="@string/equation.hint.passWord"
         android:inputType="textPassword"
         android:padding="@dimen/equation.editText.padding"
@@ -42,6 +42,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.margin_top"
-        android:background="@drawable/bg_login"
+        android:background="@drawable/bg_btn_login_signin"
         android:text="@string/login.text" />
 </LinearLayout>

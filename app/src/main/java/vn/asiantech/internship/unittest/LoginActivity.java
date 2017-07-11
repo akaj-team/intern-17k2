@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         mEdtUserName = (EditText) findViewById(R.id.edtUserName);
         mEdtPassword = (EditText) findViewById(R.id.edtPassword);
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
@@ -34,23 +35,31 @@ public class LoginActivity extends AppCompatActivity {
                 String userName = mEdtUserName.getText().toString();
                 String password = mEdtPassword.getText().toString();
                 if (TextUtils.equals(userName, "") || TextUtils.equals(password, "")) {
-                    Toast.makeText(LoginActivity.this, "Not enough data", Toast.LENGTH_SHORT).show();
+                    showToast("Not enough data");
                 } else if (!UserNameValidation.checkUserNameCharacter(userName)) {
-                    Toast.makeText(LoginActivity.this, "UserName don't contain special characters", Toast.LENGTH_SHORT).show();
+                    showToast("UserName does not contain special characters");
                 } else if (!UserNameValidation.checkUserNameLength(userName)) {
-                    Toast.makeText(LoginActivity.this, "Length of userName is higher than 5 and louder than 25 ", Toast.LENGTH_SHORT).show();
+                    showToast("Length of userName is higher than 5 and lower than 25");
                 } else if (!UserNameValidation.checkUserNameSpace(userName)) {
-                    Toast.makeText(LoginActivity.this, "UserName don't have space", Toast.LENGTH_SHORT).show();
+                    showToast("UserName does not have space");
                 } else if (!UserNameValidation.checkUserNameIgnoreUpperCase(userName)) {
-                    Toast.makeText(LoginActivity.this, "UserName don't have upper case character", Toast.LENGTH_SHORT).show();
+                    showToast("UserName does not have upper case character");
+                } else if (!PasswordValidation.checkPasswordLength(password)) {
+                    showToast("Length of password is higher than 3");
+                } else if (!PasswordValidation.checkPasswordSpace(password)) {
+                    showToast("Password does not have space");
                 } else if (!PasswordValidation.checkPasswordRequirement(password)) {
-                    Toast.makeText(LoginActivity.this, "Password is not correct", Toast.LENGTH_SHORT).show();
+                    showToast("Passwords must be at least 1 digit,1 special character and 1 upper case character");
                 } else if (!PasswordValidation.checkPasswordDifferentWithUserName(password, userName)) {
-                    Toast.makeText(LoginActivity.this, "Password is not same UserName", Toast.LENGTH_SHORT).show();
+                    showToast("Password is not same UserName");
                 } else {
                     startActivity(new Intent(LoginActivity.this, EquationActivity.class));
                 }
             }
         });
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -14,8 +14,8 @@ public final class UserNameValidation {
         return username.length() >= 6 && username.length() <= 24;
     }
 
-    public static boolean checkUserNameSpace(String usename) {
-        return !usename.contains(" ");
+    public static boolean checkUserNameSpace(String useName) {
+        return !useName.contains(" ");
     }
 
     public static boolean checkUserNameCharacter(String useName) {
