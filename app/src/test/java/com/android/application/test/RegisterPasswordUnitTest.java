@@ -21,12 +21,13 @@ public class RegisterPasswordUnitTest {
     @Mock
     private UserTest mUserTest;
     private Utils mUtils = new Utils();
+    private RegisterChecker mRegisterChecker = new RegisterChecker();
 
     @Test
     public void checkMinLengthPassword() {
         for (String trueNameCheckLength : mUtils.trueAllThings) {
             Mockito.when(mUserTest.getPassWord()).thenReturn(trueNameCheckLength);
-            Assert.assertTrue(RegisterChecker.checkMinLength(mUserTest.getPassWord(), MIN_PASS_LENGTH));
+            Assert.assertTrue(mRegisterChecker.checkMinLength(mUserTest.getPassWord(), MIN_PASS_LENGTH));
         }
     }
 
@@ -34,7 +35,7 @@ public class RegisterPasswordUnitTest {
     public void checkMinLengthPasswordFalse() {
         for (String falseLengthPassword : mUtils.falseLengthPasswords) {
             Mockito.when(mUserTest.getPassWord()).thenReturn(falseLengthPassword);
-            Assert.assertFalse(RegisterChecker.checkMinLength(mUserTest.getPassWord(), MIN_PASS_LENGTH));
+            Assert.assertFalse(mRegisterChecker.checkMinLength(mUserTest.getPassWord(), MIN_PASS_LENGTH));
         }
     }
 
@@ -42,7 +43,7 @@ public class RegisterPasswordUnitTest {
     public void checkSpace() {
         for (String nameTrueAll : mUtils.trueAllThings) {
             Mockito.when(mUserTest.getPassWord()).thenReturn(nameTrueAll);
-            Assert.assertTrue(RegisterChecker.checkSpace(mUserTest.getPassWord()));
+            Assert.assertTrue(mRegisterChecker.checkSpace(mUserTest.getPassWord()));
         }
     }
 
@@ -50,7 +51,7 @@ public class RegisterPasswordUnitTest {
     public void checkHasSymbols() {
         for (String falseNameCheckSymbol : mUtils.falseCheckSymbols) {
             Mockito.when(mUserTest.getPassWord()).thenReturn(falseNameCheckSymbol);
-            Assert.assertTrue(RegisterChecker.hasSymbol(mUserTest.getPassWord()));
+            Assert.assertTrue(mRegisterChecker.hasSymbol(mUserTest.getPassWord()));
         }
     }
 
@@ -58,7 +59,7 @@ public class RegisterPasswordUnitTest {
     public void checkHasSymbolsFalse() {
         for (String nameCheckSymbol : mUtils.checkSymbols) {
             Mockito.when(mUserTest.getPassWord()).thenReturn(nameCheckSymbol);
-            Assert.assertFalse(RegisterChecker.hasSymbol(mUserTest.getPassWord()));
+            Assert.assertFalse(mRegisterChecker.hasSymbol(mUserTest.getPassWord()));
         }
     }
 
@@ -66,7 +67,7 @@ public class RegisterPasswordUnitTest {
     public void checkHasNumber() {
         for (String trueHasNumber : mUtils.trueHasNumbers) {
             Mockito.when(mUserTest.getPassWord()).thenReturn(trueHasNumber);
-            Assert.assertTrue(RegisterChecker.hasNumber(mUserTest.getPassWord()));
+            Assert.assertTrue(mRegisterChecker.hasNumber(mUserTest.getPassWord()));
         }
     }
 
@@ -74,7 +75,7 @@ public class RegisterPasswordUnitTest {
     public void checkHasNumberFalse() {
         for (String falseAllThing : mUtils.falseAllThings) {
             Mockito.when(mUserTest.getPassWord()).thenReturn(falseAllThing);
-            Assert.assertFalse(RegisterChecker.hasNumber(mUserTest.getPassWord()));
+            Assert.assertFalse(mRegisterChecker.hasNumber(mUserTest.getPassWord()));
         }
     }
 
@@ -82,7 +83,7 @@ public class RegisterPasswordUnitTest {
     public void checkHasUpChar() {
         for (String trueAllPasswordThing : mUtils.trueAllPasswordThings) {
             Mockito.when(mUserTest.getPassWord()).thenReturn(trueAllPasswordThing);
-            Assert.assertTrue(RegisterChecker.hasUpChar(mUserTest.getPassWord()));
+            Assert.assertTrue(mRegisterChecker.hasUpChar(mUserTest.getPassWord()));
         }
     }
 
@@ -90,7 +91,7 @@ public class RegisterPasswordUnitTest {
     public void checkHasUpCharFalse() {
         for (String falseUpChar : mUtils.falseUpChars) {
             Mockito.when(mUserTest.getPassWord()).thenReturn(falseUpChar);
-            Assert.assertFalse(RegisterChecker.hasUpChar(mUserTest.getPassWord()));
+            Assert.assertFalse(mRegisterChecker.hasUpChar(mUserTest.getPassWord()));
         }
     }
 }

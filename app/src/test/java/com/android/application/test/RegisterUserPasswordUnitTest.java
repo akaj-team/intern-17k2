@@ -22,12 +22,13 @@ public class RegisterUserPasswordUnitTest {
     private static final String[] PASSWORDS_PAIL = {"ThanhThien97(", "_thienNguyen123", "Thien9753_Thanh", "thien090_@#$_Nguyen"};
     @Mock
     private UserTest mUserTest;
+    private RegisterChecker mRegisterChecker = new RegisterChecker();
 
     @Test
     public void passwordHasUser() {
         Mockito.when(mUserTest.getUserName()).thenReturn(USER_NAME);
         for (String password : PASSWORDS) {
-            Assert.assertTrue(RegisterChecker.hasUser(password, mUserTest.getUserName()));
+            Assert.assertTrue(mRegisterChecker.hasUser(password, mUserTest.getUserName()));
         }
     }
 
@@ -35,7 +36,7 @@ public class RegisterUserPasswordUnitTest {
     public void passwordHasUserFalse() {
         Mockito.when(mUserTest.getUserName()).thenReturn(USER_NAME);
         for (String passwordFail : PASSWORDS_PAIL) {
-            Assert.assertFalse(RegisterChecker.hasUser(passwordFail, mUserTest.getUserName()));
+            Assert.assertFalse(mRegisterChecker.hasUser(passwordFail, mUserTest.getUserName()));
         }
     }
 }

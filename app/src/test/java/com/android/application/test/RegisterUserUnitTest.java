@@ -22,12 +22,13 @@ public class RegisterUserUnitTest {
     @Mock
     private UserTest mUserTest;
     private Utils mUtils = new Utils();
+    private RegisterChecker mRegisterChecker = new RegisterChecker();
 
     @Test
     public void checkMinLengthUser() {
         for (String trueNameCheckLength : mUtils.trueAllThings) {
             Mockito.when(mUserTest.getUserName()).thenReturn(trueNameCheckLength);
-            Assert.assertTrue(RegisterChecker.checkMinLength(mUserTest.getUserName(), MIN_USER_LENGTH));
+            Assert.assertTrue(mRegisterChecker.checkMinLength(mUserTest.getUserName(), MIN_USER_LENGTH));
         }
     }
 
@@ -35,7 +36,7 @@ public class RegisterUserUnitTest {
     public void checkMinLengthUserFalse() {
         for (String falseNameCheckLength : mUtils.falseAllThings) {
             Mockito.when(mUserTest.getUserName()).thenReturn(falseNameCheckLength);
-            Assert.assertFalse(RegisterChecker.checkMinLength(mUserTest.getUserName(), MIN_USER_LENGTH));
+            Assert.assertFalse(mRegisterChecker.checkMinLength(mUserTest.getUserName(), MIN_USER_LENGTH));
         }
     }
 
@@ -43,7 +44,7 @@ public class RegisterUserUnitTest {
     public void checkMaxLengthUser() {
         for (String trueNameCheckMaxLength : mUtils.trueCheckMaxLengths) {
             Mockito.when(mUserTest.getUserName()).thenReturn(trueNameCheckMaxLength);
-            Assert.assertTrue(RegisterChecker.checkMaxLength(mUserTest.getUserName(), MAX_USER_LENGTH));
+            Assert.assertTrue(mRegisterChecker.checkMaxLength(mUserTest.getUserName(), MAX_USER_LENGTH));
         }
     }
 
@@ -51,7 +52,7 @@ public class RegisterUserUnitTest {
     public void checkMaxLengthUserFalse() {
         for (String falseNameCheckMaxLength : mUtils.falseCheckMaxLengths) {
             Mockito.when(mUserTest.getUserName()).thenReturn(falseNameCheckMaxLength);
-            Assert.assertFalse(RegisterChecker.checkMaxLength(mUserTest.getUserName(), MAX_USER_LENGTH));
+            Assert.assertFalse(mRegisterChecker.checkMaxLength(mUserTest.getUserName(), MAX_USER_LENGTH));
         }
     }
 
@@ -59,7 +60,7 @@ public class RegisterUserUnitTest {
     public void checkOnlyAlphabet() {
         for (String trueAllThing : mUtils.trueUserName) {
             Mockito.when(mUserTest.getUserName()).thenReturn(trueAllThing);
-            Assert.assertTrue(RegisterChecker.trueAllUserName(mUserTest.getUserName()));
+            Assert.assertTrue(mRegisterChecker.trueAllUserName(mUserTest.getUserName()));
         }
     }
 
@@ -67,7 +68,7 @@ public class RegisterUserUnitTest {
     public void checkOnlyAlphabetFalse() {
         for (String falseCheckAlphabet : mUtils.falseCheckAlphabets) {
             Mockito.when(mUserTest.getUserName()).thenReturn(falseCheckAlphabet);
-            Assert.assertFalse(RegisterChecker.trueAllUserName(mUserTest.getUserName()));
+            Assert.assertFalse(mRegisterChecker.trueAllUserName(mUserTest.getUserName()));
         }
     }
 }
