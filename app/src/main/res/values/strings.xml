@@ -64,4 +64,16 @@
     <string name="textView.question">Question </string>
     <string name="textView.yourResult">You choosed: </string>
     <string name="text.cross">/</string>
+    <string name="equation.hint.a">Enter a</string>
+    <string name="equation.hint.b">Enter b</string>
+    <string name="equation.hint.c">Enter c</string>
+    <string name="equation.calculate">Calculate</string>
+    <string name="equation.title">ax^2+bx+c=0</string>
+    <string name="login.text">Login</string>
+    <string name="equation.hint.userName">UserName</string>
+    <string name="equation.hint.passWord">Password</string>
+    <string name="text_vosonghiem">Phuong trinh co vo so nghiem</string>
+    <string name="text_vonghiem">Phuong trinh vo nghiem</string>
+    <string name="text_1nghiem">\Phuong trinh co 1 nghiem :\\n x = \</string>
+    <string name="text_nghiemkep">\Phuong trinh co nghiem kep :\\n</string>
 </resources>

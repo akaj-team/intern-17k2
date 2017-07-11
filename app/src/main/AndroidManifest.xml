@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".tablayout.ImageActivity">
+        <activity android:name=".unittest.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,5 +26,6 @@
         <activity android:name=".ui.splash.SplashActivity" />
         <activity android:name=".feed.FeedActivity" />
         <activity android:name=".test.ResultActivity" />
+        <activity android:name=".unittest.EquationActivity" />
     </application>
 </manifest>
