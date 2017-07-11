@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PointF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -27,9 +26,8 @@ public class MyChartDraw extends View implements View.OnTouchListener {
     private static final float MIN_ZOOM = 1f;
     private static final float MAX_ZOOM = 4f;
 
-    private float scaleFactor = 1f;
+    private float mScaleFactor = 1f;
     private ScaleGestureDetector mDetector;
-    private PointF mPoint;
 
     // These constants specify the mMode that we're in
     private static final int NONE = 0;
@@ -42,6 +40,8 @@ public class MyChartDraw extends View implements View.OnTouchListener {
     // touches the screen
     private float mStartX = 0f;
     private float mStartY = 0f;
+    private float mLastFocusX = 0f;
+    private float mLastFocusY = 0f;
 
     // These two variables keep track of the amount we need to translate the canvas along the X
     // and the Y coordinate
@@ -52,7 +52,7 @@ public class MyChartDraw extends View implements View.OnTouchListener {
     // panned.
     private float mPreviousTranslateX = 0f;
     private float mPreviousTranslateY = 0f;
-    private boolean dragged;
+    private boolean mDragged;
 
     private Paint mPaint1;
     private Paint mPaint2;
@@ -81,25 +81,22 @@ public class MyChartDraw extends View implements View.OnTouchListener {
 
         // We're going to scale the X and Y coordinates by the same amount
         canvas.save();
-        if (mPoint != null) {
-            canvas.scale(scaleFactor, scaleFactor, mPoint.x, mPoint.y);
+        if (mDetector.isInProgress()) {
+            canvas.scale(mScaleFactor, mScaleFactor, mDetector.getFocusX(), mDetector.getFocusY());
+        } else {
+            canvas.scale(mScaleFactor, mScaleFactor, mLastFocusX, mLastFocusY);
         }
 
         // If mTranslateX times -1 is lesser than zero, let's set it to zero. This takes care of the left bound
-        if ((mTranslateX * -1) < 0) {
-            mTranslateX = 0;
-        } else if ((mTranslateX * -1) > (scaleFactor - 1) * getWidth()) {
-            mTranslateX = (1 - scaleFactor) * getWidth();
+        if ((mTranslateX * -1) > (mScaleFactor - 1) * getWidth()) {
+            mTranslateX = (1 - mScaleFactor) * getWidth();
         }
 
-        if (mTranslateY * -1 < 0) {
-            mTranslateY = 0;
-        } else if ((mTranslateY * -1) > (scaleFactor - 1) * getHeight()) {
-            mTranslateY = (1 - scaleFactor) * getHeight();
+        if ((mTranslateY * -1) > (mScaleFactor - 1) * getHeight()) {
+            mTranslateY = (1 - mScaleFactor) * getHeight();
         }
-
         // Create Coordinate axis
-        canvas.drawLine((MARGIN_LEFT - 30 + mTranslateX), getHeight() / 2 + mTranslateY, (getWidth() - MARGIN_RIGHT + mTranslateX), getHeight() / 2 + mTranslateY, mPaint1);
+        canvas.drawLine(MARGIN_LEFT - 30 + mTranslateX, getHeight() / 2 + mTranslateY, getWidth() - MARGIN_RIGHT + mTranslateX, getHeight() / 2 + mTranslateY, mPaint1);
         if (mPath1 == null) {
             mPath1 = new Path();
         }
@@ -125,7 +122,7 @@ public class MyChartDraw extends View implements View.OnTouchListener {
         canvas.drawText(getContext().getString(R.string.truc_Y), getWidth() / 2 - 50 + mTranslateX, MARGIN_TOP + 50 + mTranslateY, mPaint1);
 
         ptDoThi(3, -4, 1, canvas);
-        canvas.translate(mTranslateX / scaleFactor, mTranslateY / scaleFactor);
+        canvas.translate(mTranslateX / mScaleFactor, mTranslateY / mScaleFactor);
         canvas.restore();
     }
 
@@ -170,47 +167,40 @@ public class MyChartDraw extends View implements View.OnTouchListener {
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                mTranslateX = event.getX() - mStartX;
-                mTranslateY = event.getY() - mStartY;
+                if (mMode == DRAG) {
+                    mTranslateX = event.getX() - mStartX;
+                    mTranslateY = event.getY() - mStartY;
 
-                double distance = Math.sqrt(Math.pow(event.getX() - (mStartX + mPreviousTranslateX), 2) +
-                        Math.pow(event.getY() - (mStartY + mPreviousTranslateY), 2)
-                );
+                    double distance = Math.sqrt(Math.pow(event.getX() - (mStartX + mPreviousTranslateX), 2) +
+                            Math.pow(event.getY() - (mStartY + mPreviousTranslateY), 2)
+                    );
 
-                if (distance > 0) {
-                    dragged = true;
+                    if (distance > 0) {
+                        mDragged = true;
+                    }
                 }
 
-                break;
-
-            case MotionEvent.ACTION_POINTER_DOWN:
-                mMode = ZOOM;
-                if (mPoint == null) {
-                    mPoint = new PointF();
-                }
-                mPoint.x = event.getX(event.getActionIndex());
-                mPoint.y = event.getY(event.getActionIndex());
-                dragged = false;
                 break;
 
             case MotionEvent.ACTION_UP:
+                if (mMode != ZOOM) {
+                    mDragged = false;
+                    mPreviousTranslateX = mTranslateX;
+                    mPreviousTranslateY = mTranslateY;
+                }
                 mMode = NONE;
-                dragged = false;
-                mPreviousTranslateX = mTranslateX;
-                mPreviousTranslateY = mTranslateY;
-                break;
-
-            case MotionEvent.ACTION_POINTER_UP:
-                dragged = false;
-                mMode = DRAG;
-                mPreviousTranslateX = mTranslateX;
-                mPreviousTranslateY = mTranslateY;
                 break;
         }
 
         mDetector.onTouchEvent(event);
 
-        if ((mMode == DRAG && scaleFactor != 1f && dragged) || mMode == ZOOM) {
+        if ((mMode == DRAG && mScaleFactor != 1f && mDragged)) {
+            invalidate();
+        }
+        if (mScaleFactor == 1f) {
+            mMode = NONE;
+            mTranslateX = 0;
+            mTranslateY = 0;
             invalidate();
         }
         return true;
@@ -222,8 +212,14 @@ public class MyChartDraw extends View implements View.OnTouchListener {
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            scaleFactor *= detector.getScaleFactor();
-            scaleFactor = Math.max(MIN_ZOOM, Math.min(scaleFactor, MAX_ZOOM));
+            mMode = ZOOM;
+            mScaleFactor *= detector.getScaleFactor();
+            mScaleFactor = Math.max(MIN_ZOOM, Math.min(mScaleFactor, MAX_ZOOM));
+            if (detector.isInProgress()) {
+                mLastFocusX = detector.getFocusX();
+                mLastFocusY = detector.getFocusY();
+            }
+            invalidate();
             return true;
         }
     }
