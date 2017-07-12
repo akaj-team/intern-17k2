@@ -4,7 +4,7 @@ package vn.asiantech.internship.day31;
  * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 11/07/2017.
  */
-public class Login {
+public final class Login {
 
     private Login() {
     }

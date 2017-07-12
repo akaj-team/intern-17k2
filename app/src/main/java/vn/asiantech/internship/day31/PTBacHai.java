@@ -6,7 +6,7 @@ import vn.asiantech.internship.R;
  * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 11/07/2017.
  */
-public class PTBacHai {
+public final class PTBacHai {
     private static double[] mX = new double[2];
 
     private PTBacHai() {
@@ -41,7 +41,8 @@ public class PTBacHai {
                 mX[0] = (-b + Math.sqrt(delta)) / (2 * a);
                 mX[1] = (-b - Math.sqrt(delta)) / (2 * a);
             } else if (delta == 0) {
-                mX[0] = mX[1] = -b / (2 * a);
+                mX[0] = -b / (2 * a);
+                mX[1] = -b / (2 * a);
             }
         }
         return mX;
