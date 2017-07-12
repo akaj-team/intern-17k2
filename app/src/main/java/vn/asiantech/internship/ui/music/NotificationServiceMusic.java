@@ -131,6 +131,12 @@ public class NotificationServiceMusic extends Service {
             mCountDownTimer.cancel();
         }
         mNotificationManager.cancel(NOTIFICATION_ID);
+
+        Intent timeIntent = new Intent(Action.SEEK.getValue());
+        timeIntent.putExtra("stop", true);
+        timeIntent.putExtra("time", 0);
+        timeIntent.putExtra("second", 0);
+        sendBroadcast(timeIntent);
         stopForeground(true);
         stopSelf();
     }
@@ -161,7 +167,7 @@ public class NotificationServiceMusic extends Service {
                     mMediaPlayer.setDataSource(mMusics.get(mPosition).getUrlMp3());
                     mMediaPlayer.prepare();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "run: " + e.toString());
                 }
             }
         });
@@ -169,7 +175,6 @@ public class NotificationServiceMusic extends Service {
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
-                thread.stop();
                 mediaPlayer.start();
                 startCountDownTimer(mediaPlayer);
                 // TODO Clear that below line if you  want to disable show notification

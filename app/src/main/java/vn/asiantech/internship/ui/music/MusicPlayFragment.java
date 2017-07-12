@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,9 +125,14 @@ public class MusicPlayFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    // Todo action stop
     private void processTime(Intent intent) {
         int position = intent.getIntExtra("second", 0);
         boolean stop = intent.getBooleanExtra("stop", false);
+        if (TextUtils.equals(intent.getAction(), Action.STOP.getValue())) {
+
+            return;
+        }
         if (mLength == 0) {
             mLength = intent.getIntExtra("time", 0);
             mSeekBar.setMax(mLength);
