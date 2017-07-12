@@ -79,8 +79,7 @@ public class MusicService extends Service {
                 } else if (intent.getAction().equals(Action.AUTONEXT.getValue())) {
                     mIsAutoNext = (!mIsAutoNext);
                 } else if (intent.getAction().equals(Action.STOP.getValue())) {
-                    stopForeground(true);
-                    stopSelf();
+                    exitMusic();
                 } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                     showNotification(mSong.getName(), mSong.getSinger(), mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition());
                 } else if (intent.getAction().equals(String.valueOf(TelephonyManager.CALL_STATE_RINGING))) {
@@ -96,6 +95,24 @@ public class MusicService extends Service {
 
     public MusicService() {
         // No-op
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        filterReceiver();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        mMediaPlayer = new MediaPlayer();
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        if (intent != null && intent.getParcelableArrayListExtra(MusicActivity.KEY_LIST) != null) {
+            mSongs = intent.getParcelableArrayListExtra(MusicActivity.KEY_LIST);
+        } else {
+            stopSelf();
+        }
+        return START_STICKY;
     }
 
     private void startMedia() {
@@ -195,6 +212,14 @@ public class MusicService extends Service {
         return ran;
     }
 
+    private void exitMusic(){
+        Intent exitIntent = new Intent();
+        exitIntent.setAction(Action.EXIT.getValue());
+        sendBroadcast(exitIntent);
+        stopForeground(true);
+        stopSelf();
+    }
+
     private void handlerProgress() {
         final Intent timeIntent = new Intent();
         timeIntent.setAction(MusicFragment.CURRENT_TIME);
@@ -287,12 +312,6 @@ public class MusicService extends Service {
         startForeground(111, notification);
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        filterReceiver();
-    }
-
     private void filterReceiver(){
         IntentFilter filter = new IntentFilter();
         filter.addAction(Action.PLAY.getValue());
@@ -307,18 +326,6 @@ public class MusicService extends Service {
         filter.addAction(String.valueOf(TelephonyManager.CALL_STATE_OFFHOOK));
         filter.addAction(String.valueOf(TelephonyManager.CALL_STATE_IDLE));
         registerReceiver(mBroadcastReceiver, filter);
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        if (intent != null && intent.getParcelableArrayListExtra(MusicActivity.KEY_LIST) != null) {
-            mSongs = intent.getParcelableArrayListExtra(MusicActivity.KEY_LIST);
-        } else {
-            stopSelf();
-        }
-        return START_STICKY;
     }
 
     @Override
