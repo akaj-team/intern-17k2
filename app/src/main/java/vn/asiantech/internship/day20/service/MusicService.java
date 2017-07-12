@@ -212,7 +212,7 @@ public class MusicService extends Service {
         return ran;
     }
 
-    private void exitMusic(){
+    private void exitMusic() {
         Intent exitIntent = new Intent();
         exitIntent.setAction(Action.EXIT.getValue());
         sendBroadcast(exitIntent);
@@ -312,7 +312,7 @@ public class MusicService extends Service {
         startForeground(111, notification);
     }
 
-    private void filterReceiver(){
+    private void filterReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Action.PLAY.getValue());
         filter.addAction(Action.NEXT.getValue());
