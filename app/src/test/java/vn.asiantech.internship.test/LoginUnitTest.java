@@ -21,15 +21,13 @@ public class LoginUnitTest {
     private User mUser;
 
     @Test
-    public void checkUserName(){
+    public void checkUserName() {
         // Check length of username
         Mockito.when(mUser.getName()).thenReturn("viet");
         Assert.assertFalse(Login.checkLengthOfUsername(mUser.getName()));
         Mockito.when(mUser.getName()).thenReturn("viet nam dat nuoc con nguoi");
         Assert.assertFalse(Login.checkLengthOfUsername(mUser.getName()));
         Mockito.when(mUser.getName()).thenReturn("vietnam");
-        Assert.assertTrue(Login.checkLengthOfUsername(mUser.getName()));
-        Mockito.when(mUser.getName()).thenReturn("vietnamtuoidep");
         Assert.assertTrue(Login.checkLengthOfUsername(mUser.getName()));
 
         // Check space of username
@@ -54,7 +52,7 @@ public class LoginUnitTest {
     }
 
     @Test
-    public void checkPassword(){
+    public void checkPassword() {
         // Check length of password
         Mockito.when(mUser.getPassword()).thenReturn("datnuoc");
         Assert.assertTrue(Login.checkLengthOfPassword(mUser.getPassword()));
@@ -74,10 +72,10 @@ public class LoginUnitTest {
         // Check not same user
         Mockito.when(mUser.getName()).thenReturn("vietnam");
         Mockito.when(mUser.getPassword()).thenReturn("datnuoc");
-        Assert.assertFalse(Login.checkNotSameUsername(mUser.getPassword(),mUser.getName()));
+        Assert.assertFalse(Login.checkNotSameUsername(mUser.getPassword(), mUser.getName()));
         Mockito.when(mUser.getName()).thenReturn("vietnam");
         Mockito.when(mUser.getPassword()).thenReturn("vietnam");
-        Assert.assertTrue(Login.checkNotSameUsername(mUser.getPassword(),mUser.getName()));
+        Assert.assertTrue(Login.checkNotSameUsername(mUser.getPassword(), mUser.getName()));
 
         // Check have at least 1 UpperCase + 1 number + 1 special letter
         Mockito.when(mUser.getPassword()).thenReturn("Vietnam123@");

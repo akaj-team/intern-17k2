@@ -60,7 +60,7 @@ public class Login {
                 tong += 1;
                 check[2] = true;
             }
-            if(tong==3){
+            if (tong == 3) {
                 break;
             }
         }
