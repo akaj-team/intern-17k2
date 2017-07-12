@@ -290,6 +290,10 @@ public class MusicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        filterReceiver();
+    }
+
+    private void filterReceiver(){
         IntentFilter filter = new IntentFilter();
         filter.addAction(Action.PLAY.getValue());
         filter.addAction(Action.NEXT.getValue());
@@ -319,7 +323,6 @@ public class MusicService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
@@ -327,6 +330,8 @@ public class MusicService extends Service {
             mMediaPlayer.release();
         }
         unregisterReceiver(mBroadcastReceiver);
+        stopSelf();
+        super.onDestroy();
     }
 
     @Override
