@@ -11,8 +11,10 @@ import vn.asiantech.internship.ui.testcase.RegisterChecker;
 import vn.asiantech.internship.ui.testcase.User;
 
 /**
- * Created by Thanh Thien on 7/10/2017.
- * User
+ * Copyright © 2017 AsianTech inc.
+ * Created on 7/12/2017
+ *
+ * @author Thanh Thien
  */
 @RunWith(MockitoJUnitRunner.class)
 public class RegisterUserUnitTest {
@@ -58,7 +60,7 @@ public class RegisterUserUnitTest {
 
     @Test
     public void checkOnlyAlphabet() {
-        for (String trueAllThing : mUtils.trueUserName) {
+        for (String trueAllThing : mUtils.trueUserNames) {
             Mockito.when(mUser.getUserName()).thenReturn(trueAllThing);
             Assert.assertTrue(mRegisterChecker.trueAllUserName(mUser.getUserName()));
         }

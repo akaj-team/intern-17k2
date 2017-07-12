@@ -1,8 +1,9 @@
 package vn.asiantech.internship.ui.testcase;
 
 /**
- * Created by Thanh Thien on 7/11/2017.
- * QuadraticFormula
+ * Copyright © 2017 AsianTech inc.
+ * Created on 7/12/2017
+ * * @author Thanh Thien
  */
 public class QuadraticFormula {
 

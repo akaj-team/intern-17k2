@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import vn.asiantech.internship.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Copyright © 2017 AsianTech inc.
+ * Created on 7/12/2017
+ * @author Thanh Thien
  */
 public class RegisterFragment extends Fragment {
 

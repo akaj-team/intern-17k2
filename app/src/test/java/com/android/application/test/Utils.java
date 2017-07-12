@@ -1,13 +1,14 @@
 package com.android.application.test;
 
 /**
- * Created by Thanh Thien on 7/11/2017.
- * Utils
+ * Copyright © 2017 AsianTech inc.
+ * Created on 7/12/2017
+ * @author Thanh Thien
  */
 class Utils {
     String[] trueAllThings = {"ThienNguyen", "thanewehthien", "nguyentwewehanhthien97", "16thiewewennguyen"};
     String[] trueAllPasswordThings = {"Thien$Nguyen19", "than_ Thien97", "nguyen_Thanhthien97", "16Thien Nguyen_"};
-    String[] trueUserName = {"thiennguyen", "nguyenthien97", "97thanhthien", "thien97nguyen"};
+    String[] trueUserNames = {"thiennguyen", "nguyenthien97", "97thanhthien", "thien97nguyen"};
     String[] falseAllThings = {"Thien", "l e", "lE", "_Tam"};
     String[] falseLengthPasswords = {"thi", "l e", "lE", "_To"};
     String[] trueCheckMaxLengths = {"nguyenthanhthien", "nguyen thanh thien", "nguyen van c", "Tran Thuy Trang", "Nguyen Van No Name Thien"};

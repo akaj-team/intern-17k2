@@ -1,13 +1,13 @@
 package vn.asiantech.internship.ui.testcase;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 /**
- * Created by Thanh Thien on 7/10/2017.
- * User
+ * Copyright © 2017 AsianTech inc.
+ * Created on 7/12/2017
+ * @author Thanh Thien
  */
-public class User implements Parcelable {
+public class User {
     private String userName;
     private String passWord;
 
@@ -15,18 +15,6 @@ public class User implements Parcelable {
         userName = in.readString();
         passWord = in.readString();
     }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 
     public String getUserName() {
         return userName;
@@ -47,16 +35,5 @@ public class User implements Parcelable {
     public User(String userName, String passWord) {
         this.userName = userName;
         this.passWord = passWord;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(userName);
-        dest.writeString(passWord);
     }
 }

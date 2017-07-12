@@ -8,8 +8,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import vn.asiantech.internship.ui.testcase.QuadraticFormula;
 
 /**
- * Created by Thanh Thien on 7/11/2017.
- * QuadraticFormulaUnitTest
+ * Copyright © 2017 AsianTech inc.
+ *
+ * @author Thanh Thien
+ *         Created on 7/12/2017.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class QuadraticFormulaUnitTest {

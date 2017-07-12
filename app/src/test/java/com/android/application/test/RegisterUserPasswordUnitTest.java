@@ -11,15 +11,17 @@ import vn.asiantech.internship.ui.testcase.RegisterChecker;
 import vn.asiantech.internship.ui.testcase.User;
 
 /**
- * Created by Thanh Thien on 7/10/2017.
- * User
+ * Copyright © 2017 AsianTech inc.
+ *
+ * @author Thanh Thien
+ *         Created on 7/12/2017
  */
 @RunWith(MockitoJUnitRunner.class)
 public class RegisterUserPasswordUnitTest {
 
     private static final String USER_NAME = "Thien";
     private static final String[] PASSWORDS = {"nguyenthanhPass12(", "_DayLapassDung98", "ThisISpass_98"};
-    private static final String[] PASSWORDS_PAIL = {"ThanhThien97(", "_thienNguyen123", "Thien9753_Thanh", "thien090_@#$_Nguyen"};
+    private static final String[] PASSWORDS_FAILS = {"ThanhThien97(", "_thienNguyen123", "Thien9753_Thanh", "thien090_@#$_Nguyen"};
     @Mock
     private User mUser;
     private RegisterChecker mRegisterChecker = new RegisterChecker();
@@ -35,7 +37,7 @@ public class RegisterUserPasswordUnitTest {
     @Test
     public void passwordHasUserFalse() {
         Mockito.when(mUser.getUserName()).thenReturn(USER_NAME);
-        for (String passwordFail : PASSWORDS_PAIL) {
+        for (String passwordFail : PASSWORDS_FAILS) {
             Assert.assertFalse(mRegisterChecker.hasUser(passwordFail, mUser.getUserName()));
         }
     }

@@ -11,8 +11,10 @@ import vn.asiantech.internship.ui.testcase.RegisterChecker;
 import vn.asiantech.internship.ui.testcase.User;
 
 /**
- * Created by Thanh Thien on 7/10/2017.
- * User
+ * Copyright © 2017 AsianTech inc.
+ *
+ * @author Thanh Thien
+ *         Created on 7/12/2017
  */
 @RunWith(MockitoJUnitRunner.class)
 public class RegisterPasswordUnitTest {

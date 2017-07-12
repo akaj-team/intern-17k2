@@ -6,7 +6,9 @@ import android.os.Bundle;
 import vn.asiantech.internship.R;
 
 /**
- * RegisterActivity
+ * Copyright © 2017 AsianTech inc.
+ * Created on 7/12/2017
+ * @author Thanh Thien
  */
 public class RegisterActivity extends AppCompatActivity {
 

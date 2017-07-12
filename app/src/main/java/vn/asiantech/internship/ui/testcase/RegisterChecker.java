@@ -1,8 +1,11 @@
 package vn.asiantech.internship.ui.testcase;
 
+import java.util.Locale;
+
 /**
- * Created by Thanh Thien on 7/10/2017.
- * RegisterChecker
+ * Copyright © 2017 AsianTech inc.
+ * Created on 7/12/2017
+ * @author Thanh Thien
  */
 public class RegisterChecker {
     private char[] mNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
@@ -16,7 +19,7 @@ public class RegisterChecker {
     }
 
     public boolean checkSpace(String s) {
-        return s.indexOf(" ") == -1;
+        return s.indexOf(' ') == -1;
     }
 
     public boolean trueAllUserName(String s) {
@@ -38,8 +41,8 @@ public class RegisterChecker {
     public boolean hasSymbol(String s) {
         String specialCharacters = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~";
         String[] str2 = s.split("");
-        for (int i = 0; i < str2.length; i++) {
-            if (specialCharacters.contains(str2[i])) {
+        for (String aStr2 : str2) {
+            if (specialCharacters.contains(aStr2)) {
                 return true;
             }
         }
@@ -49,8 +52,8 @@ public class RegisterChecker {
     public boolean hasUpChar(String s) {
         String specialCharacters = "ZXCVBNMLKJHGFDSAQWERTYUIOP";
         String[] str2 = s.split("");
-        for (int i = 0; i < str2.length; i++) {
-            if (specialCharacters.contains(str2[i])) {
+        for (String aStr2 : str2) {
+            if (specialCharacters.contains(aStr2)) {
                 return true;
             }
         }
@@ -58,6 +61,6 @@ public class RegisterChecker {
     }
 
     public boolean hasUser(String password, String user) {
-        return !password.toLowerCase().contains(user.toLowerCase());
+        return !password.toLowerCase(Locale.getDefault()).contains(user.toLowerCase(Locale.getDefault()));
     }
 }
