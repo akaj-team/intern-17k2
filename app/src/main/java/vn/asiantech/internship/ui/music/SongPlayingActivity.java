@@ -186,9 +186,8 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        Intent intent = new Intent(SongPlayingActivity.this, MusicService.class);
+        Intent intent = new Intent(Action.SEEK_TO.getValue());
         intent.putExtra(Action.SEEK_TO.getValue(), seekBar.getProgress());
-        intent.setAction(Action.SEEK_TO.getValue());
         sendBroadcast(intent);
     }
 

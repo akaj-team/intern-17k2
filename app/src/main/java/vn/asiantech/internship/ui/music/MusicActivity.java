@@ -1,11 +1,15 @@
 package vn.asiantech.internship.ui.music;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,15 @@ public class MusicActivity extends AppCompatActivity {
     private RecyclerView mRecyclerViewSong;
     private List<Song> mSongs;
     private SongAdapter mSongAdapter;
+    private int mCurrentPosition = -1;
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Action.UPDATE_ISPLAYING.getValue())) {
+                updateView(intent);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +44,9 @@ public class MusicActivity extends AppCompatActivity {
         mRecyclerViewSong = (RecyclerView) findViewById(R.id.recyclerViewSong);
         mSongs = new ArrayList<>();
         initAdapter();
+        initIntentFilter();
+        updateView(getIntent());
+        Log.d("xxx", "onCreate: " + mCurrentPosition);
     }
 
     private void initAdapter() {
@@ -49,6 +65,23 @@ public class MusicActivity extends AppCompatActivity {
         mRecyclerViewSong.setAdapter(mSongAdapter);
     }
 
+    private void initIntentFilter() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Action.UPDATE_ISPLAYING.getValue());
+        registerReceiver(mBroadcastReceiver, filter);
+    }
+
+    private void updateView(Intent intent) {
+        if (intent.getIntExtra(Action.KEY_BUNDLE_POSITION.getValue(), -1) != -1) {
+            int position = intent.getIntExtra(Action.KEY_BUNDLE_POSITION.getValue(), -1);
+            Log.d("xxx", "updateView: " + position);
+            resetSongPlaying();
+            mSongs.get(position).setPlaying(true);
+            mCurrentPosition = position;
+            mSongAdapter.notifyDataSetChanged();
+        }
+    }
+
     public List<Song> createSongs() {
         mSongs.add(new Song(1073930186, "Trong Lòng Muốn Hát Thì Hát", "Đồng Lệ",
                 "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNVEVGLJXTLDJTDGLG", "http://i.imgur.com/t5oc1NR.jpg", 287));
@@ -61,15 +94,26 @@ public class MusicActivity extends AppCompatActivity {
         return mSongs;
     }
 
-    public void intentStartService(int position) {
-        for (Song song : mSongs) {
-            song.setPlaying(false);
-        }
+    private void intentStartService(int position) {
+        resetSongPlaying();
         Intent intent = new Intent(this, MusicService.class);
         intent.putParcelableArrayListExtra(Action.KEY_BUNDLE_ARRAYLIST.getValue(), (ArrayList<? extends Parcelable>) mSongs);
         intent.putExtra(Action.KEY_BUNDLE_POSITION.getValue(), position);
         startService(intent);
         mSongs.get(position).setPlaying(true);
+        mCurrentPosition = position;
         mSongAdapter.notifyDataSetChanged();
+    }
+
+    private void resetSongPlaying() {
+        if (mCurrentPosition != -1) {
+            mSongs.get(mCurrentPosition).setPlaying(false);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
     }
 }
