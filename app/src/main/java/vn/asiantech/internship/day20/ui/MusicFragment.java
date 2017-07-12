@@ -170,17 +170,17 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentPlay = new Intent();
-                if (mIsPause) { // if music is pausing
+                if (mIsPause) { // If music is pausing
                     intentPlay.setAction(Action.RESUME.getValue());
                     mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_pause);
                     mIsPlaying = true;
                     mIsPause = false;
-                } else if (mIsPlaying) { // if music is playing
+                } else if (mIsPlaying) { // If music is playing
                     intentPlay.setAction(Action.PAUSE.getValue());
                     mImgBtnPlay.setBackgroundResource(R.drawable.bg_button_play);
                     mIsPause = true;
                     mIsPlaying = false;
-                } else { // music is starting
+                } else { // Music is starting
                     intentPlay.setAction(Action.PLAY.getValue());
                     if (mCurrentPosition != -1) {
                         intentPlay.putExtra(MusicActivity.KEY_POS, mCurrentPosition);

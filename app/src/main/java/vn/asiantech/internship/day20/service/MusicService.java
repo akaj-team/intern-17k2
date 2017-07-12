@@ -94,13 +94,14 @@ public class MusicService extends Service {
     };
 
     public MusicService() {
-        // constructor
+        // No-op
     }
 
     private void startMedia() {
         resetMusic();
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
+            mMediaPlayer.prepare();
             mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
@@ -109,7 +110,6 @@ public class MusicService extends Service {
                     handlerProgress();
                 }
             });
-            mMediaPlayer.prepare();
             mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
@@ -248,25 +248,25 @@ public class MusicService extends Service {
 
     private void showNotification(String song, String singer, int duration, int currentTime) {
         RemoteViews views = new RemoteViews(getPackageName(), R.layout.custom_notification);
-//        RemoteViews bigViews = new RemoteViews(getPackageName(), R.layout.custom_notification_expanse);
+        RemoteViews bigViews = new RemoteViews(getPackageName(), R.layout.custom_notification_expanse);
         BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
                 R.drawable.img_music, options);
         views.setViewVisibility(R.id.imgSmallIconMusic, View.VISIBLE);
-        views.setViewVisibility(R.id.imgNotifiMusic, View.GONE);
-//        bigViews.setProgressBar(R.id.progressBar, duration, currentTime, false);
-        views.setTextViewText(R.id.tvNotifiSong, song);
-//        bigViews.setTextViewText(R.id.tvNotifiSong, song);
-        views.setTextViewText(R.id.tvNotifiSinger, singer);
-//        bigViews.setTextViewText(R.id.tvNotifiSinger, singer);
+        views.setViewVisibility(R.id.imgNotificationMusic, View.GONE);
+        bigViews.setProgressBar(R.id.progressBar, duration, currentTime, false);
+        views.setTextViewText(R.id.tvNotificationSong, song);
+        bigViews.setTextViewText(R.id.tvNotificationSong, song);
+        views.setTextViewText(R.id.tvNotificationSinger, singer);
+        bigViews.setTextViewText(R.id.tvNotificationSinger, singer);
         if (mMediaPlayer.isPlaying()) {
-//            bigViews.setImageViewResource(R.id.imgBtnNotifiPlay, R.drawable.apollo_holo_dark_pause);
-            views.setImageViewResource(R.id.imgBtnNotifiPlay, R.drawable.apollo_holo_dark_pause);
+            bigViews.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.apollo_holo_dark_pause);
+            views.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.apollo_holo_dark_pause);
         } else {
-//            bigViews.setImageViewResource(R.id.imgBtnNotifiPlay, R.drawable.apollo_holo_dark_play);
-            views.setImageViewResource(R.id.imgBtnNotifiPlay, R.drawable.apollo_holo_dark_play);
+            bigViews.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.apollo_holo_dark_play);
+            views.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.apollo_holo_dark_play);
         }
-//        bigViews.setImageViewBitmap(R.id.imgNotifiMusic, bitmap);
+        bigViews.setImageViewBitmap(R.id.imgNotificationMusic, bitmap);
         Intent notificationIntent = new Intent(this, MusicActivity.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -279,24 +279,24 @@ public class MusicService extends Service {
             intentPlay.setAction(Action.RESUME.getValue());
         }
         PendingIntent playSong = PendingIntent.getBroadcast(this, 0, intentPlay, 0);
-//        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiPlay, playSong);
-        views.setOnClickPendingIntent(R.id.imgBtnNotifiPlay, playSong);
+        bigViews.setOnClickPendingIntent(R.id.imgBtnNotificationPlay, playSong);
+        views.setOnClickPendingIntent(R.id.imgBtnNotificationPlay, playSong);
         Intent intentNextSong = new Intent(Action.NEXT.getValue());
         PendingIntent nextSong = PendingIntent.getBroadcast(this, 0, intentNextSong, 0);
-//        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiNext, nextSong);
-        views.setOnClickPendingIntent(R.id.imgBtnNotifiNext, nextSong);
+        bigViews.setOnClickPendingIntent(R.id.imgBtnNotificationNext, nextSong);
+        views.setOnClickPendingIntent(R.id.imgBtnNotificationNext, nextSong);
         Intent intentTurnOff = new Intent(Action.STOP.getValue());
         PendingIntent turnOff = PendingIntent.getBroadcast(this, 0, intentTurnOff, 0);
-//        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiExit, turnOff);
-        views.setOnClickPendingIntent(R.id.imgBtnNotifiExit, turnOff);
+        bigViews.setOnClickPendingIntent(R.id.imgBtnNotificationExit, turnOff);
+        views.setOnClickPendingIntent(R.id.imgBtnNotificationExit, turnOff);
         Intent intentPrevious = new Intent(Action.PREVIOUS.getValue());
         PendingIntent previous = PendingIntent.getBroadcast(this, 0, intentPrevious, 0);
-//        bigViews.setOnClickPendingIntent(R.id.imgBtnNotifiPrev, previous);
+        bigViews.setOnClickPendingIntent(R.id.imgBtnNotificationPrev, previous);
         Notification notification = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             notification = new Notification.Builder(this).build();
             notification.contentView = views;
-//            notification.bigContentView = bigViews;
+            notification.bigContentView = bigViews;
             notification.flags = Notification.FLAG_ONGOING_EVENT;
             notification.icon = R.drawable.ic_music_note_white_48dp;
             notification.contentIntent = pendingIntent;
@@ -324,7 +324,6 @@ public class MusicService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e(TAG, "onStartCommand:");
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         if (intent != null && intent.getParcelableArrayListExtra(MusicActivity.KEY_LIST) != null) {
@@ -332,7 +331,7 @@ public class MusicService extends Service {
         } else {
             stopSelf();
         }
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     @Override
@@ -340,16 +339,11 @@ public class MusicService extends Service {
         super.onDestroy();
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
-            Log.e(TAG, "onDestroy: " + 1);
         }
         if (mMediaPlayer != null) {
             mMediaPlayer.release();
-            Log.e(TAG, "onDestroy: ");
         }
-        mLength = 0;
-        mSong = null;
         unregisterReceiver(mBroadcastReceiver);
-        stopSelf();
     }
 
     @Override
