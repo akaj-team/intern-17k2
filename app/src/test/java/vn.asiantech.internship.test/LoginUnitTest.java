@@ -40,7 +40,7 @@ public class LoginUnitTest {
         Mockito.when(mUser.getName()).thenReturn("vietnam");
         Assert.assertFalse(Login.checkSpaceOfUsername(mUser.getName()));
 
-        // Check just alphabe
+        // Check just alphabe and not UpperCase
         Mockito.when(mUser.getName()).thenReturn("vietnam");
         Assert.assertTrue(Login.checkAlphabeOfUsername(mUser.getName()));
         Mockito.when(mUser.getName()).thenReturn("vietnam1234");

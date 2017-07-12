@@ -49,6 +49,11 @@
     <string name="dismiss_dialog">Do you want to reset Quiz app?</string>
     <string name="question">Question %d</string>
     <string name="question_order">You answered %s, Do you want to go to Result Screen?</string>
+    <string name="ptbachai.text.pt_vo_so_nghiem">Phuong trinh vo so nghiem</string>
+    <string name="ptbachai.text.pt_vo_nghiem">Phuong trinh vo nghiem</string>
+    <string name="ptbachai.text.pt_1_nghiem">Phuong trinh co 1 nghiem</string>
+    <string name="ptbachai.text.pt_2_nghiem_phan_biet">Phuong trinh co 2 nghiem phan biet</string>
+    <string name="ptbachai.text.pt_co_nghiem_kep">Phuong trinh co nghiem kep</string>
     <string-array name="tabtitles">
         <item name="bike">bike</item>
         <item name="dog">dog</item>

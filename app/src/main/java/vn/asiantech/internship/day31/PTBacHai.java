@@ -1,45 +1,50 @@
 package vn.asiantech.internship.day31;
 
+import vn.asiantech.internship.R;
+
 /**
  * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 11/07/2017.
  */
 public class PTBacHai {
+    private static double[] mX = new double[2];
 
-    public static String checkParameter(double a, double b, double c) {
+    private PTBacHai() {
+    }
+
+    public static int checkParameter(double a, double b, double c) {
         if (a == 0) {
             if (b == 0) {
                 if (c == 0) {
-                    return "phuong trinh vo so nghiem";
+                    return R.string.ptbachai_text_pt_vo_so_nghiem;
                 } else {
-                    return "phuong trinh vo nghiem";
+                    return R.string.ptbachai_text_pt_vo_nghiem;
                 }
             } else {
-                return "phuong trinh co 1 nghiem";
+                return R.string.ptbachai_text_pt_1_nghiem;
             }
         } else {
             double delta = b * b - 4 * a * c;
             if (delta > 0) {
-                return "phuong trinh co 2 nghiem phan biet";
+                return R.string.ptbachai_text_pt_2_nghiem_phan_biet;
             } else if (delta == 0) {
-                return "phuong trinh co nghiem kep";
+                return R.string.ptbachai_text_pt_co_nghiem_kep;
             }
-            return "phuong trinh vo nghiem";
+            return R.string.ptbachai_text_pt_vo_nghiem;
         }
     }
 
     public static double[] getX1X2(double a, double b, double c) {
-        double[] x = new double[2];
         if (a != 0) {
             double delta = b * b - 4 * a * c;
             if (delta > 0) {
-                x[0] = (-b + Math.sqrt(delta)) / (2 * a);
-                x[1] = (-b - Math.sqrt(delta)) / (2 * a);
+                mX[0] = (-b + Math.sqrt(delta)) / (2 * a);
+                mX[1] = (-b - Math.sqrt(delta)) / (2 * a);
             } else if (delta == 0) {
-                x[0] = x[1] = -b / (2 * a);
+                mX[0] = mX[1] = -b / (2 * a);
             }
         }
-        return x;
+        return mX;
     }
 
     public static double getX(double a, double b, double c) {
