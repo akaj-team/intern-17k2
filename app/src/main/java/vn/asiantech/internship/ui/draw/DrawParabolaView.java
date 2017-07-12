@@ -27,7 +27,7 @@ public class DrawParabolaView extends View {
         mPaint.setColor(Color.WHITE);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(3);
-        mPath=new Path();
+        mPath = new Path();
     }
 
     public DrawParabolaView(Context context, @Nullable AttributeSet attrs) {
