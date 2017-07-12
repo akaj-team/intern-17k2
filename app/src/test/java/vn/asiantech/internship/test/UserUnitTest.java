@@ -3,7 +3,6 @@ package vn.asiantech.internship.test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static junit.framework.Assert.assertFalse;
