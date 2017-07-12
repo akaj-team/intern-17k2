@@ -51,6 +51,9 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder
         return mSongs.size();
     }
 
+    /**
+     * Item song
+     */
     class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvTitle;
         private TextView mTvArtist;
