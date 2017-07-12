@@ -44,7 +44,6 @@ dependencies {
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.7.22'
-    // required if you want to use Mockito for Android tests
     androidTestCompile 'org.mockito:mockito-android:2.7.22'
 }
 
