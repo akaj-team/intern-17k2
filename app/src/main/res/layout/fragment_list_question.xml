@@ -29,7 +29,7 @@
             android:layout_marginStart="@dimen/quiz.layout_marginLeft"
             android:textColor="@color/textview.Question"
             android:textSize="@dimen/radiobutton.answer.textSize"
-            tools:text="answer a" />
+            tools:text="answer mA" />
 
         <RadioButton
             android:id="@+id/rbAnswerB"
