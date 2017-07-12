@@ -3,6 +3,7 @@ package com.android.application.test;
 /**
  * Copyright © 2017 AsianTech inc.
  * Created on 7/12/2017
+ *
  * @author Thanh Thien
  */
 class Utils {
@@ -15,7 +16,7 @@ class Utils {
     String[] falseCheckMaxLengths = {"Thang Thien ten Thien ho Nguyen nha", "nguyen thanh thien nguyen thanh thien", "nguyentwewehanhthiennguyentwewehanhthien"};
     String[] checkSymbols = {"thien", "thanhthien", "nguyen thanh thien", "thiennguyen", "nguyen thanh thien", "thiennguyen"};
     String[] falseCheckSymbols = {"thien!", "`thanhthien", "nguyen_thanh_thien", "$thiennguyen", "nguyen thanh; thien"};
-    String[] falseCheckAlphabets = {"thien!", "thanhthien ", "nguyen thanh_thien", "thien nguyen", "thiennguyen_",  "Thiennguyen_", "thienNguyen"};
+    String[] falseCheckAlphabets = {"thien!", "thanhthien ", "nguyen thanh_thien", "thien nguyen", "thiennguyen_", "Thiennguyen_", "thienNguyen"};
     String[] trueHasNumbers = {"13ThienNguyen", "thanh12hthien", "nguyentwewehanhthien97", "16thien nguyen"};
     String[] falseUpChars = {"thanhthien", "nguyenthanhthien97", "19thien thanh"};
 }

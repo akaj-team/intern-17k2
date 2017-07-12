@@ -1,20 +1,14 @@
 package vn.asiantech.internship.ui.testcase;
 
-import android.os.Parcel;
-
 /**
  * Copyright © 2017 AsianTech inc.
  * Created on 7/12/2017
+ *
  * @author Thanh Thien
  */
 public class User {
     private String userName;
     private String passWord;
-
-    private User(Parcel in) {
-        userName = in.readString();
-        passWord = in.readString();
-    }
 
     public String getUserName() {
         return userName;
