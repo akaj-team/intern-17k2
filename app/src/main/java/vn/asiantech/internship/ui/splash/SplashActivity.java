@@ -13,7 +13,6 @@ import vn.asiantech.internship.activity.ChatActivity;
 import vn.asiantech.internship.activity.AnimalActivity;
 import vn.asiantech.internship.activity.FriendActivity;
 import vn.asiantech.internship.activity.ParabolaActivity;
-import vn.asiantech.internship.ui.draw.DrawParabolaView;
 import vn.asiantech.internship.ui.feed.FeedActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 import vn.asiantech.internship.activity.TestActivity;

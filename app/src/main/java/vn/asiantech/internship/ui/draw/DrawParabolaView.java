@@ -15,6 +15,7 @@ import android.view.View;
  */
 public class DrawParabolaView extends View {
     private Paint mPaint;
+    private Path mPath;
 
     public DrawParabolaView(Context context) {
         super(context);
@@ -26,6 +27,7 @@ public class DrawParabolaView extends View {
         mPaint.setColor(Color.WHITE);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(3);
+        mPath=new Path();
     }
 
     public DrawParabolaView(Context context, @Nullable AttributeSet attrs) {
@@ -38,25 +40,24 @@ public class DrawParabolaView extends View {
         super.onDraw(canvas);
         canvas.drawLine(50, getHeight() / 2, getWidth() - 50, getHeight() / 2, mPaint);
         canvas.drawLine(getWidth() / 2, 50, getWidth() / 2, getHeight() - 50, mPaint);
-        Path path = new Path();
-        path.moveTo(getWidth() - 50, getHeight() / 2 - 10);
-        path.lineTo(getWidth() - 50, getHeight() / 2 + 10);
-        path.lineTo(getWidth() - 10, getHeight() / 2);
+        mPath.moveTo(getWidth() - 50, getHeight() / 2 - 10);
+        mPath.lineTo(getWidth() - 50, getHeight() / 2 + 10);
+        mPath.lineTo(getWidth() - 10, getHeight() / 2);
         mPaint.setStyle(Paint.Style.FILL);
-        canvas.drawPath(path, mPaint);
+        canvas.drawPath(mPath, mPaint);
 
-        path.moveTo(getWidth() / 2 - 10, 50);
-        path.lineTo(getWidth() / 2 + 10, 50);
-        path.lineTo(getWidth() / 2, 10);
-        canvas.drawPath(path, mPaint);
+        mPath.moveTo(getWidth() / 2 - 10, 50);
+        mPath.lineTo(getWidth() / 2 + 10, 50);
+        mPath.lineTo(getWidth() / 2, 10);
+        canvas.drawPath(mPath, mPaint);
         mPaint.setStyle(Paint.Style.STROKE);
         float k = getWidth() / 2 / 5;
         float x = -5;
         float y = getY(-5);
-        for (float i = -5; i < 5; i += 0.01f) {
-            canvas.drawLine(getXCanvas(x, k), getYCanvas(y, k), getXCanvas(i, k), getYCanvas(getY(i), k), mPaint);
-            x = i;
-            y = getY(i);
+        for (double i = -5; i < 5; i += 0.01f) {
+            canvas.drawLine(getXCanvas(x, k), getYCanvas(y, k), getXCanvas((float) i, k), getYCanvas(getY((float) i), k), mPaint);
+            x = (float) i;
+            y = getY((float) i);
         }
     }
 
