@@ -79,7 +79,8 @@ public class MusicService extends Service {
                 } else if (intent.getAction().equals(Action.AUTONEXT.getValue())) {
                     mIsAutoNext = (!mIsAutoNext);
                 } else if (intent.getAction().equals(Action.STOP.getValue())) {
-                    exitApp();
+                    stopForeground(true);
+                    stopSelf();
                 } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                     showNotification(mSong.getName(), mSong.getSinger(), mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition());
                 } else if (intent.getAction().equals(String.valueOf(TelephonyManager.CALL_STATE_RINGING))) {
@@ -102,22 +103,7 @@ public class MusicService extends Service {
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
             mMediaPlayer.prepare();
-            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    mMediaPlayer.start();
-                    sendDuration();
-                    handlerProgress();
-                }
-            });
-            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    if (mIsAutoNext) {
-                        nextMusic();
-                    }
-                }
-            });
+            setEventMedia();
         } catch (IOException e) {
             Log.e(TAG, "IOException: " + e.toString());
         }
@@ -135,14 +121,7 @@ public class MusicService extends Service {
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
             mMediaPlayer.prepare();
-            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    mMediaPlayer.start();
-                    sendDuration();
-                    handlerProgress();
-                }
-            });
+            setEventMedia();
         } catch (IOException e) {
             Log.e(TAG, "IOException");
         }
@@ -159,18 +138,30 @@ public class MusicService extends Service {
         sendSong(SONG_PREVIOUS, mCurrentPosition);
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
-            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    mMediaPlayer.start();
-                    sendDuration();
-                    handlerProgress();
-                }
-            });
             mMediaPlayer.prepare();
+            setEventMedia();
         } catch (IOException e) {
             Log.e(TAG, "IOException");
         }
+    }
+
+    private void setEventMedia() {
+        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mMediaPlayer.start();
+                sendDuration();
+                handlerProgress();
+            }
+        });
+        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                if (mIsAutoNext) {
+                    nextMusic();
+                }
+            }
+        });
     }
 
     private void resetMusic() {
@@ -202,13 +193,6 @@ public class MusicService extends Service {
             ran = random.nextInt(mSongs.size() - 1);
         } while (ran == mCurrentPosition);
         return ran;
-    }
-
-    private void exitApp() {
-        stopForeground(true);
-        stopSelf();
-        Intent intent = new Intent(Action.EXIT.getValue());
-        sendBroadcast(intent);
     }
 
     private void handlerProgress() {
@@ -296,7 +280,6 @@ public class MusicService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             notification = new Notification.Builder(this).build();
             notification.contentView = views;
-            notification.bigContentView = bigViews;
             notification.flags = Notification.FLAG_ONGOING_EVENT;
             notification.icon = R.drawable.ic_music_note_white_48dp;
             notification.contentIntent = pendingIntent;

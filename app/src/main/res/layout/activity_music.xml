@@ -4,43 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/item.layout_padding"
     tools:context="vn.asiantech.internship.day20.ui.MusicActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBarMusic"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity.toolbar_height"
-        android:background="@color/colorTab">
+        android:background="@drawable/bg_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/imgBtnBack"
+                android:id="@+id/imgBtnEmotionMusic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_arrow_back_blue_500_48dp" />
+                android:src="@drawable/ic_cloud_circle_light_blue_600_48dp" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:paddingLeft="@dimen/feed.item.viewpager.button_size"
+                android:paddingRight="@dimen/feed.item.viewpager.button_size"
                 android:text="@string/music.title"
-                android:textColor="@color/colorBlack" />
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/result.item.text_size" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewMusic"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item.layout_padding" />
 
     <FrameLayout
         android:id="@+id/frContainerMusic"

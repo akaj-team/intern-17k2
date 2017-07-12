@@ -2,7 +2,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorDark"
-    android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <ImageView
@@ -50,12 +49,14 @@
         android:id="@+id/imgBtnNotificationPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:contentDescription="@string/cd_play" />
 
     <ImageButton
         android:id="@+id/imgBtnNotificationNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:contentDescription="@string/cd_next"
         android:src="@drawable/apollo_holo_dark_next" />
 
@@ -63,6 +64,7 @@
         android:id="@+id/imgBtnNotificationExit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:contentDescription="@null"
         android:src="@drawable/apollo_holo_dark_notifiation_bar_collapse" />
 
