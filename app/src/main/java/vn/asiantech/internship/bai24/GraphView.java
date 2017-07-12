@@ -3,9 +3,9 @@ package vn.asiantech.internship.bai24;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day16.ui.CustomView;
@@ -14,8 +14,10 @@ import vn.asiantech.internship.day16.ui.CustomView;
  * Created by at-dinhvo on 07/07/2017.
  */
 public class GraphView extends CustomView {
-
+    private static final String TAG = "at-dinhvo";
     private Paint mPaint;
+    private int mDistance = 30;
+    private int mRatio = 30;
 
     public GraphView(Context context) {
         super(context);
@@ -47,47 +49,36 @@ public class GraphView extends CustomView {
 
     private void drawGraph(Canvas canvas) {
         mPaint.setStrokeWidth(2);
-        Point p = fx(3, -4, 1, 0);
-        for (int i = 1; i < getWidth(); i++) {
-            solveCoordinatorXY(i, canvas);
+        for (int i = 0; i < getWidth() / 2; i++) {
+            drawPoint(canvas, i);
         }
     }
 
-    private Point fx(float a, float b, float c, int x) {
-        Point point = new Point();
-        float pX = (x - getWidth() / 2) / 50;
-        double pY = a * pX * pX + b * pX + c;
-        double y = (getHeight() / 2 - pY * 50);
-        point.x = x;
-        point.y = (int) y;
-        return point;
-    }
-
-    private void solveCoordinatorXY(int x, Canvas canvas) {
-        Point oldPoint = fx(3, -4, 1, 0);
-        Point newPoint;
-        for (int i = 1; i < getWidth(); i++) {
-            newPoint = fx(3, -4, 1, i);
-            canvas.drawLine(oldPoint.x, oldPoint.y, newPoint.x, newPoint.y, mPaint);
-            oldPoint = newPoint;
-        }
+    private void drawPoint(Canvas canvas, int x) {
+        mPaint.setStrokeWidth(10);
+        float X = x / mDistance;
+        float Y1 = (3 * X * X - 4 * X + 1);
+        float Y = (getHeight() / 2 - Y1) * mDistance;
+        canvas.drawCircle(X + getWidth() / 2, Y, mDistance, mPaint);
+        Log.e(TAG, "drawPoint: X = " + (X + getWidth()/2) + ", Y = " + Y);
+        canvas.drawPoint(X, Y, mPaint);
     }
 
     private void drawPivotX(Canvas canvas) {
         mPaint.setStrokeWidth(3);
-        canvas.drawLine(getWidth() / 2, 40, getWidth() / 2, getHeight() - 40, mPaint);
-        mPaint.setStrokeWidth(6);
-        for (double i = (-getWidth() / 2) / 50; i <= (getWidth() / 2) / 50; i++) {
-            canvas.drawPoint((float) (getWidth() / 2 + i * 50), getHeight() / 2, mPaint);
+        canvas.drawLine(getWidth() / 2, mDistance, getWidth() / 2, getHeight() - mDistance, mPaint);
+        mPaint.setStrokeWidth(5);
+        for (float i = ((-getWidth() + mDistance) / 2) / mRatio; i <= ((getWidth() - mDistance) / 2) / mRatio; i++) {
+            canvas.drawPoint((getWidth() / 2 + i * mRatio), getHeight() / 2, mPaint);
         }
     }
 
     private void drawPivotY(Canvas canvas) {
         mPaint.setStrokeWidth(3);
-        canvas.drawLine(40, getHeight() / 2, getWidth() - 40, getHeight() / 2, mPaint);
+        canvas.drawLine(mDistance, getHeight() / 2, getWidth() - mDistance, getHeight() / 2, mPaint);
         mPaint.setStrokeWidth(6);
-        for (double i = (-getHeight() / 2) / 50; i <= (getHeight() / 2) / 50; i++) {
-            canvas.drawPoint(getWidth() / 2, (float) (getHeight() / 2 + i * 50), mPaint);
+        for (float i = (-getHeight() / 2) / mRatio; i <= (getHeight() / 2) / mRatio; i++) {
+            canvas.drawPoint(getWidth() / 2, (getHeight() / 2 + i * mRatio), mPaint);
         }
     }
 }
