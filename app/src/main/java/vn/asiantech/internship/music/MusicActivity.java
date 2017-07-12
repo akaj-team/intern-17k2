@@ -67,12 +67,12 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initSharedPreferences() {
-        mSharedPreferences=getSharedPreferences("status",MODE_PRIVATE);
-        mEditor=mSharedPreferences.edit();
-        if (!mSharedPreferences.contains(KEY_PLAY_STATUS)){
-            mEditor.putInt(KEY_PLAY_STATUS,STOP_STATUS);
-            mEditor.putInt(KEY_SHUFFLE_STATUS,NO_SHUFFLE);
-            mEditor.putInt(KEY_REPEAT_STATUS,NO_REPEAT);
+        mSharedPreferences = getSharedPreferences("status", MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
+        if (!mSharedPreferences.contains(KEY_PLAY_STATUS)) {
+            mEditor.putInt(KEY_PLAY_STATUS, STOP_STATUS);
+            mEditor.putInt(KEY_SHUFFLE_STATUS, NO_SHUFFLE);
+            mEditor.putInt(KEY_REPEAT_STATUS, NO_REPEAT);
             mEditor.apply();
             mEditor.commit();
         }
@@ -115,8 +115,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initState() {
-        mImgPlayStatus = mSharedPreferences.getInt(KEY_PLAY_STATUS,STOP_STATUS);
-        switch (mImgPlayStatus){
+        mImgPlayStatus = mSharedPreferences.getInt(KEY_PLAY_STATUS, STOP_STATUS);
+        switch (mImgPlayStatus) {
             case STOP_STATUS:
             case PAUSE_STATUS:
                 mImgPlay.setImageResource(R.drawable.ic_play_arrow_black_24dp);
@@ -124,8 +124,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             case PLAY_STATUS:
                 mImgPlay.setImageResource(R.drawable.ic_pause_black_24dp);
         }
-        mImgShuffleStatus = mSharedPreferences.getInt(KEY_SHUFFLE_STATUS,NO_SHUFFLE);
-        switch (mImgShuffleStatus){
+        mImgShuffleStatus = mSharedPreferences.getInt(KEY_SHUFFLE_STATUS, NO_SHUFFLE);
+        switch (mImgShuffleStatus) {
             case NO_SHUFFLE:
                 mImgShuffle.setImageResource(R.drawable.ic_shuffle_black_24dp);
                 break;
@@ -133,8 +133,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 mImgShuffle.setImageResource(R.drawable.ic_shuffle_red_700_24dp);
                 break;
         }
-        mImgRepeatStatus = mSharedPreferences.getInt(KEY_REPEAT_STATUS,NO_REPEAT);
-        switch (mImgRepeatStatus){
+        mImgRepeatStatus = mSharedPreferences.getInt(KEY_REPEAT_STATUS, NO_REPEAT);
+        switch (mImgRepeatStatus) {
             case NO_REPEAT:
                 mImgRepeat.setImageResource(R.drawable.ic_repeat_black_24dp);
                 break;
@@ -174,7 +174,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             case R.id.imgPlay:
                 if (mImgPlayStatus == STOP_STATUS) {
                     mImgPlayStatus = PLAY_STATUS;
-                    mEditor.putInt(KEY_PLAY_STATUS,mImgPlayStatus);
+                    mEditor.putInt(KEY_PLAY_STATUS, mImgPlayStatus);
 
                     sendPlayStatus();
 
@@ -189,7 +189,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 }
                 if (mImgPlayStatus == PLAY_STATUS) {
                     mImgPlayStatus = PAUSE_STATUS;
-                    mEditor.putInt(KEY_PLAY_STATUS,mImgPlayStatus);
+                    mEditor.putInt(KEY_PLAY_STATUS, mImgPlayStatus);
 
                     sendPlayStatus();
 
@@ -203,7 +203,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 }
                 if (mImgPlayStatus == PAUSE_STATUS) {
                     mImgPlayStatus = PLAY_STATUS;
-                    mEditor.putInt(KEY_PLAY_STATUS,mImgPlayStatus);
+                    mEditor.putInt(KEY_PLAY_STATUS, mImgPlayStatus);
 
                     sendPlayStatus();
 
@@ -219,12 +219,12 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 if (mImgShuffleStatus == NO_SHUFFLE) {
                     mImgShuffle.setImageResource(R.drawable.ic_shuffle_red_700_24dp);
                     mImgShuffleStatus = SHUFFLE;
-                    mEditor.putInt(KEY_SHUFFLE_STATUS,mImgShuffleStatus);
+                    mEditor.putInt(KEY_SHUFFLE_STATUS, mImgShuffleStatus);
 
                 } else {
                     mImgShuffle.setImageResource(R.drawable.ic_shuffle_black_24dp);
                     mImgShuffleStatus = NO_SHUFFLE;
-                    mEditor.putInt(KEY_SHUFFLE_STATUS,mImgShuffleStatus);
+                    mEditor.putInt(KEY_SHUFFLE_STATUS, mImgShuffleStatus);
                 }
                 sendShuffleStatus();
                 break;
@@ -238,7 +238,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 if (mImgRepeatStatus == NO_REPEAT) {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_red_700_24dp);
                     mImgRepeatStatus = REPEAT;
-                    mEditor.putInt(KEY_REPEAT_STATUS,mImgRepeatStatus);
+                    mEditor.putInt(KEY_REPEAT_STATUS, mImgRepeatStatus);
 
                     sendRepeatStatus();
                     break;
@@ -246,7 +246,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 if (mImgRepeatStatus == REPEAT) {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_one_red_700_24dp);
                     mImgRepeatStatus = REPEAT_ONE;
-                    mEditor.putInt(KEY_REPEAT_STATUS,mImgRepeatStatus);
+                    mEditor.putInt(KEY_REPEAT_STATUS, mImgRepeatStatus);
 
                     sendRepeatStatus();
                     break;
@@ -254,7 +254,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 if (mImgRepeatStatus == REPEAT_ONE) {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_black_24dp);
                     mImgRepeatStatus = NO_REPEAT;
-                    mEditor.putInt(KEY_REPEAT_STATUS,mImgRepeatStatus);
+                    mEditor.putInt(KEY_REPEAT_STATUS, mImgRepeatStatus);
 
                     sendRepeatStatus();
                     break;
@@ -295,7 +295,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mBroadcastReceiver);
-        Intent changeSPIntent=new Intent();
+        Intent changeSPIntent = new Intent();
         changeSPIntent.setAction(Action.CHANGE.getValue());
         sendBroadcast(changeSPIntent);
     }

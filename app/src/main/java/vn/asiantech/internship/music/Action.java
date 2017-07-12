@@ -2,6 +2,7 @@ package vn.asiantech.internship.music;
 
 /**
  * Created by ducle on 08/07/2017.
+ * Action contain actions transfer to broadcastReceiver
  */
 public enum Action {
     START("START"), PAUSE("PAUSE"), RESUME("RESUME"), SHOW("SHOWNOTIFICATION"),
