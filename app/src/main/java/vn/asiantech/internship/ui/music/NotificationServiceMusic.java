@@ -25,7 +25,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.Music;
 
 /**
- * NotificationServiceMusic create by thanh Thien
+ * NotificationServiceMusic create by Thanh Thien
  */
 public class NotificationServiceMusic extends Service {
     private static final String TAG = NotificationServiceMusic.class.getSimpleName();
@@ -56,7 +56,7 @@ public class NotificationServiceMusic extends Service {
             if (intent.getAction().equals(Action.PAUSE.getValue())) {
                 pauseMedia();
             } else if (intent.getAction().equals(Action.START.getValue())) {
-                startMedia(true);
+                startMedia(true, intent.getIntExtra(Action.POSITION.getValue(), 0));
             } else if (intent.getAction().equals(Action.STOP.getValue())) {
                 stopMediaAndCloseNotification();
             } else if (intent.getAction().equals(Action.NEXT.getValue())) {
@@ -92,7 +92,11 @@ public class NotificationServiceMusic extends Service {
         } else {
             mPosition--;
         }
-        startMedia(false);
+        if (mPosition < 0) {
+            mPosition = mMusics.size() - 1;
+        }
+        stopMediaInUi();
+        startMedia(false, mPosition);
     }
 
     private void goNextMedia() {
@@ -104,7 +108,16 @@ public class NotificationServiceMusic extends Service {
         if (mPosition == mMusics.size()) {
             mPosition = 0;
         }
-        startMedia(false);
+        stopMediaInUi();
+        startMedia(false, mPosition);
+    }
+
+    private void stopMediaInUi() {
+        Intent timeIntent = new Intent(Action.SEEK.getValue());
+        timeIntent.putExtra("stop", true);
+        timeIntent.putExtra("time", 0);
+        timeIntent.putExtra("second", 0);
+        sendBroadcast(timeIntent);
     }
 
     private void seekToMedia(Intent intent) {
@@ -136,51 +149,50 @@ public class NotificationServiceMusic extends Service {
         }
     }
 
-    private void startMedia(final boolean isFirst) {
-        try {
-            stopMedia();
-            mMediaPlayer = new MediaPlayer();
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mMediaPlayer.setDataSource(mMusics.get(mPosition).getUrlMp3());
-            mMediaPlayer.prepare();
-        } catch (IOException e) {
-            Log.e(TAG, "startMedia: " + e.toString());
-        }
+    private void startMedia(final boolean isFirst, int position) {
+        stopMedia();
+        mPosition = position;
+        mMediaPlayer = new MediaPlayer();
+        final Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    mMediaPlayer.setDataSource(mMusics.get(mPosition).getUrlMp3());
+                    mMediaPlayer.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
-                mMediaPlayer.start();
-
+                thread.stop();
+                mediaPlayer.start();
+                startCountDownTimer(mediaPlayer);
                 // TODO Clear that below line if you  want to disable show notification
                 if (isFirst) {
                     showNotification();
                 } else {
-                     updateRemoteViewsData();
+                    updateRemoteViewsData();
                 }
             }
         });
+    }
+
+    // TODO: 7/11/2017  Fix duration time
+    // TODO: 7/11/2017 Fix destroy
+    private void startCountDownTimer(final MediaPlayer mediaPlayer) {
+        mLength = mediaPlayer.getDuration();
         final Intent timeIntent = new Intent(Action.SEEK.getValue());
-        mLength = mMediaPlayer.getDuration();
-        mCountDownTimer = new CountDownTimer(mMediaPlayer.getDuration(), 1000) {
+        mCountDownTimer = new CountDownTimer(mLength, 1000) {
             @Override
             public void onTick(long l) {
-                Log.d(TAG, "onTick: " + l);
-                if (mMediaPlayer.getCurrentPosition() >= mMediaPlayer.getDuration() - 1000) {
-                    if (mIsRepeat) {
-                        mPosition++;
-                        startMedia(false);
-                    } else if (mIsShuffle) {
-                        mPosition = new Random().nextInt(mMusics.size());
-                        startMedia(false);
-                    }
-                    timeIntent.putExtra("stop", true);
-                    sendBroadcast(timeIntent);
-                    mCountDownTimer.cancel();
-                    return;
-                }
                 timeIntent.putExtra("stop", false);
-                timeIntent.putExtra("time", mLength + "");
-                timeIntent.putExtra("second", mMediaPlayer.getCurrentPosition() + "");
+                timeIntent.putExtra("time", mLength);
+                timeIntent.putExtra("second", mediaPlayer.getCurrentPosition());
                 sendBroadcast(timeIntent);
             }
 
@@ -189,11 +201,24 @@ public class NotificationServiceMusic extends Service {
             }
         };
         mCountDownTimer.start();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                if (mIsRepeat) {
+                    mPosition++;
+                    startMedia(false, mPosition);
+                } else if (mIsShuffle) {
+                    mPosition = new Random().nextInt(mMusics.size());
+                    startMedia(false, mPosition);
+                }
+                stopMediaInUi();
+                mCountDownTimer.cancel();
+            }
+        });
     }
 
-
     private void updateRemoteViewsData() {
-        final Intent timeIntent = new Intent(Action.PLAYOTHER.getValue());
+        final Intent timeIntent = new Intent(Action.PLAY_OTHER.getValue());
         sendBroadcast(timeIntent);
 
         // Get Music object
@@ -211,7 +236,7 @@ public class NotificationServiceMusic extends Service {
         updateData();
     }
 
-    public void showNotification() {
+    private void showNotification() {
         // Open MainActivity when click remoteViews
         Intent notificationIntent = new Intent(this, MusicActivity.class);
         notificationIntent.setAction(Action.INTENT.getValue());
@@ -287,13 +312,13 @@ public class NotificationServiceMusic extends Service {
                 .into(notificationTarget);
     }
 
+    private void updateData() {
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+    }
+
     private void upDateIcon(int id, int idTo) {
         mRemoteViews.setImageViewResource(id, idTo);
         updateData();
-    }
-
-    private void updateData() {
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 
     private void stopMedia() {

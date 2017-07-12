@@ -5,10 +5,10 @@ package vn.asiantech.internship.ui.music;
  * Created by Thanh Thien
  */
 enum Action {
-    INTENT("INTENT"), PAUSE("PAUSE"), START("START"),
+    INTENT("INTENT"), PAUSE("PAUSE"), START("START"), POSITION("POSITION"),
     PREVIOUS("PREVIOUS"), NEXT("NEXT"), TIME("TIME"),
     PROGRESSBAR("PROGRESSBAR"), SHUFFLE("SHUFFLE"),
-    REPEAT("REPEAT"), SEEK("SEEK"), PLAYOTHER("PLAY_OTHER"),
+    REPEAT("REPEAT"), SEEK("SEEK"), PLAY_OTHER("PLAY_OTHER"),
     SEEK_TO("SEEK_TO"), STOP("STOP"), SHOW("SHOW");
 
     private String mValue;

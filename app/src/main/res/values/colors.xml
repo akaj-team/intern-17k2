@@ -20,4 +20,5 @@
     <color name="colorMenuArrow">#FC0095</color>
     <color name="colorLine">#9C9AA1</color>
     <color name="colorBackgroundMusic">#2a1035</color>
+    <color name="colorBackgroundMusicSelected">#7e2c87</color>
 </resources>
