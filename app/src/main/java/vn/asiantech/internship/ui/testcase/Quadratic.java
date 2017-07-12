@@ -4,7 +4,7 @@ package vn.asiantech.internship.ui.testcase;
  * Copyright © 2017 AsianTech inc
  *
  * @author Thanh Thien
- * @date 7/12/2017
+ *         Created on 7/12/2017.
  */
 public class Quadratic {
     private float a;

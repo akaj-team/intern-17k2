@@ -4,8 +4,9 @@ import java.util.Locale;
 
 /**
  * Copyright © 2017 AsianTech inc.
- * Created on 7/12/2017
+ *
  * @author Thanh Thien
+ *         Created on 7/12/2017.
  */
 public class RegisterChecker {
     private char[] mNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};

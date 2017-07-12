@@ -7,8 +7,9 @@ import vn.asiantech.internship.R;
 
 /**
  * Copyright © 2017 AsianTech inc.
- * Created on 7/12/2017
+ *
  * @author Thanh Thien
+ *         Created on 7/12/2017.
  */
 public class RegisterActivity extends AppCompatActivity {
 

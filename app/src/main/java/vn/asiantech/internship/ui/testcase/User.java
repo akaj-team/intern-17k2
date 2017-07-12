@@ -2,9 +2,9 @@ package vn.asiantech.internship.ui.testcase;
 
 /**
  * Copyright © 2017 AsianTech inc.
- * Created on 7/12/2017
  *
  * @author Thanh Thien
+ *         Created on 7/12/2017.
  */
 public class User {
     private String userName;

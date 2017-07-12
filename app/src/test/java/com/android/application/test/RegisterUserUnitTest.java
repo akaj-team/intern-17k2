@@ -15,6 +15,7 @@ import vn.asiantech.internship.ui.testcase.User;
  * Created on 7/12/2017
  *
  * @author Thanh Thien
+ *         Created on 7/12/2017.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class RegisterUserUnitTest {
