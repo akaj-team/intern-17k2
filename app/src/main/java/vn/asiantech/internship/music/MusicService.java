@@ -162,9 +162,9 @@ public class MusicService extends Service {
                 mRemoteViews.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
                 mRemoteViews.setTextViewText(R.id.tvCurrentTime, Utils.getTime(mMediaPlayer.getCurrentPosition()));
                 mBuilder.setCustomBigContentView(mRemoteViews);
-                if (mNotificationManager != null) {
-                    mNotificationManager.notify(mNotificationId, mBuilder.build());
-                }
+//                if (mNotificationManager != null) {
+                mNotificationManager.notify(mNotificationId, mBuilder.build());
+//                }
             }
 
             @Override
@@ -283,8 +283,20 @@ public class MusicService extends Service {
                         mMediaPlayer.pause();
                     }
                 } else if (intent.getAction().equals(Action.CLEAR.getValue())) {
+                    mMediaPlayer.stop();
+                    stopForeground(true);
+                    stopSelf();
                     mNotificationManager.cancelAll();
-                    mNotificationManager = null;
+//                    mNotificationManager = null;
+                    SharedPreferences sp = getApplicationContext().getSharedPreferences("status", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putInt(MusicActivity.KEY_PLAY_STATUS, MusicActivity.STOP_STATUS);
+                    editor.apply();
+                    editor.commit();
+                    Intent finishIntent = new Intent();
+                    finishIntent.setAction(Action.FINISH.getValue());
+                    sendBroadcast(finishIntent);
+
                 } else if (intent.getAction().equals(Action.SHOW.getValue())) {
                     if (mNotificationManager == null) {
                         showNotification();

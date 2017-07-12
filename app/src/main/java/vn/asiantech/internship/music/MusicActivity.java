@@ -51,7 +51,15 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            processTime(intent);
+            if (intent!=null){
+                if (intent.getAction().equals(Action.SEEK.getValue())){
+                    processTime(intent);
+                }
+                if (intent.getAction().equals(Action.FINISH.getValue())){
+                    finish();
+                }
+            }
+
         }
     };
 
@@ -80,6 +88,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     private void initIntentFilter() {
         IntentFilter filter = new IntentFilter(Action.SEEK.getValue());
+        filter.addAction(Action.FINISH.getValue());
         registerReceiver(mBroadcastReceiver, filter);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
