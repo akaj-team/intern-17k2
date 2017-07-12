@@ -11,8 +11,8 @@ import android.view.View;
 
 /**
  * Created by ducle on 11/07/2017.
+ * DrawParabolaView is view draw parabola
  */
-
 public class DrawParabolaView extends View {
     private Paint mPaint;
 

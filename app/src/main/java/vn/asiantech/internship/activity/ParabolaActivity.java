@@ -8,8 +8,8 @@ import vn.asiantech.internship.R;
 
 /**
  * Created by ducle on 11/07/2017.
+ * ParabolaActivity contain custom view
  */
-
 public class ParabolaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
