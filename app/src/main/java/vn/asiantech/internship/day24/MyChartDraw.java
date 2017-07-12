@@ -87,7 +87,6 @@ public class MyChartDraw extends View implements View.OnTouchListener {
             canvas.scale(mScaleFactor, mScaleFactor, mLastFocusX, mLastFocusY);
         }
 
-        // If mTranslateX times -1 is lesser than zero, let's set it to zero. This takes care of the left bound
         if ((mTranslateX * -1) > (mScaleFactor - 1) * getWidth()) {
             mTranslateX = (1 - mScaleFactor) * getWidth();
         }
@@ -179,7 +178,6 @@ public class MyChartDraw extends View implements View.OnTouchListener {
                         mDragged = true;
                     }
                 }
-
                 break;
 
             case MotionEvent.ACTION_UP:
@@ -215,11 +213,16 @@ public class MyChartDraw extends View implements View.OnTouchListener {
             mMode = ZOOM;
             mScaleFactor *= detector.getScaleFactor();
             mScaleFactor = Math.max(MIN_ZOOM, Math.min(mScaleFactor, MAX_ZOOM));
+            if (mScaleFactor == MAX_ZOOM) {
+                mMode = NONE;
+                mTranslateX = mPreviousTranslateX;
+                mTranslateY = mPreviousTranslateY;
+            }
             if (detector.isInProgress()) {
                 mLastFocusX = detector.getFocusX();
                 mLastFocusY = detector.getFocusY();
+                invalidate();
             }
-            invalidate();
             return true;
         }
     }
