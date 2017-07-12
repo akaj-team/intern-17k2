@@ -2,9 +2,12 @@ package vn.asiantech.internship.music;
 
 /**
  * Created by ducle on 10/07/2017.
+ * Utils to handle
  */
+class Utils {
+    private Utils() {
+    }
 
-public class Utils {
     public static String getTime(int time) {
         time /= 1000;
         int minute = time / 60;
