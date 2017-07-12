@@ -1,4 +1,4 @@
-package vn.asiantech.internship.test;
+package vn.asiantech.internship.unittest;
 
 /**
  * Created by ducle on 12/07/2017.
