@@ -72,6 +72,6 @@
     <string name="login.text">Login</string>
     <string name="equation.hint.userName">UserName</string>
     <string name="equation.hint.passWord">Password</string>
-    <string name="text_unlessRoots">Quadratic equation has unless roots</string>
-    <string name="text_noRoot">Quadratic equation has no root</string>
+    <string name="text.unless_roots">Quadratic equation has unless roots</string>
+    <string name="text.no_root">Quadratic equation has no root</string>
 </resources>

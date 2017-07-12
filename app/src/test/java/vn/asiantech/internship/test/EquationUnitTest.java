@@ -23,17 +23,23 @@ public class EquationUnitTest {
     private Equation mEquation;
 
     @Test
-    public void checkFactor() {
+    public void checkFactorA() {
         Mockito.when(mEquation.getA()).thenReturn("123");
         Assert.assertTrue(EquationValidation.checkFactorDigit(mEquation.getA()));
         Mockito.when(mEquation.getA()).thenReturn("a123");
         Assert.assertFalse(EquationValidation.checkFactorDigit(mEquation.getA()));
+    }
 
+    @Test
+    public void checkFactorB() {
         Mockito.when(mEquation.getB()).thenReturn("123");
         Assert.assertTrue(EquationValidation.checkFactorDigit(mEquation.getB()));
         Mockito.when(mEquation.getB()).thenReturn("a123");
         Assert.assertFalse(EquationValidation.checkFactorDigit(mEquation.getB()));
+    }
 
+    @Test
+    public void checkFactorC() {
         Mockito.when(mEquation.getC()).thenReturn("123");
         Assert.assertTrue(EquationValidation.checkFactorDigit(mEquation.getC()));
         Mockito.when(mEquation.getC()).thenReturn("a123");

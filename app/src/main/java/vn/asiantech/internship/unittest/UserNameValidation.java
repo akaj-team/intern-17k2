@@ -14,15 +14,15 @@ public final class UserNameValidation {
         return userName.length() >= 6 && userName.length() <= 24;
     }
 
-    public static boolean checkUserNameSpace(String useName) {
-        return !useName.contains(" ");
+    public static boolean checkUserNameSpace(String userName) {
+        return !userName.contains(" ");
     }
 
-    public static boolean checkUserNameCharacter(String useName) {
-        return useName.matches("[A-Za-z0-9]+");
+    public static boolean checkUserNameCharacter(String userName) {
+        return userName.matches("[A-Za-z0-9]+");
     }
 
-    public static boolean checkUserNameIgnoreUpperCase(String useName) {
-        return useName.equals(useName.toLowerCase(Locale.getDefault()));
+    public static boolean checkUserNameIgnoreUpperCase(String userName) {
+        return userName.equals(userName.toLowerCase(Locale.getDefault()));
     }
 }

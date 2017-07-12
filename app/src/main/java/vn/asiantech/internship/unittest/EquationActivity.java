@@ -51,9 +51,9 @@ public class EquationActivity extends AppCompatActivity {
     private void calculate(int a, int b, int c) {
         EquationValidation.checkDataInput(a, b, c);
         if (TextUtils.equals(EquationValidation.checkDataInput(a, b, c), "CountlessRoots")) {
-            mTvResult.setText(R.string.text_unlessRoots);
+            mTvResult.setText(R.string.text_unless_roots);
         } else if (TextUtils.equals(EquationValidation.checkDataInput(a, b, c), "NoRoot")) {
-            mTvResult.setText(R.string.text_noRoot);
+            mTvResult.setText(R.string.text_no_root);
         } else if (TextUtils.equals(EquationValidation.checkDataInput(a, b, c), "OneRoot")) {
             mTvResult.setText(String.valueOf("Quadratic equation has one root:\n x = " + (float) -c / b));
         } else if (TextUtils.equals(EquationValidation.checkDataInput(a, b, c), "CalculateDelta")) {
@@ -63,7 +63,7 @@ public class EquationActivity extends AppCompatActivity {
             } else if (EquationValidation.checkDelta(delta) == 2) {
                 mTvResult.setText(String.valueOf("Quadratic equation has two root:\n x1 = " + EquationValidation.checkTwoRoots(a, b, delta).get(0) + "; x2 = " + EquationValidation.checkTwoRoots(a, b, delta).get(1)));
             } else if (EquationValidation.checkDelta(delta) == 0) {
-                mTvResult.setText(R.string.text_noRoot);
+                mTvResult.setText(R.string.text_no_root);
             }
         }
     }

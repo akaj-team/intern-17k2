@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorYellow"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/equation.editText.padding">
@@ -11,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/equation.title"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorBlack"
         android:textSize="@dimen/equation.text.size" />
 
     <EditText
@@ -19,40 +18,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.margin_top"
-        android:background="@drawable/bg_edt_login_signin"
+        android:background="@drawable/bg_edt_login_signIn"
         android:hint="@string/equation.hint.a"
         android:inputType="numberDecimal"
         android:padding="@dimen/equation.editText.padding"
-        android:textColor="@color/colorWhite" />
+        android:textColor="@color/colorBlack" />
 
     <EditText
         android:id="@+id/edtFactorB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.small.margin_top"
-        android:background="@drawable/bg_edt_login_signin"
+        android:background="@drawable/bg_edt_login_signIn"
         android:hint="@string/equation.hint.b"
         android:inputType="numberDecimal"
         android:padding="@dimen/equation.editText.padding"
-        android:textColor="@color/colorWhite" />
+        android:textColor="@color/colorBlack" />
 
     <EditText
         android:id="@+id/edtFactorC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.small.margin_top"
-        android:background="@drawable/bg_edt_login_signin"
+        android:background="@drawable/bg_edt_login_signIn"
         android:hint="@string/equation.hint.c"
         android:inputType="numberDecimal"
         android:padding="@dimen/equation.editText.padding"
-        android:textColor="@color/colorWhite" />
+        android:textColor="@color/colorBlack" />
 
     <Button
         android:id="@+id/btnCalculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.small.margin_top"
-        android:background="@drawable/bg_btn_login_signin"
+        android:background="@drawable/bg_btn_login_signIn"
         android:text="@string/equation.calculate" />
 
     <TextView
@@ -61,6 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/equation.editText.small.margin_top"
         android:gravity="center"
-        android:textColor="@color/colorBack"
+        android:textColor="@color/colorBlack"
         android:textSize="@dimen/equation.text.size" />
 </LinearLayout>
