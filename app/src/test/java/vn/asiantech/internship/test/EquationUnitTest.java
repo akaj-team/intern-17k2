@@ -22,7 +22,7 @@ public class EquationUnitTest {
     @Test
     public void checkDelta() {
         when(mEquation.getDelta(1, 2, -1)).thenReturn(8f);
-        assertEquals(mEquation.getDelta(1, 2, -1), 8f);
+        assertEquals(mEquation.getDelta(1, 2, -1), (float) (2 * 2 - 4 * (-1)));
     }
 
     @Test

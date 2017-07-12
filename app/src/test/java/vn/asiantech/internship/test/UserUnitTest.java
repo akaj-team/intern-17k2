@@ -20,8 +20,7 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class UserUnitTest {
-    @Spy
-    private Login mLogin;
+    private Login mLogin = new Login();
 
     @Mock
     private UserTest mUser;

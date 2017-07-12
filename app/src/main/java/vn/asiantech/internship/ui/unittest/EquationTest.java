@@ -1,9 +1,9 @@
 package vn.asiantech.internship.ui.unittest;
 
 /**
+ *
  * Created by quanghai on 11/07/2017.
  */
-
 public class EquationTest {
     public float getDelta(int a, int b, int c) {
         return b * b - 4 * a * c;
