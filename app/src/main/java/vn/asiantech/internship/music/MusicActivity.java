@@ -51,11 +51,11 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent!=null){
-                if (intent.getAction().equals(Action.SEEK.getValue())){
+            if (intent != null) {
+                if (intent.getAction().equals(Action.SEEK.getValue())) {
                     processTime(intent);
                 }
-                if (intent.getAction().equals(Action.FINISH.getValue())){
+                if (intent.getAction().equals(Action.FINISH.getValue())) {
                     finish();
                 }
             }
