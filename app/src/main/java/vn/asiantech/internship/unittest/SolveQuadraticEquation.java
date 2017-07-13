@@ -15,12 +15,6 @@ public class SolveQuadraticEquation {
 
     }
 
-    public SolveQuadraticEquation(double a, double b, double c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
-    }
-
     public double getA() {
         return a;
     }
