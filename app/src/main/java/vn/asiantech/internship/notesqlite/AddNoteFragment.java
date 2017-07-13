@@ -81,12 +81,15 @@ public class AddNoteFragment extends Fragment {
                 Date date = new Date();
                 SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
                 SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
-                if (TextUtils.equals(mEdtTitle.getText().toString(), "") || TextUtils.equals(mEdtContent.getText().toString(), "")) {
-                    Toast.makeText(getActivity(), "Inquire enough data entry!", Toast.LENGTH_LONG).show();
+                if (TextUtils.equals(mEdtTitle.getText().toString(), "")) {
+                    Toast.makeText(getActivity(), "Inquire enter title", Toast.LENGTH_LONG).show();
+                } else if (TextUtils.equals(mEdtContent.getText().toString(), "")) {
+                    Toast.makeText(getActivity(), "Inquire enter content", Toast.LENGTH_LONG).show();
                 } else {
                     mDatabase.open();
                     mDatabase.createNote(new Note(dayOfWeekFormat.format(date), String.valueOf(DateFormat.format("dd", date)), monthFormat.format(date), String.valueOf(DateFormat.format("hh:mm:ss", date)), mEdtTitle.getText().toString(), mEdtContent.getText().toString(), getRealPathFromUri(mUriImage)));
                     mDatabase.close();
+                    Toast.makeText(getActivity(), "Add success", Toast.LENGTH_LONG).show();
                     ((NoteActivity) (getActivity())).replaceNoteFragment();
                 }
             }

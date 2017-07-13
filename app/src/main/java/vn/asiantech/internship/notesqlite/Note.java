@@ -10,7 +10,7 @@ import android.os.Parcelable;
  * @version 1.0
  * @since 2017-6-20
  */
-class Note implements Parcelable {
+public class Note implements Parcelable {
     private int id;
     private String dayOfWeek;
     private String day;
@@ -28,6 +28,15 @@ class Note implements Parcelable {
         this.title = title;
         this.content = content;
         this.pathImage = pathImage;
+    }
+
+    public Note(String dayOfWeek, String day, String month, String hour, String title, String content) {
+        this.dayOfWeek = dayOfWeek;
+        this.day = day;
+        this.month = month;
+        this.hour = hour;
+        this.title = title;
+        this.content = content;
     }
 
     private Note(Parcel in) {

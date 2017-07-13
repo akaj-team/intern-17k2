@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.models.DrawerItem;
+import vn.asiantech.internship.model.DrawerItem;
 import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
 
 import static android.graphics.Bitmap.createBitmap;

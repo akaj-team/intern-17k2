@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import vn.asiantech.internship.R;
 
@@ -61,16 +62,24 @@ public class EditNoteFragment extends Fragment {
                 mDatabase.delete(mNote.getId());
                 mDatabase.close();
                 ((NoteActivity) (getActivity())).replaceNoteFragment();
+                Toast.makeText(getActivity(), "Delete success", Toast.LENGTH_SHORT).show();
             }
         });
 
         imgSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDatabase.open();
-                mDatabase.update(mEdtTitle.getText().toString(), mEdtContent.getText().toString(), mNote.getId());
-                mDatabase.close();
-                ((NoteActivity) (getActivity())).replaceNoteFragment();
+                if (TextUtils.equals(mEdtTitle.getText().toString(), "")) {
+                    Toast.makeText(getActivity(), "Inquire enter title", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.equals(mEdtContent.getText().toString(), "")) {
+                    Toast.makeText(getActivity(), "Inquire enter content", Toast.LENGTH_SHORT).show();
+                } else {
+                    mDatabase.open();
+                    mDatabase.update(mEdtTitle.getText().toString(), mEdtContent.getText().toString(), mNote.getId());
+                    mDatabase.close();
+                    Toast.makeText(getActivity(), "Edit success", Toast.LENGTH_SHORT).show();
+                    ((NoteActivity) (getActivity())).replaceNoteFragment();
+                }
             }
         });
         return view;
