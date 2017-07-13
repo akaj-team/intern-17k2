@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import vn.asiantech.internship.unittest.SolveQuadraticEquation;
+import vn.asiantech.internship.unittest.SolveQuadraticEquationUtil;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -29,21 +30,21 @@ public class SolveQuadraticEquationTest {
         double b = 2;
         double c = 1;
         Mockito.when(mSolveQuadraticEquation.getDelta()).thenReturn(-16.0);
-        assertEquals(SolveQuadraticEquation.getDelta(a, b, c), mSolveQuadraticEquation.getDelta(), 0.001);
+        assertEquals(SolveQuadraticEquationUtil.getDelta(a, b, c), mSolveQuadraticEquation.getDelta(), 0.001);
 
         //delta == 0
         a = 1;
         b = -2;
         c = 1;
         Mockito.when(mSolveQuadraticEquation.getDelta()).thenReturn(0.0);
-        assertEquals(SolveQuadraticEquation.getDelta(a, b, c), mSolveQuadraticEquation.getDelta(), 0.001);
+        assertEquals(SolveQuadraticEquationUtil.getDelta(a, b, c), mSolveQuadraticEquation.getDelta(), 0.001);
 
         //delta > 0
         a = 4;
         b = 5;
         c = 1;
         Mockito.when(mSolveQuadraticEquation.getDelta()).thenReturn(9.0);
-        assertEquals(SolveQuadraticEquation.getDelta(a, b, c), mSolveQuadraticEquation.getDelta(), 0.001);
+        assertEquals(SolveQuadraticEquationUtil.getDelta(a, b, c), mSolveQuadraticEquation.getDelta(), 0.001);
     }
 
     @Test
@@ -53,7 +54,7 @@ public class SolveQuadraticEquationTest {
         double b = 0;
         double c = 0;
         Mockito.when(mSolveQuadraticEquation.solve()).thenReturn(null);
-        assertArrayEquals(SolveQuadraticEquation.solve(a, b, c), mSolveQuadraticEquation.solve(), 0.001);
+        assertArrayEquals(SolveQuadraticEquationUtil.solve(a, b, c), mSolveQuadraticEquation.solve(), 0.001);
 
         //a == 0, b != 0
         a = 0;
@@ -61,14 +62,14 @@ public class SolveQuadraticEquationTest {
         c = 10;
         double[] result = new double[]{-2};
         Mockito.when(mSolveQuadraticEquation.solve()).thenReturn(result);
-        assertArrayEquals(SolveQuadraticEquation.solve(a, b, c), mSolveQuadraticEquation.solve(), 0.001);
+        assertArrayEquals(SolveQuadraticEquationUtil.solve(a, b, c), mSolveQuadraticEquation.solve(), 0.001);
 
         //delta < 0
         a = 5;
         b = 2;
         c = 1;
         Mockito.when(mSolveQuadraticEquation.solve()).thenReturn(null);
-        assertArrayEquals(SolveQuadraticEquation.solve(a, b, c), mSolveQuadraticEquation.solve(), 0.001);
+        assertArrayEquals(SolveQuadraticEquationUtil.solve(a, b, c), mSolveQuadraticEquation.solve(), 0.001);
 
         //delta = 0
         a = 1;
@@ -76,7 +77,7 @@ public class SolveQuadraticEquationTest {
         c = 1;
         result = new double[]{1.0, 1.0};
         Mockito.when(mSolveQuadraticEquation.solve()).thenReturn(result);
-        assertArrayEquals(SolveQuadraticEquation.solve(a, b, c), mSolveQuadraticEquation.solve(), 0.001);
+        assertArrayEquals(SolveQuadraticEquationUtil.solve(a, b, c), mSolveQuadraticEquation.solve(), 0.001);
 
         //delta > 0
         a = 1;
@@ -84,6 +85,6 @@ public class SolveQuadraticEquationTest {
         c = -3;
         result = new double[]{-3, 1};
         Mockito.when(mSolveQuadraticEquation.solve()).thenReturn(result);
-        assertArrayEquals(SolveQuadraticEquation.solve(a, b, c), mSolveQuadraticEquation.solve(), 0.001);
+        assertArrayEquals(SolveQuadraticEquationUtil.solve(a, b, c), mSolveQuadraticEquation.solve(), 0.001);
     }
 }
