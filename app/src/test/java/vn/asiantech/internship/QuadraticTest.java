@@ -53,12 +53,12 @@ public class QuadraticTest {
         when(mQuadraticEquationTest.checkInput(a, b, c)).thenReturn("x = 0");
         Assert.assertEquals(mQuadraticEquationTest.checkInput(a, b, c), "x = 0");
         // Case 6: a!= 0
-        a = 2;
-        b = 0;
-        c = -2;
-        when(mQuadraticEquationTest.checkInput(a, b, c)).thenReturn("x1 = 1", "x2 = -1");
-        Assert.assertEquals(mQuadraticEquationTest.checkInput(a, b, c), "x1 = 1");
-        Assert.assertEquals(mQuadraticEquationTest.checkInput(a, b, c), "x2 = -1");
+        a = -2;
+        b = 4;
+        c = 0;
+        when(mQuadraticEquationTest.checkInput(a, b, c)).thenReturn("x1 = 0", "x2 = 2");
+        Assert.assertEquals(mQuadraticEquationTest.checkInput(a, b, c), "x1 = 0");
+        Assert.assertEquals(mQuadraticEquationTest.checkInput(a, b, c), "x2 = 2");
         // Case 7: a!= 0
         a = 1;
         b = 2;

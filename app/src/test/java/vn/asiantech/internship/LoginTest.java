@@ -152,7 +152,7 @@ public class LoginTest {
     }
 
     @Test
-    public void checkSpacePassword(){
+    public void checkSpacePassword() {
         // 1 space
         String p = "Hello";
         Assert.assertTrue(Login.checkSpacePassword(p));

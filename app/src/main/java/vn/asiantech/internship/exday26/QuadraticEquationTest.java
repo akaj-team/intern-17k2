@@ -5,8 +5,6 @@ package vn.asiantech.internship.exday26;
  */
 
 public class QuadraticEquationTest {
-    public QuadraticEquationTest() {
-    }
 
     public String checkInput(int a, int b, int c) {
         String result = null;

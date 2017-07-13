@@ -1,12 +1,12 @@
 package vn.asiantech.internship.exday26;
 
+import java.util.Locale;
+
 /**
  * Created by datbu on 12-07-2017.
  */
 
 public class Login {
-    public Login() {
-    }
 
     public static boolean checkLengthUsername(String userName) {
         return userName.length() >= 6 && userName.length() <= 24;
@@ -21,7 +21,7 @@ public class Login {
     }
 
     public static boolean checkUpperCase(String userName) {
-        return !userName.equals(userName.toLowerCase()) || !userName.equals(userName.toUpperCase());
+        return !userName.equals(userName.toLowerCase(Locale.getDefault())) || !userName.equals(userName.toUpperCase(Locale.getDefault()));
     }
 
     public static boolean checkPassLength(String pass) {
