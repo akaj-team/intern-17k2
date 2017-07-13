@@ -1,0 +1,50 @@
+package vn.asiantech.internship.unittest;
+
+/**
+ * @author at-cuongcao
+ * @version 1.0
+ * @since 7/11/2017.
+ */
+public class QuadraticEquation {
+
+    private double a;
+    private double b;
+    private double c;
+    private SolveQuadraticEquation mSolveQuadraticEquation;
+
+    public QuadraticEquation() {
+        mSolveQuadraticEquation = new SolveQuadraticEquation();
+    }
+
+    public double getA() {
+        return a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public double getC() {
+        return c;
+    }
+
+    public void setA(double a) {
+        this.a = a;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+    }
+
+    public void setC(double c) {
+        this.c = c;
+    }
+
+    public double getDelta() {
+        return mSolveQuadraticEquation.getDelta(a, b, c);
+    }
+
+    public double[] getRoot() {
+        return mSolveQuadraticEquation.solve(a, b, c);
+    }
+}
