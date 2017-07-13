@@ -27,7 +27,7 @@ public class LoginTest {
         //Length < 6
         String s = "01234";
         Mockito.when(mLogin.getUser()).thenReturn(s);
-        assertFalse(Login.checkUserLength(mLogin.getUser()));
+        assertFalse(mLogin.checkUserLength(mLogin.getUser()));
 
         //Length = 6
         s = "012345";

@@ -11,6 +11,10 @@ public class SolveQuadraticEquation {
     private double b;
     private double c;
 
+    private SolveQuadraticEquation() {
+
+    }
+
     public SolveQuadraticEquation(double a, double b, double c) {
         this.a = a;
         this.b = b;
