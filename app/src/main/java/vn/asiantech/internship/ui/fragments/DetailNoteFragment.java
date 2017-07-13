@@ -70,7 +70,6 @@ public class DetailNoteFragment extends Fragment {
             Toast.makeText(getContext(), getString(R.string.validate), Toast.LENGTH_SHORT).show();
             return -1;
         } else {
-            mNote.setTime();
             mNote.setTitle(mEdtNoteTitle.getText().toString());
             mNote.setContent(mEdtNoteContent.getText().toString());
             String savePath = null;
@@ -83,6 +82,11 @@ public class DetailNoteFragment extends Fragment {
             NoteDatabase noteDatabase = new NoteDatabase(getContext());
             noteDatabase.open();
             long result = noteDatabase.editNote(mNote);
+            if (result > -1) {
+                Toast.makeText(getContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), getString(R.string.fail), Toast.LENGTH_SHORT).show();
+            }
             noteDatabase.close();
             return result;
         }

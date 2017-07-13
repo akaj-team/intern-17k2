@@ -2,6 +2,7 @@ package vn.asiantech.internship.ui.adapter;
 
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,12 +39,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteItemHolder
 
     @Override
     public void onBindViewHolder(NoteItemHolder holder, int position) {
+        Log.i("tag11111", "onBindViewHolder: " + position);
         holder.mTvTime.setText(mNoteList.get(position).getStringTime());
         holder.mTvTitle.setText(mNoteList.get(position).getTitle());
         holder.mTvContent.setText(mNoteList.get(position).getContent());
         if (mNoteList.get(position).getImage() != null) {
             holder.mImgPhoto.setVisibility(View.VISIBLE);
             holder.mImgPhoto.setImageURI(Uri.parse(mNoteList.get(position).getImage()));
+        } else {
+            holder.mImgPhoto.setVisibility(View.GONE);
         }
 
     }
@@ -64,6 +68,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteItemHolder
 
         public NoteItemHolder(final View itemView) {
             super(itemView);
+            Log.i("tag111111", "NoteItemHolder: " + getAdapterPosition());
             mTvTime = (TextView) itemView.findViewById(R.id.tvNoteTime);
             mTvTitle = (TextView) itemView.findViewById(R.id.tvNoteTitle);
             mTvContent = (TextView) itemView.findViewById(R.id.tvNoteContent);
@@ -73,6 +78,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteItemHolder
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
+                        Log.i("tag1111", "onClick: " + getAdapterPosition());
                         mListener.onItemClick(mNoteList.get(getAdapterPosition()));
                     }
                 }
