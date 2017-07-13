@@ -25,8 +25,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ItemViewHolder
     private OnSelectSongListener mOnSelectSongListener;
     private SongPlayingActivity mActivity = new SongPlayingActivity();
 
-    public SongAdapter(List<Song> mSongs, OnSelectSongListener onSelectSongListener) {
-        this.mSongs = mSongs;
+    public SongAdapter(List<Song> songs, OnSelectSongListener onSelectSongListener) {
+        mSongs = songs;
         mOnSelectSongListener = onSelectSongListener;
     }
 

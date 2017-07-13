@@ -196,7 +196,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             mCountDownTimer.cancel();
         }
         mMediaPLayer.stop();
-//        unregisterReceiver(mBroadcastReceiver);
         stopForeground(true);
     }
 

@@ -79,7 +79,7 @@ public class SongPlayingActivity extends Activity implements View.OnClickListene
         mTvSongName = (TextView) findViewById(R.id.tvSongName);
         mTvArtist = (TextView) findViewById(R.id.tvArtist);
         mImgDisk = (CircleImageView) findViewById(R.id.imgDisk);
-        mTvCurrentTime = (TextView) findViewById(R.id.tvcurrentTime);
+        mTvCurrentTime = (TextView) findViewById(R.id.tvCurrentTime);
         mTvDuration = (TextView) findViewById(R.id.tvDuration);
         ImageView imgPrevious = (ImageView) findViewById(R.id.imgPreviousSong);
         ImageView imgNext = (ImageView) findViewById(R.id.imgNextSong);

@@ -33,8 +33,7 @@
     <SeekBar
         android:id="@+id/seekBarTime"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-
+        android:layout_height="@dimen/seekbar.height"
         android:layout_below="@+id/imgDisk"
         android:layout_marginTop="@dimen/seekbat.margin.top" />
 
@@ -44,7 +43,7 @@
         android:layout_below="@+id/seekBarTime">
 
         <TextView
-            android:id="@+id/tvcurrentTime"
+            android:id="@+id/tvCurrentTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
