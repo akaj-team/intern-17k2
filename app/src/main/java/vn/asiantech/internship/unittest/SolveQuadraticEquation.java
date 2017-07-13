@@ -5,7 +5,6 @@ package vn.asiantech.internship.unittest;
  * @version 1.0
  * @since 7/13/2017.
  */
-
 public class SolveQuadraticEquation {
     public double getDelta(double a, double b, double c) {
         return Math.pow(b, 2) - 4 * a * c;
