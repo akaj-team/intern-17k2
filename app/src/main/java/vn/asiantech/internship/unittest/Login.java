@@ -5,7 +5,7 @@ package vn.asiantech.internship.unittest;
  * @version 1.0
  * @since 7/11/2017.
  */
-public class Login {
+public final class Login {
 
     private String user;
     private String pass;

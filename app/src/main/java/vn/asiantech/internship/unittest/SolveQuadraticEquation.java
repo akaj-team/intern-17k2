@@ -5,14 +5,13 @@ package vn.asiantech.internship.unittest;
  * @version 1.0
  * @since 7/11/2017.
  */
-public class SolveQuadraticEquation {
+public final class SolveQuadraticEquation {
 
     private double a;
     private double b;
     private double c;
 
     private SolveQuadraticEquation() {
-
     }
 
     public double getA() {
