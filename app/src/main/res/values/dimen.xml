@@ -60,4 +60,5 @@
     <dimen name="imageview.disk.width">200dp</dimen>
     <dimen name="imageview.disk.margin.top">70dp</dimen>
     <dimen name="customview.height">15dp</dimen>
+    <dimen name="seekbar.height">5dp</dimen>
 </resources>
