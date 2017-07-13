@@ -3,8 +3,10 @@ package vn.asiantech.internship.exday26;
 /**
  * Created by datbu on 12-07-2017.
  */
+public final class QuadraticEquationTest {
 
-public class QuadraticEquationTest {
+    public QuadraticEquationTest() {
+    }
 
     public String checkInput(int a, int b, int c) {
         String result = null;

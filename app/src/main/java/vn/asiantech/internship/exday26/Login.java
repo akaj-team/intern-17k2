@@ -5,8 +5,10 @@ import java.util.Locale;
 /**
  * Created by datbu on 12-07-2017.
  */
+public final class Login {
 
-public class Login {
+    public Login() {
+    }
 
     public static boolean checkLengthUsername(String userName) {
         return userName.length() >= 6 && userName.length() <= 24;
@@ -33,7 +35,7 @@ public class Login {
     }
 
     public static boolean checkPassInputType(String pass) {
-        return pass.matches(".*[A-Z].*") && pass.matches(".*[a-z].*") && pass.matches("^[-a-zA-Z@.#$%^&*_&,<\\\\]+$");
+        return pass.matches(".*[A-Z].*") && pass.matches(".*[a-z].*") && pass.matches("^[-a-zA-Z@.#$%^&*_,<\\\\]+$");
     }
 
     public static boolean checkSpacePassword(String pass) {
