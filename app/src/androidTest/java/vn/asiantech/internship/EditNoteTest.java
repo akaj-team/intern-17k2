@@ -38,16 +38,11 @@ public class EditNoteTest {
         database.open();
         mNotes = database.getNotes();
         database.close();
-        Espresso.onView(ViewMatchers.withId(R.id.flContainer)).
-                check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).
-                perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()));
-        Espresso.onView(ViewMatchers.withId(R.id.llEditNote)).
-                check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        showEditNoteFragmentTest();
     }
 
     @Test
-    public void dataShowCheck() {
+    public void showDataTest() {
         Espresso.onView(ViewMatchers.withId(R.id.edtTitleEdit)).
                 check(ViewAssertions.matches(ViewMatchers.withText(mNotes.get(0).getTitle())));
         Espresso.onView(ViewMatchers.withId(R.id.edtContentEdit)).
@@ -76,7 +71,20 @@ public class EditNoteTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.edtContentEdit)).
                 perform(ViewActions.typeText("I did it :)))"), ViewActions.closeSoftKeyboard());
+
         Espresso.onView(ViewMatchers.withId(R.id.imgSave))
                 .perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withText(Matchers.startsWith("Edit success")))
+                .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+    }
+
+    private void showEditNoteFragmentTest() {
+        Espresso.onView(ViewMatchers.withId(R.id.flContainer)).
+                check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).
+                perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()));
+        Espresso.onView(ViewMatchers.withId(R.id.llEditNote)).
+                check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 }

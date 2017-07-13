@@ -27,7 +27,7 @@ public class AddNoteTest {
     public ActivityTestRule<NoteActivity> mActivityRule = new ActivityTestRule<>(NoteActivity.class);
 
     @Before
-    public void checkShowFragment() {
+    public void showAddNoteFragmentTest() {
         Espresso.onView(ViewMatchers.withId(R.id.imgAddNote))
                 .perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.llAddNote))
@@ -44,8 +44,18 @@ public class AddNoteTest {
                 .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
+        Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd)).
+                perform(ViewActions.clearText());
         Espresso.onView(ViewMatchers.withId(R.id.edtContentAdd)).
                 perform(ViewActions.typeText("This is a great day!"), ViewActions.closeSoftKeyboard());
+        Espresso.onView(ViewMatchers.withId(R.id.imgAdd))
+                .perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withText(Matchers.startsWith("Inquire enter title")))
+                .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+
+        Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd)).
+                perform(ViewActions.typeText("Note 1"), ViewActions.closeSoftKeyboard());
         Espresso.onView(ViewMatchers.withId(R.id.imgAdd))
                 .perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withText(Matchers.startsWith("Add success")))

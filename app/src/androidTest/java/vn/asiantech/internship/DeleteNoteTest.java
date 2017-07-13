@@ -22,17 +22,15 @@ import vn.asiantech.internship.notesqlite.NoteActivity;
  * Created by sony on 13/07/2017.
  */
 @RunWith(AndroidJUnit4.class)
-public class HDeleteNoteTest {
+public class DeleteNoteTest {
 
     @Rule
     public ActivityTestRule<NoteActivity> mActivityRule = new ActivityTestRule<>(NoteActivity.class);
 
     @Before
-    public void checkShowFragment() {
+    public void showEditNoteFragmentTest() {
         Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).
                 perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()));
-        Espresso.onView(ViewMatchers.withId(R.id.llEditNote)).
-                check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
     @Test
