@@ -63,7 +63,7 @@ public class InformationFragmentUITest {
     }
 
     @Test
-    public void testWhenNoInputTitle(){
+    public void testWhenNoInputTitle() {
         Espresso.onView(ViewMatchers.withId(R.id.imgEditNote)).perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.edtTitleInformation)).perform(ViewActions.clearText());
         Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click());
@@ -75,7 +75,7 @@ public class InformationFragmentUITest {
     }
 
     @Test
-    public void testWhenNoInputDescription(){
+    public void testWhenNoInputDescription() {
         Espresso.onView(ViewMatchers.withId(R.id.imgEditNote)).perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.edtDescriptionInforNote)).perform(ViewActions.clearText());
         Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click());
