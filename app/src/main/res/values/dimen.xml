@@ -47,5 +47,8 @@
     <dimen name="itemnote.height">80dp</dimen>
     <dimen name="note.edittext.margin">10dp</dimen>
     <dimen name="imgviewpager.height">100dp</dimen>
+    <!--Upload Image-->
+    <dimen name="padding">10dp</dimen>
+    <dimen name="upload.imageview.height">300dp</dimen>
     <dimen name="customview.height">15dp</dimen>
 </resources>
