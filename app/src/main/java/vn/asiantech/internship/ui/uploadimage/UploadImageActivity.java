@@ -47,7 +47,6 @@ import java.util.Map;
 import vn.asiantech.internship.R;
 
 /**
- *
  * Created by quanghai on 05/07/2017.
  */
 @EActivity(R.layout.activity_upload_image)
