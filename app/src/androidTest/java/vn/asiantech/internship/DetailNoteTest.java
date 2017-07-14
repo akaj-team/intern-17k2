@@ -1,10 +1,15 @@
 package vn.asiantech.internship;
 
 import android.content.Intent;
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,14 +20,6 @@ import java.util.List;
 import vn.asiantech.internship.models.NoteItem;
 import vn.asiantech.internship.ui.main.NoteActivity;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.not;
-
 /**
  * @author at-cuongcao
  * @version 1.0
@@ -32,22 +29,22 @@ import static org.hamcrest.Matchers.not;
 public class DetailNoteTest {
     @Rule
     public ActivityTestRule<NoteActivity> mActivityTestRule = new ActivityTestRule<NoteActivity>(NoteActivity.class);
-    List<NoteItem> mNotes;
+    private List<NoteItem> mNotes;
 
     @Test
     public void testDetailFragment() {
         for (int i = 0; i < mNotes.size(); i++) {
             openNoteActivity();
-            onView(withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
-            onView(withId(R.id.tvTitle)).check(matches(withText(R.string.title_detail)));
-            onView(withId(R.id.imgAddImage)).check(matches(not(isDisplayed())));
-            onView(withId(R.id.imgAddNote)).check(matches(not(isDisplayed())));
-            onView(withId(R.id.imgEdit)).check(matches(isDisplayed()));
-            onView(withId(R.id.imgDelete)).check(matches(isDisplayed()));
-            onView(withId(R.id.imgSave)).check(matches(not(isDisplayed())));
-            onView(withId(R.id.edtNoteTitle)).check(matches(withText(mNotes.get(i).getTitle())));
-            onView(withId(R.id.edtNoteContent)).check(matches(withText(mNotes.get(i).getContent())));
-            onView(withId(R.id.tvNoteTime)).check(matches(withText(mNotes.get(i).getStringTime())));
+            Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(i, ViewActions.click()));
+            Espresso.onView(ViewMatchers.withId(R.id.tvTitle)).check(ViewAssertions.matches(ViewMatchers.withText(R.string.title_detail)));
+            Espresso.onView(ViewMatchers.withId(R.id.imgAddImage)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+            Espresso.onView(ViewMatchers.withId(R.id.imgAddNote)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+            Espresso.onView(ViewMatchers.withId(R.id.imgEdit)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+            Espresso.onView(ViewMatchers.withId(R.id.imgDelete)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+            Espresso.onView(ViewMatchers.withId(R.id.imgSave)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+            Espresso.onView(ViewMatchers.withId(R.id.edtNoteTitle)).check(ViewAssertions.matches(ViewMatchers.withText(mNotes.get(i).getTitle())));
+            Espresso.onView(ViewMatchers.withId(R.id.edtNoteContent)).check(ViewAssertions.matches(ViewMatchers.withText(mNotes.get(i).getContent())));
+            Espresso.onView(ViewMatchers.withId(R.id.tvNoteTime)).check(ViewAssertions.matches(ViewMatchers.withText(mNotes.get(i).getStringTime())));
         }
     }
 
@@ -56,12 +53,12 @@ public class DetailNoteTest {
         Intent intent = new Intent();
         mActivityTestRule.launchActivity(intent);
         mNotes = mActivityTestRule.getActivity().getNotes();
-        onView(withId(R.id.llMain)).check(matches(isDisplayed()));
-        onView(withId(R.id.tvTitle)).check(matches(withText(R.string.title_note)));
-        onView(withId(R.id.imgAddImage)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.imgAddNote)).check(matches(isDisplayed()));
-        onView(withId(R.id.imgEdit)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.imgDelete)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.recyclerViewNote)).check(matches(isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.llMain)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.tvTitle)).check(ViewAssertions.matches(ViewMatchers.withText(R.string.title_note)));
+        Espresso.onView(ViewMatchers.withId(R.id.imgAddImage)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+        Espresso.onView(ViewMatchers.withId(R.id.imgAddNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.imgEdit)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+        Espresso.onView(ViewMatchers.withId(R.id.imgDelete)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+        Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 }
