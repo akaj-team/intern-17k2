@@ -49,7 +49,7 @@ public class DeleteNoteTest {
 
     @Test
     public void testDeleteItemNote() {
-        for (int i = mItemNotes.size() - 1; i > 0; i--) {
+        for (int i = mItemNotes.size() - 1; i == 0; i--) {
             Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
             Espresso.onView(ViewMatchers.withId(R.id.flNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
             Espresso.onView(ViewMatchers.withId(R.id.imgPick)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
