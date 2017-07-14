@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import vn.asiantech.internship.day11.model.Note;
 
 /**
@@ -36,12 +35,23 @@ public class NoteModify {
     public Cursor getNoteList() {
         SQLiteDatabase db = mDBHelper.getReadableDatabase();
         String sql = "select * from " + DatabaseHelper.DATABASE_TABLE;
-//        Cursor cursor = db.query(DatabaseHelper.DATABASE_TABLE,new String[]{DatabaseHelper.KEY_ID,DatabaseHelper.KEY_TITLE,DatabaseHelper.KEY_DESCRIPTION,DatabaseHelper.KEY_IMAGE,DatabaseHelper.KEY_TIME}, null,null,null,null,null);
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
         db.close();
         return cursor;
+    }
+
+    public void deleteNote(int id) {
+        String sql = "delete from " + DatabaseHelper.DATABASE_TABLE + " where " + DatabaseHelper.KEY_ID + "=" + id;
+        SQLiteDatabase db = mDBHelper.getReadableDatabase();
+        db.execSQL(sql);
+    }
+
+    public void updateNote(Note note) {
+        String sql = "update " + DatabaseHelper.DATABASE_TABLE + " set " + DatabaseHelper.KEY_TITLE + "= '" + note.getTitle() + "'," + DatabaseHelper.KEY_DESCRIPTION + "= '" + note.getDescription() + "' where " + DatabaseHelper.KEY_ID + "= " + note.getId();
+        SQLiteDatabase db = mDBHelper.getReadableDatabase();
+        db.execSQL(sql);
     }
 }

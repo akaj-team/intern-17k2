@@ -49,6 +49,9 @@
     <string name="dismiss_dialog">Do you want to reset Quiz app?</string>
     <string name="question">Question %d</string>
     <string name="question_order">You answered %s, Do you want to go to Result Screen?</string>
+    <string name="toast_input_title">Input title</string>
+    <string name="toast_input_description">Input Description</string>
+    <string name="toast_delete_note">Delete note</string>
     <string-array name="tabtitles">
         <item name="bike">bike</item>
         <item name="dog">dog</item>
