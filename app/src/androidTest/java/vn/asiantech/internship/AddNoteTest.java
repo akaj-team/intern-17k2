@@ -36,24 +36,25 @@ public class AddNoteTest {
 
     @Test
     public void inputDataTest() {
+        //Test blank content
         Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd)).
                 perform(ViewActions.typeText("Note 1"), ViewActions.closeSoftKeyboard());
         Espresso.onView(ViewMatchers.withId(R.id.imgAdd))
                 .perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withText(Matchers.startsWith("Inquire enter content")))
-                .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
+        Espresso.onView(Matchers.allOf(ViewMatchers.withId(R.id.tvAddNoteError), ViewMatchers.withText(R.string.note_text_error_content)))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
+        //Test blank title
         Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd)).
                 perform(ViewActions.clearText());
         Espresso.onView(ViewMatchers.withId(R.id.edtContentAdd)).
                 perform(ViewActions.typeText("This is a great day!"), ViewActions.closeSoftKeyboard());
         Espresso.onView(ViewMatchers.withId(R.id.imgAdd))
                 .perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withText(Matchers.startsWith("Inquire enter title")))
-                .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
+        Espresso.onView(Matchers.allOf(ViewMatchers.withId(R.id.tvAddNoteError), ViewMatchers.withText(R.string.note_text_error_title)))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
+        //Test add success
         Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd)).
                 perform(ViewActions.typeText("Note 1"), ViewActions.closeSoftKeyboard());
         Espresso.onView(ViewMatchers.withId(R.id.imgAdd))

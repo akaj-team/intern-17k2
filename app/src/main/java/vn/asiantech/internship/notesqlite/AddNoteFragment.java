@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Display;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -34,6 +37,7 @@ import java.util.Locale;
 import vn.asiantech.internship.R;
 
 import static android.app.Activity.RESULT_OK;
+import static vn.asiantech.internship.R.id.imgAdd;
 
 /**
  * Used to enter data for item of recyclerView.
@@ -47,6 +51,9 @@ public class AddNoteFragment extends Fragment {
     private ImageView mImgNote;
     private EditText mEdtTitle;
     private EditText mEdtContent;
+    private TextView mTvError;
+    private ImageView mImgChooseImage;
+    private ImageView mImgAdd;
     private NoteSqlite mDatabase;
     private Uri mUriImage;
 
@@ -60,12 +67,56 @@ public class AddNoteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_note, container, false);
+        initViews(view);
+        setListeners();
+        return view;
+    }
+
+    private void initViews(View view) {
         mImgNote = (ImageView) view.findViewById(R.id.imgNoteAdd);
         mEdtTitle = (EditText) view.findViewById(R.id.edtTitleAdd);
         mEdtContent = (EditText) view.findViewById(R.id.edtContentAdd);
-        ImageView imgChooseImage = (ImageView) view.findViewById(R.id.imgAddImage);
-        ImageView imgAdd = (ImageView) view.findViewById(R.id.imgAdd);
-        imgChooseImage.setOnClickListener(new View.OnClickListener() {
+        mTvError = (TextView) view.findViewById(R.id.tvAddNoteError);
+        mImgChooseImage = (ImageView) view.findViewById(R.id.imgAddImage);
+        mImgAdd = (ImageView) view.findViewById(imgAdd);
+    }
+
+    private void setListeners() {
+        mEdtTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputAfterTest(editable, R.string.note_text_error_title);
+            }
+        });
+
+        mEdtContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputAfterTest(editable, R.string.note_text_error_content);
+            }
+        });
+
+        mImgChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -75,26 +126,27 @@ public class AddNoteFragment extends Fragment {
             }
         });
 
-        imgAdd.setOnClickListener(new View.OnClickListener() {
+        mImgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Date date = new Date();
-                SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
-                SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
-                if (TextUtils.equals(mEdtTitle.getText().toString(), "")) {
-                    Toast.makeText(getActivity(), "Inquire enter title", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.equals(mEdtContent.getText().toString(), "")) {
-                    Toast.makeText(getActivity(), "Inquire enter content", Toast.LENGTH_SHORT).show();
-                } else {
+                if (!TextUtils.equals(mEdtTitle.getText().toString(), "") && !TextUtils.equals(mEdtContent.getText().toString(), "")) {
+                    Date date = new Date();
+                    SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
+                    SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
                     mDatabase.open();
                     mDatabase.createNote(new Note(dayOfWeekFormat.format(date), String.valueOf(DateFormat.format("dd", date)), monthFormat.format(date), String.valueOf(DateFormat.format("hh:mm:ss", date)), mEdtTitle.getText().toString(), mEdtContent.getText().toString(), getRealPathFromUri(mUriImage)));
                     mDatabase.close();
                     Toast.makeText(getActivity(), "Add success", Toast.LENGTH_SHORT).show();
                     ((NoteActivity) (getActivity())).replaceNoteFragment();
+                } else if (TextUtils.equals(mEdtTitle.getText().toString(), "")) {
+                    mTvError.setText(R.string.note_text_error_title);
+                    mTvError.setVisibility(View.VISIBLE);
+                } else if (TextUtils.equals(mEdtContent.getText().toString(), "")) {
+                    mTvError.setText(R.string.note_text_error_content);
+                    mTvError.setVisibility(View.VISIBLE);
                 }
             }
         });
-        return view;
     }
 
     private String getRealPathFromUri(Uri tempUri) {
@@ -165,7 +217,6 @@ public class AddNoteFragment extends Fragment {
         try {
             BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
             bmpFactoryOptions.inJustDecodeBounds = true;
-            Bitmap bmp = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
             int heightRatio = (int) Math.ceil(bmpFactoryOptions.outHeight / (float) dh);
             int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth / (float) dw);
             if (heightRatio > 1 && widthRatio > 1) {
@@ -176,11 +227,19 @@ public class AddNoteFragment extends Fragment {
                 }
             }
             bmpFactoryOptions.inJustDecodeBounds = false;
-            bmp = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
-            return bmp;
+            return BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
         } catch (FileNotFoundException e) {
             Log.v("ERROR", e.toString());
         }
         return null;
+    }
+
+    private void inputAfterTest(Editable data, int s) {
+        if (data.length() == 0) {
+            mTvError.setText(s);
+            mTvError.setVisibility(View.VISIBLE);
+        } else {
+            mTvError.setVisibility(View.GONE);
+        }
     }
 }

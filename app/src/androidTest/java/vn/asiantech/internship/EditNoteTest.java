@@ -43,6 +43,7 @@ public class EditNoteTest {
 
     @Test
     public void showDataTest() {
+        //Test to show correct data from recyclerView
         Espresso.onView(ViewMatchers.withId(R.id.edtTitleEdit)).
                 check(ViewAssertions.matches(ViewMatchers.withText(mNotes.get(0).getTitle())));
         Espresso.onView(ViewMatchers.withId(R.id.edtContentEdit)).
@@ -50,28 +51,29 @@ public class EditNoteTest {
         Espresso.onView(ViewMatchers.withId(R.id.tvTime)).
                 check(ViewAssertions.matches(ViewMatchers.withText(mNotes.get(0).getDay() + "\n" + mNotes.get(0).getDayOfWeek() + " " + mNotes.get(0).getMonth() + "\n" + mNotes.get(0).getHour())));
 
+        //Test blank title
         Espresso.onView(ViewMatchers.withId(R.id.imgEditNote))
                 .perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.edtTitleEdit)).
                 perform(ViewActions.clearText());
         Espresso.onView(ViewMatchers.withId(R.id.imgSave))
                 .perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withText(Matchers.startsWith("Inquire enter title")))
-                .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
+        Espresso.onView(Matchers.allOf(ViewMatchers.withId(R.id.tvEditNoteError), ViewMatchers.withText("Inquire enter title")))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.edtTitleEdit)).
                 perform(ViewActions.typeText("Note 111111"), ViewActions.closeSoftKeyboard());
 
+        //Test blank content
         Espresso.onView(ViewMatchers.withId(R.id.edtContentEdit)).
                 perform(ViewActions.clearText());
         Espresso.onView(ViewMatchers.withId(R.id.imgSave))
                 .perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withText(Matchers.startsWith("Inquire enter content")))
-                .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
+        Espresso.onView(Matchers.allOf(ViewMatchers.withId(R.id.tvEditNoteError), ViewMatchers.withText("Inquire enter content")))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.edtContentEdit)).
                 perform(ViewActions.typeText("I did it :)))"), ViewActions.closeSoftKeyboard());
 
+        //Test edit success
         Espresso.onView(ViewMatchers.withId(R.id.imgSave))
                 .perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withText(Matchers.startsWith("Edit success")))
