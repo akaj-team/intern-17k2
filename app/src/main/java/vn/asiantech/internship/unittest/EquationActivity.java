@@ -21,19 +21,26 @@ public class EquationActivity extends AppCompatActivity {
     private EditText mEdtFactorB;
     private EditText mEdtFactorC;
     private TextView mTvResult;
+    private Button mBtnCalculate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quadratic_equation);
+        initViews();
+        setListener();
+    }
 
+    private void initViews() {
         mEdtFactorA = (EditText) findViewById(R.id.edtFactorA);
         mEdtFactorB = (EditText) findViewById(R.id.edtFactorB);
         mEdtFactorC = (EditText) findViewById(R.id.edtFactorC);
         mTvResult = (TextView) findViewById(R.id.tvResultCalculate);
-        Button btnCalculate = (Button) findViewById(R.id.btnCalculate);
+        mBtnCalculate = (Button) findViewById(R.id.btnCalculate);
+    }
 
-        btnCalculate.setOnClickListener(new View.OnClickListener() {
+    private void setListener() {
+        mBtnCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String a = mEdtFactorA.getText().toString();

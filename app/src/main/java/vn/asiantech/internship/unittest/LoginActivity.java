@@ -19,17 +19,24 @@ import vn.asiantech.internship.R;
 public class LoginActivity extends AppCompatActivity {
     private EditText mEdtUserName;
     private EditText mEdtPassword;
+    private Button mBtnLogin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        initViews();
+        setListener();
+    }
 
+    private void initViews() {
         mEdtUserName = (EditText) findViewById(R.id.edtUserName);
         mEdtPassword = (EditText) findViewById(R.id.edtPassword);
-        Button btnLogin = (Button) findViewById(R.id.btnLogin);
+        mBtnLogin = (Button) findViewById(R.id.btnLogin);
+    }
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+    private void setListener() {
+        mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String userName = mEdtUserName.getText().toString();
