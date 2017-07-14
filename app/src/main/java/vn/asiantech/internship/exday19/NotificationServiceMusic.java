@@ -32,6 +32,7 @@ public class NotificationServiceMusic extends Service {
     private Uri mUri;
     private String mUrlImage;
     private String mUrl;
+    private String mSongName;
     private int mLength;
     private boolean mIsShuffle;
     private boolean mIsRepeat;
@@ -84,7 +85,6 @@ public class NotificationServiceMusic extends Service {
                 mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mediaPlayer) {
-                        showNotification();
                         mMediaPlayer.start();
                     }
                 });
@@ -117,9 +117,11 @@ public class NotificationServiceMusic extends Service {
         mUrl = mMusicItems.get(mPosition).getUrl();
         mUri = Uri.parse(mUrl);
         mUrlImage = mMusicItems.get(mPosition).getImage();
+        mSongName = mMusicItems.get(mPosition).getSongName();
         mMediaPlayer = MediaPlayer.create(getApplicationContext(), mUri);
         mMediaPlayer.start();
         setCountDownTimer();
+        showNotification();
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -132,7 +134,6 @@ public class NotificationServiceMusic extends Service {
     private void playNextSong() {
         if (!mIsRepeat) {
             if (mIsShuffle) {
-                // shuffle is on - play a random song
                 Random rand = new Random();
                 mPosition = rand.nextInt(mMusicItems.size());
             } else {
@@ -146,7 +147,6 @@ public class NotificationServiceMusic extends Service {
     public void playPreviousSong() {
         if (!mIsRepeat) {
             if (mIsShuffle) {
-                // shuffle is on - play a random song
                 Random rand = new Random();
                 int position;
                 do {
@@ -171,9 +171,11 @@ public class NotificationServiceMusic extends Service {
                 timeIntent.putExtra(PlayMusicFragment.KEY_PLAYING, mMediaPlayer.isPlaying());
                 if (mMediaPlayer.isPlaying()) {
                     timeIntent.putExtra(PlayMusicFragment.KEY_IMAGE, mUrlImage);
+                    timeIntent.putExtra(PlayMusicFragment.KEY_SONG_NAME, mSongName);
                 }
                 sendBroadcast(timeIntent);
-                showNotification();
+                updateNotification();
+
             }
 
             @Override
@@ -187,40 +189,29 @@ public class NotificationServiceMusic extends Service {
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mBuilder = new NotificationCompat.Builder(this);
         mRemoteViewsBig = new RemoteViews(getPackageName(), R.layout.notification_main);
-        mRemoteViewsBig.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
-        mRemoteViewsBig.setTextViewText(R.id.tvSongName, mMusicItems.get(mPosition).getSongName());
+        mRemoteViewsSmall = new RemoteViews(getPackageName(), R.layout.notification_screen);
+
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.album_art);
         mRemoteViewsBig.setImageViewBitmap(R.id.imgNotification, bm);
-
-        Intent intentPlaySong = new Intent(this, NotificationServiceMusic.class);
-        // play intent
-        if (mMediaPlayer.isPlaying()) {
-            intentPlaySong.setAction(Action.PAUSE.getValue());
-            PendingIntent playSong = PendingIntent.getService(this, 0, intentPlaySong, 0);
-            mRemoteViewsBig.setOnClickPendingIntent(R.id.imgPlay, playSong);
-            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.pause);
-        } else if (!mMediaPlayer.isPlaying()) {
-            intentPlaySong.setAction(Action.RESUME.getValue());
-            PendingIntent playSong = PendingIntent.getService(this, 0, intentPlaySong, 0);
-            mRemoteViewsBig.setOnClickPendingIntent(R.id.imgPlay, playSong);
-            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.play);
-        }
+        mRemoteViewsSmall.setImageViewBitmap(R.id.imgNotification, bm);
 
         Intent intentPreviousSong = new Intent(this, NotificationServiceMusic.class);
         intentPreviousSong.setAction(Action.PREV.getValue());
         PendingIntent previousSong = PendingIntent.getService(this, 0, intentPreviousSong, 0);
         mRemoteViewsBig.setOnClickPendingIntent(R.id.imgPrevious, previousSong);
+        mRemoteViewsSmall.setOnClickPendingIntent(R.id.imgPrevious, previousSong);
 
         Intent intentNextSong = new Intent(this, NotificationServiceMusic.class);
         intentNextSong.setAction(Action.NEXT.getValue());
         PendingIntent nextSong = PendingIntent.getService(this, 0, intentNextSong, 0);
         mRemoteViewsBig.setOnClickPendingIntent(R.id.imgNext, nextSong);
+        mRemoteViewsSmall.setOnClickPendingIntent(R.id.imgNext, nextSong);
 
-        Intent intentTurnOff = new Intent(this, NotificationServiceMusic.class);
-        intentTurnOff.setAction(Action.STOP.getValue());
-        PendingIntent turnOff = PendingIntent.getService(this, 0, intentTurnOff, 0);
+        Intent intentTurnOff = new Intent(Action.STOP.getValue());
+        PendingIntent turnOff = PendingIntent.getBroadcast(this, 0, intentTurnOff, 0);
         mRemoteViewsBig.setOnClickPendingIntent(R.id.imgTurnOff, turnOff);
+        mRemoteViewsSmall.setOnClickPendingIntent(R.id.imgTurnOff, turnOff);
 
         Intent notificationIntent = new Intent(getApplicationContext(), PlayMusicFragment.class);
         notificationIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
@@ -231,8 +222,31 @@ public class NotificationServiceMusic extends Service {
                 .setLargeIcon(Bitmap.createScaledBitmap(bm, 128, 128, false))
                 .setAutoCancel(false)
                 .setOngoing(true)
+                .setCustomContentView(mRemoteViewsSmall)
                 .setCustomBigContentView(mRemoteViewsBig)
                 .setContentIntent(pendingIntent);
+
+        mNotificationManager.notify(111, mBuilder.build());
+    }
+
+    private void updateNotification() {
+        mRemoteViewsBig.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
+        mRemoteViewsBig.setTextViewText(R.id.tvSongName, mMusicItems.get(mPosition).getSongName());
+        mRemoteViewsSmall.setTextViewText(R.id.tvSongName, mMusicItems.get(mPosition).getSongName());
+
+        Intent intentPlaySong = new Intent(this, NotificationServiceMusic.class);
+        if (mMediaPlayer.isPlaying()) {
+            intentPlaySong.setAction(Action.PAUSE.getValue());
+            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.pause);
+            mRemoteViewsSmall.setImageViewResource(R.id.imgPlay, R.drawable.pause);
+        } else if (!mMediaPlayer.isPlaying()) {
+            intentPlaySong.setAction(Action.RESUME.getValue());
+            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.play);
+            mRemoteViewsSmall.setImageViewResource(R.id.imgPlay, R.drawable.play);
+        }
+        PendingIntent playSong = PendingIntent.getService(this, 0, intentPlaySong, 0);
+        mRemoteViewsBig.setOnClickPendingIntent(R.id.imgPlay, playSong);
+        mRemoteViewsSmall.setOnClickPendingIntent(R.id.imgPlay, playSong);
 
         mNotificationManager.notify(111, mBuilder.build());
     }
@@ -247,12 +261,13 @@ public class NotificationServiceMusic extends Service {
     public void onDestroy() {
         Intent intent = new Intent(this, NotificationServiceMusic.class);
         stopService(intent);
-        mCountDownTimer.onFinish();
+        mCountDownTimer.cancel();
         stopForeground(true);
         stopSelf();
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.stop();
         }
+        mNotificationManager.cancelAll();
         super.onDestroy();
     }
 }

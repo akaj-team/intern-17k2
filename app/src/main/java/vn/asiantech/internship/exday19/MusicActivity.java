@@ -17,8 +17,6 @@ import java.util.ArrayList;
 
 import vn.asiantech.internship.R;
 
-import static vn.asiantech.internship.exday19.MusicListFragment.URL;
-
 /**
  * Created by datbu on 02-07-2017.
  */
@@ -27,7 +25,6 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
     public static final String KEY_POSITION = "position";
     public static final String KEY_SEND = "send";
 
-    private FragmentTransaction mFragmentTransaction;
     private PlayMusicFragment mPlayMusicFragment;
     private MusicListFragment mMusicListFragment;
     private ArrayList<MusicItem> mMusicItems;
@@ -67,7 +64,7 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
         intentFilter();
         mMusicItems = new ArrayList<>();
         for (int i = 0; i < MusicListFragment.URL.length; i++) {
-            mMusicItems.add(new MusicItem(URL[i], MusicListFragment.SONG_NAME[i], MusicListFragment.IMAGE[i]));
+            mMusicItems.add(new MusicItem(MusicListFragment.URL[i], MusicListFragment.SONG_NAME[i], MusicListFragment.IMAGE[i]));
         }
         if (!mIsServiceRunning) {
             Intent intent = new Intent(MusicActivity.this, NotificationServiceMusic.class);
@@ -82,12 +79,12 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
 
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (addToBackStack) {
-            mFragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
+            fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
         }
-        mFragmentTransaction.replace(R.id.flMusicList, fragment);
-        mFragmentTransaction.commit();
+        fragmentTransaction.replace(R.id.flMusicList, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -106,11 +103,9 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_settings:
                 onBackPressed();
-                onDestroy();
                 break;
         }
 

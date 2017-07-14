@@ -4,12 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +18,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
-
-import static vn.asiantech.internship.R.id.seekBar;
 
 /**
  * Created by datbu on 02-07-2017.
@@ -39,7 +32,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     public static final String KEY_REPEAT = "repeat";
     public static final String KEY_URL = "url";
     public static final String KEY_IMAGE = "image";
-
+    public static final String KEY_SONG_NAME = "songname";
 
     private CircleImageView mAlbumArt;
     private ImageView mImgPlay;
@@ -47,20 +40,17 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     private ImageView mImgNext;
     private ImageView mImgShuffle;
     private ImageView mImgRepeat;
+    private TextView mSongName;
     private TextView mTvStart;
     private TextView mTvEnd;
     private SeekBar mSeekBar;
-    private Uri mUri;
     private String mUrl;
     private String mUrlImage;
-    private MediaPlayer mMediaPlayer;
-    private ArrayList<MusicItem> mMusicItems;
     private Intent mIntent;
     private int mPosition;
     private boolean mIsShuffle;
     private boolean mIsRepeat;
     private int mLength;
-    private int mTime;
     private boolean mIsPlaying;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -71,8 +61,6 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
                 if (Action.SEEK.getValue().equals(action)) {
                     boolean isPlaying = intent.getBooleanExtra(PlayMusicFragment.KEY_PLAYING, false);
                     if (isPlaying ^ mIsPlaying) {
-                        mIsPlaying = isPlaying;
-                        Log.d("tag", "onReceive: " + mIsPlaying);
                         if (mIsPlaying) {
                             mImgPlay.setImageResource(R.drawable.pause);
                         } else {
@@ -101,7 +89,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         return view;
     }
 
-    public void initStart() {
+    private void initStart() {
         if (!mIsPlaying) {
             Intent startIntent = new Intent(getContext(), NotificationServiceMusic.class);
             startIntent.setAction(Action.START.getValue());
@@ -121,36 +109,34 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-    public void initData() {
-        mMusicItems = new ArrayList<>();
+    private void initData() {
         mPosition = (int) getArguments().getSerializable(MusicActivity.KEY_POSITION);
-        mMusicItems = getArguments().getParcelableArrayList(MusicActivity.KEY_MUSIC);
         mTvStart.setText(R.string.tv_time);
         mTvEnd.setText(R.string.tv_time);
         initAnimation();
     }
 
-    public void initAnimation() {
+    private void initAnimation() {
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_disk);
         animation.setFillAfter(true);
         mAlbumArt.startAnimation(animation);
     }
 
-    public void initView(View view) {
-        mMediaPlayer = new MediaPlayer();
+    private void initView(View view) {
         mTvStart = (TextView) view.findViewById(R.id.tvTime);
         mTvEnd = (TextView) view.findViewById(R.id.tvDuration);
+        mSongName = (TextView) view.findViewById(R.id.tvSongName);
         mAlbumArt = (CircleImageView) view.findViewById(R.id.imgAlbumArt);
         mImgPlay = (ImageView) view.findViewById(R.id.imgPlay);
         mImgPrev = (ImageView) view.findViewById(R.id.imgPrevious);
         mImgNext = (ImageView) view.findViewById(R.id.imgNext);
         mImgShuffle = (ImageView) view.findViewById(R.id.imgShuffle);
         mImgRepeat = (ImageView) view.findViewById(R.id.imgRepeat);
-        mSeekBar = (SeekBar) view.findViewById(seekBar);
+        mSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
         mIntent = new Intent(getContext(), NotificationServiceMusic.class);
     }
 
-    public void initClick() {
+    private void initClick() {
         mImgPlay.setOnClickListener(this);
         mImgPrev.setOnClickListener(this);
         mImgNext.setOnClickListener(this);
@@ -218,15 +204,15 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
 
     private void processTime(Intent intent) {
         mLength = intent.getIntExtra(KEY_DURATION, 0);
-        mTvEnd.setText(miliSecondToString(mLength));
+        mTvEnd.setText(milliSecondToString(mLength));
         mSeekBar.setMax(mLength);
         mSeekBar.setProgress(0);
-        mTime = intent.getIntExtra(KEY_CURRENT_POSITION, 0);
-        mTvStart.setText(miliSecondToString(mTime));
-        mSeekBar.setProgress(mTime);
+        int time = intent.getIntExtra(KEY_CURRENT_POSITION, 0);
+        mTvStart.setText(milliSecondToString(time));
+        mSeekBar.setProgress(time);
         mUrlImage = intent.getStringExtra(KEY_IMAGE);
-        Log.d("tag22", "onReceive:112 " + mUrlImage);
         Glide.with(getContext()).load(mUrlImage).into(mAlbumArt);
+        mSongName.setText(intent.getStringExtra(KEY_SONG_NAME));
     }
 
     @Override
@@ -235,28 +221,26 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         super.onDestroy();
     }
 
-    private static String miliSecondToString(int millisecond) {
+    private static String milliSecondToString(int millisecond) {
         millisecond /= 1000;
         return ((millisecond / 60) < 10 ? "0" : "") + (millisecond / 60) + ":" + ((millisecond % 60) < 10 ? "0" : "") + (millisecond % 60);
     }
 
-    public void initShuffle() {
+    private void initShuffle() {
         if (mIsShuffle) {
             mIsShuffle = false;
             mImgShuffle.setImageResource(R.drawable.shuffledf);
         } else {
-            // make repeat to true
             mIsShuffle = true;
             mImgShuffle.setImageResource(R.drawable.shufflechg);
         }
     }
 
-    public void initRepeat() {
+    private void initRepeat() {
         if (mIsRepeat) {
             mIsRepeat = false;
             mImgRepeat.setImageResource(R.drawable.repeatdf);
         } else {
-            // make repeat to true
             mIsRepeat = true;
             mImgRepeat.setImageResource(R.drawable.repeatchg);
         }

@@ -9,14 +9,14 @@
         android:id="@+id/imgAlbumArt"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_below="@+id/artistName"
+        android:layout_below="@+id/tvSongName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="21dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/album_art" />
 
     <TextView
-        android:id="@+id/songName"
+        android:id="@+id/tvSongName"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="15dp"
@@ -24,21 +24,12 @@
         android:textSize="30sp"
         android:textColor="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/artistName"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@+id/songName"
-        android:layout_margin="15dp"
-        android:text="@string/artist_name"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
-
     <LinearLayout
         android:id="@+id/lnSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgAlbumArt"
+        android:paddingTop="50dp"
         android:layout_margin="15dp">
 
         <TextView
@@ -71,6 +62,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/lnSeekBar"
         android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
         android:gravity="center">
 
         <ImageView

@@ -17,12 +17,12 @@ import vn.asiantech.internship.R;
 /**
  * Created by datbu on 02-07-2017.
  */
-public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MyHolder> {
+class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MyHolder> {
     private ArrayList<MusicItem> mMusicItemList;
     private Context mContext;
     private OnClickMusicItemListener mOnClickMusicItemListener;
 
-    public MusicListAdapter(Context context, ArrayList<MusicItem> mMusicItemList, OnClickMusicItemListener onClickMusicItemListener) {
+    MusicListAdapter(Context context, ArrayList<MusicItem> mMusicItemList, OnClickMusicItemListener onClickMusicItemListener) {
         this.mMusicItemList = mMusicItemList;
         this.mContext = context;
         this.mOnClickMusicItemListener = onClickMusicItemListener;
@@ -49,11 +49,11 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MyHo
     /**
      * Created by datbu on 02-07-2017.
      */
-    public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private CircleImageView mImageSong;
         private TextView mSongName;
 
-        public MyHolder(View itemView) {
+        MyHolder(View itemView) {
             super(itemView);
             mImageSong = (CircleImageView) itemView.findViewById(R.id.imgSong);
             mSongName = (TextView) itemView.findViewById(R.id.tvSongName);
