@@ -3,7 +3,7 @@
     android:id="@+id/content_player2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/player_background">
+    android:background="@drawable/image_player_background">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAlbumArt"
@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="21dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/album_art" />
+        android:src="@drawable/image_album_art" />
 
     <TextView
         android:id="@+id/tvSongName"
@@ -72,7 +72,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/shuffledf" />
+            android:src="@drawable/image_shuffledf" />
 
         <ImageView
             android:id="@+id/imgPrevious"
@@ -81,7 +81,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/previous" />
+            android:src="@drawable/image_previous" />
 
         <ImageView
             android:id="@+id/imgPlay"
@@ -90,7 +90,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/play" />
+            android:src="@drawable/image_play" />
 
         <ImageView
             android:id="@+id/imgNext"
@@ -99,7 +99,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/next" />
+            android:src="@drawable/image_next" />
 
         <ImageView
             android:id="@+id/imgRepeat"
@@ -108,6 +108,6 @@
             android:layout_weight="1"
             android:background="@null"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/repeatdf" />
+            android:src="@drawable/image_repeatdf" />
     </LinearLayout>
 </RelativeLayout>

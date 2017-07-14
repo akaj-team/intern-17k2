@@ -192,7 +192,7 @@ public class NotificationServiceMusic extends Service {
         mRemoteViewsSmall = new RemoteViews(getPackageName(), R.layout.notification_screen);
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
-                R.drawable.album_art);
+                R.drawable.image_album_art);
         mRemoteViewsBig.setImageViewBitmap(R.id.imgNotification, bm);
         mRemoteViewsSmall.setImageViewBitmap(R.id.imgNotification, bm);
 
@@ -218,7 +218,7 @@ public class NotificationServiceMusic extends Service {
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        mBuilder.setSmallIcon(R.drawable.album_art)
+        mBuilder.setSmallIcon(R.drawable.image_album_art)
                 .setLargeIcon(Bitmap.createScaledBitmap(bm, 128, 128, false))
                 .setAutoCancel(false)
                 .setOngoing(true)
@@ -237,12 +237,12 @@ public class NotificationServiceMusic extends Service {
         Intent intentPlaySong = new Intent(this, NotificationServiceMusic.class);
         if (mMediaPlayer.isPlaying()) {
             intentPlaySong.setAction(Action.PAUSE.getValue());
-            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.pause);
-            mRemoteViewsSmall.setImageViewResource(R.id.imgPlay, R.drawable.pause);
+            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.image_pause);
+            mRemoteViewsSmall.setImageViewResource(R.id.imgPlay, R.drawable.image_pause);
         } else if (!mMediaPlayer.isPlaying()) {
             intentPlaySong.setAction(Action.RESUME.getValue());
-            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.play);
-            mRemoteViewsSmall.setImageViewResource(R.id.imgPlay, R.drawable.play);
+            mRemoteViewsBig.setImageViewResource(R.id.imgPlay, R.drawable.image_play);
+            mRemoteViewsSmall.setImageViewResource(R.id.imgPlay, R.drawable.image_play);
         }
         PendingIntent playSong = PendingIntent.getService(this, 0, intentPlaySong, 0);
         mRemoteViewsBig.setOnClickPendingIntent(R.id.imgPlay, playSong);

@@ -21,7 +21,7 @@
         android:layout_gravity="bottom"
         android:layout_weight="0.1"
         android:contentDescription="@null"
-        android:src="@drawable/previous" />
+        android:src="@drawable/image_previous" />
 
     <ImageView
         android:id="@+id/imgPlay"
@@ -30,7 +30,7 @@
         android:layout_gravity="bottom"
         android:layout_weight="0.1"
         android:contentDescription="@null"
-        android:src="@drawable/play" />
+        android:src="@drawable/image_play" />
 
     <ImageView
         android:id="@+id/imgNext"
@@ -39,7 +39,7 @@
         android:layout_gravity="bottom"
         android:layout_weight="0.1"
         android:contentDescription="@null"
-        android:src="@drawable/next" />
+        android:src="@drawable/image_next" />
 
     <ImageView
         android:id="@+id/imgTurnOff"

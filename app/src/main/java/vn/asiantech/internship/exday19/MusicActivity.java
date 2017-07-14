@@ -150,8 +150,10 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
         super.onDestroy();
         if (!mIsPlaying) {
             Intent intent = new Intent(MusicActivity.this, NotificationServiceMusic.class);
+            intent.setAction(Action.STOP.getValue());
             stopService(intent);
         }
         unregisterReceiver(mReceiver);
+        finish();
     }
 }

@@ -62,9 +62,9 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
                     boolean isPlaying = intent.getBooleanExtra(PlayMusicFragment.KEY_PLAYING, false);
                     if (isPlaying ^ mIsPlaying) {
                         if (mIsPlaying) {
-                            mImgPlay.setImageResource(R.drawable.pause);
+                            mImgPlay.setImageResource(R.drawable.image_pause);
                         } else {
-                            mImgPlay.setImageResource(R.drawable.play);
+                            mImgPlay.setImageResource(R.drawable.image_play);
                         }
                     }
                     return;
@@ -97,7 +97,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
             startIntent.putExtra(KEY_IMAGE, mUrlImage);
             startIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
             getContext().startService(startIntent);
-            mImgPlay.setImageResource(R.drawable.pause);
+            mImgPlay.setImageResource(R.drawable.image_pause);
         } else {
             Intent startIntent = new Intent(getContext(), NotificationServiceMusic.class);
             startIntent.setAction(Action.PLAY.getValue());
@@ -105,7 +105,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
             startIntent.putExtra(KEY_IMAGE, mUrlImage);
             startIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
             getContext().startService(startIntent);
-            mImgPlay.setImageResource(R.drawable.pause);
+            mImgPlay.setImageResource(R.drawable.image_pause);
         }
     }
 
@@ -229,20 +229,20 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     private void initShuffle() {
         if (mIsShuffle) {
             mIsShuffle = false;
-            mImgShuffle.setImageResource(R.drawable.shuffledf);
+            mImgShuffle.setImageResource(R.drawable.image_shuffledf);
         } else {
             mIsShuffle = true;
-            mImgShuffle.setImageResource(R.drawable.shufflechg);
+            mImgShuffle.setImageResource(R.drawable.image_shufflechg);
         }
     }
 
     private void initRepeat() {
         if (mIsRepeat) {
             mIsRepeat = false;
-            mImgRepeat.setImageResource(R.drawable.repeatdf);
+            mImgRepeat.setImageResource(R.drawable.image_repeatdf);
         } else {
             mIsRepeat = true;
-            mImgRepeat.setImageResource(R.drawable.repeatchg);
+            mImgRepeat.setImageResource(R.drawable.image_repeatchg);
         }
     }
 }

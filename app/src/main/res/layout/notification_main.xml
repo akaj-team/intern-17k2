@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:contentDescription="@null"
-                android:src="@drawable/previous" />
+                android:src="@drawable/image_previous" />
 
             <TextView
                 android:layout_width="0dp"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:contentDescription="@null"
-                android:src="@drawable/play" />
+                android:src="@drawable/image_play" />
 
             <TextView
                 android:layout_width="0dp"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:contentDescription="@null"
-                android:src="@drawable/next" />
+                android:src="@drawable/image_next" />
 
             <TextView
                 android:layout_width="0dp"
