@@ -46,16 +46,17 @@ import static vn.asiantech.internship.R.id.imgAdd;
  * @version 1.0
  * @since 2017-6-20
  */
-public class AddNoteFragment extends Fragment {
+public class AddNoteFragment extends Fragment implements TextWatcher, View.OnFocusChangeListener {
     private static final int REQUEST_CODE = 3;
-    private ImageView mImgNote;
-    private EditText mEdtTitle;
-    private EditText mEdtContent;
-    private TextView mTvError;
+    private ImageView mImgNoteAdd;
+    private EditText mEdtTitleAdd;
+    private EditText mEdtContentAdd;
+    private TextView mTvErrorAdd;
     private ImageView mImgChooseImage;
     private ImageView mImgAdd;
     private NoteSqlite mDatabase;
     private Uri mUriImage;
+    private int mFocusEditTextAdd;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,48 +74,19 @@ public class AddNoteFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        mImgNote = (ImageView) view.findViewById(R.id.imgNoteAdd);
-        mEdtTitle = (EditText) view.findViewById(R.id.edtTitleAdd);
-        mEdtContent = (EditText) view.findViewById(R.id.edtContentAdd);
-        mTvError = (TextView) view.findViewById(R.id.tvAddNoteError);
+        mImgNoteAdd = (ImageView) view.findViewById(R.id.imgNoteAdd);
+        mEdtTitleAdd = (EditText) view.findViewById(R.id.edtTitleAdd);
+        mEdtContentAdd = (EditText) view.findViewById(R.id.edtContentAdd);
+        mTvErrorAdd = (TextView) view.findViewById(R.id.tvAddNoteError);
         mImgChooseImage = (ImageView) view.findViewById(R.id.imgAddImage);
         mImgAdd = (ImageView) view.findViewById(imgAdd);
     }
 
     private void setListeners() {
-        mEdtTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                inputAfterTest(editable, R.string.note_text_error_title);
-            }
-        });
-
-        mEdtContent.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                inputAfterTest(editable, R.string.note_text_error_content);
-            }
-        });
+        mEdtTitleAdd.addTextChangedListener(this);
+        mEdtContentAdd.addTextChangedListener(this);
+        mEdtTitleAdd.setOnFocusChangeListener(this);
+        mEdtContentAdd.setOnFocusChangeListener(this);
 
         mImgChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,21 +101,21 @@ public class AddNoteFragment extends Fragment {
         mImgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!TextUtils.equals(mEdtTitle.getText().toString(), "") && !TextUtils.equals(mEdtContent.getText().toString(), "")) {
+                if (!TextUtils.equals(mEdtTitleAdd.getText().toString(), "") && !TextUtils.equals(mEdtContentAdd.getText().toString(), "")) {
                     Date date = new Date();
                     SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
                     SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
                     mDatabase.open();
-                    mDatabase.createNote(new Note(dayOfWeekFormat.format(date), String.valueOf(DateFormat.format("dd", date)), monthFormat.format(date), String.valueOf(DateFormat.format("hh:mm:ss", date)), mEdtTitle.getText().toString(), mEdtContent.getText().toString(), getRealPathFromUri(mUriImage)));
+                    mDatabase.createNote(new Note(dayOfWeekFormat.format(date), String.valueOf(DateFormat.format("dd", date)), monthFormat.format(date), String.valueOf(DateFormat.format("hh:mm:ss", date)), mEdtTitleAdd.getText().toString(), mEdtContentAdd.getText().toString(), getRealPathFromUri(mUriImage)));
                     mDatabase.close();
                     Toast.makeText(getActivity(), "Add success", Toast.LENGTH_SHORT).show();
                     ((NoteActivity) (getActivity())).replaceNoteFragment();
-                } else if (TextUtils.equals(mEdtTitle.getText().toString(), "")) {
-                    mTvError.setText(R.string.note_text_error_title);
-                    mTvError.setVisibility(View.VISIBLE);
-                } else if (TextUtils.equals(mEdtContent.getText().toString(), "")) {
-                    mTvError.setText(R.string.note_text_error_content);
-                    mTvError.setVisibility(View.VISIBLE);
+                } else if (TextUtils.equals(mEdtTitleAdd.getText().toString(), "")) {
+                    mTvErrorAdd.setText(R.string.note_text_error_title);
+                    mTvErrorAdd.setVisibility(View.VISIBLE);
+                } else if (TextUtils.equals(mEdtContentAdd.getText().toString(), "")) {
+                    mTvErrorAdd.setText(R.string.note_text_error_content);
+                    mTvErrorAdd.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -177,11 +149,11 @@ public class AddNoteFragment extends Fragment {
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == REQUEST_CODE) {
                 mUriImage = data.getData();
-                mImgNote.setVisibility(View.VISIBLE);
-                mImgNote.setImageBitmap(decreaseImageSize(mUriImage));
+                mImgNoteAdd.setVisibility(View.VISIBLE);
+                mImgNoteAdd.setImageBitmap(decreaseImageSize(mUriImage));
                 Date date = new Date();
                 SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmss", Locale.ENGLISH);
-                saveImage(mImgNote, ft.format(date));
+                saveImage(mImgNoteAdd, ft.format(date));
             }
         }
     }
@@ -234,12 +206,40 @@ public class AddNoteFragment extends Fragment {
         return null;
     }
 
-    private void inputAfterTest(Editable data, int s) {
+    public void inputAfterTest(Editable data, int s) {
         if (data.length() == 0) {
-            mTvError.setText(s);
-            mTvError.setVisibility(View.VISIBLE);
+            mTvErrorAdd.setText(s);
+            mTvErrorAdd.setVisibility(View.VISIBLE);
         } else {
-            mTvError.setVisibility(View.GONE);
+            mTvErrorAdd.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        if (view.getId() == R.id.edtTitleAdd) {
+            mFocusEditTextAdd = 1;
+        } else if (view.getId() == R.id.edtContentAdd) {
+            mFocusEditTextAdd = 2;
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        if (mFocusEditTextAdd == 1) {
+            inputAfterTest(editable, R.string.note_text_error_title);
+        } else if (mFocusEditTextAdd == 2) {
+            inputAfterTest(editable, R.string.note_text_error_content);
         }
     }
 }

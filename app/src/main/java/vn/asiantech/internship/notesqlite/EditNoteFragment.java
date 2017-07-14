@@ -26,18 +26,19 @@ import static vn.asiantech.internship.R.id.imgSave;
  * @version 1.0
  * @since 2017-6-20
  */
-public class EditNoteFragment extends Fragment {
-    private ImageView mImgNote;
-    private EditText mEdtTitle;
-    private EditText mEdtContent;
-    private TextView mTvTime;
-    private TextView mTvTitle;
-    private TextView mTvError;
+public class EditNoteFragment extends Fragment implements TextWatcher, View.OnFocusChangeListener {
+    private ImageView mImgNoteEdit;
+    private EditText mEdtTitleEdit;
+    private EditText mEdtContentEdit;
+    private TextView mTvTimeEdit;
+    private TextView mTvTitleEdit;
+    private TextView mTvErrorEdit;
     private ImageView mImgEdit;
     private ImageView mImgDelete;
     private ImageView mImgSave;
     private NoteSqlite mDatabase;
     private Note mNote;
+    private int mFocusEditTextEdit;
 
     @Nullable
     @Override
@@ -50,12 +51,12 @@ public class EditNoteFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        mImgNote = (ImageView) view.findViewById(R.id.imgNoteEdit);
-        mEdtTitle = (EditText) view.findViewById(R.id.edtTitleEdit);
-        mEdtContent = (EditText) view.findViewById(R.id.edtContentEdit);
-        mTvTime = (TextView) view.findViewById(R.id.tvTime);
-        mTvTitle = (TextView) view.findViewById(R.id.tvEditTitle);
-        mTvError = (TextView) view.findViewById(R.id.tvEditNoteError);
+        mImgNoteEdit = (ImageView) view.findViewById(R.id.imgNoteEdit);
+        mEdtTitleEdit = (EditText) view.findViewById(R.id.edtTitleEdit);
+        mEdtContentEdit = (EditText) view.findViewById(R.id.edtContentEdit);
+        mTvTimeEdit = (TextView) view.findViewById(R.id.tvTime);
+        mTvTitleEdit = (TextView) view.findViewById(R.id.tvEditTitle);
+        mTvErrorEdit = (TextView) view.findViewById(R.id.tvEditNoteError);
         mImgEdit = (ImageView) view.findViewById(R.id.imgEditNote);
         mImgDelete = (ImageView) view.findViewById(R.id.imgDeleteNote);
         mImgSave = (ImageView) view.findViewById(imgSave);
@@ -68,46 +69,17 @@ public class EditNoteFragment extends Fragment {
     }
 
     private void setListeners() {
-        mEdtTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                inputAfterTest(editable, R.string.note_text_error_title);
-            }
-        });
-
-        mEdtContent.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                inputAfterTest(editable, R.string.note_text_error_content);
-            }
-        });
+        mEdtTitleEdit.addTextChangedListener(this);
+        mEdtContentEdit.addTextChangedListener(this);
+        mEdtTitleEdit.setOnFocusChangeListener(this);
+        mEdtContentEdit.setOnFocusChangeListener(this);
 
         mImgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTvTitle.setText(R.string.textView_edit_title);
-                mEdtTitle.setEnabled(true);
-                mEdtContent.setEnabled(true);
+                mTvTitleEdit.setText(R.string.textView_edit_title);
+                mEdtTitleEdit.setEnabled(true);
+                mEdtContentEdit.setEnabled(true);
             }
         });
 
@@ -125,19 +97,19 @@ public class EditNoteFragment extends Fragment {
         mImgSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!TextUtils.equals(mEdtTitle.getText().toString(), "") && !TextUtils.equals(mEdtContent.getText().toString(), "")) {
-                    mTvError.setVisibility(View.GONE);
+                if (!TextUtils.equals(mEdtTitleEdit.getText().toString(), "") && !TextUtils.equals(mEdtContentEdit.getText().toString(), "")) {
+                    mTvErrorEdit.setVisibility(View.GONE);
                     mDatabase.open();
-                    mDatabase.update(mEdtTitle.getText().toString(), mEdtContent.getText().toString(), mNote.getId());
+                    mDatabase.update(mEdtTitleEdit.getText().toString(), mEdtContentEdit.getText().toString(), mNote.getId());
                     mDatabase.close();
                     Toast.makeText(getActivity(), "Edit success", Toast.LENGTH_SHORT).show();
                     ((NoteActivity) (getActivity())).replaceNoteFragment();
-                } else if (TextUtils.equals(mEdtTitle.getText().toString(), "")) {
-                    mTvError.setText(R.string.note_text_error_title);
-                    mTvError.setVisibility(View.VISIBLE);
-                } else if (TextUtils.equals(mEdtContent.getText().toString(), "")) {
-                    mTvError.setText(R.string.note_text_error_content);
-                    mTvError.setVisibility(View.VISIBLE);
+                } else if (TextUtils.equals(mEdtTitleEdit.getText().toString(), "")) {
+                    mTvErrorEdit.setText(R.string.note_text_error_title);
+                    mTvErrorEdit.setVisibility(View.VISIBLE);
+                } else if (TextUtils.equals(mEdtContentEdit.getText().toString(), "")) {
+                    mTvErrorEdit.setText(R.string.note_text_error_content);
+                    mTvErrorEdit.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -146,21 +118,50 @@ public class EditNoteFragment extends Fragment {
     private void setData(Note note) {
         if (note != null) {
             if (!TextUtils.equals(note.getPathImage(), "")) {
-                mImgNote.setVisibility(View.VISIBLE);
-                mImgNote.setImageBitmap(BitmapFactory.decodeFile(note.getPathImage()));
+                mImgNoteEdit.setVisibility(View.VISIBLE);
+                mImgNoteEdit.setImageBitmap(BitmapFactory.decodeFile(note.getPathImage()));
             }
-            mEdtTitle.setText(note.getTitle());
-            mEdtContent.setText(note.getContent());
-            mTvTime.setText(note.getDay() + "\n" + note.getDayOfWeek() + " " + note.getMonth() + "\n" + note.getHour());
+            mEdtTitleEdit.setText(note.getTitle());
+            mEdtContentEdit.setText(note.getContent());
+            mTvTimeEdit.setText(note.getDay() + "\n" + note.getDayOfWeek() + " " + note.getMonth() + "\n" + note.getHour());
         }
     }
 
     private void inputAfterTest(Editable data, int s) {
         if (data.length() == 0) {
-            mTvError.setText(s);
-            mTvError.setVisibility(View.VISIBLE);
+            mTvErrorEdit.setText(s);
+            mTvErrorEdit.setVisibility(View.VISIBLE);
         } else {
-            mTvError.setVisibility(View.GONE);
+            mTvErrorEdit.setVisibility(View.GONE);
+        }
+    }
+
+
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        if (view.getId() == R.id.edtTitleEdit) {
+            mFocusEditTextEdit = 1;
+        } else if (view.getId() == R.id.edtContentEdit) {
+            mFocusEditTextEdit = 2;
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        if (mFocusEditTextEdit == 1) {
+            inputAfterTest(editable, R.string.note_text_error_title);
+        } else if (mFocusEditTextEdit == 2) {
+            inputAfterTest(editable, R.string.note_text_error_content);
         }
     }
 }
