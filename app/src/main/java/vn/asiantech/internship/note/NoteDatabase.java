@@ -14,12 +14,12 @@ import java.util.List;
  * Created by datbu on 25-06-2017.
  */
 public class NoteDatabase extends Activity {
-    private static final String TABLE_CONTACTS = "table_note";
-    private static final String ID = "_id";
-    private static final String TITLE = "title";
-    private static final String NOTE = "note";
-    private static final String TIME = "time";
-    private static final String IMAGE = "image";
+    public static final String TABLE_CONTACTS = "table_note";
+    public static final String ID = "_id";
+    public static final String TITLE = "title";
+    public static final String NOTE = "note";
+    public static final String TIME = "time";
+    public static final String IMAGE = "image";
     private Context mContext;
     private SQLiteDatabase mSQLiteDatabase;
     private DatabaseHandler mDataHandler;

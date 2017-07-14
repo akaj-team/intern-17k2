@@ -55,6 +55,8 @@
     <string name="ex_day_11">Ex Day 11</string>
     <string name="ex_day_15">Ex day 15</string>
     <string name="ex_day_16">Ex day 16</string>
+    <string name="edt.no.content">(No content)</string>
+    <string name="edt.no.title">(No title)</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>
