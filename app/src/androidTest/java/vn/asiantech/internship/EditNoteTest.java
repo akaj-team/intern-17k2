@@ -9,6 +9,7 @@ import android.support.test.espresso.matcher.RootMatchers;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -105,7 +106,7 @@ public class EditNoteTest {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.i("tag11", e.getMessage());
         }
         Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(pos, ViewActions.click()));
         Espresso.onView(ViewMatchers.withId(R.id.imgEdit)).perform(ViewActions.click());
