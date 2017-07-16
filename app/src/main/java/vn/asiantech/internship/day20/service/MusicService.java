@@ -29,9 +29,6 @@ import vn.asiantech.internship.day20.model.Song;
 import vn.asiantech.internship.day20.ui.MusicActivity;
 import vn.asiantech.internship.day20.ui.MusicFragment;
 
-import static vn.asiantech.internship.day20.ui.MusicFragment.SONG_NEXT;
-import static vn.asiantech.internship.day20.ui.MusicFragment.SONG_PREVIOUS;
-
 /**
  * Service
  */
@@ -76,7 +73,7 @@ public class MusicService extends Service {
                     previousMusic();
                 } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
                     mIsShuffle = (!mIsShuffle);
-                } else if (intent.getAction().equals(Action.AUTONEXT.getValue())) {
+                } else if (intent.getAction().equals(Action.AUTO_NEXT.getValue())) {
                     mIsAutoNext = (!mIsAutoNext);
                 } else if (intent.getAction().equals(Action.STOP.getValue())) {
                     exitMusic();
@@ -134,7 +131,7 @@ public class MusicService extends Service {
             mCurrentPosition = (mCurrentPosition == mSongs.size() - 1) ? 0 : mCurrentPosition + 1;
         }
         mSong = mSongs.get(mCurrentPosition);
-        sendSong(SONG_NEXT, mCurrentPosition);
+        sendSong(MusicFragment.SONG_NEXT, mCurrentPosition);
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
             mMediaPlayer.prepare();
@@ -152,7 +149,7 @@ public class MusicService extends Service {
             mCurrentPosition = (mCurrentPosition == 0) ? mSongs.size() - 1 : mCurrentPosition - 1;
         }
         mSong = mSongs.get(mCurrentPosition);
-        sendSong(SONG_PREVIOUS, mCurrentPosition);
+        sendSong(MusicFragment.SONG_PREVIOUS, mCurrentPosition);
         try {
             mMediaPlayer.setDataSource(mSong.getUrl());
             mMediaPlayer.prepare();
@@ -320,7 +317,7 @@ public class MusicService extends Service {
         filter.addAction(Action.PAUSE.getValue());
         filter.addAction(Action.RESUME.getValue());
         filter.addAction(Action.SHUFFLE.getValue());
-        filter.addAction(Action.AUTONEXT.getValue());
+        filter.addAction(Action.AUTO_NEXT.getValue());
         filter.addAction(Action.STOP.getValue());
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(String.valueOf(TelephonyManager.CALL_STATE_OFFHOOK));

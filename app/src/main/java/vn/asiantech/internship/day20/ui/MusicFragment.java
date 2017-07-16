@@ -18,17 +18,13 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.day20.model.Action;
 import vn.asiantech.internship.day20.model.Song;
-
-import static vn.asiantech.internship.day20.service.MusicService.DURATION;
-import static vn.asiantech.internship.day20.service.MusicService.KEY_TIME_INT;
-import static vn.asiantech.internship.day20.service.MusicService.POS_DATA;
-import static vn.asiantech.internship.day20.service.MusicService.TAG;
+import vn.asiantech.internship.day20.service.MusicService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,7 +51,7 @@ public class MusicFragment extends Fragment {
     private boolean mIsPlaying;
     private boolean mIsShuffle;
     private boolean mIsAutoNext;
-    private ArrayList<Song> mSongs;
+    private List<Song> mSongs;
     private int mCurrentPosition = -1;
     private int mDuration;
 
@@ -64,8 +60,8 @@ public class MusicFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
             if (intent != null) {
                 switch (intent.getAction()) {
-                    case DURATION:
-                        mDuration = intent.getIntExtra(KEY_TIME_INT, -1);
+                    case MusicService.DURATION:
+                        mDuration = intent.getIntExtra(MusicService.KEY_TIME_INT, -1);
                         mTvMusicTime.setText(showTime(mDuration));
                         if (mDuration != -1) {
                             startAnimation(mDuration);
@@ -76,21 +72,21 @@ public class MusicFragment extends Fragment {
                         mCurrentTime.setText(showTime(intent.getIntExtra("secondInt", -1)));
                         break;
                     case SONG_NEXT:
-                        int indexNext = intent.getIntExtra(POS_DATA, -1);
+                        int indexNext = intent.getIntExtra(MusicService.POS_DATA, -1);
                         if (indexNext != -1) {
                             mTvNameOfSong.setText(mSongs.get(indexNext).getName());
                             resetPlayFlag();
                         } else {
-                            Log.e(TAG, "song_next: khong nhan duoc");
+                            Log.e(MusicService.TAG, "song_next: khong nhan duoc");
                         }
                         break;
                     case SONG_PREVIOUS:
-                        int indexPrev = intent.getIntExtra(POS_DATA, -1);
+                        int indexPrev = intent.getIntExtra(MusicService.POS_DATA, -1);
                         if (indexPrev != -1) {
                             mTvNameOfSong.setText(mSongs.get(indexPrev).getName());
                             resetPlayFlag();
                         } else {
-                            Log.e(TAG, "song_previous: khong nhan duoc");
+                            Log.e(MusicService.TAG, "song_previous: khong nhan duoc");
                         }
                         break;
                 }
@@ -226,7 +222,7 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentAutoNext = new Intent();
-                intentAutoNext.setAction(Action.AUTONEXT.getValue());
+                intentAutoNext.setAction(Action.AUTO_NEXT.getValue());
                 getActivity().sendBroadcast(intentAutoNext);
                 mIsAutoNext = !mIsAutoNext;
                 if (mIsAutoNext) {
@@ -260,7 +256,7 @@ public class MusicFragment extends Fragment {
     private void setFilterReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(CURRENT_TIME);
-        intentFilter.addAction(DURATION);
+        intentFilter.addAction(MusicService.DURATION);
         intentFilter.addAction(SONG_PREVIOUS);
         intentFilter.addAction(SONG_NEXT);
         getActivity().registerReceiver(mBroadcastReceiver, intentFilter);

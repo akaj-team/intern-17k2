@@ -75,7 +75,7 @@ public class MusicActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(MusicActivity.this));
         addMusicSource();
         startMusicService();
-        mRecyclerView.setAdapter(new MusicAdapter(MusicActivity.this, mSongs, new MusicAdapter.OnShowMusicPlayer() {
+        mRecyclerView.setAdapter(new MusicAdapter(MusicActivity.this, mSongs, new MusicAdapter.OnMusicPlayerListener() {
             @Override
             public void onShowPlayer(int position) {
                 mRecyclerView.setVisibility(View.GONE);

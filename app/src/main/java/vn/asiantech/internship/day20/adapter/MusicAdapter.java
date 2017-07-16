@@ -22,11 +22,11 @@ import vn.asiantech.internship.day20.model.Song;
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ItemViewHolder> {
 
     private List<Song> mSongs;
-    private OnShowMusicPlayer mOnShowMusicPlayer;
+    private OnMusicPlayerListener mOnMusicPlayerListener;
 
-    public MusicAdapter(Context context, List<Song> songs, OnShowMusicPlayer onShowMusicPlayer) {
+    public MusicAdapter(Context context, List<Song> songs, OnMusicPlayerListener onMusicPlayerListener) {
         mSongs = songs;
-        mOnShowMusicPlayer = onShowMusicPlayer;
+        mOnMusicPlayerListener = onMusicPlayerListener;
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context));
     }
 
@@ -65,7 +65,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ItemViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mOnShowMusicPlayer.onShowPlayer(getAdapterPosition());
+                    mOnMusicPlayerListener.onShowPlayer(getAdapterPosition());
                 }
             });
         }
@@ -74,7 +74,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ItemViewHold
     /**
      * Callback show player
      */
-    public interface OnShowMusicPlayer {
+    public interface OnMusicPlayerListener {
         void onShowPlayer(int position);
     }
 }
