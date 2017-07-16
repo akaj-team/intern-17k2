@@ -24,7 +24,9 @@
 
         <activity android:name=".ui.note.NoteActivity" />
 
-        <activity android:name=".ui.tablayout.TabActivity">
+        <activity android:name=".ui.tablayout.TabActivity" />
+
+        <activity android:name=".ui.canvas.CanvasActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
