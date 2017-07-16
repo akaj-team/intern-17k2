@@ -5,24 +5,20 @@ package vn.asiantech.internship.unittest;
  */
 
 public class QuadraticEquationTest {
-    private double a;
-    private double b;
-    private double c;
-
-    public double getDelta() {
+    public double getDelta(double a, double b, double c) {
         return Math.pow(b, 2) - 4 * a * c;
     }
 
 
-    public double[] getResult() {
+    public double[] getResult(double a, double b, double c) {
         double[] result = new double[2];
         if (a == 0) {
-            if (b!=0){
+            if (b != 0) {
                 return null;
             }
         } else {
-            double delta=getDelta();
-            if (delta>=0) {
+            double delta = getDelta(a, b, c);
+            if (delta >= 0) {
                 if (delta == 0) {
                     result[0] = -b / (2 * a);
                 } else {

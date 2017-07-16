@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class LoginUnitTest {
     @Mock
-    private LoginTest mLoginTest;
+    private LoginTest mLoginTest = new LoginTest();
 
     @Test
     public void checkUserName() {
@@ -48,8 +48,8 @@ public class LoginUnitTest {
         assertTrue(true);
 
         //get user with uppercase letter
-        when(mLoginTest.getUser("helloworld")).thenReturn("HELLOWORLD");
-        assertEquals(mLoginTest.getUser("helloworld"), "HELLOWORLD");
+        when(mLoginTest.getUser("hello_world")).thenReturn("HELLO_WORLD");
+        assertEquals("HELLO_WORLD", mLoginTest.getUser("hello_world"));
     }
 
     @Test
