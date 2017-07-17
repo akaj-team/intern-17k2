@@ -11,7 +11,6 @@ import android.support.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Matchers;
 import org.hamcrest.core.IsNot;
-import org.hamcrest.core.StringStartsWith;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -42,7 +41,7 @@ public class InformationFragmentUITest {
         Espresso.onView(ViewMatchers.withId(R.id.flNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
         // Check toast
-        Espresso.onView(ViewMatchers.withText(StringStartsWith.startsWith("Deleted note")))
+        Espresso.onView(ViewMatchers.withText(R.string.toast_delete_note))
                 .inRoot(RootMatchers.withDecorView(IsNot.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
@@ -69,7 +68,7 @@ public class InformationFragmentUITest {
         Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click());
 
         // Check toast
-        Espresso.onView(ViewMatchers.withText(StringStartsWith.startsWith("Input title")))
+        Espresso.onView(ViewMatchers.withText(R.string.toast_input_title))
                 .inRoot(RootMatchers.withDecorView(IsNot.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
@@ -81,7 +80,7 @@ public class InformationFragmentUITest {
         Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click());
 
         // Check toast
-        Espresso.onView(ViewMatchers.withText(StringStartsWith.startsWith("Input Description")))
+        Espresso.onView(ViewMatchers.withText(R.string.toast_input_description))
                 .inRoot(RootMatchers.withDecorView(IsNot.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import vn.asiantech.internship.day11.model.Note;
 
 /**
@@ -18,6 +19,7 @@ public class NoteModify {
     }
 
     public void insert(Note note) {
+
         // Mo ket noi DataBase
         SQLiteDatabase db = mDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -28,6 +30,7 @@ public class NoteModify {
         values.put(DatabaseHelper.KEY_DATE, note.getDate());
         values.put(DatabaseHelper.KEY_TIME, note.getTime());
         db.insert(DatabaseHelper.DATABASE_TABLE, null, values);
+
         // Dong ket noi
         db.close();
     }

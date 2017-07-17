@@ -56,7 +56,6 @@ public class NoteFragment extends Fragment {
                 }
             }
         });
-        getData();
         NoteAdapter noteAdapter = new NoteAdapter(mNotes, mNoteActivity);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerViewNote.setLayoutManager(linearLayoutManager);
