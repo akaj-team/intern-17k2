@@ -12,11 +12,13 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 
 /**
+ *
  * Created by quanghai on 06/07/2017.
  */
 public class CustomView extends View {
-    private int mUnit = 100;
     private static final int MARGIN = 30;
+
+    private int mUnit = 100;
     private Paint mPaint;
     private ScaleGestureDetector mScaleDetector;
     private float mScaleFactor = 1.0f;
@@ -64,6 +66,7 @@ public class CustomView extends View {
     }
 
     private void drawArrow(Canvas canvas) {
+        //draw 0
         canvas.drawText("0", getWidth() / 2 - 50, getHeight() / 2 + 50, mPaint);
 
         Path path = new Path();
@@ -103,31 +106,11 @@ public class CustomView extends View {
         return true;
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-////        performClick();
-////        mScaleDetector.onTouchEvent(event);
-////        return true;
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                mUnit += 20;
-//                break;
-//        }
-//        return true;
-//    }
-
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                mUnit += 20;
-                invalidate();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                break;
-        }
-        return super.onTouchEvent(event);
+        performClick();
+        mScaleDetector.onTouchEvent(event);
+        return true;
     }
 
     /**
