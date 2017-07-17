@@ -28,14 +28,14 @@ import vn.asiantech.internship.ui.main.NoteActivity;
 @RunWith(AndroidJUnit4.class)
 public class DetailNoteTest {
     @Rule
-    public ActivityTestRule<NoteActivity> mActivityTestRule = new ActivityTestRule<NoteActivity>(NoteActivity.class);
+    public ActivityTestRule<NoteActivity> activityTestRule = new ActivityTestRule<NoteActivity>(NoteActivity.class);
     private List<NoteItem> mNotes;
 
     @Test
     public void testDetailFragment() {
         for (int i = 0; i < mNotes.size(); i++) {
             openNoteActivity();
-            Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(i, ViewActions.click()));
+            Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(i, ViewActions.click())).check(ViewAssertions.doesNotExist());
             Espresso.onView(ViewMatchers.withId(R.id.tvTitle)).check(ViewAssertions.matches(ViewMatchers.withText(R.string.title_detail)));
             Espresso.onView(ViewMatchers.withId(R.id.imgAddImage)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
             Espresso.onView(ViewMatchers.withId(R.id.imgAddNote)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
@@ -51,8 +51,8 @@ public class DetailNoteTest {
     @Before
     public void openNoteActivity() {
         Intent intent = new Intent();
-        mActivityTestRule.launchActivity(intent);
-        mNotes = mActivityTestRule.getActivity().getNotes();
+        activityTestRule.launchActivity(intent);
+        mNotes = activityTestRule.getActivity().getNotes();
         Espresso.onView(ViewMatchers.withId(R.id.llMain)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.tvTitle)).check(ViewAssertions.matches(ViewMatchers.withText(R.string.title_note)));
         Espresso.onView(ViewMatchers.withId(R.id.imgAddImage)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
