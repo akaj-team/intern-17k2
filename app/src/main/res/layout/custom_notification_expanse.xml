@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/imgNotificationMusic"
-        android:layout_width="@dimen/notification_expanded_height"
-        android:layout_height="@dimen/notification_expanded_height"
+        android:layout_width="@dimen/notification.expanded.height"
+        android:layout_height="@dimen/notification.expanded.height"
         android:layout_alignParentBottom="true"
         android:contentDescription="@null"
         android:scaleType="centerCrop" />
@@ -20,7 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/imgNotificationMusic"
         android:divider="?android:listDivider"
-        android:dividerPadding="@dimen/feed.item_padding"
+        android:dividerPadding="@dimen/feed.item.padding"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:showDividers="middle">
@@ -28,33 +28,33 @@
         <ImageButton
             android:id="@+id/imgBtnNotificationPrev"
             android:layout_width="0dp"
-            android:layout_height="@dimen/play_controls_notification"
+            android:layout_height="@dimen/play.controls.notification"
             android:layout_weight="1"
             android:background="?android:selectableItemBackground"
             android:contentDescription="@null"
-            android:padding="@dimen/activity2.layout_padding"
+            android:padding="@dimen/activity2.layout.padding"
             android:scaleType="fitCenter"
             android:src="@drawable/apollo_holo_dark_prev" />
 
         <ImageButton
             android:id="@+id/imgBtnNotificationPlay"
             android:layout_width="0dp"
-            android:layout_height="@dimen/play_controls_notification"
+            android:layout_height="@dimen/play.controls.notification"
             android:layout_weight="1"
             android:background="?android:selectableItemBackground"
             android:contentDescription="@null"
-            android:padding="@dimen/activity2.layout_padding"
+            android:padding="@dimen/activity2.layout.padding"
             android:scaleType="fitCenter"
             android:src="@drawable/apollo_holo_dark_play" />
 
         <ImageButton
             android:id="@+id/imgBtnNotificationNext"
             android:layout_width="0dp"
-            android:layout_height="@dimen/play_controls_notification"
+            android:layout_height="@dimen/play.controls.notification"
             android:layout_weight="1"
             android:background="?android:selectableItemBackground"
             android:contentDescription="@null"
-            android:padding="@dimen/activity2.layout_padding"
+            android:padding="@dimen/activity2.layout.padding"
             android:scaleType="fitCenter"
             android:src="@drawable/apollo_holo_dark_next" />
     </LinearLayout>
@@ -76,7 +76,7 @@
         android:layout_alignParentTop="true"
         android:background="?android:selectableItemBackground"
         android:contentDescription="@null"
-        android:padding="@dimen/feed.item_marginBottom"
+        android:padding="@dimen/feed.item.marginBottom"
         android:src="@drawable/apollo_holo_dark_notifiation_bar_collapse" />
 
     <LinearLayout
@@ -88,9 +88,9 @@
         android:layout_toLeftOf="@+id/imgBtnNotificationExit"
         android:layout_toRightOf="@+id/imgNotificationMusic"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/notification_padding"
-        android:paddingRight="@dimen/notification_padding"
-        android:paddingTop="@dimen/notification_padding">
+        android:paddingLeft="@dimen/notification.padding"
+        android:paddingRight="@dimen/notification.padding"
+        android:paddingTop="@dimen/notification.padding">
 
         <TextView
             android:id="@+id/tvNotificationSong"

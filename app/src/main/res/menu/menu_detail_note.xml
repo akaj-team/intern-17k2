@@ -5,12 +5,12 @@
     <item
         android:id="@+id/mnDelete"
         android:icon="@drawable/ic_delete_forever_black_36dp"
-        android:title="@string/menu.item_attachFile"
+        android:title="@string/menu_item_attachFile"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/mnEdit"
         android:icon="@drawable/ic_border_color_black_36dp"
-        android:title="@string/menu.item_save"
+        android:title="@string/menu_item_save"
         app:showAsAction="ifRoom" />
 </menu>

@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/imgNotificationMusic"
-        android:layout_width="@dimen/status_bar_album_art"
-        android:layout_height="@dimen/status_bar_album_art"
+        android:layout_width="@dimen/status.bar.album.art"
+        android:layout_height="@dimen/status.bar.album.art"
         android:contentDescription="@null"
         android:gravity="center" />
 
@@ -27,15 +27,15 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/status_bar_button_info_container_padding_left"
-        android:paddingRight="@dimen/status_bar_button_info_container_padding_left">
+        android:paddingLeft="@dimen/status.bar.button.info.container.padding.left"
+        android:paddingRight="@dimen/status.bar.button.info.container.padding.left">
 
         <TextView
             android:id="@+id/tvNotificationSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_medium"
+            android:textSize="@dimen/text.size.medium"
             android:textStyle="bold" />
 
         <TextView

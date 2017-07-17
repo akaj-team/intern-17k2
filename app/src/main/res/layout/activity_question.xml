@@ -9,13 +9,13 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBarTest"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity.toolbar_height">
+        android:layout_height="@dimen/activity.toolbar.height">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:padding="@dimen/item.layout_padding">
+            android:padding="@dimen/item.layout.padding">
 
             <Button
                 android:id="@+id/btnPrev"
@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:background="@android:color/transparent"
-                android:text="@string/question.previous"
+                android:text="@string/question_previous"
                 android:textColor="@color/colorBlack"
                 android:visibility="invisible" />
 
@@ -33,9 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:gravity="center_horizontal"
-                android:text="@string/result.activity.title"
+                android:text="@string/result_activity_title"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/result.item.text_size" />
+                android:textSize="@dimen/result.item.text.size" />
 
             <Button
                 android:id="@+id/btnNext"
@@ -43,7 +43,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:background="@android:color/transparent"
-                android:text="@string/question.next"
+                android:text="@string/question_next"
                 android:textColor="@color/colorBlack" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
@@ -52,7 +52,7 @@
         android:id="@+id/viewPagerQuestion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/header.layout_margin" />
+        android:layout_marginTop="@dimen/header.layout.margin" />
 
     <FrameLayout
         android:id="@+id/frContainerQuestion"

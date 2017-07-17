@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/item.layout_padding">
+    android:padding="@dimen/item.layout.padding">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,8 +16,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/feed.item_padding"
-            android:paddingRight="@dimen/feed.item_padding"
+            android:paddingLeft="@dimen/feed.item.padding"
+            android:paddingRight="@dimen/feed.item.padding"
             android:textColor="@color/colorBlack"
             tools:text="Hello" />
 
@@ -25,9 +25,9 @@
             android:id="@+id/imgResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/item.imageView_margin"
-            android:layout_marginStart="@dimen/item.imageView_margin"
-            android:contentDescription="@string/result.item.image_description"
+            android:layout_marginLeft="@dimen/item.imageView.margin"
+            android:layout_marginStart="@dimen/item.imageView.margin"
+            android:contentDescription="@string/result_item_image_description"
             android:src="@drawable/ic_highlight_off_black_36dp" />
     </LinearLayout>
 </android.support.v7.widget.CardView>
