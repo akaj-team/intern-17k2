@@ -18,10 +18,11 @@ import vn.asiantech.internship.day16.ui.CustomView;
 public class GraphView extends CustomView {
     private static final String TAG = "at-dinhvo";
     private Paint mPaint;
-    private int mDistance = 30;
+    private int mDistance = 40;
     private int mRatio = 30;
     private Point mNewPosition;
     private Point mRootPoint;
+    private boolean isDrawed;
 
     public GraphView(Context context) {
         super(context);
@@ -42,14 +43,17 @@ public class GraphView extends CustomView {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(4);
         mRootPoint = new Point();
-        mRootPoint.x = getWidth() / 2;
-        mRootPoint.y = getHeight() / 2;
         mNewPosition = new Point();
     }
 
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (!isDrawed) {
+            mRootPoint.x = getWidth() / 2;
+            mRootPoint.y = getHeight() / 2;
+            isDrawed = true;
+        }
         drawPivot(canvas);
         drawGrid(canvas);
         drawGraph(canvas);
@@ -97,15 +101,16 @@ public class GraphView extends CustomView {
         for (float i = (-mRootPoint.x + mDistance) / mRatio; i <= (mRootPoint.y - mDistance) / mRatio; i++) {
             canvas.drawLine((mRootPoint.x + i * mRatio), mDistance,
                     (mRootPoint.x + i * mRatio), getHeight() - mDistance, mPaint);
+            canvas.drawText(String.valueOf(i), getHeight() - 5, mRootPoint.x + i * mRatio, mPaint);
         }
         for (float i = (-mRootPoint.y) / mRatio; i <= (mRootPoint.y) / mRatio; i++) {
-            canvas.drawLine(mDistance, (mRootPoint.y + i * mRatio),
-                    getWidth() - mDistance, (mRootPoint.y + i * mRatio), mPaint);
+            if (i > 100) {
+                mDistance += 5;
+            }
+            canvas.drawLine(mDistance, mRootPoint.y + i * mRatio,
+                    getWidth(), (mRootPoint.y + i * mRatio), mPaint);
+            canvas.drawText(String.valueOf((int) i), 5, mRootPoint.y + i * mRatio, mPaint);
         }
-    }
-
-    private void drawIndex(Canvas canvas){
-
     }
 
     @Override
