@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_cloud_circle_light_blue_600_48dp" />
+                android:src="@drawable/ic_cloud_circle_light_blue" />
 
             <TextView
                 android:layout_width="0dp"

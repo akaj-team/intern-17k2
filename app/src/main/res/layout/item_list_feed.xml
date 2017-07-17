@@ -58,7 +58,7 @@
                 android:layout_height="@dimen/feed.item.viewpager.button.size"
                 android:layout_gravity="center_vertical|start"
                 android:contentDescription="@string/bai15"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                android:src="@drawable/ic_keyboard_arrow_left_black"
                 android:visibility="gone" />
 
             <ImageButton
@@ -67,7 +67,7 @@
                 android:layout_height="@dimen/feed.item.viewpager.button.size"
                 android:layout_gravity="center_vertical|end"
                 android:contentDescription="@string/bai15"
-                android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+                android:src="@drawable/ic_keyboard_arrow_right_black" />
 
         </FrameLayout>
 

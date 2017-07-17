@@ -212,9 +212,9 @@ public class MusicFragment extends Fragment {
                 getActivity().sendBroadcast(intentShuffle);
                 mIsShuffle = !mIsShuffle;
                 if (mIsShuffle) {
-                    mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_cyan_a700_48dp);
+                    mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_cyan);
                 } else {
-                    mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_white_48dp);
+                    mImgBtnShuffle.setBackgroundResource(R.drawable.ic_shuffle_white);
                 }
             }
         });
@@ -226,9 +226,9 @@ public class MusicFragment extends Fragment {
                 getActivity().sendBroadcast(intentAutoNext);
                 mIsAutoNext = !mIsAutoNext;
                 if (mIsAutoNext) {
-                    mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_loop_cyan_a700_48dp);
+                    mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_loop_cyan);
                 } else {
-                    mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_loop_white_48dp);
+                    mImgBtnAutoNext.setBackgroundResource(R.drawable.ic_loop_white);
                 }
             }
         });

@@ -266,11 +266,11 @@ public class MusicService extends Service {
         views.setTextViewText(R.id.tvNotificationSinger, singer);
         bigViews.setTextViewText(R.id.tvNotificationSinger, singer);
         if (mMediaPlayer.isPlaying()) {
-            bigViews.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.apollo_holo_dark_pause);
-            views.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.apollo_holo_dark_pause);
+            bigViews.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.ic_apollo_holo_dark_pause);
+            views.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.ic_apollo_holo_dark_pause);
         } else {
-            bigViews.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.apollo_holo_dark_play);
-            views.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.apollo_holo_dark_play);
+            bigViews.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.ic_apollo_holo_dark_play);
+            views.setImageViewResource(R.id.imgBtnNotificationPlay, R.drawable.ic_apollo_holo_dark_play);
         }
         bigViews.setImageViewBitmap(R.id.imgNotificationMusic, bitmap);
         Intent notificationIntent = new Intent(this, MusicActivity.class);
@@ -303,7 +303,7 @@ public class MusicService extends Service {
             notification = new Notification.Builder(this).build();
             notification.contentView = views;
             notification.flags = Notification.FLAG_ONGOING_EVENT;
-            notification.icon = R.drawable.ic_music_note_white_48dp;
+            notification.icon = R.drawable.ic_music_note_white;
             notification.contentIntent = pendingIntent;
         }
         startForeground(111, notification);

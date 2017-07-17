@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:contentDescription="@string/cd_next"
-        android:src="@drawable/apollo_holo_dark_next" />
+        android:src="@drawable/ic_apollo_holo_dark_next" />
 
     <ImageButton
         android:id="@+id/imgBtnNotificationExit"
@@ -66,6 +66,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:contentDescription="@null"
-        android:src="@drawable/apollo_holo_dark_notifiation_bar_collapse" />
+        android:src="@drawable/ic_apollo_holo_dark_notifiation_bar_collapse" />
 
 </LinearLayout>

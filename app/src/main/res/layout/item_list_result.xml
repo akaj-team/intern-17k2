@@ -28,6 +28,6 @@
             android:layout_marginLeft="@dimen/item.imageView.margin"
             android:layout_marginStart="@dimen/item.imageView.margin"
             android:contentDescription="@string/result_item_image_description"
-            android:src="@drawable/ic_highlight_off_black_36dp" />
+            android:src="@drawable/ic_highlight_off_black" />
     </LinearLayout>
 </android.support.v7.widget.CardView>
