@@ -12,7 +12,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgItemMusic"
             android:layout_width="@dimen/item.image.size"
-            android:layout_height="@dimen/item.image_size"
+            android:layout_height="@dimen/item.image.size"
             android:contentDescription="@string/bai20" />
 
         <LinearLayout

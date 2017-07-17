@@ -23,7 +23,7 @@
     <dimen name="item.layout.padding">5dp</dimen>
     <dimen name="item.layout.margin">10dp</dimen>
     <dimen name="item.layout.minHeight">60dp</dimen>
-    <dimen name="activity.toolbar_height">60dp</dimen>
+    <dimen name="activity.toolbar.height.default">60dp</dimen>
     <dimen name="activity.toolbar.margin">20dp</dimen>
     <dimen name="activity.content.margin">20dp</dimen>
     <dimen name="activity.leftMenu.width">240dp</dimen>
@@ -40,7 +40,7 @@
     <dimen name="feed.item.viewpager.button.size">48dp</dimen>
     <!--Bai13-->
     <dimen name="detail.image.size">300dp</dimen>
-    <dimen name="item.image_size">80dp</dimen>
+    <dimen name="item.image.size">80dp</dimen>
     <!--Bai15-->
     <dimen name="result.item.text.size">22sp</dimen>
     <dimen name="result.item.textPoint.size">35sp</dimen>
@@ -53,12 +53,11 @@
     <dimen name="notification.image.size">150dp</dimen>
     <dimen name="frame.padding">30dp</dimen>
     <dimen name="music.image.size">250dp</dimen>
-    <dimen name="music.icon_size">32dp</dimen>
+    <dimen name="music.icon.size.default">32dp</dimen>
     <dimen name="music.button.height">90dp</dimen>
-    <dimen name="music.button_size">70dp</dimen>
+    <dimen name="music.button.size.default">70dp</dimen>
     <dimen name="music.notification.size">100dp</dimen>
     <dimen name="music.notification.image.size">90dp</dimen>
-
     <!--Test-->
     <dimen name="text.size.extra.micro">10sp</dimen>
     <dimen name="text.size.micro">12sp</dimen>
@@ -66,7 +65,7 @@
     <dimen name="text.size.medium">16sp</dimen>
     <dimen name="text.size.large">18sp</dimen>
     <dimen name="status.bar.button.width.height">48dp</dimen>
-    <dimen name="status_bar_album_art">64dp</dimen>
+    <dimen name="status.bar.album.art">64dp</dimen>
     <dimen name="status.bar.button.info.container.padding.left">11dp</dimen>
     <dimen name="notification.expanded.height">128dp</dimen>
     <dimen name="play.controls.notification">48dp</dimen>

@@ -74,15 +74,15 @@
 
         <ImageButton
             android:id="@+id/imgBtnShuffle"
-            android:layout_width="@dimen/music.icon.size"
-            android:layout_height="@dimen/music.icon.size"
+            android:layout_width="@dimen/music.icon.size.default"
+            android:layout_height="@dimen/music.icon.size.default"
             android:layout_gravity="start"
             android:background="@drawable/ic_shuffle_white_48dp" />
 
         <ImageButton
             android:id="@+id/imgBtnAutoNext"
-            android:layout_width="@dimen/music.icon_size"
-            android:layout_height="@dimen/music.icon_size"
+            android:layout_width="@dimen/music.icon.size.default"
+            android:layout_height="@dimen/music.icon.size.default"
             android:layout_gravity="end"
             android:background="@drawable/ic_loop_white_48dp" />
     </FrameLayout>
@@ -95,15 +95,15 @@
 
         <ImageButton
             android:id="@+id/imgBtnPrevious"
-            android:layout_width="@dimen/music.button.size"
-            android:layout_height="@dimen/music.button.size"
+            android:layout_width="@dimen/music.button.size.default"
+            android:layout_height="@dimen/music.button.size.default"
             android:background="@drawable/bg_button_previous"
             android:contentDescription="@string/bai20" />
 
         <ImageButton
             android:id="@+id/imgBtnPlay"
-            android:layout_width="@dimen/music.button_size"
-            android:layout_height="@dimen/music.button_size"
+            android:layout_width="@dimen/music.button.size.default"
+            android:layout_height="@dimen/music.button.size.default"
             android:layout_marginLeft="@dimen/activity.vertical.margin"
             android:layout_marginRight="@dimen/activity.vertical.margin"
             android:background="@drawable/bg_button_pause"
@@ -111,8 +111,8 @@
 
         <ImageButton
             android:id="@+id/imgBtnNext"
-            android:layout_width="@dimen/music.button_size"
-            android:layout_height="@dimen/music.button_size"
+            android:layout_width="@dimen/music.button.size.default"
+            android:layout_height="@dimen/music.button.size.default"
             android:background="@drawable/bg_button_next"
             android:contentDescription="@string/bai20" />
     </LinearLayout>

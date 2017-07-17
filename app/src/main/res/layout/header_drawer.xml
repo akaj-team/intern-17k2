@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/lnHeader"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/header.layout_weight"
+    android:layout_height="@dimen/header.layout.weight"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="@dimen/header.layout.padding">

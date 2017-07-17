@@ -9,7 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBarTest"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity.toolbar.height">
+        android:layout_height="@dimen/activity.toolbar.height.default">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="vn.asiantech.internship.drawer.day13.ChatActivity">
+    tools:context="vn.asiantech.internship.day13.ChatActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBarChat"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity.toolbar.height"
+        android:layout_height="@dimen/activity.toolbar.height.default"
         android:background="@color/colorToolbar" />
 
     <android.support.v7.widget.RecyclerView
