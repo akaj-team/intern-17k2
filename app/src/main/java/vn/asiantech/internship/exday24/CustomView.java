@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 
 /**
@@ -25,13 +26,18 @@ public class CustomView extends View {
     private Point mMidPoint;
     private Point mMidPointOnMove;
     private double mOldDistance;
+    private ScaleGestureDetector mScale;
+    private float scale = 1.f;
 
     public CustomView(Context context) {
         super(context);
+        mScale = new ScaleGestureDetector(context, new ScaleListener());
+        initView();
     }
 
     public CustomView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        mScale = new ScaleGestureDetector(getContext(), new ScaleListener());
         initView();
     }
 
@@ -45,7 +51,8 @@ public class CustomView extends View {
             mPointO.y = height / 2;
             mIsDraw = true;
         }
-
+        canvas.save();
+        canvas.scale(scale, scale);
         // Draw Ox
         if (mPointO.y >= 0 && mPointO.y <= height) {
             mPaint.setColor(Color.BLACK);
@@ -53,14 +60,22 @@ public class CustomView extends View {
             canvas.drawText("O", mPointO.x - 30, mPointO.y + 30, mPaint);
             mPaint.setStrokeWidth(4);
             canvas.drawLine(0, mPointO.y, width, mPointO.y, mPaint);
-            canvas.drawLine(width - 10, mPointO.y - 10, width, mPointO.y, mPaint);
-            canvas.drawLine(width - 10, mPointO.y + 10, width, mPointO.y, mPaint);
+            mPath.moveTo(width, mPointO.y);
+            mPath.lineTo(width - 15, mPointO.y - 10);
+            mPath.lineTo(width - 7.5f, mPointO.y);
+            mPath.lineTo(width - 15, mPointO.y + 10);
+            if (mPath != null) {
+                mPaint.setStyle(Paint.Style.FILL);
+                canvas.drawPath(mPath, mPaint);
+                mPath.reset();
+            }
             for (double i = Math.ceil((0.0 - mPointO.x) / unit); i <= Math.ceil((width * 1.0 - mPointO.x) / unit); i++) {
                 mPaint.setColor(Color.RED);
                 mPaint.setStrokeWidth(3);
                 canvas.drawCircle((float) (mPointO.x + i * unit), mPointO.y, 3, mPaint);
                 if ((int) i != 0 && (int) i < width - 30) {
                     initColor();
+                    canvas.drawLine((float) (mPointO.x + i * unit), 0, (float) (mPointO.x + i * unit), height, mPaint);
                     canvas.drawText("x", width - 30, mPointO.y - 30, mPaint);
                     canvas.drawText(String.valueOf((int) i), (float) (mPointO.x + i * unit), mPointO.y + 30, mPaint);
                     mPaint.setStrokeWidth(1);
@@ -73,15 +88,22 @@ public class CustomView extends View {
         if (mPointO.x >= 0 && mPointO.x <= width) {
             mPaint.setColor(Color.BLACK);
             mPaint.setStrokeWidth(4);
+            mPath.moveTo(mPointO.x, 0);
+            mPath.lineTo(mPointO.x - 10, 15);
+            mPath.lineTo(mPointO.x, 7.5f);
+            mPath.lineTo(mPointO.x + 10, 15);
+            if (mPath != null) {
+                canvas.drawPath(mPath, mPaint);
+                mPath.reset();
+            }
             canvas.drawLine(mPointO.x, 0, mPointO.x, height, mPaint);
-            canvas.drawLine(mPointO.x, 0, mPointO.x - 10, 10, mPaint);
-            canvas.drawLine(mPointO.x, 0, mPointO.x + 10, 10, mPaint);
             for (double i = Math.ceil((0.0 - mPointO.y) / unit); i <= Math.ceil((height * 1.0 - mPointO.y) / unit); i++) {
                 mPaint.setColor(Color.RED);
                 mPaint.setStrokeWidth(3);
                 canvas.drawCircle(mPointO.x, (float) (mPointO.y + i * unit), 3, mPaint);
                 if ((int) i != 0) {
                     initColor();
+                    canvas.drawLine(0, (float) (mPointO.y + i * unit), width, (float) (mPointO.y + i * unit), mPaint);
                     canvas.drawText("y", mPointO.x + 30, height / 50, mPaint);
                     canvas.drawText(String.valueOf((int) -i), mPointO.x - 30, (float) (mPointO.y + i * unit), mPaint);
                     mPaint.setStrokeWidth(1);
@@ -97,6 +119,7 @@ public class CustomView extends View {
             canvas.drawLine(oldPoint.x, oldPoint.y, newPoint.x, newPoint.y, mPaint);
             oldPoint = newPoint;
         }
+        canvas.restore();
     }
 
     private void initColor() {
@@ -114,6 +137,7 @@ public class CustomView extends View {
         mMidPoint = new Point();
         mMidPointOnMove = new Point();
         mPath = new Path();
+        mScale = new ScaleGestureDetector(getContext(), new ScaleListener());
     }
 
     //f(x) = ax^2 + bx + c
@@ -127,8 +151,28 @@ public class CustomView extends View {
         return point;
     }
 
+    /**
+     * Created by datbu on 10-07-2017.
+     */
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            scale *= detector.getScaleFactor();
+            scale = Math.max(1.f, Math.min(scale, 5f));
+            invalidate();
+            return true;
+        }
+
+        @Override
+        public boolean onScaleBegin(ScaleGestureDetector detector) {
+            return super.onScaleBegin(detector);
+        }
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mDownPoint.x = (int) event.getX();
@@ -151,6 +195,7 @@ public class CustomView extends View {
                 }
                 break;
         }
+        mScale.onTouchEvent(event);
         invalidate();
         return true;
     }
