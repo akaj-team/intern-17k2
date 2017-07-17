@@ -23,7 +23,7 @@ public class QuadraticEquationUnitTest {
     @Test
     public void checkDelta() {
         when(mQuadraticEquation.getDelta(3, -4, 1)).thenReturn(4f);
-        Assert.assertEquals(mQuadraticEquation.getDelta(3, -4, 1), 4f);
+        Assert.assertEquals(mQuadraticEquation.getDelta(3, -4, 1), (-4) * (-4) - 4 * 3 * 1f);
     }
 
     @Test
