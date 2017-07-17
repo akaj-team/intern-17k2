@@ -24,7 +24,7 @@ import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.models.DrawerItem;
-import vn.asiantech.internship.ui.leftmenu.DrawerAdpater;
+import vn.asiantech.internship.ui.leftmenu.DrawerAdapter;
 import vn.asiantech.internship.models.User;
 
 /**
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTvShow;
     private RecyclerView mRecyclerViewDrawer;
     private LinearLayout mLlContent;
-    private DrawerAdpater mDrawerAdpater;
+    private DrawerAdapter mDrawerAdapter;
     private Toolbar mToolbar;
     private ImageView mImgMenu;
     private TextView mTvTitle;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mLlContent = (LinearLayout) findViewById(R.id.llContent);
         mImgMenu = (ImageView) findViewById(R.id.imgMenu);
-        mTvTitle = (TextView) findViewById(R.id.tvTitle);
+        mTvTitle = (TextView) findViewById(R.id.tvTitleMain);
     }
 
     private void setToolBar() {
@@ -81,32 +81,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDrawer() {
-        mDrawerAdpater = new DrawerAdpater(this, mDrawerItems, mUsers, new DrawerAdpater.OnClickItemListener() {
+        mDrawerAdapter = new DrawerAdapter(this, mDrawerItems, mUsers, new DrawerAdapter.OnClickItemListener() {
             @Override
             public void onClickItem(int position) {
                 mTvShow.setText(mDrawerItems.get(position).getName());
                 mDrawerItems.get(position).setSelected(true);
                 if (mSelectedPosition >= 0) {
                     mDrawerItems.get(mSelectedPosition).setSelected(false);
-                    mDrawerAdpater.notifyItemChanged(mSelectedPosition + 1);
+                    mDrawerAdapter.notifyItemChanged(mSelectedPosition + 1);
                 }
                 mSelectedPosition = position;
-                mDrawerAdpater.notifyItemChanged(position + 1);
+                mDrawerAdapter.notifyItemChanged(position + 1);
                 mDlMain.closeDrawer(Gravity.START);
             }
 
             @Override
             public void onClickAvatar(int key) {
-                if (key == DrawerAdpater.KEY_GALLERY) {
+                if (key == DrawerAdapter.KEY_GALLERY) {
                     getPhotoGallery();
                 }
-                if (key == DrawerAdpater.KEY_CAMERA) {
+                if (key == DrawerAdapter.KEY_CAMERA) {
                     getPhotoCamera();
                 }
             }
         });
         mRecyclerViewDrawer.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerViewDrawer.setAdapter(mDrawerAdpater);
+        mRecyclerViewDrawer.setAdapter(mDrawerAdapter);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDlMain, R.string.app_name, R.string.app_name) {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle extras = data.getExtras();
                 Bitmap selectedBitmap = extras.getParcelable("data");
                 mUsers.get(0).setImgUser(selectedBitmap);
-                mDrawerAdpater.notifyItemChanged(0);
+                mDrawerAdapter.notifyItemChanged(0);
             }
         }
     }

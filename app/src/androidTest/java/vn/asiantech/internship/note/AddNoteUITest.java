@@ -26,6 +26,7 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 
 /**
  * Created by ducle on 17/07/2017.
+ * AddNoteUITest to test UI of fragment add
  */
 @RunWith(AndroidJUnit4.class)
 public class AddNoteUITest {
@@ -36,7 +37,7 @@ public class AddNoteUITest {
     public void checkShowAddFragment() {
         onView(withId(R.id.imgAdd)).perform(click());
         onView(withId(R.id.llAdd)).check(matches(isDisplayed()));
-        onView(withId(R.id.tvTitle)).check(matches(isDisplayed()));
+        onView(withId(R.id.tvTitleMain)).check(matches(isDisplayed()));
         onView(withId(R.id.imgPicPhoto)).check(matches(isDisplayed()));
         onView(withId(R.id.imgSave)).check(matches(isDisplayed()));
         onView(withId(R.id.imgNote)).check(matches(isDisplayed()));
