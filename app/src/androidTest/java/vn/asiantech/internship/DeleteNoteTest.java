@@ -1,7 +1,7 @@
 package vn.asiantech.internship;
 
-import android.content.Intent;
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
@@ -19,8 +19,6 @@ import java.util.List;
 import vn.asiantech.internship.note.ItemNote;
 import vn.asiantech.internship.note.NoteActivity;
 
-import static android.support.test.espresso.action.ViewActions.click;
-
 /**
  * Created by datbu on 14-07-2017.
  */
@@ -33,24 +31,26 @@ public class DeleteNoteTest {
 
     @Before
     public void setData() {
-        Intent intent = new Intent();
-        mRule.launchActivity(intent);
         mItemNotes = mRule.getActivity().itemNoteList();
+    }
+
+    private void prepareTest() {
         Espresso.onView(ViewMatchers.withId(R.id.flNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.imgPick)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.imgSave)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.imgEdit)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.imgDelete)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
-
         Espresso.onView(ViewMatchers.withId(R.id.imgAdd)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-
         Espresso.onView(ViewMatchers.withId(R.id.tvOutput)).check(ViewAssertions.matches(ViewMatchers.withText(R.string.title_notefragment)));
     }
 
     @Test
     public void testDeleteItemNote() {
+        prepareTest();
         for (int i = mItemNotes.size() - 1; i == 0; i--) {
-            Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
+            Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote))
+                    .perform(RecyclerViewActions.actionOnItemAtPosition(i, ViewActions.click()))
+                    .check(ViewAssertions.doesNotExist());
             Espresso.onView(ViewMatchers.withId(R.id.flNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
             Espresso.onView(ViewMatchers.withId(R.id.imgPick)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
             Espresso.onView(ViewMatchers.withId(R.id.imgSave)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
@@ -67,7 +67,9 @@ public class DeleteNoteTest {
             Espresso.onView(ViewMatchers.withId(R.id.tvTime))
                     .check(ViewAssertions.matches(ViewMatchers
                             .withText(mItemNotes.get(i).getTime())));
-            Espresso.onView(ViewMatchers.withId(R.id.imgDelete)).perform(click());
+            Espresso.onView(ViewMatchers.withId(R.id.imgDelete))
+                    .perform(ViewActions.click())
+                    .check(ViewAssertions.matches(ViewMatchers.isClickable()));
         }
     }
 }

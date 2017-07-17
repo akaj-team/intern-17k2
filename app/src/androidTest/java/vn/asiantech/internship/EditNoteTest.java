@@ -1,6 +1,5 @@
 package vn.asiantech.internship;
 
-import android.content.Intent;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
@@ -20,9 +19,6 @@ import java.util.List;
 import vn.asiantech.internship.note.ItemNote;
 import vn.asiantech.internship.note.NoteActivity;
 
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-
 /**
  * Created by datbu on 14-07-2017.
  */
@@ -35,27 +31,29 @@ public class EditNoteTest {
 
     @Before
     public void setData() {
-        Intent intent = new Intent();
-        mRule.launchActivity(intent);
         mItemNotes = mRule.getActivity().itemNoteList();
+    }
+
+    private void prepareTest() {
         Espresso.onView(ViewMatchers.withId(R.id.flNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.imgPick)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.imgSave)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.imgEdit)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.imgDelete)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
-
         Espresso.onView(ViewMatchers.withId(R.id.imgAdd)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-
         Espresso.onView(ViewMatchers.withId(R.id.tvOutput)).check(ViewAssertions.matches(ViewMatchers.withText(R.string.title_notefragment)));
     }
 
     @Test
     public void detailNoteFragmentTest() {
+        prepareTest();
         // Correct data
         String title = "trungnnq@gmail.com";
         String note = "123ab " + "\n" + "hello";
         for (int i = 0; i < mItemNotes.size(); i++) {
-            Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
+            Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote))
+                    .perform(RecyclerViewActions.actionOnItemAtPosition(i, ViewActions.click()))
+                    .check(ViewAssertions.doesNotExist());
             Espresso.onView(ViewMatchers.withId(R.id.flNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
             Espresso.onView(ViewMatchers.withId(R.id.imgPick)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
             Espresso.onView(ViewMatchers.withId(R.id.imgSave)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
@@ -74,15 +72,17 @@ public class EditNoteTest {
                             .withText(mItemNotes.get(i).getTime())));
             setText(R.id.edtTitle, title);
             setText(R.id.edtNote, note);
-            Espresso.onView(ViewMatchers.withId(R.id.imgEdit)).perform(click());
-            Espresso.onView(ViewMatchers.withId(R.id.imgSave)).perform(click());
+            Espresso.onView(ViewMatchers.withId(R.id.imgEdit)).perform(ViewActions.click())
+                    .check(ViewAssertions.matches(ViewMatchers.isClickable()));
+            Espresso.onView(ViewMatchers.withId(R.id.imgSave)).perform(ViewActions.click())
+                    .check(ViewAssertions.matches(ViewMatchers.isClickable()));
         }
     }
 
     private void setText(int id, String s) {
         Espresso.onView(ViewMatchers.withId(id))
-                .perform(ViewActions.clearText());
+                .perform(ViewActions.clearText()).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(s))));
         Espresso.onView(ViewMatchers.withId(id))
-                .perform(ViewActions.typeText(s), closeSoftKeyboard());
+                .perform(ViewActions.typeText(s), ViewActions.closeSoftKeyboard()).check(ViewAssertions.matches(ViewMatchers.withText(s)));
     }
 }
