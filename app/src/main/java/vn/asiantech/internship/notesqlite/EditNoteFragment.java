@@ -123,7 +123,8 @@ public class EditNoteFragment extends Fragment implements TextWatcher, View.OnFo
             }
             mEdtTitleEdit.setText(note.getTitle());
             mEdtContentEdit.setText(note.getContent());
-            mTvTimeEdit.setText(note.getDay() + "\n" + note.getDayOfWeek() + " " + note.getMonth() + "\n" + note.getHour());
+            String time = note.getDay() + "\n" + note.getDayOfWeek() + " " + note.getMonth() + "\n" + note.getHour();
+            mTvTimeEdit.setText(time);
         }
     }
 
@@ -135,7 +136,6 @@ public class EditNoteFragment extends Fragment implements TextWatcher, View.OnFo
             mTvErrorEdit.setVisibility(View.GONE);
         }
     }
-
 
     @Override
     public void onFocusChange(View view, boolean b) {
