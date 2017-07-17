@@ -3,7 +3,7 @@ package vn.asiantech.internship.ui.unittest;
 /**
  * Created by quanghai on 11/07/2017.
  */
-public class Login {
+public final class Login {
     Login() {
     }
 
