@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -12,7 +13,6 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 
 /**
- *
  * Created by quanghai on 06/07/2017.
  */
 public class CustomView extends View {
@@ -44,7 +44,8 @@ public class CustomView extends View {
             mPaint.setStrokeWidth(5);
         }
         canvas.scale(mScaleFactor, mScaleFactor);
-        drawPivot(canvas);
+//        drawPivot(canvas);
+        drawPivotX(canvas);
         drawParabol(canvas);
     }
 
@@ -76,6 +77,12 @@ public class CustomView extends View {
         path.lineTo(getWidth() / 2, 0);
         path.lineTo(getWidth() / 2 - 10, MARGIN);
         canvas.drawPath(path, mPaint);
+    }
+
+    private void drawPivotX(Canvas canvas) {
+        for (int i = MARGIN; i < getWidth() - MARGIN; i += 100) {
+            canvas.drawLine(i, getHeight() / 2 + 10, i, getHeight() / 2 - 10, mPaint);
+        }
     }
 
     @Override
