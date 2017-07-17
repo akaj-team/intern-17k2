@@ -29,14 +29,18 @@ public class DeleteNoteTest {
 
     @Before
     public void showEditNoteFragmentTest() {
-        Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).
-                perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()));
+        Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()))
+                .check(ViewAssertions.doesNotExist());
     }
 
     @Test
     public void deleteNoteTest() {
         Espresso.onView(ViewMatchers.withId(R.id.imgDeleteNote))
-                .perform(ViewActions.click());
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(ViewActions.click())
+                .check(ViewAssertions.doesNotExist());
         Espresso.onView(ViewMatchers.withText(Matchers.startsWith("Delete success")))
                 .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
