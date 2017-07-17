@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".music.MusicActivity">
+        <activity android:name=".splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,11 +24,15 @@
         </activity>
         <activity android:name="recyclerview.FriendActivity" />
         <activity android:name=".ui.main.MainActivity" />
-        <activity android:name="demo.RecyclerViewActivity" />
-        <activity android:name=".SendActivity" />
-        <activity android:name=".ui.splash.SplashActivity" />
+        <activity android:name=".demo.RecyclerViewActivity" />
+        <activity android:name=".fragment.SendActivity" />
+        <activity android:name=".notesqlite.NoteActivity" />
         <activity android:name=".feed.FeedActivity" />
         <activity android:name=".test.ResultActivity" />
+        <activity android:name=".music.MusicActivity" />
+        <activity android:name=".tablayout.ImageActivity" />
+        <activity android:name=".ninepath.ChatActivity" />
+        <activity android:name=".test.TestActivity" />
 
         <service
             android:name=".music.MusicService"

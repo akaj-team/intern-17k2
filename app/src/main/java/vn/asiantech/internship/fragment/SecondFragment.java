@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import vn.asiantech.internship.R;
+
 /**
  * Used to get data from first fragment
  *
@@ -17,7 +19,6 @@ import android.widget.TextView;
  * @since 2017-6-13
  */
 public class SecondFragment extends Fragment {
-
     private TextView mTvResult;
 
     @Nullable

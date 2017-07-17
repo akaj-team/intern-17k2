@@ -35,7 +35,7 @@
             android:layout_marginRight="@dimen/test.button.margin_right_left"
             android:layout_weight="1"
             android:background="@drawable/bg_button_dialog"
-            android:text="@string/dialog.cancle" />
+            android:text="@string/dialog.cancel" />
 
         <Button
             android:id="@+id/btnOk"

@@ -42,9 +42,6 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="toolbar.title">DrawerLayout</string>
-    <string name="button.day5">Day 5</string>
-    <string name="button.day6">Day 6</string>
-    <string name="button.day7">Day 7</string>
     <string name="button.send">Send1</string>
     <string name="button.name">Send</string>
     <string name="editText.hint">Input</string>
@@ -55,15 +52,14 @@
     <string name="textView.edit.title">Edit Note</string>
     <string name="chat.toolbar.title">MY FRIEND</string>
     <string name="chat.button.back">Back</string>
-    <string name="edittext.input.hint">Enter sms</string>
+    <string name="editText.input.hint">Enter sms</string>
     <string name="test.textView.back">Prev</string>
     <string name="test.textView.next">Next</string>
     <string name="test.textView.question">Question 1</string>
-    <string name="dialog.cancle">Cancle</string>
+    <string name="dialog.cancel">Cancle</string>
     <string name="dialog.OK">OK</string>
     <string name="textView.question">Question </string>
     <string name="textView.yourResult">You choosed: </string>
     <string name="text.cross">/</string>
     <string name="music.time">00:00</string>
-    <string name="music.textView.margin_left_right">5dp</string>
 </resources>

@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_weight="8"
             android:background="@drawable/bg_input_editext"
-            android:hint="@string/edittext.input.hint" />
+            android:hint="@string/editText.input.hint" />
 
         <ImageButton
             android:id="@+id/imgBtnSend"
