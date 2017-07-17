@@ -5,7 +5,7 @@ package vn.asiantech.internship.ui.unittest;
  * Created by quanghai on 11/07/2017.
  */
 public final class Login {
-    Login() {
+    private Login() {
     }
 
     public static boolean getMinLengthUserName(String userName) {
