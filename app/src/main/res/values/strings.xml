@@ -60,4 +60,9 @@
     <string name="title.menu.attach_file">Attach Photo</string>
     <string name="title.menu.edit_note">Edit Note</string>
     <string name="title.menu.delete_note">Delete Note</string>
+
+    <!--UploadImage-->
+    <string name="button.activity.choose_upload">Choose image and upload</string>
+    <string name="progress_dialog.activity.wait">Uploading, please wait</string>
+    <string name="progress_dialog.activity.title">Image Upload</string>
 </resources>
