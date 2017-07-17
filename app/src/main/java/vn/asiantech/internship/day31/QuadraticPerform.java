@@ -6,31 +6,31 @@ import vn.asiantech.internship.R;
  * Copyright © 2017 AsianTech inc.
  * Created by at-hoavo on 11/07/2017.
  */
-public final class PTBacHai {
-    private static double[] mX = new double[2];
+public final class QuadraticPerform {
+    private static double[] sX = new double[2];
 
-    private PTBacHai() {
+    private QuadraticPerform() {
     }
 
     public static int checkParameter(double a, double b, double c) {
         if (a == 0) {
             if (b == 0) {
                 if (c == 0) {
-                    return R.string.ptbachai_text_pt_vo_so_nghiem;
+                    return R.string.quadratic_text_equation_countless_solutions;
                 } else {
-                    return R.string.ptbachai_text_pt_vo_nghiem;
+                    return R.string.quadratic_text_equation_no_solution;
                 }
             } else {
-                return R.string.ptbachai_text_pt_1_nghiem;
+                return R.string.quadratic_text_equation_one_solution;
             }
         } else {
             double delta = b * b - 4 * a * c;
             if (delta > 0) {
-                return R.string.ptbachai_text_pt_2_nghiem_phan_biet;
+                return R.string.quadratic_text_equation_two_distinct_solutions;
             } else if (delta == 0) {
-                return R.string.ptbachai_text_pt_co_nghiem_kep;
+                return R.string.quadratic_text_equation_dual_solutions;
             }
-            return R.string.ptbachai_text_pt_vo_nghiem;
+            return R.string.quadratic_text_equation_no_solution;
         }
     }
 
@@ -38,14 +38,14 @@ public final class PTBacHai {
         if (a != 0) {
             double delta = b * b - 4 * a * c;
             if (delta > 0) {
-                mX[0] = (-b + Math.sqrt(delta)) / (2 * a);
-                mX[1] = (-b - Math.sqrt(delta)) / (2 * a);
+                sX[0] = (-b + Math.sqrt(delta)) / (2 * a);
+                sX[1] = (-b - Math.sqrt(delta)) / (2 * a);
             } else if (delta == 0) {
-                mX[0] = -b / (2 * a);
-                mX[1] = -b / (2 * a);
+                sX[0] = -b / (2 * a);
+                sX[1] = -b / (2 * a);
             }
         }
-        return mX;
+        return sX;
     }
 
     public static double getX(double a, double b, double c) {

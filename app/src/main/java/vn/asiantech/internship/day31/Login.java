@@ -9,7 +9,6 @@ public final class Login {
     private Login() {
     }
 
-    // Check Username
     public static boolean checkLengthOfUsername(String username) {
         return username.length() >= 6 && username.length() <= 24;
     }
@@ -22,7 +21,6 @@ public final class Login {
         return username.matches("[a-z]*");
     }
 
-    // Check Password
     public static boolean checkLengthOfPassword(String password) {
         return password.length() >= 4;
     }

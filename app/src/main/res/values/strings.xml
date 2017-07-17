@@ -44,16 +44,16 @@
         <item name="Camera">Camera</item>
     </string-array>
     <string name="textview.quiz.text">Question 1</string>
-    <string name="button.text.dialog_ok">Ok</string>
+    <string name="button.text.dialog_ok">OK</string>
     <string name="button.text.dialog_cancel">Cancel</string>
     <string name="dismiss_dialog">Do you want to reset Quiz app?</string>
     <string name="question">Question %d</string>
     <string name="question_order">You answered %s, Do you want to go to Result Screen?</string>
-    <string name="ptbachai.text.pt_vo_so_nghiem">Phuong trinh vo so nghiem</string>
-    <string name="ptbachai.text.pt_vo_nghiem">Phuong trinh vo nghiem</string>
-    <string name="ptbachai.text.pt_1_nghiem">Phuong trinh co 1 nghiem</string>
-    <string name="ptbachai.text.pt_2_nghiem_phan_biet">Phuong trinh co 2 nghiem phan biet</string>
-    <string name="ptbachai.text.pt_co_nghiem_kep">Phuong trinh co nghiem kep</string>
+    <string name="quadratic.text.equation_countless_solutions">The equation countless solutions</string>
+    <string name="quadratic.text.equation_no_solution">the equation has no solution</string>
+    <string name="quadratic.text.equation_one_solution">The equation has one solution</string>
+    <string name="quadratic.text.equation_two_distinct_solutions">The equation has two distinct solutions</string>
+    <string name="quadratic.text.equation_dual_solutions">The equation has dual solutions</string>
     <string-array name="tabtitles">
         <item name="bike">bike</item>
         <item name="dog">dog</item>
