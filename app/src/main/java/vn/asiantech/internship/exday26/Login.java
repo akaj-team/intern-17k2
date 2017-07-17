@@ -7,7 +7,7 @@ import java.util.Locale;
  */
 public final class Login {
 
-    public Login() {
+    private Login() {
     }
 
     public static boolean checkLengthUsername(String userName) {

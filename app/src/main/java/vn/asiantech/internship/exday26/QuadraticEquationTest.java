@@ -5,10 +5,10 @@ package vn.asiantech.internship.exday26;
  */
 public final class QuadraticEquationTest {
 
-    public QuadraticEquationTest() {
+    private QuadraticEquationTest() {
     }
 
-    public String checkInput(int a, int b, int c) {
+    public static String checkInput(int a, int b, int c) {
         String result = null;
         if (a == 0) {
             if (b == 0) {
@@ -33,7 +33,7 @@ public final class QuadraticEquationTest {
         return result;
     }
 
-    public double getDelta(int a, int b, int c) {
+    public static double getDelta(int a, int b, int c) {
         return b * b - 4 * a * c;
     }
 }
