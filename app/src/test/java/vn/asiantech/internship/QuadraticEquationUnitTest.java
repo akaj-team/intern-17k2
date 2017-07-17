@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 public class QuadraticEquationUnitTest {
 
     @Mock
-    private QuadraticEquationTest mQuadraticEquationTest = new QuadraticEquationTest();
+    private QuadraticEquationTest mQuadraticEquationTest;
 
     @Test
     public void getDeltaTest() {

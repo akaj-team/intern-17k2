@@ -1,5 +1,7 @@
 package vn.asiantech.internship.unittest;
 
+import java.util.Locale;
+
 /**
  * Created by ducle on 12/07/2017.
  * LoginTest contain user and password
@@ -20,7 +22,7 @@ public class LoginTest {
     }
 
     public String getUser(String user) {
-        return user.toUpperCase();
+        return user.toUpperCase(Locale.US);
     }
 
     public boolean isCheckUserAlphanumeric(String user) {
