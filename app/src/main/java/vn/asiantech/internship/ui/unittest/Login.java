@@ -1,19 +1,19 @@
 package vn.asiantech.internship.ui.unittest;
 
 /**
+ *
  * Created by quanghai on 11/07/2017.
  */
-
-public class Login {
-    public boolean getMinLengthUserName(String userName) {
+public final class Login {
+    public static boolean getMinLengthUserName(String userName) {
         return userName.length() >= 6;
     }
 
-    public boolean getMaxLengthUserName(String userName) {
+    public static boolean getMaxLengthUserName(String userName) {
         return userName.length() <= 24;
     }
 
-    public boolean getSpace(String userName) {
+    public static boolean getSpace(String userName) {
         boolean isCheck = false;
         char[] charArray = userName.toCharArray();
         for (char c : charArray) {
@@ -22,7 +22,7 @@ public class Login {
         return isCheck;
     }
 
-    public boolean getAlphaNumberic(String userName) {
+    public static boolean getAlphaNumberic(String userName) {
         boolean isCheck = false;
         char[] charArray = userName.toCharArray();
         for (char c : charArray) {
@@ -31,15 +31,15 @@ public class Login {
         return isCheck;
     }
 
-    public boolean getLengthPassword(String password) {
+    public static boolean getLengthPassword(String password) {
         return password.length() >= 4;
     }
 
-    public boolean getPassword(String password, String userName) {
+    public static boolean getPassword(String password, String userName) {
         return !password.equals(userName);
     }
 
-    public boolean getPasswordContainNumber(String password) {
+    public static boolean getPasswordContainNumber(String password) {
         boolean isCheck = false;
         char[] charArray = password.toCharArray();
         for (char c : charArray) {
@@ -51,7 +51,7 @@ public class Login {
         return isCheck;
     }
 
-    public boolean getPasswordContainUpCase(String password) {
+    public static boolean getPasswordContainUpCase(String password) {
         boolean isCheck = false;
         char[] charArray = password.toCharArray();
         for (char c : charArray) {
@@ -63,7 +63,7 @@ public class Login {
         return isCheck;
     }
 
-    public boolean getPasswordContainSpecialChar(String password) {
+    public static boolean getPasswordContainSpecialChar(String password) {
         boolean isCheck = false;
         char[] charArray = password.toCharArray();
         for (char c : charArray) {
@@ -75,7 +75,7 @@ public class Login {
         return isCheck;
     }
 
-    public boolean getPasswordSpace(String password) {
+    public static boolean getPasswordSpace(String password) {
         boolean isCheck = true;
         char[] charArray = password.toCharArray();
         for (char c : charArray) {
