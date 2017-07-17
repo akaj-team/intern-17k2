@@ -2,12 +2,14 @@ package vn.asiantech.internship.bai24;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 
-import vn.asiantech.internship.R;
 import vn.asiantech.internship.day16.ui.CustomView;
 
 /**
@@ -15,12 +17,11 @@ import vn.asiantech.internship.day16.ui.CustomView;
  */
 public class GraphView extends CustomView {
     private static final String TAG = "at-dinhvo";
-    private final float mStep = 0.3f;
     private Paint mPaint;
     private int mDistance = 30;
     private int mRatio = 30;
     private Point mNewPosition;
-    private Point mRootPoint = new Point();
+    private Point mRootPoint;
 
     public GraphView(Context context) {
         super(context);
@@ -36,33 +37,37 @@ public class GraphView extends CustomView {
     }
 
     private void initPaint() {
+        Log.e(TAG, "initPaint: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(3);
-        mPaint.setColor(getResources().getColor(R.color.colorBlack));
+        mPaint.setStrokeWidth(4);
+        mRootPoint = new Point();
         mRootPoint.x = getWidth() / 2;
         mRootPoint.y = getHeight() / 2;
+        mNewPosition = new Point();
     }
 
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawPivotX(canvas);
-        drawPivotY(canvas);
+        drawPivot(canvas);
+        drawGrid(canvas);
         drawGraph(canvas);
+        Log.e(TAG, "onDraw: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + mRootPoint.x);
     }
 
     private void drawGraph(Canvas canvas) {
-        mPaint.setStrokeWidth(2);
-        Point mOldPoint = getGraphPoint(getWidth() / 3 - mStep);
+        mPaint.setStrokeWidth(4);
+        Point mOldPoint = getGraphPoint(getWidth() / 3 - 0.1f);
         Point mNewPoint;
-        for (float i = getWidth() / 3; i < 2 * getWidth() / 3; i += mStep) {
+        for (float i = getWidth() / 3; i < 2 * getWidth() / 3; i += 0.1) {
             mNewPoint = getGraphPoint(i);
             canvas.drawLine(mOldPoint.x, mOldPoint.y, mNewPoint.x, mNewPoint.y, mPaint);
             mOldPoint = mNewPoint;
         }
     }
 
+    // TODO: 7/17/17 decrease loop
     private Point getGraphPoint(float x) {
         Point point = new Point();
         float X = (x - getWidth() / 2) / mRatio;
@@ -70,28 +75,39 @@ public class GraphView extends CustomView {
         float y = (getHeight() / 2 - Y * mRatio);
         point.x = (int) x;
         point.y = (int) y;
-//        Log.e(TAG, "getGraphPoint: X = " + x + ", Y = " + y);
         return point;
     }
 
-    private void drawPivotX(Canvas canvas) {
-        mPaint.setStrokeWidth(3);
-        canvas.drawLine(getWidth() / 2, mDistance, getWidth() / 2, getHeight() - mDistance, mPaint);
+    private void drawPivot(Canvas canvas) {
+        mPaint.setStrokeWidth(4);
+        canvas.drawLine(mRootPoint.x, mDistance, mRootPoint.x, getHeight() - mDistance, mPaint);
+        canvas.drawLine(mDistance, mRootPoint.y, getWidth() - mDistance, mRootPoint.y, mPaint);
         mPaint.setStrokeWidth(5);
-        for (float i = ((-getWidth() + mDistance) / 2) / mRatio; i <= ((getWidth() - mDistance) / 2) / mRatio; i++) {
-            canvas.drawPoint((getWidth() / 2 + i * mRatio), getHeight() / 2, mPaint);
+        for (float i = (-mRootPoint.x + mDistance) / mRatio; i <= (mRootPoint.y - mDistance) / mRatio; i++) {
+            canvas.drawPoint((mRootPoint.x + i * mRatio), mRootPoint.y, mPaint);
+        }
+        for (float i = (-mRootPoint.y) / mRatio; i <= (mRootPoint.y) / mRatio; i++) {
+            canvas.drawPoint(mRootPoint.x, (mRootPoint.y + i * mRatio), mPaint);
         }
     }
 
-    private void drawPivotY(Canvas canvas) {
-        mPaint.setStrokeWidth(3);
-        canvas.drawLine(mDistance, getHeight() / 2, getWidth() - mDistance, getHeight() / 2, mPaint);
-        mPaint.setStrokeWidth(6);
-        for (float i = (-getHeight() / 2) / mRatio; i <= (getHeight() / 2) / mRatio; i++) {
-            canvas.drawPoint(getWidth() / 2, (getHeight() / 2 + i * mRatio), mPaint);
+    private void drawGrid(Canvas canvas) {
+        mPaint.setStrokeWidth(1);
+        mPaint.setColor(Color.DKGRAY);
+        for (float i = (-mRootPoint.x + mDistance) / mRatio; i <= (mRootPoint.y - mDistance) / mRatio; i++) {
+            canvas.drawLine((mRootPoint.x + i * mRatio), mDistance,
+                    (mRootPoint.x + i * mRatio), getHeight() - mDistance, mPaint);
+        }
+        for (float i = (-mRootPoint.y) / mRatio; i <= (mRootPoint.y) / mRatio; i++) {
+            canvas.drawLine(mDistance, (mRootPoint.y + i * mRatio),
+                    getWidth() - mDistance, (mRootPoint.y + i * mRatio), mPaint);
         }
     }
-/*
+
+    private void drawIndex(Canvas canvas){
+
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -102,8 +118,10 @@ public class GraphView extends CustomView {
                 break;
             case MotionEvent.ACTION_DOWN:
                 mNewPosition.x = (int) event.getX();
-                mNewPosition = event.getY();
-                Log.e(TAG, "onTouch_DOWN: X1 = " + x1 + ", Y1 = " + y1);
+                mNewPosition.y = (int) event.getY();
+                Log.e(TAG, "onTouch_DOWN: X1 = " + mNewPosition.x + ", Y1 = " + mNewPosition.y);
+                mRootPoint.x += mNewPosition.x;
+                mRootPoint.y += mNewPosition.y;
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (event.getPointerCount() == 2) {
@@ -117,5 +135,5 @@ public class GraphView extends CustomView {
         }
         invalidate();
         return true;
-    }*/
+    }
 }
