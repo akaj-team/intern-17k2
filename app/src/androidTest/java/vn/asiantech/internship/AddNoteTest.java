@@ -38,8 +38,9 @@ public class AddNoteTest {
     @Test
     public void inputDataTest() {
         //Test blank content
-        Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd)).
-                perform(ViewActions.typeText("Note 1"), ViewActions.closeSoftKeyboard());
+        Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd))
+                .perform(ViewActions.typeText("Note 1"), ViewActions.closeSoftKeyboard())
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.imgAdd))
                 .perform(ViewActions.click())
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
@@ -47,10 +48,12 @@ public class AddNoteTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
         //Test blank title
-        Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd)).
-                perform(ViewActions.clearText());
-        Espresso.onView(ViewMatchers.withId(R.id.edtContentAdd)).
-                perform(ViewActions.typeText("This is a great day!"), ViewActions.closeSoftKeyboard());
+        Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd))
+                .perform(ViewActions.clearText())
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.edtContentAdd))
+                .perform(ViewActions.typeText("This is a great day!"), ViewActions.closeSoftKeyboard())
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.imgAdd))
                 .perform(ViewActions.click())
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
@@ -58,8 +61,9 @@ public class AddNoteTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
         //Test add success
-        Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd)).
-                perform(ViewActions.typeText("Note 1"), ViewActions.closeSoftKeyboard());
+        Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd))
+                .perform(ViewActions.typeText("Note 1"), ViewActions.closeSoftKeyboard())
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.imgAdd))
                 .perform(ViewActions.click())
                 .check(ViewAssertions.doesNotExist());

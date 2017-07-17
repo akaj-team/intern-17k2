@@ -30,7 +30,6 @@ public class DeleteNoteTest {
     @Before
     public void showEditNoteFragmentTest() {
         Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()))
                 .check(ViewAssertions.doesNotExist());
     }
@@ -38,7 +37,6 @@ public class DeleteNoteTest {
     @Test
     public void deleteNoteTest() {
         Espresso.onView(ViewMatchers.withId(R.id.imgDeleteNote))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
                 .check(ViewAssertions.doesNotExist());
         Espresso.onView(ViewMatchers.withText(Matchers.startsWith("Delete success")))
