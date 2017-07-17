@@ -46,6 +46,7 @@ public class CustomView extends View {
         canvas.scale(mScaleFactor, mScaleFactor);
 //        drawPivot(canvas);
         drawPivotX(canvas);
+        drawPivotY(canvas);
         drawParabol(canvas);
     }
 
@@ -80,8 +81,22 @@ public class CustomView extends View {
     }
 
     private void drawPivotX(Canvas canvas) {
-        for (int i = MARGIN; i < getWidth() - MARGIN; i += 100) {
+        canvas.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2, mPaint);
+        for (int i = getWidth() / 2; i < getWidth(); i += 100) {
             canvas.drawLine(i, getHeight() / 2 + 10, i, getHeight() / 2 - 10, mPaint);
+        }
+        for (int i = getWidth() / 2; i > 0; i -= 100) {
+            canvas.drawLine(i, getHeight() / 2 + 10, i, getHeight() / 2 - 10, mPaint);
+        }
+    }
+
+    private void drawPivotY(Canvas canvas) {
+        canvas.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight(), mPaint);
+        for (int i = getHeight() / 2; i < getHeight(); i += 100) {
+            canvas.drawLine(getWidth() / 2 - 10, i, getWidth() / 2 + 10, i, mPaint);
+        }
+        for (int i = getHeight() / 2; i > 0; i -= 100) {
+            canvas.drawLine(getWidth() / 2 - 10, i, getWidth() / 2 + 10, i, mPaint);
         }
     }
 
