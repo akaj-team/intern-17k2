@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -16,6 +15,7 @@ import android.view.View;
  * Created by quanghai on 06/07/2017.
  */
 public class CustomView extends View {
+    private int mUnit = 100;
     private static final int MARGIN = 30;
     private Paint mPaint;
     private ScaleGestureDetector mScaleDetector;
@@ -44,29 +44,26 @@ public class CustomView extends View {
             mPaint.setStrokeWidth(5);
         }
         canvas.scale(mScaleFactor, mScaleFactor);
-//        drawPivot(canvas);
         drawPivotX(canvas);
         drawPivotY(canvas);
+        drawArrow(canvas);
         drawParabol(canvas);
     }
 
     //y = 3x^2 - 4x + 1
     private void drawParabol(Canvas canvas) {
-        int unit = 100;
-        float x = getWidth() / 2 + 10 * unit;
-        float y = getHeight() / 2 - (3 * x * x - 4 * x + 1) * unit;
+        float x = getWidth() / 2 + 10 * mUnit;
+        float y = getHeight() / 2 - (3 * x * x - 4 * x + 1) * mUnit;
         for (double i = -10; i < 10; i += 0.05f) {
-            float x2 = (float) (getWidth() / 2 + i * unit);
-            float y2 = (float) (getHeight() / 2 - (3 * i * i - 4 * i + 1) * unit);
+            float x2 = (float) (getWidth() / 2 + i * mUnit);
+            float y2 = (float) (getHeight() / 2 - (3 * i * i - 4 * i + 1) * mUnit);
             canvas.drawLine(x, y, x2, y2, mPaint);
             x = x2;
             y = y2;
         }
     }
 
-    private void drawPivot(Canvas canvas) {
-        canvas.drawLine(MARGIN, getHeight() / 2, getWidth() - MARGIN, getHeight() / 2, mPaint);
-        canvas.drawLine(getWidth() / 2, MARGIN, getWidth() / 2, getHeight() - MARGIN, mPaint);
+    private void drawArrow(Canvas canvas) {
         canvas.drawText("0", getWidth() / 2 - 50, getHeight() / 2 + 50, mPaint);
 
         Path path = new Path();
@@ -82,20 +79,20 @@ public class CustomView extends View {
 
     private void drawPivotX(Canvas canvas) {
         canvas.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2, mPaint);
-        for (int i = getWidth() / 2; i < getWidth(); i += 100) {
+        for (int i = getWidth() / 2; i < getWidth(); i += mUnit) {
             canvas.drawLine(i, getHeight() / 2 + 10, i, getHeight() / 2 - 10, mPaint);
         }
-        for (int i = getWidth() / 2; i > 0; i -= 100) {
+        for (int i = getWidth() / 2; i > 0; i -= mUnit) {
             canvas.drawLine(i, getHeight() / 2 + 10, i, getHeight() / 2 - 10, mPaint);
         }
     }
 
     private void drawPivotY(Canvas canvas) {
         canvas.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight(), mPaint);
-        for (int i = getHeight() / 2; i < getHeight(); i += 100) {
+        for (int i = getHeight() / 2; i < getHeight(); i += mUnit) {
             canvas.drawLine(getWidth() / 2 - 10, i, getWidth() / 2 + 10, i, mPaint);
         }
-        for (int i = getHeight() / 2; i > 0; i -= 100) {
+        for (int i = getHeight() / 2; i > 0; i -= mUnit) {
             canvas.drawLine(getWidth() / 2 - 10, i, getWidth() / 2 + 10, i, mPaint);
         }
     }
@@ -106,11 +103,31 @@ public class CustomView extends View {
         return true;
     }
 
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+////        performClick();
+////        mScaleDetector.onTouchEvent(event);
+////        return true;
+//        switch (event.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                mUnit += 20;
+//                break;
+//        }
+//        return true;
+//    }
+
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        performClick();
-        mScaleDetector.onTouchEvent(event);
-        return true;
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mUnit += 20;
+                invalidate();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 
     /**
