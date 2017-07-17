@@ -77,7 +77,7 @@ public class MusicActivity extends AppCompatActivity implements MusicListAdapter
         replaceFragment(mMusicListFragment, false);
     }
 
-    public void replaceFragment(Fragment fragment, boolean addToBackStack) {
+    private void replaceFragment(Fragment fragment, boolean addToBackStack) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (addToBackStack) {

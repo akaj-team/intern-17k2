@@ -62,9 +62,9 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
                     boolean isPlaying = intent.getBooleanExtra(PlayMusicFragment.KEY_PLAYING, false);
                     if (isPlaying ^ mIsPlaying) {
                         if (mIsPlaying) {
-                            mImgPlay.setImageResource(R.drawable.image_pause);
+                            mImgPlay.setImageResource(R.drawable.img_pause);
                         } else {
-                            mImgPlay.setImageResource(R.drawable.image_play);
+                            mImgPlay.setImageResource(R.drawable.img_play);
                         }
                     }
                     return;
@@ -85,7 +85,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         initData();
         initIntentFilter();
         initStart();
-        initClick();
+        initListener();
         return view;
     }
 
@@ -97,7 +97,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
             startIntent.putExtra(KEY_IMAGE, mUrlImage);
             startIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
             getContext().startService(startIntent);
-            mImgPlay.setImageResource(R.drawable.image_pause);
+            mImgPlay.setImageResource(R.drawable.img_pause);
         } else {
             Intent startIntent = new Intent(getContext(), NotificationServiceMusic.class);
             startIntent.setAction(Action.PLAY.getValue());
@@ -105,7 +105,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
             startIntent.putExtra(KEY_IMAGE, mUrlImage);
             startIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
             getContext().startService(startIntent);
-            mImgPlay.setImageResource(R.drawable.image_pause);
+            mImgPlay.setImageResource(R.drawable.img_pause);
         }
     }
 
@@ -136,7 +136,7 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
         mIntent = new Intent(getContext(), NotificationServiceMusic.class);
     }
 
-    private void initClick() {
+    private void initListener() {
         mImgPlay.setOnClickListener(this);
         mImgPrev.setOnClickListener(this);
         mImgNext.setOnClickListener(this);
@@ -229,20 +229,20 @@ public class PlayMusicFragment extends Fragment implements View.OnClickListener 
     private void initShuffle() {
         if (mIsShuffle) {
             mIsShuffle = false;
-            mImgShuffle.setImageResource(R.drawable.image_shuffledf);
+            mImgShuffle.setImageResource(R.drawable.img_shuffledf);
         } else {
             mIsShuffle = true;
-            mImgShuffle.setImageResource(R.drawable.image_shufflechg);
+            mImgShuffle.setImageResource(R.drawable.img_shufflechg);
         }
     }
 
     private void initRepeat() {
         if (mIsRepeat) {
             mIsRepeat = false;
-            mImgRepeat.setImageResource(R.drawable.image_repeatdf);
+            mImgRepeat.setImageResource(R.drawable.img_repeatdf);
         } else {
             mIsRepeat = true;
-            mImgRepeat.setImageResource(R.drawable.image_repeatchg);
+            mImgRepeat.setImageResource(R.drawable.img_repeatchg);
         }
     }
 }
