@@ -5,18 +5,59 @@ package vn.asiantech.internship.day26;
  */
 public class QuadraticEquation {
 
-    public float getDelta(int a, int b, int c) {
-        return b * b - 4 * a * c;
+    public QuadraticEquation() {
     }
 
-    public String getResult(int a, int b, int c) {
-        if (getDelta(a, b, c) < 0) {
-            return "Vo nghiem";
-        } else if (getDelta(a, b, c) == 0) {
-            return "X = " + (-b) / 2 * a;
+    /*public float getDelta(float a, float b, float c) {
+        return (float) (Math.pow(b, 2) - 4 * a * c);
+    }
+
+    public String getResult(float a, float b, float c) {
+        if (a != 0) {
+            if (getDelta(a, b, c) < 0) {
+                return "No root";
+            } else if (getDelta(a, b, c) == 0) {
+                return "X = " + (-b) / 2 * a;
+            } else {
+                return "X1 = " + (-b + Math.sqrt(getDelta(a, b, c))) / 2 * a
+                        + ", X2 = " + (-b - Math.sqrt(getDelta(a, b, c))) / 2 * a;
+            }
         } else {
-            return "X1 = " + (-b + Math.sqrt(getDelta(a, b, c))) / 2 * a
-                    + ", X2 = " + (-b - Math.sqrt(getDelta(a, b, c))) / 2 * a;
+            if (b == 0) {
+                if (c == 0) {
+                    return "Countless root";
+                } else {
+                    return "No root";
+                }
+            } else {
+                return "X = " + -c / b;
+            }
+        }
+    }*/
+
+    public String getResult(Parameter parameter) {
+        float a = parameter.getA();
+        float b = parameter.getB();
+        float c = parameter.getC();
+        if (a != 0) {
+            if (parameter.getDelta() < 0) {
+                return "No root";
+            } else if (parameter.getDelta() == 0) {
+                return "X = " + (-b) / 2 * a;
+            } else {
+                return "X1 = " + (-b + Math.sqrt(parameter.getDelta())) / 2 * a
+                        + ", X2 = " + (-b - Math.sqrt(parameter.getDelta())) / 2 * a;
+            }
+        } else {
+            if (b == 0) {
+                if (c == 0) {
+                    return "Countless root";
+                } else {
+                    return "No root";
+                }
+            } else {
+                return "X = " + -c / b;
+            }
         }
     }
 }
