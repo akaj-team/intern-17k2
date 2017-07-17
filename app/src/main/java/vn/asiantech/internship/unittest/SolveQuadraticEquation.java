@@ -6,11 +6,15 @@ package vn.asiantech.internship.unittest;
  * @since 7/13/2017.
  */
 public final class SolveQuadraticEquation {
-    public double getDelta(double a, double b, double c) {
+
+    private SolveQuadraticEquation() {
+    }
+
+    public static double getDelta(double a, double b, double c) {
         return Math.pow(b, 2) - 4 * a * c;
     }
 
-    public double[] solve(double a, double b, double c) {
+    public static double[] solve(double a, double b, double c) {
         if (a == 0 && b == 0 && c == 0) {
             return null;
         }

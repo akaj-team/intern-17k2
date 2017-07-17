@@ -6,11 +6,15 @@ package vn.asiantech.internship.unittest;
  * @since 7/13/2017.
  */
 public final class Login {
-    public boolean checkUserLength(String user) {
+
+    private Login() {
+    }
+
+    public static boolean checkUserLength(String user) {
         return user.length() > 5 && user.length() < 25;
     }
 
-    public boolean checkUserAlphaNumber(String user) {
+    public static boolean checkUserAlphaNumber(String user) {
         for (char c : user.toCharArray()) {
             if (c < '0' || (c > '9' && c < 'a') || c > 'z') {
                 return false;
@@ -19,11 +23,11 @@ public final class Login {
         return true;
     }
 
-    public boolean checkPassLength(String pass) {
+    public static boolean checkPassLength(String pass) {
         return pass.length() > 3;
     }
 
-    public boolean checkPassStrength(String pass) {
+    public static boolean checkPassStrength(String pass) {
         boolean haveUpperChar = false;
         boolean haveNumber = false;
         boolean haveSpecialChar = false;
@@ -46,7 +50,7 @@ public final class Login {
         return (haveUpperChar && haveNumber && haveSpecialChar);
     }
 
-    public boolean checkPassDifferentUser(String user, String pass) {
+    public static boolean checkPassDifferentUser(String user, String pass) {
         return !user.equals(pass);
     }
 }

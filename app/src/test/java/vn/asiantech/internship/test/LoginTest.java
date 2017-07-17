@@ -23,34 +23,32 @@ public class LoginTest {
     @Mock
     private Account mAccount;
 
-    private Login mLogin = new Login();
-
     @Test
     public void checkUserLength() {
         //Length < 6
         String s = "01234";
         Mockito.when(mAccount.getUser()).thenReturn(s);
-        assertFalse(mLogin.checkUserLength(mAccount.getUser()));
+        assertFalse(Login.checkUserLength(mAccount.getUser()));
 
         //Length = 6
         s = "012345";
         Mockito.when(mAccount.getUser()).thenReturn(s);
-        assertTrue(mLogin.checkUserLength(mAccount.getUser()));
+        assertTrue(Login.checkUserLength(mAccount.getUser()));
 
         //6 < Length < 24
         s = "0123456789";
         Mockito.when(mAccount.getUser()).thenReturn(s);
-        assertTrue(mLogin.checkUserLength(mAccount.getUser()));
+        assertTrue(Login.checkUserLength(mAccount.getUser()));
 
         //Length = 24
         s = "012345678901234567890123";
         Mockito.when(mAccount.getUser()).thenReturn(s);
-        assertTrue(mLogin.checkUserLength(mAccount.getUser()));
+        assertTrue(Login.checkUserLength(mAccount.getUser()));
 
         //Length > 24
         s = "012345678901234567890123456";
         Mockito.when(mAccount.getUser()).thenReturn(s);
-        assertFalse(mLogin.checkUserLength(mAccount.getUser()));
+        assertFalse(Login.checkUserLength(mAccount.getUser()));
     }
 
     @Test
@@ -58,17 +56,17 @@ public class LoginTest {
         //Correct
         String s = "65asd232asd65";
         Mockito.when(mAccount.getUser()).thenReturn(s);
-        assertTrue(mLogin.checkUserAlphaNumber(mAccount.getUser()));
+        assertTrue(Login.checkUserAlphaNumber(mAccount.getUser()));
 
         //Have space
         s = "asdasdk 656565 ";
         Mockito.when(mAccount.getUser()).thenReturn(s);
-        assertFalse(mLogin.checkUserAlphaNumber(mAccount.getUser()));
+        assertFalse(Login.checkUserAlphaNumber(mAccount.getUser()));
 
         //Have SpecialChar
         s = "asdasdk#@656565";
         Mockito.when(mAccount.getUser()).thenReturn(s);
-        assertFalse(mLogin.checkUserAlphaNumber(mAccount.getUser()));
+        assertFalse(Login.checkUserAlphaNumber(mAccount.getUser()));
     }
 
     @Test
@@ -76,17 +74,17 @@ public class LoginTest {
         //Length < 4
         String s = "012";
         Mockito.when(mAccount.getPass()).thenReturn(s);
-        assertFalse(mLogin.checkPassLength(mAccount.getPass()));
+        assertFalse(Login.checkPassLength(mAccount.getPass()));
 
         //Length = 4
         s = "0123";
         Mockito.when(mAccount.getPass()).thenReturn(s);
-        assertTrue(mLogin.checkPassLength(mAccount.getPass()));
+        assertTrue(Login.checkPassLength(mAccount.getPass()));
 
         //Length > 4
         s = "0123456789";
         Mockito.when(mAccount.getPass()).thenReturn(s);
-        assertTrue(mLogin.checkPassLength(mAccount.getPass()));
+        assertTrue(Login.checkPassLength(mAccount.getPass()));
     }
 
     @Test
@@ -94,37 +92,37 @@ public class LoginTest {
         //Not have number and special char
         String s = "asdhkjhad";
         Mockito.when(mAccount.getPass()).thenReturn(s);
-        assertFalse(mLogin.checkPassStrength(mAccount.getPass()));
+        assertFalse(Login.checkPassStrength(mAccount.getPass()));
 
         //Not have special char
         s = "asdhksa12jhad";
         Mockito.when(mAccount.getPass()).thenReturn(s);
-        assertFalse(mLogin.checkPassStrength(mAccount.getPass()));
+        assertFalse(Login.checkPassStrength(mAccount.getPass()));
 
         //Not have number
         s = "asdhkjhad@$^";
         Mockito.when(mAccount.getPass()).thenReturn(s);
-        assertFalse(mLogin.checkPassStrength(mAccount.getPass()));
+        assertFalse(Login.checkPassStrength(mAccount.getPass()));
 
         //All number
         s = "653232653";
         Mockito.when(mAccount.getPass()).thenReturn(s);
-        assertFalse(mLogin.checkPassStrength(mAccount.getPass()));
+        assertFalse(Login.checkPassStrength(mAccount.getPass()));
 
         //Not have simple char
         s = "54155%$&";
         Mockito.when(mAccount.getPass()).thenReturn(s);
-        assertFalse(mLogin.checkPassStrength(mAccount.getPass()));
+        assertFalse(Login.checkPassStrength(mAccount.getPass()));
 
         //All special char
         s = "$^&&$$%^&$%&";
         Mockito.when(mAccount.getPass()).thenReturn(s);
-        assertFalse(mLogin.checkPassStrength(mAccount.getPass()));
+        assertFalse(Login.checkPassStrength(mAccount.getPass()));
 
         //Invalidate
         s = "45aSd^%^%sad";
         Mockito.when(mAccount.getPass()).thenReturn(s);
-        assertTrue(mLogin.checkPassStrength(mAccount.getPass()));
+        assertTrue(Login.checkPassStrength(mAccount.getPass()));
     }
 
     @Test
@@ -134,13 +132,13 @@ public class LoginTest {
         String pass = "cuongcao";
         Mockito.when(mAccount.getUser()).thenReturn(user);
         Mockito.when(mAccount.getPass()).thenReturn(pass);
-        assertFalse(mLogin.checkPassDifferentUser(mAccount.getUser(), mAccount.getPass()));
+        assertFalse(Login.checkPassDifferentUser(mAccount.getUser(), mAccount.getPass()));
 
         //Different
         user = "at-cuongcao";
         pass = "cuongcao";
         Mockito.when(mAccount.getUser()).thenReturn(user);
         Mockito.when(mAccount.getPass()).thenReturn(pass);
-        assertTrue(mLogin.checkPassDifferentUser(mAccount.getUser(), mAccount.getPass()));
+        assertTrue(Login.checkPassDifferentUser(mAccount.getUser(), mAccount.getPass()));
     }
 }

@@ -10,11 +10,6 @@ public class QuadraticEquation {
     private double a;
     private double b;
     private double c;
-    private SolveQuadraticEquation mSolveQuadraticEquation;
-
-    public QuadraticEquation() {
-        mSolveQuadraticEquation = new SolveQuadraticEquation();
-    }
 
     public double getA() {
         return a;
@@ -41,10 +36,10 @@ public class QuadraticEquation {
     }
 
     public double getDelta() {
-        return mSolveQuadraticEquation.getDelta(a, b, c);
+        return SolveQuadraticEquation.getDelta(a, b, c);
     }
 
     public double[] getRoot() {
-        return mSolveQuadraticEquation.solve(a, b, c);
+        return SolveQuadraticEquation.solve(a, b, c);
     }
 }
