@@ -27,7 +27,7 @@ public class NoteActivityUITest {
     @Test
     public void checkWhenIntoActivity() {
         Espresso.onView(ViewMatchers.withId(R.id.flNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        Espresso.onView(ViewMatchers.withId(R.id.imgAdd)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.imgAdd)).perform(ViewActions.click()).check(ViewAssertions.doesNotExist());
         Espresso.onView(ViewMatchers.withId(R.id.llInformationEditNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 }

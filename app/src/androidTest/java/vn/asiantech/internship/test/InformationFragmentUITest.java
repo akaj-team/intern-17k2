@@ -32,12 +32,12 @@ public class InformationFragmentUITest {
 
     @Before
     public void init() {
-        Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()));
+        Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click())).check(ViewAssertions.doesNotExist());
     }
 
     @Test
     public void testWhenPressDelete() {
-        Espresso.onView(ViewMatchers.withId(R.id.imgDeleteNote)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.imgDeleteNote)).perform(ViewActions.click()).check(ViewAssertions.doesNotExist());
         Espresso.onView(ViewMatchers.withId(R.id.flNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
         // Check toast
@@ -48,24 +48,26 @@ public class InformationFragmentUITest {
 
     @Test
     public void testWhenPressEdit() {
-        Espresso.onView(ViewMatchers.withId(R.id.imgEditNote)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.edtTitleInformation)).perform(ViewActions.typeText("aaaaa"));
-        Espresso.onView(ViewMatchers.withId(R.id.edtDescriptionInforNote)).perform(ViewActions.typeText("bbbbb"));
-        Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.imgEditNote)).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.edtTitleInformation)).perform(ViewActions.clearText()).check(ViewAssertions.matches(ViewMatchers.withText("")));
+        Espresso.onView(ViewMatchers.withId(R.id.edtTitleInformation)).perform(ViewActions.typeText("aaaaa")).check(ViewAssertions.matches(ViewMatchers.withText("aaaaa")));
+        Espresso.onView(ViewMatchers.withId(R.id.edtDescriptionInforNote)).perform(ViewActions.clearText()).check(ViewAssertions.matches(ViewMatchers.withText("")));
+        Espresso.onView(ViewMatchers.withId(R.id.edtDescriptionInforNote)).perform(ViewActions.typeText("bbbbb")).check(ViewAssertions.matches(ViewMatchers.withText("bbbbb")));
+        Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click()).check(ViewAssertions.doesNotExist());
         Espresso.onView(ViewMatchers.withId(R.id.flNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
     @Test
     public void testWhenPressBack() {
-        Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click()).check(ViewAssertions.doesNotExist());
         Espresso.onView(ViewMatchers.withId(R.id.flNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
     @Test
     public void testWhenNoInputTitle() {
-        Espresso.onView(ViewMatchers.withId(R.id.imgEditNote)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.edtTitleInformation)).perform(ViewActions.clearText());
-        Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.imgEditNote)).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.edtTitleInformation)).perform(ViewActions.clearText()).check(ViewAssertions.matches(ViewMatchers.withText("")));
+        Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
         // Check toast
         Espresso.onView(ViewMatchers.withText(R.string.toast_input_title))
@@ -75,9 +77,9 @@ public class InformationFragmentUITest {
 
     @Test
     public void testWhenNoInputDescription() {
-        Espresso.onView(ViewMatchers.withId(R.id.imgEditNote)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.edtDescriptionInforNote)).perform(ViewActions.clearText());
-        Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.imgEditNote)).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.edtDescriptionInforNote)).perform(ViewActions.clearText()).check(ViewAssertions.matches(ViewMatchers.withText("")));
+        Espresso.onView(ViewMatchers.withId(R.id.imgBack)).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
         // Check toast
         Espresso.onView(ViewMatchers.withText(R.string.toast_input_description))
