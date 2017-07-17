@@ -3,7 +3,6 @@ package vn.asiantech.internship.models;
 /**
  * Created by quanghai on 11/07/2017.
  */
-
 public class UserTest {
     private String userName;
     private String password;
