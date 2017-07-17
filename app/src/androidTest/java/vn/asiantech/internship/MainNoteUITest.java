@@ -13,6 +13,7 @@ import vn.asiantech.internship.ui.main.NoteActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -37,7 +38,7 @@ public class MainNoteUITest {
 
     @Test
     public void checkClickAdd() {
-        onView(withId(R.id.imgAdd)).perform(click());
+        onView(withId(R.id.imgAdd)).perform(click()).check(doesNotExist());
         onView(withId(R.id.llAdd)).check(matches(isDisplayed()));
         onView(withId(R.id.tvTitleAdd)).check(matches(isDisplayed()));
         onView(withId(R.id.imgSave)).check(matches(isDisplayed()));
@@ -49,7 +50,7 @@ public class MainNoteUITest {
 
     @Test
     public void checkItemClick() {
-        onView(withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click())).check(doesNotExist());
         onView(withId(R.id.llDetail)).check(matches(isDisplayed()));
     }
 }
