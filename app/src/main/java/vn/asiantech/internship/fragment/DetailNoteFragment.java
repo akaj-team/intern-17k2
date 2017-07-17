@@ -66,7 +66,9 @@ public class DetailNoteFragment extends Fragment implements View.OnClickListener
         }
         mTvTitleNote.setText(mNote.getTitle());
         mTvContent.setText(mNote.getContent());
-        mTvDate.setText(mNote.getDate());
+        if (mNote.getDate() != null) {
+            mTvDate.setText(mNote.getDate());
+        }
     }
 
     /**

@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:text="@string/app_name"
-                android:textSize="@dimen/textview.title.size"
-                android:layout_centerVertical="true"/>
+                android:textSize="@dimen/textview.title.size" />
+
             <ImageView
                 android:id="@+id/imgAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_add_black_24dp"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_centerVertical="true"/>
+                android:contentDescription="@null"
+                android:src="@drawable/ic_add_black_24dp" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
