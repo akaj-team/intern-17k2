@@ -4,7 +4,10 @@ package vn.asiantech.internship.ui.unittest;
  *
  * Created by quanghai on 11/07/2017.
  */
-public class Login {
+public final class Login {
+    public Login() {
+    }
+
     public static boolean getMinLengthUserName(String userName) {
         return userName.length() >= 6;
     }
