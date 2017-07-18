@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -115,13 +114,13 @@ public class MyCanvas extends View {
                 if (event.getPointerCount() == 2) {
                     if (mOldDistance == 0) {
                         mOldDistance = getDistance(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
-                    } else {
                         mMidPoint = getMidPoint(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
-                        mMidPointOnOxy.x = (mMidPoint.x - mPointO.x) / unit;
-                        mMidPointOnOxy.y = (mPointO.y - mMidPoint.y) / unit;
+                        mMidPointOnOxy.x = (int) ((mMidPoint.x - mPointO.x) * 1.0 / unit);
+                        mMidPointOnOxy.y = (int) ((mPointO.y - mMidPoint.y) * 1.0 / unit);
+                    } else {
                         double newDistance = getDistance(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
                         double proportion = newDistance / mOldDistance;
-                        if (proportion * unit > 20 && proportion * unit < 200) {
+                        if (proportion * unit > 20 && proportion * unit < 150) {
                             zoomIn(newDistance / mOldDistance);
                         }
                     }
@@ -144,11 +143,6 @@ public class MyCanvas extends View {
         unit = (int) (unit * x);
         mPointO.x = mMidPoint.x - mMidPointOnOxy.x * unit;
         mPointO.y = mMidPoint.y + mMidPointOnOxy.y * unit;
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            Log.i("tag11", e.getMessage());
-        }
         invalidate();
     }
 
