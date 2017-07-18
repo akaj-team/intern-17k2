@@ -8,4 +8,5 @@
     <color name="toolbarBackground">#DDDDDD</color>
     <color name="drawerItemChooserTextColor">#A6A7AB</color>
     <color name="colorRed">#F44336</color>
+    <color name="musicToolbarColor">#f155df</color>
 </resources>
