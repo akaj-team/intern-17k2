@@ -49,6 +49,11 @@
     <dimen name="tab.height">90dp</dimen>
     <dimen name="tab.viewpager.height">400dp</dimen>
     <dimen name="tab.viewpager.padding">10dp</dimen>
+    <!--Contact-->
+    <string name="contact_email">Email: </string>
+    <string name="contact_phone">Phone: </string>
+    <string name="contact_title">Contact List: </string>
+    <string name="dialog_wait">Please wait… </string>
     <!--Bai20-->
     <dimen name="notification.image.size">150dp</dimen>
     <dimen name="frame.padding">30dp</dimen>

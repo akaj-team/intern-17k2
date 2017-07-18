@@ -1,7 +1,7 @@
 package vn.asiantech.internship.drawer.models;
 
 /**
- * Created by at-dinhvo on 01/07/2017.
+ * Created by at-dinhvo on 15/06/2017.
  */
 public class FeedItem {
 
