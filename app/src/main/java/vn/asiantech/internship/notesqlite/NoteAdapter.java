@@ -2,6 +2,7 @@ package vn.asiantech.internship.notesqlite;
 
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,8 @@ class NoteAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         NoteViewHolder noteViewHolder = (NoteViewHolder) holder;
+        holder.setIsRecyclable(false);
+        holder.isRecyclable();
         noteViewHolder.bind(mNotes.get(position), mClickListener);
         noteViewHolder.mTvDayOfWeek.setText(mNotes.get(position).getDayOfWeek());
         noteViewHolder.mTvDay.setText(mNotes.get(position).getDay());
@@ -47,6 +50,18 @@ class NoteAdapter extends RecyclerView.Adapter {
         noteViewHolder.mTvTitle.setText(mNotes.get(position).getTitle());
         noteViewHolder.mTvContent.setText(mNotes.get(position).getContent());
         noteViewHolder.mImage.setImageBitmap(BitmapFactory.decodeFile(mNotes.get(position).getPathImage()));
+    }
+
+    @Override
+    public long getItemId(int position) {
+        Log.d("aaaaaaaaa1", "getItemId: " + position);
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        Log.d("aaaaaaaaa2", "getItemId: " + position);
+        return position;
     }
 
     @Override

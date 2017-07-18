@@ -1,4 +1,4 @@
-package demo;
+package vn.asiantech.internship.demo;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,7 +19,7 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-9
  */
- class AdapterRecyclerView extends RecyclerView.Adapter {
+class AdapterRecyclerView extends RecyclerView.Adapter {
     private List<String> mNames = new ArrayList<>();
     private static final String TAG = "Log position";
 

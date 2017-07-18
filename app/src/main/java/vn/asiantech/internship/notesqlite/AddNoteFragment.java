@@ -37,7 +37,6 @@ import java.util.Locale;
 import vn.asiantech.internship.R;
 
 import static android.app.Activity.RESULT_OK;
-import static vn.asiantech.internship.R.id.imgAdd;
 
 /**
  * Used to enter data for item of recyclerView.
@@ -79,7 +78,7 @@ public class AddNoteFragment extends Fragment implements TextWatcher, View.OnFoc
         mEdtContentAdd = (EditText) view.findViewById(R.id.edtContentAdd);
         mTvErrorAdd = (TextView) view.findViewById(R.id.tvAddNoteError);
         mImgChooseImage = (ImageView) view.findViewById(R.id.imgAddImage);
-        mImgAdd = (ImageView) view.findViewById(imgAdd);
+        mImgAdd = (ImageView) view.findViewById(R.id.imgAdd);
     }
 
     private void setListeners() {
@@ -159,14 +158,14 @@ public class AddNoteFragment extends Fragment implements TextWatcher, View.OnFoc
     }
 
     private void saveImage(ImageView imageView, String name) {
-        BitmapDrawable btmpDr = (BitmapDrawable) imageView.getDrawable();
-        Bitmap bm = btmpDr.getBitmap();
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
         File sdCardDirectory = Environment.getExternalStorageDirectory();
         File image = new File(sdCardDirectory, name + ".png");
         boolean success = false;
         try {
             FileOutputStream outStream = new FileOutputStream(image);
-            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
             outStream.flush();
             outStream.close();
             success = true;

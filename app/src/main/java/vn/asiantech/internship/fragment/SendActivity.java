@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.fragment;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import vn.asiantech.internship.R;
 
 /**
  * Used to display fragment
@@ -15,7 +17,6 @@ import android.widget.Button;
  * @since 2017-6-13
  */
 public class SendActivity extends AppCompatActivity {
-
     private FirstFragment mFirstFragment;
     private SecondFragment mSecondFragment;
 
