@@ -23,6 +23,9 @@ import java.net.URLEncoder;
 
 import vn.asiantech.internship.R;
 
+/**
+ * Activity upload image
+ */
 public class UploadActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 123;
