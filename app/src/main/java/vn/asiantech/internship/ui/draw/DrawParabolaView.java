@@ -56,10 +56,11 @@ public class DrawParabolaView extends View {
         super.onDraw(canvas);
         setBackgroundColor(Color.BLACK);
         canvas.translate(mOriginX, mOriginY);
+        Log.d(TAG, "mOrigin: " + mOriginX + "    " + mOriginY);
 
         //draw 2 lines
-        canvas.drawLine(getWidth() / 2 - 100 * k, getHeight() / 2, getWidth() / 2 + 100 * k, getHeight() / 2, mPaint);
-        canvas.drawLine(getWidth() / 2, getHeight() / 2 - 100 * k, getWidth() / 2, getHeight() / 2 + 100 * k, mPaint);
+        canvas.drawLine(getWidth() / 2 - 200 * k, getHeight() / 2, getWidth() / 2 + 200 * k, getHeight() / 2, mPaint);
+        canvas.drawLine(getWidth() / 2, getHeight() / 2 - 200 * k, getWidth() / 2, getHeight() / 2 + 200 * k, mPaint);
 
         //draw 2 arrows
         mPath.moveTo(getWidth() - 50 - mOriginX, getHeight() / 2 - 10);
@@ -78,8 +79,8 @@ public class DrawParabolaView extends View {
 
         //draw points
         mPaint.setColor(Color.GREEN);
-        mPaint.setStrokeWidth(5);
-        for (int j = 0; j < 100; j++) {
+        mPaint.setStrokeWidth(10);
+        for (int j = 0; j < 200; j++) {
             canvas.drawPoint(getWidth() / 2, getHeight() / 2 + j * k, mPaint);
             canvas.drawPoint(getWidth() / 2, getHeight() / 2 - j * k, mPaint);
             canvas.drawPoint(getWidth() / 2 + j * k, getHeight() / 2, mPaint);
@@ -87,9 +88,9 @@ public class DrawParabolaView extends View {
         }
         mPaint.setColor(Color.WHITE);
         mPaint.setStrokeWidth(3);
-        float x = -5;
-        float y = getY(-5);
-        for (double i = -5; i < 5; i += 0.01f) {
+        float x = -10;
+        float y = getY(-10);
+        for (double i = -10; i < 10; i += 0.01f) {
             canvas.drawLine(getXCanvas(x, k), getYCanvas(y, k), getXCanvas((float) i, k), getYCanvas(getY((float) i), k), mPaint);
             x = (float) i;
             y = getY((float) i);
@@ -138,14 +139,17 @@ public class DrawParabolaView extends View {
                         final int pointerSecond = event.findPointerIndex(event.getPointerId(1));
                         float newDistance = getDistance(event.getX(pointerFirst), event.getY(pointerFirst), event.getX(pointerSecond
                         ), event.getY(pointerSecond));
+                        mPivotPointX = (event.getX(pointerFirst) + event.getX(pointerSecond)) / 2;
+                        mPivotPointY = (event.getY(pointerFirst) + event.getY(pointerSecond)) / 2;
+                        Log.d(TAG, "Origin PivotPoint: " + mPivotPointX + "  " + mPivotPointY);
                         if (newDistance > mDistance) {
-                            k += 10;
+                            k += 20;
                             invalidate();
                             Log.d(TAG, "zoom out: ");
                             mDistance = newDistance;
                         } else {
-                            if (k > 10) {
-                                k -= 10;
+                            if (k > 20) {
+                                k -= 20;
                                 invalidate();
                                 Log.d(TAG, "zoom in: ");
                                 mDistance = newDistance;
