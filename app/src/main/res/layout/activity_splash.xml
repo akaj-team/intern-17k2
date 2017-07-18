@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splashRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="@dimen/splash.linearLayout.margin_left_right"
-    android:layout_marginRight="@dimen/splash.linearLayout.margin_left_right"
-    android:gravity="center"
-    android:orientation="vertical">
-
-    <Button
-        android:id="@+id/btnDay5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button.day5" />
-
-    <Button
-        android:id="@+id/btnDay6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button.day6" />
-
-    <Button
-        android:id="@+id/btnDay7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button.day7" />
-</LinearLayout>
+    android:layout_marginRight="@dimen/splash.linearLayout.margin_left_right" />

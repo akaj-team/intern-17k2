@@ -1,4 +1,4 @@
-package vn.asiantech.internship;
+package vn.asiantech.internship.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import vn.asiantech.internship.R;
+
 /**
  * Used to enter data
  *
@@ -16,7 +18,6 @@ import android.widget.EditText;
  * @since 2017-6-13
  */
 public class FirstFragment extends Fragment {
-
     private EditText mEdtInput;
 
     @Nullable
