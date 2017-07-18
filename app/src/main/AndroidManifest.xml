@@ -20,7 +20,7 @@
         <activity android:name=".note.NoteActivity" />
         <activity android:name=".exday15.JsonActivity" />
         <activity android:name=".exday16.ViewPagerActivity"/>
-        <activity android:name=".feed.ActivityFeed" />
+        <activity android:name=".feed.FeedActivity" />
         <activity android:name=".exday13.ChatActivity" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
