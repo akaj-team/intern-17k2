@@ -31,7 +31,6 @@ public class ParabolaActivity extends AppCompatActivity implements View.OnTouchL
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-//                mDrawParabolaView.mMove = true;
                 mHoldX = event.getX();
                 mHoldY = event.getY();
                 break;
@@ -41,7 +40,6 @@ public class ParabolaActivity extends AppCompatActivity implements View.OnTouchL
                 mHoldY = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
-//                mDrawParabolaView.mMove = false;
                 break;
         }
         return true;

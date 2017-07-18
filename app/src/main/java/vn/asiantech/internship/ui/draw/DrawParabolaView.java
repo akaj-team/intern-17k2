@@ -20,7 +20,6 @@ public class DrawParabolaView extends View {
     private Path mPath;
     private float mOriginX = 0;
     private float mOriginY = 0;
-    public boolean mMove = false;
 
     public DrawParabolaView(Context context) {
         super(context);
@@ -44,10 +43,8 @@ public class DrawParabolaView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         setBackgroundColor(Color.BLACK);
-//        if (mMove) {
         canvas.translate(mOriginX, mOriginY);
         Log.d(TAG, "onDraw: " + mOriginX + " " + mOriginY);
-//        }
         float k = getWidth() / 2 / 5;
         //draw 2 lines
         canvas.drawLine(getWidth() / 2 - 100 * k, getHeight() / 2, getWidth() / 2 + 100 * k, getHeight() / 2, mPaint);
