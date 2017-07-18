@@ -93,10 +93,10 @@ public class AsyncTaskHandler extends AsyncTask<Void, Void, ArrayList<Contact>> 
                     }
                 }
             } else {
-                Log.e("JSON isn't exist", "" + jsonObject.has("contacts"));
+                Log.e("at-dinhvo", "" + jsonObject.has("contacts"));
             }
         } catch (JSONException e) {
-            Log.e("JSONException", "JSONException: " + e.getMessage());
+            Log.e("at-dinhvo", "JSONException: " + e.getMessage());
         }
     }
 

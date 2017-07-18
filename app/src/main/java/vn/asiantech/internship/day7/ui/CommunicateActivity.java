@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.day7.ui.ActionFragment.OnSendDataListener;
 
 /**
  * CommunicateActivity
@@ -25,7 +24,7 @@ public class CommunicateActivity extends AppCompatActivity {
     private void initUi() {
         mInputFragment = new InputFragment();
         mActionFragment = new ActionFragment();
-        OnSendDataListener onSendDataListener = new OnSendDataListener() {
+        ActionFragment.OnSendDataListener onSendDataListener = new ActionFragment.OnSendDataListener() {
             @Override
             public void onSendData() {
                 String mContent = mInputFragment.getText();

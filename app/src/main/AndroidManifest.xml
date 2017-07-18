@@ -28,6 +28,13 @@
         <activity android:name=".day13.ChatActivity" />
         <activity android:name=".day15.ui.QuestionActivity" />
         <activity android:name=".day21.ui.JsonActivity" />
+        <activity android:name=".day20.ui.MusicActivity" />
+
+        <service
+            android:name=".day20.service.MusicService"
+            android:enabled="true"
+            android:exported="false" />
+
     </application>
 
 </manifest>
