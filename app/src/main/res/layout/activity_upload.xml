@@ -5,12 +5,12 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:background="@color/colorDark"
-    android:padding="@dimen/activity.toolbar_margin">
+    android:padding="@dimen/activity.toolbar.margin">
 
     <ImageView
         android:id="@+id/imgImageUpload"
-        android:layout_width="@dimen/detail.image_size"
-        android:layout_height="@dimen/detail.image_size"
+        android:layout_width="@dimen/detail.image.size"
+        android:layout_height="@dimen/detail.image.size"
         android:contentDescription="@null" />
 
     <Button
@@ -18,6 +18,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/activity.content_margin"
+        android:layout_marginTop="@dimen/activity.content.margin"
         android:text="@string/button.upload" />
 </LinearLayout>
