@@ -8,12 +8,12 @@ import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
 /**
+ *
  * Created by quanghai on 06/07/2017.
  */
 public class CustomView extends View {
@@ -28,6 +28,8 @@ public class CustomView extends View {
     private float mPosX = getWidth() / 2;
     private float mPosY = getHeight() / 2;
     private float mDistance = 0;
+    private float mScalePointX;
+    private float mScalePointY;
 
     public CustomView(Context context) {
         super(context);
@@ -51,12 +53,12 @@ public class CustomView extends View {
             mPaint.setColor(Color.BLACK);
             mPaint.setStrokeWidth(5);
         }
-        canvas.scale(mScaleFactor, mScaleFactor);
+        Log.d("xxx", "onDraw: " + mScaleFactor);
+        canvas.scale(mScaleFactor, mScaleFactor, mScalePointX, mScalePointY);
         drawPivotX(canvas);
         drawPivotY(canvas);
         drawArrow(canvas);
         drawParabol(canvas);
-        drawCircle(canvas);
     }
 
     //y = 3x^2 - 4x + 1
@@ -87,12 +89,7 @@ public class CustomView extends View {
         canvas.drawPath(path, mPaint);
     }
 
-    private void drawCircle(Canvas canvas) {
-        canvas.drawCircle(mPosX, mPosY, 100, mPaint);
-    }
-
     private void drawPivotX(Canvas canvas) {
-        Log.d("Xxx", "drawPivotX: " + mDistance);
         // canvas.drawLine(0 + mPosX, getHeight() / 2 + mPosY, getWidth() mPosX, getHeight() / 2 + mPosY, mPaint);
         canvas.drawLine(0 + mDistance, getHeight() / 2 + mPosY, getWidth() + mDistance, getHeight() / 2 + mPosY, mPaint);
         for (float i = getWidth() / 2; i < getWidth() - mPosX; i += mUnit) {
@@ -114,19 +111,6 @@ public class CustomView extends View {
     }
 
     @Override
-    public boolean performClick() {
-        super.performClick();
-        return true;
-    }
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        performClick();
-//        mScaleDetector.onTouchEvent(event);
-//        return true;
-//    }
-
-    @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -134,19 +118,24 @@ public class CustomView extends View {
                 mLastTouchY = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                float x = event.getX();
-                float y = event.getY();
+                if (event.getPointerCount() > 1) {
+                    mScaleDetector.onTouchEvent(event);
+                } else {
+                    Log.d("xxx", "onTouchEvent: move");
+                    float x = event.getX();
+                    float y = event.getY();
 
-                float dx = x - mLastTouchX;
-                float dy = y - mLastTouchY;
-                mDistance = dx;
+                    float dx = x - mLastTouchX;
+                    float dy = y - mLastTouchY;
+                    mDistance = dx;
 
-                mPosX += dx;
-                mPosY += dy;
-                invalidate();
+                    mPosX += dx;
+                    mPosY += dy;
+                    invalidate();
 
-                mLastTouchX = x;
-                mLastTouchY = y;
+                    mLastTouchX = x;
+                    mLastTouchY = y;
+                }
                 break;
         }
         return true;
@@ -159,7 +148,9 @@ public class CustomView extends View {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             mScaleFactor *= detector.getScaleFactor();
-            mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 10.0f));
+            mScalePointX = detector.getFocusX();
+            mScalePointY = detector.getFocusY();
+            mScaleFactor = Math.max(1f, Math.min(mScaleFactor, 10.0f));
             invalidate();
             return true;
         }
