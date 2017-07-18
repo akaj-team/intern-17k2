@@ -132,14 +132,14 @@ public class AddNoteFragment extends Fragment {
     }
 
     private void saveImage(ImageView imageView, String name) {
-        BitmapDrawable btmpDr = (BitmapDrawable) imageView.getDrawable();
-        Bitmap bm = btmpDr.getBitmap();
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
         File sdCardDirectory = Environment.getExternalStorageDirectory();
         File image = new File(sdCardDirectory, name + ".png");
         boolean success = false;
         try {
             FileOutputStream outStream = new FileOutputStream(image);
-            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
             outStream.flush();
             outStream.close();
             success = true;
@@ -162,7 +162,6 @@ public class AddNoteFragment extends Fragment {
         try {
             BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
             bmpFactoryOptions.inJustDecodeBounds = true;
-            Bitmap bmp = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
             int heightRatio = (int) Math.ceil(bmpFactoryOptions.outHeight / (float) dh);
             int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth / (float) dw);
             if (heightRatio > 1 && widthRatio > 1) {
@@ -173,8 +172,8 @@ public class AddNoteFragment extends Fragment {
                 }
             }
             bmpFactoryOptions.inJustDecodeBounds = false;
-            bmp = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
-            return bmp;
+            return BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
+
         } catch (FileNotFoundException e) {
             Log.v("ERROR", e.toString());
         }

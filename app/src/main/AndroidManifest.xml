@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".uploadimage.UploadImageActivity">
+        <activity android:name=".splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +24,19 @@
         </activity>
         <activity android:name="recyclerview.FriendActivity" />
         <activity android:name=".ui.main.MainActivity" />
-        <activity android:name="demo.RecyclerViewActivity" />
-        <activity android:name=".SendActivity" />
-        <activity android:name=".ui.splash.SplashActivity" />
+        <activity android:name=".demo.RecyclerViewActivity" />
+        <activity android:name=".fragment.SendActivity" />
+        <activity android:name=".notesqlite.NoteActivity" />
         <activity android:name=".feed.FeedActivity" />
         <activity android:name=".test.ResultActivity" />
+        <activity android:name=".music.MusicActivity" />
+        <activity android:name=".tablayout.ImageActivity" />
+        <activity android:name=".ninepath.ChatActivity" />
+        <activity android:name=".test.TestActivity" />
+        <activity android:name=".uploadimage.UploadImageActivity" />
+
+        <service
+            android:name=".music.MusicService"
+            android:enabled="true" />
     </application>
 </manifest>
