@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/item.layout.padding"
-    tools:context="vn.asiantech.internship.drawer.day15.ui.ResultFragment">
+    tools:context="vn.asiantech.internship.day15.ui.ResultFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewResult"
