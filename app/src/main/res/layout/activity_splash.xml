@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/splash.item.margin"
         android:text="@string/bai16" />
-        android:text="@string/bai8" />
+    android:text="@string/bai8" />
 
     <Button
         android:id="@+id/btnBai20"
@@ -61,4 +61,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/splash.item.margin"
         android:text="@string/bai20" />
+
+    <Button
+        android:id="@+id/btnBai23"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/splash.item.margin"
+        android:text="@string/bai23" />
 </LinearLayout>

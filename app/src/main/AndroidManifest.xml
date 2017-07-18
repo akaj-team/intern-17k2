@@ -28,6 +28,7 @@
         <activity android:name=".friend.FriendActivity" />
         <activity android:name=".day13.ChatActivity" />
         <activity android:name=".day15.ui.QuestionActivity" />
+        <activity android:name=".day23.UploadActivity" />
         <activity android:name=".day20.ui.MusicActivity" />
 
         <service
@@ -36,5 +37,4 @@
             android:exported="false" />
 
     </application>
-
 </manifest>
