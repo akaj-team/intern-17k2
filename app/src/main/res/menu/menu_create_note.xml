@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/mnAttachFile"
-        android:icon="@drawable/ic_attach_file_black_36dp"
-        android:title="@string/menu.item_attachFile"
+        android:icon="@drawable/ic_attach_file_black"
+        android:title="@string/menu_item_attachFile"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/mnSave"
-        android:icon="@drawable/ic_save_black_36dp"
-        android:title="@string/menu.item_save"
+        android:icon="@drawable/ic_save_black"
+        android:title="@string/menu_item_save"
         app:showAsAction="ifRoom" />
 </menu>
