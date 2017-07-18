@@ -2,6 +2,7 @@ package vn.asiantech.internship.testUI;
 
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.RootMatchers;
 import android.support.test.espresso.matcher.ViewMatchers;
@@ -9,6 +10,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,17 +27,16 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
  * Created by at-dinhvo on 12/07/2017.
  */
 @RunWith(AndroidJUnit4.class)
-public class NoteUITest {
+public class AddNoteUITest {
 
     @Rule
-    private ActivityTestRule<NoteActivity> mActivityRule = new ActivityTestRule(NoteActivity.class);
+    public ActivityTestRule<NoteActivity> mActivityRule = new ActivityTestRule(NoteActivity.class);
 
-    @Test
-    public void showUI() {
+    @Before
+    public void showListFragment() {
         Espresso.onView(ViewMatchers.withId(R.id.recycleViewNote))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        Espresso.onView(ViewMatchers.withId(R.id.mnAdd)).perform(click())
-                .check(matches(isDisplayed()));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()))
+                .check(ViewAssertions.doesNotExist());
     }
 
     @Test
@@ -79,6 +80,4 @@ public class NoteUITest {
                 .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.is(mActivityRule.getActivity().getWindow().getDecorView()))))
                 .check(matches(isDisplayed()));
     }
-
-
 }

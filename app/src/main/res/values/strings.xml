@@ -2,6 +2,8 @@
     <string name="app_name">Internship</string>
     <!--Splash-->
     <string name="bai7.2">Bai7.2</string>
+    <string name="bai8">Bai8</string>
+    <string name="bai20">Bai20</string>
     <string name="baiFriend">BaiFriend</string>
     <string name="baiNote">BaiNote</string>
     <string name="bai15">Bai15</string>
@@ -14,6 +16,7 @@
     <string name="friendFragment_button_friend_add">Add</string>
     <!--Bai13-->
     <string name="textView_title">Title</string>
+    <string name="button_message">Send</string>
     <string name="textView_content">Content</string>
     <string name="menu_item_add">Add Note</string>
     <string name="menu_item_attachFile">Attach File</string>
@@ -21,8 +24,6 @@
     <string name="toolBar_title_screenAdd">Add Note</string>
     <string name="toolBar_title_screenList">List Note</string>
     <!--Bai15-->
-    <string name="bai8">Bai8</string>
-    <string name="bai20">Bai20</string>
     <string name="drawer_open">Draw open</string>
     <string name="drawer_close">Draw close</string>
     <string name="header_name">at-dinhvo</string>
@@ -49,9 +50,7 @@
         <item>Gallery</item>
         <item>Camera</item>
     </string-array>
-    <!--Bai13-->
-    <string name="button_message">Send</string>
-    <!--Bai15-->
+    <!--Question-->
     <string name="question_next">Next</string>
     <string name="question_previous">Prev</string>
     <string name="result_item_title">Result</string>
