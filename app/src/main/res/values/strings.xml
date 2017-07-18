@@ -2,12 +2,14 @@
     <string name="app_name">Internship</string>
     <!--Splash-->
     <string name="bai7.2">Bai7.2</string>
+    <string name="bai21">Bai21</string>
     <string name="baiFriend">BaiFriend</string>
     <string name="baiNote">BaiNote</string>
     <string name="bai15">Bai15</string>
     <string name="baiQuestion">Question</string>
     <string name="bai13">Bai13</string>
     <string name="bai16">Bai16</string>
+    <string name="bai22">Bai22</string>
     <!--Bai7-->
     <string name="textView_input">Input Text</string>
     <string name="friendFragment_button_friend_state">Friend</string>
@@ -57,9 +59,14 @@
     <string name="result_item_title">Result</string>
     <string name="result_item_image_description">True of False</string>
     <string name="result_activity_title">Question 1</string>
-    <string name="result_dialog_button_ok">Ok</string>
+    <string name="result_dialog_button_ok">OK</string>
     <string name="result_dialog_button_exit">Cancel</string>
     <string name="result_dialog_message">Do you want to show result?</string>
+    <!--Contact-->
+    <string name="contact_email">Email: </string>
+    <string name="contact_phone">Phone: </string>
+    <string name="contact_title">Contact List: </string>
+    <string name="dialog_wait">Please wait… </string>
     <!--Music-->
     <string name="currentTime">00:00</string>
     <string name="music_title">Simple Music App</string>
