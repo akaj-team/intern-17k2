@@ -36,7 +36,6 @@ public class GetContactsAsyncTask extends AsyncTask<String, Void, ArrayList<Cont
     protected ArrayList<Contact> doInBackground(String... params) {
         HttpHandler httpHandler = new HttpHandler();
         String json = httpHandler.makeServiceCall(params[0]);
-        Log.i("tag11", json);
         try {
             JSONObject jsonObject = new JSONObject(json);
             if (jsonObject.has("contacts") && jsonObject.optJSONArray("contacts") != null) {
