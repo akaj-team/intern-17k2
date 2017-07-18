@@ -9,14 +9,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/titleJson"
+        android:text="@string/contact_title"
         android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/header.name_text_size"
+        android:textSize="@dimen/header.name.text.size"
         android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewJson"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/feed.layout_padding" />
+        android:layout_margin="@dimen/feed.layout.padding" />
 </LinearLayout>

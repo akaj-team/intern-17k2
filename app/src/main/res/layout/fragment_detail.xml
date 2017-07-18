@@ -9,13 +9,13 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBarDetailNote"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity.toolbar_height"
+        android:layout_height="@dimen/activity.toolbar.height.default"
         android:background="@color/colorToolbar" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/detail.image_size"
-        android:layout_margin="@dimen/feed.layout_padding">
+        android:layout_height="@dimen/detail.image.size"
+        android:layout_margin="@dimen/feed.layout.padding">
 
         <ImageView
             android:id="@+id/imgDetailNote"
@@ -43,8 +43,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/feed.item_padding"
-            android:layout_marginStart="@dimen/feed.item_padding"
+            android:layout_marginLeft="@dimen/feed.item.padding"
+            android:layout_marginStart="@dimen/feed.item.padding"
             android:gravity="center_vertical"
             android:text="@string/textView_title"
             android:textColor="@color/colorBlack"
@@ -55,16 +55,16 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingLeft="@dimen/feed.item_padding"
-            android:paddingRight="@dimen/feed.item_padding"
+            android:paddingLeft="@dimen/feed.item.padding"
+            android:paddingRight="@dimen/feed.item.padding"
             android:textColor="@color/colorBlack" />
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/feed.item_padding"
-        android:layout_marginStart="@dimen/feed.item_padding"
+        android:layout_marginLeft="@dimen/feed.item.padding"
+        android:layout_marginStart="@dimen/feed.item.padding"
         android:gravity="center_vertical"
         android:text="@string/textView_content"
         android:textColor="@color/colorBlack"
@@ -74,7 +74,7 @@
         android:id="@+id/tvNoteContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/feed.item_padding"
-        android:layout_marginStart="@dimen/feed.item_padding"
+        android:layout_marginLeft="@dimen/feed.item.padding"
+        android:layout_marginStart="@dimen/feed.item.padding"
         android:textColor="@color/colorBlack" />
 </LinearLayout>

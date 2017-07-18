@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/feed.item_marginBottom"
-    android:padding="@dimen/item.layout_padding">
+    android:layout_marginBottom="@dimen/feed.item.marginBottom"
+    android:padding="@dimen/item.layout.padding">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,22 +17,22 @@
             android:id="@+id/tvContactName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/feed.layout_padding"
-            android:layout_marginStart="@dimen/feed.layout_padding"
+            android:layout_marginLeft="@dimen/feed.layout.padding"
+            android:layout_marginStart="@dimen/feed.layout.padding"
             android:layout_weight="1.5"
             android:drawableLeft="@drawable/ic_male"
-            android:drawablePadding="@dimen/item.layout_padding"
+            android:drawablePadding="@dimen/item.layout.padding"
             android:drawableStart="@drawable/ic_male"
             android:textColor="@color/colorName"
-            android:textSize="@dimen/header.name_text_size"
+            android:textSize="@dimen/header.name.text.size"
             android:textStyle="bold"
             tools:text="This is name" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/header.layout_margin"
-            android:layout_marginStart="@dimen/header.layout_margin"
+            android:layout_marginLeft="@dimen/header.layout.margin"
+            android:layout_marginStart="@dimen/header.layout.margin"
             android:layout_weight="3"
             android:orientation="vertical">
 
@@ -40,15 +40,15 @@
                 android:id="@+id/tvContactEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/email"
+                android:text="@string/contact_email"
                 android:textColor="@color/colorEmail" />
 
             <TextView
                 android:id="@+id/tvContactPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/item.textView_margin"
-                android:text="@string/phone"
+                android:layout_marginTop="@dimen/item.textView.margin"
+                android:text="@string/contact_phone"
                 android:textColor="@color/colorPhone" />
         </LinearLayout>
     </LinearLayout>

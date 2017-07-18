@@ -18,6 +18,16 @@
     <color name="colorRed">#d40636</color>
     <!--Bai16-->
     <color name="colorTab">#5c74af</color>
+
+    <!--Test-->
+    <color name="transparent_black">#aa000000</color>
+    <color name="selected_tab_text">#bb000000</color>
+    <color name="unselected_tab_text">#77000000</color>
+    <color name="shuffle_grey">#ffdedede</color>
+    <color name="background_grey">#ffdedede</color>
+    <color name="transparent">#00000000</color>
+    <color name="black">#ff000000</color>
+    <color name="white">#ffffffff</color>
     <!--Bai21-->
     <color name="colorName">#1b3a86</color>
     <color name="colorEmail">#c95126</color>

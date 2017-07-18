@@ -9,6 +9,8 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.day13.ChatActivity;
 import vn.asiantech.internship.day15.ui.QuestionActivity;
 import vn.asiantech.internship.day16.ui.TabActivity;
+import vn.asiantech.internship.day20.ui.MusicActivity;
+import vn.asiantech.internship.day22.ui.JsonActivity_;
 import vn.asiantech.internship.day7.ui.CommunicateActivity;
 import vn.asiantech.internship.drawer.ui.main.MainActivity;
 import vn.asiantech.internship.friend.FriendActivity;
@@ -63,6 +65,18 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SplashActivity.this, TabActivity.class));
+            }
+        });
+        findViewById(R.id.btnBai20).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SplashActivity.this, MusicActivity.class));
+            }
+        });
+        findViewById(R.id.btnBai22).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SplashActivity.this, JsonActivity_.class));
             }
         });
     }
