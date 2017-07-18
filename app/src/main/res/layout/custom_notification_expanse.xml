@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlNotification"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/notification.expanded.height"
+    android:background="@color/colorDark">
+
+    <ImageView
+        android:id="@+id/imgNotificationMusic"
+        android:layout_width="@dimen/notification.expanded.height"
+        android:layout_height="@dimen/notification.expanded.height"
+        android:layout_alignParentBottom="true"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:id="@+id/llNotificationButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/imgNotificationMusic"
+        android:divider="?android:listDivider"
+        android:dividerPadding="@dimen/feed.item.padding"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+
+        <ImageButton
+            android:id="@+id/imgBtnNotificationPrev"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/play.controls.notification"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="@null"
+            android:padding="@dimen/activity2.layout.padding"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_apollo_holo_dark_prev" />
+
+        <ImageButton
+            android:id="@+id/imgBtnNotificationPlay"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/play.controls.notification"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="@null"
+            android:padding="@dimen/activity2.layout.padding"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_apollo_holo_dark_play" />
+
+        <ImageButton
+            android:id="@+id/imgBtnNotificationNext"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/play.controls.notification"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="@null"
+            android:padding="@dimen/activity2.layout.padding"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_apollo_holo_dark_next" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_above="@+id/llNotificationButton"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/imgNotificationMusic"
+        android:background="?android:dividerHorizontal"
+        android:contentDescription="@null" />
+
+    <ImageButton
+        android:id="@+id/imgBtnNotificationExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="@null"
+        android:padding="@dimen/feed.item.marginBottom"
+        android:src="@drawable/ic_apollo_holo_dark_notifiation_bar_collapse" />
+
+    <LinearLayout
+        android:id="@+id/llInformationSong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_vertical"
+        android:layout_toLeftOf="@+id/imgBtnNotificationExit"
+        android:layout_toRightOf="@+id/imgNotificationMusic"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/notification.padding"
+        android:paddingRight="@dimen/notification.padding"
+        android:paddingTop="@dimen/notification.padding">
+
+        <TextView
+            android:id="@+id/tvNotificationSong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvNotificationSinger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>
