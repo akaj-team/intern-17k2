@@ -61,10 +61,10 @@ class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
         ViewHolder(View itemView) {
             super(itemView);
-            mTvNoteTitle = (TextView) itemView.findViewById(R.id.tvNoteTitle);
-            mTvNoteContent = (TextView) itemView.findViewById(R.id.tvNoteContent);
+            mTvNoteTitle = (TextView) itemView.findViewById(R.id.tvItemNoteTitle);
+            mTvNoteContent = (TextView) itemView.findViewById(R.id.tvItemNoteContent);
             mTvDateTime = (TextView) itemView.findViewById(R.id.tvDateTime);
-            mImgNote = (ImageView) itemView.findViewById(R.id.imgNote);
+            mImgNote = (ImageView) itemView.findViewById(R.id.imgItemNote);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

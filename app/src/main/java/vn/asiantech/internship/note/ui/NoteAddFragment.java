@@ -63,8 +63,8 @@ public class NoteAddFragment extends Fragment {
     }
 
     private void initView(View view) {
-        mEdtTitle = (EditText) view.findViewById(R.id.edtNoteTitle);
-        mEdtContent = (EditText) view.findViewById(R.id.edtNoteContent);
+        mEdtTitle = (EditText) view.findViewById(R.id.edtAddNoteTitle);
+        mEdtContent = (EditText) view.findViewById(R.id.edtAddNoteContent);
         mImageView = (ImageView) view.findViewById(R.id.imgAddNote);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolBarAddNote);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
