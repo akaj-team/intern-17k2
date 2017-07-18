@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -14,8 +15,12 @@ import android.view.View;
  * DrawParabolaView is view draw parabola
  */
 public class DrawParabolaView extends View {
+    private static final String TAG = DrawParabolaView.class.getSimpleName();
     private Paint mPaint;
     private Path mPath;
+    private float mOriginX = 0;
+    private float mOriginY = 0;
+    public boolean mMove = false;
 
     public DrawParabolaView(Context context) {
         super(context);
@@ -38,20 +43,42 @@ public class DrawParabolaView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawLine(50, getHeight() / 2, getWidth() - 50, getHeight() / 2, mPaint);
-        canvas.drawLine(getWidth() / 2, 50, getWidth() / 2, getHeight() - 50, mPaint);
-        mPath.moveTo(getWidth() - 50, getHeight() / 2 - 10);
-        mPath.lineTo(getWidth() - 50, getHeight() / 2 + 10);
-        mPath.lineTo(getWidth() - 10, getHeight() / 2);
+        setBackgroundColor(Color.BLACK);
+//        if (mMove) {
+        canvas.translate(mOriginX, mOriginY);
+        Log.d(TAG, "onDraw: " + mOriginX + " " + mOriginY);
+//        }
+        float k = getWidth() / 2 / 5;
+        //draw 2 lines
+        canvas.drawLine(getWidth() / 2 - 100 * k, getHeight() / 2, getWidth() / 2 + 100 * k, getHeight() / 2, mPaint);
+        canvas.drawLine(getWidth() / 2, getHeight() / 2 - 100 * k, getWidth() / 2, getHeight() / 2 + 100 * k, mPaint);
+
+        //draw 2 arrows
+        mPath.moveTo(getWidth() - 50 - mOriginX, getHeight() / 2 - 10);
+        mPath.lineTo(getWidth() - 50 - mOriginX, getHeight() / 2 + 10);
+        mPath.lineTo(getWidth() - mOriginX, getHeight() / 2);
         mPaint.setStyle(Paint.Style.FILL);
         canvas.drawPath(mPath, mPaint);
+        mPath.reset();
 
-        mPath.moveTo(getWidth() / 2 - 10, 50);
-        mPath.lineTo(getWidth() / 2 + 10, 50);
-        mPath.lineTo(getWidth() / 2, 10);
+        mPath.moveTo(getWidth() / 2 - 10, 50 - mOriginY);
+        mPath.lineTo(getWidth() / 2 + 10, 50 - mOriginY);
+        mPath.lineTo(getWidth() / 2, 0 - mOriginY);
         canvas.drawPath(mPath, mPaint);
+        mPath.reset();
         mPaint.setStyle(Paint.Style.STROKE);
-        float k = getWidth() / 2 / 5;
+
+        //draw points
+        mPaint.setColor(Color.GREEN);
+        mPaint.setStrokeWidth(5);
+        for (int j = 0; j < 100; j++) {
+            canvas.drawPoint(getWidth() / 2, getHeight() / 2 + j * k, mPaint);
+            canvas.drawPoint(getWidth() / 2, getHeight() / 2 - j * k, mPaint);
+            canvas.drawPoint(getWidth() / 2 + j * k, getHeight() / 2, mPaint);
+            canvas.drawPoint(getWidth() / 2 - j * k, getHeight() / 2, mPaint);
+        }
+        mPaint.setColor(Color.WHITE);
+        mPaint.setStrokeWidth(3);
         float x = -5;
         float y = getY(-5);
         for (double i = -5; i < 5; i += 0.01f) {
@@ -59,6 +86,7 @@ public class DrawParabolaView extends View {
             x = (float) i;
             y = getY((float) i);
         }
+
     }
 
     private float getXCanvas(float x, float k) {
@@ -73,8 +101,9 @@ public class DrawParabolaView extends View {
         return 3 * x * x - 4 * x + 1;
     }
 
-    @Override
-    public void setOnTouchListener(OnTouchListener l) {
-        super.setOnTouchListener(l);
+    public void move(float oX, float oY) {
+        mOriginX += oX;
+        mOriginY += oY;
+        invalidate();
     }
 }
