@@ -43,6 +43,7 @@ public class NoteFragment extends Fragment {
         ImageView imgAdd = (ImageView) view.findViewById(R.id.imgAddNote);
         RecyclerView recyclerViewNote = (RecyclerView) view.findViewById(R.id.recyclerViewNote);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setAutoMeasureEnabled(true);
         recyclerViewNote.setLayoutManager(linearLayoutManager);
         mDataPasser = (OnDataPass) getActivity();
 

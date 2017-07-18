@@ -24,8 +24,8 @@ import vn.asiantech.internship.R;
  * Created by sony on 04/07/2017.
  */
 @EActivity(R.layout.activity_contact_annotation)
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class ContactAnnotationActivity extends AppCompatActivity {
+    private static final String TAG = ContactAnnotationActivity.class.getSimpleName();
     private static final String URL = "http://api.androidhive.info/contacts/";
     private final ArrayList<Contact> mContacts = new ArrayList<>();
     private ProgressDialog mProgressDialog;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     void initView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mProgressDialog = new ProgressDialog(MainActivity.this);
+        mProgressDialog = new ProgressDialog(ContactAnnotationActivity.this);
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();

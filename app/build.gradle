@@ -23,6 +23,12 @@ android {
         lintConfig file('lint.xml')
         xmlOutput file("${buildDir}/outputs/lint-results.xml")
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 dependencies {
