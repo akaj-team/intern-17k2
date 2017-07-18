@@ -35,6 +35,7 @@ public class MusicActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
 
     private ArrayList<Song> mSongs;
+    private boolean mIsExit;
     private BroadcastReceiver mExitReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -111,8 +112,12 @@ public class MusicActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if(mIsExit){
+            super.onBackPressed();
+        }
         mRecyclerView.setVisibility(View.VISIBLE);
         mFrameLayout.setVisibility(View.GONE);
+        mIsExit = !mIsExit;
     }
 
     private void showMediaPlayer(int position) {
