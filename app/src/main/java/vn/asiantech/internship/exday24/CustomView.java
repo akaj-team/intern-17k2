@@ -28,6 +28,8 @@ public class CustomView extends View {
     private double mOldDistance;
     private ScaleGestureDetector mScale;
     private float scale = 1.f;
+    private int mWidth;
+    private int mHeight;
 
     public CustomView(Context context) {
         super(context);
@@ -44,48 +46,87 @@ public class CustomView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int width = getWidth();
-        int height = getHeight();
+        mWidth = getWidth();
+        mHeight = getHeight();
         if (!mIsDraw) {
-            mPointO.x = width / 2;
-            mPointO.y = height / 2;
+            mPointO.x = mWidth / 2;
+            mPointO.y = mHeight / 2;
             mIsDraw = true;
         }
         canvas.save();
         canvas.scale(scale, scale);
+        drawOx(canvas);
+        drawOy(canvas);
+        drawSmallLine(canvas);
+        drawGraph(canvas);
+        canvas.restore();
+    }
+
+    private void drawGraph(Canvas canvas) {
+        mPaint.setColor(Color.RED);
+        mPaint.setStrokeWidth(2);
+        Point oldPoint = equation(3, -4, 1, 0);
+        Point newPoint;
+        for (int i = 1; i < mWidth; i++) {
+            newPoint = equation(3, -4, 1, i);
+            canvas.drawLine(oldPoint.x, oldPoint.y, newPoint.x, newPoint.y, mPaint);
+            oldPoint = newPoint;
+        }
+    }
+
+    private void drawSmallLine(Canvas canvas) {
+        // Oy
+        for (double i = Math.ceil((0.0 - mPointO.x) / unit); i <= Math.ceil((mWidth * 1.0 - mPointO.x) / unit); i++) {
+            mPaint.setColor(Color.RED);
+            mPaint.setStrokeWidth(3);
+            canvas.drawCircle((float) (mPointO.x + i * unit), mPointO.y, 3, mPaint);
+            if ((int) i != 0 && (int) i < mWidth - 30) {
+                initColor();
+                canvas.drawLine((float) (mPointO.x + i * unit), 0, (float) (mPointO.x + i * unit), mHeight, mPaint);
+                canvas.drawText("x", mWidth - 30, mPointO.y - 30, mPaint);
+                canvas.drawText(String.valueOf((int) i), (float) (mPointO.x + i * unit), mPointO.y + 30, mPaint);
+                mPaint.setStrokeWidth(1);
+            }
+        }
+        mPaint.setStrokeWidth(2);
+        //Ox
+        for (double i = Math.ceil((0.0 - mPointO.y) / unit); i <= Math.ceil((mHeight * 1.0 - mPointO.y) / unit); i++) {
+            mPaint.setColor(Color.RED);
+            mPaint.setStrokeWidth(3);
+            canvas.drawCircle(mPointO.x, (float) (mPointO.y + i * unit), 3, mPaint);
+            if ((int) i != 0) {
+                initColor();
+                canvas.drawLine(0, (float) (mPointO.y + i * unit), mWidth, (float) (mPointO.y + i * unit), mPaint);
+                canvas.drawText("y", mPointO.x + 30, mHeight / 50, mPaint);
+                canvas.drawText(String.valueOf((int) -i), mPointO.x - 30, (float) (mPointO.y + i * unit), mPaint);
+                mPaint.setStrokeWidth(1);
+            }
+        }
+    }
+
+    private void drawOx(Canvas canvas) {
         // Draw Ox
-        if (mPointO.y >= 0 && mPointO.y <= height) {
+        if (mPointO.y >= 0 && mPointO.y <= mHeight) {
             mPaint.setColor(Color.BLACK);
             mPaint.setTextSize(30);
             canvas.drawText("O", mPointO.x - 30, mPointO.y + 30, mPaint);
             mPaint.setStrokeWidth(4);
-            canvas.drawLine(0, mPointO.y, width, mPointO.y, mPaint);
-            mPath.moveTo(width, mPointO.y);
-            mPath.lineTo(width - 15, mPointO.y - 10);
-            mPath.lineTo(width - 7.5f, mPointO.y);
-            mPath.lineTo(width - 15, mPointO.y + 10);
+            canvas.drawLine(0, mPointO.y, mWidth, mPointO.y, mPaint);
+            mPath.moveTo(mWidth, mPointO.y);
+            mPath.lineTo(mWidth - 15, mPointO.y - 10);
+            mPath.lineTo(mWidth - 7.5f, mPointO.y);
+            mPath.lineTo(mWidth - 15, mPointO.y + 10);
             if (mPath != null) {
                 mPaint.setStyle(Paint.Style.FILL);
                 canvas.drawPath(mPath, mPaint);
                 mPath.reset();
             }
-            for (double i = Math.ceil((0.0 - mPointO.x) / unit); i <= Math.ceil((width * 1.0 - mPointO.x) / unit); i++) {
-                mPaint.setColor(Color.RED);
-                mPaint.setStrokeWidth(3);
-                canvas.drawCircle((float) (mPointO.x + i * unit), mPointO.y, 3, mPaint);
-                if ((int) i != 0 && (int) i < width - 30) {
-                    initColor();
-                    canvas.drawLine((float) (mPointO.x + i * unit), 0, (float) (mPointO.x + i * unit), height, mPaint);
-                    canvas.drawText("x", width - 30, mPointO.y - 30, mPaint);
-                    canvas.drawText(String.valueOf((int) i), (float) (mPointO.x + i * unit), mPointO.y + 30, mPaint);
-                    mPaint.setStrokeWidth(1);
-                }
-            }
-            mPaint.setStrokeWidth(2);
         }
+    }
 
+    private void drawOy(Canvas canvas) {
         // Draw Oy
-        if (mPointO.x >= 0 && mPointO.x <= width) {
+        if (mPointO.x >= 0 && mPointO.x <= mWidth) {
             mPaint.setColor(Color.BLACK);
             mPaint.setStrokeWidth(4);
             mPath.moveTo(mPointO.x, 0);
@@ -96,30 +137,8 @@ public class CustomView extends View {
                 canvas.drawPath(mPath, mPaint);
                 mPath.reset();
             }
-            canvas.drawLine(mPointO.x, 0, mPointO.x, height, mPaint);
-            for (double i = Math.ceil((0.0 - mPointO.y) / unit); i <= Math.ceil((height * 1.0 - mPointO.y) / unit); i++) {
-                mPaint.setColor(Color.RED);
-                mPaint.setStrokeWidth(3);
-                canvas.drawCircle(mPointO.x, (float) (mPointO.y + i * unit), 3, mPaint);
-                if ((int) i != 0) {
-                    initColor();
-                    canvas.drawLine(0, (float) (mPointO.y + i * unit), width, (float) (mPointO.y + i * unit), mPaint);
-                    canvas.drawText("y", mPointO.x + 30, height / 50, mPaint);
-                    canvas.drawText(String.valueOf((int) -i), mPointO.x - 30, (float) (mPointO.y + i * unit), mPaint);
-                    mPaint.setStrokeWidth(1);
-                }
-            }
-            mPaint.setStrokeWidth(2);
+            canvas.drawLine(mPointO.x, 0, mPointO.x, mHeight, mPaint);
         }
-        mPaint.setColor(Color.RED);
-        Point oldPoint = equation(3, -4, 1, 0);
-        Point newPoint;
-        for (int i = 1; i < width; i++) {
-            newPoint = equation(3, -4, 1, i);
-            canvas.drawLine(oldPoint.x, oldPoint.y, newPoint.x, newPoint.y, mPaint);
-            oldPoint = newPoint;
-        }
-        canvas.restore();
     }
 
     private void initColor() {
