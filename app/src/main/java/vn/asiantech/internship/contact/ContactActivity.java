@@ -14,7 +14,7 @@ import vn.asiantech.internship.R;
  * Author AsianTech Inc.
  * Created by at-hangtran on 03/07/2017.
  */
-public class MainActivity extends AppCompatActivity {
+public class ContactActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private RecyclerView mRecyclerView;
     private ArrayList<Contact> mContacts = new ArrayList<>();
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        mProgressDialog = new ProgressDialog(MainActivity.this);
+        mProgressDialog = new ProgressDialog(ContactActivity.this);
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();

@@ -14,7 +14,7 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-20
  */
-class NoteActivity extends AppCompatActivity implements NoteFragment.OnDataPass {
+public class NoteActivity extends AppCompatActivity implements NoteFragment.OnDataPass {
     private FragmentManager mFragmentManager;
 
     @Override
