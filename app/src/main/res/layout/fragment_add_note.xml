@@ -8,14 +8,14 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBarAddNote"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity.toolbar_height"
+        android:layout_height="@dimen/activity.toolbar.height.default"
         android:background="@color/colorToolbar" />
 
     <ImageView
         android:id="@+id/imgAddNote"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/detail.image_size"
-        android:layout_margin="@dimen/feed.item_padding"
+        android:layout_height="@dimen/detail.image.size"
+        android:layout_margin="@dimen/feed.item.padding"
         android:background="@color/colorGrayLight"
         android:contentDescription="@string/textView_input" />
 
@@ -28,8 +28,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/feed.item_padding"
-            android:layout_marginStart="@dimen/feed.item_padding"
+            android:layout_marginLeft="@dimen/feed.item.padding"
+            android:layout_marginStart="@dimen/feed.item.padding"
             android:gravity="center_vertical"
             android:text="@string/textView_title"
             android:textColor="@color/colorBlack"
@@ -42,15 +42,15 @@
             android:layout_weight="1"
             android:hint="@string/textView_title"
             android:inputType="text"
-            android:paddingLeft="@dimen/feed.item_padding"
-            android:paddingRight="@dimen/feed.item_padding" />
+            android:paddingLeft="@dimen/feed.item.padding"
+            android:paddingRight="@dimen/feed.item.padding" />
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/feed.item_padding"
-        android:layout_marginStart="@dimen/feed.item_padding"
+        android:layout_marginLeft="@dimen/feed.item.padding"
+        android:layout_marginStart="@dimen/feed.item.padding"
         android:gravity="center_vertical"
         android:text="@string/textView_content"
         android:textColor="@color/colorBlack"
@@ -60,8 +60,8 @@
         android:id="@+id/edtNoteContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/feed.item_padding"
-        android:layout_marginStart="@dimen/feed.item_padding"
+        android:layout_marginLeft="@dimen/feed.item.padding"
+        android:layout_marginStart="@dimen/feed.item.padding"
         android:hint="@string/textView_content"
         android:inputType="text" />
 </LinearLayout>

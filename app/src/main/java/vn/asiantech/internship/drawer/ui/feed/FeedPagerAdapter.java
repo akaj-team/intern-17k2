@@ -66,11 +66,6 @@ class FeedPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public int getItemPosition(Object object) {
-        return super.getItemPosition(object);
-    }
-
-    @Override
     public boolean isViewFromObject(View view, Object object) {
         return view.equals(object);
     }

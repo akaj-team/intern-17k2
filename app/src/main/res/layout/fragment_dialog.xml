@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/colorDialog"
     android:orientation="vertical"
-    android:padding="@dimen/activity_horizontal_margin">
+    android:padding="@dimen/activity.horizontal.margin">
 
     <TextView
         android:id="@+id/tvPoint"
@@ -13,18 +13,18 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/colorRed"
-        android:textSize="@dimen/result.item.textPoint_size"
+        android:textSize="@dimen/result.item.textPoint.size"
         android:textStyle="bold"
         tools:text="550" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity.content_margin"
+        android:layout_marginTop="@dimen/activity.content.margin"
         android:gravity="center"
-        android:text="@string/result.dialog.message"
+        android:text="@string/result_dialog_message"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/result.item.text_size" />
+        android:textSize="@dimen/result.item.text.size" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,16 +35,16 @@
             android:id="@+id/btnExit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_margin="@dimen/activity.horizontal.margin"
             android:layout_weight="1"
-            android:text="@string/result.dialog.button.exit" />
+            android:text="@string/result_dialog_button_exit" />
 
         <Button
             android:id="@+id/btnOk"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_margin="@dimen/activity.horizontal.margin"
             android:layout_weight="1"
-            android:text="@string/result.dialog.button.ok" />
+            android:text="@string/result_dialog_button_ok" />
     </LinearLayout>
 </LinearLayout>

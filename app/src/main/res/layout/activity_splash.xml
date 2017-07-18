@@ -3,54 +3,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/activity_horizontal_margin">
+    android:padding="@dimen/activity.horizontal.margin">
 
     <Button
         android:id="@+id/btnBai7ex2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/splash_item_margin"
+        android:layout_marginTop="@dimen/splash.item.margin"
         android:text="@string/bai7.2" />
 
     <Button
         android:id="@+id/btnFriend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/splash_item_margin"
+        android:layout_marginTop="@dimen/splash.item.margin"
         android:text="@string/baiFriend" />
 
     <Button
         android:id="@+id/btnNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/splash_item_margin"
+        android:layout_marginTop="@dimen/splash.item.margin"
         android:text="@string/baiNote" />
 
     <Button
         android:id="@+id/btnBai15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/splash_item_margin"
+        android:layout_marginTop="@dimen/splash.item.margin"
         android:text="@string/bai15" />
 
     <Button
         android:id="@+id/btnBai13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/splash_item_margin"
+        android:layout_marginTop="@dimen/splash.item.margin"
         android:text="@string/bai13" />
 
     <Button
         android:id="@+id/btnQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/splash_item_margin"
+        android:layout_marginTop="@dimen/splash.item.margin"
         android:text="@string/baiQuestion" />
 
     <Button
         android:id="@+id/btnBai16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/splash_item_margin"
+        android:layout_marginTop="@dimen/splash.item.margin"
         android:text="@string/bai16" />
+        android:text="@string/bai8" />
+
+    <Button
+        android:id="@+id/btnBai20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/splash.item.margin"
+        android:text="@string/bai20" />
 </LinearLayout>

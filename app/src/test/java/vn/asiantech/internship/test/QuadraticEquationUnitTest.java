@@ -30,7 +30,6 @@ public class QuadraticEquationUnitTest {
         when(mParameter.getA()).thenReturn(3f);
         when(mParameter.getB()).thenReturn(-4f);
         when(mParameter.getC()).thenReturn(1f);
-        System.out.print(mQuadraticEquation.getDelta(mParameter.getA(), mParameter.getB(), mParameter.getC()));
         when(mQuadraticEquation.getDelta(mParameter.getA(), mParameter.getB(), mParameter.getC()))
                 .thenReturn(4f);
         Assert.assertEquals(mQuadraticEquation.getDelta(mParameter.getA(), mParameter.getB(), mParameter.getC()),
