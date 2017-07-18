@@ -15,7 +15,7 @@
         <include layout="@layout/toolbar" />
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvSongTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

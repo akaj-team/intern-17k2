@@ -3,6 +3,7 @@
     package="vn.asiantech.internship">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -15,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.viewpager.ViewPagerActivity">
+        <activity android:name=".ui.music.MusicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,5 +29,8 @@
         <activity android:name=".ui.feed.FeedActivity" />
         <activity android:name=".ui.fragments.SendDataActivity" />
         <activity android:name=".ui.chat.ChatActivity" />
+        <activity android:name=".ui.music.SongPlayingActivity" />
+
+        <service android:name=".services.MusicService" />
     </application>
 </manifest>

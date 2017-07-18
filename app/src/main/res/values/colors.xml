@@ -21,4 +21,6 @@
     <color name="tab.selected.true">#0432b1</color>
     <color name="tab.selected.false">#5e4d4d</color>
     <color name="line">#d1a3a3</color>
+    <color name="white">#fff</color>
+    <color name="music.background">#d6aae7</color>
 </resources>
