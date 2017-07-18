@@ -14,6 +14,7 @@ import vn.asiantech.internship.ui.main.ChatActivity;
 import vn.asiantech.internship.ui.main.FootballStarActivity;
 import vn.asiantech.internship.ui.main.ContactActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
+import vn.asiantech.internship.ui.main.MusicActivity;
 import vn.asiantech.internship.ui.main.NoteActivity;
 import vn.asiantech.internship.ui.main.PassDataActivity;
 import vn.asiantech.internship.ui.main.TestActivity;
@@ -21,7 +22,6 @@ import vn.asiantech.internship.ui.main.TestActivity;
 /**
  * Created by PC on 6/15/2017.
  */
-
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         Button btnDay15 = (Button) findViewById(R.id.btnDay15);
         Button btnDay21 = (Button) findViewById(R.id.btnDay21);
         Button btnDay16 = (Button) findViewById(R.id.btnDay16);
+        Button btnDay19 = (Button) findViewById(R.id.btnDay19);
 
         btnDay5.setOnClickListener(this);
         btnDay6.setOnClickListener(this);
@@ -45,6 +46,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         btnDay13.setOnClickListener(this);
         btnDay15.setOnClickListener(this);
         btnDay16.setOnClickListener(this);
+        btnDay19.setOnClickListener(this);
         btnDay21.setOnClickListener(this);
     }
 
@@ -82,6 +84,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btnDay16:
                 Intent intent16 = new Intent(SplashActivity.this, FootballStarActivity.class);
                 startActivity(intent16);
+                break;
+            case R.id.btnDay19:
+                Intent intent19 = new Intent(SplashActivity.this, MusicActivity.class);
+                startActivity(intent19);
                 break;
             case R.id.btnDay21:
                 Intent intent21 = new Intent(SplashActivity.this, ContactActivity.class);
