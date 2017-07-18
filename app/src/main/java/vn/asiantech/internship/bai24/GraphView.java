@@ -22,7 +22,12 @@ public class GraphView extends CustomView {
     private int mRatio = 30;
     private Point mNewPosition;
     private Point mRootPoint;
-    private boolean isDrawed;
+    private boolean isDrawer;
+    // expanse
+    private float mFirstX;
+    private float mFirstY;
+    private float mLastX;
+    private float mLastY;
 
     public GraphView(Context context) {
         super(context);
@@ -38,7 +43,6 @@ public class GraphView extends CustomView {
     }
 
     private void initPaint() {
-        Log.e(TAG, "initPaint: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(4);
@@ -49,15 +53,14 @@ public class GraphView extends CustomView {
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (!isDrawed) {
+        if (!isDrawer) {
             mRootPoint.x = getWidth() / 2;
             mRootPoint.y = getHeight() / 2;
-            isDrawed = true;
+            isDrawer = true;
         }
         drawPivot(canvas);
         drawGrid(canvas);
         drawGraph(canvas);
-        Log.e(TAG, "onDraw: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + mRootPoint.x);
     }
 
     private void drawGraph(Canvas canvas) {
@@ -124,9 +127,18 @@ public class GraphView extends CustomView {
             case MotionEvent.ACTION_DOWN:
                 mNewPosition.x = (int) event.getX();
                 mNewPosition.y = (int) event.getY();
+                Log.e(TAG, "onTouch_ROOT: X1 = " + mRootPoint.x + ", Y1 = " + mRootPoint.y);
                 Log.e(TAG, "onTouch_DOWN: X1 = " + mNewPosition.x + ", Y1 = " + mNewPosition.y);
-                mRootPoint.x += mNewPosition.x;
-                mRootPoint.y += mNewPosition.y;
+                if(mNewPosition.x < mRootPoint.x){
+                    mRootPoint.x -= mNewPosition.x / mRatio;
+                }else {
+                    mRootPoint.x += mNewPosition.x / mRatio;
+                }
+                if(mNewPosition.y < mRootPoint.y){
+                    mRootPoint.y -= mNewPosition.y / mRatio;
+                }else {
+                    mRootPoint.y += mNewPosition.y / mRatio;
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (event.getPointerCount() == 2) {
@@ -134,6 +146,7 @@ public class GraphView extends CustomView {
                     float y2 = event.getY(0);
                     float x3 = event.getX(1);
                     float y3 = event.getY(1);
+
                     Log.e(TAG, "onTouchEvent: X3 = " + x2 + ", Y3 = " + y2 + "; X3 = " + x3 + ", Y3 = " + y3);
                 }
                 break;
