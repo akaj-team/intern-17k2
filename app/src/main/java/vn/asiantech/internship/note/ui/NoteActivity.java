@@ -9,7 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.note.ui.NoteFragment.OnChangeFragment;
+import vn.asiantech.internship.note.ui.NoteFragment.OnChangeViewListener;
 
 /**
  * NoteActivity
@@ -24,9 +24,9 @@ public class NoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_note);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         NoteFragment noteFragment = new NoteFragment();
-        OnChangeFragment onChangeFragment = new OnChangeFragment() {
+        OnChangeViewListener onChangeViewListener = new OnChangeViewListener() {
             @Override
-            public void onChange(int key, int id) {
+            public void onChangeFragment(int key, int id) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 switch (key) {
                     case 1:
@@ -43,7 +43,7 @@ public class NoteActivity extends AppCompatActivity {
                 fragmentTransaction.commit();
             }
         };
-        noteFragment.setOnChangeFragment(onChangeFragment);
+        noteFragment.setOnChangeFragment(onChangeViewListener);
         transaction.replace(R.id.frContainer, noteFragment);
         transaction.commit();
         if (ContextCompat.checkSelfPermission(NoteActivity.this,

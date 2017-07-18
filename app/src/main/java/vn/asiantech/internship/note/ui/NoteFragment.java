@@ -30,17 +30,17 @@ public class NoteFragment extends Fragment {
     private Toolbar mToolbar;
 
     private NoteDatabase mNoteDatabase;
-    private OnChangeFragment mOnChangeFragment;
+    private OnChangeViewListener mOnChangeViewListener;
 
     /**
      * interface to change fragment
      */
-    interface OnChangeFragment {
-        void onChange(int key, int id);
+    interface OnChangeViewListener {
+        void onChangeFragment(int key, int id);
     }
 
-    public void setOnChangeFragment(OnChangeFragment onChangeFragment) {
-        mOnChangeFragment = onChangeFragment;
+    public void setOnChangeFragment(OnChangeViewListener onChangeViewListener) {
+        mOnChangeViewListener = onChangeViewListener;
     }
 
     public NoteFragment() {
@@ -70,10 +70,10 @@ public class NoteFragment extends Fragment {
         mToolbar.setTitle(R.string.toolBar_title_screenList);
         List<Note> mNotes = mNoteDatabase.getAllData();
         Log.e("Data_Size", "Size: " + mNotes.size());
-        NoteAdapter mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnClickItemNote() {
+        NoteAdapter mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnItemClickListener() {
             @Override
             public void onClick(int id) {
-                mOnChangeFragment.onChange(2, id);
+                mOnChangeViewListener.onChangeFragment(2, id);
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -85,7 +85,7 @@ public class NoteFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mnAdd) {
-            mOnChangeFragment.onChange(1, 0);
+            mOnChangeViewListener.onChangeFragment(1, 0);
         }
         return super.onOptionsItemSelected(item);
     }

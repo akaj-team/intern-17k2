@@ -19,11 +19,11 @@ import vn.asiantech.internship.note.model.Note;
 class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     private List<Note> mNotes;
-    private OnClickItemNote mOnClickItemNote;
+    private OnItemClickListener mOnItemClickListener;
 
-    NoteAdapter(List<Note> data, OnClickItemNote onClickItemNote) {
+    NoteAdapter(List<Note> data, OnItemClickListener onItemClickListener) {
         mNotes = data;
-        mOnClickItemNote = onClickItemNote;
+        mOnItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -68,7 +68,7 @@ class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mOnClickItemNote.onClick(mNotes.get(getAdapterPosition()).getId());
+                    mOnItemClickListener.onClick(mNotes.get(getAdapterPosition()).getId());
                 }
             });
         }
@@ -77,7 +77,7 @@ class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     /**
      * send position
      */
-    interface OnClickItemNote {
+    interface OnItemClickListener {
         void onClick(int pos);
     }
 }
