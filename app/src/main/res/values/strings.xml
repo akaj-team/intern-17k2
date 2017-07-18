@@ -75,4 +75,7 @@ Chôn vùi theo làn mây</string>
     <string name="confirm_message">You are complete %1$d / %2$d.Do you want to submit?</string>
     <string name="re_test_title">Retest confirm</string>
     <string name="re_test_message">Do you want to retest?</string>
+    <string name="song_title">%1$s - %2$s</string>
+    <string name="image_url">https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg</string>
+    <string name="song_url">http://api.mp3.zing.vn/api/mobile/song/getsonginfo?requestdata={\"id\":\"%s\"}</string>
 </resources>
