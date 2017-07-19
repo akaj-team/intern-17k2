@@ -117,19 +117,24 @@ public class CustomView extends View {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
+    public void setOnTouchListener(OnTouchListener l) {
+
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+        switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (event.getPointerCount() == 1) {
-                    mStartPoint = new Point(event.getX(), event.getY());
+                if (motionEvent.getPointerCount() == 1) {
+                    mStartPoint = new Point(motionEvent.getX(), motionEvent.getY());
                 } else {
                     mStartPoint = new Point(getWidth() / 2, getHeight() / 2);
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (event.getPointerCount() == 1) {
+                if (motionEvent.getPointerCount() == 1) {
                     if (mDistance == 0) {
-                        mTransPoint = new Point(event.getX(), event.getY());
+                        mTransPoint = new Point(motionEvent.getX(), motionEvent.getY());
                         Point point = new Point(mTransPoint.getX() - mStartPoint.getX(), mTransPoint.getY() - mStartPoint.getY());
                         mCenterX += point.getX();
                         mCenterY += point.getY();
@@ -138,15 +143,15 @@ public class CustomView extends View {
                             mTransPoint = new Point(mCenterPoint.getX(), mCenterPoint.getY());
                         }
                     }
-                } else if (event.getPointerCount() == 2) {
+                } else if (motionEvent.getPointerCount() == 2) {
                     if (mDistance == 0) {
-                        float x = event.getX(1) - event.getX(0);
-                        float y = event.getY(1) - event.getY(0);
+                        float x = motionEvent.getX(1) - motionEvent.getX(0);
+                        float y = motionEvent.getY(1) - motionEvent.getY(0);
                         mDistance = (float) Math.sqrt(x * x + y * y);
                     } else {
-                        float x = event.getX(1) - event.getX(0);
-                        float y = event.getY(1) - event.getY(0);
-                        mCenterPoint = new Point((event.getX(1) - event.getX(0)) / 2, (event.getY(1) - event.getY(0)) / 2);
+                        float x = motionEvent.getX(1) - motionEvent.getX(0);
+                        float y = motionEvent.getY(1) - motionEvent.getY(0);
+                        mCenterPoint = new Point((motionEvent.getX(1) - motionEvent.getX(0)) / 2, (motionEvent.getY(1) - motionEvent.getY(0)) / 2);
                         if (((float) Math.sqrt(x * x + y * y)) != mDistance) {
                             float scale = ((float) Math.sqrt(x * x + y * y)) / (mDistance);
                             if (scale * mUnit > 10 && scale * mUnit < 400) {
@@ -161,7 +166,8 @@ public class CustomView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 mDistance = 0;
-                mStartPoint = new Point(event.getX(), event.getY());
+                mStartPoint = new Point(motionEvent.getX(), motionEvent.getY());
+                performClick();
                 break;
         }
         mPoints.clear();
