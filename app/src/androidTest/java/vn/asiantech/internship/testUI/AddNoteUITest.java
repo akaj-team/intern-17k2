@@ -7,7 +7,6 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,15 +28,11 @@ public class AddNoteUITest {
     @Rule
     public ActivityTestRule<NoteActivity> mActivityRule = new ActivityTestRule(NoteActivity.class);
 
-    @Before
-    public void showListFragment() {
+    @Test
+    public void checkValidateNote() {
         Espresso.onView(ViewMatchers.withId(R.id.mnAdd))
                 .perform(click())
                 .check(ViewAssertions.doesNotExist());
-    }
-
-    @Test
-    public void checkValidateNote() {
         Espresso.onView(ViewMatchers.withId(R.id.edtAddNoteTitle))
                 .perform(typeText("DinhDepTrai"), ViewActions.closeSoftKeyboard())
                 .check(matches(isDisplayed()));

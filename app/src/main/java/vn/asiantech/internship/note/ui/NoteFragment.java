@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +38,7 @@ public class NoteFragment extends Fragment {
         void onChangeFragment(int key, int id);
     }
 
-    public void setOnChangeFragment(OnChangeViewListener onChangeViewListener) {
+    public void setOnChangeViewListener(OnChangeViewListener onChangeViewListener) {
         mOnChangeViewListener = onChangeViewListener;
     }
 
@@ -68,9 +67,8 @@ public class NoteFragment extends Fragment {
     private void initUI() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.toolBar_title_screenList);
-        List<Note> mNotes = mNoteDatabase.getAllData();
-        Log.e("Data_Size", "Size: " + mNotes.size());
-        NoteAdapter mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnItemClickListener() {
+        List<Note> notes = mNoteDatabase.getAllData();
+        NoteAdapter noteAdapter = new NoteAdapter(notes, new NoteAdapter.OnItemClickListener() {
             @Override
             public void onClick(int id) {
                 mOnChangeViewListener.onChangeFragment(2, id);
@@ -78,8 +76,8 @@ public class NoteFragment extends Fragment {
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mNoteAdapter);
-        mNoteAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(noteAdapter);
+        noteAdapter.notifyDataSetChanged();
     }
 
     @Override

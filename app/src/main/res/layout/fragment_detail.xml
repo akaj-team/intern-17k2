@@ -50,16 +50,16 @@
             android:textStyle="bold" />
 
         <EditText
-            android:layout_marginLeft="@dimen/activity2.layout.padding"
-            android:layout_marginStart="@dimen/activity2.layout.padding"
             android:id="@+id/edtNoteTitle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/activity2.layout.padding"
+            android:layout_marginStart="@dimen/activity2.layout.padding"
             android:layout_weight="1"
+            android:inputType="text"
             android:paddingLeft="@dimen/feed.item.padding"
             android:paddingRight="@dimen/feed.item.padding"
-            android:textColor="@color/colorBlack"
-            android:inputType="text" />
+            android:textColor="@color/colorBlack" />
     </LinearLayout>
 
     <TextView
@@ -78,6 +78,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/feed.item.padding"
         android:layout_marginStart="@dimen/feed.item.padding"
-        android:textColor="@color/colorBlack"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textColor="@color/colorBlack" />
 </LinearLayout>

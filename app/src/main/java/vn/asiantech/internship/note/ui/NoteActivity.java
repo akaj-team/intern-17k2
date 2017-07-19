@@ -43,7 +43,7 @@ public class NoteActivity extends AppCompatActivity {
                 fragmentTransaction.commit();
             }
         };
-        noteFragment.setOnChangeFragment(onChangeViewListener);
+        noteFragment.setOnChangeViewListener(onChangeViewListener);
         transaction.replace(R.id.frContainer, noteFragment);
         transaction.commit();
         if (ContextCompat.checkSelfPermission(NoteActivity.this,
