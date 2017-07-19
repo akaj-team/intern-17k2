@@ -1,6 +1,5 @@
 package vn.asiantech.internship;
 
-import android.content.Intent;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
@@ -11,7 +10,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Matchers;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,12 +28,13 @@ import vn.asiantech.internship.ui.main.NoteActivity;
 @RunWith(AndroidJUnit4.class)
 public class DeleteNoteTest {
     @Rule
-    public ActivityTestRule<NoteActivity> activityTestRule = new ActivityTestRule<NoteActivity>(NoteActivity.class);
+    public ActivityTestRule<NoteActivity> mActivityTestRule = new ActivityTestRule<NoteActivity>(NoteActivity.class);
 
     private List<NoteItem> mNotes;
 
     @Test
     public void checkDeleteNote() {
+        testNoteActivity();
         Random random = new Random();
         int pos = random.nextInt(mNotes.size());
         Espresso.onView(ViewMatchers.withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(pos, ViewActions.click())).check(ViewAssertions.doesNotExist());
@@ -52,15 +51,12 @@ public class DeleteNoteTest {
         Espresso.onView(ViewMatchers.withId(R.id.tvNoteTime)).check(ViewAssertions.matches(ViewMatchers.withText(mNotes.get(pos).getStringTime())));
         Espresso.onView(ViewMatchers.withId(R.id.imgDelete)).perform(ViewActions.click()).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withText(R.string.success))
-                .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.is(activityTestRule.getActivity().getWindow().getDecorView()))))
+                .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.is(mActivityTestRule.getActivity().getWindow().getDecorView()))))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
-    @Before
-    public void openNoteActivity() {
-        Intent intent = new Intent();
-        activityTestRule.launchActivity(intent);
-        mNotes = activityTestRule.getActivity().getNotes();
+    private void testNoteActivity() {
+        mNotes = mActivityTestRule.getActivity().getNotes();
         Espresso.onView(ViewMatchers.withId(R.id.llMain)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.tvTitle)).check(ViewAssertions.matches(ViewMatchers.withText(R.string.title_note)));
         Espresso.onView(ViewMatchers.withId(R.id.imgAddImage)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));

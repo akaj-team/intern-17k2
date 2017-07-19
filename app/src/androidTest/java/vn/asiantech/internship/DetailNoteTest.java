@@ -1,6 +1,5 @@
 package vn.asiantech.internship;
 
-import android.content.Intent;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
@@ -10,7 +9,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Matchers;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +26,7 @@ import vn.asiantech.internship.ui.main.NoteActivity;
 @RunWith(AndroidJUnit4.class)
 public class DetailNoteTest {
     @Rule
-    public ActivityTestRule<NoteActivity> activityTestRule = new ActivityTestRule<NoteActivity>(NoteActivity.class);
+    public ActivityTestRule<NoteActivity> mActivityTestRule = new ActivityTestRule<NoteActivity>(NoteActivity.class);
     private List<NoteItem> mNotes;
 
     @Test
@@ -48,11 +46,8 @@ public class DetailNoteTest {
         }
     }
 
-    @Before
     public void openNoteActivity() {
-        Intent intent = new Intent();
-        activityTestRule.launchActivity(intent);
-        mNotes = activityTestRule.getActivity().getNotes();
+        mNotes = mActivityTestRule.getActivity().getNotes();
         Espresso.onView(ViewMatchers.withId(R.id.llMain)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.tvTitle)).check(ViewAssertions.matches(ViewMatchers.withText(R.string.title_note)));
         Espresso.onView(ViewMatchers.withId(R.id.imgAddImage)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
