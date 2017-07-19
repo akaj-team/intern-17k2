@@ -3,7 +3,6 @@ package vn.asiantech.internship.note;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,20 +33,9 @@ public class AddNoteUITest {
     @Rule
     public ActivityTestRule<NoteActivity> mActivityRule = new ActivityTestRule<>(NoteActivity.class);
 
-    @Before
-    public void checkShowAddFragment() {
-        onView(withId(R.id.imgAdd)).perform(click()).check(doesNotExist());
-        onView(withId(R.id.llAdd)).check(matches(isDisplayed()));
-        onView(withId(R.id.tvTitleAdd)).check(matches(isDisplayed()));
-        onView(withId(R.id.imgPicPhoto)).check(matches(isDisplayed()));
-        onView(withId(R.id.imgSave)).check(matches(isDisplayed()));
-        onView(withId(R.id.imgNote)).check(matches(isDisplayed()));
-        onView(withId(R.id.edtTitle)).check(matches(isDisplayed()));
-        onView(withId(R.id.edtContent)).check(matches(isDisplayed()));
-    }
-
     @Test
     public void checkClickSave() {
+        onView(withId(R.id.imgAdd)).perform(click()).check(doesNotExist());
         onView(withId(R.id.edtTitle)).perform(typeText("xxx"), closeSoftKeyboard());
         onView(withId(R.id.edtContent)).perform(typeText("xxx xxx"), closeSoftKeyboard());
         onView(withId(R.id.imgSave)).perform(click()).check(doesNotExist());
@@ -56,6 +44,7 @@ public class AddNoteUITest {
 
     @Test
     public void checkToastWhenBlankContent() {
+        onView(withId(R.id.imgAdd)).perform(click()).check(doesNotExist());
         onView(withId(R.id.edtTitle)).perform(typeText("xxx"), closeSoftKeyboard());
         onView(withId(R.id.imgSave)).perform(click()).check(matches(isDisplayed()));
 
@@ -66,7 +55,18 @@ public class AddNoteUITest {
 
     @Test
     public void checkToastWhenBlankTitle() {
+        onView(withId(R.id.imgAdd)).perform(click()).check(doesNotExist());
         onView(withId(R.id.edtContent)).perform(typeText("xxx"), closeSoftKeyboard());
+        onView(withId(R.id.imgSave)).perform(click()).check(matches(isDisplayed()));
+
+        onView(withText(startsWith("vui long nhap day du")))
+                .inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView()))))
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void checkToastWhenBlankTitleAndContent() {
+        onView(withId(R.id.imgAdd)).perform(click()).check(doesNotExist());
         onView(withId(R.id.imgSave)).perform(click()).check(matches(isDisplayed()));
 
         onView(withText(startsWith("vui long nhap day du")))

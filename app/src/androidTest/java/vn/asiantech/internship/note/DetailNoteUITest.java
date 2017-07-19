@@ -4,7 +4,6 @@ import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,21 +27,10 @@ public class DetailNoteUITest {
     @Rule
     public ActivityTestRule<NoteActivity> mActivityRule = new ActivityTestRule<>(NoteActivity.class);
 
-    @Before
-    public void clickItem() {
-        onView(withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click())).check(doesNotExist());
-        onView(withId(R.id.llDetail)).check(matches(isDisplayed()));
-        onView(withId(R.id.tvTitleDetail)).check(matches(isDisplayed()));
-        onView(withId(R.id.imgDelete)).check(matches(isDisplayed()));
-        onView(withId(R.id.imgEdit)).check(matches(isDisplayed()));
-        onView(withId(R.id.imgNote)).check(matches(isDisplayed()));
-        onView(withId(R.id.tvTitleNote)).check(matches(isDisplayed()));
-        onView(withId(R.id.tvContent)).check(matches(isDisplayed()));
-        onView(withId(R.id.tvDate)).check(matches(isDisplayed()));
-    }
-
     @Test
     public void checkClickDelete() {
+        onView(withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click())).check(doesNotExist());
+
         onView(withId(R.id.imgDelete)).perform(click()).check(doesNotExist());
         onView(withId(R.id.llMain)).check(matches(isDisplayed()));
     }
