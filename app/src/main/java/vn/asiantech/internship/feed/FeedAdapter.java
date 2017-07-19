@@ -69,7 +69,7 @@ class FeedAdapter extends RecyclerView.Adapter {
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
             mTvDescription = (TextView) itemView.findViewById(R.id.tvDescribe);
             mFeedViewPager = (ViewPager) itemView.findViewById(R.id.viewPagerImage);
-            mImgNext = (ImageView) itemView.findViewById(R.id.imgNext);
+            mImgNext = (ImageView) itemView.findViewById(R.id.imgBtnNext);
             mImgBack = (ImageView) itemView.findViewById(R.id.imgBack);
 
             mFeedViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
