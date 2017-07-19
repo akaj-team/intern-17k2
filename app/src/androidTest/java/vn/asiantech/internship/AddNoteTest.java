@@ -22,7 +22,7 @@ import vn.asiantech.internship.notesqlite.NoteActivity;
  */
 @RunWith(AndroidJUnit4.class)
 public class AddNoteTest {
-
+    
     @Rule
     public ActivityTestRule<NoteActivity> mActivityRule = new ActivityTestRule<>(NoteActivity.class);
 

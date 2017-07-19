@@ -14,7 +14,7 @@ import vn.asiantech.internship.R;
  * @version 1.0
  * @since 2017-6-20
  */
-public class NoteActivity extends AppCompatActivity implements NoteFragment.OnDataPass {
+public class NoteActivity extends AppCompatActivity implements NoteFragment.OnGetDataListener {
     private FragmentManager mFragmentManager;
 
     @Override
@@ -40,7 +40,7 @@ public class NoteActivity extends AppCompatActivity implements NoteFragment.OnDa
     }
 
     @Override
-    public void onDataPass(Note note) {
+    public void onGetData(Note note) {
         EditNoteFragment editNoteFragment = new EditNoteFragment();
         FragmentTransaction noteFragmentTransaction = mFragmentManager.beginTransaction();
         noteFragmentTransaction.replace(R.id.flContainer, editNoteFragment);

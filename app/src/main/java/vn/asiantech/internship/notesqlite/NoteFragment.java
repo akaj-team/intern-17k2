@@ -24,7 +24,9 @@ import vn.asiantech.internship.R;
  */
 public class NoteFragment extends Fragment {
     private final List<Note> mNotes = new ArrayList<>();
-    private OnDataPass mDataPasser;
+    private OnGetDataListener mListener;
+    private ImageView mImgAdd;
+    private RecyclerView mRecyclerViewNote;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,36 +41,45 @@ public class NoteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note, container, false);
-        mDataPasser = (OnDataPass) getActivity();
-        ImageView imgAdd = (ImageView) view.findViewById(R.id.imgAddNote);
-        RecyclerView recyclerViewNote = (RecyclerView) view.findViewById(R.id.recyclerViewNote);
+        mListener = (OnGetDataListener) getActivity();
+        initViews(view);
+        setListeners();
+        return view;
+    }
+
+    private void initViews(View view) {
+        mImgAdd = (ImageView) view.findViewById(R.id.imgAddNote);
+        mRecyclerViewNote = (RecyclerView) view.findViewById(R.id.recyclerViewNote);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setAutoMeasureEnabled(true);
-        recyclerViewNote.setLayoutManager(linearLayoutManager);
-        mDataPasser = (OnDataPass) getActivity();
+        mRecyclerViewNote.setLayoutManager(linearLayoutManager);
+    }
 
-        imgAdd.setOnClickListener(new View.OnClickListener() {
+    private void setListeners() {
+        mImgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((NoteActivity) getActivity()).replaceAddNoteFragment();
             }
         });
 
-        recyclerViewNote.setAdapter(new NoteAdapter(mNotes, new NoteAdapter.OnItemClickListener() {
+        mRecyclerViewNote.setAdapter(new NoteAdapter(mNotes, new NoteAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Note note) {
-                passData(note);
+                getData(note);
             }
 
         }));
-        return view;
     }
 
-    private void passData(Note note) {
-        mDataPasser.onDataPass(note);
+    private void getData(Note note) {
+        mListener.onGetData(note);
     }
 
-    interface OnDataPass {
-        void onDataPass(Note note);
+    /**
+     * Used to get note from fragment to activity
+     */
+    interface OnGetDataListener {
+        void onGetData(Note note);
     }
 }
