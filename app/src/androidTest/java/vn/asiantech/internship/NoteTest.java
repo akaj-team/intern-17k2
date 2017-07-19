@@ -28,7 +28,7 @@ import vn.asiantech.internship.ui.note.activity.NoteActivity;
 @RunWith(AndroidJUnit4.class)
 public class NoteTest {
     @Rule
-    public ActivityTestRule<NoteActivity> rule = new ActivityTestRule<>(NoteActivity.class);
+    public ActivityTestRule<NoteActivity> mRule = new ActivityTestRule<>(NoteActivity.class);
 
     @Test
     public void checkNewNote() {
