@@ -1,4 +1,4 @@
-package vn.asiantech.internship.testUi;
+package vn.asiantech.internship.test;
 
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
@@ -29,14 +29,14 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
  * Created by at-dinhvo on 7/18/17.
  */
 @RunWith(AndroidJUnit4.class)
-public class DeleteNoteTest {
+public class UpdateNoteTest {
 
     @Rule
     public ActivityTestRule<NoteActivity> mActivityRule = new ActivityTestRule(NoteActivity.class);
     private List<Note> mNotes;
 
     @Before
-    public void getNoteData() {
+    public void getData() {
         NoteDatabase database = new NoteDatabase(mActivityRule.getActivity());
         database.open();
         mNotes = database.getAllData();
@@ -44,7 +44,7 @@ public class DeleteNoteTest {
             Espresso.onView(ViewMatchers.withId(R.id.mnAdd))
                     .perform(click())
                     .check(ViewAssertions.doesNotExist());
-            addNewNote();
+            addNote();
             mNotes = database.getAllData();
         }
         database.close();
@@ -53,7 +53,7 @@ public class DeleteNoteTest {
                 .check(ViewAssertions.doesNotExist());
     }
 
-    public void addNewNote() {
+    public void addNote() {
         Espresso.onView(ViewMatchers.withId(R.id.edtAddNoteTitle))
                 .perform(typeText("DinhDepTrai"), ViewActions.closeSoftKeyboard())
                 .check(matches(isDisplayed()));
@@ -68,7 +68,7 @@ public class DeleteNoteTest {
     }
 
     @Test
-    public void checkItemView() {
+    public void checkShowDetailNote() {
         Note note = mNotes.get(0);
         Espresso.onView(ViewMatchers.withId(R.id.edtNoteTitle))
                 .check(matches(ViewMatchers.withText(note.getTitle())));
@@ -81,8 +81,17 @@ public class DeleteNoteTest {
     }
 
     @Test
-    public void checkDeleteNote() {
-        Espresso.onView(ViewMatchers.withId(R.id.mnDelete))
+    public void checkUpdateNote() {
+        Espresso.onView(ViewMatchers.withId(R.id.mnEdit))
+                .perform(click())
+                .check(matches(isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.edtNoteTitle))
+                .perform(typeText("OMG DinhHandsome"), ViewActions.closeSoftKeyboard())
+                .check(matches(isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.edtNoteContent))
+                .perform(typeText("I like this title"), ViewActions.closeSoftKeyboard())
+                .check(matches(isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.mnEdit))
                 .perform(click())
                 .check(ViewAssertions.doesNotExist());
     }

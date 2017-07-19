@@ -1,4 +1,4 @@
-package vn.asiantech.internship.testUi;
+package vn.asiantech.internship.test;
 
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
@@ -29,6 +29,32 @@ public class AddNoteTest {
     public ActivityTestRule<NoteActivity> mActivityRule = new ActivityTestRule(NoteActivity.class);
 
     @Test
+    public void checkBlankContent() {
+        Espresso.onView(ViewMatchers.withId(R.id.mnAdd))
+                .perform(click())
+                .check(ViewAssertions.doesNotExist());
+        Espresso.onView(ViewMatchers.withId(R.id.edtAddNoteTitle))
+                .perform(typeText("DinhDepTrai Blank"), ViewActions.closeSoftKeyboard())
+                .check(matches(isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.mnSave))
+                .perform(click())
+                .check(ViewAssertions.doesNotExist());
+    }
+
+    @Test
+    public void checkBlankTitle() {
+        Espresso.onView(ViewMatchers.withId(R.id.mnAdd))
+                .perform(click())
+                .check(ViewAssertions.doesNotExist());
+        Espresso.onView(ViewMatchers.withId(R.id.edtAddNoteContent))
+                .perform(typeText("OMG DinhDepTrai Blank"), ViewActions.closeSoftKeyboard())
+                .check(matches(isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.mnSave))
+                .perform(click())
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
     public void checkValidateNote() {
         Espresso.onView(ViewMatchers.withId(R.id.mnAdd))
                 .perform(click())
@@ -44,25 +70,5 @@ public class AddNoteTest {
         Espresso.onView(ViewMatchers.withId(R.id.mnSave))
                 .perform(click())
                 .check(ViewAssertions.doesNotExist());
-    }
-
-    @Test
-    public void checkBlankContent() {
-        Espresso.onView(ViewMatchers.withId(R.id.edtNoteTitle))
-                .perform(typeText("DinhDepTrai"), ViewActions.closeSoftKeyboard())
-                .check(matches(isDisplayed()));
-        Espresso.onView(ViewMatchers.withId(R.id.mnSave))
-                .perform(click())
-                .check(ViewAssertions.doesNotExist());
-    }
-
-    @Test
-    public void checkBlankTitle() {
-        Espresso.onView(ViewMatchers.withId(R.id.edtNoteContent))
-                .perform(typeText("OMG DinhDepTrai"), ViewActions.closeSoftKeyboard())
-                .check(matches(isDisplayed()));
-        Espresso.onView(ViewMatchers.withId(R.id.mnSave))
-                .perform(click())
-                .check(matches(isDisplayed()));
     }
 }
