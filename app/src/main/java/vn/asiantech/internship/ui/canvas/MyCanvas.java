@@ -82,27 +82,6 @@ public class MyCanvas extends View {
         }
     }
 
-    private void init() {
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mPaint.setStrokeWidth(1);
-        mPointO = new Point();
-        mDownPoint = new Point();
-        mMidPoint = new Point();
-        mMidPointOnOxy = new Point();
-    }
-
-    //f(x) = ax^2 + bx + c
-    private Point fx(float a, float b, float c, int x) {
-        Point point = new Point();
-        float xOnOxy = (x - mPointO.x * 1f) / unit;
-        double yOnOxy = a * Math.pow(xOnOxy, 2) + b * xOnOxy + c;
-        double y = (mPointO.y - yOnOxy * unit);
-        point.x = x;
-        point.y = (int) y;
-        return point;
-    }
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean needValidate = true;
@@ -111,6 +90,7 @@ public class MyCanvas extends View {
                 mDownPoint.x = (int) event.getX();
                 mDownPoint.y = (int) event.getY();
                 needValidate = false;
+                performClick();
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (event.getPointerCount() == 2) {
@@ -147,10 +127,36 @@ public class MyCanvas extends View {
         return true;
     }
 
-    public void zoomIn(double x) {
+    @Override
+    public boolean performClick() {
+        return true;
+    }
+
+    private void zoomIn(double x) {
         unit = (int) (unit * x);
         mPointO.x = mMidPoint.x - mMidPointOnOxy.x * unit;
         mPointO.y = mMidPoint.y + mMidPointOnOxy.y * unit;
+    }
+
+    private void init() {
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mPaint.setStrokeWidth(1);
+        mPointO = new Point();
+        mDownPoint = new Point();
+        mMidPoint = new Point();
+        mMidPointOnOxy = new Point();
+    }
+
+    //f(x) = ax^2 + bx + c
+    private Point fx(float a, float b, float c, int x) {
+        Point point = new Point();
+        float xOnOxy = (x - mPointO.x * 1f) / unit;
+        double yOnOxy = a * Math.pow(xOnOxy, 2) + b * xOnOxy + c;
+        double y = (mPointO.y - yOnOxy * unit);
+        point.x = x;
+        point.y = (int) y;
+        return point;
     }
 
     private double getDistance(double x1, double y1, double x2, double y2) {
