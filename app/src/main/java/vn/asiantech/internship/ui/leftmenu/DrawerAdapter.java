@@ -25,7 +25,7 @@ import vn.asiantech.internship.models.User;
  * Created by Administrator on 6/12/2017.
  * this adapter to custom recyclerView in navigation
  */
-public class DrawerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int KEY_GALLERY = 0;
     public static final int KEY_CAMERA = 1;
     private static final int TYPE_HEADER = 1;
@@ -35,7 +35,7 @@ public class DrawerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<User> mUsers;
     private Drawable mDrawable;
 
-    public DrawerAdpater(Context context, List<DrawerItem> drawerItems, List<User> users, OnClickItemListener onClickItemListener) {
+    public DrawerAdapter(Context context, List<DrawerItem> drawerItems, List<User> users, OnClickItemListener onClickItemListener) {
         mDrawerItems = drawerItems;
         mOnClickItemListener = onClickItemListener;
         mUsers = users;

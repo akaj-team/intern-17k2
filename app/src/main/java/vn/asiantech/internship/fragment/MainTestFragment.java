@@ -82,7 +82,7 @@ public class MainTestFragment extends android.support.v4.app.Fragment implements
 
     private void initViews(View view) {
         mViewPagerQuestion = (ViewPager) view.findViewById(R.id.viewPagerQuestion);
-        mTvTitle = (TextView) view.findViewById(R.id.tvTitle);
+        mTvTitle = (TextView) view.findViewById(R.id.tvTitleQuestion);
         mTvLeft = (TextView) view.findViewById(R.id.tvLeft);
         mTvRight = (TextView) view.findViewById(R.id.tvRight);
     }
