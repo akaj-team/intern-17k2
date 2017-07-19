@@ -24,6 +24,8 @@ import vn.asiantech.internship.ui.main.NoteActivity;
 @RunWith(AndroidJUnit4.class)
 public class AddNoteTest {
 
+    private static final String TAG = "tag11";
+
     @Rule
     public ActivityTestRule<NoteActivity> mActivityTestRule = new ActivityTestRule<NoteActivity>(NoteActivity.class);
 
@@ -42,7 +44,7 @@ public class AddNoteTest {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            Log.i("tag11", e.getMessage());
+            Log.i(TAG, e.getMessage());
         }
     }
 
@@ -61,7 +63,7 @@ public class AddNoteTest {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            Log.i("tag11", e.getMessage());
+            Log.i(TAG, e.getMessage());
         }
     }
 
@@ -80,7 +82,7 @@ public class AddNoteTest {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            Log.i("tag11", e.getMessage());
+            Log.i(TAG, e.getMessage());
         }
     }
 
@@ -99,7 +101,7 @@ public class AddNoteTest {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            Log.i("tag11", e.getMessage());
+            Log.i(TAG, e.getMessage());
         }
     }
 
