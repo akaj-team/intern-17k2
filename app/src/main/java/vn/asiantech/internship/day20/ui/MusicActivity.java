@@ -112,7 +112,7 @@ public class MusicActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(mIsExit){
+        if (mIsExit) {
             super.onBackPressed();
         }
         mRecyclerView.setVisibility(View.VISIBLE);
