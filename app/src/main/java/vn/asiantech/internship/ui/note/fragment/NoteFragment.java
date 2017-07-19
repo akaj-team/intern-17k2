@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.Collections;
 import java.util.List;
 
 import vn.asiantech.internship.R;
@@ -25,8 +26,8 @@ import vn.asiantech.internship.ui.note.adapter.NoteAdapter;
 public class NoteFragment extends Fragment {
     public static final String KEY_DATA = "data";
 
-    ImageView mImgNewNote;
-    RecyclerView mRecyclerViewNote;
+    private ImageView mImgNewNote;
+    private RecyclerView mRecyclerViewNote;
     private NoteAdapter mNoteAdapter;
     private List<Note> mNotes;
 
@@ -84,6 +85,7 @@ public class NoteFragment extends Fragment {
         NoteDatabase noteDatabase = new NoteDatabase(getContext());
         noteDatabase.open();
         mNotes = noteDatabase.getAllNote();
+        Collections.reverse(mNotes);
         mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnListener() {
             @Override
             public void onItemClick(int position) {
