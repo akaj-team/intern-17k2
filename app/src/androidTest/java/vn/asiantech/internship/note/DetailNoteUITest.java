@@ -30,8 +30,8 @@ public class DetailNoteUITest {
     @Test
     public void checkClickDelete() {
         onView(withId(R.id.recyclerViewNote)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click())).check(doesNotExist());
-
         onView(withId(R.id.imgDelete)).perform(click()).check(doesNotExist());
+        onView(withId(R.id.llDetail)).check(doesNotExist());
         onView(withId(R.id.llMain)).check(matches(isDisplayed()));
     }
 }
