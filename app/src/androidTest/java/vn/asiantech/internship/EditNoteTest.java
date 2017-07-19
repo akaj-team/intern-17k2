@@ -9,7 +9,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Matchers;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,12 +28,8 @@ public class EditNoteTest {
     public ActivityTestRule<NoteActivity> mRule = new ActivityTestRule<>(NoteActivity.class);
     private List<ItemNote> mItemNotes;
 
-    @Before
-    public void setData() {
-        mItemNotes = mRule.getActivity().itemNoteList();
-    }
-
     private void prepareTest() {
+        mItemNotes = mRule.getActivity().itemNoteList();
         Espresso.onView(ViewMatchers.withId(R.id.flNote)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.imgPick)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.imgSave)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
