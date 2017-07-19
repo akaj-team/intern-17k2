@@ -64,7 +64,6 @@ public class EditNoteTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(Matchers.allOf(ViewMatchers.withId(R.id.tvEditNoteError), ViewMatchers.withText("Inquire enter title")))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-
     }
 
     @Test

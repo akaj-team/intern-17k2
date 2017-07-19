@@ -50,7 +50,6 @@ public class SplashActivity extends AppCompatActivity implements SplashAdapter.O
                 startActivity(new Intent(SplashActivity.this, NoteActivity.class));
             case 5:
                 startActivity(new Intent(SplashActivity.this, FeedActivity.class));
-                break;
             case 6:
                 startActivity(new Intent(SplashActivity.this, ChatActivity.class));
             case 7:
