@@ -2,7 +2,6 @@ package vn.asiantech.internship.bai24;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
@@ -18,16 +17,17 @@ import vn.asiantech.internship.day16.ui.CustomView;
 public class GraphView extends CustomView {
     private static final String TAG = "at-dinhvo";
     private Paint mPaint;
-    private int mDistance = 40;
     private int mRatio = 30;
-    private Point mNewPosition;
     private Point mRootPoint;
     private boolean isDrawer;
     // expanse
-    private float mFirstX;
-    private float mFirstY;
-    private float mLastX;
-    private float mLastY;
+    private Point mFirstTouch;
+    private Point mLastTouch;
+    // coordinates
+    private float mZoomX0;
+    private float mZoomY0;
+    private float mZoomX1;
+    private float mZoomY1;
 
     public GraphView(Context context) {
         super(context);
@@ -47,7 +47,8 @@ public class GraphView extends CustomView {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(4);
         mRootPoint = new Point();
-        mNewPosition = new Point();
+        mFirstTouch = new Point();
+        mLastTouch = new Point();
     }
 
     @Override
@@ -59,7 +60,7 @@ public class GraphView extends CustomView {
             isDrawer = true;
         }
         drawPivot(canvas);
-        drawGrid(canvas);
+//        drawGrid(canvas);
         drawGraph(canvas);
     }
 
@@ -87,6 +88,7 @@ public class GraphView extends CustomView {
 
     private void drawPivot(Canvas canvas) {
         mPaint.setStrokeWidth(4);
+        int mDistance = 40;
         canvas.drawLine(mRootPoint.x, mDistance, mRootPoint.x, getHeight() - mDistance, mPaint);
         canvas.drawLine(mDistance, mRootPoint.y, getWidth() - mDistance, mRootPoint.y, mPaint);
         mPaint.setStrokeWidth(5);
@@ -98,7 +100,7 @@ public class GraphView extends CustomView {
         }
     }
 
-    private void drawGrid(Canvas canvas) {
+    /*private void drawGrid(Canvas canvas) {
         mPaint.setStrokeWidth(1);
         mPaint.setColor(Color.DKGRAY);
         for (float i = (-mRootPoint.x + mDistance) / mRatio; i <= (mRootPoint.y - mDistance) / mRatio; i++) {
@@ -114,40 +116,34 @@ public class GraphView extends CustomView {
                     getWidth(), (mRootPoint.y + i * mRatio), mPaint);
             canvas.drawText(String.valueOf((int) i), 5, mRootPoint.y + i * mRatio, mPaint);
         }
-    }
+    }*/
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_UP:
-                float x = event.getX();
-                float y = event.getY();
-                Log.e(TAG, "onTouch_UP: X0 = " + x + ", Y0 = " + y);
+                mLastTouch.x = (int) event.getX();
+                mLastTouch.y = (int) event.getY();
+                Log.e(TAG, "onTouch_UP: X0 = " + mLastTouch.x + ", Y0 = " + mLastTouch.y);
+                int dx = mLastTouch.x - mFirstTouch.x;
+                int dy = mLastTouch.y - mFirstTouch.y;
+                mRootPoint.x += dx;
+                mRootPoint.y += dy;
                 break;
             case MotionEvent.ACTION_DOWN:
-                mNewPosition.x = (int) event.getX();
-                mNewPosition.y = (int) event.getY();
-                Log.e(TAG, "onTouch_ROOT: X1 = " + mRootPoint.x + ", Y1 = " + mRootPoint.y);
-                Log.e(TAG, "onTouch_DOWN: X1 = " + mNewPosition.x + ", Y1 = " + mNewPosition.y);
-                if(mNewPosition.x < mRootPoint.x){
-                    mRootPoint.x -= mNewPosition.x / mRatio;
-                }else {
-                    mRootPoint.x += mNewPosition.x / mRatio;
-                }
-                if(mNewPosition.y < mRootPoint.y){
-                    mRootPoint.y -= mNewPosition.y / mRatio;
-                }else {
-                    mRootPoint.y += mNewPosition.y / mRatio;
-                }
+                mFirstTouch.x = (int) event.getX();
+                mFirstTouch.y = (int) event.getY();
+                Log.e(TAG, "onTouch_DOWN_ROOT: X1 = " + mRootPoint.x + ", Y1 = " + mRootPoint.y);
+                Log.e(TAG, "onTouch_DOWN: X1 = " + mFirstTouch.x + ", Y1 = " + mFirstTouch.y);
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (event.getPointerCount() == 2) {
-                    float x2 = event.getX(0);
-                    float y2 = event.getY(0);
-                    float x3 = event.getX(1);
-                    float y3 = event.getY(1);
-
-                    Log.e(TAG, "onTouchEvent: X3 = " + x2 + ", Y3 = " + y2 + "; X3 = " + x3 + ", Y3 = " + y3);
+                    mZoomX0 = event.getX(0);
+                    mZoomY0 = event.getY(0);
+                    mZoomX1 = event.getX(1);
+                    mZoomY1 = event.getY(1);
+                    Log.e(TAG, "onTouchEvent: X2 = " + mZoomX0 + ", Y2 = " + mZoomY0
+                            + "; X3 = " + mZoomX1 + ", Y3 = " + mZoomY1);
                 }
                 break;
         }

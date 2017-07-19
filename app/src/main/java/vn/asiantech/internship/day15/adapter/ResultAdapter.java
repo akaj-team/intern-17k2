@@ -35,7 +35,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultView
         Result result = mResults.get(position);
         holder.mTvResult.setText(result.getQuestion());
         if (result.isCorrect()) {
-            holder.mImgResult.setImageResource(R.drawable.ic_check_circle_black_36dp);
+            holder.mImgResult.setImageResource(R.drawable.ic_check_circle_black);
         }
     }
 
