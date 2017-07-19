@@ -42,16 +42,17 @@ public class EditNoteTest {
     }
 
     @Test
-    public void showDataTest() {
-        //Test to show correct data from recyclerView
+    public void getDataFromRecyclerViewTest() {
         Espresso.onView(ViewMatchers.withId(R.id.edtTitleEdit)).
                 check(ViewAssertions.matches(ViewMatchers.withText(mNotes.get(0).getTitle())));
         Espresso.onView(ViewMatchers.withId(R.id.edtContentEdit)).
                 check(ViewAssertions.matches(ViewMatchers.withText(mNotes.get(0).getContent())));
         Espresso.onView(ViewMatchers.withId(R.id.tvTime)).
                 check(ViewAssertions.matches(ViewMatchers.withText(mNotes.get(0).getDay() + "\n" + mNotes.get(0).getDayOfWeek() + " " + mNotes.get(0).getMonth() + "\n" + mNotes.get(0).getHour())));
+    }
 
-        //Test blank title
+    @Test
+    public void blankTitleTest() {
         Espresso.onView(ViewMatchers.withId(R.id.imgEditNote))
                 .perform(ViewActions.click())
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
@@ -63,11 +64,11 @@ public class EditNoteTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(Matchers.allOf(ViewMatchers.withId(R.id.tvEditNoteError), ViewMatchers.withText("Inquire enter title")))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        Espresso.onView(ViewMatchers.withId(R.id.edtTitleEdit))
-                .perform(ViewActions.typeText("Note 111111"), ViewActions.closeSoftKeyboard())
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
-        //Test blank content
+    }
+
+    @Test
+    public void blankContentTest() {
         Espresso.onView(ViewMatchers.withId(R.id.edtContentEdit))
                 .perform(ViewActions.clearText())
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
@@ -76,11 +77,16 @@ public class EditNoteTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(Matchers.allOf(ViewMatchers.withId(R.id.tvEditNoteError), ViewMatchers.withText("Inquire enter content")))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+    }
+
+    @Test
+    public void editNoteSuccessTest() {
+        Espresso.onView(ViewMatchers.withId(R.id.edtTitleEdit))
+                .perform(ViewActions.typeText("Note 111111"), ViewActions.closeSoftKeyboard())
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.edtContentEdit))
                 .perform(ViewActions.typeText("I did it :)))"), ViewActions.closeSoftKeyboard())
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-
-        //Test edit success
         Espresso.onView(ViewMatchers.withId(R.id.imgSave))
                 .perform(ViewActions.click())
                 .check(ViewAssertions.doesNotExist());

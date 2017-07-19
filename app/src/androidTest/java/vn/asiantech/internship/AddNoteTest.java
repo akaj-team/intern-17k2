@@ -22,7 +22,7 @@ import vn.asiantech.internship.notesqlite.NoteActivity;
  */
 @RunWith(AndroidJUnit4.class)
 public class AddNoteTest {
-    
+
     @Rule
     public ActivityTestRule<NoteActivity> mActivityRule = new ActivityTestRule<>(NoteActivity.class);
 
@@ -36,8 +36,7 @@ public class AddNoteTest {
     }
 
     @Test
-    public void inputDataTest() {
-        //Test blank content
+    public void blankContentTest() {
         Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd))
                 .perform(ViewActions.typeText("Note 1"), ViewActions.closeSoftKeyboard())
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
@@ -46,11 +45,10 @@ public class AddNoteTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(Matchers.allOf(ViewMatchers.withId(R.id.tvAddNoteError), ViewMatchers.withText(R.string.note_text_error_content)))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+    }
 
-        //Test blank title
-        Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd))
-                .perform(ViewActions.clearText())
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+    @Test
+    public void blankTitleTest() {
         Espresso.onView(ViewMatchers.withId(R.id.edtContentAdd))
                 .perform(ViewActions.typeText("This is a great day!"), ViewActions.closeSoftKeyboard())
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
@@ -59,10 +57,15 @@ public class AddNoteTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(Matchers.allOf(ViewMatchers.withId(R.id.tvAddNoteError), ViewMatchers.withText(R.string.note_text_error_title)))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+    }
 
-        //Test add success
+    @Test
+    public void addSuccessTest() {
         Espresso.onView(ViewMatchers.withId(R.id.edtTitleAdd))
                 .perform(ViewActions.typeText("Note 1"), ViewActions.closeSoftKeyboard())
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        Espresso.onView(ViewMatchers.withId(R.id.edtContentAdd))
+                .perform(ViewActions.typeText("This is a great day!"), ViewActions.closeSoftKeyboard())
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Espresso.onView(ViewMatchers.withId(R.id.imgAdd))
                 .perform(ViewActions.click())
