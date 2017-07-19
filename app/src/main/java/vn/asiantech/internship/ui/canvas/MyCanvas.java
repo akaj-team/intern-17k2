@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -38,6 +39,7 @@ public class MyCanvas extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Log.i("tag111", "------------------------------------------------------------------------onDraw:");
         int width = getWidth();
         int height = getHeight();
         if (!mIsFirstTime) {
@@ -80,6 +82,15 @@ public class MyCanvas extends View {
             canvas.drawLine(oldPoint.x, oldPoint.y, newPoint.x, newPoint.y, mPaint);
             oldPoint = newPoint;
         }
+
+        Point p = new Point();
+        mPaint.setStrokeWidth(3);
+        mPaint.setColor(Color.YELLOW);
+        mPaint.setStyle(Paint.Style.FILL);
+        p.x = mPointO.x + unit;
+        p.y = mPointO.y - unit;
+        canvas.drawCircle(p.x, p.y, unit, mPaint);
+        canvas.drawPoint(p.x, p.y, mPaint);
     }
 
     private void init() {
@@ -105,14 +116,18 @@ public class MyCanvas extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        Log.i("tag111", "onTouchEvent: ");
+        boolean needValidate = true;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mDownPoint.x = (int) event.getX();
                 mDownPoint.y = (int) event.getY();
+                needValidate = false;
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (event.getPointerCount() == 2) {
                     if (mOldDistance == 0) {
+                        mDownPoint.x = -1;
                         mOldDistance = getDistance(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
                         mMidPoint = getMidPoint(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
                         mMidPointOnOxy.x = (int) ((mMidPoint.x - mPointO.x) * 1.0 / unit);
@@ -120,22 +135,30 @@ public class MyCanvas extends View {
                     } else {
                         double newDistance = getDistance(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
                         double proportion = newDistance / mOldDistance;
-                        if (proportion * unit > 20 && proportion * unit < 150) {
-                            zoomIn(newDistance / mOldDistance);
+                        if (proportion * unit > 20 && proportion * unit < 200) {
+                            zoomIn(proportion);
                         }
+                        mOldDistance = newDistance;
                     }
                 } else if (event.getPointerCount() == 1) {
-                    mPointO.x = mPointO.x + ((int) event.getX() - mDownPoint.x);
-                    mPointO.y = mPointO.y + ((int) event.getY() - mDownPoint.y);
-                    mDownPoint.x = (int) event.getX();
-                    mDownPoint.y = (int) event.getY();
+                    if (mDownPoint.x > 0) {
+                        mPointO.x = mPointO.x + ((int) event.getX() - mDownPoint.x);
+                        mPointO.y = mPointO.y + ((int) event.getY() - mDownPoint.y);
+                        mDownPoint.x = (int) event.getX();
+                        mDownPoint.y = (int) event.getY();
+                    } else {
+                        mDownPoint.x = (int) event.getX();
+                        mDownPoint.y = (int) event.getY();
+                    }
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 mOldDistance = 0;
                 break;
         }
-        invalidate();
+        if (needValidate) {
+            invalidate();
+        }
         return true;
     }
 
@@ -143,7 +166,6 @@ public class MyCanvas extends View {
         unit = (int) (unit * x);
         mPointO.x = mMidPoint.x - mMidPointOnOxy.x * unit;
         mPointO.y = mMidPoint.y + mMidPointOnOxy.y * unit;
-        invalidate();
     }
 
     private double getDistance(double x1, double y1, double x2, double y2) {
