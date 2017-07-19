@@ -6,14 +6,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
-import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Author AsianTech Inc.
@@ -22,16 +19,19 @@ import java.util.List;
 public class CustomView extends View {
     private static final int MARGIN = 50;
     private static final int STROKE_WITH = 2;
-    private static final int EXTRA_LENGHT = 10;
+    private static final int EXTRA_LENGTH = 10;
     private static final int TEXT_SIZE = 30;
-    private float mScaleFactor = 1.0f;
-    private List<Point> mPoints = new ArrayList<>();
-    private Point mPoint;
-
-    private ScaleGestureDetector mScaleGestureDetector;
+    private ArrayList<Point> mPoints = new ArrayList<>();
     private Paint mPaint;
     private Paint mPathPaint;
     private Path mPath;
+    private Point mTransPoint;
+    private Point mStartPoint;
+    private Point mCenterPoint;
+    private float mCenterX;
+    private float mCenterY;
+    private float mDistance;
+    private float mUnit = 50;
 
     public CustomView(Context context) {
         this(context, null);
@@ -41,29 +41,25 @@ public class CustomView extends View {
         super(context, attrs);
         initPaint();
         initPathPaint();
-        mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.save();
-        if (mPoint != null) {
-            canvas.scale(mScaleFactor, mScaleFactor, mPoint.getX(), mPoint.getY());
+        if (mCenterX == 0) {
+            mCenterX = getWidth() / 2;
+            mCenterY = getHeight() / 2;
         }
         drawAxis(canvas);
         drawNarrow(canvas);
         calculate(3, -4, 1);
         drawGraph(canvas);
-        for (int i = -7; i < 7; i++) {
-            if (i > -4 && i < 4) {
-                drawVerticalNumber(canvas, i);
-                drawHorizontalNumber(canvas, i);
-            } else {
-                drawVerticalNumber(canvas, i);
-            }
+        for (int i = (int) ((MARGIN - mCenterY) / mUnit); i < (getHeight() - MARGIN - mCenterY) / mUnit; i++) {
+            drawVerticalNumber(canvas, i);
         }
-        canvas.restore();
+        for (int i = (int) ((MARGIN - mCenterX) / mUnit); i < (int) ((getWidth() - MARGIN) - mCenterX) / mUnit; i++) {
+            drawHorizontalNumber(canvas, i);
+        }
     }
 
     private void initPaint() {
@@ -82,26 +78,27 @@ public class CustomView extends View {
     }
 
     private void drawAxis(Canvas canvas) {
-        canvas.drawLine(MARGIN, getHeight() / 2, getWidth() - MARGIN, getHeight() / 2, mPaint);
-        canvas.drawLine(getWidth() / 2, MARGIN, getWidth() / 2, getHeight() - MARGIN, mPaint);
+        canvas.drawLine(0, mCenterY, getWidth(), mCenterY, mPaint);
+        canvas.drawLine(mCenterX, 0, mCenterX, getHeight(), mPaint);
     }
 
     private void drawNarrow(Canvas canvas) {
-        mPath.moveTo(getWidth() / 2 - EXTRA_LENGHT, MARGIN);
-        mPath.lineTo(getWidth() / 2 + EXTRA_LENGHT, MARGIN);
-        mPath.lineTo(getWidth() / 2, MARGIN - EXTRA_LENGHT);
+        mPath.reset();
+        mPath.moveTo(mCenterX - EXTRA_LENGTH, EXTRA_LENGTH);
+        mPath.lineTo(mCenterX + EXTRA_LENGTH, EXTRA_LENGTH);
+        mPath.lineTo(mCenterX, 0);
 
-        mPath.moveTo(getWidth() - MARGIN, getHeight() / 2 - EXTRA_LENGHT);
-        mPath.lineTo(getWidth() - MARGIN, getHeight() / 2 + EXTRA_LENGHT);
-        mPath.lineTo(getWidth() - MARGIN + EXTRA_LENGHT, getHeight() / 2);
+        mPath.moveTo(getWidth() - EXTRA_LENGTH, mCenterY - EXTRA_LENGTH);
+        mPath.lineTo(getWidth() - EXTRA_LENGTH, mCenterY + EXTRA_LENGTH);
+        mPath.lineTo(getWidth(), mCenterY);
 
         canvas.drawPath(mPath, mPathPaint);
-        canvas.drawText("O", getWidth() / 2 - EXTRA_LENGHT * 4, getHeight() / 2 + EXTRA_LENGHT * 4, mPaint);
+        canvas.drawText("O", mCenterX - EXTRA_LENGTH * 4, mCenterY + EXTRA_LENGTH * 4, mPaint);
     }
 
     private void calculate(int a, int b, int c) {
-        for (double i = -getWidth() / 50; i < getWidth() / 50; i = i + 0.1f) {
-            mPoints.add(new Point((float) (getWidth() / 2 + i * 50), (float) (getHeight() / 2 - (a * i * i + b * i + c) * 50)));
+        for (double i = -getWidth() / mUnit; i < getWidth() / mUnit; i = i + 0.1f) {
+            mPoints.add(new Point((float) (mCenterX + i * mUnit), (float) (mCenterY - (a * i * i + b * i + c) * mUnit)));
         }
     }
 
@@ -112,38 +109,62 @@ public class CustomView extends View {
     }
 
     private void drawHorizontalNumber(Canvas canvas, int i) {
-        canvas.drawLine(getWidth() / 2 + MARGIN * i, getHeight() / 2 + 5, getWidth() / 2 + MARGIN * i, getHeight() / 2 - 5, mPaint);
+        canvas.drawLine(mCenterX + mUnit * i, mCenterY + 5, mCenterX + mUnit * i, mCenterY - 5, mPaint);
     }
 
     private void drawVerticalNumber(Canvas canvas, int i) {
-        canvas.drawLine(getWidth() / 2 - 5, getHeight() / 2 + MARGIN * i, getWidth() / 2 + 5, getHeight() / 2 + MARGIN * i, mPaint);
+        canvas.drawLine(mCenterX - 5, mCenterY + mUnit * i, mCenterX + 5, mCenterY + mUnit * i, mPaint);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        mScaleGestureDetector.onTouchEvent(event);
-        int index = MotionEventCompat.getActionIndex(event);
-        mPoint = new Point(event.getX(index), event.getY(index));
-        invalidate();
-        return true;
-    }
-
-    @Override
-    public boolean performClick() {
-        super.performClick();
-        return true;
-    }
-
-    /**
-     * Used to scale graph.
-     */
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            mScaleFactor *= detector.getScaleFactor();
-            mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 5.0f));
-            invalidate();
-            return true;
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (event.getPointerCount() == 1) {
+                    mStartPoint = new Point(event.getX(), event.getY());
+                } else {
+                    mStartPoint = new Point(getWidth() / 2, getHeight() / 2);
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (event.getPointerCount() == 1) {
+                    if (mDistance == 0) {
+                        mTransPoint = new Point(event.getX(), event.getY());
+                        Point point = new Point(mTransPoint.getX() - mStartPoint.getX(), mTransPoint.getY() - mStartPoint.getY());
+                        mCenterX += point.getX();
+                        mCenterY += point.getY();
+                    } else {
+                        if (mCenterPoint != null) {
+                            mTransPoint = new Point(mCenterPoint.getX(), mCenterPoint.getY());
+                        }
+                    }
+                } else if (event.getPointerCount() == 2) {
+                    if (mDistance == 0) {
+                        float x = event.getX(1) - event.getX(0);
+                        float y = event.getY(1) - event.getY(0);
+                        mDistance = (float) Math.sqrt(x * x + y * y);
+                    } else {
+                        float x = event.getX(1) - event.getX(0);
+                        float y = event.getY(1) - event.getY(0);
+                        mCenterPoint = new Point((event.getX(1) - event.getX(0)) / 2, (event.getY(1) - event.getY(0)) / 2);
+                        if (((float) Math.sqrt(x * x + y * y)) != mDistance) {
+                            float scale = ((float) Math.sqrt(x * x + y * y)) / (mDistance);
+                            if (scale * mUnit > 10 && scale * mUnit < 400) {
+                                mUnit *= scale;
+                            }
+                            mDistance = (float) Math.sqrt(x * x + y * y);
+                        }
+                    }
+                }
+                mStartPoint = mTransPoint;
+                invalidate();
+                break;
+            case MotionEvent.ACTION_UP:
+                mDistance = 0;
+                mStartPoint = new Point(event.getX(), event.getY());
+                break;
         }
+        mPoints.clear();
+        return true;
     }
 }
