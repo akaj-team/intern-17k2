@@ -41,37 +41,26 @@ public class SplashActivity extends AppCompatActivity implements SplashAdapter.O
         switch (position) {
             case 0:
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                break;
             case 1:
                 startActivity(new Intent(SplashActivity.this, SendActivity.class));
-                break;
             case 2:
                 startActivity(new Intent(SplashActivity.this, RecyclerViewActivity.class));
-                break;
             case 3:
                 startActivity(new Intent(SplashActivity.this, FriendActivity.class));
-                break;
             case 4:
                 startActivity(new Intent(SplashActivity.this, NoteActivity.class));
-                break;
             case 5:
                 startActivity(new Intent(SplashActivity.this, FeedActivity.class));
-                break;
             case 6:
                 startActivity(new Intent(SplashActivity.this, ChatActivity.class));
-                break;
             case 7:
                 startActivity(new Intent(SplashActivity.this, TestActivity.class));
-                break;
             case 8:
                 startActivity(new Intent(SplashActivity.this, ImageActivity.class));
-                break;
             case 9:
                 startActivity(new Intent(SplashActivity.this, MusicActivity.class));
-                break;
             case 10:
                 startActivity(new Intent(SplashActivity.this, UploadImageActivity.class));
-                break;
         }
     }
 }
