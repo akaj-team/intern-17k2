@@ -54,10 +54,10 @@ public class MusicService extends Service {
     public void onCreate() {
         super.onCreate();
         mUrls = new ArrayList<>();
-        mUrls.add("http://zmp3-mp3-s1-te-vnso-qt-4.zadn.vn/e7563f83e7c70e9957d6/727637092126384063?key=0h9uUl_5bIOPB2l9MpYSow&expires=1499918719");
-        mUrls.add("http://zmp3-mp3-s1-te-vnso-qt-4.zadn.vn/bd48c43e657a8c24d56b/8699665750036675704?key=v3YZubQ610amL0vx5yLXrA&expires=1499821964");
-        mUrls.add("http://zmp3-mp3-s1-te-vnso-qt-4.zadn.vn/8fcd13c21b86f2d8ab97/8208839230443218911?key=7JRFx8J9Y-sJTHdcQQAT8w&expires=1499822001");
-        mUrls.add("http://zmp3-mp3-s1-te-zmp3-fpthcm-1.zadn.vn/233f19a477e09ebec7f1/7720256713557916913?key=3LM8sAXm3GgdgEKdKzt2aA&expires=1499822042");
+        mUrls.add("http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNXDXELJGTLDJTDGLG");
+        mUrls.add("http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNVNALJXATLDJTDGLG");
+        mUrls.add("http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNVNXADVNTLDJTDGLG");
+        mUrls.add("http://api.mp3.zing.vn/api/mobile/source/song/LGJGTDXDLAQTLDJTDGLG");
 
         mSongNames = new String[]{"1234", "Cay bang", "chi la giac mo", "Mot dieu la mai mai"};
         mArtists = new String[]{"Chi Dan", "Buc tuong", "Microwave", "RoseWood"};
