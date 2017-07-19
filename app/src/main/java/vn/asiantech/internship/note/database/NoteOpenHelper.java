@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by at-dinhvo on 20/06/2017.
  */
-class NoteOpenHelper extends SQLiteOpenHelper {
+public class NoteOpenHelper extends SQLiteOpenHelper {
 
     static final String TABLE_NAME = "TABLE_NOTE";
     static final String COL_ID = "id";
@@ -26,7 +26,7 @@ class NoteOpenHelper extends SQLiteOpenHelper {
         return mNoteOpenHelper;
     }
 
-    NoteOpenHelper(Context context) {
+    public NoteOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 

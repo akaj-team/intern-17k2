@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,17 +29,17 @@ public class NoteFragment extends Fragment {
     private Toolbar mToolbar;
 
     private NoteDatabase mNoteDatabase;
-    private OnChangeFragment mOnChangeFragment;
+    private OnChangeViewListener mOnChangeViewListener;
 
     /**
      * interface to change fragment
      */
-    interface OnChangeFragment {
-        void onChange(int key, int id);
+    interface OnChangeViewListener {
+        void onChangeFragment(int key, int id);
     }
 
-    public void setOnChangeFragment(OnChangeFragment onChangeFragment) {
-        mOnChangeFragment = onChangeFragment;
+    public void setOnChangeViewListener(OnChangeViewListener onChangeViewListener) {
+        mOnChangeViewListener = onChangeViewListener;
     }
 
     public NoteFragment() {
@@ -68,24 +67,23 @@ public class NoteFragment extends Fragment {
     private void initUI() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.toolBar_title_screenList);
-        List<Note> mNotes = mNoteDatabase.getAllData();
-        Log.e("Data_Size", "Size: " + mNotes.size());
-        NoteAdapter mNoteAdapter = new NoteAdapter(mNotes, new NoteAdapter.OnClickItemNote() {
+        List<Note> notes = mNoteDatabase.getAllData();
+        NoteAdapter noteAdapter = new NoteAdapter(notes, new NoteAdapter.OnItemClickListener() {
             @Override
             public void onClick(int id) {
-                mOnChangeFragment.onChange(2, id);
+                mOnChangeViewListener.onChangeFragment(2, id);
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mNoteAdapter);
-        mNoteAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(noteAdapter);
+        noteAdapter.notifyDataSetChanged();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mnAdd) {
-            mOnChangeFragment.onChange(1, 0);
+            mOnChangeViewListener.onChangeFragment(1, 0);
         }
         return super.onOptionsItemSelected(item);
     }
