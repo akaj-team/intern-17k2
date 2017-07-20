@@ -32,5 +32,6 @@
         <activity android:name=".exday15.PointActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".exfragment.RecyclerViewActivity" />
+        <activity android:name=".exday22.AnnotationsActivity_" />
     </application>
 </manifest>
