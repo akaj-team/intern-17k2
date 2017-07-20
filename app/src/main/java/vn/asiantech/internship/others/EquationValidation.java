@@ -7,7 +7,7 @@ import java.util.List;
  * Equation Validation.
  * Created by huypham on 16-Jul-17.
  */
-public class EquationValidation {
+public final class EquationValidation {
 
     private EquationValidation() {
     }

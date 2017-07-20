@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
  * Login Validation.
  * Created by huypham on 16-Jul-17.
  */
-public class LoginValidation {
+public final class LoginValidation {
 
     private LoginValidation() {
     }
