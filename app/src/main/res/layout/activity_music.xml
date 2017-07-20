@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="vn.asiantech.internship.day19.activity.MusicActivity">
+
+    <TextView
+        android:id="@+id/tvTitleMusic"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorItem"
+        android:padding="@dimen/padding"
+        android:text="@string/textview.title_music.text"
+        android:textColor="@color/textview.title_music.textcolor"
+        android:textSize="@dimen/textview.title_music.textSize" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewMusic"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/tvTitleMusic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/img_background_music"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <TextView
+                android:id="@+id/tvNowPlaySong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="#580505"
+                android:textSize="25sp"
+                tools:text="Play Song Now" />
+
+            <TextView
+                android:id="@+id/tvNowPlayArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvNowPlaySong"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="casual"
+                tools:text="Play Artist Now" />
+
+            <SeekBar
+                android:id="@+id/seekBarMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_above="@+id/tvTimeTotal"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tvNowPlayArtist"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/tvTimeTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                tools:text="0:00:00" />
+
+            <TextView
+                android:id="@+id/tvTimeNow"
+                android:layout_width="50dp"
+                android:layout_height="15dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tvNowPlaySong"
+                tools:text="0:00:00" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/imgBtnPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/imgBtnPause"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:src="@mipmap/img_btn_play"
+                android:visibility="invisible" />
+
+            <ImageButton
+                android:id="@+id/imgBtnPrevious"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toStartOf="@+id/imgBtnPlay"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:src="@mipmap/img_btn_previous" />
+
+
+            <ImageButton
+                android:id="@+id/imgBtnPause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/imgBtnPlay"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:src="@mipmap/img_btn_pause" />
+
+            <ImageButton
+                android:id="@+id/imgBtnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/imgBtnPlay"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:padding="@dimen/padding"
+                android:src="@mipmap/img_btn_next" />
+
+            <ImageButton
+                android:id="@+id/imgBtnShuffle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:padding="@dimen/padding"
+                android:src="@mipmap/img_btn_shuffle" />
+
+            <ImageButton
+                android:id="@+id/imgBtnShuffleSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:padding="@dimen/padding"
+                android:src="@mipmap/img_btn_shuffle_selected"
+                android:visibility="invisible" />
+
+            <ImageButton
+                android:id="@+id/imgBtnAutoNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:padding="15dp"
+                android:src="@mipmap/ic_btn_auto_next" />
+
+            <ImageButton
+                android:id="@+id/imgBtnAutoNextSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:padding="15dp"
+                android:src="@mipmap/ic_btn_auto_next_selected"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

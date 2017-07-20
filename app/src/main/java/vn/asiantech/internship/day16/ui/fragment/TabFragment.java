@@ -17,7 +17,7 @@ import vn.asiantech.internship.R;
 public class TabFragment extends Fragment {
     private static final String ID_IMAGE = "image";
     private int mIdImage;
-    private ImageView mImgText;
+    private ImageView mImgAvatar;
 
     public static TabFragment newInstance(int image) {
         TabFragment tabFragment = new TabFragment();
@@ -37,7 +37,7 @@ public class TabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tab, container, false);
-        mImgText = (ImageView) v.findViewById(R.id.imgTab);
+        mImgAvatar = (ImageView) v.findViewById(R.id.imgTab);
         return v;
     }
 
@@ -45,8 +45,13 @@ public class TabFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setMenuVisibility(isVisibleToUser);
         if (isVisibleToUser) {
-            if (mImgText != null) {
-                mImgText.setImageResource(mIdImage);
+            if (mImgAvatar != null) {
+                mImgAvatar.setVisibility(View.VISIBLE);
+                mImgAvatar.setImageResource(mIdImage);
+            }
+        } else {
+            if (mImgAvatar != null) {
+                mImgAvatar.setVisibility(View.GONE);
             }
         }
     }
