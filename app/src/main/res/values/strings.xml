@@ -55,6 +55,11 @@
     <string name="ex_day_11">Ex Day 11</string>
     <string name="ex_day_15">Ex day 15</string>
     <string name="ex_day_16">Ex day 16</string>
+    <string name="txt.name">Name:</string>
+    <string name="txt.email">Email:</string>
+    <string name="txt.mobile">Mobile:</string>
+    <string name="progressdialog">Please wait…</string>
+    <string name="ex_day_21">Ex day 21</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>

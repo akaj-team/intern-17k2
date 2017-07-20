@@ -35,6 +35,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
         Button btnExday13 = (Button) findViewById(R.id.btnExday13);
         Button btnExday15 = (Button) findViewById(R.id.btnExday15);
         Button btnExday16 = (Button) findViewById(R.id.btnExday16);
+        Button btnExday21 = (Button) findViewById(R.id.btnExday21);
 
         btnDrawer.setOnClickListener(this);
         btnFragment.setOnClickListener(this);
@@ -44,6 +45,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
         btnExday13.setOnClickListener(this);
         btnExday15.setOnClickListener(this);
         btnExday16.setOnClickListener(this);
+        btnExday21.setOnClickListener(this);
     }
 
     @Override
@@ -79,6 +81,10 @@ public class SplashActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btnExday16:
                 mIntent = new Intent(SplashActivity.this, ViewPagerActivity.class);
+                startActivity(mIntent);
+                break;
+            case R.id.btnExday21:
+                mIntent = new Intent(SplashActivity.this, vn.asiantech.internship.exday21.JsonActivity.class);
                 startActivity(mIntent);
                 break;
         }
