@@ -44,6 +44,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteItemHolder
         if (mNoteList.get(position).getImage() != null) {
             holder.mImgPhoto.setVisibility(View.VISIBLE);
             holder.mImgPhoto.setImageURI(Uri.parse(mNoteList.get(position).getImage()));
+        } else {
+            holder.mImgPhoto.setVisibility(View.GONE);
         }
 
     }

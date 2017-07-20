@@ -56,10 +56,10 @@ public class AddNoteFragment extends Fragment {
         mNoteDatabase.close();
     }
 
-    public void addNote() {
-
+    public long addNote() {
         if (TextUtils.isEmpty(mEdtNoteContent.getText()) || TextUtils.isEmpty(mEdtNoteTitle.getText())) {
             Toast.makeText(getContext(), "Bạn phải nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
+            return -1;
         } else {
             NoteItem noteItem;
             String savePath = null;
@@ -75,12 +75,12 @@ public class AddNoteFragment extends Fragment {
                 Toast.makeText(getContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
                 mEdtNoteContent.setText("");
                 mEdtNoteTitle.setText("");
+                return 1;
             } else {
                 Toast.makeText(getContext(), getString(R.string.fail), Toast.LENGTH_SHORT).show();
+                return -1;
             }
         }
-        mEdtNoteContent.setFocusable(false);
-        mEdtNoteTitle.setFocusable(false);
     }
 
     public void addImage(Bitmap bitmap) {

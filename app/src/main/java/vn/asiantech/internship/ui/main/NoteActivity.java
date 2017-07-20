@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.databases.NoteDatabase;
@@ -158,16 +159,15 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 Fragment fragment = getCurrentFragment();
                 if (fragment instanceof AddNoteFragment) {
-                    mAddNoteFragment.addNote();
-                    onBackPressed();
+                    if (mAddNoteFragment.addNote() > -1) {
+                        onBackPressed();
+                    }
                     break;
                 }
                 if (fragment instanceof DetailNoteFragment) {
                     if (((DetailNoteFragment) fragment).editNote() > -1) {
                         onBackPressed();
                         replaceFragment(mNoteFragment, false);
-                    } else {
-                        Toast.makeText(this, getString(R.string.fail), Toast.LENGTH_SHORT).show();
                     }
                     break;
                 }
@@ -178,8 +178,12 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.imgDelete:
                 DetailNoteFragment detailNoteFragment = (DetailNoteFragment) getCurrentFragment();
-                mNoteDatabase.deleteById(detailNoteFragment.getNoteId());
-                onBackPressed();
+                if (mNoteDatabase.deleteById(detailNoteFragment.getNoteId()) > -1) {
+                    Toast.makeText(NoteActivity.this, getString(R.string.success), Toast.LENGTH_LONG).show();
+                    onBackPressed();
+                } else {
+                    Toast.makeText(NoteActivity.this, getString(R.string.fail), Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.imgEdit:
                 DetailNoteFragment detail = (DetailNoteFragment) getCurrentFragment();
@@ -224,6 +228,10 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         mNoteDatabase.close();
+    }
+
+    public List<NoteItem> getNotes() {
+        return mNoteDatabase.getNoteList();
     }
 
     private Fragment getCurrentFragment() {
