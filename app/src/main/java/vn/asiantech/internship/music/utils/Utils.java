@@ -1,10 +1,10 @@
-package vn.asiantech.internship.music;
+package vn.asiantech.internship.music.utils;
 
 /**
  * Created by ducle on 10/07/2017.
  * Utils to handle
  */
-class Utils {
+public class Utils {
     private Utils() {
     }
 

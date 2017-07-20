@@ -13,7 +13,7 @@ import vn.asiantech.internship.activity.ChatActivity;
 import vn.asiantech.internship.activity.AnimalActivity;
 import vn.asiantech.internship.activity.FriendActivity;
 import vn.asiantech.internship.activity.TestActivity;
-import vn.asiantech.internship.music.MusicActivity;
+import vn.asiantech.internship.music.ui.home.SongActivity;
 import vn.asiantech.internship.ui.feed.FeedActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 import vn.asiantech.internship.ui.main.NoteActivity;
@@ -92,7 +92,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(this, AnimalActivity.class));
                 break;
             case R.id.btnBai19:
-                startActivity(new Intent(this, MusicActivity.class));
+                startActivity(new Intent(this, SongActivity.class));
                 break;
         }
     }

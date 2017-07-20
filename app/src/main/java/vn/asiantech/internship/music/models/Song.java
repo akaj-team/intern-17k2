@@ -1,4 +1,4 @@
-package vn.asiantech.internship.music;
+package vn.asiantech.internship.music.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,7 +12,7 @@ public class Song implements Parcelable {
     private String artist;
     private String source;
 
-    public Song(String title, String artist, String source, int duration) {
+    public Song(String title, String artist, String source) {
         this.title = title;
         this.artist = artist;
         this.source = source;

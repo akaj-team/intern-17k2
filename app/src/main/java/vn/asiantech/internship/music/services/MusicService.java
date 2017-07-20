@@ -1,4 +1,4 @@
-package vn.asiantech.internship.music;
+package vn.asiantech.internship.music.services;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -22,8 +22,11 @@ import java.util.List;
 import java.util.Random;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.music.models.Action;
+import vn.asiantech.internship.music.models.Song;
+import vn.asiantech.internship.music.ui.home.SongActivity;
+import vn.asiantech.internship.music.utils.Utils;
 
-import static android.support.v4.app.NotificationCompat.FLAG_HIGH_PRIORITY;
 
 /**
  * Created by ducle on 08/07/2017.
@@ -33,34 +36,26 @@ public class MusicService extends Service {
     private static final String TAG = MusicService.class.getSimpleName();
     public static final String KEY_TIME = "time";
     public static final String KEY_CURRENT_TIME = "current_time";
-    private List<String> mUrls;
     private MediaPlayer mMediaPlayer;
     private CountDownTimer mCountDownTimer;
     private int mLength;
     private int mPosition;
-    private int mPlayStatus = MusicActivity.STOP_STATUS;
-    private int mShuffleStatus = MusicActivity.NO_SHUFFLE;
-    private int mRepeatStatus = MusicActivity.NO_REPEAT;
+    private int mPlayStatus = SongActivity.STOP_STATUS;
+    private int mShuffleStatus = SongActivity.NO_SHUFFLE;
+    private int mRepeatStatus = SongActivity.NO_REPEAT;
     private StatusBroadcastReceiver mStatusBroadcastReceiver;
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mNotificationManager;
     private RemoteViews mRemoteViews;
-    private String[] mSongNames;
-    private String[] mArtists;
+    private List<Song> mSongs;
     private PendingIntent mPendingIntent;
     private int mNotificationId = 100;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mUrls = new ArrayList<>();
-        mUrls.add("http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNXDXELJGTLDJTDGLG");
-        mUrls.add("http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNVNALJXATLDJTDGLG");
-        mUrls.add("http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNVNXADVNTLDJTDGLG");
-        mUrls.add("http://api.mp3.zing.vn/api/mobile/source/song/LGJGTDXDLAQTLDJTDGLG");
-
-        mSongNames = new String[]{"1234", "Cay bang", "chi la giac mo", "Mot dieu la mai mai"};
-        mArtists = new String[]{"Chi Dan", "Buc tuong", "Microwave", "RoseWood"};
+        mMediaPlayer = new MediaPlayer();
+        mSongs = new ArrayList<>();
         mStatusBroadcastReceiver = new StatusBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Action.PLAY.getValue());
@@ -76,8 +71,16 @@ public class MusicService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null && intent.getAction() != null) {
+            if (intent.getAction().equals(Action.INTENT.getValue())) {
+                Song song = intent.getParcelableExtra(SongActivity.KEY_SONG);
+                Log.d(TAG, "song: " + song.getTitle());
+                mSongs.add(song);
+            }
             if (intent.getAction().equals(Action.START.getValue())) {
-                mPosition = intent.getIntExtra(MusicActivity.KEY_POSITION, 0);
+                mPosition = intent.getIntExtra(SongActivity.KEY_POSITION, 0);
+                if (mMediaPlayer.isPlaying()) {
+                    mMediaPlayer.stop();
+                }
                 startNew(mPosition);
             } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
                 mMediaPlayer.pause();
@@ -88,7 +91,7 @@ public class MusicService extends Service {
                 mMediaPlayer.start();
                 startCountDownTimer(mMediaPlayer.getDuration() - mLength);
             } else if (intent.getAction().equals(Action.SEEK_TO.getValue())) {
-                mLength = intent.getIntExtra(MusicActivity.KEY_CHOOSE_TIME, 0);
+                mLength = intent.getIntExtra(SongActivity.KEY_CHOOSE_TIME, 0);
                 mMediaPlayer.seekTo(mLength);
                 mCountDownTimer.cancel();
                 startCountDownTimer(mMediaPlayer.getDuration() - mLength);
@@ -104,10 +107,9 @@ public class MusicService extends Service {
     }
 
     private void startNew(int position) {
-        mMediaPlayer = new MediaPlayer();
         try {
             mMediaPlayer.reset();
-            mMediaPlayer.setDataSource(mUrls.get(position));
+            mMediaPlayer.setDataSource(mSongs.get(position).getSource());
             mMediaPlayer.prepare();
         } catch (IOException e) {
             Log.d(TAG, "startNew: IOException " + e.getMessage());
@@ -123,22 +125,22 @@ public class MusicService extends Service {
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                if (mRepeatStatus != MusicActivity.REPEAT_ONE) {
-                    if (mShuffleStatus == MusicActivity.SHUFFLE) {
+                if (mRepeatStatus != SongActivity.REPEAT_ONE) {
+                    if (mShuffleStatus == SongActivity.SHUFFLE) {
                         Random random = new Random();
                         int position;
                         do {
-                            position = random.nextInt(mUrls.size());
+                            position = random.nextInt(mSongs.size());
                         } while (position == mPosition);
                         mPosition = position;
-                    } else if (mRepeatStatus == MusicActivity.REPEAT) {
-                        if (mPosition == mUrls.size() - 1) {
+                    } else if (mRepeatStatus == SongActivity.REPEAT) {
+                        if (mPosition == mSongs.size() - 1) {
                             mPosition = 0;
                         } else {
                             mPosition++;
                         }
-                    } else if (mRepeatStatus == MusicActivity.NO_REPEAT) {
-                        if (mPosition != mUrls.size() - 1) {
+                    } else if (mRepeatStatus == SongActivity.NO_REPEAT) {
+                        if (mPosition != mSongs.size() - 1) {
                             mPosition++;
                         }
                     }
@@ -184,7 +186,7 @@ public class MusicService extends Service {
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
-        if (mPlayStatus == MusicActivity.PAUSE_STATUS) {
+        if (mPlayStatus == SongActivity.PAUSE_STATUS) {
             mMediaPlayer.release();
         }
         if (mStatusBroadcastReceiver != null) {
@@ -199,8 +201,8 @@ public class MusicService extends Service {
 
         mRemoteViews = new RemoteViews(getPackageName(), R.layout.notification_music);
         mRemoteViews.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
-        mRemoteViews.setTextViewText(R.id.tvSong, mSongNames[mPosition]);
-        mRemoteViews.setTextViewText(R.id.tvArtist, mArtists[mPosition]);
+        mRemoteViews.setTextViewText(R.id.tvSong, mSongs.get(mPosition).getTitle());
+        mRemoteViews.setTextViewText(R.id.tvArtist, mSongs.get(mPosition).getArtist());
         mRemoteViews.setTextViewText(R.id.tvTime, Utils.getTime(mMediaPlayer.getDuration()));
         mRemoteViews.setTextViewText(R.id.tvCurrentTime, Utils.getTime(mMediaPlayer.getCurrentPosition()));
 
@@ -209,13 +211,15 @@ public class MusicService extends Service {
         PendingIntent clearPendingIntent = PendingIntent.getBroadcast(this, 0, clearIntent, 0);
         mRemoteViews.setOnClickPendingIntent(R.id.imgClear, clearPendingIntent);
 
-        Intent notificationIntent = new Intent(getApplicationContext(), MusicActivity.class);
-        notificationIntent.putExtra(MusicActivity.KEY_POSITION, mPosition);
+        Intent notificationIntent = new Intent(getApplicationContext(), SongActivity.class);
+        notificationIntent.putExtra(SongActivity.KEY_POSITION, mPosition);
+        notificationIntent.putExtra("play_fragment", "play_fragment");
+        notificationIntent.putExtra("start", false);
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         mPendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setSmallIcon(R.mipmap.ic_music)
                 .setAutoCancel(true)
-                .setPriority(FLAG_HIGH_PRIORITY)
                 .setCustomBigContentView(mRemoteViews)
                 .setContentIntent(mPendingIntent);
         startForeground(mNotificationId, mBuilder.build());
@@ -230,44 +234,45 @@ public class MusicService extends Service {
         public void onReceive(Context context, Intent intent) {
             if (intent != null && intent.getAction() != null) {
                 if (intent.getAction().equals(Action.START.getValue())) {
-                    mPlayStatus = intent.getIntExtra(MusicActivity.KEY_PLAY_STATUS, 0);
+                    mPlayStatus = intent.getIntExtra(SongActivity.KEY_PLAY_STATUS, 0);
                 } else if (intent.getAction().equals(Action.SHUFFLE.getValue())) {
-                    mShuffleStatus = intent.getIntExtra(MusicActivity.KEY_SHUFFLE_STATUS, 0);
+                    mShuffleStatus = intent.getIntExtra(SongActivity.KEY_SHUFFLE_STATUS, 0);
                 } else if (intent.getAction().equals(Action.REPEAT.getValue())) {
-                    mRepeatStatus = intent.getIntExtra(MusicActivity.KEY_REPEAT_STATUS, 0);
+                    mRepeatStatus = intent.getIntExtra(SongActivity.KEY_REPEAT_STATUS, 0);
                 } else if (intent.getAction().equals(Action.PREVIOUS.getValue())) {
-                    if (mShuffleStatus == MusicActivity.SHUFFLE) {
+                    if (mShuffleStatus == SongActivity.SHUFFLE) {
                         Random random = new Random();
                         int position;
                         do {
-                            position = random.nextInt(mUrls.size());
+                            position = random.nextInt(mSongs.size());
                         } while (position == mPosition);
                         mPosition = position;
                     } else {
                         if (mPosition == 0) {
-                            mPosition = mUrls.size() - 1;
+                            mPosition = mSongs.size() - 1;
                         } else {
                             mPosition--;
                         }
                     }
                     mMediaPlayer.stop();
                     startNew(mPosition);
-                    if (mPlayStatus == MusicActivity.PAUSE_STATUS) {
+                    if (mPlayStatus == SongActivity.PAUSE_STATUS) {
                         mLength = 0;
                         mMediaPlayer.seekTo(mLength);
                         mMediaPlayer.pause();
                     }
 
                 } else if (intent.getAction().equals(Action.NEXT.getValue())) {
-                    if (mShuffleStatus == MusicActivity.SHUFFLE) {
+                    if (mShuffleStatus == SongActivity.SHUFFLE) {
                         Random random = new Random();
                         int position;
                         do {
-                            position = random.nextInt(mUrls.size());
+                            position = random.nextInt(mSongs.size());
                         } while (position == mPosition);
                         mPosition = position;
                     } else {
-                        if (mPosition == mUrls.size() - 1) {
+                        Log.d(TAG, "size list: " + (mSongs == null));
+                        if (mPosition == mSongs.size() - 1) {
                             mPosition = 0;
                         } else {
                             mPosition++;
@@ -275,7 +280,7 @@ public class MusicService extends Service {
                     }
                     mMediaPlayer.stop();
                     startNew(mPosition);
-                    if (mPlayStatus == MusicActivity.PAUSE_STATUS) {
+                    if (mPlayStatus == SongActivity.PAUSE_STATUS) {
                         mLength = 0;
                         mMediaPlayer.seekTo(mLength);
                         mMediaPlayer.pause();
@@ -284,12 +289,9 @@ public class MusicService extends Service {
                     mMediaPlayer.stop();
                     stopForeground(true);
                     stopSelf();
-                    mNotificationManager.cancelAll();
-                    SharedPreferences sp = getApplicationContext().getSharedPreferences("status", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putInt(MusicActivity.KEY_PLAY_STATUS, MusicActivity.STOP_STATUS);
-                    editor.apply();
-                    editor.commit();
+                    if (mNotificationManager != null) {
+                        mNotificationManager.cancelAll();
+                    }
                     Intent finishIntent = new Intent();
                     finishIntent.setAction(Action.FINISH.getValue());
                     sendBroadcast(finishIntent);
@@ -302,7 +304,7 @@ public class MusicService extends Service {
                     if (mNotificationManager == null) {
                         SharedPreferences sp = getApplicationContext().getSharedPreferences("status", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sp.edit();
-                        editor.putInt(MusicActivity.KEY_PLAY_STATUS, MusicActivity.STOP_STATUS);
+                        editor.putInt(SongActivity.KEY_PLAY_STATUS, SongActivity.PLAY_STATUS);
                         editor.apply();
                         editor.commit();
                     }
