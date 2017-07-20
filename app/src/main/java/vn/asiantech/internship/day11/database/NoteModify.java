@@ -19,8 +19,6 @@ public class NoteModify {
     }
 
     public void insert(Note note) {
-
-        // Mo ket noi DataBase
         SQLiteDatabase db = mDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.KEY_TITLE, note.getTitle());
@@ -30,8 +28,6 @@ public class NoteModify {
         values.put(DatabaseHelper.KEY_DATE, note.getDate());
         values.put(DatabaseHelper.KEY_TIME, note.getTime());
         db.insert(DatabaseHelper.DATABASE_TABLE, null, values);
-
-        // Dong ket noi
         db.close();
     }
 
