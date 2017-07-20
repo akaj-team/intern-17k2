@@ -65,4 +65,12 @@
         android:layout_below="@+id/btnExday15"
         android:layout_centerHorizontal="true"
         android:text="@string/ex_day_16" />
+
+    <Button
+        android:id="@+id/btnExday23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnExday16"
+        android:layout_centerHorizontal="true"
+        android:text="@string/ex_day_23" />
 </RelativeLayout>

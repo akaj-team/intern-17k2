@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import vn.asiantech.internship.exday15.JsonActivity;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.exday13.ChatActivity;
+import vn.asiantech.internship.exday15.JsonActivity;
 import vn.asiantech.internship.exday16.ViewPagerActivity;
+import vn.asiantech.internship.exday23.UploadActivity_;
 import vn.asiantech.internship.exfragment.RecyclerViewActivity;
 import vn.asiantech.internship.feed.FeedActivity;
 import vn.asiantech.internship.note.NoteActivity;
@@ -35,6 +36,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
         Button btnExday13 = (Button) findViewById(R.id.btnExday13);
         Button btnExday15 = (Button) findViewById(R.id.btnExday15);
         Button btnExday16 = (Button) findViewById(R.id.btnExday16);
+        Button btnExday23 = (Button) findViewById(R.id.btnExday23);
 
         btnDrawer.setOnClickListener(this);
         btnFragment.setOnClickListener(this);
@@ -44,6 +46,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
         btnExday13.setOnClickListener(this);
         btnExday15.setOnClickListener(this);
         btnExday16.setOnClickListener(this);
+        btnExday23.setOnClickListener(this);
     }
 
     @Override
@@ -79,6 +82,10 @@ public class SplashActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btnExday16:
                 mIntent = new Intent(SplashActivity.this, ViewPagerActivity.class);
+                startActivity(mIntent);
+                break;
+            case R.id.btnExday23:
+                mIntent = new Intent(SplashActivity.this, UploadActivity_.class);
                 startActivity(mIntent);
                 break;
         }
