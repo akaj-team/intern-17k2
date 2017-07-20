@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_ID = "_id";
     public static final String KEY_TITLE = "title";
-    public static final String KEY_DESCRIPTION = "descriptiom";
+    public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_DAY = "day";
     public static final String KEY_DATE = "date";

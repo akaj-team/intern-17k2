@@ -68,9 +68,9 @@ public class InformationEditFragment extends Fragment {
             public void onClick(View v) {
                 Note note;
                 if (TextUtils.isEmpty(mEdtTitle.getText().toString())) {
-                    Toast.makeText(getContext(), "input title", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.toast_input_title, Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(mEdtDescription.getText().toString())) {
-                    Toast.makeText(getContext(), "input description", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.toast_input_description, Toast.LENGTH_SHORT).show();
                 } else {
                     NoteModify noteModify = new NoteModify(getContext());
                     String day = formatTime("EEE");
@@ -98,7 +98,6 @@ public class InformationEditFragment extends Fragment {
             convertBitmapToFile(designImage(selectedImage));
             mImgNote.setImageURI(mSaveUriImage);
             mImgNote.setVisibility(View.VISIBLE);
-
         }
     }
 

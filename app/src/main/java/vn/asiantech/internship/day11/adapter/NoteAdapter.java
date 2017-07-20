@@ -73,10 +73,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                 public void onClick(View v) {
                     InformationNoteFragment informationNoteFragment = new InformationNoteFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("Time", mNotes.get(getAdapterPosition()).getDay() + " " + mNotes.get(getAdapterPosition()).getDate() + " " + mNotes.get(getAdapterPosition()).getTime());
-                    bundle.putString("Title", mNotes.get(getAdapterPosition()).getTitle());
-                    bundle.putString("Description", mNotes.get(getAdapterPosition()).getDescription());
-                    bundle.putString("UriImage", mNotes.get(getAdapterPosition()).getImageNote());
+                    bundle.putInt(InformationNoteFragment.TYPE_ID, mNotes.get(getAdapterPosition()).getId());
+                    bundle.putString(InformationNoteFragment.TYPE_TIME, mNotes.get(getAdapterPosition()).getDay() + " " + mNotes.get(getAdapterPosition()).getDate() + " " + mNotes.get(getAdapterPosition()).getTime());
+                    bundle.putString(InformationNoteFragment.TYPE_TITLE, mNotes.get(getAdapterPosition()).getTitle());
+                    bundle.putString(InformationNoteFragment.TYPE_DESCRIPTION, mNotes.get(getAdapterPosition()).getDescription());
+                    bundle.putString(InformationNoteFragment.TYPE_URI_IMAGE, mNotes.get(getAdapterPosition()).getImageNote());
                     informationNoteFragment.setArguments(bundle);
                     mNoteActivity.changeFragment(informationNoteFragment);
                 }
