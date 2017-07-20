@@ -289,9 +289,7 @@ public class MusicService extends Service {
                     mMediaPlayer.stop();
                     stopForeground(true);
                     stopSelf();
-                    if (mNotificationManager != null) {
-                        mNotificationManager.cancelAll();
-                    }
+                    mNotificationManager.cancelAll();
                     Intent finishIntent = new Intent();
                     finishIntent.setAction(Action.FINISH.getValue());
                     sendBroadcast(finishIntent);
