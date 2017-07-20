@@ -78,4 +78,14 @@ Chôn vùi theo làn mây</string>
     <string name="song_title">%1$s - %2$s</string>
     <string name="image_url">https://yt3.ggpht.com/-5qEUb8dKx6U/AAAAAAAAAAI/AAAAAAAAAAA/OocjlzJd-zU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg</string>
     <string name="song_url">http://api.mp3.zing.vn/api/mobile/song/getsonginfo?requestdata={\"id\":\"%s\"}</string>
+    <string name="day_5">Day 5</string>
+    <string name="day_6">Day 6</string>
+    <string name="day_7">Day 7</string>
+    <string name="day_9">Day 9</string>
+    <string name="day_11">Day 11</string>
+    <string name="day_13">Day 13</string>
+    <string name="day_15">Day 15</string>
+    <string name="day_16">Day 16</string>
+    <string name="day_24">Day 24</string>
+    <string name="day_19">Day 19</string>
 </resources>

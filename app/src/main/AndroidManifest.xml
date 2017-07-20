@@ -38,5 +38,6 @@
             android:name=".services.MusicService"
             android:enabled="true" />
         <activity android:name=".ui.main.FootballStarActivity" />
+        <activity android:name=".ui.main.CanvasActivity" />
     </application>
 </manifest>

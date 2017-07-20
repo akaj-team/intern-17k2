@@ -10,6 +10,7 @@ import android.widget.Button;
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.feed.FeedActivity;
 import vn.asiantech.internship.friend.ListFriendActivity;
+import vn.asiantech.internship.ui.main.CanvasActivity;
 import vn.asiantech.internship.ui.main.ChatActivity;
 import vn.asiantech.internship.ui.main.FootballStarActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
@@ -35,6 +36,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         Button btnDay15 = (Button) findViewById(R.id.btnDay15);
         Button btnDay16 = (Button) findViewById(R.id.btnDay16);
         Button btnDay19 = (Button) findViewById(R.id.btnDay19);
+        Button btnDay24 = (Button) findViewById(R.id.btnDay24);
 
         btnDay5.setOnClickListener(this);
         btnDay6.setOnClickListener(this);
@@ -45,6 +47,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         btnDay15.setOnClickListener(this);
         btnDay16.setOnClickListener(this);
         btnDay19.setOnClickListener(this);
+        btnDay24.setOnClickListener(this);
     }
 
     @Override
@@ -85,6 +88,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btnDay19:
                 Intent intent19 = new Intent(SplashActivity.this, MusicActivity.class);
                 startActivity(intent19);
+                break;
+            case R.id.btnDay24:
+                Intent intent24 = new Intent(SplashActivity.this, CanvasActivity.class);
+                startActivity(intent24);
                 break;
         }
     }

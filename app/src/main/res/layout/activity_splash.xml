@@ -15,63 +15,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Day 5" />
+            android:text="@string/day_5" />
 
         <Button
             android:id="@+id/btnDay6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Day 6" />
+            android:text="@string/day_6" />
 
         <Button
             android:id="@+id/btnDay7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Day 7" />
+            android:text="@string/day_7" />
 
         <Button
             android:id="@+id/btnDay9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Day 9" />
+            android:text="@string/day_9" />
 
         <Button
             android:id="@+id/btnDay11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Day 11" />
+            android:text="@string/day_11" />
 
         <Button
             android:id="@+id/btnDay13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Day 13" />
+            android:text="@string/day_13" />
 
         <Button
             android:id="@+id/btnDay15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Day 15" />
+            android:text="@string/day_15" />
 
         <Button
             android:id="@+id/btnDay16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Day 16" />
+            android:text="@string/day_16" />
 
         <Button
             android:id="@+id/btnDay19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Day 19" />
+            android:text="@string/day_19" />
+
+        <Button
+            android:id="@+id/btnDay24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/day_24"/>
 
     </LinearLayout>
 </ScrollView>
