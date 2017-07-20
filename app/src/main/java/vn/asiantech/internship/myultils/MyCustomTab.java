@@ -41,20 +41,15 @@ public class MyCustomTab extends View {
         mPaint.setStrokeWidth(5);
         mPaint.setColor(Color.RED);
         if (mSelected) {
+            canvas.drawLine(0, getHeight(), mWidth, getHeight(), mPaint);
             mPaint.setColor(Color.WHITE);
             canvas.drawCircle(getWidth() / 2, getWidth() / 2 + 10, getWidth() / 2, mPaint);
             mPaint.setColor(Color.RED);
             mPaint.setStyle(Paint.Style.STROKE);
             canvas.drawCircle(getWidth() / 2, getWidth() / 2 + 10, getWidth() / 2, mPaint);
-            canvas.drawLine(0, getHeight(), mWidth / 2 - getDxEmpty(), getHeight(), mPaint);
-            canvas.drawLine(mWidth / 2 + getDxEmpty(), getHeight(), mWidth, getHeight(), mPaint);
         } else {
             canvas.drawLine(0, getHeight(), mWidth, getHeight(), mPaint);
         }
-    }
-
-    private float getDxEmpty() {
-        return (float) Math.sqrt(1.0 * mWidth * mWidth / 4 - (1.0 * mWidth / 2 + 10 - 1.0 * mHeight) * (1.0 * mWidth / 2 + 10 - 1.0 * mHeight));
     }
 
     public void setSelected(boolean selected) {
