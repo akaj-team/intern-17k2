@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class EquationValidation {
 
-    public EquationValidation() {
+    private EquationValidation() {
     }
 
     public static String checkInput(double a, double b, double c) {

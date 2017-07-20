@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  */
 public class LoginValidation {
 
-    public LoginValidation() {
+    private LoginValidation() {
     }
 
     public static boolean checkUserLength(String user) {
