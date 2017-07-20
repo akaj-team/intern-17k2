@@ -73,5 +73,13 @@
             android:layout_marginTop="20dp"
             android:text="Day 19" />
 
+
+        <Button
+            android:id="@+id/btnDay21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Day 21" />
+
     </LinearLayout>
 </ScrollView>

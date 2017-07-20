@@ -38,5 +38,7 @@
             android:name=".services.MusicService"
             android:enabled="true" />
         <activity android:name=".ui.main.FootballStarActivity" />
+        <activity android:name=".ui.main.ContactActivity" />
+        <activity android:name=".ui.main.ContactActivity_" />
     </application>
 </manifest>
