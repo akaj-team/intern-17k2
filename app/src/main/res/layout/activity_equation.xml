@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar_mockito" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/equation.text_view.title"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/edtNumberA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/equation.edit_text.a"
+        android:imeOptions="actionNext"
+        android:inputType="numberDecimal|numberSigned"
+        android:paddingEnd="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingStart="20dp" />
+
+    <EditText
+        android:id="@+id/edtNumberB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/equation.edit_text.b"
+        android:imeOptions="actionNext"
+        android:inputType="numberDecimal"
+        android:paddingEnd="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingStart="20dp" />
+
+    <EditText
+        android:id="@+id/edtNumberC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/equation.edit_text.c"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal"
+        android:paddingEnd="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingStart="20dp" />
+
+    <Button
+        android:id="@+id/btnCalculate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/selector_button_mockito"
+        android:text="@string/equation.button.result"
+        android:textColor="@color/colorBlack"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="25sp" />
+
+</LinearLayout>

@@ -24,13 +24,17 @@
 
         <activity android:name=".ui.note.NoteActivity" />
 
-        <activity android:name=".ui.tablayout.TabActivity">
+        <activity android:name=".ui.tablayout.TabActivity" />
+
+        <activity android:name=".ui.mockito.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.mockito.EquationActivity" />
 
         <activity android:name=".ui.main.MainActivity" />
 

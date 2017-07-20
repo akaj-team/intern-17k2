@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar_mockito" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@null"
+        android:src="@drawable/img_mock" />
+
+    <EditText
+        android:id="@+id/edtUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_account_circle"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_account_circle"
+        android:hint="@string/login.edit_text.user_name"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:paddingEnd="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingStart="10dp" />
+
+    <EditText
+        android:id="@+id/edtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_whatshot"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_whatshot"
+        android:hint="@string/login.edit_text.password"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:paddingEnd="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingStart="10dp" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/selector_button_mockito"
+        android:text="@string/login.button.login"
+        android:textColor="@color/colorBlack"
+        android:textSize="17sp" />
+
+</LinearLayout>
