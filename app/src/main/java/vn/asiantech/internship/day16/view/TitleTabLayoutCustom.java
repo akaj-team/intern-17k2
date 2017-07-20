@@ -33,9 +33,9 @@ public class TitleTabLayoutCustom extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         if (mIsCheck) {
-            RectF rectf = new RectF(0, -getHeight() * 2 / 3, getWidth(), getHeight() / 2);
+            RectF rectf = new RectF(0, -getHeight() / 2, getWidth(), getHeight() / 3);
             canvas.drawArc(rectf, 0, 180, false, mPaint1);
-            RectF rect = new RectF(0, -getHeight() * 2 / 3, getWidth(), getHeight() / 2);
+            RectF rect = new RectF(0, -getHeight() / 2, getWidth(), getHeight() / 3);
             canvas.drawArc(rect, 0, 180, false, mPaint2);
         } else {
             canvas.drawLine(0, 0, getWidth(), 0, mPaint2);

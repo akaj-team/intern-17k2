@@ -7,7 +7,8 @@
     <TextView
         android:id="@+id/tvTabItem"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:paddingTop="10dp"
+        android:layout_height="60dp"
         android:background="@color/colorItem"
         android:gravity="center"
         android:textColor="@color/textview.tab.title" />
