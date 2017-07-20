@@ -19,7 +19,7 @@
     </style>
 
     <!--Mockito Background-->
-    <style name="MockitoBackground" parent="Theme.AppCompat">
+    <style name="MockitoBackground" parent="AppTheme">
         <item name="android:background">@color/colorWhite</item>
     </style>
 
