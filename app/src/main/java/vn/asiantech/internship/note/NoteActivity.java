@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import vn.asiantech.internship.R;
 
@@ -176,6 +177,10 @@ public class NoteActivity extends AppCompatActivity implements View.OnClickListe
                 mTvTitle.setText(R.string.title_edit);
                 break;
         }
+    }
+
+    public List<ItemNote> itemNoteList() {
+        return mNoteDatabase.getList();
     }
 
     @Override

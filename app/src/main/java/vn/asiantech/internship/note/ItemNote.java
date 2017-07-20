@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by datbu on 19-06-2017.
  */
-class ItemNote implements Serializable {
+public class ItemNote implements Serializable {
     private String title;
     private String note;
     private String time;
@@ -28,7 +28,7 @@ class ItemNote implements Serializable {
         this.title = title;
     }
 
-    String getTime() {
+    public String getTime() {
         return time;
     }
 
@@ -36,7 +36,7 @@ class ItemNote implements Serializable {
         this.time = time;
     }
 
-    String getTitle() {
+    public String getTitle() {
         return title;
     }
 

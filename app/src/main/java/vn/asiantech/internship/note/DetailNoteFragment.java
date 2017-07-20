@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import vn.asiantech.internship.R;
 
@@ -46,9 +45,18 @@ public class DetailNoteFragment extends Fragment {
             mImgPhoto.setVisibility(View.VISIBLE);
             mImgPhoto.setImageURI(Uri.parse(mItemNote.getImage()));
         }
-
-        mEdtTitle.setText(mItemNote.getTitle());
-        mEdtNote.setText(mItemNote.getNote());
+        if (mItemNote.getTitle().equals("(No title)")) {
+            mEdtTitle.setHint(R.string.edt_title);
+            mEdtTitle.setText(R.string.edt_no_title);
+        } else {
+            mEdtTitle.setText(mItemNote.getTitle());
+        }
+        if (mItemNote.getNote().equals("(No content)")) {
+            mEdtNote.setHint(R.string.edt_note);
+            mEdtNote.setText(R.string.edt_no_content);
+        } else {
+            mEdtNote.setText(mItemNote.getNote());
+        }
         mTvTime.setText(mItemNote.getTime());
         return view;
     }
@@ -66,23 +74,42 @@ public class DetailNoteFragment extends Fragment {
     }
 
     public long editNote() {
+        String time = AddNoteFragment.getDate();
+        mItemNote.setTime(time);
+        String savePath = null;
+
         mEdtNote.setFocusable(true);
         mEdtTitle.setFocusable(true);
+
         if (TextUtils.isEmpty(mEdtNote.getText()) || TextUtils.isEmpty(mEdtTitle.getText())) {
-            Toast.makeText(getContext(), "Please input text !", Toast.LENGTH_SHORT).show();
-            return -1;
+            String note = getString(R.string.edt_no_content);
+            String title = getString(R.string.edt_no_title);
+            if (TextUtils.isEmpty(mEdtNote.getText()) && !TextUtils.isEmpty(mEdtTitle.getText())) {
+                mEdtNote.setText("");
+                mItemNote.setNote(note);
+            } else if (TextUtils.isEmpty(mEdtTitle.getText()) && !TextUtils.isEmpty(mEdtNote.getText())) {
+                mEdtTitle.setText("");
+                mItemNote.setTitle(title);
+            } else {
+                mEdtNote.setText("");
+                mEdtTitle.setText("");
+                mItemNote.setTitle(title);
+                mItemNote.setNote(note);
+            }
+            NoteDatabase noteDatabase = new NoteDatabase(getContext());
+            noteDatabase.open();
+            long result = noteDatabase.editNote(mItemNote);
+            noteDatabase.close();
+            return result;
         } else {
-            String time = AddNoteFragment.getDate();
-            mItemNote.setTime(time);
-            mItemNote.setTitle(mEdtTitle.getText().toString());
-            mItemNote.setNote(mEdtNote.getText().toString());
-            String savePath = null;
             if (mIsBitmap) {
                 savePath = saveImage(((BitmapDrawable) mImgPhoto.getDrawable()).getBitmap());
             }
             if (savePath != null) {
                 mItemNote.setImage(savePath);
             }
+            mItemNote.setNote(mEdtNote.getText().toString());
+            mItemNote.setTitle(mEdtTitle.getText().toString());
             NoteDatabase noteDatabase = new NoteDatabase(getContext());
             noteDatabase.open();
             long result = noteDatabase.editNote(mItemNote);

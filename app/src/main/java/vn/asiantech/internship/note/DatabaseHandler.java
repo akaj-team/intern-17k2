@@ -10,12 +10,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "sql_lite";
-    private static final String TABLE_CONTACTS = "table_note";
-    private static final String ID = "_id";
-    private static final String TITLE = "title";
-    private static final String NOTE = "note";
-    private static final String TIME = "time";
-    private static final String IMAGE = "image";
 
     DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -24,19 +18,19 @@ class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create_contacts_table = "CREATE TABLE " + TABLE_CONTACTS + "("
-                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + TITLE + " TEXT,"
-                + NOTE + " TEXT,"
-                + TIME + " TEXT,"
-                + IMAGE + " TEXT" + ")";
+        String create_contacts_table = "CREATE TABLE " + NoteDatabase.TABLE_CONTACTS + "("
+                + NoteDatabase.ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + NoteDatabase.TITLE + " TEXT,"
+                + NoteDatabase.NOTE + " TEXT,"
+                + NoteDatabase.TIME + " TEXT,"
+                + NoteDatabase.IMAGE + " TEXT" + ")";
         db.execSQL(create_contacts_table);
     }
 
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
+        db.execSQL("DROP TABLE IF EXISTS " + NoteDatabase.TABLE_CONTACTS);
         onCreate(db);
     }
 }

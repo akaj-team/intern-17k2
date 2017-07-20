@@ -42,6 +42,7 @@ public class AddNoteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_addnote, container, false);
         initViews(view);
+        mItemNote = new ItemNote();
         mNoteDatabase = new NoteDatabase(getContext());
         mNoteDatabase.open();
         return view;
@@ -60,17 +61,37 @@ public class AddNoteFragment extends Fragment {
     }
 
     public void addNote() {
+        String time = getDate();
+        mItemNote.setTime(time);
+        String savePath = null;
+
         if (TextUtils.isEmpty(mEdtNote.getText()) || TextUtils.isEmpty(mEdtTitle.getText())) {
-            Toast.makeText(getContext(), "Please text something", Toast.LENGTH_SHORT).show();
+            if (TextUtils.isEmpty(mEdtNote.getText()) && !TextUtils.isEmpty(mEdtTitle.getText())) {
+                mEdtNote.setText("");
+                String note = getString(R.string.edt_no_content);
+                mItemNote = new ItemNote(mItemNote.getTime(), mEdtTitle.getText().toString(), note);
+            } else if (TextUtils.isEmpty(mEdtTitle.getText()) && !TextUtils.isEmpty(mEdtNote.getText())) {
+                mEdtTitle.setText("");
+                String title = getString(R.string.edt_no_title);
+                mItemNote = new ItemNote(mItemNote.getTime(), title, mEdtNote.getText().toString());
+            } else {
+                mEdtNote.setText("");
+                mEdtTitle.setText("");
+                String note = getString(R.string.edt_no_content);
+                String title = getString(R.string.edt_no_title);
+                mItemNote = new ItemNote(mItemNote.getTime(), title, note);
+            }
+            if (mNoteDatabase.insertNote(mItemNote) > 0) {
+                Toast.makeText(getContext(), "Success !!!", Toast.LENGTH_SHORT).show();
+                mEdtNote.setText("");
+                mEdtTitle.setText("");
+            } else {
+                Toast.makeText(getContext(), "Fail !!!", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            mItemNote = new ItemNote();
-            String time = getDate();
-            mItemNote.setTime(time);
-            String savePath = null;
             if (mIsBitmap) {
                 BitmapDrawable drawable = (BitmapDrawable) mImgPhoto.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
-
                 savePath = saveImage(bitmap);
             }
             if (savePath != null) {
@@ -78,18 +99,17 @@ public class AddNoteFragment extends Fragment {
             } else {
                 mItemNote = new ItemNote(mItemNote.getTime(), mEdtTitle.getText().toString(), mEdtNote.getText().toString());
             }
-        }
-        if (mNoteDatabase.insertNote(mItemNote) > 0) {
-            Toast.makeText(getContext(), "Success !!!", Toast.LENGTH_SHORT).show();
-            mEdtNote.setText("");
-            mEdtTitle.setText("");
-        } else {
-            Toast.makeText(getContext(), "Fail !!!", Toast.LENGTH_SHORT).show();
+            if (mNoteDatabase.insertNote(mItemNote) > 0) {
+                Toast.makeText(getContext(), "Success !!!", Toast.LENGTH_SHORT).show();
+                mEdtNote.setText("");
+                mEdtTitle.setText("");
+            } else {
+                Toast.makeText(getContext(), "Fail !!!", Toast.LENGTH_SHORT).show();
+            }
         }
         mEdtNote.setFocusable(false);
         mEdtTitle.setFocusable(false);
     }
-
 
     public static String getDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE MMM dd HH:mm:ss", Locale.ENGLISH);
