@@ -53,7 +53,7 @@
     <dimen name="test.button.margin_right_left">5dp</dimen>
     <dimen name="test.radioGroup.margin_top">10dp</dimen>
     <dimen name="tab.title.size">8sp</dimen>
-    <dimen name="customTab.height">15dp</dimen>
+    <dimen name="customTab.height">20dp</dimen>
     <dimen name="tabLayout.height">80dp</dimen>
     <dimen name="music.image.margin_right">40dp</dimen>
     <dimen name="music.image.margin_right_left">10dp</dimen>
