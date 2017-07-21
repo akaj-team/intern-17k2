@@ -23,9 +23,12 @@
         <activity android:name=".MainIntentActivity" />
         <activity android:name=".ui.feed.FeedActivity" />
         <activity android:name=".activity.ChatActivity" />
-        <activity android:name=".activity.TestActivity"/>
-        <activity android:name=".activity.ResultActivity"/>
-        <activity android:name=".ui.main.NoteActivity"/>
+        <activity android:name=".activity.TestActivity" />
+        <activity android:name=".activity.ResultActivity" />
+        <activity android:name=".ui.main.NoteActivity" />
         <activity android:name=".activity.AnimalActivity" />
+        <activity android:name=".music.ui.home.SongActivity" />
+
+        <service android:name=".music.services.MusicService" />
     </application>
 </manifest>

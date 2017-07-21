@@ -5,5 +5,6 @@ package vn.asiantech.internship.interfaces;
  */
 public interface OnReplaceFragmentListener {
     void onReplaceFragmentAdd();
+
     void onReplaceFragmentMain();
 }
