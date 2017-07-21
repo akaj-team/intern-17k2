@@ -19,8 +19,8 @@
         <!--d5-->
         <activity android:name=".note.NoteActivity" />
         <activity android:name=".exday15.JsonActivity" />
-        <activity android:name=".feed.ActivityFeed" />
         <activity android:name=".exday16.ViewPagerActivity"/>
+        <activity android:name=".feed.FeedActivity" />
         <activity android:name=".exday13.ChatActivity" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
@@ -31,6 +31,10 @@
         </activity>
         <activity android:name=".exday15.PointActivity" />
         <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".exday19.MusicActivity" />
         <activity android:name=".exfragment.RecyclerViewActivity" />
+        <service
+            android:name=".exday19.NotificationServiceMusic"
+            android:enabled="true" />
     </application>
 </manifest>

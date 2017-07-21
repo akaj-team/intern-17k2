@@ -49,15 +49,20 @@
     <string name="item.setting">Settings</string>
     <string name="fragment_layout">Fragment Layout</string>
     <string name="drawer_layout">Drawer Layout</string>
+    <string name="time_format">%1$d:%2$d</string>
+    <string name="song_name">Song Name</string>
+    <string name="artist_name">Artist Name</string>
     <string name="ex_day_7">Ex day 7</string>
     <string name="ex_day_9">Ex day 9</string>
     <string name="ex_day_13">EX Day 13</string>
     <string name="ex_day_11">Ex Day 11</string>
     <string name="ex_day_15">Ex day 15</string>
     <string name="ex_day_16">Ex day 16</string>
+    <string name="content_title">Music Player</string>
+    <string name="content_songname">Song name....</string>
+    <string name="tv.time">00:00</string>
     <string-array name="choose">
         <item>Picture</item>
         <item>Camera</item>
     </string-array>
-
 </resources>
