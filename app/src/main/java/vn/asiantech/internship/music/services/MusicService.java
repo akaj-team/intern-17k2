@@ -189,7 +189,7 @@ public class MusicService extends Service {
 
             @Override
             public void onFinish() {
-                //No-op
+                // No-op
             }
         };
         mCountDownTimer.start();
