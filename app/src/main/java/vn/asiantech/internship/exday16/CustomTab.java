@@ -41,15 +41,20 @@ public class CustomTab extends View {
         mHeight = mWidth / 3;
         mPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setStrokeWidth(2);
+        mPaint.setStrokeWidth(3);
         initColor();
         if (mChoose) {
             mPaint.setColor(ContextCompat.getColor(getContext(), R.color.custom_tab));
+            mPaint.setColor(Color.WHITE);
+            canvas.drawCircle(getWidth() / 2, getWidth() / 2 + 10, getWidth() / 2, mPaint);
+            canvas.drawLine(0, getHeight(), mWidth / 2 - getEmptySpace(), getHeight(), mPaint);
+            canvas.drawLine(mWidth / 2 + getEmptySpace(), getHeight(), mWidth, getHeight(), mPaint);
             initColor();
             mPaint.setStyle(Paint.Style.STROKE);
             canvas.drawCircle(getWidth() / 2, getWidth() / 2 + 10, getWidth() / 2, mPaint);
             canvas.drawLine(0, getHeight(), mWidth / 2 - getEmptySpace(), getHeight(), mPaint);
             canvas.drawLine(mWidth / 2 + getEmptySpace(), getHeight(), mWidth, getHeight(), mPaint);
+            mPaint.setStyle(Paint.Style.FILL);
         } else {
             canvas.drawLine(0, getHeight(), mWidth, getHeight(), mPaint);
         }
