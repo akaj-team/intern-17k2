@@ -28,7 +28,6 @@ import vn.asiantech.internship.music.models.Song;
 import vn.asiantech.internship.music.ui.home.SongActivity;
 import vn.asiantech.internship.music.utils.Utils;
 
-
 /**
  * Created by ducle on 08/07/2017.
  * MusicService to play music
@@ -166,7 +165,6 @@ public class MusicService extends Service {
                     }
                 }
                 startNew(mPosition);
-
             }
         });
         startCountDownTimer(mMediaPlayer.getDuration());
@@ -204,7 +202,6 @@ public class MusicService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-
     private void showNotification() {
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mBuilder = new NotificationCompat.Builder(this);

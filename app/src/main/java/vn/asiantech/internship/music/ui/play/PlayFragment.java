@@ -224,7 +224,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                     Intent pauseIntent = new Intent(getActivity(), MusicService.class);
                     pauseIntent.setAction(Action.PAUSE.getValue());
                     getActivity().startService(pauseIntent);
-
                     break;
                 }
                 if (mImgPlayStatus == SongActivity.PAUSE_STATUS) {
@@ -236,7 +235,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                     Intent resumeIntent = new Intent(getActivity(), MusicService.class);
                     resumeIntent.setAction(Action.RESUME.getValue());
                     getActivity().startService(resumeIntent);
-
                     break;
                 }
             case R.id.imgShuffle:
@@ -244,7 +242,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                     mImgShuffle.setImageResource(R.drawable.ic_shuffle_red_700_24dp);
                     mImgShuffleStatus = SongActivity.SHUFFLE;
                     mEditor.putInt(SongActivity.KEY_SHUFFLE_STATUS, mImgShuffleStatus);
-
                 } else {
                     mImgShuffle.setImageResource(R.drawable.ic_shuffle_black_24dp);
                     mImgShuffleStatus = SongActivity.NO_SHUFFLE;
@@ -263,7 +260,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_red_700_24dp);
                     mImgRepeatStatus = SongActivity.REPEAT;
                     mEditor.putInt(SongActivity.KEY_REPEAT_STATUS, mImgRepeatStatus);
-
                     sendRepeatStatus();
                     break;
                 }
@@ -271,7 +267,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_one_red_700_24dp);
                     mImgRepeatStatus = SongActivity.REPEAT_ONE;
                     mEditor.putInt(SongActivity.KEY_REPEAT_STATUS, mImgRepeatStatus);
-
                     sendRepeatStatus();
                     break;
                 }
@@ -279,7 +274,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_black_24dp);
                     mImgRepeatStatus = SongActivity.NO_REPEAT;
                     mEditor.putInt(SongActivity.KEY_REPEAT_STATUS, mImgRepeatStatus);
-
                     sendRepeatStatus();
                     break;
                 }
