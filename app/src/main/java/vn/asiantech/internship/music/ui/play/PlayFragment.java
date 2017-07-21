@@ -21,20 +21,6 @@ import vn.asiantech.internship.music.services.MusicService;
 import vn.asiantech.internship.music.ui.home.SongActivity;
 import vn.asiantech.internship.music.utils.Utils;
 
-import static android.content.Context.MODE_PRIVATE;
-import static vn.asiantech.internship.music.ui.home.SongActivity.KEY_CHOOSE_TIME;
-import static vn.asiantech.internship.music.ui.home.SongActivity.KEY_PLAY_STATUS;
-import static vn.asiantech.internship.music.ui.home.SongActivity.KEY_REPEAT_STATUS;
-import static vn.asiantech.internship.music.ui.home.SongActivity.KEY_SHUFFLE_STATUS;
-import static vn.asiantech.internship.music.ui.home.SongActivity.NO_REPEAT;
-import static vn.asiantech.internship.music.ui.home.SongActivity.NO_SHUFFLE;
-import static vn.asiantech.internship.music.ui.home.SongActivity.PAUSE_STATUS;
-import static vn.asiantech.internship.music.ui.home.SongActivity.PLAY_STATUS;
-import static vn.asiantech.internship.music.ui.home.SongActivity.REPEAT;
-import static vn.asiantech.internship.music.ui.home.SongActivity.REPEAT_ONE;
-import static vn.asiantech.internship.music.ui.home.SongActivity.SHUFFLE;
-import static vn.asiantech.internship.music.ui.home.SongActivity.STOP_STATUS;
-
 public class PlayFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = PlayFragment.class.getSimpleName();
     private TextView mTvCurrentTime;
@@ -59,10 +45,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
             if (intent != null) {
                 if (intent.getAction().equals(Action.SEEK.getValue())) {
                     processTime(intent);
-                }
-                if (intent.getAction().equals(Action.FINISH.getValue())) {
-                    //finish activity;
-                    getActivity().finish();
                 }
             }
 
@@ -107,7 +89,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
     private void initIntentFilter() {
         IntentFilter filter = new IntentFilter(Action.SEEK.getValue());
-        filter.addAction(Action.FINISH.getValue());
         getActivity().registerReceiver(mBroadcastReceiver, filter);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -123,7 +104,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 mTvCurrentTime.setText(Utils.getTime(seekBar.getProgress()));
                 Intent playIntent = new Intent(getActivity(), MusicService.class);
-                playIntent.putExtra(KEY_CHOOSE_TIME, seekBar.getProgress());
+                playIntent.putExtra(SongActivity.KEY_CHOOSE_TIME, seekBar.getProgress());
                 playIntent.setAction(Action.SEEK_TO.getValue());
                 Log.d(TAG, "onStopTrackingTouch: seek to " + seekBar.getProgress());
                 getActivity().startService(playIntent);
@@ -132,12 +113,11 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initSharedPreferences() {
-        mSharedPreferences = getActivity().getSharedPreferences("status", MODE_PRIVATE);
+        mSharedPreferences = getActivity().getSharedPreferences("status", Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
-        if (!mSharedPreferences.contains(KEY_PLAY_STATUS)) {
-            mEditor.putInt(KEY_PLAY_STATUS, PLAY_STATUS);
-            mEditor.putInt(KEY_SHUFFLE_STATUS, NO_SHUFFLE);
-            mEditor.putInt(KEY_REPEAT_STATUS, NO_REPEAT);
+        if (!mSharedPreferences.contains(SongActivity.KEY_SHUFFLE_STATUS)) {
+            mEditor.putInt(SongActivity.KEY_SHUFFLE_STATUS, SongActivity.NO_SHUFFLE);
+            mEditor.putInt(SongActivity.KEY_REPEAT_STATUS, SongActivity.NO_REPEAT);
             mEditor.apply();
             mEditor.commit();
         }
@@ -155,32 +135,32 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initState() {
-        mImgPlayStatus = mSharedPreferences.getInt(KEY_PLAY_STATUS, STOP_STATUS);
+        mImgPlayStatus = mSharedPreferences.getInt(SongActivity.KEY_PLAY_STATUS, SongActivity.PLAY_STATUS);
         switch (mImgPlayStatus) {
-            case PAUSE_STATUS:
+            case SongActivity.PAUSE_STATUS:
                 mImgPlay.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                 break;
-            case PLAY_STATUS:
+            case SongActivity.PLAY_STATUS:
                 mImgPlay.setImageResource(R.drawable.ic_pause_black_24dp);
         }
-        mImgShuffleStatus = mSharedPreferences.getInt(KEY_SHUFFLE_STATUS, NO_SHUFFLE);
+        mImgShuffleStatus = mSharedPreferences.getInt(SongActivity.KEY_SHUFFLE_STATUS, SongActivity.NO_SHUFFLE);
         switch (mImgShuffleStatus) {
-            case NO_SHUFFLE:
+            case SongActivity.NO_SHUFFLE:
                 mImgShuffle.setImageResource(R.drawable.ic_shuffle_black_24dp);
                 break;
-            case SHUFFLE:
+            case SongActivity.SHUFFLE:
                 mImgShuffle.setImageResource(R.drawable.ic_shuffle_red_700_24dp);
                 break;
         }
-        mImgRepeatStatus = mSharedPreferences.getInt(KEY_REPEAT_STATUS, NO_REPEAT);
+        mImgRepeatStatus = mSharedPreferences.getInt(SongActivity.KEY_REPEAT_STATUS, SongActivity.NO_REPEAT);
         switch (mImgRepeatStatus) {
-            case NO_REPEAT:
+            case SongActivity.NO_REPEAT:
                 mImgRepeat.setImageResource(R.drawable.ic_repeat_black_24dp);
                 break;
-            case REPEAT:
+            case SongActivity.REPEAT:
                 mImgRepeat.setImageResource(R.drawable.ic_repeat_red_700_24dp);
                 break;
-            case REPEAT_ONE:
+            case SongActivity.REPEAT_ONE:
                 mImgRepeat.setImageResource(R.drawable.ic_repeat_one_red_700_24dp);
                 break;
         }
@@ -210,10 +190,9 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgPlay:
-
-                if (mImgPlayStatus == PLAY_STATUS) {
-                    mImgPlayStatus = PAUSE_STATUS;
-                    mEditor.putInt(KEY_PLAY_STATUS, mImgPlayStatus);
+                if (mImgPlayStatus == SongActivity.PLAY_STATUS) {
+                    mImgPlayStatus = SongActivity.PAUSE_STATUS;
+                    mEditor.putInt(SongActivity.KEY_PLAY_STATUS, mImgPlayStatus);
                     mImgPlay.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     sendPlayStatus();
 
@@ -223,9 +202,9 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
                     break;
                 }
-                if (mImgPlayStatus == PAUSE_STATUS) {
-                    mImgPlayStatus = PLAY_STATUS;
-                    mEditor.putInt(KEY_PLAY_STATUS, mImgPlayStatus);
+                if (mImgPlayStatus == SongActivity.PAUSE_STATUS) {
+                    mImgPlayStatus = SongActivity.PLAY_STATUS;
+                    mEditor.putInt(SongActivity.KEY_PLAY_STATUS, mImgPlayStatus);
                     mImgPlay.setImageResource(R.drawable.ic_pause_black_24dp);
                     sendPlayStatus();
 
@@ -236,15 +215,15 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                     break;
                 }
             case R.id.imgShuffle:
-                if (mImgShuffleStatus == NO_SHUFFLE) {
+                if (mImgShuffleStatus == SongActivity.NO_SHUFFLE) {
                     mImgShuffle.setImageResource(R.drawable.ic_shuffle_red_700_24dp);
-                    mImgShuffleStatus = SHUFFLE;
-                    mEditor.putInt(KEY_SHUFFLE_STATUS, mImgShuffleStatus);
+                    mImgShuffleStatus = SongActivity.SHUFFLE;
+                    mEditor.putInt(SongActivity.KEY_SHUFFLE_STATUS, mImgShuffleStatus);
 
                 } else {
                     mImgShuffle.setImageResource(R.drawable.ic_shuffle_black_24dp);
-                    mImgShuffleStatus = NO_SHUFFLE;
-                    mEditor.putInt(KEY_SHUFFLE_STATUS, mImgShuffleStatus);
+                    mImgShuffleStatus = SongActivity.NO_SHUFFLE;
+                    mEditor.putInt(SongActivity.KEY_SHUFFLE_STATUS, mImgShuffleStatus);
                 }
                 sendShuffleStatus();
                 break;
@@ -255,26 +234,26 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                 sendNext();
                 break;
             case R.id.imgRepeat:
-                if (mImgRepeatStatus == NO_REPEAT) {
+                if (mImgRepeatStatus == SongActivity.NO_REPEAT) {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_red_700_24dp);
-                    mImgRepeatStatus = REPEAT;
-                    mEditor.putInt(KEY_REPEAT_STATUS, mImgRepeatStatus);
+                    mImgRepeatStatus = SongActivity.REPEAT;
+                    mEditor.putInt(SongActivity.KEY_REPEAT_STATUS, mImgRepeatStatus);
 
                     sendRepeatStatus();
                     break;
                 }
-                if (mImgRepeatStatus == REPEAT) {
+                if (mImgRepeatStatus == SongActivity.REPEAT) {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_one_red_700_24dp);
-                    mImgRepeatStatus = REPEAT_ONE;
-                    mEditor.putInt(KEY_REPEAT_STATUS, mImgRepeatStatus);
+                    mImgRepeatStatus = SongActivity.REPEAT_ONE;
+                    mEditor.putInt(SongActivity.KEY_REPEAT_STATUS, mImgRepeatStatus);
 
                     sendRepeatStatus();
                     break;
                 }
-                if (mImgRepeatStatus == REPEAT_ONE) {
+                if (mImgRepeatStatus == SongActivity.REPEAT_ONE) {
                     mImgRepeat.setImageResource(R.drawable.ic_repeat_black_24dp);
-                    mImgRepeatStatus = NO_REPEAT;
-                    mEditor.putInt(KEY_REPEAT_STATUS, mImgRepeatStatus);
+                    mImgRepeatStatus = SongActivity.NO_REPEAT;
+                    mEditor.putInt(SongActivity.KEY_REPEAT_STATUS, mImgRepeatStatus);
 
                     sendRepeatStatus();
                     break;
@@ -295,19 +274,19 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
     private void sendPlayStatus() {
         Intent intentPlay = new Intent(Action.PLAY.getValue());
-        intentPlay.putExtra(KEY_PLAY_STATUS, mImgPlayStatus);
+        intentPlay.putExtra(SongActivity.KEY_PLAY_STATUS, mImgPlayStatus);
         getActivity().sendBroadcast(intentPlay);
     }
 
     private void sendShuffleStatus() {
         Intent intentShuffle = new Intent(Action.SHUFFLE.getValue());
-        intentShuffle.putExtra(KEY_SHUFFLE_STATUS, mImgShuffleStatus);
+        intentShuffle.putExtra(SongActivity.KEY_SHUFFLE_STATUS, mImgShuffleStatus);
         getActivity().sendBroadcast(intentShuffle);
     }
 
     private void sendRepeatStatus() {
         Intent intentRepeat = new Intent(Action.REPEAT.getValue());
-        intentRepeat.putExtra(KEY_REPEAT_STATUS, mImgRepeatStatus);
+        intentRepeat.putExtra(SongActivity.KEY_REPEAT_STATUS, mImgRepeatStatus);
         getActivity().sendBroadcast(intentRepeat);
     }
 

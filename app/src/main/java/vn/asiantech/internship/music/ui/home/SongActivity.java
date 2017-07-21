@@ -2,10 +2,16 @@ package vn.asiantech.internship.music.ui.home;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.music.models.Action;
 import vn.asiantech.internship.music.ui.play.PlayFragment;
 
 public class SongActivity extends AppCompatActivity implements SongAdapter.OnItemClickListener {
@@ -25,6 +31,16 @@ public class SongActivity extends AppCompatActivity implements SongAdapter.OnIte
     public static final String KEY_SONG = "song";
     private SongListFragment mSongListFragment;
     private PlayFragment mPlayFragment;
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                if (intent.getAction().equals(Action.FINISH.getValue())) {
+                    finish();
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +61,20 @@ public class SongActivity extends AppCompatActivity implements SongAdapter.OnIte
             fragmentTransaction.replace(R.id.flContain, mSongListFragment, "list");
             fragmentTransaction.commit();
         }
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Action.FINISH.getValue());
+        registerReceiver(mBroadcastReceiver, intentFilter);
     }
 
     @Override
     public void onClickItem(int position) {
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("status", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(SongActivity.KEY_PLAY_STATUS, SongActivity.PLAY_STATUS);
+        editor.apply();
+        editor.commit();
+
         mPlayFragment = PlayFragment.newInstance(position, true);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -67,9 +93,10 @@ public class SongActivity extends AppCompatActivity implements SongAdapter.OnIte
 
     @Override
     protected void onDestroy() {
+        if (getFragmentManager().findFragmentByTag("list") instanceof SongListFragment) {
+            mSongListFragment.mDataLoaded = false;
+        }
         super.onDestroy();
-            if (getFragmentManager().findFragmentByTag("list") instanceof SongListFragment) {
-                mSongListFragment.mDataLoaded = false;
-            }
+        unregisterReceiver(mBroadcastReceiver);
     }
 }

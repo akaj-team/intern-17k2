@@ -54,7 +54,6 @@ public class MusicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mMediaPlayer = new MediaPlayer();
         mSongs = new ArrayList<>();
         mStatusBroadcastReceiver = new StatusBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter();
@@ -78,14 +77,19 @@ public class MusicService extends Service {
             }
             if (intent.getAction().equals(Action.START.getValue())) {
                 mPosition = intent.getIntExtra(SongActivity.KEY_POSITION, 0);
-                if (mMediaPlayer.isPlaying()) {
-                    mMediaPlayer.stop();
+                if (mMediaPlayer != null) {
+                    if (mMediaPlayer.isPlaying()) {
+                        mMediaPlayer.stop();
+                    }
+                    mMediaPlayer.release();
+                    mMediaPlayer = null;
                 }
                 startNew(mPosition);
             } else if (intent.getAction().equals(Action.PAUSE.getValue())) {
                 mMediaPlayer.pause();
                 mLength = mMediaPlayer.getCurrentPosition();
                 mCountDownTimer.cancel();
+                Log.d(TAG, "CountDownTimer: "+"cancel");
             } else if (intent.getAction().equals(Action.RESUME.getValue())) {
                 mMediaPlayer.seekTo(mLength);
                 mMediaPlayer.start();
@@ -94,6 +98,7 @@ public class MusicService extends Service {
                 mLength = intent.getIntExtra(SongActivity.KEY_CHOOSE_TIME, 0);
                 mMediaPlayer.seekTo(mLength);
                 mCountDownTimer.cancel();
+                Log.d(TAG, "CountDownTimer: "+"cancel");
                 startCountDownTimer(mMediaPlayer.getDuration() - mLength);
                 Log.d(TAG, "onStartCommand: seek to " + mLength);
             } else if (intent.getAction().equals(Action.STOP.getValue())) {
@@ -107,6 +112,11 @@ public class MusicService extends Service {
     }
 
     private void startNew(int position) {
+        mMediaPlayer = new MediaPlayer();
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+            Log.d(TAG, "CountDownTimer: "+"cancel");
+        }
         try {
             mMediaPlayer.reset();
             mMediaPlayer.setDataSource(mSongs.get(position).getSource());
@@ -117,6 +127,7 @@ public class MusicService extends Service {
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
+
                 showNotification();
                 mMediaPlayer.start();
             }
@@ -158,13 +169,14 @@ public class MusicService extends Service {
             @Override
             public void onTick(long l) {
                 timeIntent.putExtra(KEY_TIME, mMediaPlayer.getDuration());
-                Log.d(TAG, "onTick: " + mMediaPlayer.getDuration());
                 timeIntent.putExtra(KEY_CURRENT_TIME, mMediaPlayer.getCurrentPosition());
                 sendBroadcast(timeIntent);
                 mRemoteViews.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
                 mRemoteViews.setTextViewText(R.id.tvCurrentTime, Utils.getTime(mMediaPlayer.getCurrentPosition()));
                 mBuilder.setCustomBigContentView(mRemoteViews);
-                mNotificationManager.notify(mNotificationId, mBuilder.build());
+                if (mNotificationManager != null) {
+                    mNotificationManager.notify(mNotificationId, mBuilder.build());
+                }
             }
 
             @Override
@@ -173,26 +185,13 @@ public class MusicService extends Service {
             }
         };
         mCountDownTimer.start();
+        Log.d(TAG, "CountDownTimer: "+"start");
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
-    }
-
-    @Override
-    public void onDestroy() {
-        if (mCountDownTimer != null) {
-            mCountDownTimer.cancel();
-        }
-        if (mPlayStatus == SongActivity.PAUSE_STATUS) {
-            mMediaPlayer.release();
-        }
-        if (mStatusBroadcastReceiver != null) {
-            unregisterReceiver(mStatusBroadcastReceiver);
-        }
-        super.onDestroy();
     }
 
     private void showNotification() {
@@ -286,13 +285,19 @@ public class MusicService extends Service {
                         mMediaPlayer.pause();
                     }
                 } else if (intent.getAction().equals(Action.CLEAR.getValue())) {
-                    mMediaPlayer.stop();
                     stopForeground(true);
                     stopSelf();
-                    mNotificationManager.cancelAll();
+                    mNotificationManager = null;
+
                     Intent finishIntent = new Intent();
                     finishIntent.setAction(Action.FINISH.getValue());
                     sendBroadcast(finishIntent);
+
+                    SharedPreferences sp = getApplicationContext().getSharedPreferences("status", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putInt(SongActivity.KEY_PLAY_STATUS, SongActivity.PLAY_STATUS);
+                    editor.apply();
+                    editor.commit();
 
                 } else if (intent.getAction().equals(Action.SHOW.getValue())) {
                     if (mNotificationManager == null) {
@@ -309,5 +314,24 @@ public class MusicService extends Service {
                 }
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+            Log.d(TAG, "CountDownTimer: "+"cancel");
+        }
+        if (mMediaPlayer != null) {
+            if (mMediaPlayer.isPlaying()) {
+                mMediaPlayer.stop();
+            }
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
+        if (mStatusBroadcastReceiver != null) {
+            unregisterReceiver(mStatusBroadcastReceiver);
+        }
+        super.onDestroy();
     }
 }
