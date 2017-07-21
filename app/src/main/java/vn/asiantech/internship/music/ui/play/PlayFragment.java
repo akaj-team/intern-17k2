@@ -22,7 +22,7 @@ import vn.asiantech.internship.music.models.Action;
 import vn.asiantech.internship.music.models.Song;
 import vn.asiantech.internship.music.services.MusicService;
 import vn.asiantech.internship.music.ui.home.SongActivity;
-import vn.asiantech.internship.music.utils.Utils;
+import vn.asiantech.internship.music.utils.TimeUtil;
 
 public class PlayFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = PlayFragment.class.getSimpleName();
@@ -40,7 +40,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private int mImgRepeatStatus;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
-    private int mLength = 0;
+    private int mLength;
     private int mPosition;
     private boolean mDoStart;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
@@ -118,7 +118,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                mTvCurrentTime.setText(Utils.getTime(seekBar.getProgress()));
+                mTvCurrentTime.setText(TimeUtil.getTime(seekBar.getProgress()));
             }
 
             @Override
@@ -127,7 +127,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                mTvCurrentTime.setText(Utils.getTime(seekBar.getProgress()));
+                mTvCurrentTime.setText(TimeUtil.getTime(seekBar.getProgress()));
                 Intent playIntent = new Intent(getActivity(), MusicService.class);
                 playIntent.putExtra(SongActivity.KEY_CHOOSE_TIME, seekBar.getProgress());
                 playIntent.setAction(Action.SEEK_TO.getValue());
@@ -156,7 +156,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         mImgPlay = (ImageView) view.findViewById(R.id.imgPlay);
         mImgNext = (ImageView) view.findViewById(R.id.imgNext);
         mImgRepeat = (ImageView) view.findViewById(R.id.imgRepeat);
-        mSeekBar = (SeekBar) view.findViewById(R.id.progressBar);
+        mSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
     }
 
     private void initState() {
@@ -203,12 +203,12 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private void processTime(Intent intent) {
         mLength = intent.getIntExtra(MusicService.KEY_TIME, 0);
         mSeekBar.setMax(mLength);
-        mTvTime.setText(Utils.getTime(mLength));
+        mTvTime.setText(TimeUtil.getTime(mLength));
         mToolbar.setTitle(intent.getStringExtra(MusicService.KEY_TITLE));
         int position = intent.getIntExtra(MusicService.KEY_CURRENT_TIME, 0);
         Log.d(TAG, "processTime: " + position);
         mSeekBar.setProgress(position);
-        mTvCurrentTime.setText(Utils.getTime(position));
+        mTvCurrentTime.setText(TimeUtil.getTime(position));
     }
 
     @Override

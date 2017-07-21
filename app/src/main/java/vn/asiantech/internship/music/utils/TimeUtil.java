@@ -2,10 +2,10 @@ package vn.asiantech.internship.music.utils;
 
 /**
  * Created by ducle on 10/07/2017.
- * Utils to handle
+ * TimeUtil to handle
  */
-public class Utils {
-    private Utils() {
+public final class TimeUtil {
+    private TimeUtil() {
     }
 
     public static String getTime(int time) {

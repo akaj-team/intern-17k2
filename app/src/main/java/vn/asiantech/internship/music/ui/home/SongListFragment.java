@@ -40,7 +40,7 @@ public class SongListFragment extends Fragment {
     private RequestQueue mRequestQueue;
     private ProgressDialog mProgressDialog;
     private LoadSongList mLoadSongList;
-    public boolean mDataLoaded = false;
+    public boolean mDataLoaded;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

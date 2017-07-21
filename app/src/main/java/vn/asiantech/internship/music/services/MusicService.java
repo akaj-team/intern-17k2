@@ -26,7 +26,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.music.models.Action;
 import vn.asiantech.internship.music.models.Song;
 import vn.asiantech.internship.music.ui.home.SongActivity;
-import vn.asiantech.internship.music.utils.Utils;
+import vn.asiantech.internship.music.utils.TimeUtil;
 
 /**
  * Created by ducle on 08/07/2017.
@@ -135,7 +135,6 @@ public class MusicService extends Service {
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
-
                 showNotification();
                 mMediaPlayer.start();
             }
@@ -180,8 +179,8 @@ public class MusicService extends Service {
                 timeIntent.putExtra(KEY_TITLE, mSongs.get(mPosition).getTitle() + " --- " + mSongs.get(mPosition).getArtist());
                 timeIntent.putExtra(KEY_CURRENT_TIME, mMediaPlayer.getCurrentPosition());
                 sendBroadcast(timeIntent);
-                mRemoteViews.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
-                mRemoteViews.setTextViewText(R.id.tvCurrentTime, Utils.getTime(mMediaPlayer.getCurrentPosition()));
+                mRemoteViews.setProgressBar(R.id.seekBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
+                mRemoteViews.setTextViewText(R.id.tvCurrentTime, TimeUtil.getTime(mMediaPlayer.getCurrentPosition()));
                 mBuilder.setCustomBigContentView(mRemoteViews);
                 if (mNotificationManager != null) {
                     mNotificationManager.notify(mNotificationId, mBuilder.build());
@@ -190,7 +189,7 @@ public class MusicService extends Service {
 
             @Override
             public void onFinish() {
-
+                //No-op
             }
         };
         mCountDownTimer.start();
@@ -202,16 +201,17 @@ public class MusicService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
     private void showNotification() {
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mBuilder = new NotificationCompat.Builder(this);
 
         mRemoteViews = new RemoteViews(getPackageName(), R.layout.notification_music);
-        mRemoteViews.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
+        mRemoteViews.setProgressBar(R.id.seekBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
         mRemoteViews.setTextViewText(R.id.tvSong, mSongs.get(mPosition).getTitle());
         mRemoteViews.setTextViewText(R.id.tvArtist, mSongs.get(mPosition).getArtist());
-        mRemoteViews.setTextViewText(R.id.tvTime, Utils.getTime(mMediaPlayer.getDuration()));
-        mRemoteViews.setTextViewText(R.id.tvCurrentTime, Utils.getTime(mMediaPlayer.getCurrentPosition()));
+        mRemoteViews.setTextViewText(R.id.tvTime, TimeUtil.getTime(mMediaPlayer.getDuration()));
+        mRemoteViews.setTextViewText(R.id.tvCurrentTime, TimeUtil.getTime(mMediaPlayer.getCurrentPosition()));
 
         Intent clearIntent = new Intent();
         clearIntent.setAction(Action.CLEAR.getValue());
