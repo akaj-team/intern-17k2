@@ -97,12 +97,12 @@ public class DrawParabolaView extends View {
         }
     }
 
-    private float getXCanvas(float x, float k) {
-        return k * x + getWidth() / 2;
+    private float getXCanvas(float x, float unit) {
+        return unit * x + getWidth() / 2;
     }
 
-    private float getYCanvas(float y, float k) {
-        return -k * y + getHeight() / 2;
+    private float getYCanvas(float y, float unit) {
+        return -unit * y + getHeight() / 2;
     }
 
     private float getY(float x) {
