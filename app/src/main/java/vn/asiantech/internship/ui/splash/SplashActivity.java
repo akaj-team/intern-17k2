@@ -12,6 +12,7 @@ import vn.asiantech.internship.R;
 import vn.asiantech.internship.activity.ChatActivity;
 import vn.asiantech.internship.activity.AnimalActivity;
 import vn.asiantech.internship.activity.FriendActivity;
+import vn.asiantech.internship.activity.ParabolaActivity;
 import vn.asiantech.internship.ui.feed.FeedActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 import vn.asiantech.internship.activity.TestActivity;
@@ -29,6 +30,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private Button mBtnBai15;
     private Button mBtnBai11;
     private Button mBtnBai16;
+    private Button mBtnBai24;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai15.setOnClickListener(this);
         mBtnBai11.setOnClickListener(this);
         mBtnBai16.setOnClickListener(this);
+        mBtnBai24.setOnClickListener(this);
     }
 
     private void initViews() {
@@ -58,6 +61,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mBtnBai15 = (Button) findViewById(R.id.btnBai15);
         mBtnBai11 = (Button) findViewById(R.id.btnBai11);
         mBtnBai16 = (Button) findViewById(R.id.btnBai16);
+        mBtnBai24 = (Button) findViewById(R.id.btnBai24);
     }
 
     @Override
@@ -86,6 +90,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btnBai16:
                 startActivity(new Intent(this, AnimalActivity.class));
+                break;
+            case R.id.btnBai24:
+                startActivity(new Intent(this, ParabolaActivity.class));
                 break;
         }
     }
