@@ -6,7 +6,7 @@ package vn.asiantech.internship.music.models;
  */
 public enum Action {
     START("START"), PAUSE("PAUSE"), RESUME("RESUME"), SHOW("SHOW_NOTIFICATION"),
-    SEEK("SEEK"), SEEK_TO("SEEK_TO"), STOP("STOP"), PLAY("PLAY"),
+    SEEK("SEEK"), SEEK_TO("SEEK_TO"), STOP("STOP"), PLAY("PLAY"), SEND_INFO("INFO"),
     SHUFFLE("SHUFFLE"), REPEAT("REPEAT"), PREVIOUS("PREVIOUS"), NEXT("NEXT"),
     CLEAR("CLEAR"), CHANGE("CHANGE"), FINISH("FINISH"), INTENT("INTENT");
 

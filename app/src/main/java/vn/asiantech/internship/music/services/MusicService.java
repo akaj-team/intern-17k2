@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -35,6 +36,7 @@ import vn.asiantech.internship.music.utils.Utils;
 public class MusicService extends Service {
     private static final String TAG = MusicService.class.getSimpleName();
     public static final String KEY_TIME = "time";
+    public static final String KEY_TITLE = "title";
     public static final String KEY_CURRENT_TIME = "current_time";
     private MediaPlayer mMediaPlayer;
     private CountDownTimer mCountDownTimer;
@@ -89,7 +91,7 @@ public class MusicService extends Service {
                 mMediaPlayer.pause();
                 mLength = mMediaPlayer.getCurrentPosition();
                 mCountDownTimer.cancel();
-                Log.d(TAG, "CountDownTimer: "+"cancel");
+                Log.d(TAG, "CountDownTimer: " + "cancel");
             } else if (intent.getAction().equals(Action.RESUME.getValue())) {
                 mMediaPlayer.seekTo(mLength);
                 mMediaPlayer.start();
@@ -98,7 +100,7 @@ public class MusicService extends Service {
                 mLength = intent.getIntExtra(SongActivity.KEY_CHOOSE_TIME, 0);
                 mMediaPlayer.seekTo(mLength);
                 mCountDownTimer.cancel();
-                Log.d(TAG, "CountDownTimer: "+"cancel");
+                Log.d(TAG, "CountDownTimer: " + "cancel");
                 startCountDownTimer(mMediaPlayer.getDuration() - mLength);
                 Log.d(TAG, "onStartCommand: seek to " + mLength);
             } else if (intent.getAction().equals(Action.STOP.getValue())) {
@@ -115,8 +117,15 @@ public class MusicService extends Service {
         mMediaPlayer = new MediaPlayer();
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
-            Log.d(TAG, "CountDownTimer: "+"cancel");
+            Log.d(TAG, "CountDownTimer: " + "cancel");
         }
+
+        Intent infoIntent = new Intent(Action.SEND_INFO.getValue());
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(SongActivity.KEY_SONG, mSongs.get(position));
+        infoIntent.putExtras(bundle);
+        sendBroadcast(infoIntent);
+
         try {
             mMediaPlayer.reset();
             mMediaPlayer.setDataSource(mSongs.get(position).getSource());
@@ -168,7 +177,9 @@ public class MusicService extends Service {
         mCountDownTimer = new CountDownTimer(millisInFuture, 1000) {
             @Override
             public void onTick(long l) {
+                Log.d(TAG, "onTick: " + l);
                 timeIntent.putExtra(KEY_TIME, mMediaPlayer.getDuration());
+                timeIntent.putExtra(KEY_TITLE, mSongs.get(mPosition).getTitle() + " --- " + mSongs.get(mPosition).getArtist());
                 timeIntent.putExtra(KEY_CURRENT_TIME, mMediaPlayer.getCurrentPosition());
                 sendBroadcast(timeIntent);
                 mRemoteViews.setProgressBar(R.id.progressBar, mMediaPlayer.getDuration(), mMediaPlayer.getCurrentPosition(), false);
@@ -185,7 +196,7 @@ public class MusicService extends Service {
             }
         };
         mCountDownTimer.start();
-        Log.d(TAG, "CountDownTimer: "+"start");
+        Log.d(TAG, "CountDownTimer: " + "start");
     }
 
     @Nullable
@@ -213,7 +224,6 @@ public class MusicService extends Service {
         Intent notificationIntent = new Intent(getApplicationContext(), SongActivity.class);
         notificationIntent.putExtra(SongActivity.KEY_POSITION, mPosition);
         notificationIntent.putExtra("play_fragment", "play_fragment");
-        notificationIntent.putExtra("start", false);
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         mPendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -320,7 +330,7 @@ public class MusicService extends Service {
     public void onDestroy() {
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
-            Log.d(TAG, "CountDownTimer: "+"cancel");
+            Log.d(TAG, "CountDownTimer: " + "cancel");
         }
         if (mMediaPlayer != null) {
             if (mMediaPlayer.isPlaying()) {

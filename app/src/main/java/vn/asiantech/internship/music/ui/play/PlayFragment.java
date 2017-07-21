@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import vn.asiantech.internship.R;
 import vn.asiantech.internship.music.models.Action;
+import vn.asiantech.internship.music.models.Song;
 import vn.asiantech.internship.music.services.MusicService;
 import vn.asiantech.internship.music.ui.home.SongActivity;
 import vn.asiantech.internship.music.utils.Utils;
@@ -31,6 +34,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private ImageView mImgPlay;
     private ImageView mImgNext;
     private ImageView mImgRepeat;
+    private Toolbar mToolbar;
     private int mImgPlayStatus;
     private int mImgShuffleStatus;
     private int mImgRepeatStatus;
@@ -45,6 +49,10 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
             if (intent != null) {
                 if (intent.getAction().equals(Action.SEEK.getValue())) {
                     processTime(intent);
+                }
+                if (intent.getAction().equals(Action.SEND_INFO.getValue())) {
+                    Song song = intent.getParcelableExtra(SongActivity.KEY_SONG);
+                    mToolbar.setTitle(song.getTitle() + " --- " + song.getArtist());
                 }
             }
 
@@ -74,6 +82,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_play, container, false);
+        initToolBar(view);
         initViews(view);
         initState();
         setClickButton();
@@ -87,8 +96,24 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    private void initToolBar(View view) {
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        mToolbar.setTitle(getString(R.string.wait));
+        mToolbar.setTitleTextColor(getActivity().getResources().getColor(android.R.color.holo_red_light));
+        mToolbar.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_red_700_24dp);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+    }
+
     private void initIntentFilter() {
         IntentFilter filter = new IntentFilter(Action.SEEK.getValue());
+        filter.addAction(Action.SEND_INFO.getValue());
         getActivity().registerReceiver(mBroadcastReceiver, filter);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -179,7 +204,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         mLength = intent.getIntExtra(MusicService.KEY_TIME, 0);
         mSeekBar.setMax(mLength);
         mTvTime.setText(Utils.getTime(mLength));
-
+        mToolbar.setTitle(intent.getStringExtra(MusicService.KEY_TITLE));
         int position = intent.getIntExtra(MusicService.KEY_CURRENT_TIME, 0);
         Log.d(TAG, "processTime: " + position);
         mSeekBar.setProgress(position);
