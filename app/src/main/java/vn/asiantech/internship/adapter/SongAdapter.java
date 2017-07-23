@@ -1,4 +1,4 @@
-package vn.asiantech.internship.adapters;
+package vn.asiantech.internship.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
