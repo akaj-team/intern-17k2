@@ -5,10 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import vn.asiantech.internship.R;
@@ -18,46 +18,29 @@ import vn.asiantech.internship.R;
  * Created by at-hoavo on 07/07/2017.
  */
 public class MyChartDraw extends View implements View.OnTouchListener {
-    private static final int MARGIN_LEFT = 50;
-    private static final int MARGIN_RIGHT = 10;
-    private static final int MARGIN_TOP = 50;
-    private static final int SCALE = 30;
-
-    private static final float MIN_ZOOM = 1f;
-    private static final float MAX_ZOOM = 4f;
-
-    private float mScaleFactor = 1f;
-    private ScaleGestureDetector mDetector;
-
-    // These constants specify the mMode that we're in
     private static final int NONE = 0;
     private static final int DRAG = 1;
     private static final int ZOOM = 2;
+    private static final int SCALE = 40;
+    private float mZoomFactor = 1f;
+    private int mMode = NONE;
 
-    private int mMode = DRAG;
-
-    // These two variables keep track of the X and Y coordinate of the finger when it first
-    // touches the screen
-    private float mStartX = 0f;
-    private float mStartY = 0f;
-    private float mLastFocusX = 0f;
-    private float mLastFocusY = 0f;
-
-    // These two variables keep track of the amount we need to translate the canvas along the X
-    // and the Y coordinate
     private float mTranslateX = 0f;
     private float mTranslateY = 0f;
-
-    // These two variables keep track of the amount we translated the X and Y coordinates, the last time we
-    // panned.
     private float mPreviousTranslateX = 0f;
     private float mPreviousTranslateY = 0f;
-    private boolean mDragged;
+
+    private boolean mFirstDown;
+    private Point mStartPoint = new Point();
+    private Point mLastPoint = new Point();
+    private double mNewDistance;
+    private double mOldDistance;
 
     private Paint mPaint1;
     private Paint mPaint2;
     private Path mPath1;
     private Path mPath2;
+    private Paint mPaint3;
 
     public MyChartDraw(Context context) {
         this(context, null);
@@ -67,7 +50,7 @@ public class MyChartDraw extends View implements View.OnTouchListener {
         super(context, attrs);
         initPaint1();
         initPaint2();
-        mDetector = new ScaleGestureDetector(getContext(), new ScaleListener());
+        initPaint3();
         setOnTouchListener(this);
     }
 
@@ -79,49 +62,32 @@ public class MyChartDraw extends View implements View.OnTouchListener {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        // We're going to scale the X and Y coordinates by the same amount
-        canvas.save();
-        if (mDetector.isInProgress()) {
-            canvas.scale(mScaleFactor, mScaleFactor, mDetector.getFocusX(), mDetector.getFocusY());
-        } else {
-            canvas.scale(mScaleFactor, mScaleFactor, mLastFocusX, mLastFocusY);
-        }
-
-        if ((mTranslateX * -1) > (mScaleFactor - 1) * getWidth()) {
-            mTranslateX = (1 - mScaleFactor) * getWidth();
-        }
-
-        if ((mTranslateY * -1) > (mScaleFactor - 1) * getHeight()) {
-            mTranslateY = (1 - mScaleFactor) * getHeight();
-        }
         // Create Coordinate axis
-        canvas.drawLine(MARGIN_LEFT - 30 + mTranslateX, getHeight() / 2 + mTranslateY, getWidth() - MARGIN_RIGHT + mTranslateX, getHeight() / 2 + mTranslateY, mPaint1);
+        canvas.drawLine(0, (getHeight() / 2) + mTranslateY, getWidth(), (getHeight() / 2) + mTranslateY, mPaint1);
+        canvas.drawLine((getWidth() / 2) + mTranslateX, 0, (getWidth() / 2) + mTranslateX, getHeight(), mPaint1);
+
+        canvas.drawText(getContext().getString(R.string.goc_O), (getWidth() / 2) - 40 + mTranslateX, (getHeight() / 2) + 40 + mTranslateY, mPaint1);
+        canvas.drawText(getContext().getString(R.string.truc_X), getWidth() - 30, (getHeight() / 2) + 50 + mTranslateY, mPaint1);
+        canvas.drawText(getContext().getString(R.string.truc_Y), (getWidth() / 2) - 50 + mTranslateX, 50, mPaint1);
+
         if (mPath1 == null) {
             mPath1 = new Path();
         }
         mPath1.reset();
-        mPath1.moveTo(getWidth() - MARGIN_RIGHT - 20 + mTranslateX, getHeight() / 2 + 20 + mTranslateY);
-        mPath1.lineTo(getWidth() - MARGIN_RIGHT - 20 + mTranslateX, getHeight() / 2 - 20 + mTranslateY);
-        mPath1.lineTo(getWidth() - MARGIN_RIGHT + 10 + mTranslateX, getHeight() / 2 + mTranslateY);
+        mPath1.moveTo(getWidth() - 20, (getHeight() / 2 + 20) + mTranslateY);
+        mPath1.lineTo(getWidth() - 20, (getHeight() / 2 - 20) + mTranslateY);
+        mPath1.lineTo(getWidth(), (getHeight() / 2) + mTranslateY);
         canvas.drawPath(mPath1, mPaint1);
-
-        canvas.drawLine(getWidth() / 2 + mTranslateX, MARGIN_TOP + mTranslateY, getWidth() / 2 + mTranslateX, getHeight() * 3 / 4 + MARGIN_TOP + mTranslateY, mPaint1);
-
         if (mPath2 == null) {
             mPath2 = new Path();
         }
         mPath2.reset();
-        mPath2.moveTo(getWidth() / 2 - 20 + mTranslateX, MARGIN_TOP + 20 + mTranslateY);
-        mPath2.lineTo(getWidth() / 2 + 20 + mTranslateX, MARGIN_TOP + 20 + mTranslateY);
-        mPath2.lineTo(getWidth() / 2 + mTranslateX, MARGIN_TOP - 10 + mTranslateY);
+        mPath2.moveTo(getWidth() / 2 - 20 + mTranslateX, 20);
+        mPath2.lineTo(getWidth() / 2 + 20 + mTranslateX, 20);
+        mPath2.lineTo(getWidth() / 2 + mTranslateX, 0);
         canvas.drawPath(mPath2, mPaint1);
 
-        canvas.drawText(getContext().getString(R.string.goc_O), getWidth() / 2 - 40 + mTranslateX, getHeight() / 2 + 40 + mTranslateY, mPaint1);
-        canvas.drawText(getContext().getString(R.string.truc_X), getWidth() - MARGIN_RIGHT - 30 + mTranslateX, getHeight() / 2 + 50 + mTranslateY, mPaint1);
-        canvas.drawText(getContext().getString(R.string.truc_Y), getWidth() / 2 - 50 + mTranslateX, MARGIN_TOP + 50 + mTranslateY, mPaint1);
-
         ptDoThi(3, -4, 1, canvas);
-        canvas.translate(mTranslateX / mScaleFactor, mTranslateY / mScaleFactor);
         canvas.restore();
     }
 
@@ -140,6 +106,14 @@ public class MyChartDraw extends View implements View.OnTouchListener {
         mPaint2.setColor(Color.RED);
     }
 
+    private void initPaint3() {
+        mPaint3 = new Paint();
+        mPaint3.setStrokeWidth(7);
+        mPaint3.setFlags(Paint.ANTI_ALIAS_FLAG);
+        mPaint3.setColor(Color.RED);
+    }
+
+
     private void ptDoThi(float a, float b, float c, Canvas canvas) {
         double width = getWidth() / SCALE;
         double xT = -width / 2;
@@ -147,83 +121,68 @@ public class MyChartDraw extends View implements View.OnTouchListener {
 
         for (double i = -width / 2; i < width / 2; i += 0.05f) {
             double y = a * i * i + b * i + c;
-            if ((getHeight() / 2 - yT * SCALE) < getHeight() && (getHeight() / 2 - yT * SCALE) > 0 && (getHeight() / 2 - y * SCALE) < getHeight() && (getHeight() / 2 - y * SCALE) > 0) {
-                canvas.drawLine((float) (getWidth() / 2 + xT * SCALE + mTranslateX), (float) (getHeight() / 2 - yT * SCALE + mTranslateY), (float) (getWidth() / 2 + i * SCALE + mTranslateX), (float) (getHeight() / 2 - y * SCALE + mTranslateY), mPaint2);
-            }
+            canvas.drawLine((float) (getWidth() / 2 + xT * SCALE * mZoomFactor + mTranslateX), (float) (getHeight() / 2 - yT * SCALE * mZoomFactor + mTranslateY), (float) (getWidth() / 2 + i * SCALE * mZoomFactor + mTranslateX), (float) (getHeight() / 2 - y * SCALE * mZoomFactor + mTranslateY), mPaint2);
             xT = i;
             yT = y;
         }
+
+        for (double i = -width + 1; i < width - 1; i++) {
+            canvas.drawPoint((float) (getWidth() / 2 + SCALE * i * mZoomFactor + mTranslateX), getHeight() / 2 + mTranslateY, mPaint3);
+        }
+
+        for (double i = -width + 1; i < width - 1; i++) {
+            canvas.drawPoint((getWidth() / 2 + mTranslateX), (float) (getHeight() / 2 + SCALE * i * mZoomFactor + mTranslateY), mPaint3);
+        }
+
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
-
             case MotionEvent.ACTION_DOWN:
+                mStartPoint.x = (int) (event.getX());
+                mStartPoint.y = (int) (event.getY());
                 mMode = DRAG;
-                mStartX = event.getX() - mPreviousTranslateX;
-                mStartY = event.getY() - mPreviousTranslateY;
                 break;
-
+            case MotionEvent.ACTION_POINTER_DOWN:
+                mMode = ZOOM;
+                if (!mFirstDown) {
+                    mLastPoint.x = (int) ((event.getX(0) + event.getX(1)) / 2);
+                    mLastPoint.y = (int) ((event.getY(0) + event.getY(1)) / 2);
+                    mOldDistance = getDistance(event.getX(1), event.getY(1), event.getX(0), event.getY(0));
+                    mFirstDown = true;
+                }
+                break;
             case MotionEvent.ACTION_MOVE:
-                if (mMode == DRAG) {
-                    mTranslateX = event.getX() - mStartX;
-                    mTranslateY = event.getY() - mStartY;
-
-                    double distance = Math.sqrt(Math.pow(event.getX() - (mStartX + mPreviousTranslateX), 2) +
-                            Math.pow(event.getY() - (mStartY + mPreviousTranslateY), 2)
-                    );
-
-                    if (distance > 0) {
-                        mDragged = true;
-                    }
+                if (mMode == ZOOM) {
+                    mNewDistance = getDistance(event.getX(1), event.getY(1), event.getX(0), event.getY(0));
+                    mZoomFactor *= (float) (mNewDistance / mOldDistance);
+                } else if (mMode == DRAG) {
+                    mTranslateX = event.getX() - mStartPoint.x + mPreviousTranslateX;
+                    mTranslateY = event.getY() - mStartPoint.y + mPreviousTranslateY;
                 }
+                mOldDistance = mNewDistance;
                 break;
-
             case MotionEvent.ACTION_UP:
-                if (mMode != ZOOM) {
-                    mDragged = false;
-                    mPreviousTranslateX = mTranslateX;
-                    mPreviousTranslateY = mTranslateY;
-                }
+                mPreviousTranslateX = mTranslateX;
+                mPreviousTranslateY = mTranslateY;
+                mFirstDown = false;
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
                 mMode = NONE;
                 break;
         }
-
-        mDetector.onTouchEvent(event);
-
-        if ((mMode == DRAG && mScaleFactor != 1f && mDragged)) {
-            invalidate();
+        if (mZoomFactor < 0.5) {
+            mZoomFactor = (float) 0.5;
         }
-        if (mScaleFactor == 1f) {
-            mMode = NONE;
-            mTranslateX = 0;
-            mTranslateY = 0;
-            invalidate();
+        if (mZoomFactor > 7) {
+            mZoomFactor = 7;
         }
+        invalidate();
         return true;
     }
 
-    /**
-     * Create ScaleListener
-     */
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            mMode = ZOOM;
-            mScaleFactor *= detector.getScaleFactor();
-            mScaleFactor = Math.max(MIN_ZOOM, Math.min(mScaleFactor, MAX_ZOOM));
-            if (mScaleFactor == MAX_ZOOM) {
-                mMode = NONE;
-                mTranslateX = mPreviousTranslateX;
-                mTranslateY = mPreviousTranslateY;
-            }
-            if (detector.isInProgress()) {
-                mLastFocusX = detector.getFocusX();
-                mLastFocusY = detector.getFocusY();
-                invalidate();
-            }
-            return true;
-        }
+    private double getDistance(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
 }
