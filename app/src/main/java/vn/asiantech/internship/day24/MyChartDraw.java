@@ -137,12 +137,19 @@ public class MyChartDraw extends View implements View.OnTouchListener {
     }
 
     @Override
+    public boolean performClick() {
+        super.performClick();
+        return true;
+    }
+
+    @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 mStartPoint.x = (int) (event.getX());
                 mStartPoint.y = (int) (event.getY());
                 mMode = DRAG;
+                performClick();
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
                 mMode = ZOOM;
@@ -167,6 +174,7 @@ public class MyChartDraw extends View implements View.OnTouchListener {
                 mPreviousTranslateX = mTranslateX;
                 mPreviousTranslateY = mTranslateY;
                 mFirstDown = false;
+                performClick();
                 break;
             case MotionEvent.ACTION_POINTER_UP:
                 mMode = NONE;
