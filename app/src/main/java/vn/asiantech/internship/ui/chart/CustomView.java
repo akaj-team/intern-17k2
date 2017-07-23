@@ -7,9 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 
 /**
@@ -21,19 +19,15 @@ public class CustomView extends View {
 
     private int mUnit = 100;
     private Paint mPaint;
-    private ScaleGestureDetector mScaleDetector;
-    private float mScaleFactor = 1.0f;
     private float mLastTouchX;
     private float mLastTouchY;
     private float mPosX = getWidth() / 2;
     private float mPosY = getHeight() / 2;
     private float mDistance = 0;
-    private float mScalePointX;
-    private float mScalePointY;
+    private double mOldDistance;
 
     public CustomView(Context context) {
         super(context);
-        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     public CustomView(Context context, @Nullable AttributeSet attrs) {
@@ -53,8 +47,6 @@ public class CustomView extends View {
             mPaint.setColor(Color.BLACK);
             mPaint.setStrokeWidth(5);
         }
-        Log.d("xxx", "onDraw: " + mScaleFactor);
-        canvas.scale(mScaleFactor, mScaleFactor, mScalePointX, mScalePointY);
         drawPivotX(canvas);
         drawPivotY(canvas);
         drawArrow(canvas);
@@ -78,6 +70,7 @@ public class CustomView extends View {
         //draw 0
         canvas.drawText("0", getWidth() / 2 - 50 + mPosX, getHeight() / 2 + 50 + mPosY, mPaint);
 
+        //draw arrow
         Path path = new Path();
         path.moveTo(getWidth() - MARGIN + mDistance, getHeight() / 2 - 10 + mPosY);
         path.lineTo(getWidth() + mDistance, getHeight() / 2 + mPosY);
@@ -90,7 +83,6 @@ public class CustomView extends View {
     }
 
     private void drawPivotX(Canvas canvas) {
-        // canvas.drawLine(0 + mPosX, getHeight() / 2 + mPosY, getWidth() mPosX, getHeight() / 2 + mPosY, mPaint);
         canvas.drawLine(0 + mDistance, getHeight() / 2 + mPosY, getWidth() + mDistance, getHeight() / 2 + mPosY, mPaint);
         for (float i = getWidth() / 2; i < getWidth() - mPosX; i += mUnit) {
             canvas.drawLine(i + mPosX, getHeight() / 2 + 10 + mPosY, i + mPosX, getHeight() / 2 - 10 + mPosY, mPaint);
@@ -110,6 +102,16 @@ public class CustomView extends View {
         }
     }
 
+    private double getDistance(double x0, double y0, double x1, double y1) {
+        return Math.sqrt(x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1);
+    }
+
+    private void scaleCanvas(double scale) {
+        mUnit *= scale;
+        mPosX *= scale;
+        mPosY *= scale;
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -118,10 +120,7 @@ public class CustomView extends View {
                 mLastTouchY = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (event.getPointerCount() > 1) {
-                    mScaleDetector.onTouchEvent(event);
-                } else {
-                    Log.d("xxx", "onTouchEvent: move");
+                if (event.getPointerCount() == 1) {
                     float x = event.getX();
                     float y = event.getY();
 
@@ -135,24 +134,27 @@ public class CustomView extends View {
 
                     mLastTouchX = x;
                     mLastTouchY = y;
+                } else if (event.getPointerCount() == 2) {
+                    double x0 = event.getX(0);
+                    double y0 = event.getY(0);
+                    double x1 = event.getX(1);
+                    double y1 = event.getY(1);
+                    if (mOldDistance == 0) {
+                        mOldDistance = getDistance(x0, y0, x1, y1);
+                    } else {
+                        double distance = getDistance(x0, y0, x1, y1);
+                        double scale = distance / mOldDistance;
+                        if (mUnit * scale > 50 && mUnit * scale < 500) {
+                            scaleCanvas(scale);
+                            invalidate();
+                        }
+                    }
                 }
+                break;
+            case MotionEvent.ACTION_UP:
+                mOldDistance = 0;
                 break;
         }
         return true;
-    }
-
-    /**
-     * Created by quanghai on 06/07/2017.
-     */
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            mScaleFactor *= detector.getScaleFactor();
-            mScalePointX = detector.getFocusX();
-            mScalePointY = detector.getFocusY();
-            mScaleFactor = Math.max(1f, Math.min(mScaleFactor, 10.0f));
-            invalidate();
-            return true;
-        }
     }
 }
