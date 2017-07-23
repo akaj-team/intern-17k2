@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.adapters.SongAdapter;
+import vn.asiantech.internship.adapter.SongAdapter;
 import vn.asiantech.internship.models.Song;
 import vn.asiantech.internship.services.MusicService;
 
