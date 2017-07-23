@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- *
+ * Draw canvas
  * Created by quanghai on 06/07/2017.
  */
 public class CustomView extends View {
@@ -84,21 +84,21 @@ public class CustomView extends View {
 
     private void drawPivotX(Canvas canvas) {
         canvas.drawLine(0 + mDistance, getHeight() / 2 + mPosY, getWidth() + mDistance, getHeight() / 2 + mPosY, mPaint);
-        for (float i = getWidth() / 2; i < getWidth() - mPosX; i += mUnit) {
-            canvas.drawLine(i + mPosX, getHeight() / 2 + 10 + mPosY, i + mPosX, getHeight() / 2 - 10 + mPosY, mPaint);
+        for (double i = getWidth() / 2; i < getWidth() - mPosX; i += mUnit) {
+            canvas.drawLine((float) (i + mPosX), getHeight() / 2 + 10 + mPosY, (float) (i + mPosX), getHeight() / 2 - 10 + mPosY, mPaint);
         }
-        for (float i = getWidth() / 2; i > 0 - mPosX; i -= mUnit) {
-            canvas.drawLine(i + mPosX, getHeight() / 2 + 10 + mPosY, i + mPosX, getHeight() / 2 - 10 + mPosY, mPaint);
+        for (double i = getWidth() / 2; i > 0 - mPosX; i -= mUnit) {
+            canvas.drawLine((float) (i + mPosX), getHeight() / 2 + 10 + mPosY, (float) (i + mPosX), getHeight() / 2 - 10 + mPosY, mPaint);
         }
     }
 
     private void drawPivotY(Canvas canvas) {
         canvas.drawLine(getWidth() / 2 + mPosX, 0 + mDistance, getWidth() / 2 + mPosX, getHeight() + mDistance, mPaint);
-        for (float i = getHeight() / 2; i < getHeight() - mPosY; i += mUnit) {
-            canvas.drawLine(getWidth() / 2 - 10 + mPosX, i + mPosY, getWidth() / 2 + 10 + mPosX, i + mPosY, mPaint);
+        for (double i = getHeight() / 2; i < getHeight() - mPosY; i += mUnit) {
+            canvas.drawLine(getWidth() / 2 - 10 + mPosX, (float) (i + mPosY), getWidth() / 2 + 10 + mPosX, (float) (i + mPosY), mPaint);
         }
-        for (float i = getHeight() / 2; i > 0 - mPosY; i -= mUnit) {
-            canvas.drawLine(getWidth() / 2 - 10 + mPosX, i + mPosY, getWidth() / 2 + 10 + mPosX, i + mPosY, mPaint);
+        for (double i = getHeight() / 2; i > 0 - mPosY; i -= mUnit) {
+            canvas.drawLine(getWidth() / 2 - 10 + mPosX, (float) (i + mPosY), getWidth() / 2 + 10 + mPosX, (float) (i + mPosY), mPaint);
         }
     }
 
