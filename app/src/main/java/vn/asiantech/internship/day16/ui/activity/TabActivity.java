@@ -32,6 +32,13 @@ public class TabActivity extends AppCompatActivity {
             R.mipmap.ic_music,
             R.mipmap.ic_lead
     };
+    private int[] mImageSelecteds = {
+            R.mipmap.ic_bike_selected,
+            R.mipmap.ic_dog_selected,
+            R.mipmap.ic_food_selected,
+            R.mipmap.ic_music_selected,
+            R.mipmap.ic_leaf_selected
+    };
     private String[] mTitles;
 
     @Override
@@ -54,10 +61,13 @@ public class TabActivity extends AppCompatActivity {
             tvTab.setText(mTitles[i]);
             if (i == 0) {
                 titleTabLayoutCustom.setSelected(true);
+                tvTab.setCompoundDrawablesWithIntrinsicBounds(0, mImageSelecteds[0], 0, 0);
                 tvTab.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.imageview_custom_tablayout_title));
             }
             mTextViews.add(tvTab);
-            tvTab.setCompoundDrawablesWithIntrinsicBounds(0, mImages[i], 0, 0);
+            if (i != 0) {
+                tvTab.setCompoundDrawablesWithIntrinsicBounds(0, mImages[i], 0, 0);
+            }
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
             if (tab != null) {
                 tab.setCustomView(v);
@@ -71,11 +81,13 @@ public class TabActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mTextViews.get(tab.getPosition()).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.imageview_custom_tablayout_title));
+                mTextViews.get(tab.getPosition()).setCompoundDrawablesWithIntrinsicBounds(0, mImageSelecteds[tab.getPosition()], 0, 0);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 mTextViews.get(tab.getPosition()).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.textview_tab_title));
+                mTextViews.get(tab.getPosition()).setCompoundDrawablesWithIntrinsicBounds(0, mImages[tab.getPosition()], 0, 0);
             }
 
             // No-op

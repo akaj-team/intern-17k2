@@ -19,6 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".day19.service.SongService"
+            android:enabled="true" />
         <activity android:name=".day5.FriendActivity" />
         <activity android:name=".day7.ui.MainActivity" />
         <activity android:name=".day9.ui.FeedActivity" />
