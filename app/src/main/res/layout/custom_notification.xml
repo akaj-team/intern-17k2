@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:padding="@dimen/padding">
+
+    <ImageView
+        android:id="@+id/imgNotificationThumnail"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_play_arrow_black_24dp" />
+
+    <TextView
+        android:id="@+id/tvNotificationSongName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imgNotificationThumnail"
+        android:layout_toRightOf="@+id/imgNotificationThumnail" />
+
+    <TextView
+        android:id="@+id/tvNotificationArtist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNotificationSongName"
+        android:layout_toEndOf="@+id/imgNotificationThumnail"
+        android:layout_toRightOf="@+id/imgNotificationThumnail" />
+
+</RelativeLayout>
