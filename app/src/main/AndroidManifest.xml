@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:fullBackupContent="@null">
-        <activity android:name=".day19.activity.MusicActivity">
+        <activity android:name=".day22.activity.ContactActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

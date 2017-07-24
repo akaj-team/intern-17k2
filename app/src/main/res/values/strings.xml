@@ -40,6 +40,8 @@
     <string name="textview.questionQuiz.text">Question</string>
     <string name="textview.resulttoolbar.text">Result</string>
     <string name="textview.title_music.text">List Music</string>
+    <string name="error_http_json">\"Couldn\'t get json from server. Check LogCat for possible errors!\"</string>
+    <string name="json_passing_error">Json passing error %s</string>
     <string-array name="items">
         <item name="Gallery">Gallery</item>
         <item name="Camera">Camera</item>
@@ -76,7 +78,7 @@
         <item name="Taylor_Swift">Taylor Swift</item>
     </string-array>
     <string name="textview.quiz.text">Question 1</string>
-    <string name="button.text.dialog_ok">Ok</string>
+    <string name="button.text.dialog_ok">OK</string>
     <string name="button.text.dialog_cancel">Cancel</string>
     <string name="dismiss_dialog">Do you want to reset Quiz app?</string>
     <string name="question">Question %d</string>

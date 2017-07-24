@@ -99,9 +99,12 @@
     <dimen name="ll.chat.layout_height">50dp</dimen>
     <dimen name="textview.title_music.textSize">15sp</dimen>
     <dimen name="padding">10dp</dimen>
+    <dimen name="ll.contact.layout_marginStart">10dp</dimen>
+    <dimen name="textview.contact.textSize">20sp</dimen>
     <item name="recyclerView.chat.layout_weight" type="dimen">9</item>
     <item name="edittext.chat.layout_weight" type="dimen" format="float">0.8</item>
     <item name="button.chat.layout_weight" type="dimen" format="float">0.2</item>
+    <dimen name="ll.contact.layout_height">100dp</dimen>
     <dimen name="quiz.layout_marginLeft">40dp</dimen>
     <dimen name="textview.questionQuiz.textSize">20sp</dimen>
     <dimen name="radiobutton.answer.textSize">15sp</dimen>
