@@ -11,9 +11,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:fullBackupContent="@null">
-        <activity android:name=".day19.activity.MusicActivity">
+        android:theme="@style/AppTheme">
+        <activity android:name=".screen.ScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,5 +22,13 @@
         <service
             android:name=".day19.service.SongService"
             android:enabled="true" />
+        <activity android:name=".day5.FriendActivity" />
+        <activity android:name=".day7.ui.MainActivity" />
+        <activity android:name=".day9.ui.FeedActivity" />
+        <activity android:name=".day11.ui.activity.NoteActivity" />
+        <activity android:name=".day13.ui.NinePathActivity" />
+        <activity android:name=".day15.ui.activity.QuizActivity" />
+        <activity android:name=".day16.ui.activity.TabActivity" />
+        <activity android:name=".day24.ChartActivity" />
     </application>
 </manifest>
