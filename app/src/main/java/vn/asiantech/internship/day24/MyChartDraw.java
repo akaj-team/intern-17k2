@@ -159,6 +159,7 @@ public class MyChartDraw extends View implements View.OnTouchListener {
                     mOldDistance = getDistance(event.getX(1), event.getY(1), event.getX(0), event.getY(0));
                     mFirstDown = true;
                 }
+                performClick();
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (mMode == ZOOM) {
@@ -178,6 +179,7 @@ public class MyChartDraw extends View implements View.OnTouchListener {
                 break;
             case MotionEvent.ACTION_POINTER_UP:
                 mMode = NONE;
+                performClick();
                 break;
         }
         if (mZoomFactor < 0.5) {
