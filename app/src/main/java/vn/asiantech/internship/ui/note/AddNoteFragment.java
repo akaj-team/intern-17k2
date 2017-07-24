@@ -42,7 +42,6 @@ public class AddNoteFragment extends Fragment {
         mEdtTitle = (EditText) view.findViewById(R.id.edtTitle);
         mEdtContent = (EditText) view.findViewById(R.id.edtContent);
         mImgImageSelected = (ImageView) view.findViewById(R.id.imgSelected);
-
         mNoteDatabase = new NoteDatabase(getContext());
         mNoteDatabase.open();
 
