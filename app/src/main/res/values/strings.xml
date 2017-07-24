@@ -39,12 +39,44 @@
     <string name="textview.resultQuestion.text">RESULT</string>
     <string name="textview.questionQuiz.text">Question</string>
     <string name="textview.resulttoolbar.text">Result</string>
+    <string name="textview.title_music.text">List Music</string>
     <string name="message_progress_dialog">Please wait.....</string>
     <string name="error_http_json">\"Couldn\'t get json from server. Check LogCat for possible errors!\"</string>
     <string name="json_passing_error">Json passing error %s</string>
     <string-array name="items">
         <item name="Gallery">Gallery</item>
         <item name="Camera">Camera</item>
+    </string-array>
+    <string-array name="song_urls">
+        <item name="you_belong_with_me"> "http://api.mp3.zing.vn/api/mobile/source/song/LGJGTJXLJNVTLDJTDGLG"</item>
+        <item name="back_to_december">http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNVJAXVQDTLDJTDGLG</item>
+        <item name="ours">http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNAAENQLGTLDJTDGLG </item>
+        <item name="safe_and_sound">http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNALGLNVXTLDJTDGLG</item>
+        <item name="wildest_dream">http://api.mp3.zing.vn/api/mobile/source/song/LGJGTQEGAXDQTLDJTDGLG</item>
+        <item name="i_knew_you_were_trouble">http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNAXGVXQQTLDJTDGLG</item>
+        <item name="style">http://api.mp3.zing.vn/api/mobile/source/song/LGJGTQANJXJNTLDJTDGLG</item>
+        <item name="red">http://api.mp3.zing.vn/api/mobile/source/song/LGJGTLGNAVJLGNLTLDJTDGLG</item>
+
+    </string-array>
+    <string-array name="song_names">
+        <item name="you_belong_with_me">You belong with me</item>
+        <item name="back_to_december">Back to December</item>
+        <item name="ours">Ours </item>
+        <item name="safe_and_sound">Safe and Sound</item>
+        <item name="wildest_dream"> Wildest Dream</item>
+        <item name="i_knew_you_were_trouble">I knew you were trouble</item>
+        <item name="style">Style</item>
+        <item name="red">Red</item>
+    </string-array>
+    <string-array name="song_artists">
+        <item name="Taylor_Swift">Taylor Swift</item>
+        <item name="Taylor_Swift">Taylor Swift</item>
+        <item name="Taylor_Swift">Taylor Swift</item>
+        <item name="Taylor_Swift">Taylor Swift</item>
+        <item name="Taylor_Swift">Taylor Swift</item>
+        <item name="Taylor_Swift">Taylor Swift</item>
+        <item name="Taylor_Swift">Taylor Swift</item>
+        <item name="Taylor_Swift">Taylor Swift</item>
     </string-array>
     <string name="textview.quiz.text">Question 1</string>
     <string name="button.text.dialog_ok">Ok</string>

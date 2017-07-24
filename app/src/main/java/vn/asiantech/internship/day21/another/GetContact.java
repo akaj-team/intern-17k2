@@ -47,7 +47,7 @@ public class GetContact extends AsyncTask<Void, Void, List<Contact>> {
         HttpHandler sh = new HttpHandler();
 
         // Making a request to url and getting response
-        String url = "http://api.androidhive.info/contacts/";
+        String url = "https://api.androidhive.info/contacts/";
         String jsonStr = sh.makeServiceCall(url);
 
         Log.e(TAG, "Response from url: " + jsonStr);

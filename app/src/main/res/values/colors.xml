@@ -36,4 +36,6 @@
     <color name="textview.tab.title">#002200</color>
     <color name="stroke">#745151</color>
     <color name="relative_layout.tablayout.background">#b49a9a</color>
+    <color name="textview.title_music.textcolor">#3d0404</color>
+    <color name="textview.item_song.textColor">#990000</color>
 </resources>
