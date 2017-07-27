@@ -38,29 +38,42 @@ public class SplashActivity extends AppCompatActivity implements SplashAdapter.O
 
     @Override
     public void onClick(int position) {
+        Class classDestination = MainActivity.class;
         switch (position) {
             case 0:
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                classDestination = MainActivity.class;
+                break;
             case 1:
-                startActivity(new Intent(SplashActivity.this, SendActivity.class));
+                classDestination = SendActivity.class;
+                break;
             case 2:
-                startActivity(new Intent(SplashActivity.this, RecyclerViewActivity.class));
+                classDestination = RecyclerViewActivity.class;
+                break;
             case 3:
-                startActivity(new Intent(SplashActivity.this, FriendActivity.class));
+                classDestination = FriendActivity.class;
+                break;
             case 4:
-                startActivity(new Intent(SplashActivity.this, NoteActivity.class));
+                classDestination = NoteActivity.class;
+                break;
             case 5:
-                startActivity(new Intent(SplashActivity.this, FeedActivity.class));
+                classDestination = FeedActivity.class;
+                break;
             case 6:
-                startActivity(new Intent(SplashActivity.this, ChatActivity.class));
+                classDestination = ChatActivity.class;
+                break;
             case 7:
-                startActivity(new Intent(SplashActivity.this, TestActivity.class));
+                classDestination = TestActivity.class;
+                break;
             case 8:
-                startActivity(new Intent(SplashActivity.this, ImageActivity.class));
+                classDestination = ImageActivity.class;
+                break;
             case 9:
-                startActivity(new Intent(SplashActivity.this, MusicActivity.class));
+                classDestination = MusicActivity.class;
+                break;
             case 10:
-                startActivity(new Intent(SplashActivity.this, ContactActivity.class));
+                classDestination = ContactActivity.class;
+                break;
         }
+        startActivity(new Intent(SplashActivity.this, classDestination));
     }
 }
