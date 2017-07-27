@@ -11,6 +11,7 @@ import java.util.List;
 
 import recyclerview.FriendActivity;
 import vn.asiantech.internship.R;
+import vn.asiantech.internship.contact.ContactActivity;
 import vn.asiantech.internship.demo.RecyclerViewActivity;
 import vn.asiantech.internship.feed.FeedActivity;
 import vn.asiantech.internship.fragment.SendActivity;
@@ -22,7 +23,7 @@ import vn.asiantech.internship.test.TestActivity;
 import vn.asiantech.internship.ui.main.MainActivity;
 
 public class SplashActivity extends AppCompatActivity implements SplashAdapter.OnClickListener {
-    private final List<String> mDays = Arrays.asList("Day 1", "Day 3", "Day 5", "Day 7", "Day 11", "Day 11", "Day 12", "Day 15", "Day 16", "day 20");
+    private final List<String> mDays = Arrays.asList("Day 1", "Day 3", "Day 5", "Day 7", "Day 11", "Day 11", "Day 12", "Day 15", "Day 16", "Day 20", "Day 21");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,37 +38,42 @@ public class SplashActivity extends AppCompatActivity implements SplashAdapter.O
 
     @Override
     public void onClick(int position) {
+        Class clazz = MainActivity.class;
         switch (position) {
             case 0:
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                clazz = MainActivity.class;
                 break;
             case 1:
-                startActivity(new Intent(SplashActivity.this, SendActivity.class));
+                clazz = SendActivity.class;
                 break;
             case 2:
-                startActivity(new Intent(SplashActivity.this, RecyclerViewActivity.class));
+                clazz = RecyclerViewActivity.class;
                 break;
             case 3:
-                startActivity(new Intent(SplashActivity.this, FriendActivity.class));
+                clazz = FriendActivity.class;
                 break;
             case 4:
-                startActivity(new Intent(SplashActivity.this, NoteActivity.class));
+                clazz = NoteActivity.class;
                 break;
             case 5:
-                startActivity(new Intent(SplashActivity.this, FeedActivity.class));
+                clazz = FeedActivity.class;
                 break;
             case 6:
-                startActivity(new Intent(SplashActivity.this, ChatActivity.class));
+                clazz = ChatActivity.class;
                 break;
             case 7:
-                startActivity(new Intent(SplashActivity.this, TestActivity.class));
+                clazz = TestActivity.class;
                 break;
             case 8:
-                startActivity(new Intent(SplashActivity.this, ImageActivity.class));
+                clazz = ImageActivity.class;
                 break;
             case 9:
-                startActivity(new Intent(SplashActivity.this, MusicActivity.class));
+                clazz = MusicActivity.class;
+                break;
+            case 10:
+                clazz = ContactActivity.class;
                 break;
         }
+        startActivity(new Intent(SplashActivity.this, clazz));
     }
 }

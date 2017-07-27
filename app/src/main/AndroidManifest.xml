@@ -24,9 +24,9 @@
         </activity>
         <activity android:name="recyclerview.FriendActivity" />
         <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".demo.RecyclerViewActivity" />
+        <activity android:name="demo.RecyclerViewActivity" />
         <activity android:name=".fragment.SendActivity" />
-        <activity android:name=".notesqlite.NoteActivity" />
+        <activity android:name=".contact.ContactActivity" />
         <activity android:name=".feed.FeedActivity" />
         <activity android:name=".test.ResultActivity" />
         <activity android:name=".music.MusicActivity" />
