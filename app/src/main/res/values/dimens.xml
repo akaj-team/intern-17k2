@@ -62,4 +62,9 @@
     <dimen name="music.imageView.with">50dp</dimen>
     <dimen name="menu.button.height">50dp</dimen>
     <dimen name="menu.button.margin_top">5dp</dimen>
+    <dimen name="contact.relativeLayout.margin_left_right_top">5dp</dimen>
+    <dimen name="contact.linearLayout.padding">20dp</dimen>
+    <dimen name="contact.name.size">20sp</dimen>
+    <dimen name="contact.mail.size">15sp</dimen>
+    <dimen name="contact.mail.marginleft">30dp</dimen>
 </resources>
