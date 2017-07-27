@@ -56,10 +56,11 @@
     <string name="test.textView.back">Prev</string>
     <string name="test.textView.next">Next</string>
     <string name="test.textView.question">Question 1</string>
-    <string name="dialog.cancel">Cancle</string>
+    <string name="dialog.cancel">Cancel</string>
     <string name="dialog.OK">OK</string>
     <string name="textView.question">Question </string>
     <string name="textView.yourResult">You choosed: </string>
     <string name="text.cross">/</string>
     <string name="music.time">00:00</string>
+    <string name="upload.button.text">upload</string>
 </resources>
