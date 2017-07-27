@@ -21,7 +21,7 @@ public class LoginTest {
     private Login mLogin;
 
     @Test
-    public void userLength() {
+    public void testUserLength() {
         Mockito.when(mLogin.getUser()).thenReturn("huypham");
         Assert.assertTrue(LoginValidation.checkUserLength(mLogin.getUser()));
         Mockito.when(mLogin.getUser()).thenReturn("huy");
@@ -29,7 +29,7 @@ public class LoginTest {
     }
 
     @Test
-    public void userCharacter() {
+    public void testUserCharacter() {
         Mockito.when(mLogin.getUser()).thenReturn("HuyPham173");
         Assert.assertTrue(LoginValidation.checkUserCharacter(mLogin.getUser()));
         Mockito.when(mLogin.getUser()).thenReturn("Huy@$17");
@@ -37,7 +37,7 @@ public class LoginTest {
     }
 
     @Test
-    public void passwordLength() {
+    public void testPasswordLength() {
         Mockito.when(mLogin.getPassword()).thenReturn("abcd");
         Assert.assertTrue(LoginValidation.checkPasswordLength(mLogin.getPassword()));
         Mockito.when(mLogin.getPassword()).thenReturn("xyz");
@@ -45,7 +45,7 @@ public class LoginTest {
     }
 
     @Test
-    public void passwordCharacter() {
+    public void testPasswordCharacter() {
         Mockito.when(mLogin.getPassword()).thenReturn("aBc@@17");
         Assert.assertTrue(LoginValidation.checkPasswordCharacter(mLogin.getPassword()));
         Mockito.when(mLogin.getPassword()).thenReturn("bcdq");
@@ -53,7 +53,7 @@ public class LoginTest {
     }
 
     @Test
-    public void passwordDifference() {
+    public void testPasswordDifference() {
         Mockito.when(mLogin.getPassword()).thenReturn("huypham");
         Assert.assertFalse(LoginValidation.checkDifference(mLogin.getPassword(), "huypham"));
         Mockito.when(mLogin.getPassword()).thenReturn("huy");
@@ -61,7 +61,7 @@ public class LoginTest {
     }
 
     @Test
-    public void passwordSpace() {
+    public void testPasswordSpace() {
         Mockito.when(mLogin.getPassword()).thenReturn("asdf");
         Assert.assertTrue(LoginValidation.checkPasswordNoSpace(mLogin.getPassword()));
         Mockito.when(mLogin.getPassword()).thenReturn("as df");

@@ -20,6 +20,7 @@ import vn.asiantech.internship.others.LoginValidation;
  * Created by huypham on 16-Jul-17.
  */
 public class LoginActivity extends AppCompatActivity {
+
     private EditText mEdtUser;
     private EditText mEdtPassword;
     private Button mBtnLogin;
@@ -30,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         initViews();
         initToolbar();
         setButtonLogin();
@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String userName = mEdtUser.getText().toString().trim();
                 String password = mEdtPassword.getText().toString().trim();
-
                 if (TextUtils.equals(userName, "") && TextUtils.equals(password, "")) {
                     Toast.makeText(LoginActivity.this, "Data is empty", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.equals(userName, "")) {

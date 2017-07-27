@@ -20,6 +20,7 @@ import vn.asiantech.internship.others.EquationValidation;
  * Created by huypham on 16-Jul-17.
  */
 public class EquationActivity extends AppCompatActivity {
+
     private EditText mEdtNumberA;
     private EditText mEdtNumberB;
     private EditText mEdtNumberC;
@@ -32,7 +33,6 @@ public class EquationActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equation);
-
         initViews();
         initToolbar();
         setButtonCalculate();
@@ -55,7 +55,6 @@ public class EquationActivity extends AppCompatActivity {
                 final String a = mEdtNumberA.getText().toString().trim();
                 final String b = mEdtNumberB.getText().toString().trim();
                 final String c = mEdtNumberC.getText().toString().trim();
-
                 if (TextUtils.isEmpty(a) || TextUtils.isEmpty(b) || TextUtils.isEmpty(c)) {
                     Toast.makeText(EquationActivity.this, "Data is not enough, fill data!", Toast.LENGTH_SHORT).show();
                 } else {

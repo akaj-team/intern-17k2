@@ -23,7 +23,7 @@ public class EquationTest {
     private Quadratic mQuadratic;
 
     @Test
-    public void numberA() {
+    public void testNumberA() {
         Mockito.when(mQuadratic.getA()).thenReturn("173");
         Assert.assertTrue(EquationValidation.checkInputCharacter(mQuadratic.getA()));
         Mockito.when(mQuadratic.getA()).thenReturn("ah173");
@@ -31,7 +31,7 @@ public class EquationTest {
     }
 
     @Test
-    public void numberB() {
+    public void testNumberB() {
         Mockito.when(mQuadratic.getB()).thenReturn("173");
         Assert.assertTrue(EquationValidation.checkInputCharacter(mQuadratic.getB()));
         Mockito.when(mQuadratic.getB()).thenReturn("ah173");
@@ -39,7 +39,7 @@ public class EquationTest {
     }
 
     @Test
-    public void numberC() {
+    public void testNumberC() {
         Mockito.when(mQuadratic.getC()).thenReturn("173");
         Assert.assertTrue(EquationValidation.checkInputCharacter(mQuadratic.getC()));
         Mockito.when(mQuadratic.getC()).thenReturn("ah173");
@@ -47,7 +47,7 @@ public class EquationTest {
     }
 
     @Test
-    public void delta() {
+    public void testDelta() {
         Mockito.when(mQuadratic.getDelta()).thenReturn(10.0);
         Assert.assertEquals(EquationValidation.checkDelta(mQuadratic.getDelta()), 2);
         Mockito.when(mQuadratic.getDelta()).thenReturn(0.0);
@@ -65,12 +65,12 @@ public class EquationTest {
     }
 
     @Test
-    public void oneRoot() {
+    public void testOneRoot() {
         Assert.assertEquals(EquationValidation.checkOneRoot(10, 16), String.valueOf((float) -4 / 5));
     }
 
     @Test
-    public void doubleRoot() {
+    public void testDoubleRoot() {
         List<Float> root = EquationValidation.checkDoubleRoot(2, 5, 17);
         Assert.assertEquals(root.get(0).toString(), String.valueOf((float) (-5 + Math.sqrt(17)) / 4));
         Assert.assertEquals(root.get(1).toString(), String.valueOf((float) (-5 - Math.sqrt(17)) / 4));

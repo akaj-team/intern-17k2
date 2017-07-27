@@ -14,7 +14,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="@string/equation.text_view.title"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/edtNumberA"
@@ -64,7 +64,7 @@
         android:background="@drawable/selector_button_mockito"
         android:text="@string/equation.button.result"
         android:textColor="@color/colorBlack"
-        android:textSize="17sp" />
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/tvResult"
@@ -73,6 +73,5 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:textColor="@color/colorBlack"
-        android:textSize="25sp" />
-
+        android:textSize="25dp" />
 </LinearLayout>
