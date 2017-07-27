@@ -61,5 +61,7 @@
     <string name="textView.question">Question </string>
     <string name="textView.yourResult">You choosed: </string>
     <string name="text.cross">/</string>
+    <string name="note.text.error.title">Inquire enter title</string>
+    <string name="note.text.error.content">Inquire enter content</string>
     <string name="music.time">00:00</string>
 </resources>

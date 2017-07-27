@@ -2,7 +2,6 @@ package vn.asiantech.internship.notesqlite;
 
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ class NoteAdapter extends RecyclerView.Adapter {
         NoteViewHolder noteViewHolder = (NoteViewHolder) holder;
         holder.setIsRecyclable(false);
         holder.isRecyclable();
-        noteViewHolder.bind(mNotes.get(position), mClickListener);
+        noteViewHolder.bindNote(mNotes.get(position), mClickListener);
         noteViewHolder.mTvDayOfWeek.setText(mNotes.get(position).getDayOfWeek());
         noteViewHolder.mTvDay.setText(mNotes.get(position).getDay());
         noteViewHolder.mTvMonth.setText(mNotes.get(position).getMonth());
@@ -54,13 +53,11 @@ class NoteAdapter extends RecyclerView.Adapter {
 
     @Override
     public long getItemId(int position) {
-        Log.d("aaaaaaaaa1", "getItemId: "+position);
         return position;
     }
 
     @Override
     public int getItemViewType(int position) {
-        Log.d("aaaaaaaaa2", "getItemId: "+position);
         return position;
     }
 
@@ -92,7 +89,7 @@ class NoteAdapter extends RecyclerView.Adapter {
             mImage = (ImageView) itemView.findViewById(R.id.imgNoteAdd);
         }
 
-        private void bind(final Note note, final OnItemClickListener listener) {
+        private void bindNote(final Note note, final OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -102,6 +99,9 @@ class NoteAdapter extends RecyclerView.Adapter {
         }
     }
 
+    /**
+     * Used to get note from recyclerView
+     */
     interface OnItemClickListener {
         void onItemClick(Note note);
     }

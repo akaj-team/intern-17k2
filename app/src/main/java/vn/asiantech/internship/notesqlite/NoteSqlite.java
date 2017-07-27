@@ -16,7 +16,7 @@ import java.util.List;
  * @version 1.0
  * @since 2017-6-20
  */
-class NoteSqlite {
+public class NoteSqlite {
     static final String DB_NAME = "database";
     static final int DB_VERSION = 1;
     static final String TABLE_NOTE = "TableNote";
@@ -33,16 +33,16 @@ class NoteSqlite {
     private SQLiteDatabase mDatabase;
     private OpenHelper mOpenHelper;
 
-    NoteSqlite(Context context) {
+    public NoteSqlite(Context context) {
         this.mContext = context;
     }
 
-    void open() throws SQLException {
+    public void open() throws SQLException {
         mOpenHelper = new OpenHelper(mContext);
         mDatabase = mOpenHelper.getWritableDatabase();
     }
 
-    void close() {
+    public void close() {
         mOpenHelper.close();
     }
 
@@ -58,7 +58,7 @@ class NoteSqlite {
         return mDatabase.insert(TABLE_NOTE, null, cv);
     }
 
-    List<Note> getNotes() {
+    public List<Note> getNotes() {
         List<Note> users = new ArrayList<>();
         Cursor c = mDatabase.query(TABLE_NOTE, null, null, null, null, null, null);
         int id = c.getColumnIndex(COLUMN_ID);

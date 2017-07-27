@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.asiantech.internship.R;
-import vn.asiantech.internship.models.DrawerItem;
+import vn.asiantech.internship.model.DrawerItem;
 
 /**
  * Used to collect and display data to the View.
