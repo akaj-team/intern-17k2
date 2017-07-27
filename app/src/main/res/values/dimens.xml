@@ -62,4 +62,10 @@
     <dimen name="music.imageView.with">50dp</dimen>
     <dimen name="menu.button.height">50dp</dimen>
     <dimen name="menu.button.margin_top">5dp</dimen>
+    <dimen name="equation.editText.margin_top">30dp</dimen>
+    <dimen name="equation.editText.small.margin_top">10dp</dimen>
+    <dimen name="equation.text.size">20sp</dimen>
+    <dimen name="login.text.size">50sp</dimen>
+    <dimen name="login.editText.margin_top">50dp</dimen>
+    <dimen name="equation.editText.padding">10dp</dimen>
 </resources>

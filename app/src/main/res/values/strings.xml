@@ -56,10 +56,20 @@
     <string name="test.textView.back">Prev</string>
     <string name="test.textView.next">Next</string>
     <string name="test.textView.question">Question 1</string>
-    <string name="dialog.cancel">Cancle</string>
+    <string name="dialog.cancel">Cancel</string>
     <string name="dialog.OK">OK</string>
     <string name="textView.question">Question </string>
     <string name="textView.yourResult">You choosed: </string>
     <string name="text.cross">/</string>
     <string name="music.time">00:00</string>
+    <string name="equation.hint.a">Enter a</string>
+    <string name="equation.hint.b">Enter b</string>
+    <string name="equation.hint.c">Enter c</string>
+    <string name="equation.calculate">Calculate</string>
+    <string name="equation.title">Quadratic equation: ax^2+bx+c=0</string>
+    <string name="login.text">Login</string>
+    <string name="equation.hint.userName">UserName</string>
+    <string name="equation.hint.passWord">Password</string>
+    <string name="text.unless_roots">Quadratic equation has unless roots</string>
+    <string name="text.no_root">Quadratic equation has no root</string>
 </resources>

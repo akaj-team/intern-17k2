@@ -33,6 +33,8 @@
         <activity android:name=".tablayout.ImageActivity" />
         <activity android:name=".ninepath.ChatActivity" />
         <activity android:name=".test.TestActivity" />
+        <activity android:name=".unittest.LoginActivity" />
+        <activity android:name=".unittest.EquationActivity" />
 
         <service
             android:name=".music.MusicService"

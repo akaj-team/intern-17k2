@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/equation.editText.padding">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/equation.title"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/equation.text.size" />
+
+    <EditText
+        android:id="@+id/edtFactorA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/equation.editText.margin_top"
+        android:background="@drawable/bg_edt_login_signin"
+        android:hint="@string/equation.hint.a"
+        android:inputType="numberDecimal"
+        android:padding="@dimen/equation.editText.padding"
+        android:textColor="@color/colorBlack" />
+
+    <EditText
+        android:id="@+id/edtFactorB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/equation.editText.small.margin_top"
+        android:background="@drawable/bg_edt_login_signin"
+        android:hint="@string/equation.hint.b"
+        android:inputType="numberDecimal"
+        android:padding="@dimen/equation.editText.padding"
+        android:textColor="@color/colorBlack" />
+
+    <EditText
+        android:id="@+id/edtFactorC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/equation.editText.small.margin_top"
+        android:background="@drawable/bg_edt_login_signin"
+        android:hint="@string/equation.hint.c"
+        android:inputType="numberDecimal"
+        android:padding="@dimen/equation.editText.padding"
+        android:textColor="@color/colorBlack" />
+
+    <Button
+        android:id="@+id/btnCalculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/equation.editText.small.margin_top"
+        android:background="@drawable/bg_btn_login_signin"
+        android:text="@string/equation.calculate" />
+
+    <TextView
+        android:id="@+id/tvResultCalculate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/equation.editText.small.margin_top"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/equation.text.size" />
+</LinearLayout>

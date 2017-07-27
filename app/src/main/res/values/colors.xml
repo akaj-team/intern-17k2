@@ -12,7 +12,7 @@
     <color name="colorWhite">#fffefe</color>
     <color name="colorGrey">#ECEBEC</color>
     <color name="colorRed">#990000</color>
-    <color name="colorBack">#252323</color>
+    <color name="colorBlack">#252323</color>
     <color name="colorYellow">#bf7a11</color>
     <color name="colorYellowLight">#e1b675</color>
 </resources>
