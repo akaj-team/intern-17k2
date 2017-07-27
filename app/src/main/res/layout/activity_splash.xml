@@ -11,4 +11,9 @@
         android:layout_height="wrap_content"
         android:text="@string/textview.splash.button2" />
 
+    <Button
+        android:id="@+id/btnMockito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textview.splash.button1" />
 </LinearLayout>
