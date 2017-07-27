@@ -38,40 +38,41 @@ public class SplashActivity extends AppCompatActivity implements SplashAdapter.O
 
     @Override
     public void onClick(int position) {
+        Class clazz = SplashActivity.class;
         switch (position) {
             case 0:
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                clazz = MainActivity.class;
                 break;
             case 1:
-                startActivity(new Intent(SplashActivity.this, SendActivity.class));
+                clazz = SendActivity.class;
                 break;
             case 2:
-                startActivity(new Intent(SplashActivity.this, RecyclerViewActivity.class));
+                clazz = RecyclerViewActivity.class;
                 break;
             case 3:
-                startActivity(new Intent(SplashActivity.this, FriendActivity.class));
+                clazz = FriendActivity.class;
                 break;
             case 4:
-                startActivity(new Intent(SplashActivity.this, NoteActivity.class));
+                clazz = NoteActivity.class;
                 break;
             case 5:
-                startActivity(new Intent(SplashActivity.this, FeedActivity.class));
+                clazz = FeedActivity.class;
                 break;
             case 6:
-                startActivity(new Intent(SplashActivity.this, ChatActivity.class));
+                clazz = ChatActivity.class;
                 break;
             case 7:
-                startActivity(new Intent(SplashActivity.this, TestActivity.class));
+                clazz = TestActivity.class;
                 break;
             case 8:
-                startActivity(new Intent(SplashActivity.this, ImageActivity.class));
+                clazz = ImageActivity.class;
                 break;
             case 9:
-                startActivity(new Intent(SplashActivity.this, MusicActivity.class));
+                clazz = MusicActivity.class;
                 break;
             case 10:
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                break;
+                clazz = LoginActivity.class;
         }
+        startActivity(new Intent(SplashActivity.this, clazz));
     }
 }
