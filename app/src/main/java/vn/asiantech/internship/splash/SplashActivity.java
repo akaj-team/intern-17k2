@@ -38,42 +38,42 @@ public class SplashActivity extends AppCompatActivity implements SplashAdapter.O
 
     @Override
     public void onClick(int position) {
-        Class classDestination = MainActivity.class;
+        Class clazz = MainActivity.class;
         switch (position) {
             case 0:
-                classDestination = MainActivity.class;
+                clazz = MainActivity.class;
                 break;
             case 1:
-                classDestination = SendActivity.class;
+                clazz = SendActivity.class;
                 break;
             case 2:
-                classDestination = RecyclerViewActivity.class;
+                clazz = RecyclerViewActivity.class;
                 break;
             case 3:
-                classDestination = FriendActivity.class;
+                clazz = FriendActivity.class;
                 break;
             case 4:
-                classDestination = NoteActivity.class;
+                clazz = NoteActivity.class;
                 break;
             case 5:
-                classDestination = FeedActivity.class;
+                clazz = FeedActivity.class;
                 break;
             case 6:
-                classDestination = ChatActivity.class;
+                clazz = ChatActivity.class;
                 break;
             case 7:
-                classDestination = TestActivity.class;
+                clazz = TestActivity.class;
                 break;
             case 8:
-                classDestination = ImageActivity.class;
+                clazz = ImageActivity.class;
                 break;
             case 9:
-                classDestination = MusicActivity.class;
+                clazz = MusicActivity.class;
                 break;
             case 10:
-                classDestination = ContactActivity.class;
+                clazz = ContactActivity.class;
                 break;
         }
-        startActivity(new Intent(SplashActivity.this, classDestination));
+        startActivity(new Intent(SplashActivity.this, clazz));
     }
 }
