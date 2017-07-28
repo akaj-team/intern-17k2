@@ -8,7 +8,6 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,17 +25,22 @@ public class DeleteNoteTest {
     @Rule
     public ActivityTestRule<NoteActivity> mActivityTestRule = new ActivityTestRule<>(NoteActivity.class);
 
-    @Before
+    @Test
     public void testShowDeleteNoteFragment() {
-        Espresso.onView(ViewMatchers.withId(R.id.recyclerViewHome))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()))
-                .check(ViewAssertions.doesNotExist());
+        openDeleteNoteFragment();
     }
 
     @Test
     public void testDeleteNote() {
+        openDeleteNoteFragment();
         Espresso.onView(ViewMatchers.withId(R.id.menuDelete))
                 .perform(ViewActions.click())
+                .check(ViewAssertions.doesNotExist());
+    }
+
+    private void openDeleteNoteFragment() {
+        Espresso.onView(ViewMatchers.withId(R.id.recyclerViewHome))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()))
                 .check(ViewAssertions.doesNotExist());
     }
 }
