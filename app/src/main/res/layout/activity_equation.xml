@@ -10,11 +10,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="@dimen/equation.margin_bottom"
+        android:layout_marginTop="@dimen/equation.margin_top"
         android:gravity="center"
         android:text="@string/equation.text_view.title"
-        android:textSize="20dp" />
+        android:textSize="@dimen/equation.text_size_title" />
 
     <EditText
         android:id="@+id/edtNumberA"
@@ -23,10 +23,10 @@
         android:hint="@string/equation.edit_text.a"
         android:imeOptions="actionNext"
         android:inputType="numberDecimal|numberSigned"
-        android:paddingEnd="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingStart="20dp" />
+        android:paddingEnd="@dimen/equation.padding"
+        android:paddingLeft="@dimen/equation.padding"
+        android:paddingRight="@dimen/equation.padding"
+        android:paddingStart="@dimen/equation.padding" />
 
     <EditText
         android:id="@+id/edtNumberB"
@@ -35,10 +35,10 @@
         android:hint="@string/equation.edit_text.b"
         android:imeOptions="actionNext"
         android:inputType="numberDecimal"
-        android:paddingEnd="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingStart="20dp" />
+        android:paddingEnd="@dimen/equation.padding"
+        android:paddingLeft="@dimen/equation.padding"
+        android:paddingRight="@dimen/equation.padding"
+        android:paddingStart="@dimen/equation.padding" />
 
     <EditText
         android:id="@+id/edtNumberC"
@@ -47,24 +47,24 @@
         android:hint="@string/equation.edit_text.c"
         android:imeOptions="actionDone"
         android:inputType="numberDecimal"
-        android:paddingEnd="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingStart="20dp" />
+        android:paddingEnd="@dimen/equation.padding"
+        android:paddingLeft="@dimen/equation.padding"
+        android:paddingRight="@dimen/equation.padding"
+        android:paddingStart="@dimen/equation.padding" />
 
     <Button
         android:id="@+id/btnCalculate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginEnd="@dimen/equation.margin"
+        android:layout_marginLeft="@dimen/equation.margin"
+        android:layout_marginRight="@dimen/equation.margin"
+        android:layout_marginStart="@dimen/equation.margin"
+        android:layout_marginTop="@dimen/equation.margin_top_calculate"
         android:background="@drawable/selector_button_mockito"
         android:text="@string/equation.button.result"
         android:textColor="@color/colorBlack"
-        android:textSize="16dp" />
+        android:textSize="@dimen/equation.text_size_calculate" />
 
     <TextView
         android:id="@+id/tvResult"
@@ -73,5 +73,5 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:textColor="@color/colorBlack"
-        android:textSize="25dp" />
+        android:textSize="@dimen/equation.text_size_result" />
 </LinearLayout>
