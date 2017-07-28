@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MockitoBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar_mockito" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/login.margin_bottom"
+        android:layout_marginTop="@dimen/login.margin_top"
+        android:contentDescription="@null"
+        android:src="@drawable/img_mock" />
+
+    <EditText
+        android:id="@+id/edtUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_account_circle"
+        android:drawablePadding="@dimen/login.padding"
+        android:drawableStart="@drawable/ic_account_circle"
+        android:hint="@string/login.edit_text.user_name"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:paddingEnd="@dimen/login.padding"
+        android:paddingLeft="@dimen/login.padding"
+        android:paddingRight="@dimen/login.padding"
+        android:paddingStart="@dimen/login.padding" />
+
+    <EditText
+        android:id="@+id/edtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_whatshot"
+        android:drawablePadding="@dimen/login.padding"
+        android:drawableStart="@drawable/ic_whatshot"
+        android:hint="@string/login.edit_text.password"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:paddingEnd="@dimen/login.padding"
+        android:paddingLeft="@dimen/login.padding"
+        android:paddingRight="@dimen/login.padding"
+        android:paddingStart="@dimen/login.padding" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="@dimen/login.margin"
+        android:layout_marginLeft="@dimen/login.margin"
+        android:layout_marginRight="@dimen/login.margin"
+        android:layout_marginStart="@dimen/login.margin"
+        android:layout_marginTop="@dimen/login.margin_top_login"
+        android:background="@drawable/selector_button_mockito"
+        android:text="@string/login.button.login"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/login.text_size" />
+</LinearLayout>

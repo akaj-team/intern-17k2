@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Mockito-->
+    <dimen name="login.margin_top">30dp</dimen>
+    <dimen name="login.margin_top_login">50dp</dimen>
+    <dimen name="login.margin_bottom">50dp</dimen>
+    <dimen name="login.padding">10dp</dimen>
+    <dimen name="login.margin">10dp</dimen>
+    <dimen name="login.text_size">17dp</dimen>
+    <dimen name="equation.margin_bottom">40dp</dimen>
+    <dimen name="equation.margin_top">30dp</dimen>
+    <dimen name="equation.margin_top_calculate">40dp</dimen>
+    <dimen name="equation.text_size_title">20dp</dimen>
+    <dimen name="equation.text_size_calculate">16dp</dimen>
+    <dimen name="equation.text_size_result">25dp</dimen>
+    <dimen name="equation.padding">20dp</dimen>
+    <dimen name="equation.margin">10dp</dimen>
+    <dimen name="toolbar.text_size">20dp</dimen>
+</resources>

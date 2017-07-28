@@ -13,6 +13,16 @@
         <item name="android:background">@color/colorGreen</item>
     </style>
 
+    <!--Toolbar Mockito-->
+    <style name="ToolbarMockito" parent="@style/Theme.AppCompat">
+        <item name="android:background">@drawable/bg_toolbar_mockito</item>
+    </style>
+
+    <!--Mockito Background-->
+    <style name="MockitoBackground" parent="AppTheme">
+        <item name="android:background">@color/colorWhite</item>
+    </style>
+
     <!--Button-->
     <style name="Button" parent="AppTheme">
         <item name="android:layout_width">wrap_content</item>

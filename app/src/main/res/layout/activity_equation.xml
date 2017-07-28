@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MockitoBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar_mockito" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/equation.margin_bottom"
+        android:layout_marginTop="@dimen/equation.margin_top"
+        android:gravity="center"
+        android:text="@string/equation.text_view.title"
+        android:textSize="@dimen/equation.text_size_title" />
+
+    <EditText
+        android:id="@+id/edtNumberA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/equation.edit_text.a"
+        android:imeOptions="actionNext"
+        android:inputType="numberDecimal|numberSigned"
+        android:paddingEnd="@dimen/equation.padding"
+        android:paddingLeft="@dimen/equation.padding"
+        android:paddingRight="@dimen/equation.padding"
+        android:paddingStart="@dimen/equation.padding" />
+
+    <EditText
+        android:id="@+id/edtNumberB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/equation.edit_text.b"
+        android:imeOptions="actionNext"
+        android:inputType="numberDecimal"
+        android:paddingEnd="@dimen/equation.padding"
+        android:paddingLeft="@dimen/equation.padding"
+        android:paddingRight="@dimen/equation.padding"
+        android:paddingStart="@dimen/equation.padding" />
+
+    <EditText
+        android:id="@+id/edtNumberC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/equation.edit_text.c"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal"
+        android:paddingEnd="@dimen/equation.padding"
+        android:paddingLeft="@dimen/equation.padding"
+        android:paddingRight="@dimen/equation.padding"
+        android:paddingStart="@dimen/equation.padding" />
+
+    <Button
+        android:id="@+id/btnCalculate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/equation.margin"
+        android:layout_marginLeft="@dimen/equation.margin"
+        android:layout_marginRight="@dimen/equation.margin"
+        android:layout_marginStart="@dimen/equation.margin"
+        android:layout_marginTop="@dimen/equation.margin_top_calculate"
+        android:background="@drawable/selector_button_mockito"
+        android:text="@string/equation.button.result"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/equation.text_size_calculate" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/equation.text_size_result" />
+</LinearLayout>
